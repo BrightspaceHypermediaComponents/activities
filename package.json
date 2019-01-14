@@ -45,7 +45,7 @@
 		"d2l-colors": "BrightspaceUI/colors#semver:^4",
 		"d2l-course-image": "Brightspace/course-image#semver:^3",
 		"d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
-		"d2l-hypermedia-constants": "^6.1.0",
+		"d2l-hypermedia-constants": "Brightspace/d2l-hypermedia-constants#semver:^6",
 		"d2l-icons": "BrightspaceUI/icons#semver:^6",
 		"d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
 		"d2l-organizations": "BrightspaceHypermediaComponents/organizations#semver:^1",

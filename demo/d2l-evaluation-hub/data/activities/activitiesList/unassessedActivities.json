@@ -18,6 +18,10 @@
 				},{
 					"rel":["https://api.brightspace.com/rels/assignment"],
 					"href":"data/activities/activitiesList/activities/assignments/activity1.json"
+				},{
+					"rel":["https://assessments.api.brightspace.com/rels/assessment-application"],
+					"href":"https://www.example.com/",
+					"type":"text/html"
 				}
 			],
 			"entities":[
@@ -45,6 +49,10 @@
 				},{
 					"rel":["https://api.brightspace.com/rels/assignment"],
 					"href":"data/activities/activitiesList/activities/assignments/activity2.json"
+				},{
+					"rel":["https://assessments.api.brightspace.com/rels/assessment-application"],
+					"href":"https://www.example.com/",
+					"type":"text/html"
 				}
 			],
 			"entities":[
@@ -72,6 +80,10 @@
 				},{
 					"rel":["https://api.brightspace.com/rels/assignment"],
 					"href":"data/activities/activitiesList/activities/assignments/activity3.json"
+				},{
+					"rel":["https://assessments.api.brightspace.com/rels/assessment-application"],
+					"href":"https://www.example.com/",
+					"type":"text/html"
 				}
 			],
 			"entities":[
@@ -99,6 +111,10 @@
 				},{
 					"rel":["https://api.brightspace.com/rels/assignment"],
 					"href":"data/activities/activitiesList/activities/assignments/activity4.json"
+				},{
+					"rel":["https://assessments.api.brightspace.com/rels/assessment-application"],
+					"href":"https://www.example.com/",
+					"type":"text/html"
 				}
 			],
 			"entities":[

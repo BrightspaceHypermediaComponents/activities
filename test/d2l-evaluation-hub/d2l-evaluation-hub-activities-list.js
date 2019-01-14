@@ -12,7 +12,7 @@
 			courseName: 'Org Name',
 			activityName: 'Assignment Name',
 			submissionDate: '2018-02-03T17:00:00.000Z',
-			activityLink: 'link to activity'
+			activityLink: 'https://www.example.com/'
 		}
 	];
 	var expectedHeaders = [
@@ -46,20 +46,35 @@
 		});
 		test('data displays correctly', async() => {
 			var expected = [];
+			var expectedLink = [];
 
 			expectedData.forEach(function(item) {
 				expected.push(item.displayName);
 				expected.push(item.activityName);
 				expected.push(item.courseName);
 				expected.push(item.submissionDate);
+				expectedLink.push(item.activityLink);
 			});
 
 			await loadPromise('data/unassessedActivities.json');
 
 			var data = list.shadowRoot.querySelectorAll('d2l-td');
 			for (var i = 0; i < expected.length; i++) {
-				assert.equal(expected[i], data[i].innerHTML);
+
+				if (i % 4 === 0) {
+					var link = data[i].querySelector('a');
+					assert.equal(expected[i], link.innerHTML);
+					assert.equal(expectedLink[Math.floor(i / 4)], link.href);
+				} else {
+					var span = data[i].querySelector('span');
+					assert.equal(expected[i], span.innerHTML);
+					assert.equal(undefined, span.href);
+				}
 			}
+		});
+		test('_loading is set to false after data is loaded', async() => {
+			await loadPromise('data/unassessedActivities.json');
+			assert.equal(list._loading, false);
 		});
 	});
 })();

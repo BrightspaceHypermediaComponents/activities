@@ -12,6 +12,10 @@
 				},{
 					"rel":["https://api.brightspace.com/rels/assignment"],
 					"href":"data/assignment.json"
+				},{
+					"rel":["https://assessments.api.brightspace.com/rels/assessment-application"],
+					"href":"https://www.example.com/",
+					"type":"text/html"
 				}
 			],
 			"entities":[

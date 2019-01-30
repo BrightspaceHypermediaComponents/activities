@@ -30,6 +30,7 @@ class D2lActivityListItem extends mixinBehaviors([IronResizableBehavior, D2L.Pol
 			<style include="d2l-offscreen-shared-styles">
 				:host {
 					display: block;
+					overflow: hidden;
 					max-width: 842px;
 				}
 				:host([active]) a.d2l-focusable {
@@ -173,7 +174,8 @@ class D2lActivityListItem extends mixinBehaviors([IronResizableBehavior, D2L.Pol
 						<d2l-course-image
 							image="[[_image]]"
 							sizes="[[_tileSizes]]"
-							type="narrow">
+							type="narrow"
+							aria-hidden>
 						</d2l-course-image>
 					</div>
 					<div class="d2l-activity-list-item-content">

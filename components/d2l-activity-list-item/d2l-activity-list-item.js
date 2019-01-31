@@ -174,8 +174,7 @@ class D2lActivityListItem extends mixinBehaviors([IronResizableBehavior, D2L.Pol
 						<d2l-course-image
 							image="[[_image]]"
 							sizes="[[_tileSizes]]"
-							type="narrow"
-							aria-hidden>
+							type="narrow">
 						</d2l-course-image>
 					</div>
 					<div class="d2l-activity-list-item-content">

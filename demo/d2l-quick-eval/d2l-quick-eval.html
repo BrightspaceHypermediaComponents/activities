@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-		<title>d2l-evaluation-hub-activities-list demo</title>
+		<title>d2l-quick-eval demo</title>
 		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
 		<!-- For IE11 -->
@@ -16,7 +16,7 @@
 			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
 			import '@polymer/iron-demo-helpers/demo-snippet';
 			import 'd2l-typography/d2l-typography.js';
-			import '../../components/d2l-evaluation-hub/d2l-evaluation-hub-activities-list.js';
+			import '../../components/d2l-quick-eval/d2l-quick-eval.js';
 			import startMockServer from './interceptor';
 			import mappingsParser from './demo-data-parser';
 			import data from './table';
@@ -43,10 +43,10 @@
 	</head>
 	<body class="d2l-typography">
 		<div class="vertical-section-container fixedSize">
-			<h3>Basic d2l-evaluation-hub-activities-list demo</h3>
+			<h3>Basic d2l-quick-eval demo</h3>
 			<demo-snippet>
 				<template strip-whitespace>
-					<d2l-evaluation-hub-activities-list href="pages/0" token="whatever"></d2l-evaluation-hub-activities-list>
+					<d2l-quick-eval master-teacher href="pages/0" token="whatever"></d2l-quick-eval>
 				</template>
 			</demo-snippet>
 		</div>

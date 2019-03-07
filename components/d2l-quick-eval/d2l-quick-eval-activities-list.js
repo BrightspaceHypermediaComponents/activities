@@ -1,5 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {EvaluationHubLocalize} from './EvaluationHubLocalize.js';
+import {QuickEvalLocalize} from './QuickEvalLocalize.js';
 import 'd2l-table/d2l-table.js';
 import 'd2l-button/d2l-button.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
@@ -18,7 +18,7 @@ import '../d2l-activity-evaluation-icon/d2l-activity-evaluation-icon-base.js';
  * @polymer
  */
 
-class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior, D2L.PolymerBehaviors.Siren.SirenActionBehavior ], EvaluationHubLocalize(PolymerElement)) {
+class D2LQuickEvalActivitiesList extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior, D2L.PolymerBehaviors.Siren.SirenActionBehavior ], QuickEvalLocalize(PolymerElement)) {
 	static get template() {
 		return html`
 			<style include="d2l-table-style">
@@ -28,7 +28,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				d2l-loading-spinner {
 					width: 100%;
 				}
-				.d2l-evaluation-hub-activities-list-load-more-container {
+				.d2l-quick-eval-activities-list-load-more-container {
 					padding-top: 1rem;
 					text-align: right;
 					width: 100%;
@@ -84,13 +84,13 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			<d2l-offscreen role="alert" aria-live="aggressive" hidden$="[[!_loading]]">[[localize('loading')]]</d2l-offscreen>
 			<d2l-loading-spinner size="80" hidden$="[[!_loading]]"></d2l-loading-spinner>
 			<template is="dom-if" if="[[_pageNextHref]]">
-				<div class="d2l-evaluation-hub-activities-list-load-more-container">
-					<d2l-button class="d2l-evaluation-hub-activities-list-load-more" onclick="[[_loadMore]]">[[localize('loadMore')]]</d2l-button>
+				<div class="d2l-quick-eval-activities-list-load-more-container">
+					<d2l-button class="d2l-quick-eval-activities-list-load-more" onclick="[[_loadMore]]">[[localize('loadMore')]]</d2l-button>
 				</div>
 			</template>
 		`;
 	}
-	static get is() { return 'd2l-evaluation-hub-activities-list'; }
+	static get is() { return 'd2l-quick-eval-activities-list'; }
 	static get properties() {
 		return {
 			'masterTeacher': {
@@ -484,4 +484,4 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	}
 }
 
-window.customElements.define(D2LEvaluationHubActivitiesList.is, D2LEvaluationHubActivitiesList);
+window.customElements.define(D2LQuickEvalActivitiesList.is, D2LQuickEvalActivitiesList);

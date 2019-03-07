@@ -1,13 +1,13 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
-import './d2l-evaluation-hub-activities-list.js';
+import './d2l-quick-eval-activities-list.js';
 
 /**
  * @customElement
  * @polymer
  */
-class D2LEvaluationHub extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
+class D2LQuickEval extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityBehavior], PolymerElement) {
 	static get template() {
 		return html`
 			<style>
@@ -15,7 +15,7 @@ class D2LEvaluationHub extends mixinBehaviors([D2L.PolymerBehaviors.Siren.Entity
 					display: block;
 				}
 			</style>
-			<d2l-evaluation-hub-activities-list href="[[href]]" token="[[token]]" master-teacher="[[masterTeacher]]"></d2l-evaluation-hub-activities-list>
+			<d2l-quick-eval-activities-list href="[[href]]" token="[[token]]" master-teacher="[[masterTeacher]]"></d2l-quick-eval-activities-list>
 		`;
 	}
 
@@ -29,8 +29,8 @@ class D2LEvaluationHub extends mixinBehaviors([D2L.PolymerBehaviors.Siren.Entity
 		};
 	}
 
-	static get is() { return 'd2l-evaluation-hub'; }
+	static get is() { return 'd2l-quick-eval'; }
 
 }
 
-window.customElements.define('d2l-evaluation-hub', D2LEvaluationHub);
+window.customElements.define('d2l-quick-eval', D2LQuickEval);

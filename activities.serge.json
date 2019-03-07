@@ -38,9 +38,9 @@
       "zh-tw zh-tw"
     ]
   },{
-    "name": "evaluationHub",
-    "source_dir": "components/d2l-evaluation-hub/lang",
-    "output_file_path": "components/d2l-evaluation-hub/lang/%LANG%.json",
+    "name": "quickEval",
+    "source_dir": "components/d2l-quick-eval/lang",
+    "output_file_path": "components/d2l-quick-eval/lang/%LANG%.json",
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",

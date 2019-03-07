@@ -51,10 +51,10 @@ When Travis CI runs on the tagged release, it will be deployed to NPM.
 
 ## Usage
 
-The evaluation hub should be pulled directly from `my-unassessed-activities`:
+The quick eval should be pulled directly from `my-unassessed-activities`:
 
 ```html
-<d2l-evaluation-hub href="https://activities.[[apiUrl]]/my-unassessed-activities" token="token"></d2l-evaluation-hub>
+<d2l-quick-eval href="https://activities.[[apiUrl]]/my-unassessed-activities" token="token"></d2l-quick-eval>
 ```
 
 [ci-url]: https://travis-ci.org/BrightspaceUI/activities

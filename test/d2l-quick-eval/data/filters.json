@@ -19,7 +19,7 @@
   ],
   "actions": [
     {
-      "href": "components/d2l-activities/test/d2l-evaluation-hub/data/course.json",
+      "href": "components/d2l-activities/test/d2l-quick-eval/data/course.json",
       "name": "apply",
       "fields": [
         {

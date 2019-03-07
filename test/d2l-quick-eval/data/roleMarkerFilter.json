@@ -17,7 +17,7 @@
           "title": "Primary Facilitator",
           "actions": [
               {
-                  "href": "components/d2l-activities/test/d2l-evaluation-hub/data/roleMarkerFilter.json",
+                  "href": "components/d2l-activities/test/d2l-quick-eval/data/roleMarkerFilter.json",
                   "name": "add-filter",
                   "method": "GET",
                   "fields": [
@@ -33,7 +33,7 @@
   ],
   "actions": [
       {
-          "href": "components/d2l-activities/test/d2l-evaluation-hub/data/roleMarkerFilter.json",
+          "href": "components/d2l-activities/test/d2l-quick-eval/data/roleMarkerFilter.json",
           "name": "search",
           "fields": [
               {
@@ -51,7 +51,7 @@
           ]
       },
       {
-          "href": "components/d2l-activities/test/d2l-evaluation-hub/data/filters.json",
+          "href": "components/d2l-activities/test/d2l-quick-eval/data/filters.json",
           "name": "apply",
           "fields": [
               {

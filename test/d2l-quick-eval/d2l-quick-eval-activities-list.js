@@ -140,12 +140,12 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 	];
 	var expectedHeadersWithMasterTeacher = expectedHeaders.concat('Master Teacher');
 
-	suite('d2l-evaluation-hub-activities-list', function() {
+	suite('d2l-quick-eval-activities-list', function() {
 		setup(function() {
 			list = fixture('basic');
 		});
 		test('instantiating the element works', function() {
-			assert.equal(list.tagName.toLowerCase(), 'd2l-evaluation-hub-activities-list');
+			assert.equal(list.tagName.toLowerCase(), 'd2l-quick-eval-activities-list');
 		});
 		test('attributes are set correctly', function() {
 			assert.equal(list.href, 'blah');
@@ -232,7 +232,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		});
 		test('the Load More button appears when there is a next link', (done) => {
 			loadPromise('data/unassessedActivities.json').then(function() {
-				var loadMore = list.shadowRoot.querySelector('.d2l-evaluation-hub-activities-list-load-more');
+				var loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-activities-list-load-more');
 				assert.equal(loadMore.tagName.toLowerCase(), 'd2l-button');
 				assert.notEqual(loadMore.style.display, 'none');
 				assert.notEqual(loadMore.disabled, 'true');
@@ -243,8 +243,8 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			var expectedNext = createExpectedData(expectedData.concat(expectedNextData));
 
 			loadPromise('data/unassessedActivities.json').then(function() {
-				var loadMore = list.shadowRoot.querySelector('.d2l-evaluation-hub-activities-list-load-more');
-				var loadMoreContainer = list.shadowRoot.querySelector('.d2l-evaluation-hub-activities-list-load-more-container');
+				var loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-activities-list-load-more');
+				var loadMoreContainer = list.shadowRoot.querySelector('.d2l-quick-eval-activities-list-load-more-container');
 				var verify = function() {
 					if (loadMoreContainer.style.display === 'none') {
 						verifyData(expectedNext, done);

@@ -17,7 +17,7 @@ import {LangZhtw} from './build/lang/zh-tw.js';
 import {LangZh} from './build/lang/zh.js';
 
 /* @polymerMixin */
-const EvaluationHubLocalizeImpl = (superClass) => {
+const QuickEvalLocalizeImpl = (superClass) => {
 	const langMixins = [
 		LangAr,
 		LangDe,
@@ -73,4 +73,4 @@ const EvaluationHubLocalizeImpl = (superClass) => {
 	};
 };
 
-export const EvaluationHubLocalize = dedupingMixin(EvaluationHubLocalizeImpl);
+export const QuickEvalLocalize = dedupingMixin(QuickEvalLocalizeImpl);

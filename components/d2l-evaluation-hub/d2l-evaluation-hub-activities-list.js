@@ -393,7 +393,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 
 	async _parseActivities(entity) {
 		this._selfHref = this._getHref(entity, 'self');
-		var extraParams = this._getExtraParams(this._selfHref)
+		var extraParams = this._getExtraParams(this._selfHref);
 
 		var promises = [];
 		entity.entities.forEach(function(activity) {
@@ -577,7 +577,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	}
 
 	_getExtraParams(selfHref) {
-		var extraParams = ''
+		var extraParams = '';
 
 		var filterVal = this._getQueryStringParam('filter', selfHref);
 		if (filterVal) {
@@ -593,16 +593,20 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 
 	_getQueryStringParam(name, url) {
 		if (!url) return null;
-		name = name.replace(/[\[\]]/g, '\\$&');
-		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'), results = regex.exec(url);
+
+		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+		var results = regex.exec(url);
+
 		if (!results) return null;
 		if (!results[2]) return null;
 		return decodeURIComponent(results[2].replace(/\+/g, ' '));
 	}
 
 	_buildRelativeUri(url, extraParams) {
-		if (url.indexOf('?') > -1 ) {
-			return url + extraParams
+		if (extraParams === '') return url;
+
+		if (url.indexOf('?') > -1) {
+			return url + extraParams;
 		} else {
 			return url + '?' + extraParams.substr(1);
 		}

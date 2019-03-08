@@ -3,7 +3,11 @@
     {
       "rel":["next"],
       "href":"data/next.json"
-    }
+	},
+	{
+		"rel":["self"],
+		"href":"https://www.example.com/?pageSize=20&filter=96W3siU29ydCI6eyJJ&sort=Y3Rpb24iOjB9"
+	  }
   ],
 	"entities":[
 		{
@@ -150,7 +154,7 @@
 							"https://assignments.api.brightspace.com/rels/assessment-application"
 					],
 					"properties": {
-							"path": "/the/best/vanity/url"
+							"path": "/the/best/vanity/url?ou=11111"
 					}
 			},
 			{

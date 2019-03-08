@@ -184,7 +184,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				type: Boolean,
 				value: true
 			},
-			_filterHref: {
+			_selfHref: {
 				type: String,
 				value: ''
 			},
@@ -392,6 +392,9 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	}
 
 	async _parseActivities(entity) {
+		this._selfHref = this._getHref(entity, 'self');
+		var extraParams = this._getExtraParams(this._selfHref)
+
 		var promises = [];
 		entity.entities.forEach(function(activity) {
 			promises.push(new Promise(function(resolve) {
@@ -401,7 +404,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					courseName: '',
 					activityNameHref: this._getActivityNameHref(activity),
 					submissionDate: this._getSubmissionDate(activity),
-					activityLink: this._getRelativeUriProperty(activity),
+					activityLink: this._getRelativeUriProperty(activity, extraParams),
 					masterTeacher: '',
 					isDraft: this._determineIfActivityIsDraft(activity)
 				};
@@ -545,10 +548,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		return '';
 	}
 
-	_getRelativeUriProperty(entity) {
+	_getRelativeUriProperty(entity, extraParams) {
 		if (entity.hasSubEntityByClass(Classes.relativeUri)) {
 			var i = entity.getSubEntityByClass(Classes.relativeUri);
-			return i.properties.path;
+			return this._buildRelativeUri(i.properties.path, extraParams);
 		}
 		return '';
 	}
@@ -571,6 +574,38 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			return this.masterTeacher;
 		}
 		return true;
+	}
+
+	_getExtraParams(selfHref) {
+		var extraParams = ''
+
+		var filterVal = this._getQueryStringParam('filter', selfHref);
+		if (filterVal) {
+			extraParams += '&filter=' + filterVal;
+		}
+		var sortVal = this._getQueryStringParam('sort', selfHref);
+		if (sortVal) {
+			extraParams += '&sort=' + sortVal;
+		}
+
+		return extraParams;
+	}
+
+	_getQueryStringParam(name, url) {
+		if (!url) return null;
+		name = name.replace(/[\[\]]/g, '\\$&');
+		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'), results = regex.exec(url);
+		if (!results) return null;
+		if (!results[2]) return null;
+		return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	}
+
+	_buildRelativeUri(url, extraParams) {
+		if (url.indexOf('?') > -1 ) {
+			return url + extraParams
+		} else {
+			return url + '?' + extraParams.substr(1);
+		}
 	}
 }
 

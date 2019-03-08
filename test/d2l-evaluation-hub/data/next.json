@@ -1,4 +1,10 @@
 {
+    "links":[
+        {
+            "rel":["self"],
+            "href":"https://www.example.com/?pageSize=20&sort=Y3Rpb24iOjB9"
+          }
+      ],
     "entities": [
         {
             "class": [
@@ -51,7 +57,7 @@
                         "https://assignments.api.brightspace.com/rels/assessment-application"
                     ],
                     "properties": {
-                        "path": "/the/best/vanity/url/next1"
+                        "path": "/the/best/vanity/url/next1?ou=11111"
                     }
                 },
                 {

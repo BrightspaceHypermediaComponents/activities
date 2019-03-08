@@ -71,7 +71,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			courseName: 'Org Name',
 			activityNameHref: 'data/assignmentActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
-			activityLink: '/the/best/vanity/url/3',
+			activityLink: '/the/best/vanity/url/3?filter=96W3siU29ydCI6eyJJ&sort=Y3Rpb24iOjB9',
 			masterTeacher: '',
 			isDraft: true
 		},
@@ -80,7 +80,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			courseName: 'Org Name',
 			activityNameHref: 'data/quizAttemptActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
-			activityLink: '/the/best/vanity/url/2',
+			activityLink: '/the/best/vanity/url/2?filter=96W3siU29ydCI6eyJJ&sort=Y3Rpb24iOjB9',
 			masterTeacher: '',
 			isDraft: false
 		},
@@ -89,7 +89,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			courseName: 'Org Name',
 			activityNameHref: 'data/topicActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
-			activityLink: '/the/best/vanity/url',
+			activityLink: '/the/best/vanity/url?ou=11111&filter=96W3siU29ydCI6eyJJ&sort=Y3Rpb24iOjB9',
 			masterTeacher: '',
 			isDraft: false
 		}
@@ -112,7 +112,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			courseName: 'Org Name',
 			activityNameHref: 'data/nextAssignmentActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
-			activityLink: '/the/best/vanity/url/next1',
+			activityLink: '/the/best/vanity/url/next1?ou=11111&sort=Y3Rpb24iOjB9',
 			masterTeacher: 'Master Teacher',
 			isDraft: true
 		},
@@ -121,7 +121,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			courseName: 'Org Name',
 			activityNameHref: 'data/nextQuizAttemptActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
-			activityLink: '/the/best/vanity/url/next2',
+			activityLink: '/the/best/vanity/url/next2?sort=Y3Rpb24iOjB9',
 			masterTeacher: 'Master Teacher',
 			isDraft: false
 		},
@@ -130,7 +130,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			courseName: 'Org Name',
 			activityNameHref: 'data/nextTopicActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
-			activityLink: '/the/best/vanity/url/next3',
+			activityLink: '/the/best/vanity/url/next3?sort=Y3Rpb24iOjB9',
 			masterTeacher: 'Master Teacher',
 			isDraft: false
 		}

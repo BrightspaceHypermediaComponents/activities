@@ -43,11 +43,12 @@ function createPageEndpoint(activities, sorts, pageNumber, filtersHref, sortsHre
 			return null;
 		}
 
-		return formatPage(pagedActivities[pageNumber], filtersHref, sortsHref, addSortToHref(nextPageHref, sortState));
+		return formatPage(pagedActivities[pageNumber], filtersHref, addSortToHref(sortsHref, sortState), addSortToHref(nextPageHref, sortState));
 	};
 }
 
 function formatPage(entities, filterLocation, sortsLocation, nextLocation) {
+
 	const entity = {
 		'links': [
 			{

@@ -30,6 +30,7 @@ function addSort(sort, sortState) {
 
 function createSortEndpoint(sorts, collectionHref, sortsHref) {
 	return (url) => {
+
 		const serializedSortState = parseSortFromUrl(url);
 		const sortState = decodeSortState(serializedSortState);
 
@@ -37,7 +38,7 @@ function createSortEndpoint(sorts, collectionHref, sortsHref) {
 			const ascSortState = encodeSortState(addSort({ id: sort.id, direction: 'a' }, sortState));
 			const descSortState = encodeSortState(addSort({ id: sort.id, direction: 'd' }, sortState));
 
-			return formatSort(sort.class, sortsHref, ascSortState, descSortState);
+			return formatSort(sort, sortsHref, ascSortState, descSortState, sortState);
 		});
 
 		return formatSorts(entities, collectionHref, encodeSortState(sortState));
@@ -64,8 +65,10 @@ function formatSorts(sortEntities, collectionHref, sortState) {
 	};
 }
 
-function formatSort(klass, sortsHref, ascState, descState) {
-	return {
+function formatSort(sort, sortsHref, ascState, descState, sortState) {
+	const klass = sort.class;
+
+	const response = {
 		rel: ['https://api.brightspace.com/rels/sort'],
 		class: ['sort', klass],
 		actions: [
@@ -93,6 +96,16 @@ function formatSort(klass, sortsHref, ascState, descState) {
 			}
 		]
 	};
+
+	if (sortState[0] && sortState[0].id === sort.id) {
+		response.properties = {
+			applied: true,
+			direction: sortState[0].direction === 'd' ? 'descending' : 'ascending',
+			priority: 0
+		};
+	}
+
+	return response;
 }
 
 export { createSortEndpoint, parseSortFromUrl, encodeSortState, decodeSortState, addSort };

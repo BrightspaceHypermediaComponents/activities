@@ -135,10 +135,13 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			isDraft: false
 		}
 	];
-	var expectedHeaders = [
-		'First Name, Last Name', 'Activity Name', 'Course', 'Submission Date'
+	var expectedColumnHeaders = [
+		['First Name', 'Last Name'],
+		['Activity Name'],
+		['Course'],
+		['Submission Date']
 	];
-	var expectedHeadersWithMasterTeacher = expectedHeaders.concat('Master Teacher');
+	var expectedColumnHeadersWithMasterTeacher = expectedColumnHeaders.concat([['Master Teacher']]);
 
 	suite('d2l-evaluation-hub-activities-list', function() {
 		setup(function() {
@@ -191,10 +194,12 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			flush(function() {
 				var headers = list.shadowRoot.querySelectorAll('d2l-th');
 
-				assert.equal(expectedHeaders.length, headers.length);
+				assert.equal(expectedColumnHeaders.length, headers.length);
 
-				for (var i = 0; i < expectedHeaders.length; i++) {
-					assert.include(headers[i].innerHTML, expectedHeaders[i]);
+				for (var i = 0; i < expectedColumnHeaders.length; i++) {
+					expectedColumnHeaders[i].forEach(function(expectedHeader) {
+						assert.include(headers[i].innerHTML, expectedHeader);
+					});
 				}
 				done();
 			});
@@ -205,10 +210,12 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			flush(function() {
 
 				var headers = list.shadowRoot.querySelectorAll('d2l-th');
-				assert.equal(expectedHeadersWithMasterTeacher.length, headers.length);
+				assert.equal(expectedColumnHeadersWithMasterTeacher.length, headers.length);
 
-				for (var i = 0; i < expectedHeadersWithMasterTeacher.length; i++) {
-					assert.include(headers[i].innerHTML, expectedHeadersWithMasterTeacher[i]);
+				for (var i = 0; i < expectedColumnHeadersWithMasterTeacher.length; i++) {
+					expectedColumnHeadersWithMasterTeacher[i].forEach(function(expectedHeader) {
+						assert.include(headers[i].innerHTML, expectedHeader);
+					});
 				}
 				done();
 			});

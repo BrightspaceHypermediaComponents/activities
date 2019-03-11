@@ -216,10 +216,6 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				type: Boolean,
 				value: true
 			},
-			_selfHref: {
-				type: String,
-				value: ''
-			},
 			_pageNextHref: {
 				type: String,
 				value: ''
@@ -418,8 +414,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	}
 
 	async _parseActivities(entity) {
-		this._selfHref = this._getHref(entity, 'self');
-		var extraParams = this._getExtraParams(this._selfHref);
+		var extraParams = this._getExtraParams(this._getHref(entity, 'self'));
 
 		var promises = [];
 		entity.entities.forEach(function(activity) {

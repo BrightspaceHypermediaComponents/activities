@@ -602,40 +602,48 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		return true;
 	}
 
-	_getExtraParams(selfHref) {
-		var extraParams = '';
+	_getExtraParams(url) {
+		if (!url) return [];
 
-		var filterVal = this._getQueryStringParam('filter', selfHref);
+		const extraParams = [];
+
+		var filterVal = this._getQueryStringParam('filter', url);
 		if (filterVal) {
-			extraParams += '&filter=' + filterVal;
+			extraParams.push(
+				{
+					name: 'filter',
+					value: filterVal
+				}
+			);
 		}
-		var sortVal = this._getQueryStringParam('sort', selfHref);
+		var sortVal = this._getQueryStringParam('sort', url);
 		if (sortVal) {
-			extraParams += '&sort=' + sortVal;
+			extraParams.push(
+				{
+					name: 'sort',
+					value: sortVal
+				}
+			);
 		}
 
 		return extraParams;
 	}
 
 	_getQueryStringParam(name, url) {
-		if (!url) return null;
-
-		var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-		var results = regex.exec(url);
-
-		if (!results) return null;
-		if (!results[2]) return null;
-		return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		const parsedUrl = new window.URL(url, 'https://notused.com');
+		return parsedUrl.searchParams.get(name);
 	}
 
 	_buildRelativeUri(url, extraParams) {
-		if (extraParams === '') return url;
+		if (extraParams.length === 0) return url;
 
-		if (url.indexOf('?') > -1) {
-			return url + extraParams;
-		} else {
-			return url + '?' + extraParams.substr(1);
-		}
+		const parsedUrl = new window.URL(url, 'https://notused.com');
+
+		extraParams.forEach(param => {
+			parsedUrl.searchParams.set(param.name, param.value);
+		});
+
+		return parsedUrl.pathname + parsedUrl.search;
 	}
 }
 

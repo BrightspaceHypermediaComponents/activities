@@ -20,7 +20,7 @@
 			import {formatPage } from './page-handler';
 			import startMockServer from './interceptor';
 
-			const mappings = {'pages/0': formatPage([], '', '')};
+			const mappings = {'pages/0': formatPage(undefined, '', '')};
 			startMockServer(mappings, true);
 
 			const $_documentContainer = document.createElement('template');

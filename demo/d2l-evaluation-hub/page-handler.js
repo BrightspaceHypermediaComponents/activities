@@ -3,7 +3,7 @@ import { formatActivities } from './activity-handler';
 import chunk from 'lodash-es/chunk';
 
 function applySorts(activities, sorts, sortState) {
-	sortState.forEach(appliedSort => {
+	sortState.reverse().forEach(appliedSort => {
 		const sortDefn = sorts.filter(s => s.id === appliedSort.id)[0];
 
 		let sortFn = sortDefn.fn;
@@ -43,11 +43,12 @@ function createPageEndpoint(activities, sorts, pageNumber, filtersHref, sortsHre
 			return null;
 		}
 
-		return formatPage(pagedActivities[pageNumber], filtersHref, sortsHref, addSortToHref(nextPageHref, sortState));
+		return formatPage(pagedActivities[pageNumber], filtersHref, addSortToHref(sortsHref, sortState), addSortToHref(nextPageHref, sortState));
 	};
 }
 
 function formatPage(entities, filterLocation, sortsLocation, nextLocation) {
+
 	const entity = {
 		'links': [
 			{

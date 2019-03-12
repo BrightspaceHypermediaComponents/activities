@@ -261,6 +261,11 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 							const sort = sortsEntity.entity.getSubEntityByClass(header.sortClass);
 							if (sort) {
 								this.set(`_headerColumns.${i}.headers.${j}.canSort`, true);
+								if (sort.properties && sort.properties.applied && (sort.properties.priority === 0)) {
+									const descending = sort.properties.direction === 'descending';
+									this.set(`_headerColumns.${i}.headers.${j}.sorted`, true);
+									this.set(`_headerColumns.${i}.headers.${j}.desc`, descending);
+								}
 							}
 						}
 					});
@@ -340,9 +345,14 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		this._fullListLoading = true;
 
 		try {
-			var result = await this._parseActivities(entity);
-			this._data = result;
+			if (entity.entities) {
+				var result = await this._parseActivities(entity);
+				this._data = result;
+			} else {
+				this._data = [];
+			}
 			this._clearAlerts();
+
 		} catch (e) {
 			// Unable to load activities from entity.
 			this._handleFullLoadFailure().bind(this);
@@ -363,8 +373,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 						var lastFocusableTableElement = D2L.Dom.Focus.getLastFocusableDescendant(tbody, false);
 
 						try {
-							var result = await this._parseActivities(u.entity);
-							this._data = this._data.concat(result);
+							if (u.entity.entities) {
+								var result = await this._parseActivities(u.entity);
+								this._data = this._data.concat(result);
+							}
 						} catch (e) {
 						// Unable to load more activities from entity.
 							throw e;

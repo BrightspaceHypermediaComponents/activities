@@ -183,6 +183,8 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {
 				var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 				assert.notEqual(noSubmissionComponent.style.display, 'none');
+				//This is here because of how dom-if works, we need to load activities once to ensure we actually
+				//render the d2l-quick-eval-no-submissions component and instantly hide it.
 				loadPromise('data/unassessedActivities.json').then(function() {
 					var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 					assert.equal(noSubmissionComponent.style.display, 'none');

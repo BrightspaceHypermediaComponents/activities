@@ -431,6 +431,8 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	}
 
 	async _parseActivities(entity) {
+		var extraParams = this._getExtraParams(this._getHref(entity, 'self'));
+
 		var promises = [];
 		entity.entities.forEach(function(activity) {
 			promises.push(new Promise(function(resolve) {
@@ -440,7 +442,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					courseName: '',
 					activityNameHref: this._getActivityNameHref(activity),
 					submissionDate: this._getSubmissionDate(activity),
-					activityLink: this._getRelativeUriProperty(activity),
+					activityLink: this._getRelativeUriProperty(activity, extraParams),
 					masterTeacher: '',
 					isDraft: this._determineIfActivityIsDraft(activity)
 				};
@@ -584,10 +586,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		return '';
 	}
 
-	_getRelativeUriProperty(entity) {
+	_getRelativeUriProperty(entity, extraParams) {
 		if (entity.hasSubEntityByClass(Classes.relativeUri)) {
 			var i = entity.getSubEntityByClass(Classes.relativeUri);
-			return i.properties.path;
+			return this._buildRelativeUri(i.properties.path, extraParams);
 		}
 		return '';
 	}
@@ -641,6 +643,50 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		});
 
 		return this.performSirenAction(action, action.fields);
+	}
+
+	_getExtraParams(url) {
+		if (!url) return [];
+
+		const extraParams = [];
+
+		var filterVal = this._getQueryStringParam('filter', url);
+		if (filterVal) {
+			extraParams.push(
+				{
+					name: 'filter',
+					value: filterVal
+				}
+			);
+		}
+		var sortVal = this._getQueryStringParam('sort', url);
+		if (sortVal) {
+			extraParams.push(
+				{
+					name: 'sort',
+					value: sortVal
+				}
+			);
+		}
+
+		return extraParams;
+	}
+
+	_getQueryStringParam(name, url) {
+		const parsedUrl = new window.URL(url);
+		return parsedUrl.searchParams.get(name);
+	}
+
+	_buildRelativeUri(url, extraParams) {
+		if (extraParams.length === 0) return url;
+
+		const parsedUrl = new window.URL(url);
+
+		extraParams.forEach(param => {
+			parsedUrl.searchParams.set(param.name, param.value);
+		});
+
+		return parsedUrl.pathname + parsedUrl.search;
 	}
 
 }

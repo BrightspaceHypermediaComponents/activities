@@ -1,14 +1,18 @@
 {
-  "links":[
-    {
-      "rel":["next"],
-      "href":"data/next.json"
-		},
-    {
-      "rel":["https://api.brightspace.com/rels/filters"],
-      "href":"data/filters.json"
-    }
-  ],
+"links":[
+	{
+		"rel":["next"],
+		"href":"data/next.json"
+	},
+	{
+		"rel":["https://api.brightspace.com/rels/filters"],
+		"href":"data/filters.json"
+	},
+	{
+		"rel":["self"],
+		"href":"https://www.example.com/?pageSize=20&sort=Y3Rpb24iOjB9"
+	}
+ ],
 	"entities":[
 		{
 			"class": ["user-assignment-activity","activity"],

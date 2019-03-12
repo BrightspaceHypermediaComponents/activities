@@ -326,9 +326,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 				method: 'GET'
 			};
 
-			const stub = sinon.stub(list, 'performSirenAction', function(passedAction) {
-				assert.deepEqual(action, passedAction);
-			});
+			const stub = sinon.stub(list, 'performSirenAction');
 			list._performSirenActionWithQueryParams(action);
 			sinon.assert.calledWith(stub, action);
 			stub.restore();
@@ -348,9 +346,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 					}]
 			};
 
-			const stub = sinon.stub(list, 'performSirenAction', function(passedAction) {
-				assert.deepEqual(action, passedAction);
-			});
+			const stub = sinon.stub(list, 'performSirenAction');
 			list._performSirenActionWithQueryParams(action);
 			sinon.assert.calledWith(stub, action);
 			stub.restore();
@@ -370,33 +366,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 					}]
 			};
 
-			const expectedAction = {
-				href : 'http://127.0.0.1?testname=testvalue&anothertestname=anothertestvalue',
-				name: 'apply',
-				type: 'application/x-www-form-urlencoded',
-				method: 'GET',
-				fields : [
-					{
-						type: 'hidden',
-						name : 'existingField',
-						value: 'existingValue'
-					},
-					{
-						type: 'hidden',
-						name : 'testname',
-						value: 'testvalue'
-					},
-					{
-						type: 'hidden',
-						name : 'anothertestname',
-						value: 'anothertestvalue'
-					}]
-			};
-
-			const stub = sinon.stub(list, 'performSirenAction', function(passedAction) {
-				assert.deepEqual(expectedAction, passedAction);
-			});
-
+			const stub = sinon.stub(list, 'performSirenAction');
 			list._performSirenActionWithQueryParams(action);
 			sinon.assert.calledWith(stub, action);
 			stub.restore();

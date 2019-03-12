@@ -14,15 +14,157 @@
 	<body>
 		<test-fixture id="basic">
 			<template strip-whitespace>
-				<d2l-evaluation-hub></d2l-evaluation-hub>
+				<d2l-evaluation-hub href="data/unassessedActivities.json" token="whatever"></d2l-evaluation-hub>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="masterTeacher">
+			<template strip-whitespace>
+				<d2l-evaluation-hub href="data/unassessedActivities.json" token="whatever" master-teacher></d2l-evaluation-hub>
 			</template>
 		</test-fixture>
 
 		<script type="module">
+			import '@polymer/iron-test-helpers/mock-interactions.js';
+
+			var quickEval, filter, filterDropdown, list;
+
+			var expectedFirstCellData = 'Special User Name';
+			var expectedFilters = ['Activity Name', 'Course', 'Date'];
+			var expectedFiltersWithMasterTeacher = expectedFilters.concat('Primary Facilitator');
+
+			function waitForList(callback) {
+				var firstDataCell = list.shadowRoot.querySelector('d2l-tbody > d2l-tr > d2l-td.d2l-table-cell-first');
+
+				if (firstDataCell) {
+					callback(firstDataCell);
+				} else {
+					setTimeout(function() {
+						waitForList(callback);
+					}, 30);
+				}
+			}
+
+			function waitForFilter(callback) {
+				var filterTabsContainer = filterDropdown.shadowRoot.querySelector('d2l-tabs');
+				var filterTabs = filterTabsContainer.shadowRoot.querySelectorAll('d2l-tab');
+
+				if (filterTabs.length > 0) {
+					callback(filterTabs);
+				} else {
+					setTimeout(function() {
+						waitForFilter(callback);
+					}, 30);
+				}
+			}
+
+			var clickFilter = function(filterOptionName) {
+				var firstFilterTab = filterDropdown.shadowRoot.querySelectorAll('d2l-filter-dropdown-page')[0];
+				var filterOptions = firstFilterTab.shadowRoot.querySelectorAll('d2l-menu-item-checkbox');
+
+				for (var i = 0; i < filterOptions.length; i++) {
+					if (filterOptions[i].text === filterOptionName) {
+						MockInteractions.click(filterOptions[i]);
+					}
+				}
+			};
+
+			var clearFilter = function() {
+				var clearButton = filterDropdown.shadowRoot.querySelector('d2l-button-subtle');
+				MockInteractions.click(clearButton);
+			};
+
 			suite('d2l-evaluation-hub', function() {
+				setup(function() {
+					quickEval = fixture('basic');
+					filter = quickEval.shadowRoot.querySelector('d2l-hm-filter');
+					filterDropdown = filter.shadowRoot.querySelector('d2l-filter-dropdown');
+					list = quickEval.shadowRoot.querySelector('d2l-evaluation-hub-activities-list');
+				});
 				test('instantiating the element works', function() {
-					var element = fixture('basic');
-					assert.equal(element.tagName.toLowerCase(), 'd2l-evaluation-hub');
+					assert.equal(quickEval.tagName.toLowerCase(), 'd2l-evaluation-hub');
+				});
+				test('the filter and list exist', function() {
+					assert.isNotNull(filter);
+					assert.isNotNull(list);
+				});
+				test('the list loads data', function(done) {
+					var verifyDataLoads = function(firstCell) {
+						assert.include(firstCell.innerHTML, expectedFirstCellData);
+						done();
+					};
+					waitForList(verifyDataLoads);
+				});
+				test('only the filters we want are shown (in order)', function(done) {
+					var verifyFilter = function(filterTabs) {
+						assert.deepEqual(Array.from(filterTabs).map(tab => tab.text), expectedFilters);
+						done();
+					};
+					waitForFilter(verifyFilter);
+				});
+				test('applying and removing filters causes the count to update and events to fire', function(done) {
+					var add = 1;
+
+					quickEval.addEventListener('d2l-hm-filter-filters-updated', function(e) {
+						var dropdownButton = filterDropdown.shadowRoot.querySelector('d2l-dropdown-button-subtle').shadowRoot.querySelector('d2l-button-subtle');
+						assert.deepEqual(e.detail.filteredActivities, list.entity);
+						if (add === 1) {
+							assert.equal(dropdownButton.text, 'Filter: 1 Filter');
+							assert.equal(e.detail.totalSelectedFilters, 1);
+							clickFilter('Assignment Name');
+						} else {
+							assert.equal(dropdownButton.text, 'Filter');
+							assert.equal(e.detail.totalSelectedFilters, 0);
+							done();
+						}
+						add--;
+					});
+
+					waitForFilter(function() { clickFilter('Assignment Name'); });
+				});
+				test('clearing filters causes event to fire', function(done) {
+					var add = 2;
+
+					quickEval.addEventListener('d2l-hm-filter-filters-updated', function(e) {
+						var dropdownButton = filterDropdown.shadowRoot.querySelector('d2l-dropdown-button-subtle').shadowRoot.querySelector('d2l-button-subtle');
+						assert.deepEqual(e.detail.filteredActivities, list.entity);
+						if (add === 2) {
+							assert.equal(dropdownButton.text, 'Filter: 1 Filter');
+							assert.equal(e.detail.totalSelectedFilters, 1);
+							clickFilter('Quiz Name');
+						} else if (add === 1) {
+							assert.equal(dropdownButton.text, 'Filter: 2 Filters');
+							assert.equal(e.detail.totalSelectedFilters, 2);
+							clearFilter();
+						} else {
+							assert.equal(dropdownButton.text, 'Filter');
+							assert.equal(e.detail.totalSelectedFilters, 0);
+							done();
+						}
+						add--;
+					});
+
+					waitForFilter(function() { clickFilter('Assignment Name'); });
+				});
+			});
+
+			suite('d2l-evaluation-hub with master-teacher', function() {
+				setup(function() {
+					quickEval = fixture('masterTeacher');
+					filter = quickEval.shadowRoot.querySelector('d2l-hm-filter');
+					filterDropdown = filter.shadowRoot.querySelector('d2l-filter-dropdown');
+					list = quickEval.shadowRoot.querySelector('d2l-evaluation-hub-activities-list');
+				});
+				test('instantiating the element works', function() {
+					assert.equal(quickEval.tagName.toLowerCase(), 'd2l-evaluation-hub');
+					assert.isTrue(quickEval.masterTeacher);
+				});
+				test('only the filters we want are shown', function(done) {
+					var verifyFilter = function(filterTabs) {
+						assert.deepEqual(Array.from(filterTabs).map(tab => tab.text), expectedFiltersWithMasterTeacher);
+						done();
+					};
+					waitForFilter(verifyFilter);
 				});
 			});
 		</script>

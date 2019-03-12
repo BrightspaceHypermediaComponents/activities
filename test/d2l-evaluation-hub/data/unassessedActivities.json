@@ -3,11 +3,11 @@
     {
       "rel":["next"],
       "href":"data/next.json"
-	},
-	{
-		"rel":["self"],
-		"href":"https://www.example.com/?pageSize=20&filter=96W3siU29ydCI6eyJJ&sort=Y3Rpb24iOjB9"
-	  }
+		},
+    {
+      "rel":["https://api.brightspace.com/rels/filters"],
+      "href":"data/filters.json"
+    }
   ],
 	"entities":[
 		{
@@ -20,7 +20,7 @@
 				},
 				{
 					"rel":["https://api.brightspace.com/rels/user"],
-					"href":"data/user.json"
+					"href":"data/userUnique.json"
 				},{
 					"rel":["https://api.brightspace.com/rels/organization"],
 					"href":"data/org.json"

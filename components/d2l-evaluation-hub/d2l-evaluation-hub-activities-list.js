@@ -164,7 +164,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	static get is() { return 'd2l-evaluation-hub-activities-list'; }
 	static get properties() {
 		return {
-			'masterTeacher': {
+			masterTeacher: {
 				type: Boolean,
 				value: false,
 				reflectToAttribute: true
@@ -215,6 +215,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			_loading: {
 				type: Boolean,
 				value: true
+			},
+			_filterHref: {
+				type: String,
+				value: ''
 			},
 			_pageNextHref: {
 				type: String,
@@ -316,7 +320,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					return Promise.reject(`Could not find sort action ${actionName} for sort ${sort}`);
 				}
 
-				return this.performSirenAction(action);
+				return this._performSirenActionWithQueryParams(action);
 			}).bind(this))
 			.then((sortsEntity => {
 				if (!sortsEntity) {
@@ -329,11 +333,12 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				return action;
 			}).bind(this))
 			.then((collectionAction => {
-				const collection = this.performSirenAction(collectionAction);
+				const collection = this._performSirenActionWithQueryParams(collectionAction);
 				return collection;
 			}).bind(this))
 			.then((collection => {
 				this.entity = collection;
+				this._dispatchSortUpdatedEvent(collection);
 			}).bind(this));
 	}
 
@@ -426,8 +431,6 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	}
 
 	async _parseActivities(entity) {
-		var extraParams = this._getExtraParams(this._getHref(entity, 'self'));
-
 		var promises = [];
 		entity.entities.forEach(function(activity) {
 			promises.push(new Promise(function(resolve) {
@@ -437,7 +440,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					courseName: '',
 					activityNameHref: this._getActivityNameHref(activity),
 					submissionDate: this._getSubmissionDate(activity),
-					activityLink: this._getRelativeUriProperty(activity, extraParams),
+					activityLink: this._getRelativeUriProperty(activity),
 					masterTeacher: '',
 					isDraft: this._determineIfActivityIsDraft(activity)
 				};
@@ -512,19 +515,19 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				if (filterOptions) {
 					var masterTeacherOption = filterOptions.getSubEntityByRel('https://api.brightspace.com/rels/filter');
 					var action = masterTeacherOption.getActionByName('add-filter');
-					return this.performSirenAction(action);
+					return this._performSirenActionWithQueryParams(action);
 				}
 			}.bind(this))
 			.then(function(filterOptions) {
 				if (filterOptions) {
 					var action = filterOptions.getActionByName('apply');
-					return this.performSirenAction(action);
+					return this._performSirenActionWithQueryParams(action);
 				}
 			}.bind(this))
 			.then(function(filters) {
 				if (filters) {
 					var action = filters.getActionByName('apply');
-					return this.performSirenAction(action);
+					return this._performSirenActionWithQueryParams(action);
 				}
 			}.bind(this))
 			.then(function(enrollment) {
@@ -581,10 +584,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		return '';
 	}
 
-	_getRelativeUriProperty(entity, extraParams) {
+	_getRelativeUriProperty(entity) {
 		if (entity.hasSubEntityByClass(Classes.relativeUri)) {
 			var i = entity.getSubEntityByClass(Classes.relativeUri);
-			return this._buildRelativeUri(i.properties.path, extraParams);
+			return i.properties.path;
 		}
 		return '';
 	}
@@ -609,49 +612,37 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		return true;
 	}
 
-	_getExtraParams(url) {
-		if (!url) return [];
-
-		const extraParams = [];
-
-		var filterVal = this._getQueryStringParam('filter', url);
-		if (filterVal) {
-			extraParams.push(
+	_dispatchSortUpdatedEvent(sorted) {
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-evaluation-hub-activities-list-sort-updated',
 				{
-					name: 'filter',
-					value: filterVal
+					detail: {
+						sortedActivities: sorted
+					},
+					composed: true,
+					bubbles: true
 				}
-			);
-		}
-		var sortVal = this._getQueryStringParam('sort', url);
-		if (sortVal) {
-			extraParams.push(
-				{
-					name: 'sort',
-					value: sortVal
-				}
-			);
-		}
-
-		return extraParams;
+			)
+		);
 	}
 
-	_getQueryStringParam(name, url) {
-		const parsedUrl = new window.URL(url, 'https://notused.com');
-		return parsedUrl.searchParams.get(name);
-	}
+	_performSirenActionWithQueryParams(action) {
+		const url = new URL(action.href, window.location.origin);
 
-	_buildRelativeUri(url, extraParams) {
-		if (extraParams.length === 0) return url;
+		if (!action.fields) {
+			action.fields = [];
+		}
 
-		const parsedUrl = new window.URL(url, 'https://notused.com');
-
-		extraParams.forEach(param => {
-			parsedUrl.searchParams.set(param.name, param.value);
+		url.searchParams.forEach(function(value, key) {
+			if (!action.fields.filter(x => x.name === key)[0]) {
+				action.fields.push({name: key, value: value, type: 'hidden'});
+			}
 		});
 
-		return parsedUrl.pathname + parsedUrl.search;
+		return this.performSirenAction(action, action.fields);
 	}
+
 }
 
 window.customElements.define(D2LEvaluationHubActivitiesList.is, D2LEvaluationHubActivitiesList);

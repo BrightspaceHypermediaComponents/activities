@@ -2,7 +2,7 @@
   "class": [
       "collection",
       "filters",
-      "role-markers"
+      "primary-facilitator"
   ],
   "entities": [
       {
@@ -11,32 +11,18 @@
               "off"
           ],
           "properties": {
-              "filter": "primary-facilitator"
+              "filter": "master-teacher"
           },
           "rel": [
               "item",
               "https://api.brightspace.com/rels/filter"
           ],
-          "title": "Primary Facilitator",
-          "actions": [
-              {
-                  "href": "components/d2l-activities/test/d2l-evaluation-hub/data/roleMarkerFilter.json",
-                  "name": "add-filter",
-                  "method": "GET",
-                  "fields": [
-                      {
-                          "type": "hidden",
-                          "name": "existingState",
-                          "value": "eyJkN2E5ZTM5Ny1lMDFiLTRjZjctODIxZS1mYWU3M2Q2MjgzMDUiOlsicHJpbWFyeUluc3RydWN0b3IiXX0"
-                      }
-                  ]
-              }
-          ]
+          "title": "Master Teacher"
       }
   ],
   "actions": [
       {
-          "href": "components/d2l-activities/test/d2l-evaluation-hub/data/roleMarkerFilter.json",
+          "href": "components/d2l-activities/test/d2l-evaluation-hub/data/primaryFacilitatorFilter.json",
           "name": "search",
           "fields": [
               {
@@ -54,7 +40,7 @@
           ]
       },
       {
-          "href": "components/d2l-activities/test/d2l-evaluation-hub/data/enrollmentFilters.json",
+          "href": "components/d2l-activities/test/d2l-evaluation-hub/data/filters.json",
           "name": "apply",
           "fields": [
               {
@@ -68,5 +54,5 @@
           ]
       }
   ],
-  "title": "Role Markers"
+  "title": "Primary Facilitator"
 }

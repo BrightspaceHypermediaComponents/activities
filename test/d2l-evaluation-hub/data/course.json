@@ -19,7 +19,7 @@
       "rel": [
         "https://api.brightspace.com/rels/filters"
       ],
-      "href": "data/filters.json"
+      "href": "data/enrollmentFilters.json"
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "class": [
+    "collection-filters"
+  ],
+  "entities": [
+    {
+      "class": [
+        "collection",
+        "filters",
+        "role-markers"
+      ],
+      "rel": [
+        "item",
+        "https://api.brightspace.com/rels/filters/collection"
+      ],
+      "title": "Role Markers",
+      "href": "data/roleMarkerFilter.json"
+    }
+  ],
+  "actions": [
+    {
+      "href": "components/d2l-activities/test/d2l-evaluation-hub/data/course.json",
+      "name": "apply",
+      "fields": [
+        {
+          "class": [
+            "base64",
+            "json"
+          ],
+          "type": "hidden",
+          "name": "filter",
+          "value": "eyJkN2E5ZTM5Ny1lMDFiLTRjZjctODIxZS1mYWU3M2Q2MjgzMDUiOlsicHJpbWFyeUluc3RydWN0b3IiXX0"
+        }
+      ]
+    }
+  ]
+}

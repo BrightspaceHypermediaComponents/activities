@@ -52,6 +52,7 @@
 		"d2l-alert": "BrightspaceUI/alert#semver:^4",
 		"d2l-button": "BrightspaceUI/button#semver:^5",
 		"d2l-colors": "BrightspaceUI/colors#semver:^4",
+		"d2l-common": "BrightspaceHypermediaComponents/common#semver:^1",
 		"d2l-course-image": "Brightspace/course-image#semver:^3",
 		"d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
 		"d2l-hypermedia-constants": "Brightspace/d2l-hypermedia-constants#semver:^6",

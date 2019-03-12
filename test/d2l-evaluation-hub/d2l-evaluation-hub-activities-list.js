@@ -67,7 +67,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 
 	var expectedData = [
 		{
-			displayName: 'User Name',
+			displayName: 'Special User Name',
 			courseName: 'Org Name',
 			activityNameHref: 'data/assignmentActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
@@ -316,6 +316,75 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 				});
 
 			});
+		});
+		test('when calling perform siren action with no query params and no fields, the fields are empty', () => {
+
+			const action = {
+				href : 'http://127.0.0.1/',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET'
+			};
+
+			const stub = sinon.stub(list, 'performSirenAction');
+			list._performSirenActionWithQueryParams(action);
+			sinon.assert.calledWith(stub, action, []);
+		});
+		test('when calling perform siren action with no query params, the fields are not modified', () => {
+
+			const action = {
+				href : 'http://127.0.0.1/',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET',
+				fields : [
+					{
+						type: 'hidden',
+						name : 'existingField',
+						value: 'existingValue'
+					}]
+			};
+
+			const stub = sinon.stub(list, 'performSirenAction');
+			list._performSirenActionWithQueryParams(action);
+			sinon.assert.calledWith(stub, action, action.fields);
+		});
+		test('when calling perform siren action with query params, the query params are added as fields', () => {
+
+			const action = {
+				href : 'http://127.0.0.1?testname=testvalue&anothertestname=anothertestvalue',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET',
+				fields : [
+					{
+						type: 'hidden',
+						name : 'existingField',
+						value: 'existingValue'
+					}]
+			};
+
+			const fields = [
+				{
+					type: 'hidden',
+					name : 'existingField',
+					value: 'existingValue'
+				},
+				{
+					type: 'hidden',
+					name : 'testname',
+					value: 'testvalue'
+				},
+				{
+					type: 'hidden',
+					name : 'anothertestname',
+					value: 'anothertestvalue'
+				}
+			];
+
+			const stub = sinon.stub(list, 'performSirenAction');
+			list._performSirenActionWithQueryParams(action);
+			sinon.assert.calledWith(stub, action, fields);
 		});
 	});
 })();

@@ -44,6 +44,13 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					max-width: 10rem;
 					white-space: nowrap;
 				}
+				d2l-activity-evaluation-icon-base {
+					padding-left: 0.6rem;
+				}
+				:host(:dir(rtl)) d2l-activity-evaluation-icon-base {
+					padding-left: 0;
+					padding-right: 0.6rem;
+				}
 				.d2l-activity-name-column {
 					padding-right: 2.4rem;
 				}
@@ -92,10 +99,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 														id="[[header.key]]"
 													>
 														<span>[[localize(header.key)]]</span>
-														<template is="dom-if" if="[[header.suffix]]">
-															<span>[[header.suffix]]&nbsp;</span>
-														</template>
 													</d2l-table-col-sort-button>
+													<template is="dom-if" if="[[header.suffix]]">
+														<span>[[header.suffix]]&nbsp;</span>
+													</template>
 												</template>
 												<template is="dom-if" if="[[!header.canSort]]">
 													<span>[[localize(header.key)]]</span>
@@ -642,7 +649,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			}
 		});
 
-		return this.performSirenAction(action, action.fields);
+		return this.performSirenAction(action);
 	}
 
 	_getExtraParams(url) {

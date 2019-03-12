@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-profile-image-base demo</title>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../lie/dist/lie.polyfill.min.js"></script> <!-- For IE11 -->
+		<script src="../../whatwg-fetch/fetch.js"></script> <!-- For IE11 -->
+		<script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+		<script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+		<script type="module" src="../../d2l-typography/d2l-typography.js"></script>
+		<script type="module" src="../components/d2l-profile-image-base.js"></script>
+		<!-- FIXME(polymer-modulizer):
+		These imperative modules that innerHTML your HTML are
+		a hacky way to be sure that any mixins in included style
+		modules are ready before any elements that reference them are
+		instantiated, otherwise the CSS @apply mixin polyfill won't be
+		able to expand the underlying CSS custom properties.
+		See: https://github.com/Polymer/polymer-modulizer/issues/154
+		-->
+	<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
+			<style is="custom-style" include="d2l-typography"></style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<style>
+			html {
+				font-size: 20px;
+			}
+		</style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+	</head>
+	<body unresolved class="d2l-typography">
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
+			<h3>Shady person (only size attributes set)</h3>
+			<demo-snippet>
+				<template>
+					Specification for the design can be found at
+					<a href="http://design.d2l/components/profile-images/">design.d2l</a>.
+					<hr>
+
+					<h4>Invalid/Missing image size will not show anything on the page</h4>
+					<d2l-profile-image-base></d2l-profile-image-base>
+
+					<h4>Small image size</h4>
+					<d2l-profile-image-base small=""></d2l-profile-image-base>
+
+					<h4>Medium image size</h4>
+					<d2l-profile-image-base medium=""></d2l-profile-image-base>
+
+					<h4>Large image size</h4>
+					<d2l-profile-image-base large=""></d2l-profile-image-base>
+
+					<h4>X-Large image size</h4>
+					<d2l-profile-image-base x-large=""></d2l-profile-image-base>
+
+				</template>
+			</demo-snippet>
+
+			<h3>Avatar with Initials</h3>
+			<demo-snippet>
+				<template>
+
+					<h4>Initials fail to display because the colour-id is not specified</h4>
+					<d2l-profile-image-base first-name="first" last-name="last" small=""></d2l-profile-image-base>
+
+					<h4>Initials fail to display because the first-name attribute is invalid/missing</h4>
+					<d2l-profile-image-base last-name="last" colour-id="2" medium=""></d2l-profile-image-base>
+
+					<h4>Initials shown incomplete because last-name attribute is invalid/missing</h4>
+					<d2l-profile-image-base first-name="first" colour-id="3" large=""></d2l-profile-image-base>
+
+					<h4>Initials shown complete beause colour-id, first-name and last-name are all valid</h4>
+					<d2l-profile-image-base first-name="FIRST" last-name="LAST" colour-id="404" x-large=""></d2l-profile-image-base>
+
+				</template>
+			</demo-snippet>
+
+			<h3>Avatar with Initials</h3>
+			<demo-snippet>
+				<template>
+
+					<h4>Image fails to load, and no valid attributes to provide initials</h4>
+					<d2l-profile-image-base colour-id="3" href="./img/invalid.png" small=""></d2l-profile-image-base>
+
+					<h4>Image fails to load, with missing last-name but valid attributes to provide initials</h4>
+					<d2l-profile-image-base first-name="first" colour-id="6" href="./img/invalid.png" medium=""></d2l-profile-image-base>
+
+					<h4>Image fails to load, with valid attributes to provide initials</h4>
+					<d2l-profile-image-base first-name="first" last-name="last" colour-id="10" href="./img/invalid.png" large=""></d2l-profile-image-base>
+
+					<h4>Image loads successfully</h4>
+					<d2l-profile-image-base first-name="first" last-name="last" colour-id="10" href="./img/d2l-moose.png" x-large=""></d2l-profile-image-base>
+
+				</template>
+			</demo-snippet>
+		</div>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+	</body>
+</html>

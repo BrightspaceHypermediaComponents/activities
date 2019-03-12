@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+	<title>d2l-profile-image test</title>
+		<!-- For IE11 -->
+		<script src="../../lie/dist/lie.polyfill.min.js"></script>
+		<!-- For IE11 -->
+		<script src="../../whatwg-fetch/fetch.js"></script>
+
+	<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+	<script src="../../wct-browser-legacy/browser.js"></script>
+	<script type="module" src="../components/d2l-profile-image.js"></script>
+</head>
+
+<body>
+	<test-fixture id="d2l-profile-image-fixture-default">
+		<template>
+			<d2l-profile-image></d2l-profile-image>
+		</template>
+	</test-fixture>
+	<script type="module">
+import '../components/d2l-profile-image.js';
+import SirenParse from 'siren-parser';
+import { flush as flush$0, dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+suite('d2l-profile-image', function() {
+
+	var sizes = ['small', 'medium', 'large', 'x-large'];
+	var defaultElement;
+
+	setup(function() {
+		defaultElement = fixture('d2l-profile-image-fixture-default');
+	});
+
+	sizes.forEach(function(expectedSize) {
+		test('When given size of ' + expectedSize + ' ensure profile-image uses ' + expectedSize, function() {
+			defaultElement.setAttribute(expectedSize, '');
+			flush$0();
+
+			var profileImage = dom(defaultElement.root).querySelector('#d2l-profile-image');
+
+			sizes.forEach(function(size) {
+				assert.equal(profileImage.hasAttribute(size), expectedSize === size);
+			});
+		});
+	});
+
+	test('When user information not yet fetch (entity is null), base component marked as loading', function() {
+		var profileImage = dom(defaultElement.root).querySelector('#d2l-profile-image');
+		assert.equal(profileImage.hasAttribute('loading'), true);
+	});
+
+	test('When failing to retrieve user information, base component not marked as loading', function(done) {
+		var eventNameUnderTest = 'd2l-siren-entity-error';
+
+		defaultElement.addEventListener(eventNameUnderTest, function() {
+			flush(function() {
+				var profileImage = dom(defaultElement.root).querySelector('#d2l-profile-image');
+				assert.equal(profileImage.hasAttribute('loading'), false);
+				done();
+			});
+		});
+
+		defaultElement.dispatchEvent(new Event(eventNameUnderTest));
+	});
+
+	test('When user information fetched, base component not marked as loading', function(done) {
+		defaultElement._configureProfileImage(true)
+			.then(function() {
+				flush(function() {
+					var profileImage = dom(defaultElement.root).querySelector('#d2l-profile-image');
+					assert.equal(profileImage.hasAttribute('loading'), false);
+					done();
+				});
+			});
+	});
+
+	[
+		{ 'anonFirst' : false, 'anonLast': false },
+		{ 'anonFirst' : false, 'anonLast': true },
+		{ 'anonFirst' : true, 'anonLast': false },
+		{ 'anonFirst' : true, 'anonLast': true }
+	].forEach(function(t) {
+		test('Correct naming configuration when first name anon ' + t.anonFirst + ' and last name anon ' + t.anonLast, function(done) {
+			var userId = 169;
+			var href = 'https://tenant.users.api.proddev.d2l/' + userId;
+			var firstName = 'First';
+			var firstClass = t.anonFirst ? ['default-name'] : [];
+			var lastName = 'Last';
+			var lastClass = t.anonLast ? ['default-name'] : [];
+			var response = {
+				'entities': [
+					{
+						'class': firstClass,
+						'rel': [
+							'https://api.brightspace.com/rels/first-name'
+						],
+						'properties': {
+							'name': firstName
+						}
+					},
+					{
+						'class': lastClass,
+						'rel': [
+							'https://api.brightspace.com/rels/last-name'
+						],
+						'properties': {
+							'name': lastName
+						}
+					}
+				],
+				'links': [
+					{ 'rel': ['self'], 'href': href }
+				]
+			};
+			var entity = SirenParse(response);
+
+			defaultElement._configureProfileImage(entity)
+				.then(function() {
+					flush(function() {
+						assert.equal(defaultElement._firstName, t.anonFirst ? '' : firstName);
+						assert.equal(defaultElement._lastName, t.anonLast ? '' : lastName);
+						assert.equal(defaultElement._colourId, userId);
+
+						var profileImage = dom(defaultElement.root).querySelector('#d2l-profile-image');
+						assert.equal(profileImage.firstName, t.anonFirst ? '' : firstName);
+						assert.equal(profileImage.lastName, t.anonLast ? '' : lastName);
+						assert.equal(profileImage.colourId, userId);
+						done();
+					});
+				});
+
+		});
+	});
+
+	[true, false].forEach(function(isDefaultImage) {
+		test('Correct image configured when default image is ' + isDefaultImage, function(done) {
+			var href = 'https://tenant.users.api.proddev.d2l/169';
+			var expectedImage = 'expectedImage.png';
+			var imageClass = isDefaultImage ? ['default-image'] : [];
+			var response = {
+				'entities': [
+					{
+						'class': [],
+						'rel': [
+							'https://api.brightspace.com/rels/first-name'
+						],
+						'properties': {
+							'name': 'firstName'
+						}
+					},
+					{
+						'class': [],
+						'rel': [
+							'https://api.brightspace.com/rels/last-name'
+						],
+						'properties': {
+							'name': 'lastName'
+						}
+					},
+					{
+						'rel': ['https://api.brightspace.com/rels/user-profile'],
+						'entities': [
+							{
+								'rel': ['https://api.brightspace.com/rels/profile-image'],
+								'class': imageClass,
+								'links': [
+									{
+										'rel': ['alternate'],
+										'href': expectedImage
+									}
+								]
+							}
+						]
+					}
+				],
+				'links': [
+					{ 'rel': ['self'], 'href': href }
+				]
+			};
+			var entity = SirenParse(response);
+
+			defaultElement._configureProfileImage(entity)
+				.then(function() {
+					flush(function() {
+						assert.equal(defaultElement._imageUrl, isDefaultImage ? '' : expectedImage);
+
+						var profileImage = dom(defaultElement.root).querySelector('#d2l-profile-image');
+						assert.equal(profileImage.href, isDefaultImage ? '' : expectedImage);
+
+						done();
+					});
+				});
+		});
+	});
+});
+</script>
+</body>
+
+</html>

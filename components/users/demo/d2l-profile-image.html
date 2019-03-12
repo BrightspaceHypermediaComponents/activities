@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-profile-image demo</title>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../lie/dist/lie.polyfill.min.js"></script> <!-- For IE11 -->
+		<script src="../../whatwg-fetch/fetch.js"></script> <!-- For IE11 -->
+		<script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+		<script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+		<script type="module" src="../../d2l-typography/d2l-typography.js"></script>
+		<script type="module" src="../components/d2l-profile-image.js"></script>
+		<!-- FIXME(polymer-modulizer):
+		These imperative modules that innerHTML your HTML are
+		a hacky way to be sure that any mixins in included style
+		modules are ready before any elements that reference them are
+		instantiated, otherwise the CSS @apply mixin polyfill won't be
+		able to expand the underlying CSS custom properties.
+		See: https://github.com/Polymer/polymer-modulizer/issues/154
+		-->
+	<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles"></style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
+			<style is="custom-style" include="d2l-typography"></style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<style>
+			html {
+				font-size: 20px;
+			}
+		</style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+	</head>
+	<body unresolved class="d2l-typography">
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
+			<h3>d2l-profile-image</h3>
+			<demo-snippet>
+				<template>
+					Specification for the design can be found at
+					<a href="http://design.d2l/components/profile-images/">design.d2l</a>.
+					<hr>
+					<h4>Nothing, because no size is set:</h4>
+					<d2l-profile-image href="./response/no_profile_first_anonLast.json" token="token"></d2l-profile-image>
+
+					<h4>Shady person, because route does not exist:</h4>
+					<d2l-profile-image href="./response/nothing.json" token="token" small=""></d2l-profile-image>
+
+					<h4>Only first initial, anonymous last name, no profile image:</h4>
+					<d2l-profile-image href="./response/no_profile_first_anonLast.json" token="token" small=""></d2l-profile-image>
+
+					<h4>Shady person, both first and last name are anonymous, no profile image:</h4>
+					<d2l-profile-image href="./response/no_profile_anonFirst_anonLast.json" token="token" medium=""></d2l-profile-image>
+
+					<h4>First and last initials, no profile image:</h4>
+					<d2l-profile-image href="./response/no_profile_first_last.json" token="token" large=""></d2l-profile-image>
+
+					<h4>Profile image:</h4>
+					<d2l-profile-image href="./response/profile_first_last.json" token="token" x-large=""></d2l-profile-image>
+					<br>
+					<hr>
+				</template>
+			</demo-snippet>
+		</div>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+	</body>
+</html>

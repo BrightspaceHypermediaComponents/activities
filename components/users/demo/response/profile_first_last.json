@@ -1,0 +1,60 @@
+{
+	"class": [
+		"user"
+	],
+	"entities": [
+		{
+			"class": [
+				"display",
+				"name"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/display-name"
+			],
+			"properties": {
+				"name": "First"
+			}
+		},
+		{
+			"class": [
+				"first",
+				"name"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/first-name"
+			],
+			"properties": {
+				"name": "First"
+			}
+		},
+    {
+			"class": [
+				"last",
+				"name"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/last-name"
+			],
+			"properties": {
+				"name": "Last"
+			}
+		},
+		{
+			"rel": ["https://api.brightspace.com/rels/user-profile"],
+			"entities": [
+				{
+					"rel": ["https://api.brightspace.com/rels/profile-image"],
+					"links": [
+						{
+							"rel": ["alternate"],
+							"href": "./img/d2l-moose.png"
+						}
+					]
+				}
+			]
+		}
+	],
+	"links": [
+		{ "rel": ["self"], "href": "https://tenant.users.api.proddev.d2l/169" }
+	]
+}

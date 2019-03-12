@@ -1,0 +1,53 @@
+{
+  "description": "D2L Components Using Users Hypermedia API",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BrightspaceHypermediaComponents/users.git"
+  },
+  "name": "d2l-users",
+  "scripts": {
+    "lint": "npm run lint:wc && npm run lint:js",
+    "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
+    "lint:wc": "polymer lint",
+    "serve": "polymer serve",
+    "test:polymer:local": "polymer test --skip-plugin sauce",
+    "test:polymer:sauce": "polymer test --skip-plugin local",
+    "test": "npm run lint && npm run test:polymer:local"
+  },
+  "author": "D2L Corporation",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@polymer/iron-component-page": "^4.0.0",
+    "@polymer/iron-demo-helpers": "^3.0.0",
+    "@polymer/iron-test-helpers": "^3.0.0",
+    "@webcomponents/webcomponentsjs": "^2.2.4",
+    "babel-eslint": "^10.0.1",
+    "chromedriver": "^2.40.0",
+    "eslint": "^4.19.1",
+    "eslint-config-brightspace": "^0.4.0",
+    "eslint-plugin-html": "^4.0.5",
+    "lie": "^3.3.0",
+    "polymer-cli": "^1.9.5",
+    "sauce-connect-launcher": "^1.2.4",
+    "wct-browser-legacy": "^1.0.1",
+    "whatwg-fetch": "^2.0.0"
+  },
+  "version": "",
+  "resolutions": {
+    "inherits": "2.0.3",
+    "samsam": "1.1.3",
+    "supports-color": "3.1.2",
+    "type-detect": "1.0.0"
+  },
+  "main": "d2l-users.js",
+  "dependencies": {
+    "@polymer/polymer": "^3.0.0",
+    "d2l-icons": "BrightspaceUI/icons#semver:^6",
+    "d2l-colors": "BrightspaceUI/colors#semver:^4",
+    "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
+    "d2l-link": "BrightspaceUI/link#semver:^5",
+    "d2l-hypermedia-constants": "Brightspace/d2l-hypermedia-constants#semver:^6",
+    "d2l-typography": "BrightspaceUI/typography#semver:^7",
+    "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1"
+  }
+}

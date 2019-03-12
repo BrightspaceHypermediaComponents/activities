@@ -10,6 +10,7 @@ import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-polymer-siren-behaviors/store/siren-action-behavior.js';
 import 'd2l-polymer-behaviors/d2l-dom-focus.js';
 import 'd2l-link/d2l-link.js';
+import '../users/components/d2l-user-badge.js';
 import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
 import {Rels, Classes} from 'd2l-hypermedia-constants';
 import '../d2l-activity-name/d2l-activity-name.js';
@@ -96,7 +97,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 						<template>
 							<d2l-tr>
 								<d2l-td>
-									<d2l-link href="[[s.activityLink]]">[[_getDataProperty(s, 'displayName')]]</d2l-link>
+									<d2l-user-badge href="[[_getDataProperty(s, 'userHref')]]" display-name-href="[[s.activityLink]]" token="[[token]]"></d2l-user-badge>
 									<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
 								</d2l-td>
 								<d2l-td>
@@ -409,7 +410,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			promises.push(new Promise(function(resolve) {
 
 				var item = {
-					displayName: '',
+					userHref: this._getUserHref(activity),
 					courseName: '',
 					activityNameHref: this._getActivityNameHref(activity),
 					submissionDate: this._getSubmissionDate(activity),
@@ -418,14 +419,13 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					isDraft: this._determineIfActivityIsDraft(activity)
 				};
 
-				var getUserName = this._getUserPromise(activity, item);
 				var getCourseName = this._getCoursePromise(activity, item);
 				var getMasterTeacherName =
 					this._shouldDisplayColumn('masterTeacher')
 						? this._getMasterTeacherPromise(activity, item)
 						: Promise.resolve();
 
-				Promise.all([getUserName, getCourseName, getMasterTeacherName]).then(function() {
+				Promise.all([getCourseName, getMasterTeacherName]).then(function() {
 					resolve(item);
 				});
 			}.bind(this)));
@@ -532,13 +532,12 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			});
 	}
 
-	_getUserPromise(entity, item) {
-		return this._followLink(entity, Rels.user)
-			.then(function(u) {
-				if (u && u.entity && u.entity.hasSubEntityByRel(Rels.displayName)) {
-					item.displayName = u.entity.getSubEntityByRel(Rels.displayName).properties.name;
-				}
-			});
+	_getUserHref(entity) {
+		if (entity.hasLinkByRel(Rels.user)) {
+			const link = entity.getLinkByRel(Rels.user);
+			return link.href;
+		}
+		return '';
 	}
 
 	_getActivityNameHref(entity) {

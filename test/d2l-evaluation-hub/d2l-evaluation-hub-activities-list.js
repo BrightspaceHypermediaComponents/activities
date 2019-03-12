@@ -328,7 +328,8 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 
 			const stub = sinon.stub(list, 'performSirenAction');
 			list._performSirenActionWithQueryParams(action);
-			sinon.assert.calledWith(stub, action);
+
+			sinon.assert.calledWith(stub, action, []);
 			stub.restore();
 		});
 		test('when calling perform siren action with no query params, the fields are not modified', () => {
@@ -348,7 +349,8 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 
 			const stub = sinon.stub(list, 'performSirenAction');
 			list._performSirenActionWithQueryParams(action);
-			sinon.assert.calledWith(stub, action);
+
+			sinon.assert.calledWith(stub, action, action.fields);
 			stub.restore();
 		});
 		test('when calling perform siren action with query params, the query params are added as fields', () => {
@@ -366,9 +368,28 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 					}]
 			};
 
+			const fields = [
+				{
+					type: 'hidden',
+					name : 'existingField',
+					value: 'existingValue'
+				},
+				{
+					type: 'hidden',
+					name : 'testname',
+					value: 'testvalue'
+				},
+				{
+					type: 'hidden',
+					name : 'anothertestname',
+					value: 'anothertestvalue'
+				}
+			];
+
 			const stub = sinon.stub(list, 'performSirenAction');
 			list._performSirenActionWithQueryParams(action);
-			sinon.assert.calledWith(stub, action);
+
+			sinon.assert.calledWith(stub, action, fields);
 			stub.restore();
 		});
 	});

@@ -640,7 +640,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			}
 		});
 
-		return this.performSirenAction(action);
+		return this.performSirenAction(action, action.fields);
 	}
 
 }

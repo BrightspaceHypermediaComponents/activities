@@ -331,6 +331,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 			list._performSirenActionWithQueryParams(action);
 			sinon.assert.calledWith(stub, action);
+			stub.restore();
 		});
 		test('when calling perform siren action with no query params, the fields are not modified', () => {
 
@@ -352,6 +353,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 			list._performSirenActionWithQueryParams(action);
 			sinon.assert.calledWith(stub, action);
+			stub.restore();
 		});
 		test('when calling perform siren action with query params, the query params are added as fields', () => {
 
@@ -397,6 +399,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 
 			list._performSirenActionWithQueryParams(action);
 			sinon.assert.calledWith(stub, action);
+			stub.restore();
 		});
 	});
 })();

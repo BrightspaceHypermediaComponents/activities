@@ -32,6 +32,16 @@
 					}
 					.d2l-activity-name-demo-div {
 						max-width: 500px;
+						white-space: nowrap;
+					}
+					.truncate {
+						overflow: hidden;
+						padding-right: 2rem;
+						text-overflow: ellipsis;
+					}
+					[dir="rtl"] .truncate {
+						padding-left: 2rem;
+						padding-right: 0;
 					}
 				</style>
 			`;
@@ -46,7 +56,7 @@
 					<div class="d2l-activity-name-demo-div">
 						<d2l-activity-name href="data/assignmentActivity.json" token="whatever"></d2l-activity-name>
 						<d2l-activity-name href="data/quizActivity.json" token="whatever"></d2l-activity-name>
-						<d2l-activity-name href="data/topicActivity.json" token="whatever"></d2l-activity-name>
+						<d2l-activity-name class="truncate" href="data/topicActivity.json" token="whatever"></d2l-activity-name>
 					</div>
 				</template>
 			</demo-snippet>

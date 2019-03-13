@@ -600,10 +600,12 @@ class D2lActivityListItem extends mixinBehaviors([IronResizableBehavior, D2L.Pol
 			this._fetchEntity(this._organizationUrl)
 				.then(this._handleOrganizationResponse.bind(this))
 				.then(() => {
-					this.dispatchEvent(new CustomEvent('d2l-activity-text-loaded', {
-						bubbles: true,
-						composed: true
-					}));
+					afterNextRender(this, () => {
+						this.dispatchEvent(new CustomEvent('d2l-activity-text-loaded', {
+							bubbles: true,
+							composed: true
+						}));
+					});
 				});
 		}
 
@@ -675,10 +677,10 @@ class D2lActivityListItem extends mixinBehaviors([IronResizableBehavior, D2L.Pol
 	_onTextPlaceholderChange(textPlaceholder) {
 		// If placeholders were disabled, we want everything resized before showing it to avoid flickering
 		if (!textPlaceholder) {
-			this._setResponsiveSizes(this.offsetWidth);
-			afterNextRender(this, () => {
+			beforeNextRender(this, () => {
 				this._textPlaceholder = false;
 			});
+			this._setResponsiveSizes(this.offsetWidth);
 		} else {
 			// If the placeholders were enabled, we want them to get styled
 			const currentConfig = this._getResponsiveConfig(this.offsetWidth);

@@ -67,7 +67,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 
 	var expectedData = [
 		{
-			displayName: 'User Name',
+			displayName: 'Special User Name',
 			courseName: 'Org Name',
 			activityNameHref: 'data/assignmentActivity.json',
 			submissionDate: '3/9/2019 10:16 AM',
@@ -183,6 +183,8 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {
 				var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 				assert.notEqual(noSubmissionComponent.style.display, 'none');
+				//This is here because of how dom-if works, we need to load activities once to ensure we actually
+				//render the d2l-quick-eval-no-submissions component and instantly hide it.
 				loadPromise('data/unassessedActivities.json').then(function() {
 					var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 					assert.equal(noSubmissionComponent.style.display, 'none');
@@ -314,6 +316,89 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 				});
 
 			});
+		});
+		test('when calling perform siren action with no query params and no fields, the fields are empty', () => {
+
+			const action = {
+				href : 'http://127.0.0.1/',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET'
+			};
+
+			const stub = sinon.stub(list, 'performSirenAction', function(passedAction) {
+				assert.deepEqual(action, passedAction);
+			});
+
+			list._performSirenActionWithQueryParams(action);
+			sinon.assert.calledWith(stub, action);
+		});
+		test('when calling perform siren action with no query params, the fields are not modified', () => {
+
+			const action = {
+				href : 'http://127.0.0.1/',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET',
+				fields : [
+					{
+						type: 'hidden',
+						name : 'existingField',
+						value: 'existingValue'
+					}]
+			};
+
+			const stub = sinon.stub(list, 'performSirenAction', function(passedAction) {
+				assert.deepEqual(action, passedAction);
+			});
+
+			list._performSirenActionWithQueryParams(action);
+			sinon.assert.calledWith(stub, action);
+		});
+		test('when calling perform siren action with query params, the query params are added as fields', () => {
+
+			const action = {
+				href : 'http://127.0.0.1?testname=testvalue&anothertestname=anothertestvalue',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET',
+				fields : [
+					{
+						type: 'hidden',
+						name : 'existingField',
+						value: 'existingValue'
+					}]
+			};
+
+			const expectedAction = {
+				href : 'http://127.0.0.1?testname=testvalue&anothertestname=anothertestvalue',
+				name: 'apply',
+				type: 'application/x-www-form-urlencoded',
+				method: 'GET',
+				fields : [
+					{
+						type: 'hidden',
+						name : 'existingField',
+						value: 'existingValue'
+					},
+					{
+						type: 'hidden',
+						name : 'testname',
+						value: 'testvalue'
+					},
+					{
+						type: 'hidden',
+						name : 'anothertestname',
+						value: 'anothertestvalue'
+					}]
+			};
+
+			const stub = sinon.stub(list, 'performSirenAction', function(passedAction) {
+				assert.deepEqual(expectedAction, passedAction);
+			});
+
+			list._performSirenActionWithQueryParams(action);
+			sinon.assert.calledWith(stub, action);
 		});
 	});
 })();

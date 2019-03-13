@@ -1,0 +1,10 @@
+{
+	"entities":[
+		{
+			"rel":["https://api.brightspace.com/rels/display-name"],
+			"properties":{
+				"name":"Special User Name"
+			}
+		}
+	]
+}

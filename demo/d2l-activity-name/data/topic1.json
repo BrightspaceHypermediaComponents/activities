@@ -1,5 +1,5 @@
 {
 	"properties":{
-		"name":"Topic with a super long name for the purpose of testing the truncate ability of the UI component"
+		"name":"Topic with a super long name to show how to setup truncation if desired"
 	}
 }

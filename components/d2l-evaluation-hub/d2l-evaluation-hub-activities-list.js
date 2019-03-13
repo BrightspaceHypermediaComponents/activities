@@ -41,6 +41,33 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					text-align: right;
 					width: 100%;
 				}
+				:host(:dir(rtl)) .d2l-evaluation-hub-activities-list-load-more-container {
+					text-align: left;
+				}
+				.d2l-evaluation-hub-truncated-column {
+					max-width: 10rem;
+					white-space: nowrap;
+				}
+				d2l-activity-evaluation-icon-base {
+					padding-left: 0.6rem;
+				}
+				:host(:dir(rtl)) d2l-activity-evaluation-icon-base {
+					padding-left: 0;
+					padding-right: 0.6rem;
+				}
+				d2l-activity-name {
+					padding-right: 1.4rem;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+				:host(:dir(rtl)) d2l-activity-name {
+					padding-right: 0;
+					padding-left: 1.4rem;
+				}
+				.d2l-course-name-column {
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
 				[hidden] {
 					display: none;
 				}
@@ -71,12 +98,17 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 										<dom-repeat items="[[headerColumn.headers]]" as="header">
 											<template>
 												<template is="dom-if" if="[[header.canSort]]">
-													<d2l-table-col-sort-button nosort on-click="_sort" id="[[header.key]]">
+													<d2l-table-col-sort-button
+														nosort$="[[!header.sorted]]"
+														desc$="[[header.desc]]"
+														on-click="_updateSortState"
+														id="[[header.key]]"
+													>
 														<span>[[localize(header.key)]]</span>
-														<template is="dom-if" if="[[header.suffix]]">
-															<span>[[header.suffix]]&nbsp;</span>
-														</template>
 													</d2l-table-col-sort-button>
+													<template is="dom-if" if="[[header.suffix]]">
+														<span>[[header.suffix]]&nbsp;</span>
+													</template>
 												</template>
 												<template is="dom-if" if="[[!header.canSort]]">
 													<span>[[localize(header.key)]]</span>
@@ -100,10 +132,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 									<d2l-user-badge href="[[_getDataProperty(s, 'userHref')]]" display-name-href="[[s.activityLink]]" token="[[token]]"></d2l-user-badge>
 									<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
 								</d2l-td>
-								<d2l-td>
+								<d2l-td class="d2l-evaluation-hub-truncated-column d2l-activity-name-column">
 									<d2l-activity-name href="[[_getDataProperty(s, 'activityNameHref')]]" token="[[token]]"></d2l-activity-name>
 								</d2l-td>
-								<d2l-td>
+								<d2l-td class="d2l-evaluation-hub-truncated-column d2l-course-name-column">
 									<span>[[_getDataProperty(s, 'courseName')]]</span>
 								</d2l-td>
 								<d2l-td>
@@ -145,7 +177,7 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 	static get is() { return 'd2l-evaluation-hub-activities-list'; }
 	static get properties() {
 		return {
-			'masterTeacher': {
+			masterTeacher: {
 				type: Boolean,
 				value: false,
 				reflectToAttribute: true
@@ -156,21 +188,21 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					{
 						key: 'displayName',
 						headers: [
-							{ key: 'firstName', sortClass: 'first-name', suffix: ',', canSort: false },
-							{ key: 'lastName', sortClass: 'last-name', canSort: false }
+							{ key: 'firstName', sortClass: 'first-name', suffix: ',', canSort: false, sorted: false, desc: false  },
+							{ key: 'lastName', sortClass: 'last-name', canSort: false, sorted: false, desc: false  }
 						]
 					},
 					{
 						key: 'activityName',
-						headers: [{ key: 'activityName', sortClass: 'activity-name', canSort: false }]
+						headers: [{ key: 'activityName', sortClass: 'activity-name', canSort: false, sorted: false, desc: false }]
 					},
 					{
 						key: 'courseName',
-						headers: [{ key: 'courseName', sortClass: 'course-name', canSort: false }]
+						headers: [{ key: 'courseName', sortClass: 'course-name', canSort: false, sorted: false, desc: false }]
 					},
 					{
 						key: 'submissionDate',
-						headers: [{ key: 'submissionDate', sortClass: 'completion-date', canSort: false }]
+						headers: [{ key: 'submissionDate', sortClass: 'completion-date', canSort: false, sorted: false, desc: false }]
 					},
 					{
 						key: 'masterTeacher',
@@ -246,6 +278,11 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 							const sort = sortsEntity.entity.getSubEntityByClass(header.sortClass);
 							if (sort) {
 								this.set(`_headerColumns.${i}.headers.${j}.canSort`, true);
+								if (sort.properties && sort.properties.applied && (sort.properties.priority === 0)) {
+									const descending = sort.properties.direction === 'descending';
+									this.set(`_headerColumns.${i}.headers.${j}.sorted`, true);
+									this.set(`_headerColumns.${i}.headers.${j}.desc`, descending);
+								}
 							}
 						}
 					});
@@ -255,54 +292,48 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 			});
 	}
 
-	_sort(e) {
-		const headers = [].concat.apply([], this._headerColumns.map(headerColumn => headerColumn.headers));
-		const header = headers.filter(h => h.key === e.currentTarget.id)[0];
+	_updateSortState(event) {
 
-		if (!header) {
-			return Promise.reject(`No matching header for ${e.currentTarget.id}`);
-		}
-		if (!header.canSort) {
-			return Promise.reject(`No matching sort for ${e.currentTarget.id}`);
-		}
+		let result;
+		const headerId = event.currentTarget.id;
 
-		let ascending = true;
+		this._headerColumns.forEach((headerColumn, i) => {
+			headerColumn.headers.forEach((header, j) => {
+				if (header.key === headerId) {
+					const descending = header.sorted && !header.desc;
+					this.set(`_headerColumns.${i}.headers.${j}.sorted`, true);
+					this.set(`_headerColumns.${i}.headers.${j}.desc`, descending);
 
-		if (e.currentTarget.nosort) {
-			e.currentTarget.removeAttribute('nosort');
-		} else if (e.currentTarget.desc) {
-			e.currentTarget.removeAttribute('desc');
-		} else {
-			ascending = false;
-			e.currentTarget.setAttribute('desc', 'desc');
-		}
-
-		const headerElements = this.shadowRoot.querySelectorAll('d2l-table-col-sort-button');
-		headerElements.forEach(h => {
-			if (h !== e.currentTarget) {
-				h.removeAttribute('desc');
-				h.setAttribute('nosort', 'nosort');
-			}
+					result = this._fetchSortedData(header.sortClass, descending);
+				}
+				else {
+					this.set(`_headerColumns.${i}.headers.${j}.sorted`, false);
+				}
+			});
 		});
 
-		return this._followLink(this.entity, Rels.sorts)
+		return result;
+	}
+
+	_fetchSortedData(sortClass, descending) {
+		this._followLink(this.entity, Rels.sorts)
 			.then((sortsEntity => {
 				if (!sortsEntity || !sortsEntity.entity) {
 					return Promise.reject('Could not load sorts endpoint');
 				}
 
-				const sort = sortsEntity.entity.getSubEntityByClass(header.sortClass);
+				const sort = sortsEntity.entity.getSubEntityByClass(sortClass);
 				if (!sort) {
-					return Promise.reject(`Could not find sort class ${header.sortClass}`);
+					return Promise.reject(`Could not find sort class ${sortClass}`);
 				}
 
-				const actionName = ascending ? 'sort-ascending' : 'sort-descending';
+				const actionName = descending ? 'sort-descending' : 'sort-ascending';
 				const action = sort.getActionByName(actionName);
 				if (!action) {
 					return Promise.reject(`Could not find sort action ${actionName} for sort ${sort}`);
 				}
 
-				return this.performSirenAction(action);
+				return this._performSirenActionWithQueryParams(action);
 			}).bind(this))
 			.then((sortsEntity => {
 				if (!sortsEntity) {
@@ -315,11 +346,12 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				return action;
 			}).bind(this))
 			.then((collectionAction => {
-				const collection = this.performSirenAction(collectionAction);
+				const collection = this._performSirenActionWithQueryParams(collectionAction);
 				return collection;
 			}).bind(this))
 			.then((collection => {
 				this.entity = collection;
+				this._dispatchSortUpdatedEvent(collection);
 			}).bind(this));
 	}
 
@@ -331,9 +363,14 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		this._fullListLoading = true;
 
 		try {
-			var result = await this._parseActivities(entity);
-			this._data = result;
+			if (entity.entities) {
+				var result = await this._parseActivities(entity);
+				this._data = result;
+			} else {
+				this._data = [];
+			}
 			this._clearAlerts();
+
 		} catch (e) {
 			// Unable to load activities from entity.
 			this._handleFullLoadFailure().bind(this);
@@ -354,8 +391,10 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 						var lastFocusableTableElement = D2L.Dom.Focus.getLastFocusableDescendant(tbody, false);
 
 						try {
-							var result = await this._parseActivities(u.entity);
-							this._data = this._data.concat(result);
+							if (u.entity.entities) {
+								var result = await this._parseActivities(u.entity);
+								this._data = this._data.concat(result);
+							}
 						} catch (e) {
 						// Unable to load more activities from entity.
 							throw e;
@@ -488,19 +527,19 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				if (filterOptions) {
 					var masterTeacherOption = filterOptions.getSubEntityByRel('https://api.brightspace.com/rels/filter');
 					var action = masterTeacherOption.getActionByName('add-filter');
-					return this.performSirenAction(action);
+					return this._performSirenActionWithQueryParams(action);
 				}
 			}.bind(this))
 			.then(function(filterOptions) {
 				if (filterOptions) {
 					var action = filterOptions.getActionByName('apply');
-					return this.performSirenAction(action);
+					return this._performSirenActionWithQueryParams(action);
 				}
 			}.bind(this))
 			.then(function(filters) {
 				if (filters) {
 					var action = filters.getActionByName('apply');
-					return this.performSirenAction(action);
+					return this._performSirenActionWithQueryParams(action);
 				}
 			}.bind(this))
 			.then(function(enrollment) {
@@ -583,6 +622,38 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 		}
 		return true;
 	}
+
+	_dispatchSortUpdatedEvent(sorted) {
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-evaluation-hub-activities-list-sort-updated',
+				{
+					detail: {
+						sortedActivities: sorted
+					},
+					composed: true,
+					bubbles: true
+				}
+			)
+		);
+	}
+
+	_performSirenActionWithQueryParams(action) {
+		const url = new URL(action.href, window.location.origin);
+
+		if (!action.fields) {
+			action.fields = [];
+		}
+
+		url.searchParams.forEach(function(value, key) {
+			if (!action.fields.filter(x => x.name === key)[0]) {
+				action.fields.push({name: key, value: value, type: 'hidden'});
+			}
+		});
+
+		return this.performSirenAction(action);
+	}
+
 }
 
 window.customElements.define(D2LEvaluationHubActivitiesList.is, D2LEvaluationHubActivitiesList);

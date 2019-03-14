@@ -29,6 +29,16 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 				d2l-td {
 					font-weight: normal;
 				}
+				d2l-td.d2l-username-column {
+					min-width: 10rem;
+					width: 100%;
+				}
+				.d2l-username-column-badge {
+					display: inline-block;
+				}
+				.d2l-username-column-draft-icon {
+					display: inline-block;
+				}
 				d2l-loading-spinner {
 					width: 100%;
 				}
@@ -128,9 +138,9 @@ class D2LEvaluationHubActivitiesList extends mixinBehaviors([D2L.PolymerBehavior
 					<dom-repeat items="[[_data]]" as="s">
 						<template>
 							<d2l-tr>
-								<d2l-td>
-									<d2l-user-badge href="[[_getDataProperty(s, 'userHref')]]" display-name-href="[[s.activityLink]]" token="[[token]]"></d2l-user-badge>
-									<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
+								<d2l-td class="d2l-username-column">
+									<d2l-user-badge class="d2l-username-column-badge" href="[[_getDataProperty(s, 'userHref')]]" display-name-href="[[s.activityLink]]" token="[[token]]"></d2l-user-badge>
+									<d2l-activity-evaluation-icon-base class="d2l-username-column-draft-icon" draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
 								</d2l-td>
 								<d2l-td class="d2l-evaluation-hub-truncated-column d2l-activity-name-column">
 									<d2l-activity-name href="[[_getDataProperty(s, 'activityNameHref')]]" token="[[token]]"></d2l-activity-name>

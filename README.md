@@ -6,6 +6,8 @@ Web components to be used with activities entities!
 
 After cloning the repo, run `npm install` to install dependencies.
 
+Make sure you have access to the artifactory (https://docs.dev.d2l/index.php/Node_JS_(Personal_Learning) and run `npm run install-attest`
+
 If you don't have it already, install the [Polymer CLI](https://www.polymer-project.org/3.0/docs/tools/polymer-cli) globally:
 
 ```shell

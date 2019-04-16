@@ -18,7 +18,7 @@ import './d2l-quick-eval-no-submissions-image.js';
 import './d2l-quick-eval-no-criteria-results-image.js';
 import './d2l-quick-eval-skeleton.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
-import {StringEndsWith} from './compatability/universal-methods.js';
+import {StringEndsWith, GetQueryStringParams, GetQueryStringParam} from './compatability/universal-methods.js';
 
 /**
  * @customElement
@@ -836,14 +836,14 @@ class D2LQuickEvalActivitiesList extends mixinBehaviors([D2L.PolymerBehaviors.Si
 
 	_performSirenActionWithQueryParams(action, customParams) {
 		const url = new URL(action.href, window.location.origin);
-
+		const searchParams = GetQueryStringParams(url.search);
 		if (!action.fields) {
 			action.fields = [];
 		}
 
-		url.searchParams.forEach(function(value, key) {
+		Object.keys(searchParams).forEach(function(key) {
 			if (!action.fields.filter(x => x.name === key)[0]) {
-				action.fields.push({name: key, value: value, type: 'hidden'});
+				action.fields.push({name: key, value: searchParams[key], type: 'hidden'});
 			}
 		});
 
@@ -860,8 +860,9 @@ class D2LQuickEvalActivitiesList extends mixinBehaviors([D2L.PolymerBehaviors.Si
 		if (!url || url === '') return [];
 
 		const extraParams = [];
+		const parsedUrl = new URL(url);
 
-		const filterVal = this._getQueryStringParam('filter', url);
+		const filterVal = GetQueryStringParam('filter', parsedUrl);
 		if (filterVal) {
 			extraParams.push(
 				{
@@ -870,7 +871,7 @@ class D2LQuickEvalActivitiesList extends mixinBehaviors([D2L.PolymerBehaviors.Si
 				}
 			);
 		}
-		const sortVal = this._getQueryStringParam('sort', url);
+		const sortVal = GetQueryStringParam('sort', parsedUrl);
 		if (sortVal) {
 			extraParams.push(
 				{
@@ -881,11 +882,6 @@ class D2LQuickEvalActivitiesList extends mixinBehaviors([D2L.PolymerBehaviors.Si
 		}
 
 		return extraParams;
-	}
-
-	_getQueryStringParam(name, url) {
-		const parsedUrl = new window.URL(url);
-		return parsedUrl.searchParams.get(name);
 	}
 
 	_buildRelativeUri(url, extraParams) {

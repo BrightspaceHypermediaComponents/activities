@@ -4,7 +4,6 @@ import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
 import 'fastdom/fastdom.min.js';
 import 'd2l-card/d2l-card.js';
 import 'd2l-card/d2l-card-content-meta.js';
-import 'd2l-card/d2l-card-loading-shimmer.js';
 import 'd2l-course-image/d2l-course-image.js';
 import 'd2l-fetch/d2l-fetch.js';
 import 'd2l-organizations/components/d2l-organization-info/d2l-organization-info.js';
@@ -57,15 +56,6 @@ class D2lActivityCard extends EntityMixin(PolymerElement) {
 					border-radius: 4px;
 					height: 100%;
 					width: 100%;
-				}
-				.d2l-activity-card-loading-shimmer {
-					height: 100%;
-					width: 100%;
-				}
-
-				.d2l-activity-card-text-placeholder {
-					background-color: var(--d2l-color-sylvite);
-					border-radius: 4px;
 				}
 			</style>
 

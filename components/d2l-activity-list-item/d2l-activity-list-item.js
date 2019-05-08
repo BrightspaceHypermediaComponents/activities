@@ -166,32 +166,16 @@ class D2lActivityListItem extends mixinBehaviors([
 					height: 0.9rem;
 					white-space: nowrap;
 				}
-
-				@keyframes loadingShimmer {
-					0% { transform: translate3d(-100%, 0, 0); }
-					100% { transform: translate3d(100%, 0, 0); }
+				@keyframes pulsingAnimation {
+					0% { background-color: var(--d2l-color-sylvite); }
+					50% { background-color: var(--d2l-color-regolith); }
+					100% { background-color: var(--d2l-color-sylvite); }
 				}
-				.d2l-activity-list-item-image-shimmer {
-					background-color: var(--d2l-color-regolith);
-					overflow: hidden;
-					position: relative;
-					height: 100%;
-					width: 100%;
-				}
-				.d2l-activity-list-item-image-shimmer::after {
-					animation: loadingShimmer 1.5s ease-in-out infinite;
-					background: linear-gradient(90deg, rgba(249, 250, 251, 0.1), rgba(114, 119, 122, 0.1), rgba(249, 250, 251, 0.1));
-					background-color: var(--d2l-color-regolith);
-					content: '';
-					height: 100%;
-					left: 0;
-					position: absolute;
-					top: 0;
-					width: 100%;
-				}
-				.d2l-activity-list-item-text-placeholder {
-					background-color: var(--d2l-color-sylvite);
+				.d2l-activity-list-item-pulse-placeholder {
+					animation: pulsingAnimation 1.8s linear infinite;
 					border-radius: 4px;
+					height: 100%;
+					width: 100%;
 				}
 				.d2l-activity-list-item-category-placeholder {
 					display: block;
@@ -233,9 +217,9 @@ class D2lActivityListItem extends mixinBehaviors([
 				</h2>
 				<div class="d2l-activity-list-item-link-container">
 					<div class="d2l-activity-list-item-image">
-						<div class="d2l-activity-list-item-image-shimmer" hidden$="[[!imageShimmer]]"></div>
+						<div class="d2l-activity-list-item-pulse-placeholder" hidden$="[[!imagePlaceholder]]"></div>
 						<d2l-course-image
-							hidden$="[[imageShimmer]]"
+							hidden$="[[imagePlaceholder]]"
 							image="[[_image]]"
 							sizes="[[_tileSizes]]"
 							type="narrow">
@@ -245,7 +229,7 @@ class D2lActivityListItem extends mixinBehaviors([
 					<div class="d2l-activity-list-item-content">
 						<div>
 							<div hidden$="[[!_textPlaceholder]]">
-								<div class="d2l-activity-list-item-text-placeholder d2l-activity-list-item-category-placeholder"></div>
+								<div class="d2l-activity-list-item-pulse-placeholder d2l-activity-list-item-category-placeholder"></div>
 							</div>
 							<div hidden$="[[_textPlaceholder]]">
 								<div class="d2l-activity-list-item-category" hidden$="[[!_category]]">[[_category]]</div>
@@ -254,7 +238,7 @@ class D2lActivityListItem extends mixinBehaviors([
 
 						<div aria-hidden="true">
 							<div hidden$="[[!_textPlaceholder]]">
-								<div class="d2l-activity-list-item-text-placeholder d2l-activity-list-item-title-placeholder"></div>
+								<div class="d2l-activity-list-item-pulse-placeholder d2l-activity-list-item-title-placeholder"></div>
 							</div>
 							<div hidden$="[[_textPlaceholder]]">
 								<h2 class="d2l-activity-list-item-title">
@@ -267,7 +251,7 @@ class D2lActivityListItem extends mixinBehaviors([
 							<div hidden$="[[!_textPlaceholder]]">
 								<template is="dom-repeat" items="[[_descriptionPlaceholderLines]]">
 									<div class="d2l-activity-list-item-description-placeholder-container">
-										<div class="d2l-activity-list-item-text-placeholder d2l-activity-list-item-description-placeholder"></div>
+										<div class="d2l-activity-list-item-pulse-placeholder d2l-activity-list-item-description-placeholder"></div>
 									</div>
 								</template>
 							</div>
@@ -280,7 +264,7 @@ class D2lActivityListItem extends mixinBehaviors([
 							<div hidden$="[[!_textPlaceholder]]">
 								<div class="d2l-activity-list-item-footer-placeholder-container">
 									<template is="dom-repeat" items="[[_footerPlaceholderItems]]">
-										<div class="d2l-activity-list-item-text-placeholder d2l-activity-list-item-footer-placeholder"></div>
+										<div class="d2l-activity-list-item-pulse-placeholder d2l-activity-list-item-footer-placeholder"></div>
 									</template>
 								</div>
 							</div>
@@ -373,7 +357,7 @@ class D2lActivityListItem extends mixinBehaviors([
 				type: Object,
 				value: function() { return {}; }
 			},
-			imageShimmer: {
+			imagePlaceholder: {
 				type: Boolean,
 				value: false
 			},

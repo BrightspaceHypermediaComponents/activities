@@ -47,6 +47,17 @@ class D2lActivityCard extends EntityMixin(PolymerElement) {
 					display: block;
 				}
 
+				@keyframes pulsingAnimation {
+					0% { background-color: var(--d2l-color-sylvite); }
+					50% { background-color: var(--d2l-color-regolith); }
+					100% { background-color: var(--d2l-color-sylvite); }
+				}
+				.d2l-activity-list-item-pulse-placeholder {
+					animation: pulsingAnimation 1.8s linear infinite;
+					border-radius: 4px;
+					height: 100%;
+					width: 100%;
+				}
 				.d2l-activity-card-loading-shimmer {
 					height: 100%;
 					width: 100%;
@@ -58,15 +69,15 @@ class D2lActivityCard extends EntityMixin(PolymerElement) {
 				}
 			</style>
 
-			<d2l-card text="[[_accessibilityText]]" href$="[[_cardHref]]" on-click="_sendClickEvent">
+			<d2l-card text="[[_accessibilityText]]" href$="[[_activityHomepage]]" on-click="_sendClickEvent">
 				<div class="d2l-activity-card-header-container" slot="header">
-					<d2l-card-loading-shimmer class="d2l-activity-card-loading-shimmer" loading="[[_imageLoading]]">
-						<d2l-course-image
-							image="[[_image]]"
-							sizes="[[_tileSizes]]"
-							type="tile">
-						</d2l-course-image>
-					</d2l-card-loading-shimmer>
+					<div class="d2l-activity-list-item-pulse-placeholder" hidden$="[[!_imageLoading]]"></div>
+					<d2l-course-image
+						hidden$="[[_imageLoading]]"
+						image="[[_image]]"
+						sizes="[[_tileSizes]]"
+						type="tile">
+					</d2l-course-image>
 				</div>
 
 				<div class="d2l-activity-card-content-container" slot="content">
@@ -145,11 +156,6 @@ class D2lActivityCard extends EntityMixin(PolymerElement) {
 			sendEventOnClick: {
 				type: Boolean,
 				value: false,
-			},
-			_cardHref: {
-				type: String,
-				value: 'javascript:void(0)',
-				computed: '_cardHrefComputed(sendEventOnClick, _activityHomepage)'
 			}
 		};
 	}
@@ -271,14 +277,11 @@ class D2lActivityCard extends EntityMixin(PolymerElement) {
 	_activityImageLoaded() {
 		this._imageLoading = false;
 	}
-	_cardHrefComputed(sendEventOnClick, activityHomepage) {
-		if (sendEventOnClick) {
-			return 'javascript:void(0)';
-		} else {
-			return activityHomepage;
-		}
-	}
 	_sendClickEvent() {
+		if (!this.sendEventOnClick || !this._activityHomepage) {
+			return;
+		}
+
 		this.dispatchEvent(new CustomEvent('d2l-activity-card-clicked', {
 			detail: {
 				path: this._activityHomepage,

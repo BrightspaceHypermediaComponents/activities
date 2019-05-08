@@ -51,8 +51,8 @@
 			<h3>Basic d2l-activity-list-item demo</h3>
 			<demo-snippet>
 				<template>
-					<d2l-activity-list-item image-shimmer text-placeholder></d2l-activity-list-item>
-					<d2l-activity-list-item href="../data/base/activity.json" id="shimmer-placeholder-test" image-shimmer text-placeholder token="a1"></d2l-activity-list-item>
+					<d2l-activity-list-item image-placeholder text-placeholder></d2l-activity-list-item>
+					<d2l-activity-list-item href="../data/base/activity.json" id="loading-placeholder-test" image-placeholder text-placeholder token="a1"></d2l-activity-list-item>
 					<d2l-activity-list-item href="../data/base/activity.json" token="a1"></d2l-activity-list-item>
 					<d2l-activity-list-item href="../data/base/activity.json" token="a1"></d2l-activity-list-item>
 					<d2l-activity-list-item href="../data/base/activity.json" token="a1"></d2l-activity-list-item>
@@ -73,10 +73,10 @@
 						});
 
 						setTimeout(function() {
-							const shimmerPlaceholderTest = document.querySelector('#shimmer-placeholder-test');
-							if (shimmerPlaceholderTest) {
-								shimmerPlaceholderTest.removeAttribute('image-shimmer');
-								shimmerPlaceholderTest.removeAttribute('text-placeholder');
+							const loadingPlaceholderTest = document.querySelector('#loading-placeholder-test');
+							if (loadingPlaceholderTest) {
+								loadingPlaceholderTest.removeAttribute('image-placeholder');
+								loadingPlaceholderTest.removeAttribute('text-placeholder');
 							}
 						}, 2000);
 					</script>

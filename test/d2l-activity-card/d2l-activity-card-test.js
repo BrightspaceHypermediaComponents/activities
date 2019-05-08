@@ -157,7 +157,8 @@ describe('d2l-activity-card', () => {
 			});
 
 			it('should set card href to activity homepage', () => {
-				expect(component._cardHref).to.equal(testActivityHomepage);
+				const cardElement = component.shadowRoot.querySelector('d2l-card');
+				expect(cardElement.href).to.equal(testActivityHomepage);
 			});
 
 			it('should show course code and semester', () => {
@@ -184,8 +185,9 @@ describe('d2l-activity-card', () => {
 			afterNextRender(component, done);
 		});
 
-		it('should set card href to javascript:void(0)', () => {
-			expect(component._cardHref).to.equal('javascript:void(0)');
+		it('should set card href to activity homepage', () => {
+			const cardElement = component.shadowRoot.querySelector('d2l-card');
+			expect(cardElement.href).to.equal(testActivityHomepage);
 		});
 
 		it('click event fired', (done) => {

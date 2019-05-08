@@ -119,7 +119,7 @@ class D2LQuickEvalActivities extends mixinBehaviors([D2L.PolymerBehaviors.QuickE
 	}
 
 	_toggled(e) {
-		if (e.detail.view === "submissions") {
+		if (e.detail.view === 'submissions') {
 			this._showA = true;
 		} else {
 			this._showA = false;

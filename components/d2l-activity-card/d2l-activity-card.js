@@ -280,6 +280,7 @@ class D2lActivityCard extends EntityMixin(PolymerElement) {
 			bubbles: true,
 			composed: true
 		}));
+		event.preventDefault();
 	}
 	_getOrgUnitId() {
 		if (!this._organizationUrl) {

@@ -27,10 +27,10 @@ import 'd2l-loading-spinner/d2l-loading-spinner.js';
 class D2LQuickEvalActivities extends mixinBehaviors([D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehavior], QuickEvalLocalize(PolymerElement)) {
 	static get template() {
 		const quickEvalActivitiesTemplate = html`
-			<style include="d2l-table-style">
+			<style>
 			</style>
+			<d2l-quick-eval-view-toggle></d2l-quick-eval-view-toggle>
 			<div>
-				<d2l-quick-eval-view-toggle></d2l-quick-eval-view-toggle>
 				<template is="dom-if" if="[[_showA]]">
 					<d2l-test-parent text="A"></d2l-test-parent>
 				</template>

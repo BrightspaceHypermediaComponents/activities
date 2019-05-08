@@ -12,12 +12,19 @@ import './behaviors/d2l-quick-eval-siren-helper-behavior.js';
 class D2LTestParent extends mixinBehaviors([D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehavior], QuickEvalLocalize(PolymerElement)) {
 	static get template() {
 		const parentTemplate = html`
-			<style include="d2l-table-style">
+			<style>
+				.d2l-quick-eval-top-bar {
+					padding-top: 0.25rem;
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-between;
+					align-items: flex-end;
+				}
 			</style>
-			<div>
-				<button>[[text]]</button>
-				<d2l-test-child text="B child"></d2l-test-child>
-				<d2l-test-child text="C child"></d2l-test-child>
+			<button>[[text]]</button>
+			<div class="d2l-quick-eval-top-bar">
+				<d2l-test-child text="[[text]] child 1"></d2l-test-child>
+				<d2l-test-child text="[[text]] child 2"></d2l-test-child>
 			</div>
 		`;
 

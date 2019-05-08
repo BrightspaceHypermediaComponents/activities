@@ -10,16 +10,16 @@ import './behaviors/d2l-quick-eval-siren-helper-behavior.js';
 
 class D2LTestChild extends mixinBehaviors([D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehavior], QuickEvalLocalize(PolymerElement)) {
 	static get template() {
-		const parentTemplate = html`
-			<style include="d2l-table-style">
+		const childTemplate = html`
+			<style>
 			</style>
 			<div>
 				<button>[[text]]</button>
 			</div>
 		`;
 
-		parentTemplate.setAttribute('strip-whitespace', 'strip-whitespace');
-		return parentTemplate;
+		childTemplate.setAttribute('strip-whitespace', 'strip-whitespace');
+		return childTemplate;
 	}
 	static get is() { return 'd2l-test-child'; }
 	static get properties() {

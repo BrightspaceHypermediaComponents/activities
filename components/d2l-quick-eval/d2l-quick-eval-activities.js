@@ -14,6 +14,8 @@ import '../d2l-activity-evaluation-icon/d2l-activity-evaluation-icon-base.js';
 import './d2l-quick-eval-no-submissions-image.js';
 import './d2l-quick-eval-no-criteria-results-image.js';
 import './d2l-quick-eval-skeleton.js';
+import './d2l-quick-eval-view-toggle.js';
+import './d2l-test-parent.js';
 import './behaviors/d2l-quick-eval-siren-helper-behavior.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 
@@ -27,6 +29,15 @@ class D2LQuickEvalActivities extends mixinBehaviors([D2L.PolymerBehaviors.QuickE
 		const quickEvalActivitiesTemplate = html`
 			<style include="d2l-table-style">
 			</style>
+			<div>
+				<d2l-quick-eval-view-toggle></d2l-quick-eval-view-toggle>
+				<template is="dom-if" if="[[_showA]]">
+					<d2l-test-parent text="A"></d2l-test-parent>
+				</template>
+				<template is="dom-if" if="[[!_showA]]">
+					<d2l-test-parent text="B"></d2l-test-parent>
+				</template>
+			</div>
 		`;
 
 		quickEvalActivitiesTemplate.setAttribute('strip-whitespace', 'strip-whitespace');
@@ -47,6 +58,10 @@ class D2LQuickEvalActivities extends mixinBehaviors([D2L.PolymerBehaviors.QuickE
 				}
 			},
 			_loading: {
+				type: Boolean,
+				value: true
+			},
+			_showA: {
 				type: Boolean,
 				value: true
 			}
@@ -71,6 +86,14 @@ class D2LQuickEvalActivities extends mixinBehaviors([D2L.PolymerBehaviors.QuickE
 		this.set('_loading', state);
 	}
 
+	attached()  {
+		this.addEventListener('d2l-quick-eval-view-toggle-changed', this._toggled);
+	}
+
+	detached() {
+		this.removeEventListener('d2l-quick-eval-view-toggle-changed', this._toggled);
+	}
+
 	async _loadData(entity) {
 		if (!entity) {
 			return Promise.resolve();
@@ -92,6 +115,14 @@ class D2LQuickEvalActivities extends mixinBehaviors([D2L.PolymerBehaviors.QuickE
 			return Promise.reject(e);
 		} finally {
 			this._loading = false;
+		}
+	}
+
+	_toggled(e) {
+		if (e.detail.view === "submissions") {
+			this._showA = true;
+		} else {
+			this._showA = false;
 		}
 	}
 

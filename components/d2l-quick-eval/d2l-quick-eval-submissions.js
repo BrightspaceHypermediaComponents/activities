@@ -236,7 +236,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				type: String
 			},
 			_telemetryData: {
-				type: Object
+				type: Object,
+				value: {
+					columnName:'',
+					telemetryEndpoint:'',
+					sortDirection:''
+				}
 			}
 		};
 	}

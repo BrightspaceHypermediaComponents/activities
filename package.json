@@ -65,6 +65,7 @@
 		"d2l-polymer-behaviors": "Brightspace/d2l-polymer-behaviors-ui#semver:^2",
 		"d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
 		"d2l-table": "BrightspaceUI/table#semver:^2",
+		"d2l-telemetry-browser-client": "Brightspace/d2l-telemetry-browser-client#semver:^1",
 		"d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
 		"d2l-typography": "BrightspaceUI/typography#semver:^7",
 		"d2l-users": "BrightspaceHypermediaComponents/users#semver:^2",

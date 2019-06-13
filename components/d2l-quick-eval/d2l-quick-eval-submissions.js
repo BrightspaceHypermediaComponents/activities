@@ -10,11 +10,13 @@ import 'd2l-common/components/d2l-hm-filter/d2l-hm-filter.js';
 import 'd2l-common/components/d2l-hm-search/d2l-hm-search.js';
 import 'd2l-alert/d2l-alert.js';
 import './d2l-quick-eval-search-results-summary-container.js';
+import './behaviors/d2l-quick-eval-telemetry-behavior.js';
 
 class D2LQuickEvalSubmissions extends mixinBehaviors(
 	[
 		D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehavior,
-		D2L.PolymerBehaviors.QuickEval.D2LHMSortBehaviour
+		D2L.PolymerBehaviors.QuickEval.D2LHMSortBehaviour,
+		D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl
 	],
 	QuickEvalLogging(QuickEvalLocalize(PolymerElement))
 ) {
@@ -90,6 +92,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				token="[[token]]"
 				logging-endpoint="[[loggingEndpoint]]"
 				master-teacher="[[masterTeacher]]"
+				data-telemetry-endpoint="[[telemetryEndpoint]]"
 				_data="[[_data]]"
 				_header-columns="[[_headerColumns]]"
 				_loading="[[_loading]]"
@@ -228,6 +231,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			masterTeacher: {
 				type: Boolean,
 				value: false
+			},
+			telemetryEndpoint: {
+				type: String
+			},
+			_telemetryData: {
+				type: Object
 			}
 		};
 	}
@@ -372,7 +381,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 	_handleSortRequested(evt) {
 		let result;
 		const headerId = evt.detail.headerId;
-
+		this._telemetryData.columnName = headerId;
+		this._telemetryData.telemetryEndpoint = this.telemetryEndpoint;
 		this._headerColumns.forEach((headerColumn, i) => {
 			headerColumn.headers.forEach((header, j) => {
 				if ((header.key === headerId) && header.canSort) {
@@ -382,12 +392,15 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 					const customParams = this._numberOfActivitiesToShow > 0 ? { pageSize: this._numberOfActivitiesToShow } : undefined;
 					result = this._applySortAndFetchData(header.sortClass, descending, customParams);
+					this._telemetryData.sortDirection = descending ? 'desc' : 'asc';
 				}
 				else {
 					this.set(`_headerColumns.${i}.headers.${j}.sorted`, false);
 				}
 			});
 		});
+
+		this.logSortEvent(evt.detail.entity, this.telemetryEndpoint);
 
 		if (result) {
 			this._loading = true;

@@ -1,4 +1,3 @@
-import 'd2l-hypermedia-constants/d2l-hypermedia-constants.js';
 import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 window.D2L = window.D2L || {};
 window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
@@ -10,11 +9,11 @@ window.D2L.PolymerBehaviors.QuickEval = window.D2L.PolymerBehaviors.QuickEval ||
  */
 D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 	logSortEvent: function(telemetryData) {
-		if (!telemetryData || !telemetryData.endpoint) {
+		if (!telemetryData || !telemetryData.telemetryEndpoint) {
 			return;
 		}
 
-		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: telemetryData.endpoint });
+		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: telemetryData.telemetryEndpoint });
 		const eventBody = new window.d2lTelemetryBrowserClient.EventBody();
 
 		eventBody.setAction('Sort')
@@ -33,6 +32,5 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 
 /** @polymerBehavior */
 D2L.PolymerBehaviors.QuickEval.TelemetryResultBehavior = [
-	D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl,
-	window.D2L.Hypermedia.HMConstantsBehavior
+	D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl
 ];

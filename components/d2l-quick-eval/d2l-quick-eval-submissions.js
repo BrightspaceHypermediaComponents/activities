@@ -405,7 +405,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			});
 		});
 
-		this.logSortEvent(evt.detail.entity, this.telemetryEndpoint);
+		this.logSortEvent(this._telemetryData);
 
 		if (result) {
 			this._loading = true;

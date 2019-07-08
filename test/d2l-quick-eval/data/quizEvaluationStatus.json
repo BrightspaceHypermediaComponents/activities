@@ -1,0 +1,10 @@
+{
+	"properties":{
+		"assigned": 11,
+		"completed": 12,
+		"published": 13,
+		"evaluated": 14,
+		"unread": 15,
+		"resubmitted": 16
+	}
+}

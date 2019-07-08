@@ -153,11 +153,11 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			const alert = list.shadowRoot.querySelector('#list-alert');
 			assert.equal(true, alert.hasAttribute('hidden'));
 		});
-		test('_fullListLoading and _loading are set to true before data is loaded, and loading-skeleton is present', () => {
+		test('showLoadingSkeleton is set to true, showLoadingSpinner is set to false before data is loaded, and loading-skeleton is present', () => {
 			var loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-skeleton');
 			assert.equal(loadingskeleton.hidden, false);
-			assert.equal(list._fullListLoading, true);
-			assert.equal(list._loading, true);
+			assert.isFalse(list.showLoadingSpinner);
+			assert.isTrue(list.showLoadingSkeleton);
 		});
 		test.skip('_fullListLoading and _loading is set to false after data is loaded and the loading skeleton is hidden', (done) => {
 			var loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-skeleton');
@@ -202,7 +202,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 			assert.equal(noSubmissionComponent, null);
 			assert.equal(noCriteriaResultsComponent, null);
-			assert.equal(list._loading, true);
+			assert.isTrue(list.showLoadingSkeleton);
 		});
 		test.skip('if there is no data in the list, d2l-quick-eval-no-submissions-image is shown', (done) => {
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {

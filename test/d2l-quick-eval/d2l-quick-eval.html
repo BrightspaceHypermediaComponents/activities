@@ -17,13 +17,21 @@
 	<body>
 		<test-fixture id="basic">
 			<template strip-whitespace>
-				<d2l-quick-eval href="data/unassessedActivities.json" token="whatever"></d2l-quick-eval>
+				<d2l-quick-eval 
+					href="data/unassessedActivities.json" 
+					submission-href="data/unassessedActivities.json" 
+					activities-href="data/unassessedActivitiesCollection.json" 
+					token="whatever"></d2l-quick-eval>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="masterTeacher">
 			<template strip-whitespace>
-				<d2l-quick-eval href="data/unassessedActivities.json" token="whatever" master-teacher></d2l-quick-eval>
+				<d2l-quick-eval 
+					href="data/unassessedActivities.json" 
+					submission-href="data/unassessedActivities.json" 
+					token="whatever" 
+					master-teacher></d2l-quick-eval>
 			</template>
 		</test-fixture>
 
@@ -113,6 +121,21 @@
 				});
 				test('_numberOfActivitiesToShow starts with default value of 20', function() {
 					assert.equal(20, quickEval._numberOfActivitiesToShow);
+				});
+				[
+					{ hrefKey: 'href', child: 'd2l-quick-eval-submissions', expected: 'newValue' },
+					{ hrefKey: 'submissionsHref', child: 'd2l-quick-eval-submissions', expected: 'newValue'},
+					{ hrefKey: 'activitiesHref', child: 'd2l-quick-eval-activities', expected: 'newValue'}
+				].forEach(function(testCase) {
+					test(`Setting ${testCase.hrefKey} gets passed to the href for ${testCase.child}`, function() {
+						quickEval.href = '';
+						quickEval.submissionsHref = '';
+						quickEval.activitiesHref = '';
+
+						quickEval[testCase.hrefKey] = testCase.expected;
+						const component = quickEval.shadowRoot.querySelector(testCase.child);
+						assert.equal(testCase.expected, component.href);
+					});
 				});
 				test('when event "d2l-quick-eval-submissions-table-activities-shown-number-updated" fired, result-size attribute updated on d2l-hm-filter and d2l-hm-search', function(done) {
 					const expectedResultSize = 333;

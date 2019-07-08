@@ -2,10 +2,10 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { QuickEvalLogging } from './QuickEvalLogging.js';
 import { QuickEvalLocalize } from './QuickEvalLocalize.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import { Rels } from 'd2l-hypermedia-constants';
 import './behaviors/d2l-quick-eval-siren-helper-behavior.js';
 import './d2l-quick-eval-submissions-table.js';
 import './behaviors/d2l-hm-sort-behaviour.js';
+import './behaviors/d2l-hm-filter-behavior.js';
 import 'd2l-common/components/d2l-hm-filter/d2l-hm-filter.js';
 import 'd2l-common/components/d2l-hm-search/d2l-hm-search.js';
 import 'd2l-alert/d2l-alert.js';
@@ -16,7 +16,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 	[
 		D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehavior,
 		D2L.PolymerBehaviors.QuickEval.D2LHMSortBehaviour,
-		D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl
+		D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl,
+		D2L.PolymerBehaviors.QuickEval.D2LHMFilterBehaviour
 	],
 	QuickEvalLogging(QuickEvalLocalize(PolymerElement))
 ) {
@@ -53,14 +54,10 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			</style>
 			<div class="d2l-quick-eval-submissions-table-modifiers">
 				<d2l-hm-filter
-					href="[[_filterHref]]"
+					href="[[filterHref]]"
 					token="[[token]]"
 					category-whitelist="[[_filterIds]]"
-					result-size="[[_numberOfActivitiesToShow]]"
-					on-d2l-hm-filter-filters-loaded="_filtersLoaded"
-					on-d2l-hm-filter-filters-updating="_filtersUpdating"
-					on-d2l-hm-filter-filters-updated="_filtersChanged"
-					on-d2l-hm-filter-error="_filterError">
+					result-size="[[_numberOfActivitiesToShow]]">
 				</d2l-hm-filter>
 				<d2l-hm-search
 					hidden$="[[!searchEnabled]]"
@@ -75,7 +72,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				</d2l-hm-search>
 			</div>
 			<div class="clear"></div>
-			<d2l-alert type="critical" hidden$="[[!_showFilterError]]" id="d2l-quick-eval-filter-error-alert">
+			<d2l-alert type="critical" hidden$="[[!filterError]]" id="d2l-quick-eval-filter-error-alert">
 				[[localize('failedToFilter')]]
 			</d2l-alert>
 			<d2l-alert type="critical" hidden$="[[!_showSearchError]]" id="d2l-quick-eval-search-error-alert">
@@ -95,8 +92,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				data-telemetry-endpoint="[[telemetryEndpoint]]"
 				_data="[[_data]]"
 				_header-columns="[[_headerColumns]]"
-				_loading="[[_loading]]"
-				_full-list-loading="[[_fullListLoading]]"
+				show-loading-spinner="[[_showLoadingSpinner]]"
+				show-loading-skeleton="[[_showLoadingSkeleton]]"
 				show-load-more="[[_showLoadMore]]"
 				_health="[[_health]]"
 				show-no-submissions="[[_showNoSubmissions]]"
@@ -157,17 +154,9 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				type: Object,
 				computed: '_getSearchAction(entity)'
 			},
-			_filterHref: {
-				type: String,
-				computed: '_getFilterHref(entity)'
-			},
 			_filterIds: {
 				type: Array,
 				computed: '_getFilterIds(masterTeacher)'
-			},
-			_showFilterError: {
-				type: Boolean,
-				value: false
 			},
 			_searchResultsCount: {
 				type: Number,
@@ -190,20 +179,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				type: Boolean,
 				value: false
 			},
-			_loading: {
-				type: Boolean,
-				value: true
-			},
-			_fullListLoading: {
-				type: Boolean,
-				value: true
-			},
 			_pageNextHref: {
 				type: String,
 			},
 			_showLoadMore: {
 				type: Boolean,
-				computed: '_computeShowLoadMore(_pageNextHref, _loading)'
+				computed: '_computeShowLoadMore(_pageNextHref, _showLoadingSpinner, _showLoadingSkeleton)'
 			},
 			_health: {
 				type: Object,
@@ -214,21 +195,25 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			},
 			_showNoSubmissions: {
 				type: Boolean,
-				computed: '_computeShowNoSubmissions(_data, _loading, _health, _filterApplied, _searchApplied)'
+				computed: '_computeShowNoSubmissions(_data, _loading, _loadingMore, _health, _filterApplied, _searchApplied)'
 			},
 			_showNoCriteria: {
 				type: Boolean,
-				computed: '_computeShowNoCriteria(_data, _loading, _health, _filterApplied, _searchApplied)'
-			},
-			_filterApplied: {
-				type: Boolean,
-				value: false
+				computed: '_computeShowNoCriteria(_data, _loading, _loadingMore, _health, _filterApplied, _searchApplied)'
 			},
 			_searchApplied: {
 				type: Boolean,
 				value: false
 			},
 			masterTeacher: {
+				type: Boolean,
+				value: false
+			},
+			_loading: {
+				type: Boolean,
+				value: true
+			},
+			_loadingMore: {
 				type: Boolean,
 				value: false
 			},
@@ -242,6 +227,14 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 					telemetryEndpoint:'',
 					sortDirection:''
 				}
+			},
+			_showLoadingSpinner: {
+				type: Boolean,
+				computed: '_computeShowLoadingSpinner(_loadingMore)'
+			},
+			_showLoadingSkeleton: {
+				type: Boolean,
+				computed: '_computeShowLoadingSkeleton(_loading, filtersLoading)'
 			}
 		};
 	}
@@ -249,7 +242,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 	static get observers() {
 		return [
 			'_loadData(entity)',
-			'_handleSorts(entity)'
+			'_handleSorts(entity)',
+			'_onFilterErrorChange(filterError)'
 		];
 	}
 
@@ -258,12 +252,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			return Promise.resolve();
 		}
 		this._loading = true;
-		this._fullListLoading = true;
 
 		try {
 			if (entity.entities) {
 				const result = await this._parseActivities(entity);
 				this._data = result;
+				this._updateSearchResultsCount(this._data.length);
 			} else {
 				this._data = [];
 				this._pageNextHref = undefined;
@@ -274,14 +268,13 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			this._handleFullLoadFailure();
 			return Promise.reject(e);
 		} finally {
-			this._fullListLoading = false;
 			this._loading = false;
 		}
 	}
 
 	_loadMore() {
-		if (this._pageNextHref && !this._loading) {
-			this._loading = true;
+		if (this._pageNextHref && !this._loadingMore) {
+			this._loadingMore = true;
 			this._followHref(this._pageNextHref)
 				.then(async function(u) {
 					if (u && u.entity) {
@@ -298,7 +291,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 						// Unable to load more activities from entity.
 							throw e;
 						} finally {
-							this._loading = false;
+							this._loadingMore = false;
 							window.requestAnimationFrame(function() {
 								const newElementToFocus = D2L.Dom.Focus.getNextFocusable(lastFocusableTableElement, false);
 								if (newElementToFocus) {
@@ -311,7 +304,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				.then(this._clearAlerts.bind(this))
 				.catch(function(e) {
 					this._logError(e, {developerMessage: 'Unable to load more.'});
-					this._loading = false;
+					this._loadingMore = false;
 					this._handleLoadMoreFailure();
 				}.bind(this));
 		}
@@ -409,40 +402,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 		if (result) {
 			this._loading = true;
-			this._fullListLoading = true;
 			return result.then(sortedCollection => {
 				this.entity = sortedCollection;
 			});
 		} else {
 			return Promise.reject(new Error(`Could not find sortable header for ${headerId}`));
 		}
-	}
-
-	_filtersLoaded(e) {
-		this._filterApplied = e.detail.totalSelectedFilters > 0;
-		this._showFilterError = false;
-	}
-
-	_filtersUpdating() {
-		this._loading = true;
-		this._fullListLoading = true;
-		this._clearErrors();
-	}
-
-	_filtersChanged(e) {
-		this.entity = e.detail.filteredActivities;
-
-		if (this.entity && this.entity.entities) {
-			this._updateSearchResultsCount(this.entity.entities.length);
-		}
-		this._clearErrors();
-	}
-
-	_filterError(e) {
-		this._logError(e.detail.error, { developerMessage: 'Failed to retrieve filter results' });
-		this._loading = false;
-		this._fullListLoading = false;
-		this._showFilterError = true;
 	}
 
 	_getFilterIds(masterTeacher) {
@@ -454,13 +419,10 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		return filters;
 	}
 
-	_getFilterHref(entity) {
-		return this._getHref(entity, Rels.filters);
-	}
-
+	// @override - do not change the name
 	_clearErrors() {
 		this._showSearchError = false;
-		this._showFilterError = false;
+		this.filterError = null;
 	}
 
 	_updateSearchResultsCount(count) {
@@ -475,7 +437,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 	_searchResultsLoading() {
 		this._loading = true;
-		this._fullListLoading = true;
 		this._clearErrors();
 	}
 
@@ -495,7 +456,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 	_searchError(e) {
 		this._logError(e.detail.error, { developerMessage: 'Failed to retrieve search results.' });
 		this._loading = false;
-		this._fullListLoading = false;
 		this._showSearchError = true;
 	}
 
@@ -516,8 +476,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		return this._getAction(entity, 'search');
 	}
 
-	_computeShowLoadMore(_pageNextHref, _loading) {
-		return _pageNextHref && !_loading;
+	_computeShowLoadMore(_pageNextHref, _showLoadingSpinner, _showLoadingSkeleton) {
+		return _pageNextHref && !_showLoadingSpinner && !_showLoadingSkeleton;
 	}
 
 	_clearAlerts() {
@@ -532,19 +492,33 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		this.set('_health', { isHealthy: false, errorMessage: 'failedToLoadData' });
 	}
 
-	_computeShowNoSubmissions(_data, _loading, _health, _filterApplied, _searchApplied) {
-		return !_data.length && !_loading && _health.isHealthy && !(_filterApplied || _searchApplied);
+	_computeShowNoSubmissions(_data, _loading, _loadingMore, _health, _filterApplied, _searchApplied) {
+		return !_data.length && !_loading && !_loadingMore && _health.isHealthy && !(_filterApplied || _searchApplied);
 	}
 
-	_computeShowNoCriteria(_data, _loading, _health, _filterApplied, _searchApplied) {
-		return !_data.length && !_loading && _health.isHealthy && (_filterApplied || _searchApplied);
+	_computeShowNoCriteria(_data, _loading, _loadingMore, _health, _filterApplied, _searchApplied) {
+		return !_data.length && !_loading && !_loadingMore && _health.isHealthy && (_filterApplied || _searchApplied);
+	}
+
+	_onFilterErrorChange(filterError) {
+		if (filterError) {
+			this._logError(filterError.error, { developerMessage: 'Failed to retrieve filter results' });
+		}
+	}
+
+	_computeShowLoadingSpinner(_loadingMore) {
+		return _loadingMore;
+	}
+
+	_computeShowLoadingSkeleton(_loading, filtersLoading) {
+		return _loading || filtersLoading;
 	}
 
 	ready() {
 		super.ready();
 		this.addEventListener('d2l-siren-entity-error', function() {
-			this._fullListLoading = false;
 			this._loading = false;
+			this._loadingMore = false;
 			this._handleFullLoadFailure();
 		}.bind(this));
 	}

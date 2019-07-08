@@ -70,12 +70,95 @@
 					if (list._data.length) {
 						list._data = [];
 					} else {
-						document.querySelector('d2l-quick-eval-activities')._data = [1];
+						document.querySelector('d2l-quick-eval-activities')._data = [
+							{
+								name: 'Org 1',
+								activities: [
+									{
+										courseName: 'Org 1',
+										assigned: 1,
+										completed: 1,
+										published: 1,
+										evaluated: 1,
+										unread: 1,
+										resubmitted: 1,
+										dueDate: '2011-01-01',
+										activityType: 'assignment',
+										activityNameHref: ''
+									},
+									{
+										courseName: 'Org 1',
+										assigned: 1,
+										completed: 1,
+										published: 1,
+										evaluated: 1,
+										unread: 1,
+										resubmitted: 1,
+										dueDate: '2011-01-01',
+										activityType: 'quiz',
+										activityNameHref: ''
+									},
+									{
+										courseName: 'Org 1',
+										assigned: 1,
+										completed: 1,
+										published: 1,
+										evaluated: 1,
+										unread: 1,
+										resubmitted: 1,
+										dueDate: '2011-01-01',
+										activityType: 'discussion',
+										activityNameHref: ''
+									}
+								]
+							},
+							{
+								name: 'Org 2',
+								activities: [
+									{
+										courseName: 'Org 2',
+										assigned: 1,
+										completed: 1,
+										published: 1,
+										evaluated: 1,
+										unread: 1,
+										resubmitted: 1,
+										dueDate: '2011-01-01',
+										activityType: 'discussion',
+										activityNameHref: ''
+									},
+									{
+										courseName: 'Org 2',
+										assigned: 1,
+										completed: 1,
+										published: 1,
+										evaluated: 1,
+										unread: 1,
+										resubmitted: 1,
+										dueDate: '2011-01-01',
+										activityType: 'quiz',
+										activityNameHref: ''
+									},
+									{
+										courseName: 'Org 2',
+										assigned: 1,
+										completed: 1,
+										published: 1,
+										evaluated: 1,
+										unread: 1,
+										resubmitted: 1,
+										dueDate: '2011-01-01',
+										activityType: 'assignment',
+										activityNameHref: ''
+									}
+								]
+							}
+						];
 					}
 				});
 				document.querySelector('input.toggle-search').addEventListener('click', function() {
 					const list = document.querySelector('d2l-quick-eval-activities');
-					list.searchCleared = !list.searchCleared;
+					list.searchApplied = !list.searchApplied;
 				});
 				document.querySelector('input.toggle-filter').addEventListener('click', function() {
 					const list = document.querySelector('d2l-quick-eval-activities');

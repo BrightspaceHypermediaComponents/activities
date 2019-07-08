@@ -7,13 +7,15 @@ const LangDadkImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.dadk = {
-			'activities': 'Activities',
+			'activities': 'Aktiviteter',
 			'activityName': 'Aktivitetsnavn',
+			'assignment': 'Assignment',
 			'caughtUp': 'Du er helt med!',
 			'checkBackOften': 'Kom tilbage med jævne mellemrum for at se nye afleveringer.',
 			'clearSearch': 'Ryd søgning',
 			'completed': 'Completed',
 			'courseName': 'Kursus',
+			'discussion': 'Discussion',
 			'displayName': 'Fornavn, Efternavn',
 			'due': 'Due: {date}',
 			'evaluate': 'Evaluer {displayName}',
@@ -33,6 +35,7 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'noSubmissions': 'Der er ingen afleveringer, der kræver din opmærksomhed.',
 			'publishAll': 'Publish All',
 			'published': 'Published',
+			'quiz': 'Quiz',
 			'search': 'Søg',
 			'searchResultsMore': '{num}+ søgeresultater',
 			'searchResultsMultiple': '{num} søgeresultater',
@@ -40,12 +43,12 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'sortBy': 'Sortér efter {columnName}',
 			'submissionDate': 'Afleveringsdato',
 			'submissionList': 'Submission List',
-			'submissions': 'Submissions',
+			'submissions': 'Afleveringer',
 			'tableTitle': 'Liste over ikke-evaluerede elevafleveringer på tværs af kurser og værktøjer',
 			'tryAgain': 'Prøv igen',
 			'unreadSubmissions': '{num} unread submissions',
 			'unreadSubmissionsDetail': '{unread} new, {resub} resubmissions',
-			'viewBy': 'View by:'
+			'viewBy': 'Vis efter:'
 		};
 	}
 };

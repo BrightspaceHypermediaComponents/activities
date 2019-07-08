@@ -1,0 +1,61 @@
+{
+  "class": ["quiz-activity","activity"],
+  "rel":["https://activities.api.brightspace.com/rels/user-activity-usage"],
+  "links":[
+    {
+      "rel":["https://activities.api.brightspace.com/rels/user-activity-usage"],
+      "href":"data/quizAttemptActivity.json"
+    },
+    {
+      "rel":["https://api.brightspace.com/rels/user"],
+      "href":"data/user.json"
+    },{
+      "rel":["https://api.brightspace.com/rels/organization"],
+      "href":"data/org.json"
+    },{
+      "rel":["https://api.brightspace.com/rels/quiz"],
+      "href":"data/quiz.json"
+    },{
+      "rel":["https://assessments.api.brightspace.com/rels/assessment-application"],
+      "href":"https://www.example.com/",
+      "type":"text/html"
+    }
+  ],
+  "entities":[
+    {
+      "class": [
+          "relative-uri"
+      ],
+      "rel": [
+          "item",
+          "https://assignments.api.brightspace.com/rels/assessment-application"
+      ],
+      "properties": {
+          "path": "/the/best/vanity/url/2"
+      }
+  },
+  {
+    "class": [
+        "completion",
+        "complete"
+    ],
+    "rel": [
+        "item"
+    ],
+    "entities": [
+        {
+            "class": [
+                "date",
+                "completion-date"
+            ],
+            "rel": [
+                "https://api.brightspace.com/rels/date"
+            ],
+            "properties": {
+                "date": "2019-02-22T02:00:00.000Z"
+            }
+        }
+    ]
+  }
+  ]
+}

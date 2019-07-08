@@ -39,8 +39,8 @@ class D2LQuickEval extends PolymerElement {
 				<h1 class="d2l-quick-eval-header" hidden$="[[activitiesViewEnabled]]"">[[headerText]]</h1>
 			</template>
 			<d2l-quick-eval-view-toggle current-selected="submissions" hidden$="[[!activitiesViewEnabled]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
-			<d2l-quick-eval-submissions href="[[href]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[_showActivitiesView]]" master-teacher="[[masterTeacher]]" search-enabled="[[searchEnabled]]"></d2l-quick-eval-submissions>
-			<d2l-quick-eval-activities href="[[href]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
+			<d2l-quick-eval-submissions href="[[_submissionsHref(submissionsHref, href)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[_showActivitiesView]]" master-teacher="[[masterTeacher]]" search-enabled="[[searchEnabled]]"></d2l-quick-eval-submissions>
+			<d2l-quick-eval-activities href="[[activitiesHref]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
 		`;
 	}
 
@@ -74,6 +74,12 @@ class D2LQuickEval extends PolymerElement {
 			href: {
 				type: String
 			},
+			submissionsHref: {
+				type: String
+			},
+			activitiesHref: {
+				type: String
+			},
 			token: {
 				type: Object,
 			}
@@ -88,6 +94,11 @@ class D2LQuickEval extends PolymerElement {
 		} else {
 			this._showActivitiesView = true;
 		}
+	}
+
+	// Temporary until the LMS has been updated to use the new property
+	_submissionsHref() {
+		return this.submissionsHref || this.href;
 	}
 }
 

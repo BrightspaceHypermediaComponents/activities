@@ -83,9 +83,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 					<d2l-tooltip for="d2l-quick-eval-activity-card-submissions" position="bottom">[[_getSubmissionTooltipText()]]</d2l-tooltip>
 					<div class="d2l-quick-eval-activity-card-items-container">
 						<d2l-quick-eval-activity-card-items>
-							<span>[[completed]]/[[total]] [[localize('completed')]]</span>
-							<span>[[evaluated]]/[[total]] [[localize('evaluated')]]</span>
-							<span>[[published]]/[[total]] [[localize('published')]]</span>
+							<span>[[completed]]/[[assigned]] [[localize('completed')]]</span>
+							<span>[[evaluated]]/[[assigned]] [[localize('evaluated')]]</span>
+							<span>[[published]]/[[assigned]] [[localize('published')]]</span>
 						</d2l-quick-eval-activity-card-items>
 						<d2l-quick-eval-activity-card-items visible-on-ancestor>
 							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:quizzing"></d2l-icon>[[localize('evaluateAll')]]</button>
@@ -103,7 +103,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 	}
 	static get properties() {
 		return {
-			total: {
+			assigned: {
 				type: Number,
 				value: 0
 			},

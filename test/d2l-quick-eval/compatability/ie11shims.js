@@ -68,7 +68,9 @@ suite('GetQueryStringParam', () => {
 		{ url: 'https://www.d2l.com/?x=1&y=2', name: 'x', expectedResult: '1' },
 		{ url: 'https://www.d2l.com/?x=1&y=2', name: 'y', expectedResult: '2' },
 		{ url: 'https://www.d2l.com/?x=%3Fencoded%3Dstring%25%26here&y=2', name: 'x', expectedResult: '?encoded=string%&here' },
-		{ url: 'https://www.d2l.com/?%3F%3F=1', name: '??', expectedResult: '1' }
+		{ url: 'https://www.d2l.com/?%3F%3F=1', name: '??', expectedResult: '1' },
+		{ url: 'https://www.d2l.com/?emptyValue=', name: 'emptyValue', expectedResult: '' },
+		{ url: 'https://www.d2l.com/?key+with%2Bplus=value+with%2Bplus', name: 'key with+plus', expectedResult: 'value with+plus' }
 	];
 
 	testCases.forEach(function(testCase) {

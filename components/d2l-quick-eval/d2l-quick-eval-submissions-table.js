@@ -132,7 +132,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				}
 			</style>
 			<d2l-offscreen id="d2l-quick-eval-submissions-table-table-summary">[[localize('tableTitle')]]</d2l-offscreen>
-			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[_fullListLoading]]" aria-describedby$="d2l-quick-eval-submissions-table-table-summary" aria-colcount$="[[_headerColumns.length]]" aria-rowcount$="[[_data.length]]">
+			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="d2l-quick-eval-submissions-table-table-summary" aria-colcount$="[[_headerColumns.length]]" aria-rowcount$="[[_data.length]]">
 				<d2l-thead>
 					<d2l-tr>
 						<dom-repeat items="[[_headerColumns]]" as="headerColumn">
@@ -214,9 +214,9 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 			<d2l-alert id="list-alert" type="critical" hidden$="[[_health.isHealthy]]">
 				[[localize(_health.errorMessage)]]
 			</d2l-alert>
-			<d2l-offscreen role="alert" aria-live="aggressive" hidden$="[[!_loading]]">[[localize('loading')]]</d2l-offscreen>
-			<d2l-quick-eval-skeleton hidden$="[[!_fullListLoading]]"></d2l-quick-eval-skeleton>
-	     	<d2l-loading-spinner size="80" hidden$="[[!_isLoadingMore(_fullListLoading,_loading)]]"></d2l-loading-spinner>
+			<d2l-offscreen role="alert" aria-live="aggressive" hidden$="[[!isLoading]]">[[localize('loading')]]</d2l-offscreen>
+			<d2l-quick-eval-skeleton hidden$="[[!showLoadingSkeleton]]"></d2l-quick-eval-skeleton>
+	     	<d2l-loading-spinner size="80" hidden$="[[!showLoadingSpinner]]"></d2l-loading-spinner>
 
 			<template is="dom-if" if="[[showLoadMore]]">
 				<div class="d2l-quick-eval-submissions-table-load-more-container">
@@ -259,7 +259,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				type: Array,
 				value: [ ]
 			},
-			_fullListLoading: {
+			showLoadingSkeleton: {
 				type: Boolean,
 				value: true
 			},
@@ -270,9 +270,9 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					errorMessage: ''
 				}
 			},
-			_loading: {
+			showLoadingSpinner: {
 				type: Boolean,
-				value: true
+				value: false
 			},
 			showLoadMore: {
 				type: Boolean,
@@ -286,6 +286,10 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				type: Boolean,
 				value: false
 			},
+			isLoading: {
+				type: Boolean,
+				computed: '_computeIsLoading(showLoadingSpinner, showLoadingSkeleton)'
+			}
 		};
 	}
 	static get observers() {
@@ -294,8 +298,8 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 		];
 	}
 
-	_isLoadingMore(fullListLoading, isLoading) {
-		return !fullListLoading && isLoading;
+	_computeIsLoading(showLoadingSpinner, showLoadingSkeleton) {
+		return showLoadingSpinner || showLoadingSkeleton;
 	}
 
 	_handleNameSwap(entry) {

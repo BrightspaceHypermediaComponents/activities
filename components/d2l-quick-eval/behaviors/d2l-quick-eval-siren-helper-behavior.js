@@ -38,6 +38,19 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 			}.bind(this));
 	},
 
+	_getOrgHref: function(entity) {
+		return this._getHref(entity, Rels.organization);
+	},
+
+	_getCourseNamePromise: async function(entity) {
+		return this._followLink(entity, Rels.organization)
+			.then(function(o) {
+				if (o && o.entity && o.entity.properties) {
+					return o.entity.properties.name;
+				}
+			});
+	},
+
 	_getCoursePromise: function(entity, item) {
 		return this._followLink(entity, Rels.organization)
 			.then(function(o) {
@@ -62,6 +75,23 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 		}
 
 		return subEntity.properties.name;
+	},
+
+	_getEvaluationStatusPromise: async function(entity) {
+		return this._followLink(entity, Rels.Activities.evaluationStatus)
+			.then(function(e) {
+				if (e && e.entity && e.entity.properties) {
+					const p = e.entity.properties;
+					return {
+						assigned: p.assigned || 0,
+						completed: p.completed || 0,
+						published: p.published || 0,
+						evaluated: p.evaluated || 0,
+						unread: p.unread || 0,
+						resubmitted: p.resubmitted || 0
+					};
+				}
+			});
 	},
 
 	_getUserPromise: function(entity, item) {
@@ -103,6 +133,25 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 		if (entity.hasLinkByRel(Rels.Activities.userActivityUsage)) {
 			const link = entity.getLinkByRel(Rels.Activities.userActivityUsage);
 			return link.href;
+		}
+		return '';
+	},
+
+	_getActivityType: function(entity) {
+		if (entity) {
+			if (entity.hasClass(Classes.activities.quizActivity)) {
+				return 'quiz';
+			} else if (entity.hasClass(Classes.activities.assignmentActivity)) {
+				return 'assignment';
+			} else if (entity.hasClass(Classes.activities.discussionActivity)) {
+				return 'discussion';
+			}
+		}
+	},
+
+	_getActivityDueDate: function(entity) {
+		if (entity && entity.hasSubEntityByClass('due-date')) {
+			return entity.getSubEntityByClass('due-date').properties.date;
 		}
 		return '';
 	},

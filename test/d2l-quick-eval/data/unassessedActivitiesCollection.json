@@ -1,0 +1,138 @@
+{
+	"actions": [
+		{
+			"name": "search",
+			"href": "components/d2l-activities/test/d2l-quick-eval/data/unassessedActivitiesSelection.json",
+			"method": "GET",
+			"fields": [
+				{
+					"name": "collectionSearch",
+					"type": "search"
+				}
+			]
+		}
+	],
+	"links":[
+		{
+			"rel":["https://api.brightspace.com/rels/filters"],
+			"href":"data/filters.json"
+		},
+		{
+			"rel":["self"],
+			"href":"https://www.example.com/?pageSize=20&filter=96W3siU29ydCI6eyJJ&sort=Y3Rpb24iOjB9"
+		}
+	],
+	"entities":[
+		{
+			"class": ["assignment-activity","activity"],
+			"rel":["https://activities.api.brightspace.com/rels/activity-usage"],
+			"links":[
+				{
+					"rel":["https://activities.api.brightspace.com/rels/activity-usage", "self"],
+					"href":"data/assignmentActivity.json"
+				},{
+					"rel":["https://activities.api.brightspace.com/rels/user-activity-usage", "https://activities.api.brightspace.com/rels/my-activity-usage"],
+					"href":"data/assignmentActivity.json"
+				},{
+					"rel":["https://api.brightspace.com/rels/organization"],
+					"href":"data/org.json"
+				},{
+					"rel":["https://api.brightspace.com/rels/assignment"],
+					"href":"data/assignment.json"
+				},{
+					"rel":["https://activities.api.brightspace.com/rels/evaluation-status"],
+					"href":"data/assignmentEvaluationStatus.json"
+				}
+			],
+			"entities":[
+				{
+					"class": [
+						"date",
+						"due-date"
+					],
+					"rel": [
+						"https://api.brightspace.com/rels/date"
+					],
+					"properties": {
+						"date": "2019-03-03T03:03:03.003Z"
+					}
+				}
+			]
+		},{
+			"class": ["quiz-activity","activity"],
+			"rel":["https://activities.api.brightspace.com/rels/activity-usage"],
+			"links":[
+				{
+					"rel":["https://activities.api.brightspace.com/rels/activity-usage", "self"],
+					"href":"data/quizActivity.json"
+				},
+				{
+					"rel":["https://activities.api.brightspace.com/rels/my-activity-usage", "https://activities.api.brightspace.com/rels/user-activity-usage"],
+					"href":"data/quizActivity.json"
+				},
+				{
+					"rel":["https://activities.api.brightspace.com/rels/evaluation-status"],
+					"href":"data/quizEvaluationStatus.json"
+				},{
+					"rel":["https://api.brightspace.com/rels/organization"],
+					"href":"data/org.json"
+				},{
+					"rel":["https://api.brightspace.com/rels/quiz"],
+					"href":"data/quiz.json"
+				}
+			],
+			"entities":[
+				{
+					"class": [
+						"date",
+						"due-date"
+					],
+					"rel": [
+						"https://api.brightspace.com/rels/date"
+					],
+					"properties": {
+						"date": "2019-02-02T02:02:02.002Z"
+					}
+				}
+			]
+		},{
+			"class": ["discussion-activity","activity"],
+			"rel":["https://activities.api.brightspace.com/rels/user-activity-usage"],
+			"links":[
+				{
+					"rel":["https://activities.api.brightspace.com/rels/activity-usage", "self"],
+					"href":"data/topicActivity.json"
+				},{
+					"rel":["https://activities.api.brightspace.com/rels/user-activity-usage", "https://activities.api.brightspace.com/rels/my-activity-usage"],
+					"href":"data/topicActivity.json"
+				},{
+					"rel":["https://activities.api.brightspace.com/rels/evaluation-status"],
+					"href":"data/topicEvaluationStatus.json"
+				},{
+					"rel":["https://api.brightspace.com/rels/organization"],
+					"href":"data/org.json"
+				},{
+					"rel":["https://discussions.api.brightspace.com/rels/topic"],
+					"href":"data/topic.json"
+				},{
+					"rel":["https://assessments.api.brightspace.com/rels/grade"],
+					"href":"data/discussionGrade.json"
+				}
+			],
+			"entities":[
+				{
+					"class": [
+						"date",
+						"due-date"
+					],
+					"rel": [
+						"https://api.brightspace.com/rels/date"
+					],
+					"properties": {
+						"date": "2019-01-01T01:01:01.001Z"
+					}
+				}
+			]
+		}
+	]
+}

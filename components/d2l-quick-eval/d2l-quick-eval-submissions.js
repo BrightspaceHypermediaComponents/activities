@@ -377,9 +377,11 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 	_handleSortRequested(evt) {
 		let result;
+		let telemetryData;
 		const headerId = evt.detail.headerId;
-		this._telemetryData.columnName = headerId;
-		this._telemetryData.telemetryEndpoint = this.dataTelemetryEndpoint;
+		telemetryData.columnName = headerId;
+		this.logSortEvent(this._telemetryData, this.dataTelemetryEndpoint);
+
 		this._headerColumns.forEach((headerColumn, i) => {
 			headerColumn.headers.forEach((header, j) => {
 				if ((header.key === headerId) && header.canSort) {
@@ -396,8 +398,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				}
 			});
 		});
-
-		this.logSortEvent(this._telemetryData);
 
 		if (result) {
 			this._loading = true;

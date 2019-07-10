@@ -8,12 +8,12 @@ window.D2L.PolymerBehaviors.QuickEval = window.D2L.PolymerBehaviors.QuickEval ||
  * @polymerBehavior
  */
 D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
-	logSortEvent: function(telemetryData) {
-		if (!telemetryData || !telemetryData.telemetryEndpoint) {
+	logSortEvent: function(telemetryData, telemetryEndpoint) {
+		if (!telemetryData || !telemetryEndpoint) {
 			return;
 		}
 
-		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: telemetryData.telemetryEndpoint });
+		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: telemetryEndpoint });
 		const eventBody = new window.d2lTelemetryBrowserClient.EventBody();
 
 		eventBody.setAction('Sort')

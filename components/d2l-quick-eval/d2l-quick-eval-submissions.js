@@ -388,7 +388,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 					this.set(`_headerColumns.${i}.headers.${j}.sorted`, false);
 				}
 			});
-			this.logSortEvent(telemetryData, this.dataTelemetryEndpoint);
+			this.logSortEvent(telemetryData);
 		});
 
 		if (result) {

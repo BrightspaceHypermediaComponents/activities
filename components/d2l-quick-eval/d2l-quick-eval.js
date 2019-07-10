@@ -39,7 +39,7 @@ class D2LQuickEval extends PolymerElement {
 				<h1 class="d2l-quick-eval-header" hidden$="[[activitiesViewEnabled]]"">[[headerText]]</h1>
 			</template>
 			<d2l-quick-eval-view-toggle current-selected="submissions" hidden$="[[!activitiesViewEnabled]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
-			<d2l-quick-eval-submissions href="[[_submissionsHref(submissionsHref, href)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[_showActivitiesView]]" master-teacher="[[masterTeacher]]" search-enabled="[[searchEnabled]]"></d2l-quick-eval-submissions>
+			<d2l-quick-eval-submissions href="[[_submissionsHref(submissionsHref, href)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" data-telemetry-endpoint="[[dataTelemetryEndpoint]]" hidden$="[[_showActivitiesView]]" master-teacher="[[masterTeacher]]" search-enabled="[[searchEnabled]]"></d2l-quick-eval-submissions>
 			<d2l-quick-eval-activities href="[[activitiesHref]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
 		`;
 	}
@@ -69,6 +69,9 @@ class D2LQuickEval extends PolymerElement {
 				reflectToAttribute: true
 			},
 			loggingEndpoint: {
+				type: String
+			},
+			dataTelemetryEndpoint: {
 				type: String
 			},
 			href: {

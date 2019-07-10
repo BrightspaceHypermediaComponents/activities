@@ -89,7 +89,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				token="[[token]]"
 				logging-endpoint="[[loggingEndpoint]]"
 				master-teacher="[[masterTeacher]]"
-				data-telemetry-endpoint="[[telemetryEndpoint]]"
 				_data="[[_data]]"
 				_header-columns="[[_headerColumns]]"
 				show-loading-spinner="[[_showLoadingSpinner]]"
@@ -217,7 +216,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				type: Boolean,
 				value: false
 			},
-			telemetryEndpoint: {
+			dataTelemetryEndpoint: {
 				type: String
 			},
 			_telemetryData: {
@@ -380,7 +379,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		let result;
 		const headerId = evt.detail.headerId;
 		this._telemetryData.columnName = headerId;
-		this._telemetryData.telemetryEndpoint = this.telemetryEndpoint;
+		this._telemetryData.telemetryEndpoint = this.dataTelemetryEndpoint;
 		this._headerColumns.forEach((headerColumn, i) => {
 			headerColumn.headers.forEach((header, j) => {
 				if ((header.key === headerId) && header.canSort) {

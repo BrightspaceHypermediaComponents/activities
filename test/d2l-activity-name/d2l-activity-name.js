@@ -8,6 +8,7 @@
 
 	suite('d2l-activity-name base', function() {
 		setup(function() {
+			window.D2L.Siren.WhitelistBehavior._testMode(true);
 			activityName = fixture('assignment');
 		});
 		test('instantiating the element works', function() {

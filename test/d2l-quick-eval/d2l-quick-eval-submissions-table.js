@@ -144,6 +144,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 
 	suite('d2l-quick-eval-submissions-table', function() {
 		setup(function() {
+			window.D2L.Siren.WhitelistBehavior._testMode(true);
 			list = fixture('basic');
 		});
 		test('instantiating the element works', function() {

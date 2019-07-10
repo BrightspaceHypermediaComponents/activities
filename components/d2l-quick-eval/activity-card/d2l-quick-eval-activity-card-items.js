@@ -23,6 +23,9 @@ class D2LQuickEvalActivityCardItems extends mixinBehaviors([D2L.PolymerBehaviors
 					align-items: center;
 					justify-content: space-around;
 				}
+				::slotted(*:first-child) {
+					border-left-width: 1px;
+				}
 			</style>
 			<div class="d2l-quick-eval-activity-card-items-container">
 				<slot></slot>

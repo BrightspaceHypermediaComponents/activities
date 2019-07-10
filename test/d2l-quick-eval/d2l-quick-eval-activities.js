@@ -50,6 +50,7 @@ suite('d2l-quick-eval-activities', function() {
 	];
 
 	setup(function() {
+		window.D2L.Siren.WhitelistBehavior._testMode(true);
 		act = fixture('basic');
 		noSubmissionComponent = act.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 		noCriteriaResultsComponent = act.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');

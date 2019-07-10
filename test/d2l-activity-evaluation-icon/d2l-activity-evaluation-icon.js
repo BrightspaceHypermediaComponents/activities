@@ -10,6 +10,7 @@
 		var evaluationIcon;
 
 		setup(function() {
+			window.D2L.Siren.WhitelistBehavior._testMode(true);
 			evaluationIcon = fixture('default');
 		});
 

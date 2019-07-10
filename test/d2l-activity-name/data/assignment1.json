@@ -1,6 +1,13 @@
 {
+  "class": ["assignment"],
 	"rel":["https://assignments.api.brightspace.com/rels/assignment"],
 	"properties":{
 		"name":"Folder 1"
-	}
+	},
+  "links":[
+    {
+      "rel":["self"],
+      "href":"data/assignment1.json"
+    }
+  ]
 }

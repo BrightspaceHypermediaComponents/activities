@@ -110,11 +110,11 @@ suite('d2l-quick-eval-activities-list', function() {
 	test('data displays correctly', function(done) {
 		list.courses = expectedCourses;
 		window.requestAnimationFrame(function() {
-			const elements = list.shadowRoot.querySelectorAll('h3, d2l-quick-eval-activity-card');
+			const elements = list.shadowRoot.querySelectorAll('h2, d2l-quick-eval-activity-card');
 			let element = 0;
 			for (let i = 0; i < expectedCourses.length; i++) {
 				const c = expectedCourses[i];
-				assert.equal(elements[element].tagName.toLowerCase(), 'h3');
+				assert.equal(elements[element].tagName.toLowerCase(), 'h2');
 				assert.equal(elements[element].innerHTML, c.name);
 				element++;
 				for (let j = 0; j < c.activities.length; j++) {

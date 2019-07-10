@@ -1,5 +1,13 @@
 {
+  "class": ["topic", "html"],
+  "rel":["https://assignments.api.brightspace.com/rels/topic"],
 	"properties":{
 		"name":"Topic 1"
-	}
+	},
+  "links":[
+    {
+      "rel":["self"],
+      "href":"data/topic1.json"
+    }
+  ]
 }

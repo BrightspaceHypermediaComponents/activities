@@ -5,6 +5,7 @@ suite('d2l-quick-eval-submissions', function() {
 	let submissions;
 
 	setup(function() {
+		window.D2L.Siren.WhitelistBehavior._testMode(true);
 		submissions = fixture('basic');
 	});
 

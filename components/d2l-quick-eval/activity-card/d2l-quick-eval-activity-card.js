@@ -4,9 +4,9 @@ import '../../d2l-activity-name/d2l-activity-name.js';
 import 'd2l-colors/d2l-colors.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier3-icons.js';
-import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-visible-on-ancestor-behavior.js';
 import './d2l-quick-eval-activity-card-items.js';
+import './d2l-quick-eval-activity-card-unread-submissions.js';
 
 class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 	static get is() { return 'd2l-quick-eval-activity-card'; }
@@ -25,14 +25,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 					border-color: var(--d2l-color-celestine-plus-1);
 					outline: none;
 				}
-				#d2l-quick-eval-activity-card-submissions {
-					border-right: 1px solid var(--d2l-color-tungsten);
+				d2l-quick-eval-activity-card-unread-submissions {
 					width: 7.5rem;
 					height: 3rem;
-					text-align: center;
-					display: flex;
-					align-items: center;
-					justify-content: space-around;
 				}
 				button.d2l-quick-eval-activity-card-item {
 					width: 7.55rem;
@@ -72,6 +67,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				circle {
 					stroke: var(--d2l-color-tungsten);
 				}
+				[hidden] {
+					display: none;
+				}
 			</style>
 			<div class="d2l-quick-eval-card d2l-visible-on-ancestor-target" on-click="_clicked" tabindex="-1">
 				<div>
@@ -79,8 +77,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 					<div>[[activityType]] &bull; [[localize('due', 'date', dueDate)]]</div>
 				</div>
 				<div class="d2l-quick-eval-card-right">
-					<div id="d2l-quick-eval-activity-card-submissions">[[_getNewSubmissionsText()]]</div>
-					<d2l-tooltip for="d2l-quick-eval-activity-card-submissions" position="bottom">[[_getSubmissionTooltipText()]]</d2l-tooltip>
+					<d2l-quick-eval-activity-card-unread-submissions unread="[[unread]]" resubmitted="[[resubmitted]]" hidden$="[[!_showUnreadSubmissions(unread, resubmitted)]]"></d2l-quick-eval-activity-card-unread-submissions>
 					<div class="d2l-quick-eval-activity-card-items-container">
 						<d2l-quick-eval-activity-card-items>
 							<span>[[completed]]/[[assigned]] [[localize('completed')]]</span>
@@ -88,9 +85,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 							<span>[[published]]/[[assigned]] [[localize('published')]]</span>
 						</d2l-quick-eval-activity-card-items>
 						<d2l-quick-eval-activity-card-items visible-on-ancestor>
-							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:quizzing"></d2l-icon>[[localize('evaluateAll')]]</button>
-							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:preview"></d2l-icon>[[localize('submissionList')]]</button>
-							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:grade"></d2l-icon>[[localize('publishAll')]]</button>
+							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:evaluate-all"></d2l-icon>[[localize('evaluateAll')]]</button>
+							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:view-submission-list"></d2l-icon>[[localize('submissionList')]]</button>
+							<button class="d2l-quick-eval-activity-card-item"><d2l-icon icon="d2l-tier3:publish-all"></d2l-icon>[[localize('publishAll')]]</button>
 						</d2l-quick-eval-activity-card-items>
 					</div>
 					<svg width=".7rem" height="1.4rem">
@@ -157,12 +154,8 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 		this._focused = !this._focused;
 	}
 
-	_getNewSubmissionsText() {
-		return this.localize('unreadSubmissions', 'num', this.unread + this.resubmitted);
-	}
-
-	_getSubmissionTooltipText() {
-		return this.localize('unreadSubmissionsDetail', 'unread', this.unread, 'resub', this.resubmitted);
+	_showUnreadSubmissions(unread, resubmitted) {
+		return (unread > 0) || (resubmitted > 0);
 	}
 }
 

@@ -6,26 +6,41 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 	static get is() { return 'd2l-quick-eval-activities-list'; }
 	static get template() {
 		return html`
+		<style>
+			.d2l-quick-eval-activities-list-remove-ul-styling {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+		<ul class="d2l-quick-eval-activities-list-remove-ul-styling">
 			<dom-repeat items="[[courses]]" as="c">
 				<template>
-					<h3>[[c.name]]</h3>
-					<dom-repeat items="[[c.activities]]" as="a">
-						<template>
-							<d2l-quick-eval-activity-card
-							assigned="[[a.assigned]]"
-							completed="[[a.completed]]"
-							published="[[a.published]]"
-							evaluated="[[a.evaluated]]"
-							unread="[[a.unread]]"
-							resubmitted="[[a.resubmitted]]"
-							due-date="[[a.dueDate]]"
-							activity-type="[[localize(a.activityType)]]"
-							activity-name-href="[[a.activityNameHref]]"
-							token="[[token]]"></d2l-quick-eval-activity-card>
-						</template>
-					</dom-repeat>
+					<li>
+						<h2>[[c.name]]</h2>
+						<ul class="d2l-quick-eval-activities-list-remove-ul-styling">
+							<dom-repeat items="[[c.activities]]" as="a">
+								<template>
+									<li>
+										<d2l-quick-eval-activity-card
+										assigned="[[a.assigned]]"
+										completed="[[a.completed]]"
+										published="[[a.published]]"
+										evaluated="[[a.evaluated]]"
+										unread="[[a.unread]]"
+										resubmitted="[[a.resubmitted]]"
+										due-date="[[a.dueDate]]"
+										activity-type="[[localize(a.activityType)]]"
+										activity-name-href="[[a.activityNameHref]]"
+										token="[[token]]"></d2l-quick-eval-activity-card>
+									</li>
+								</template>
+							</dom-repeat>
+						</ul>
+					</li>
 				</template>
 			</dom-repeat>
+		</ul>
 		`;
 	}
 	static get properties() {

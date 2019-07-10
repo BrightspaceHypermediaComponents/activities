@@ -1,5 +1,13 @@
 {
+  "class": ["quiz"],
+  "rel":["https://assignments.api.brightspace.com/rels/quiz"],
 	"properties":{
 		"name":"Quiz 1"
-	}
+	},
+  "links":[
+    {
+      "rel":["self"],
+      "href":"data/quizAttempt1.json"
+    }
+  ]
 }

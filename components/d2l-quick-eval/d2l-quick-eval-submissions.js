@@ -369,7 +369,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 	_handleSortRequested(evt) {
 		let result;
-		let telemetryData;
+		const telemetryData = {};
 		const headerId = evt.detail.headerId;
 		telemetryData.columnName = headerId;
 

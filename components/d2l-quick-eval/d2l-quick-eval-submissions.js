@@ -219,14 +219,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			dataTelemetryEndpoint: {
 				type: String
 			},
-			_telemetryData: {
-				type: Object,
-				value: {
-					columnName:'',
-					telemetryEndpoint:'',
-					sortDirection:''
-				}
-			},
 			_showLoadingSpinner: {
 				type: Boolean,
 				computed: '_computeShowLoadingSpinner(_loadingMore)'
@@ -390,13 +382,13 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 					const customParams = this._numberOfActivitiesToShow > 0 ? { pageSize: this._numberOfActivitiesToShow } : undefined;
 					result = this._applySortAndFetchData(header.sortClass, descending, customParams);
-					this._telemetryData.sortDirection = descending ? 'desc' : 'asc';
+					telemetryData.sortDirection = descending ? 'desc' : 'asc';
 				}
 				else {
 					this.set(`_headerColumns.${i}.headers.${j}.sorted`, false);
 				}
 			});
-			this.logSortEvent(this._telemetryData, this.dataTelemetryEndpoint);
+			this.logSortEvent(telemetryData, this.dataTelemetryEndpoint);
 		});
 
 		if (result) {

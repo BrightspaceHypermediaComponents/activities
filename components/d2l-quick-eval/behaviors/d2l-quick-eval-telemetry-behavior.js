@@ -9,17 +9,17 @@ window.D2L.PolymerBehaviors.QuickEval = window.D2L.PolymerBehaviors.QuickEval ||
  */
 D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 	properties: {
-		telemetryEndpoint: {
+		dataTelemetryEndpoint: {
 			type: String
 		}
 	},
 
 	logSortEvent: function(telemetryData) {
-		if (!telemetryData || !this.telemetryEndpoint) {
+		if (!telemetryData || !this.dataTelemetryEndpoint) {
 			return;
 		}
 
-		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: this.telemetryEndpoint });
+		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: this.dataTelemetryEndpoint });
 		const eventBody = new window.d2lTelemetryBrowserClient.EventBody();
 
 		eventBody.setAction('Sort')

@@ -383,12 +383,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 					const customParams = this._numberOfActivitiesToShow > 0 ? { pageSize: this._numberOfActivitiesToShow } : undefined;
 					result = this._applySortAndFetchData(header.sortClass, descending, customParams);
 					telemetryData.sortDirection = descending ? 'desc' : 'asc';
+					this.logSortEvent(telemetryData);
 				}
 				else {
 					this.set(`_headerColumns.${i}.headers.${j}.sorted`, false);
 				}
 			});
-			this.logSortEvent(telemetryData);
 		});
 
 		if (result) {

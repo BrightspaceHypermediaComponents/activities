@@ -46,6 +46,7 @@
 	},
 	"main": "d2l-activities.js",
 	"dependencies": {
+		"11": "0.0.1",
 		"@polymer/iron-resizable-behavior": "^3.0.0",
 		"@polymer/polymer": "^3.0.0",
 		"d2l-alert": "BrightspaceUI/alert#semver:^4",

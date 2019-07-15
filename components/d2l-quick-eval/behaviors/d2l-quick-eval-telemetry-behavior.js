@@ -13,26 +13,34 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 			type: String
 		}
 	},
+	eventType: 'TelemetryEvent',
+	sourceId: 'quick-eval',
 
 	logSortEvent: function(telemetryData) {
-		if (!telemetryData || !this.dataTelemetryEndpoint) {
-			return;
-		}
-
-		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: this.dataTelemetryEndpoint });
 		const eventBody = new window.d2lTelemetryBrowserClient.EventBody();
 
 		eventBody.setAction('Sort')
 			.addCustom('columnName', telemetryData.columnName || 'unknown')
 			.addCustom('sortDirection', telemetryData.sortDirection || 'unknown');
+		this._logEvent(eventBody);
+		return eventBody;
+	},
+
+	_logEvent: function(eventBody) {
+		if (!eventBody || !this.dataTelemetryEndpoint) {
+			return;
+		}
+
+		const client = new window.d2lTelemetryBrowserClient.Client({ endpoint: this.dataTelemetryEndpoint });
 
 		const event = new window.d2lTelemetryBrowserClient.TelemetryEvent()
 			.setDate(new Date())
-			.setType('TelemetryEvent')
-			.setSourceId('quick-eval')
+			.setType(this.eventType)
+			.setSourceId(this.sourceId)
 			.setBody(eventBody);
 
 		client.logUserEvent(event);
+		return event;
 	}
 };
 

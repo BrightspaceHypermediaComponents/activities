@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-telemetry-behavior tests</title>
+		<script src="../../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script src="../../../../wct-browser-legacy/browser.js"></script>
+
+		<!-- For IE11 -->
+		<script src="../../../../lie/dist/lie.polyfill.min.js"></script>
+		<script type="module" src="../../../../whatwg-fetch/fetch.js"></script>
+		<script type="module" src="../../../../url-polyfill/url-polyfill.js"></script>
+		<script type="module" src="./d2l-quick-eval-telemetry-behavior-test-component.js"></script>
+	</head>
+	<body>
+		<test-fixture id="basic">
+			<template strip-whitespace>
+				<d2l-quick-eval-telemetry-behavior-test-component></d2l-quick-eval-telemetry-behavior-test-component>
+			</template>
+		</test-fixture>
+
+		<script type="module" src="./d2l-quick-eval-telemetry-behavior.js"></script>
+	</body>
+</html>

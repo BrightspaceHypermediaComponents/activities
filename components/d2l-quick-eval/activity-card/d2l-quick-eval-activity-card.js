@@ -74,7 +74,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 			<div class="d2l-quick-eval-card d2l-visible-on-ancestor-target" on-click="_clicked" tabindex="-1">
 				<div>
 					<d2l-activity-name href="[[activityNameHref]]" token="[[token]]"></d2l-activity-name>
-					<div>[[activityType]] &bull; [[localize('due', 'date', dueDate)]]</div>
+					<span>[[activityType]]</span> <span hidden$="[[!dueDate]]"> &bull; [[localize('due', 'date', dueDate)]]</span>
 				</div>
 				<div class="d2l-quick-eval-card-right">
 					<d2l-quick-eval-activity-card-unread-submissions unread="[[unread]]" resubmitted="[[resubmitted]]" hidden$="[[!_showUnreadSubmissions(unread, resubmitted)]]"></d2l-quick-eval-activity-card-unread-submissions>

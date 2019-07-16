@@ -39,7 +39,10 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 			.setSourceId(this.sourceId)
 			.setBody(eventBody);
 
-		client.logUserEvent(event);
+		if (this.dataTelemetryEndpoint !== 'testEndpoint') {
+			client.logUserEvent(event);
+		}
+
 		return event;
 	}
 };

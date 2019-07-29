@@ -238,7 +238,6 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 	}
 
 	_navigateSubmissionList(evt) {
-		console.log(JSON.stringify(evt));
 		if (evt.detail.submissionListHref) {
 			this._setWindowLocationHref(evt.detail.submissionListHref);
 		}

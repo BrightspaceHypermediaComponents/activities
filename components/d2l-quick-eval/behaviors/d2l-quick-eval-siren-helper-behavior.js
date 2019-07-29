@@ -82,8 +82,9 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 			.then(function(e) {
 				if (e && e.entity && e.entity.properties) {
 					const p = e.entity.properties;
+					const empty = [];
 					const publishAll = this._getAction(e.entity, 'publish-all-feedback');
-					const submissionListHref = this._getRelativeUriProperty(entity);
+					const submissionListHref = this._getRelativeUriProperty(e.entity, empty);
 
 					return {
 						assigned: p.assigned || 0,

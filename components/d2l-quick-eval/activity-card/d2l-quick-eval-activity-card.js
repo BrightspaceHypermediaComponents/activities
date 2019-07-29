@@ -217,11 +217,11 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 										<d2l-icon icon="d2l-tier3:evaluate-all"></d2l-icon>[[localize('evaluateAll')]]
 									</button>
 								</div>
-								<div>
-									<button class="d2l-quick-eval-activity-card-item">
-										<d2l-icon icon="d2l-tier3:view-submission-list"></d2l-icon>[[localize('submissionList')]]
-									</button>
-								</div>
+                                <div>
+                                    <button class="d2l-quick-eval-activity-card-item" on-click="_navigateToSubmissionListPath">
+                                        <d2l-icon icon="d2l-tier3:view-submission-list"></d2l-icon>[[localize('submissionList')]]
+                                    </button>
+                                </div>
 								<div>
 									<button class="d2l-quick-eval-activity-card-item" on-click="_dispatchPublishAllEvent">
 										<d2l-icon icon="d2l-tier3:publish-all"></d2l-icon>[[localize('publishAll')]]
@@ -277,6 +277,10 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 			publishAll: {
 				type: Object
 			},
+			submissionListHref: {
+				type: String,
+				value: ''
+			},
 			activityNameHref: {
 				type: String,
 				value: ''
@@ -296,6 +300,21 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 		super.ready();
 		window.addEventListener('resize', this._onWindowResize.bind(this));
 		this._onWindowResize();
+	}
+
+	_navigateToSubmissionListPath() {
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-quick-eval-activity-view-submissionlist',
+				{
+					detail: {
+						submissionListHref: this.submissionListHref
+					},
+					composed: true,
+					bubbles: true
+				}
+			)
+		);
 	}
 
 	_dispatchPublishAllEvent() {

@@ -9,6 +9,15 @@
 			assert.equal(qeActivityCard.tagName.toLowerCase(), 'd2l-quick-eval-activity-card');
 		});
 
+		test('allsubmissions event fires with submissionListHref', function(done) {
+			qeActivityCard.addEventListener('d2l-quick-eval-activity-view-submissionlist', function(e) {
+				assert.equal(e.detail.submissionListHref, '');
+				done();
+			});
+
+			qeActivityCard._navigateToSubmissionListPath();
+		});
+
 		test('_denominatorOver99 works', function() {
 			assert.isFalse(qeActivityCard._denominatorOver99(50));
 			assert.isFalse(qeActivityCard._denominatorOver99(99));

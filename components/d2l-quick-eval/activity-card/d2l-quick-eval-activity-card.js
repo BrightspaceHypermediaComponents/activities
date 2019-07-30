@@ -305,7 +305,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 	_navigateToSubmissionListPath() {
 		this.dispatchEvent(
 			new CustomEvent(
-				'd2l-quick-eval-activity-view-submissionlist',
+				'd2l-quick-eval-activity-view-submission-list',
 				{
 					detail: {
 						submissionListHref: this.submissionListHref

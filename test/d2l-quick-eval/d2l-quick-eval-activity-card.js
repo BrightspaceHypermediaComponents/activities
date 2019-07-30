@@ -10,7 +10,7 @@
 		});
 
 		test('allsubmissions event fires with submissionListHref', function(done) {
-			qeActivityCard.addEventListener('d2l-quick-eval-activity-view-submissionlist', function(e) {
+			qeActivityCard.addEventListener('d2l-quick-eval-activity-view-submission-list', function(e) {
 				assert.equal(e.detail.submissionListHref, '');
 				done();
 			});

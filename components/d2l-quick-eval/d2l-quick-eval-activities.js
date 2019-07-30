@@ -115,7 +115,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				courses="[[_data]]"
 				token="[[token]]"
 				on-d2l-quick-eval-activity-publish-all="_publishAll"
-				on-d2l-quick-eval-activity-view-submissionlist="_navigateSubmissionList"
+				on-d2l-quick-eval-activity-view-submission-list="_navigateSubmissionList"
 				>
 			</d2l-quick-eval-activities-list>
 		`;

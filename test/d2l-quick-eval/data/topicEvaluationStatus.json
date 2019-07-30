@@ -10,9 +10,9 @@
 		"completed": 2,
 		"published": 3,
 		"evaluated": 4,
-		"unread": 5,
-		"resubmitted": 6,
-		"publishAll": { 
+		"newsubmissions": 5,
+		"resubmissions": 6,
+		"publishAll": {
 			"name": "publish-all-feedback",
 			"href": "topic/publish-all-feedback"
 		}

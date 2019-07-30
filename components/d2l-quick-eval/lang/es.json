@@ -38,7 +38,11 @@
    "submissions" : "Materiales enviados",
    "tableTitle" : "Lista de envíos no evaluados del estudiante de todos los cursos y herramientas",
    "tryAgain" : "Volver a intentarlo",
-   "unreadSubmissions" : "{num} materiales enviados no leídos",
-   "unreadSubmissionsDetail" : "{unread} nuevos, {resub} materiales enviados nuevamente",
+   "newSubmissions" : "new submissions",
+   "newSubmissionDetails" : "{newNum} new, {resub} resubmissions",
+   "newPosts" : "new posts",
+   "newPostDetails" : "{newNum} new, {resub} reposts",
+   "newAttempts" : "new attempts",
+   "newAttemptsDetails" : "{newNum} new",
    "viewBy" : "Ver por:"
 }

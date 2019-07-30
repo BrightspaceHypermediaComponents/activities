@@ -46,8 +46,12 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'submissions': 'Envios',
 			'tableTitle': 'Lista de envios de alunos não avaliados de todos os cursos e ferramentas',
 			'tryAgain': 'Tentar novamente',
-			'unreadSubmissions': '{num} envios não lidos',
-			'unreadSubmissionsDetail': '{unread} novos, {resub} reenvios',
+			'newSubmissions': 'New Submissions',
+			'newSubmissionDetails': '{newNum} new, {resub} resubmissions',
+			'newPosts': 'New Posts',
+			'newPostDetails': '{newNum} new, {resub} reposts',
+			'newAttempts': 'New Attempts',
+			'newAttemptsDetails': '{newNum} new',
 			'viewBy': 'Exibir por:'
 		};
 	}

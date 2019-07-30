@@ -38,7 +38,11 @@
   "submissions": "Submissions",
   "tableTitle": "List of unevaluated Learner submissions from across courses and tools",
   "tryAgain": "Try Again",
-  "unreadSubmissions": "{num} unread submissions",
-  "unreadSubmissionsDetail": "{unread} new, {resub} resubmissions",
+  "newSubmissions": "new submissions",
+  "newSubmissionDetails": "{newNum} new, {resub} resubmissions",
+  "newPosts": "new posts",
+  "newPostDetails": "{newNum} new, {resub} reposts",
+  "newAttempts": "new attempts",
+  "newAttemptsDetails": "{newNum} new",
   "viewBy": "View by:"
 }

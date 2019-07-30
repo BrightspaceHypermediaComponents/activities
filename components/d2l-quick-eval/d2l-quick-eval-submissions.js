@@ -46,6 +46,9 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				.d2l-quick-eval-submissions-table-modifiers {
 					float: right;
 				}
+				:host(:dir(rtl)) .d2l-quick-eval-submissions-table-modifiers {
+					float: left;
+				}
 				.clear {
 					clear: both;
 				}

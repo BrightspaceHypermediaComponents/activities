@@ -10,9 +10,9 @@
 		"completed": 12,
 		"published": 13,
 		"evaluated": 14,
-		"unread": 15,
-		"resubmitted": 16,
-		"publishAll": { 
+		"newsubmissions": 15,
+		"resubmissions": 16,
+		"publishAll": {
 			"name": "publish-all-feedback",
 			"href": "quiz/publish-all-feedback"
 		}

@@ -13,22 +13,25 @@ class D2LQuickEvalViewToggle extends QuickEvalLocalize(PolymerElement) {
 		const toggleTemplate = html`
 			<style>
 				:host button.d2l-quick-eval-view-toggle-left,
-				:host(:dir(rtl)) :host button.d2l-quick-eval-view-toggle-right {
-					border-top-left-radius: 0.3em;
-					border-bottom-left-radius: 0.3em;
+				:host(:dir(rtl)) button.d2l-quick-eval-view-toggle-right {
+					border-top-left-radius: 0.3rem;
+					border-bottom-left-radius: 0.3rem;
 					border-right-color: transparent;
+					border-top-right-radius: 0rem;
+					border-bottom-right-radius: 0;
+					border-left-color: var(--d2l-color-mica);
 				}
 				:host button.d2l-quick-eval-view-toggle-left {
-					margin-left: 0.9rem;
-				}
-				:host(:dir(rtl)) button.d2l-quick-eval-view-toggle-left {
-					margin-right: 0.9rem;
+					margin-inline-start: 0.9rem;
 				}
 				:host button.d2l-quick-eval-view-toggle-right,
-				:host(:dir(rtl)) :host button.d2l-quick-eval-view-toggle-left {
-					border-top-right-radius: 0.3em;
-					border-bottom-right-radius: 0.3em;
+				:host(:dir(rtl)) button.d2l-quick-eval-view-toggle-left {
+					border-top-right-radius: 0.3rem;
+					border-bottom-right-radius: 0.3rem;
 					border-left-color: transparent;
+					border-top-left-radius: 0rem;
+					border-bottom-left-radius: 0rem;
+					border-right-color: var(--d2l-color-mica);
 				}
 				:host button {
 					background-color: var(--d2l-color-sylvite);
@@ -56,28 +59,28 @@ class D2LQuickEvalViewToggle extends QuickEvalLocalize(PolymerElement) {
 					-moz-user-select: none;
 					-ms-user-select: none;
 				}
-				:host button:hover {
+				:host button:hover, :host button:focus {
 					border: 1px solid var(--d2l-color-celestine) !important;
 				}
-				:host button[selected] {
+				:host button.d2l-quick-eval-view-toggle-left[selected], :host button.d2l-quick-eval-view-toggle-right[selected] {
 					background-color: var(--d2l-color-tungsten);
 					border-color: var(--d2l-color-tungsten);
 					color: var(--d2l-color-white);
 				}
 			</style>
 			<div>
-				<label id="d2l-quick-eval-view-toggle-label">[[localize('viewBy')]]</label>
+				<label>[[localize('viewBy')]]</label>
 				<button
+					aria-pressed$="[[_isSelected(_viewTypes.submissions, currentSelected)]]"
 					class="d2l-quick-eval-view-toggle-left"
 					on-click="_selectSubmissions"
 					selected$="[[_isSelected(_viewTypes.submissions, currentSelected)]]"
-					aria-labelledby="d2l-quick-eval-view-toggle-label"
 				>[[localize('submissions')]]</button>
 				<button
+					aria-pressed$="[[_isSelected(_viewTypes.activities, currentSelected)]]"
 					class="d2l-quick-eval-view-toggle-right"
 					on-click="_selectActivities"
 					selected$="[[_isSelected(_viewTypes.activities, currentSelected)]]"
-					aria-labelledby="d2l-quick-eval-view-toggle-label"
 				>[[localize('activities')]]</button>
 			<div>
 		`;

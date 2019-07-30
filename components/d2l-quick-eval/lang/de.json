@@ -38,7 +38,11 @@
    "submissions" : "Abgaben",
    "tableTitle" : "Liste nicht bewerteter Abgaben von Lernern in allen Kursen und Tools",
    "tryAgain" : "Erneut versuchen",
-   "unreadSubmissions" : "{num} ungelesene Abgaben",
-   "unreadSubmissionsDetail" : "{unread} neue, {resub} erneute Abgaben",
+   "newSubmissions" : "new submissions",
+   "newSubmissionDetails" : "{newNum} new, {resub} resubmissions",
+   "newPosts" : "new posts",
+   "newPostDetails" : "{newNum} new, {resub} reposts",
+   "newAttempts" : "new attempts",
+   "newAttemptsDetails" : "{newNum} new",
    "viewBy" : "Anzeigen nach:"
 }

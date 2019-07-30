@@ -46,8 +46,12 @@ const LangArImpl = (superClass) => class extends superClass {
 			'submissions': 'الإرسالات',
 			'tableTitle': 'قائمة بعمليات إرسال المتعلّم غير المقيّمة من المقررات التعليمية والأدوات',
 			'tryAgain': 'المحاولة مرة أخرى',
-			'unreadSubmissions': '{num} من الإرسالات غير المقروءة',
-			'unreadSubmissionsDetail': '{unread} من الإرسالات الجديدة، {resub} من عمليات إعادة الإرسال',
+			'newSubmissions': 'New Submissions',
+			'newSubmissionDetails': '{newNum} new, {resub} resubmissions',
+			'newPosts': 'New Posts',
+			'newPostDetails': '{newNum} new, {resub} reposts',
+			'newAttempts': 'New Attempts',
+			'newAttemptsDetails': '{newNum} new',
 			'viewBy': 'عرض حسب:'
 		};
 	}

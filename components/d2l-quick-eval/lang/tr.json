@@ -38,7 +38,11 @@
    "submissions" : "Gönderimler",
    "tableTitle" : "Dersler ve araçlar genelinde değerlendirilmemiş Öğrenci gönderilerinin listesi",
    "tryAgain" : "Tekrar Dene",
-   "unreadSubmissions" : "{num} okunmamış gönderim",
-   "unreadSubmissionsDetail" : "{unread} yeni, {resub} yeniden gönderim",
+   "newSubmissions" : "new submissions",
+   "newSubmissionDetails" : "{newNum} new, {resub} resubmissions",
+   "newPosts" : "new posts",
+   "newPostDetails" : "{newNum} new, {resub} reposts",
+   "newAttempts" : "new attempts",
+   "newAttemptsDetails" : "{newNum} new",
    "viewBy" : "Görüntüleme ölçütü:"
 }

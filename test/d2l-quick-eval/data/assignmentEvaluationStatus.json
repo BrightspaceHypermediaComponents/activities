@@ -10,8 +10,8 @@
 		"completed": 22,
 		"published": 23,
 		"evaluated": 24,
-		"unread": 25,
-		"resubmitted": 26,
+		"newsubmissions": 25,
+		"resubmissions": 26,
     	"publishAll": {
 			"name":"publish-all-feedback",
 			"href":"assignment/publish-all-feedback"

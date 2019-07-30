@@ -46,8 +46,12 @@ const LangFrImpl = (superClass) => class extends superClass {
 			'submissions': 'Soumissions',
 			'tableTitle': 'Liste des soumissions des apprenants non évaluées provenant des cours et des outils',
 			'tryAgain': 'Réessayer',
-			'unreadSubmissions': '{num} soumissions non lues',
-			'unreadSubmissionsDetail': '{unread} nouvelles soumissions, {resub} resoumissions',
+			'newSubmissions': 'New Submissions',
+			'newSubmissionDetails': '{newNum} new, {resub} resubmissions',
+			'newPosts': 'New Posts',
+			'newPostDetails': '{newNum} new, {resub} reposts',
+			'newAttempts': 'New Attempts',
+			'newAttemptsDetails': '{newNum} new',
 			'viewBy': 'Afficher par :'
 		};
 	}

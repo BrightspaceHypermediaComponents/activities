@@ -46,8 +46,12 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'submissions': 'Gönderimler',
 			'tableTitle': 'Dersler ve araçlar genelinde değerlendirilmemiş Öğrenci gönderilerinin listesi',
 			'tryAgain': 'Tekrar Dene',
-			'unreadSubmissions': '{num} okunmamış gönderim',
-			'unreadSubmissionsDetail': '{unread} yeni, {resub} yeniden gönderim',
+			'newSubmissions': 'New Submissions',
+			'newSubmissionDetails': '{newNum} new, {resub} resubmissions',
+			'newPosts': 'New Posts',
+			'newPostDetails': '{newNum} new, {resub} reposts',
+			'newAttempts': 'New Attempts',
+			'newAttemptsDetails': '{newNum} new',
 			'viewBy': 'Görüntüleme ölçütü:'
 		};
 	}

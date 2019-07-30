@@ -20,7 +20,6 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				.d2l-quick-eval-card {
 					padding-bottom: .9rem;
 					padding-top: .6rem;
-					border-bottom: 1px solid var(--d2l-color-mica);
 				}
 				.d2l-quick-eval-card-actions {
 					padding-top: .6rem;
@@ -55,8 +54,8 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						display: inline;
 					}
 					.d2l-quick-eval-card {
-						border: 3px solid var(--d2l-color-ferrite);
-						border-radius: 10px;
+						border: 1px solid var(--d2l-color-galena);
+						border-radius: 6px;
 						padding: .9rem;
 					}
 					.d2l-quick-eval-card-actions {
@@ -115,9 +114,13 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						top: 0;
 						right: 0;
 					}
+					:host(:dir(rtl)) d2l-quick-eval-activity-card-items[visible-on-ancestor] {
+						left: 0;
+						right: initial;
+					}
 					.d2l-quick-eval-activity-card-items-container {
 						position: relative;
-						display: block;
+						display: flex;
 					}
 					.d2l-quick-eval-card-meters,
 					.d2l-quick-eval-card-actions {
@@ -125,7 +128,6 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						padding: 0;
 						border: none;
 						width: auto;
-						float: right;
 					}
 					.d2l-quick-eval-card-right {
 						display: flex;
@@ -145,9 +147,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						margin-left: 1.5rem;
 					}
 					d2l-quick-eval-activity-card-unread-submissions {
-						float:left;
 						border: none;
 						padding: 0;
+						order: -1;
 					}
 					d2l-quick-eval-activity-card-unread-submissions,
 					.d2l-quick-eval-card-meters span,
@@ -182,14 +184,14 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				button:focus d2l-icon {
 					color: var(--d2l-color-celestine-plus-1);
 				}
-				circle {
+				.d2l-quick-eval-card-indicator circle {
 					stroke: var(--d2l-color-tungsten);
 				}
 			</style>
 			<div class="d2l-quick-eval-card d2l-visible-on-ancestor-target">
 				<div class="d2l-quick-eval-card-titles">
 					<d2l-activity-name href="[[activityNameHref]]" token="[[token]]"></d2l-activity-name>
-					<div class="d2l-quick-eval-card-subtitle"><span>[[activityType]]</span> <span hidden$="[[!formattedDueDate]]"> &bull; [[localize('due', 'date', formattedDueDate)]]</span></div>
+					<div class="d2l-quick-eval-card-subtitle"><span>[[localize(activityType)]]</span> <span hidden$="[[!formattedDueDate]]"> &bull; [[localize('due', 'date', formattedDueDate)]]</span></div>
 				</div>
 				<div class="d2l-quick-eval-card-right">
 					<div class="d2l-quick-eval-activity-card-items-container">
@@ -209,6 +211,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						<d2l-quick-eval-activity-card-unread-submissions
 							unread="[[unread]]"
 							resubmitted="[[resubmitted]]"
+							activity-type="[[activityType]]"
 							hidden$="[[!_showUnreadSubmissions(unread, resubmitted)]]"></d2l-quick-eval-activity-card-unread-submissions>
 						<div class="d2l-quick-eval-card-actions">
 							<d2l-quick-eval-activity-card-items visible-on-ancestor small>
@@ -231,9 +234,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						</div>
 					</div>
 					<div class="d2l-quick-eval-card-indicator">
-						<svg width="14px" height="28px">
-							<circle cx="7px" cy="7px" r="5px" stroke-width="2px" class="d2l-quick-eval-activity-card-hovered-off"></circle>
-							<circle cx="7px" cy="22px" r="5px" stroke-width="2px" class="d2l-quick-eval-activity-card-hovered-on"></circle>
+						<svg width="12px" height="33px" viewBox="0 0 12 33">
+							<circle class="d2l-quick-eval-activity-card-hovered-off" stroke-width="2" cx="5.5" cy="5.5" r="4.5"></circle>
+							<circle class="d2l-quick-eval-activity-card-hovered-on" stroke-width="2" cx="5.5" cy="26.5" r="4.5"></circle>
 						</svg>
 					</div>
 				</div>

@@ -32,6 +32,9 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				.d2l-quick-eval-activity-list-modifiers {
 					float: right;
 				}
+				:host(:dir(rtl)) .d2l-quick-eval-activity-list-modifiers {
+					float: left;
+				}
 				.clear {
 					clear: both;
 				}

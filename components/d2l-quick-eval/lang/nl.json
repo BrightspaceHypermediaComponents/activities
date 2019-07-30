@@ -38,7 +38,11 @@
    "submissions" : "Indieningen",
    "tableTitle" : "Lijst van niet-geëvalueerde indieningen via postvak van cursisten van alle cursussen en tools",
    "tryAgain" : "Probeer het opnieuw",
-   "unreadSubmissions" : "{num} ongelezen indieningen via postvak",
-   "unreadSubmissionsDetail" : "{unread} nieuw, {resub} herindieningen via postvak",
+   "newSubmissions" : "new submissions",
+   "newSubmissionDetails" : "{newNum} new, {resub} resubmissions",
+   "newPosts" : "new posts",
+   "newPostDetails" : "{newNum} new, {resub} reposts",
+   "newAttempts" : "new attempts",
+   "newAttemptsDetails" : "{newNum} new",
    "viewBy" : "Weergeven op:"
 }

@@ -1,6 +1,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {QuickEvalLocalize} from '../QuickEvalLocalize.js';
 import '../activity-card/d2l-quick-eval-activity-card.js';
+import 'd2l-colors/d2l-colors.js';
 
 class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 	static get is() { return 'd2l-quick-eval-activities-list'; }
@@ -12,6 +13,42 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 				margin: 0;
 				padding: 0;
 			}
+			.d2l-quick-eval-activities-list-card-spacer {
+				background: var(--d2l-color-sylvite);
+				height: .3rem;
+				width: 100vw;
+				position: relative;
+				left: 50%;
+				right: 50%;
+				margin-left: -50vw;
+				margin-right: -50vw;
+			}
+			.d2l-quick-eval-activities-list-card-spacer-border {
+				border-top: 1px solid var(--d2l-color-mica);
+			}
+			h2 {
+				margin-bottom: .6rem;
+				margin-top: .9rem;
+				min-height: .6rem;
+				line-height: .6rem;
+				font-size: .8rem;
+			}
+			@media (min-width: 525px) {
+				h2 {
+					font-size: 1rem;
+					margin-top: 1.2rem;
+					margin-bottom: .6rem;
+					min-height: 1rem;
+					line-height: 1rem;
+				}
+				.d2l-quick-eval-activities-list-card-spacer {
+					display: none;
+				}
+				:host ul ul li {
+					margin-top: .6rem;
+					margin-bottom: .6rem;
+				}
+			}
 		</style>
 		<ul class="d2l-quick-eval-activities-list-remove-ul-styling">
 			<dom-repeat items="[[courses]]" as="c">
@@ -22,6 +59,7 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 							<dom-repeat items="[[c.activities]]" as="a">
 								<template>
 									<li>
+										<div class="d2l-quick-eval-activities-list-card-spacer"></div>
 										<d2l-quick-eval-activity-card
 										assigned="[[a.assigned]]"
 										completed="[[a.completed]]"
@@ -32,9 +70,10 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 										publish-all="[[a.publishAll]]"
 										submission-list-href="[[a.submissionListHref]]"
 										due-date="[[a.dueDate]]"
-										activity-type="[[localize(a.activityType)]]"
+										activity-type="[[a.activityType]]"
 										activity-name-href="[[a.activityNameHref]]"
 										token="[[token]]"></d2l-quick-eval-activity-card>
+										<div class="d2l-quick-eval-activities-list-card-spacer d2l-quick-eval-activities-list-card-spacer-border"></div>
 									</li>
 								</template>
 							</dom-repeat>

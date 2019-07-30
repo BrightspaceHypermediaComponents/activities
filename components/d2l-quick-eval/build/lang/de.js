@@ -46,8 +46,12 @@ const LangDeImpl = (superClass) => class extends superClass {
 			'submissions': 'Abgaben',
 			'tableTitle': 'Liste nicht bewerteter Abgaben von Lernern in allen Kursen und Tools',
 			'tryAgain': 'Erneut versuchen',
-			'unreadSubmissions': '{num} ungelesene Abgaben',
-			'unreadSubmissionsDetail': '{unread} neue, {resub} erneute Abgaben',
+			'newSubmissions': 'New Submissions',
+			'newSubmissionDetails': '{newNum} new, {resub} resubmissions',
+			'newPosts': 'New Posts',
+			'newPostDetails': '{newNum} new, {resub} reposts',
+			'newAttempts': 'New Attempts',
+			'newAttemptsDetails': '{newNum} new',
 			'viewBy': 'Anzeigen nach:'
 		};
 	}

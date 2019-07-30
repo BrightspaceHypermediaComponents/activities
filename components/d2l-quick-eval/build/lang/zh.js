@@ -46,8 +46,12 @@ const LangZhImpl = (superClass) => class extends superClass {
 			'submissions': '提交',
 			'tableTitle': '来自各个课程和工具的未评估学员提交的列表',
 			'tryAgain': '请重试',
-			'unreadSubmissions': '{num} 项未读提交',
-			'unreadSubmissionsDetail': '{unread} 项新提交，{resub} 项重新提交',
+			'newSubmissions': 'New Submissions',
+			'newSubmissionDetails': '{newNum} new, {resub} resubmissions',
+			'newPosts': 'New Posts',
+			'newPostDetails': '{newNum} new, {resub} reposts',
+			'newAttempts': 'New Attempts',
+			'newAttemptsDetails': '{newNum} new',
 			'viewBy': '查看方式：'
 		};
 	}

@@ -91,10 +91,11 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 						completed: p.completed || 0,
 						published: p.published || 0,
 						evaluated: p.evaluated || 0,
-						unread: p.unread || 0,
-						resubmitted: p.resubmitted || 0,
 						publishAll: publishAll,
-						submissionListHref: submissionListHref
+						submissionListHref: submissionListHref,
+						unread: p.newsubmissions || 0,
+						resubmitted: p.resubmissions || 0,
+						publishAll: publishAll
 					};
 				}
 			}.bind(this));

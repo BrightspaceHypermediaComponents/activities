@@ -38,7 +38,11 @@
    "submissions" : "Afleveringer",
    "tableTitle" : "Liste over ikke-evaluerede elevafleveringer på tværs af kurser og værktøjer",
    "tryAgain" : "Prøv igen",
-   "unreadSubmissions" : "{num} unread submissions",
-   "unreadSubmissionsDetail" : "{unread} new, {resub} resubmissions",
+   "newSubmissions" : "new submissions",
+   "newSubmissionDetails" : "{newNum} new, {resub} resubmissions",
+   "newPosts" : "new posts",
+   "newPostDetails" : "{newNum} new, {resub} reposts",
+   "newAttempts" : "new attempts",
+   "newAttemptsDetails" : "{newNum} new",
    "viewBy" : "Vis efter:"
 }

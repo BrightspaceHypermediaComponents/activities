@@ -87,17 +87,6 @@ suite('d2l-quick-eval-activities-list', function() {
 		}
 	];
 
-	function localize(input) {
-		switch (input) {
-			case 'assignment':
-				return 'Assignment';
-			case 'discussion':
-				return 'Discussion';
-			case 'quiz':
-				return 'Quiz';
-		}
-	}
-
 	setup(function() {
 		list = fixture('basic');
 	});
@@ -128,7 +117,7 @@ suite('d2l-quick-eval-activities-list', function() {
 					assert.equal(card.unread, a.unread);
 					assert.equal(card.resubmitted, a.resubmitted);
 					assert.equal(card.dueDate, a.dueDate);
-					assert.equal(card.activityType, localize(a.activityType));
+					assert.equal(card.activityType, a.activityType);
 					assert.equal(card.activityNameHref, a.activityNameHref);
 					assert.equal(card.token, list.token);
 					element++;

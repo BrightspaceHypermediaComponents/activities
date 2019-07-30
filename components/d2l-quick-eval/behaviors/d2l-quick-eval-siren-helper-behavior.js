@@ -94,8 +94,7 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 						publishAll: publishAll,
 						submissionListHref: submissionListHref,
 						unread: p.newsubmissions || 0,
-						resubmitted: p.resubmissions || 0,
-						publishAll: publishAll
+						resubmitted: p.resubmissions || 0
 					};
 				}
 			}.bind(this));

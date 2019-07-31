@@ -15,7 +15,7 @@
 				done();
 			});
 
-			qeActivityCard._navigateToSubmissionListPath();
+			qeActivityCard._dispatchViewSubmissionListEvent();
 		});
 
 		test('_denominatorOver99 works', function() {

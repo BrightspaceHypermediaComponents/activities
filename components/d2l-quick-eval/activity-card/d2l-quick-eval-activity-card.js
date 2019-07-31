@@ -221,7 +221,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 									</button>
 								</div>
                                 <div>
-                                    <button class="d2l-quick-eval-activity-card-item" on-click="_navigateToSubmissionListPath">
+                                    <button class="d2l-quick-eval-activity-card-item" on-click="_dispatchViewSubmissionListEvent">
                                         <d2l-icon icon="d2l-tier3:view-submission-list"></d2l-icon>[[localize('submissionList')]]
                                     </button>
                                 </div>
@@ -305,7 +305,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 		this._onWindowResize();
 	}
 
-	_navigateToSubmissionListPath() {
+	_dispatchViewSubmissionListEvent() {
 		this.dispatchEvent(
 			new CustomEvent(
 				'd2l-quick-eval-activity-view-submission-list',

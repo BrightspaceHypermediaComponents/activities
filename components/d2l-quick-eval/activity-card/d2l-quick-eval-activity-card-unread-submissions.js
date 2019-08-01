@@ -50,7 +50,7 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 				.d2l-quick-eval-activity-card-submissions-container:focus div,
 				.d2l-quick-eval-activity-card-submissions-container:hover div {
 					 text-decoration: underline;
-					 color: #006fbf;
+					 color: var(--d2l-color-celestine);
 				}
 			</style>
 			<div id="d2l-quick-eval-activity-card-submissions-container" class="d2l-quick-eval-activity-card-submissions-container">

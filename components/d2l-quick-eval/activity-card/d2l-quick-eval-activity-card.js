@@ -187,6 +187,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				.d2l-quick-eval-card-indicator circle {
 					stroke: var(--d2l-color-tungsten);
 				}
+				:host(:hover) d2l-quick-eval-activity-card-unread-submissions {
+   					--d2l-quick-eval-activity-card-unread-submissions-text-decoration: underline;
+				}
 			</style>
 			<div class="d2l-quick-eval-card d2l-visible-on-ancestor-target">
 				<div class="d2l-quick-eval-card-titles">

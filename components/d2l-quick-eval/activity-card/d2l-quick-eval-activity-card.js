@@ -209,6 +209,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 							</d2l-quick-eval-activity-card-items>
 						</div>
 						<d2l-quick-eval-activity-card-unread-submissions
+							on-click="_dispatchViewEvaluateNewEvent"
 							unread="[[unread]]"
 							resubmitted="[[resubmitted]]"
 							activity-type="[[activityType]]"
@@ -216,7 +217,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						<div class="d2l-quick-eval-card-actions">
 							<d2l-quick-eval-activity-card-items visible-on-ancestor small>
 								<div>
-									<button class="d2l-quick-eval-activity-card-item">
+									<button class="d2l-quick-eval-activity-card-item" on-click="_dispatchViewEvaluateAllEvent">
 										<d2l-icon icon="d2l-tier3:evaluate-all"></d2l-icon>[[localize('evaluateAll')]]
 									</button>
 								</div>
@@ -284,6 +285,14 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				type: String,
 				value: ''
 			},
+			evaluateAllHref: {
+				type: String,
+				value: ''
+			},
+			evaluateNewHref: {
+				type: String,
+				value: ''
+			},
 			activityNameHref: {
 				type: String,
 				value: ''
@@ -312,6 +321,36 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				{
 					detail: {
 						submissionListHref: this.submissionListHref
+					},
+					composed: true,
+					bubbles: true
+				}
+			)
+		);
+	}
+
+	_dispatchViewEvaluateAllEvent() {
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-quick-eval-activity-view-evaluate-all',
+				{
+					detail: {
+						evaluateAllHref: this.evaluateAllHref
+					},
+					composed: true,
+					bubbles: true
+				}
+			)
+		);
+	}
+
+	_dispatchViewEvaluateNewEvent() {
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-quick-eval-activity-view-evaluate-new',
+				{
+					detail: {
+						evaluateAllHref: this.evaluateNewHref
 					},
 					composed: true,
 					bubbles: true

@@ -85,6 +85,8 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 					const empty = [];
 					const publishAll = this._getAction(e.entity, 'publish-all-feedback');
 					const submissionListHref = this._getRelativeUriProperty(e.entity, empty);
+					const evaluateAllHref = 'http://google.com';
+					const evaluateNewHref = 'http://google.com';
 
 					return {
 						assigned: p.assigned || 0,
@@ -93,6 +95,8 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 						evaluated: p.evaluated || 0,
 						publishAll: publishAll,
 						submissionListHref: submissionListHref,
+						evaluateAllHref: evaluateAllHref,
+						evaluateNewHref: evaluateNewHref,
 						unread: p.newsubmissions || 0,
 						resubmitted: p.resubmissions || 0
 					};

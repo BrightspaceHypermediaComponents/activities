@@ -122,6 +122,8 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				token="[[token]]"
 				on-d2l-quick-eval-activity-publish-all="_publishAll"
 				on-d2l-quick-eval-activity-view-submission-list="_navigateSubmissionList"
+				on-d2l-quick-eval-activity-view-evaluate-all="_navigateEvaluateAll"
+				on-d2l-quick-eval-activity-view-evaluate-new="_navigateEvaluateNew"
 				>
 			</d2l-quick-eval-activities-list>
 		`;
@@ -246,6 +248,18 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 	_navigateSubmissionList(evt) {
 		if (evt.detail.submissionListHref) {
 			this._setWindowLocationHref(evt.detail.submissionListHref);
+		}
+	}
+
+	_navigateEvaluateAll(evt) {
+		if (evt.detail.evaluateAllHref) {
+			this._setWindowLocationHref(evt.detail.evaluateAllHref);
+		}
+	}
+
+	_navigateEvaluateNew(evt) {
+		if (evt.detail.evaluateNewHref) {
+			this._setWindowLocationHref(evt.detail.evaluateNewHref);
 		}
 	}
 

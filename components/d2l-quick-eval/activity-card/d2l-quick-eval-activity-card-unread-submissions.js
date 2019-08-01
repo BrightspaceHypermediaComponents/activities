@@ -46,8 +46,11 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 						font-size: 0.7rem;
 					}
 				}
-				:host {
-				--d2l-quick-eval-activity-card-unread-submissions-text-decoration: none;
+				.d2l-quick-eval-activity-card-submissions-container:active div,
+				.d2l-quick-eval-activity-card-submissions-container:focus div,
+				.d2l-quick-eval-activity-card-submissions-container:hover div {
+					 text-decoration: underline;
+					 color: #006fbf;
 				}
 			</style>
 			<div id="d2l-quick-eval-activity-card-submissions-container" class="d2l-quick-eval-activity-card-submissions-container">

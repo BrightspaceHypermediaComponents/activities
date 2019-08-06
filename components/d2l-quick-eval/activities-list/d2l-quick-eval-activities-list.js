@@ -70,6 +70,7 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 										publish-all="[[a.publishAll]]"
 										submission-list-href="[[a.submissionListHref]]"
 										evaluate-all-href="[[a.evaluateAllHref]]"
+										evaluate-new-href="[[a.evaluateNewHref]]"
 										due-date="[[a.dueDate]]"
 										activity-type="[[a.activityType]]"
 										activity-name-href="[[a.activityNameHref]]"

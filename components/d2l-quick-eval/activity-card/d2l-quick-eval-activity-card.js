@@ -351,7 +351,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				'd2l-quick-eval-activity-view-evaluate-new',
 				{
 					detail: {
-						evaluateAllHref: this.evaluateNewHref
+						evaluateNewHref: this.evaluateNewHref
 					},
 					composed: true,
 					bubbles: true

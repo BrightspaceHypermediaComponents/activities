@@ -82,12 +82,26 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 			.then(function(e) {
 				if (e && e.entity && e.entity.properties) {
 					const p = e.entity.properties;
-					const empty = [];
 					const publishAll = this._getAction(e.entity, 'publish-all-feedback');
-					const submissionListHref = this._getRelativeUriProperty(e.entity, empty);
-					const evaluateAllHref = 'http://google.com';
-					const evaluateNewHref = 'http://google.com';
 
+					const submissionListSubEntity = e.entity.getSubEntityByRel(Rels.Assessments.submissionApplication);
+					let submissionListHref = '';
+					if (submissionListSubEntity.properties.path) {
+						submissionListHref = submissionListSubEntity.properties.path;
+					}
+
+					const evaluateAllSubEntity = e.entity.getSubEntityByRel(Rels.Assessments.assessAllApplcation);
+					let evaluateAllHref = '';
+
+					if (evaluateAllSubEntity.properties.path) {
+						evaluateAllHref = evaluateAllSubEntity.properties.path;
+					}
+					const evaluateNewSubEntity = e.entity.getSubEntityByRel(Rels.Assessments.assessNewApplication);
+
+					let evaluateNewHref = '';
+					if (evaluateNewSubEntity.properties.path) {
+						evaluateNewHref = evaluateNewSubEntity.properties.path;
+					}
 					return {
 						assigned: p.assigned || 0,
 						completed: p.completed || 0,

@@ -16,5 +16,43 @@
 			"name": "publish-all-feedback",
 			"href": "quiz/publish-all-feedback"
 		}
-	}
+	},
+	"entities": [
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/submission-application"
+            ],
+            "properties": {
+                "path": "/quiz"
+            }
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/assess-all-application"
+            ],
+            "properties": {
+                "path": "/quiz/all"
+            }
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/assess-new-application"
+            ],
+            "properties": {
+                "path": "/quiz/new"
+            }
+        }
+    ]
 }

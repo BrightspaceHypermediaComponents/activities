@@ -16,5 +16,43 @@
 			"name":"publish-all-feedback",
 			"href":"assignment/publish-all-feedback"
 		}
-	}
+	},
+	"entities": [
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/submission-application"
+            ],
+            "properties": {
+                "path": "/assignment"
+            }
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/assess-all-application"
+            ],
+            "properties": {
+                "path": "/assignment/all"
+            }
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/assess-new-application"
+            ],
+            "properties": {
+                "path": "/assignment/new"
+            }
+        }
+    ]
 }

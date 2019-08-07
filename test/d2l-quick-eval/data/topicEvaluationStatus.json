@@ -16,5 +16,43 @@
 			"name": "publish-all-feedback",
 			"href": "topic/publish-all-feedback"
 		}
-	}
+	},
+	"entities": [
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/submission-application"
+            ],
+            "properties": {
+                "path": "/topic"
+            }
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/assess-all-application"
+            ],
+            "properties": {
+                "path": "/topic/all"
+            }
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://assessments.api.brightspace.com/rels/assess-new-application"
+            ],
+            "properties": {
+                "path": "/topic/new"
+            }
+        }
+    ]
 }

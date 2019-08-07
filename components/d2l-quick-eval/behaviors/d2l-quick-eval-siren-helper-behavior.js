@@ -94,7 +94,7 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 						submissionListHref = submissionListSubEntity.properties.path;
 					}
 
-					const evaluateAllSubEntity = e.entity.getSubEntityByRel(Rels.Assessments.assessAllApplcation);
+					const evaluateAllSubEntity = e.entity.getSubEntityByRel(Rels.Assessments.assessAllApplication);
 					let evaluateAllHref = '';
 
 					if (evaluateAllSubEntity.properties && evaluateAllSubEntity.properties.path) {

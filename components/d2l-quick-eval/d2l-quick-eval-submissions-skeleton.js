@@ -4,24 +4,24 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
  * @customElement
  * @polymer
  */
-class D2LEvaluationHubSkeleton extends PolymerElement {
+class D2LQuickEvalSubmissionsSkeleton extends PolymerElement {
 	static get template() {
 		return html`
 			<style>
 				:host {
                     display: inline-block;
                 }
-                .desktop { 
+                .desktop {
                     width: 100%;
                 }
-                .mobile { 
+                .mobile {
                     display: none;
                 }
                 @media (max-width: 768px) {
                     .mobile {
                         display: block;
                     }
-                    .desktop { 
+                    .desktop {
                         display: none;
                     }
                 }
@@ -68,12 +68,12 @@ class D2LEvaluationHubSkeleton extends PolymerElement {
                         <path d="M-1 30h238M-1 83.5h238M-1 138.5h238" stroke="#F2F3F5" stroke-linecap="square"/>
                     </g>
                 </svg>
-            </div>    
+            </div>
 		`;
 	}
 
-	static get is() { return 'd2l-quick-eval-skeleton'; }
+	static get is() { return 'd2l-quick-eval-submissions-skeleton'; }
 
 }
 
-window.customElements.define('d2l-quick-eval-skeleton', D2LEvaluationHubSkeleton);
+window.customElements.define('d2l-quick-eval-submissions-skeleton', D2LQuickEvalSubmissionsSkeleton);

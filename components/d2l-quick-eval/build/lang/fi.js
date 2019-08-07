@@ -13,7 +13,9 @@ const LangFiImpl = (superClass) => class extends superClass {
 			'caughtUp': 'You\'re all caught up!',
 			'checkBackOften': 'Check back often for new submissions.',
 			'clearSearch': 'Clear Search',
+			'close': 'Close',
 			'completed': 'Completed',
+			'confirmation': 'Confirmation',
 			'courseName': 'Course',
 			'discussion': 'Discussion',
 			'displayName': 'First Name, Last Name',
@@ -30,10 +32,12 @@ const LangFiImpl = (superClass) => class extends superClass {
 			'loading': 'Loading',
 			'loadMore': 'Load more',
 			'masterTeacher': 'Teacher',
+			'no': 'No',
 			'noCriteriaMatch': 'There are no submissions that match your criteria.',
 			'noResults': 'No results here.',
 			'noSubmissions': 'There are no submissions that need your attention.',
 			'publishAll': 'Publish All',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': 'Published',
 			'quiz': 'Quiz',
 			'search': 'Search',
@@ -52,7 +56,8 @@ const LangFiImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': 'View by:'
+			'viewBy': 'View by:',
+			'yes': 'Yes'
 		};
 	}
 };

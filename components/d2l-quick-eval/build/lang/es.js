@@ -13,7 +13,9 @@ const LangEsImpl = (superClass) => class extends superClass {
 			'caughtUp': 'Ya está al día.',
 			'checkBackOften': 'Vuelva a revisar a menudo para ver los nuevos envíos.',
 			'clearSearch': 'Borrar búsqueda',
+			'close': 'Close',
 			'completed': 'Completado',
+			'confirmation': 'Confirmation',
 			'courseName': 'Curso',
 			'discussion': 'Debate',
 			'displayName': 'Nombre, Apellido',
@@ -30,10 +32,12 @@ const LangEsImpl = (superClass) => class extends superClass {
 			'loadMore': 'Cargar más',
 			'loading': 'Cargando',
 			'masterTeacher': 'Profesor',
+			'no': 'No',
 			'noCriteriaMatch': 'No hay materiales enviados que coincidan con sus criterios.',
 			'noResults': 'No hay resultados aquí.',
 			'noSubmissions': 'No hay envíos que requieran su atención.',
 			'publishAll': 'Publicar todo',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': 'Publicado',
 			'quiz': 'Cuestionario',
 			'search': 'Buscar',
@@ -52,7 +56,8 @@ const LangEsImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': 'Ver por:'
+			'viewBy': 'Ver por:',
+			'yes': 'Yes'
 		};
 	}
 };

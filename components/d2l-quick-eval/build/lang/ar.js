@@ -13,7 +13,9 @@ const LangArImpl = (superClass) => class extends superClass {
 			'caughtUp': 'لقد انتهيت من مهامك!',
 			'checkBackOften': 'تحقق باستمرار من احتمال توفر عمليات إرسال جديدة.',
 			'clearSearch': 'مسح البحث',
+			'close': 'Close',
 			'completed': 'تم الإكمال',
+			'confirmation': 'Confirmation',
 			'courseName': 'المقرر التعليمي',
 			'discussion': 'المناقشة',
 			'displayName': 'الاسم الأول، اسم العائلة',
@@ -30,10 +32,12 @@ const LangArImpl = (superClass) => class extends superClass {
 			'loadMore': 'تحميل المزيد',
 			'loading': 'يتم الآن التحميل',
 			'masterTeacher': 'المعلّم',
+			'no': 'No',
 			'noCriteriaMatch': 'لا تتوفر أي عمليات إرسال تتوافق مع معاييرك.',
 			'noResults': 'لا تتوفر أي نتائج هنا.',
 			'noSubmissions': 'لا تتوفر أي عمليات إرسال تتطلب اهتمامك.',
 			'publishAll': 'نشر الكل',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': 'منشور',
 			'quiz': 'الاختبار',
 			'search': 'بحث',
@@ -52,7 +56,8 @@ const LangArImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': 'عرض حسب:'
+			'viewBy': 'عرض حسب:',
+			'yes': 'Yes'
 		};
 	}
 };

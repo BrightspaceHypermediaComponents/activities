@@ -13,7 +13,7 @@ import '../d2l-activity-name/d2l-activity-name.js';
 import '../d2l-activity-evaluation-icon/d2l-activity-evaluation-icon-base.js';
 import './d2l-quick-eval-no-submissions-image.js';
 import './d2l-quick-eval-no-criteria-results-image.js';
-import './d2l-quick-eval-skeleton.js';
+import './d2l-quick-eval-submissions-skeleton.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import {StringEndsWith} from './compatability/ie11shims.js';
 
@@ -49,7 +49,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				d2l-table-col-sort-button span {
 					color: var(--d2l-color-ferrite);
 				}
-				d2l-quick-eval-skeleton {
+				d2l-quick-eval-submissions-skeleton {
 					width: 100%;
 				}
 				d2l-alert {
@@ -215,7 +215,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				[[localize(_health.errorMessage)]]
 			</d2l-alert>
 			<d2l-offscreen role="alert" aria-live="aggressive" hidden$="[[!isLoading]]">[[localize('loading')]]</d2l-offscreen>
-			<d2l-quick-eval-skeleton hidden$="[[!showLoadingSkeleton]]"></d2l-quick-eval-skeleton>
+			<d2l-quick-eval-submissions-skeleton hidden$="[[!showLoadingSkeleton]]"></d2l-quick-eval-submissions-skeleton>
 	     	<d2l-loading-spinner size="80" hidden$="[[!showLoadingSpinner]]"></d2l-loading-spinner>
 
 			<template is="dom-if" if="[[showLoadMore]]">

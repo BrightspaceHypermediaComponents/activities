@@ -13,7 +13,9 @@ const LangKoImpl = (superClass) => class extends superClass {
 			'caughtUp': '거의 따라잡았습니다!',
 			'checkBackOften': '새로운 제출 항목이 있는지 자주 다시 확인하십시오.',
 			'clearSearch': '검색 지우기',
+			'close': 'Close',
 			'completed': '완료됨',
+			'confirmation': 'Confirmation',
 			'courseName': '강의',
 			'discussion': '토론',
 			'displayName': '이름, 성',
@@ -30,10 +32,12 @@ const LangKoImpl = (superClass) => class extends superClass {
 			'loadMore': '더 많이 로드',
 			'loading': '로드 중',
 			'masterTeacher': '교사',
+			'no': 'No',
 			'noCriteriaMatch': '기준과 일치하는 제출 항목이 없습니다',
 			'noResults': '결과가 없습니다.',
 			'noSubmissions': '주목할 제출 항목이 없습니다.',
 			'publishAll': '모두 게시',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': '게시됨',
 			'quiz': '퀴즈',
 			'search': '검색',
@@ -52,7 +56,8 @@ const LangKoImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': '보기 기준:'
+			'viewBy': '보기 기준:',
+			'yes': 'Yes'
 		};
 	}
 };

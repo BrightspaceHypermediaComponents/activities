@@ -13,7 +13,9 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'caughtUp': '您已趕上最新進度！',
 			'checkBackOften': '請經常返回查看新的提交項目。',
 			'clearSearch': '清除搜尋',
+			'close': 'Close',
 			'completed': '已完成',
+			'confirmation': 'Confirmation',
 			'courseName': '課程',
 			'discussion': '討論',
 			'displayName': '名字，姓氏',
@@ -30,10 +32,12 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'loadMore': '載入更多',
 			'loading': '正在載入',
 			'masterTeacher': '教師',
+			'no': 'No',
 			'noCriteriaMatch': '沒有提交項目符合您的標準。',
 			'noResults': '這裡沒有任何結果。',
 			'noSubmissions': '沒有提交項目需要您注意。',
 			'publishAll': '全部發佈',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': '已發佈',
 			'quiz': '測驗',
 			'search': '搜尋',
@@ -52,7 +56,8 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': '檢視依據：'
+			'viewBy': '檢視依據：',
+			'yes': 'Yes'
 		};
 	}
 };

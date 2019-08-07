@@ -2,6 +2,7 @@ import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import {QuickEvalLocalize} from '../QuickEvalLocalize.js';
 import '../activity-card/d2l-quick-eval-activity-card.js';
 import 'd2l-colors/d2l-colors.js';
+import 'd2l-typography/d2l-typography-shared-styles.js';
 
 class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 	static get is() { return 'd2l-quick-eval-activities-list'; }
@@ -26,21 +27,10 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 			.d2l-quick-eval-activities-list-card-spacer-border {
 				border-top: 1px solid var(--d2l-color-mica);
 			}
-			h2 {
-				margin-bottom: .6rem;
-				margin-top: .9rem;
-				min-height: .6rem;
-				line-height: .6rem;
-				font-size: .8rem;
+			.d2l-quick-eval-activities-course-name-heading {
+				@apply --d2l-heading-3;
 			}
 			@media (min-width: 525px) {
-				h2 {
-					font-size: 1rem;
-					margin-top: 1.2rem;
-					margin-bottom: .6rem;
-					min-height: 1rem;
-					line-height: 1rem;
-				}
 				.d2l-quick-eval-activities-list-card-spacer {
 					display: none;
 				}
@@ -54,7 +44,7 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 			<dom-repeat items="[[courses]]" as="c">
 				<template>
 					<li>
-						<h2>[[c.name]]</h2>
+						<h2 class="d2l-quick-eval-activities-course-name-heading">[[c.name]]</h2>
 						<ul class="d2l-quick-eval-activities-list-remove-ul-styling">
 							<dom-repeat items="[[c.activities]]" as="a">
 								<template>

@@ -13,7 +13,9 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'caughtUp': 'Yetiştin!',
 			'checkBackOften': 'Yeni gönderiler için belirli aralıklarla tekrar kontrol edin.',
 			'clearSearch': 'Aramayı Temizle',
+			'close': 'Close',
 			'completed': 'Tamamlandı',
+			'confirmation': 'Confirmation',
 			'courseName': 'Ders',
 			'discussion': 'Tartışma',
 			'displayName': 'Ad, Soyad',
@@ -30,10 +32,12 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'loadMore': 'Daha fazla yükle',
 			'loading': 'Yükleniyor',
 			'masterTeacher': 'Öğretmen',
+			'no': 'No',
 			'noCriteriaMatch': 'Kriterinizle eşleşen gönderi yok.',
 			'noResults': 'Sonuç yok.',
 			'noSubmissions': 'İlgilenmeniz gereken gönderi yok.',
 			'publishAll': 'Tümünü Yayımla',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': 'Yayınlandı',
 			'quiz': 'Sınav',
 			'search': 'Ara',
@@ -52,7 +56,8 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': 'Görüntüleme ölçütü:'
+			'viewBy': 'Görüntüleme ölçütü:',
+			'yes': 'Yes'
 		};
 	}
 };

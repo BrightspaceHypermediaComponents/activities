@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-quick-eval-activity-card-action-button demo</title>
+		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+		<!-- For IE11 -->
+		<script src="../../node_modules/lie/dist/lie.polyfill.min.js"></script>
+		<script type="module" src="../../node_modules/whatwg-fetch/fetch.js"></script>
+		<script type="module" src="../../node_modules/url-polyfill/url-polyfill.js"></script>
+
+		<script type="module">
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+			import 'd2l-typography/d2l-typography.js';
+			import './update-direction.js';
+			import '../../components/d2l-quick-eval/activity-card/d2l-quick-eval-activity-card-action-button.js';
+
+			const $_documentContainer = document.createElement('template');
+			$_documentContainer.innerHTML = `
+				<custom-style>
+					<style is="custom-style" include="demo-pages-shared-styles"></style>
+				</custom-style>
+				<custom-style include="d2l-typography">
+					<style is="custom-style" include="d2l-typography"></style>
+				</custom-style>
+				<style>
+					html {
+						font-size: 20px;
+					}
+				</style>
+			`;
+			document.body.appendChild($_documentContainer.content);
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<style>
+			.button-wrapper-big {
+				border: 1px solid black;
+				width: 150px;
+				height: 60px;
+			}
+			.button-wrapper-small {
+				border: 1px solid black;
+				width: 150px;
+				height: 42px;
+			}
+		</style>
+		<div class="vertical-section-container fixedSize">
+			<h3>d2l-quick-eval-activity-card demo</h3>
+			<demo-snippet>
+				<template strip-whitespace>
+					<div class="button-wrapper-big"><d2l-quick-eval-activity-card-action-button text="button text" icon-name="publish-all"></d2l-quick-eval-activity-card-action-button></div>
+					<div class="button-wrapper-big"><d2l-quick-eval-activity-card-action-button text="button text" icon-name="publish-all" disabled></d2l-quick-eval-activity-card-action-button></div>
+					<div class="button-wrapper-small"><d2l-quick-eval-activity-card-action-button text="button text" icon-name="publish-all"></d2l-quick-eval-activity-card-action-button></div>
+				</template>
+			</demo-snippet>
+		</div>
+	</body>
+</html>

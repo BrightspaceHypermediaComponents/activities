@@ -7,7 +7,8 @@ const LangEnImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.en = {
-			'enroll': 'Enroll'
+			'enroll': 'Enroll',
+			'clickToViewActivity': 'Click to view activity'
 		};
 	}
 };

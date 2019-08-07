@@ -17,6 +17,7 @@ import 'd2l-button/d2l-button.js';
 import './d2l-activity-list-item-enroll.js';
 import SirenParse from 'siren-parser';
 import {ActivityListItemResponsiveConstants} from './ActivityListItemResponsiveConstants.js';
+import {ActivityListItemLocalize} from './ActivityListItemLocalize.js';
 import 'd2l-colors/d2l-colors.js';
 
 /**
@@ -25,7 +26,7 @@ import 'd2l-colors/d2l-colors.js';
  */
 class D2lActivityListItem extends mixinBehaviors([
 	IronResizableBehavior,
-	D2L.PolymerBehaviors.FocusableBehavior], ActivityListItemResponsiveConstants(MutableData(PolymerElement))) {
+	D2L.PolymerBehaviors.FocusableBehavior], ActivityListItemResponsiveConstants(ActivityListItemLocalize(MutableData(PolymerElement)))) {
 	static get template() {
 		return html`
 			<style include="d2l-typography-shared-styles"></style>
@@ -422,6 +423,7 @@ class D2lActivityListItem extends mixinBehaviors([
 	_onD2lOrganizationAccessible(e) {
 		this._accessibilityData.organizationName = e.detail.organization && e.detail.organization.name;
 		this._accessibilityData.semesterName = e.detail.semesterName && e.detail.semesterName;
+		this._accessibilityData.ariaContext = this.localize('clickToViewActivity');
 
 		this.notifyPath('_accessibilityData');
 
@@ -439,6 +441,7 @@ class D2lActivityListItem extends mixinBehaviors([
 		}
 
 		const textData = [
+			accessibility.ariaContext,
 			accessibility.organizationName
 		];
 		return textData.filter(function(text) {

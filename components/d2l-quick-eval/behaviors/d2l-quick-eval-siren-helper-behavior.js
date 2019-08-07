@@ -77,6 +77,10 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 		return subEntity.properties.name;
 	},
 
+	getEvaluationStatusHref: function(entity) {
+		return entity.getLinkByRel(Rels.Activities.evaluationStatus).href;
+	},
+
 	_getEvaluationStatusPromise: async function(entity) {
 		return this._followLink(entity, Rels.Activities.evaluationStatus)
 			.then(function(e) {

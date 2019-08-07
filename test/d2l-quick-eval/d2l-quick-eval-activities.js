@@ -67,6 +67,7 @@ suite('d2l-quick-eval-activities', function() {
 		noSubmissionComponent = act.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 		noCriteriaResultsComponent = act.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 		list = act.shadowRoot.querySelector('d2l-quick-eval-activities-list');
+		act._loading = false;
 	});
 	test('instantiating the element works', function() {
 		assert.equal(act.tagName.toLowerCase(), 'd2l-quick-eval-activities');
@@ -141,5 +142,21 @@ suite('d2l-quick-eval-activities', function() {
 			const result = act._groupByCourse(testCase);
 			assert.deepEqual(result, []);
 		});
+	});
+
+	test('if data is loading or filtering or searching, show the loading skeleton', () => {
+		const skeletonComponent = act.shadowRoot.querySelector('d2l-quick-eval-activities-skeleton');
+		act._loading = true;
+		assert.notEqual(getComputedStyle(skeletonComponent).display, 'none');
+		act._loading = false;
+		assert.equal(getComputedStyle(skeletonComponent).display, 'none');
+		act.filtersLoading = true;
+		assert.notEqual(getComputedStyle(skeletonComponent).display, 'none');
+		act.filtersLoading = false;
+		assert.equal(getComputedStyle(skeletonComponent).display, 'none');
+		act.searchLoading = true;
+		assert.notEqual(getComputedStyle(skeletonComponent).display, 'none');
+		act.searchLoading = false;
+		assert.equal(getComputedStyle(skeletonComponent).display, 'none');
 	});
 });

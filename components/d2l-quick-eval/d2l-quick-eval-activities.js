@@ -6,6 +6,7 @@ import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-alert/d2l-alert.js';
 import 'd2l-common/components/d2l-hm-filter/d2l-hm-filter.js';
 import 'd2l-common/components/d2l-hm-search/d2l-hm-search.js';
+import 'd2l-polymer-behaviors/d2l-id.js';
 import './behaviors/d2l-quick-eval-siren-helper-behavior.js';
 import './behaviors/d2l-hm-filter-behavior.js';
 import './behaviors/d2l-hm-search-behavior.js';
@@ -13,6 +14,7 @@ import './d2l-quick-eval-no-submissions-image.js';
 import './d2l-quick-eval-no-criteria-results-image.js';
 import './d2l-quick-eval-search-results-summary-container.js';
 import './activities-list/d2l-quick-eval-activities-list.js';
+import './d2l-quick-eval-activities-skeleton.js';
 
 /**
  * @customElement
@@ -46,6 +48,10 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				.d2l-quick-eval-no-submissions,
 				.d2l-quick-eval-no-criteria-results {
 					text-align: center;
+				}
+				d2l-quick-eval-activities-skeleton {
+					width: 100%;
+					margin-top: 1.2rem;
 				}
 				d2l-quick-eval-no-submissions-image {
 					padding-top: 30px;
@@ -105,19 +111,21 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				hidden$="[[!searchApplied]]"
 				on-d2l-quick-eval-search-results-summary-container-clear-search="_clearSearchResults">
 			</d2l-quick-eval-search-results-summary-container>
-			<div class="d2l-quick-eval-no-submissions" hidden$="[[!_shouldShowNoSubmissions(_data, filterApplied, searchApplied)]]">
+			<div class="d2l-quick-eval-no-submissions" hidden$="[[!_shouldShowNoSubmissions(_data, _loading, filterApplied, searchApplied)]]">
 				<d2l-quick-eval-no-submissions-image></d2l-quick-eval-no-submissions-image>
 				<h2 class="d2l-quick-eval-no-submissions-heading">[[localize('caughtUp')]]</h2>
 				<p class="d2l-body-standard">[[localize('noSubmissions')]]</p>
 				<p class="d2l-body-standard">[[localize('checkBackOften')]]</p>
 			</div>
-			<div class="d2l-quick-eval-no-criteria-results" hidden$="[[!_shouldShowNoCriteriaResults(_data, filterApplied, searchApplied)]]">
+			<div class="d2l-quick-eval-no-criteria-results" hidden$="[[!_shouldShowNoCriteriaResults(_data, _loading, filterApplied, searchApplied)]]">
 				<d2l-quick-eval-no-criteria-results-image></d2l-quick-eval-no-criteria-results-image>
 				<h2 class="d2l-quick-eval-no-criteria-results-heading">[[localize('noResults')]]</h2>
 				<p class="d2l-body-standard">[[localize('noCriteriaMatch')]]</p>
 			</div>
+			<d2l-quick-eval-activities-skeleton hidden$="[[!_showLoadingSkeleton]]"></d2l-quick-eval-activities-skeleton>
 			<d2l-quick-eval-activities-list
-				hidden$="[[!_shouldShowActivitiesList(_data, filterApplied, searchCleared)]]"
+				id="[[_activitiesListId]]"
+				hidden$="[[!_shouldShowActivitiesList(_data, _showLoadingSkeleton)]]"
 				courses="[[_data]]"
 				token="[[token]]"
 				on-d2l-quick-eval-activity-publish-all="_publishAll"
@@ -146,6 +154,18 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				type: Number,
 				value: 0
 			},
+			_activitiesListId: {
+				type: String,
+				computed: '_computeActivitiesListId()'
+			},
+			_loading: {
+				type: Boolean,
+				value: true
+			},
+			_showLoadingSkeleton: {
+				type: Boolean,
+				computed: '_computeShowLoadingSkeleton(_loading, filtersLoading, searchLoading)'
+			}
 		};
 	}
 	static get observers() {
@@ -158,6 +178,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 		if (!entity) {
 			return;
 		}
+		this._loading = true;
 
 		try {
 			if (entity.entities) {
@@ -172,6 +193,8 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 		} catch (e) {
 			this._logError(e, {developerMessage: 'Unable to load activities from entity.'});
 			throw e;
+		} finally {
+			this._loading = false;
 		}
 	}
 
@@ -179,6 +202,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 		const result = await Promise.all(entity.entities.map(async function(activity) {
 			const evalStatus = await this._getEvaluationStatusPromise(activity);
 			const courseName = await this._getCourseNamePromise(activity);
+			const evaluationStatusHref = this.getEvaluationStatusHref(activity);
 			return {
 				courseName: courseName,
 				assigned: evalStatus.assigned,
@@ -194,7 +218,8 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				key: this._getOrgHref(activity),
 				dueDate: this._getActivityDueDate(activity),
 				activityType: this._getActivityType(activity),
-				activityNameHref: this._getActivityNameHref(activity)
+				activityNameHref: this._getActivityNameHref(activity),
+				evaluationStatusHref: evaluationStatusHref
 			};
 		}.bind(this)));
 		return this._groupByCourse(result);
@@ -230,21 +255,49 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 	}
 
 	_shouldShowNoSubmissions() {
-		return !(this._data.length) && !(this.filterApplied || this.searchApplied);
+		return !(this._data.length) && !this._loading && !(this.filterApplied || this.searchApplied);
 	}
 
 	_shouldShowNoCriteriaResults() {
-		return !(this._data.length) && (this.filterApplied || this.searchApplied);
+		return !(this._data.length) && !this._loading && (this.filterApplied || this.searchApplied);
 	}
 
-	_shouldShowActivitiesList() {
-		return this._data.length;
+	_shouldShowActivitiesList(_data, _showLoadingSkeleton) {
+		return _data.length && !_showLoadingSkeleton;
+	}
+
+	_computeShowLoadingSkeleton(_loading, filtersLoading, searchLoading) {
+		return _loading || filtersLoading || searchLoading;
 	}
 
 	_publishAll(evt) {
-		if (evt.detail.publishAll) {
-			this.performSirenAction(evt.detail.publishAll);
-		}
+		// THIS IS TEMPORARY - will switch to modal dialog when available; dialog will NOT load in demo page
+		const confirmEvent = D2L.LP.Web.UI.Html.JavaScript.Confirm(
+			this.localize('confirmation'),
+			evt.detail.confirmMessage,
+			'',
+			this.localize('yes'),
+			this.localize('no'),
+			this.localize('close'),
+			this._activitiesListId,
+			() => {}
+		);
+
+		confirmEvent.AddListener(
+			(result) => {
+				if (result) {
+					this.performSirenAction(evt.detail.publishAll)
+						.then(evalStatusEntity => {
+							const evaluationStatusHref = this.getEvaluationStatusHref(evalStatusEntity);
+							this._updateEvaluationStatus(evaluationStatusHref, evalStatusEntity.properties);
+						});
+				}
+			}
+		);
+	}
+
+	_computeActivitiesListId() {
+		return D2L.Id.getUniqueId();
 	}
 
 	_navigateSubmissionList(evt) {
@@ -267,6 +320,24 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 
 	_setWindowLocationHref(href) {
 		window.location.href = href;
+	}
+
+	_updateEvaluationStatus(evaluationStatusHref, evalStatus) {
+		for (let i = 0; i < this._data.length; i++) {
+			for (let j = 0; j < this._data[i].activities.length; j++) {
+
+				if (this._data[i].activities[j].evaluationStatusHref === evaluationStatusHref) {
+					this.set(`_data.${i}.activities.${j}.assigned`, evalStatus.assigned);
+					this.set(`_data.${i}.activities.${j}.completed`, evalStatus.completed);
+					this.set(`_data.${i}.activities.${j}.published`, evalStatus.published);
+					this.set(`_data.${i}.activities.${j}.evaluated`, evalStatus.evaluated);
+					this.set(`_data.${i}.activities.${j}.unread`, evalStatus.newsubmissions);
+					this.set(`_data.${i}.activities.${j}.resubmitted`, evalStatus.resubmissions);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
 window.customElements.define(D2LQuickEvalActivities.is, D2LQuickEvalActivities);

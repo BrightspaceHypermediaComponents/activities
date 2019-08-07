@@ -13,7 +13,9 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'caughtUp': 'Você está em dia!',
 			'checkBackOften': 'Verifique com frequência se há novos envios.',
 			'clearSearch': 'Limpar Pesquisa',
+			'close': 'Close',
 			'completed': 'Concluído',
+			'confirmation': 'Confirmation',
 			'courseName': 'Curso',
 			'discussion': 'Discussão',
 			'displayName': 'Nome e Sobrenome',
@@ -30,10 +32,12 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'loadMore': 'Carregar mais',
 			'loading': 'Carregando',
 			'masterTeacher': 'Professor',
+			'no': 'No',
 			'noCriteriaMatch': 'Não há nenhum envio correspondente aos seus critérios.',
 			'noResults': 'Nenhum resultado aqui.',
 			'noSubmissions': 'Não há envios que precisem de sua atenção.',
 			'publishAll': 'Publicar Tudo',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': 'Publicado',
 			'quiz': 'Questionário',
 			'search': 'Pesquisar',
@@ -52,7 +56,8 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': 'Exibir por:'
+			'viewBy': 'Exibir por:',
+			'yes': 'Yes'
 		};
 	}
 };

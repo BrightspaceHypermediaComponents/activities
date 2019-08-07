@@ -13,7 +13,9 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'caughtUp': 'Du er helt med!',
 			'checkBackOften': 'Kom tilbage med jævne mellemrum for at se nye afleveringer.',
 			'clearSearch': 'Ryd søgning',
+			'close': 'Close',
 			'completed': 'Completed',
+			'confirmation': 'Confirmation',
 			'courseName': 'Kursus',
 			'discussion': 'Discussion',
 			'displayName': 'Fornavn, Efternavn',
@@ -30,10 +32,12 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'loadMore': 'Indlæs flere',
 			'loading': 'Indlæser',
 			'masterTeacher': 'Lærer',
+			'no': 'No',
 			'noCriteriaMatch': 'Der er ingen afleveringer, der matcher dine kriterier.',
 			'noResults': 'Ingen resultater her.',
 			'noSubmissions': 'Der er ingen afleveringer, der kræver din opmærksomhed.',
 			'publishAll': 'Publish All',
+			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'published': 'Published',
 			'quiz': 'Quiz',
 			'search': 'Søg',
@@ -52,7 +56,8 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{newNum} new, {resub} reposts',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new',
-			'viewBy': 'Vis efter:'
+			'viewBy': 'Vis efter:',
+			'yes': 'Yes'
 		};
 	}
 };

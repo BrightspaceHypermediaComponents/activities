@@ -319,7 +319,9 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 	}
 
 	_setWindowLocationHref(href) {
-		window.location.href = href;
+		if (href !== '') {
+			window.location.href = href;
+		}
 	}
 
 	_updateEvaluationStatus(evaluationStatusHref, evalStatus) {

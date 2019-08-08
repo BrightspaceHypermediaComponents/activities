@@ -39,7 +39,7 @@
                 "https://assessments.api.brightspace.com/rels/assess-all-application"
             ],
             "properties": {
-                "path": "/quiz/all&cft=qe"
+                "path": "/quiz/all?cft=qe"
             }
         },
         {
@@ -51,7 +51,7 @@
                 "https://assessments.api.brightspace.com/rels/assess-new-application"
             ],
             "properties": {
-                "path": "/quiz/new&cft=qe"
+                "path": "/quiz/new?cft=qe"
             }
         }
     ]

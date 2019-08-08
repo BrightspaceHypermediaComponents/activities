@@ -368,7 +368,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		if (url.indexOf('?') > -1) {
 			newUrl = url + '&cft=qe';
 		} else {
-			newUrl = url + '?&cft=qe';
+			newUrl = url + '?cft=qe';
 		}
 		return newUrl;
 	}

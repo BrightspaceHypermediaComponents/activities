@@ -151,7 +151,7 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 		if (url.indexOf('?') > -1) {
 			newUrl = url + '&cft=qe';
 		} else {
-			newUrl = url + '?&cft=qe';
+			newUrl = url + '?cft=qe';
 		}
 		return newUrl;
 	},

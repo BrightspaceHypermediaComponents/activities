@@ -110,7 +110,6 @@ suite('d2l-quick-eval-activities', function() {
 		assert.notEqual(getComputedStyle(list).display, 'none');
 	});
 	test('data is imported correctly', (done) => {
-		//console.log(JSON.stringify(act._data));
 		function checkData() {
 			if (act._data.length) {
 				assert.equal(act._data.length, expectedData.length);

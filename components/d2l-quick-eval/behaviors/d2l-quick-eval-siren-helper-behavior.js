@@ -142,10 +142,18 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 	},
 
 	_formBackToQuickEvalLink(url) {
-		if (url) {
-			return url + '&cft=qe';
+		let newUrl;
+
+		if (!url) {
+			return url;
 		}
-		return url;
+
+		if (url.indexOf('?') > -1) {
+			newUrl = url + '&cft=qe';
+		} else {
+			newUrl = url + '?&cft=qe';
+		}
+		return newUrl;
 	},
 
 	_getUserHref: function(entity) {

@@ -359,10 +359,18 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 	}
 
 	_formBackToQuickEvalLink(url) {
-		if (url) {
-			return url + '&cft=qe';
+		let newUrl;
+
+		if (!url) {
+			return url;
 		}
-		return url;
+
+		if (url.indexOf('?') > -1) {
+			newUrl = url + '&cft=qe';
+		} else {
+			newUrl = url + '?&cft=qe';
+		}
+		return newUrl;
 	}
 
 	_handleSorts(entity) {

@@ -327,14 +327,14 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		const promises = [];
 		entity.entities.forEach(function(activity) {
 			promises.push(new Promise(function(resolve) {
-
+				const activityLink = this._getRelativeUriProperty(activity, extraParams);
 				const item = {
 					displayName: '',
 					userHref: this._getUserHref(activity),
 					courseName: '',
 					activityNameHref: this._getActivityNameHref(activity),
 					submissionDate: this._getSubmissionDate(activity),
-					activityLink: this._getRelativeUriProperty(activity, extraParams),
+					activityLink: this._formBackToQuickEvalLink(activityLink),
 					masterTeacher: '',
 					isDraft: this._determineIfActivityIsDraft(activity)
 				};
@@ -356,6 +356,13 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 		const result = await Promise.all(promises);
 		return result;
+	}
+
+	_formBackToQuickEvalLink(url) {
+		if (url) {
+			return url + '&cft=qe';
+		}
+		return url;
 	}
 
 	_handleSorts(entity) {

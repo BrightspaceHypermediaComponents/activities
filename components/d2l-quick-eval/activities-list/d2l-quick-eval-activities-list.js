@@ -31,6 +31,10 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 				@apply --d2l-heading-3;
 				margin-top: 0.9rem;
 				margin-bottom: 0.6rem;
+				max-width: 24ch;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
 			}
 			@media (min-width: 525px) {
 				.d2l-quick-eval-activities-list-card-spacer {
@@ -43,6 +47,10 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 				.d2l-quick-eval-activities-course-name-heading {
 					margin-top: 1.8rem;
 					margin-bottom: 1.2rem;
+					max-width: 24ch;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
 				}
 			}
 		</style>

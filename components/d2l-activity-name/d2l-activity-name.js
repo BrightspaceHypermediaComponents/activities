@@ -27,9 +27,11 @@ class D2LActivityName extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityB
 					padding-left: 0.6rem;
 				}
 				.d2l-activity-name-text {
-					display: inline;
 					vertical-align: middle;
-					max-width: 100%;
+					max-width: 24ch;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
 				}
 			</style>
 			<d2l-icon class="d2l-activity-name-icon" icon="[[_activityIcon]]"></d2l-icon>

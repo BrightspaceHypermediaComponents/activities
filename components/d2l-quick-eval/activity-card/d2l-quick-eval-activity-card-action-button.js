@@ -17,10 +17,10 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 					--d2l-quick-eval-card-button-icon-size: 1.2rem;
 					--d2l-quick-eval-card-button-icon-background-size: 1.5rem;
 					--d2l-quick-eval-card-button-font-size: .6rem;
-					--d2l-quick-eval-card-button-icon-padding: 0.3rem;
+					--d2l-quick-eval-card-button-icon-padding: 0.15rem;
 					--d2l-quick-eval-card-button-icon-hover: 0 0 0 var(--d2l-quick-eval-card-button-icon-padding) var(--d2l-color-gypsum);
-					--d2l-quick-eval-card-button-icon-focus-inner: 0 0 0 0.4rem white;
-					--d2l-quick-eval-card-button-icon-focus-outer: 0 0 0 0.5rem var(--d2l-color-celestine);
+					--d2l-quick-eval-card-button-icon-focus-inner: 0 0 0 0.25rem white;
+					--d2l-quick-eval-card-button-icon-focus-outer: 0 0 0 0.35rem var(--d2l-color-celestine);
 				}
 				button {
 					display: flex;
@@ -77,6 +77,9 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 						--d2l-quick-eval-card-button-icon-size: 1.5rem;
 						--d2l-quick-eval-card-button-icon-background-size: 2.1rem;
 						--d2l-quick-eval-card-button-font-size: .7rem;
+						--d2l-quick-eval-card-button-icon-padding: 0.3rem;
+						--d2l-quick-eval-card-button-icon-focus-inner: 0 0 0 0.4rem white;
+						--d2l-quick-eval-card-button-icon-focus-outer: 0 0 0 0.5rem var(--d2l-color-celestine);
 					}
 				}
 				:host([disabled]) button {

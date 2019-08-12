@@ -152,6 +152,11 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 			label.style.color = 'var(--d2l-color-celestine-minus-1)';
 			div.style.background = 'var(--d2l-color-gypsum)';
 			div.style['box-shadow'] = 'var(--d2l-quick-eval-card-button-icon-hover)';
+
+		});
+
+		button.addEventListener('click', () => {
+			div.style['box-shadow'] = 'var(--d2l-quick-eval-card-button-icon-hover), var(--d2l-quick-eval-card-button-icon-focus-inner), var(--d2l-quick-eval-card-button-icon-focus-outer)';
 		});
 
 		button.addEventListener('blur', () => {

@@ -144,17 +144,17 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 		const icons = button.querySelectorAll('d2l-icon');
 		const div = button.querySelector('.d2l-quick-eval-activity-card-button-icon');
 
-		button.addEventListener('focus', (event) => {
+		button.addEventListener('focus', () => {
 			icons.forEach(icon => {
-				icon.style.color = "var(--d2l-color-celestine-minus-1)";
+				icon.style.color = 'var(--d2l-color-celestine-minus-1)';
 			});
-			label.style['text-decoration'] = "underline";
-			label.style.color = "var(--d2l-color-celestine-minus-1)";
-			div.style.background = "var(--d2l-color-gypsum)";
-			div.style['box-shadow'] = "var(--d2l-quick-eval-card-button-icon-hover)";
+			label.style['text-decoration'] = 'underline';
+			label.style.color = 'var(--d2l-color-celestine-minus-1)';
+			div.style.background = 'var(--d2l-color-gypsum)';
+			div.style['box-shadow'] = 'var(--d2l-quick-eval-card-button-icon-hover)';
 		});
 
-		button.addEventListener('blur', (event) => {
+		button.addEventListener('blur', () => {
 			icons.forEach(icon => {
 				icon.removeAttribute('style');
 			});

@@ -54,7 +54,7 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 			<dom-repeat items="[[courses]]" as="c">
 				<template>
 					<li>
-						<h2 class="d2l-quick-eval-activities-course-name-heading">[[c.name]]</h2>
+						<h2 title= class="[[c.name]]" d2l-quick-eval-activities-course-name-heading">[[c.name]]</h2>
 						<ul class="d2l-quick-eval-activities-list-remove-ul-styling">
 							<dom-repeat items="[[c.activities]]" as="a">
 								<template>

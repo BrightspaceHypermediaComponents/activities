@@ -35,7 +35,7 @@ class D2LActivityName extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityB
 				}
 			</style>
 			<d2l-icon class="d2l-activity-name-icon" icon="[[_activityIcon]]"></d2l-icon>
-			<div class="d2l-activity-name-text">[[_activityName]]</div>
+			<div title="[[_activityName]]" class="d2l-activity-name-text">[[_activityName]]</div>
 		`;
 		activityNameTemplate.setAttribute('strip-whitespace', 'strip-whitespace');
 		return activityNameTemplate;

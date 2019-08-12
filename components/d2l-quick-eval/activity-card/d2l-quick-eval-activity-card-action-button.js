@@ -50,8 +50,6 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 				}
 				:host(:hover) button,
 				:host(:hover) d2l-icon,
-				:host(:focus-within) button,
-				:host(:focus-within) d2l-icon,
 				:host(:focus) button,
 				:host(:focus) d2l-icon {
 					text-decoration: underline;
@@ -61,8 +59,7 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 					background-color: var(--d2l-color-gypsum);
 					box-shadow: var(--d2l-quick-eval-card-button-icon-hover);
 				}
-				:host(:focus) .d2l-quick-eval-activity-card-button-icon,
-				:host(:focus-within) .d2l-quick-eval-activity-card-button-icon {
+				:host(:focus) .d2l-quick-eval-activity-card-button-icon {
 					background-color: var(--d2l-color-gypsum);
 					box-shadow: var(--d2l-quick-eval-card-button-icon-hover), var(--d2l-quick-eval-card-button-icon-focus-inner), var(--d2l-quick-eval-card-button-icon-focus-outer)
 				}
@@ -90,10 +87,7 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 				:host([disabled]:hover) .d2l-quick-eval-activity-card-button-icon,
 				:host([disabled]:focus) button,
 				:host([disabled]:focus) d2l-icon,
-				:host([disabled]:focus) .d2l-quick-eval-activity-card-button-icon,
-				:host([disabled]:focus-within) button,
-				:host([disabled]:focus-within) d2l-icon,
-				:host([disabled]:focus-within) .d2l-quick-eval-activity-card-button-icon {
+				:host([disabled]:focus) .d2l-quick-eval-activity-card-button-icon {
 					text-decoration: none;
 					color: var(--d2l-color-ferrite);
 					background-color: transparent;
@@ -140,6 +134,33 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 				type: Boolean
 			}
 		};
+	}
+
+	ready() {
+		super.ready();
+
+		const button = this.shadowRoot.querySelector('button');
+		const label = button.querySelector('span');
+		const icons = button.querySelectorAll('d2l-icon');
+		const div = button.querySelector('.d2l-quick-eval-activity-card-button-icon');
+
+		button.addEventListener('focus', (event) => {
+			icons.forEach(icon => {
+				icon.style.color = "var(--d2l-color-celestine-minus-1)";
+			});
+			label.style['text-decoration'] = "underline";
+			label.style.color = "var(--d2l-color-celestine-minus-1)";
+			div.style.background = "var(--d2l-color-gypsum)";
+			div.style['box-shadow'] = "var(--d2l-quick-eval-card-button-icon-hover)";
+		});
+
+		button.addEventListener('blur', (event) => {
+			icons.forEach(icon => {
+				icon.removeAttribute('style');
+			});
+			label.removeAttribute('style');
+			div.removeAttribute('style');
+		});
 	}
 
 	_computeIcon(tier) {

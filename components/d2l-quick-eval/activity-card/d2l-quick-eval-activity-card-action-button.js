@@ -17,10 +17,10 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 					--d2l-quick-eval-card-button-icon-size: 1.2rem;
 					--d2l-quick-eval-card-button-icon-background-size: 1.5rem;
 					--d2l-quick-eval-card-button-font-size: .6rem;
-					--d2l-quick-eval-card-button-icon-padding: calc(calc(var(--d2l-quick-eval-card-button-icon-background-size) - var(--d2l-quick-eval-card-button-icon-size)) / 2);
+					--d2l-quick-eval-card-button-icon-padding: 0.3rem;
 					--d2l-quick-eval-card-button-icon-hover: 0 0 0 var(--d2l-quick-eval-card-button-icon-padding) var(--d2l-color-gypsum);
-					--d2l-quick-eval-card-button-icon-focus-inner: 0 0 0 calc(var(--d2l-quick-eval-card-button-icon-padding) + 2px) white;
-					--d2l-quick-eval-card-button-icon-focus-outer: 0 0 0 calc(var(--d2l-quick-eval-card-button-icon-padding) + 4px) var(--d2l-color-celestine);
+					--d2l-quick-eval-card-button-icon-focus-inner: 0 0 0 0.4rem white;
+					--d2l-quick-eval-card-button-icon-focus-outer: 0 0 0 0.5rem var(--d2l-color-celestine);
 				}
 				button {
 					display: flex;

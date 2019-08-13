@@ -97,6 +97,17 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 					box-shadow: none;
 					cursor: auto;
 				}
+				d2l-icon.tab-focus {
+					color: var(--d2l-color-celestine-minus-1);
+				}
+				span.tab-focus {
+					text-decoration: underline;
+					color: var(--d2l-color-celestine-minus-1);
+				}
+				div.tab-focus {
+					background: var(--d2l-color-gypsum);
+					box-shadow: var(--d2l-quick-eval-card-button-icon-hover);
+				}
 			</style>
 			<button
 				aria-labelledby$="[[_labelledbyId]]"
@@ -149,13 +160,10 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 
 		button.addEventListener('focus', () => {
 			icons.forEach(icon => {
-				icon.style.color = 'var(--d2l-color-celestine-minus-1)';
+				icon.classList.add('tab-focus');
 			});
-			label.style['text-decoration'] = 'underline';
-			label.style.color = 'var(--d2l-color-celestine-minus-1)';
-			div.style.background = 'var(--d2l-color-gypsum)';
-			div.style['box-shadow'] = 'var(--d2l-quick-eval-card-button-icon-hover)';
-
+			label.classList.add('tab-focus');
+			div.classList.add('tab-focus');
 		});
 
 		button.addEventListener('click', () => {
@@ -164,9 +172,10 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 
 		button.addEventListener('blur', () => {
 			icons.forEach(icon => {
-				icon.removeAttribute('style');
+				icon.classList.remove('tab-focus');
 			});
-			label.removeAttribute('style');
+			label.classList.remove('tab-focus');
+			div.classList.remove('tab-focus');
 			div.removeAttribute('style');
 		});
 	}

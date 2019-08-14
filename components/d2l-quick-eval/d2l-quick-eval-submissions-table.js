@@ -196,7 +196,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 									<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
 								</d2l-td>
 								<d2l-td class="d2l-quick-eval-truncated-column d2l-course-name-column">
-									<span>[[s.courseName]]</span>
+									<span title="[[s.courseName]]">[[s.courseName]]</span>
 								</d2l-td>
 								<d2l-td>
 									<span>[[_localizeDateTimeFormat(s.submissionDate)]]</span>

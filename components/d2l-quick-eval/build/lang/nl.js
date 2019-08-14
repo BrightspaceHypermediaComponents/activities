@@ -55,7 +55,7 @@ const LangNlImpl = (superClass) => class extends superClass {
 			'newPosts': 'New Posts',
 			'newPostDetails': '{numInteractions} threads or replies',
 			'newAttempts': 'New Attempts',
-			'newAttemptsDetails': '{newNum} new',
+			'newAttemptsDetails': '{newNum} new, {reAttemptNum} reattempts',
 			'viewBy': 'Weergeven op:',
 			'yes': 'Yes'
 		};

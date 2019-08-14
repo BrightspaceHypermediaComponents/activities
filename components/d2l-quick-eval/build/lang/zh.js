@@ -55,7 +55,7 @@ const LangZhImpl = (superClass) => class extends superClass {
 			'newPosts': 'New Posts',
 			'newPostDetails': '{numInteractions} threads or replies',
 			'newAttempts': 'New Attempts',
-			'newAttemptsDetails': '{newNum} new',
+			'newAttemptsDetails': '{newNum} new, {reAttemptNum} reattempts',
 			'viewBy': '查看方式：',
 			'yes': 'Yes'
 		};

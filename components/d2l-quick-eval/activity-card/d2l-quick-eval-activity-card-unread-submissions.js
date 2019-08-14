@@ -87,6 +87,9 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 		if (activityType === 'discussion') {
 			return this.localize('newPostDetails', 'numInteractions', unread + resubmitted);
 		}
+		if (activityType === 'quiz') {
+			return this.localize('newAttemptsDetails', 'newNum', unread, 'reAttemptNum', resubmitted);
+		}
 		return this.localize(activityTypeLocalizeDetail[activityType], 'newNum', unread, 'resub', resubmitted);
 	}
 }

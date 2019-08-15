@@ -32,6 +32,9 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 					.d2l-quick-eval-activity-card-submissions-subtitle {
 						font-size: 0.6rem;
 					}
+					[hidden] {
+						display: none;
+					}
 				@media (min-width: 525px) {
 					.d2l-quick-eval-activity-card-submissions-container {
 						align-items: center;
@@ -57,7 +60,11 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 				<div class="d2l-quick-eval-activity-card-submissions-number">[[_getNewSubmissionsNumber(unread, resubmitted)]]</div>
 				<div class="d2l-quick-eval-activity-card-submissions-subtitle">[[_getNewSubmissionsSubtitle(activityType)]]</div>
 			</div>
-			<d2l-tooltip for="d2l-quick-eval-activity-card-submissions-container" position="bottom">[[_getSubmissionTooltipText(unread, resubmitted, activityType)]]</d2l-tooltip>
+			<d2l-tooltip 
+				hidden$="[[_resubmissionsExist(resubmitted)]]"
+				for="d2l-quick-eval-activity-card-submissions-container" 
+				position="bottom">[[_getSubmissionTooltipText(unread, resubmitted, activityType)]]
+			</d2l-tooltip>
 		`;
 	}
 	static get properties() {
@@ -76,6 +83,10 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 		};
 	}
 
+	_resubmissionsExist(resubmitted) {
+		return resubmitted === 0;
+	}
+
 	_getNewSubmissionsNumber(unread, resubmitted) {
 		return unread + resubmitted;
 	}
@@ -84,21 +95,21 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 	}
 
 	_getSubmissionTooltipText(unread, resubmitted, activityType) {
+		//this returns the term for 1 resubmission on 0 resubmissions, but the tooltip is hidden when that happens
 		switch (activityType) {
 			case 'discussion':
 				return unread + resubmitted > 1
 					? this.localize('newPostDetails', 'numInteractions', unread + resubmitted)
-					: this.localize('newPostSingularDetails', 'numInteractions', unread + resubmitted);
+					: this.localize('newPostSingularDetails', 'numInteractions', unread);
 			case 'quiz':
-				return resubmitted
-					? this.localize('newAttemptsDetails', 'newNum', unread, 'reAttemptNum', resubmitted)
+				return resubmitted > 1
+					? this.localize(activityTypeLocalizeDetail[activityType], 'newNum', unread, 'reAttemptNum', resubmitted)
 					: this.localize('newAttemptsSingularReattemptDetails', 'newNum', unread);
 			default:
-				return resubmitted
+				return resubmitted > 1
 					? this.localize(activityTypeLocalizeDetail[activityType], 'newNum', unread, 'resub', resubmitted)
 					: this.localize('newSubmissionSingularDetails', 'newNum', unread);
 		}
-
 	}
 }
 

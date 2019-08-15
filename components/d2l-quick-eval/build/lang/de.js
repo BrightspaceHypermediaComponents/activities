@@ -60,6 +60,7 @@ const LangDeImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{numInteractions} threads or replies',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new, {reAttemptNum} reattempts',
+			'newAttemptsSingularReattemptDetails': '{newNum} new, 1 reattempt',
 			'viewBy': 'Anzeigen nach:',
 			'yes': 'Yes'
 		};

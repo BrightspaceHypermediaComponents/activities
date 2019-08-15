@@ -60,6 +60,7 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{numInteractions} threads or replies',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new, {reAttemptNum} reattempts',
+			'newAttemptsSingularReattemptDetails': '{newNum} new, 1 reattempt',
 			'viewBy': '檢視依據：',
 			'yes': 'Yes'
 		};

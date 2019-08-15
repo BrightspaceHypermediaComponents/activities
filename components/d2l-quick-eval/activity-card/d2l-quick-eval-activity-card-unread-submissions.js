@@ -84,13 +84,17 @@ class D2LQuickEvalActivityCardUnreadSubmissions extends QuickEvalLocalize(Polyme
 	}
 
 	_getSubmissionTooltipText(unread, resubmitted, activityType) {
-		if (activityType === 'discussion') {
-			return this.localize('newPostDetails', 'numInteractions', unread + resubmitted);
+		switch (activityType) {
+			case 'discussion':
+				return this.localize('newPostDetails', 'numInteractions', unread + resubmitted);
+			case 'quiz':
+				return resubmitted
+					? this.localize('newAttemptsDetails', 'newNum', unread, 'reAttemptNum', resubmitted)
+					: this.localize('newAttemptsSingularReattemptDetails', 'newNum', unread);
+			default:
+				return this.localize(activityTypeLocalizeDetail[activityType], 'newNum', unread, 'resub', resubmitted);
 		}
-		if (activityType === 'quiz') {
-			return this.localize('newAttemptsDetails', 'newNum', unread, 'reAttemptNum', resubmitted);
-		}
-		return this.localize(activityTypeLocalizeDetail[activityType], 'newNum', unread, 'resub', resubmitted);
+
 	}
 }
 

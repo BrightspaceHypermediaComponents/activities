@@ -60,6 +60,7 @@ const LangKoImpl = (superClass) => class extends superClass {
 			'newPostDetails': '{numInteractions} threads or replies',
 			'newAttempts': 'New Attempts',
 			'newAttemptsDetails': '{newNum} new, {reAttemptNum} reattempts',
+			'newAttemptsSingularReattemptDetails': '{newNum} new, 1 reattempt',
 			'viewBy': '보기 기준:',
 			'yes': 'Yes'
 		};

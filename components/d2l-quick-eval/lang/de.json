@@ -50,6 +50,7 @@
    "newSubmissionDetails" : "{newNum} new, {resub} resubmissions",
    "newPosts" : "New Posts",
    "newPostDetails": "{numInteractions} threads or replies",
+   "newPostSingularDetails": "{numInteractions} thread or reply",
    "newAttempts" : "New Attempts",
    "newAttemptsDetails": "{newNum} new, {reAttemptNum} reattempts",
    "newAttemptsSingularReattemptDetails": "{newNum} new, 1 reattempt",

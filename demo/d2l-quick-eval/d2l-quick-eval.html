@@ -1,72 +1,94 @@
 <!doctype html>
 <html lang="en"
-    data-lang-default="en-us"
-    data-intl-overrides="{
-        &quot;date&quot;:{
-                &quot;formats&quot;:{
-                    &quot;dateFormats&quot;:{
-                            &quot;short&quot;:&quot;M|d|yyyy&quot;
-                    }
-                }
-        }
-    }">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-        <title>d2l-quick-eval demo</title>
-        <script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-        <!-- For IE11 -->
-        <script type="module" src="../../node_modules/whatwg-fetch/fetch.js"></script>
-        <script type="module">
-            import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-            import '@polymer/iron-demo-helpers/demo-snippet';
-            import 'd2l-typography/d2l-typography.js';
-            import './update-direction.js';
-            // For IE11, we need to import the component after we've started the mock observer
-            import '../../components/d2l-quick-eval/d2l-quick-eval.js';
-            D2L.LP = {
-                Web: {
-                    UI: {
-                        Html: {
-                            JavaScript:{
-                            }
-                        }
-                    }
-                }
-            };
-            const actuallyPublishAll = true;
-            D2L.LP.Web.UI.Html.JavaScript.Confirm = function() {
-                return {
-                    AddListener: (fn) => {
-                        fn(actuallyPublishAll);
-                    }
-                };
-            };
-            const $_documentContainer = document.createElement('template');
-            $_documentContainer.innerHTML = `
-                <custom-style>
-                    <style is="custom-style" include="demo-pages-shared-styles"></style>
-                </custom-style>
-                <custom-style include="d2l-typography">
-                    <style is="custom-style" include="d2l-typography"></style>
-                </custom-style>
-                <style>
-                    html {
-                        font-size: 20px;
-                    }
-                </style>
-            `;
-            document.body.appendChild($_documentContainer.content);
-        </script>
-    </head>
-    <body class="d2l-typography">
-        <div class="vertical-section-container fixedSize">
-            <h3>d2l-quick-eval demo</h3>
-            <demo-snippet>
-                <template strip-whitespace>
-                    <d2l-quick-eval header-text="Quick Eval" master-teacher search-enabled activities-href="https://6c014ded-4ce2-40a9-95f6-cf50ed3a10cb.activities.api.dev.brightspace.com/my-unassessed-activities/collections" submissions-href="https://6c014ded-4ce2-40a9-95f6-cf50ed3a10cb.activities.api.dev.brightspace.com/my-unassessed-activities" token="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjFkNzkzNWVhLTVjZjAtNGYxYy04ZDdkLTVmNzliNjBiOWQ3YyJ9.eyJpc3MiOiJodHRwczovL2FwaS5icmlnaHRzcGFjZS5jb20vYXV0aCIsImF1ZCI6Imh0dHBzOi8vYXBpLmJyaWdodHNwYWNlLmNvbS9hdXRoL3Rva2VuIiwiZXhwIjoxNTY1ODkzNTI0LCJuYmYiOjE1NjU4ODk5MjQsInN1YiI6IjMwOTI3IiwidGVuYW50aWQiOiI2YzAxNGRlZC00Y2UyLTQwYTktOTVmNi1jZjUwZWQzYTEwY2IiLCJhenAiOiJsbXM6NmMwMTRkZWQtNGNlMi00MGE5LTk1ZjYtY2Y1MGVkM2ExMGNiIiwic2NvcGUiOiIqOio6KiIsImp0aSI6ImI0NGY0YTM4LWU1OGItNDkzMC05MjdkLWI1NjhmMGE3YmY5ZCJ9.W9qGzdrDW1Weq_AWvN7FGwy0QqV4ox7vAuNGyV6Abn7hTyxdvTV54xc6ULY0VcjwLy8Y6jjWh-d3ua-tfcQfUdsrzU7auw9aJfagIx7Sa8as_RWInhLsExT4u7rjSRgZciOM6VGsQtfUAtaiCowsb92NShX0tYEkA3On6QXT3YE5NOmYnUiQjw9kKQRubCwQ4rpSmskQkX071zKJgFux25jYSOrfK_4PYV2XLJr1eqk-Thr_kMpfZBvSiNZrHYFHBXAXgPovGSS-fW3hPJ4zr9MmB9MbN-UXYP4MoNV1Amu4eDsDODQVBnAKlVzo6dqc62epch_kJTY306vMKDVy4w" activities-view-enabled></d2l-quick-eval>
-                </template>
-            </demo-snippet>
-        </div>
-    </body>
+	data-lang-default="en-us"
+	data-intl-overrides="{
+		&quot;date&quot;:{
+				&quot;formats&quot;:{
+					&quot;dateFormats&quot;:{
+							&quot;short&quot;:&quot;M|d|yyyy&quot;
+					}
+				}
+		}
+	}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-quick-eval demo</title>
+		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+		<!-- For IE11 -->
+		<script src="../../node_modules/lie/dist/lie.polyfill.min.js"></script>
+		<script type="module" src="../../node_modules/whatwg-fetch/fetch.js"></script>
+		<script type="module" src="../../node_modules/url-polyfill/url-polyfill.js"></script>
+
+		<script type="module">
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+			import 'd2l-typography/d2l-typography.js';
+			import './update-direction.js';
+			import startMockServer from './interceptor';
+			import mappingsParser from './demo-data-parser';
+			import data from './table';
+
+			const mappings = mappingsParser(data);
+			// Parameters: data, network logging, api request delay
+			startMockServer(mappings, true, 100);
+
+			// For IE11, we need to import the component after we've started the mock observer
+			import '../../components/d2l-quick-eval/d2l-quick-eval.js';
+
+			const $_documentContainer = document.createElement('template');
+			$_documentContainer.innerHTML = `
+				<custom-style>
+					<style is="custom-style" include="demo-pages-shared-styles"></style>
+				</custom-style>
+				<custom-style include="d2l-typography">
+					<style is="custom-style" include="d2l-typography"></style>
+				</custom-style>
+				<style>
+					html {
+						font-size: 20px;
+					}
+				</style>
+			`;
+			document.body.appendChild($_documentContainer.content);
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div class="vertical-section-container fixedSize">
+			<h3>Basic d2l-quick-eval demo</h3>
+			<demo-snippet>
+				<h4>Note: Load more button is expected to fail on last click, but should resolve itself when clicking it again</h4>
+				<hr/><br/>
+				<template strip-whitespace>
+					<d2l-quick-eval header-text="Quick Eval" master-teacher search-enabled activities-href="pages/?sort=bydate-a" submissions-href="pages/?sort=bydate-a" token="whatever" activities-view-enabled></d2l-quick-eval>
+				</template>
+			</demo-snippet>
+
+			<demo-snippet>
+				<h4>Note: Load more button is expected to fail on last click, but should resolve itself when clicking it again</h4>
+				<hr/><br/>
+				<template strip-whitespace>
+					<d2l-quick-eval header-text="Quick Eval" master-teacher search-enabled href="pages/?sort=bydate-a" token="whatever"></d2l-quick-eval>
+				</template>
+			</demo-snippet>
+
+			<demo-snippet>
+				<h4>Note: This will always show an error. It demonstrates how the component looks when failing to load data</h4>
+				<hr/><br/>
+				<template strip-whitespace>
+					<d2l-quick-eval master-teacher href="invalid" token="whatever"></d2l-quick-eval>
+				</template>
+			</demo-snippet>
+
+			<demo-snippet>
+				<h4>Note: This is hacking in the attribute to show what a filter error looks like. Once filter demo data exists, this demo can be improved.</h4>
+				<hr/><br/>
+				<template strip-whitespace>
+					<d2l-quick-eval _show-filter-error="true" header-text="Quick Eval" href="pages/?sort=bydate-a" token="whatever"></d2l-quick-eval>
+				</template>
+			</demo-snippet>
+		</div>
+	</body>
 </html>

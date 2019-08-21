@@ -197,7 +197,7 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 
 	_getActivityDueDate: function(entity) {
 		if (entity && entity.hasSubEntityByClass('due-date')) {
-			return entity.getSubEntityByClass('due-date').properties.date;
+			return entity.getSubEntityByClass('due-date').properties.localizedDate;
 		}
 		return '';
 	},

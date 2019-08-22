@@ -12,6 +12,9 @@ class D2LQuickEvalActivityCardItems extends mixinBehaviors([D2L.PolymerBehaviors
 					display: flex;
 					align-items: stretch;
 					justify-content: space-between;
+					-webkit-box-shadow: 0px 7px 0px 0px rgb(255, 255, 255);
+					-moz-box-shadow: 0px 7px 0px 0px rgba(255,255,255);
+					box-shadow: 0px 7px 0px 0px rgb(255, 255, 255);
 				}
 				.d2l-quick-eval-activity-card-items-container ::slotted(*) {
 					width: 7.5rem;

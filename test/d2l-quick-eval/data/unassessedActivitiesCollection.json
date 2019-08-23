@@ -54,7 +54,8 @@
 						"https://api.brightspace.com/rels/date"
 					],
 					"properties": {
-						"date": "2019-03-03T03:03:03.003Z"
+						"date": "2019-03-03T03:03:03.003Z",
+						"localizedDate": "2019-03-03T03:03:03.003Z"
 					}
 				}
 			]
@@ -91,7 +92,8 @@
 						"https://api.brightspace.com/rels/date"
 					],
 					"properties": {
-						"date": "2019-02-02T02:02:02.002Z"
+						"date": "2019-02-02T02:02:02.002Z",
+						"localizedDate": "2019-03-03T03:03:03.003Z"
 					}
 				}
 			]
@@ -129,7 +131,8 @@
 						"https://api.brightspace.com/rels/date"
 					],
 					"properties": {
-						"date": "2019-01-01T01:01:01.001Z"
+						"date": "2019-01-01T01:01:01.001Z",
+						"localizedDate": "2019-03-03T03:03:03.003Z"
 					}
 				}
 			]

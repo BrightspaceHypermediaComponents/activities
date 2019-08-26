@@ -35,6 +35,19 @@ To lint AND run local unit tests:
 ```shell
 npm test
 ```
+## Releases
+
+To generate a new release:
+```shell
+npm version [major|minor|patch] -m "New version: %s"
+git push origin master --tags
+```
+
+This will update the version in the package.json file, commit that, and generate a new tag.
+
+Once the tag is generated, navigate to the [Releases](https://github.com/BrightspaceHypermediaComponents/activities/releases) tab and draft a new release that matches the tag. Here you can provide more detailed information on what has changed in the release.
+
+When Travis CI runs on the tagged release, it will be deployed to NPM.
 
 ## Usage
 
@@ -46,9 +59,3 @@ Quick Eval should be pulled directly from `my-unassessed-activities`:
 
 [ci-url]: https://travis-ci.org/BrightspaceUI/activities
 [ci-image]: https://travis-ci.org/BrightspaceUI/activities.svg?branch=master
-
-## Versioning, Releasing & Deploying
-
- By default, when a pull request is merged the patch version in the `package.json` will be incremented, a tag will be created, and a Github release will be created.
-
- Include `[increment major]`, `[increment minor]` or `[skip version]` in your merge commit message to change the default versioning behavior.

@@ -23,6 +23,10 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				}
 				d2l-activity-name {
 					min-height: .9rem;
+					max-width: 24rem;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
 				}
 				.d2l-quick-eval-card {
 					padding-bottom: .9rem;
@@ -58,9 +62,6 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				}
 
 				@media (min-width: 525px) {
-					d2l-activity-name {
-						display: inline;
-					}
 					.d2l-quick-eval-card {
 						border: 1px solid var(--d2l-color-mica);
 						border-radius: 6px;

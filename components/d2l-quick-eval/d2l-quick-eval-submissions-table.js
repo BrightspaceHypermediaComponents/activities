@@ -94,6 +94,10 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					padding-right: 1.4rem;
 					overflow: hidden;
 					text-overflow: ellipsis;
+					max-width: 24rem;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
 				}
 				:host(:dir(rtl)) d2l-activity-name {
 					padding-right: 0;

@@ -63,5 +63,12 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			assert.equal(telemetryData.sortDirection, event._custom[1].value);
 		});
 
+		test('logViewQuickEvalEvent event is created properly', () => {
+			telemetryBehaviour.dataTelemetryEndpoint = 'testEndpoint';
+			const telemetryData = 'testView';
+
+			const event = telemetryBehaviour.logViewQuickEvalEvent(telemetryData);
+			assert.equal(telemetryData, event._custom[0].value);
+		});
 	});
 })();

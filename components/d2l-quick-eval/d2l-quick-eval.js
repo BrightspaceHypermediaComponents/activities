@@ -53,6 +53,10 @@ class D2LQuickEval extends  QuickEvalLocalize(PolymerElement) {
 			<d2l-quick-eval-activities href="[[_activitiesHref(activitiesViewEnabled)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
 		`;
 	}
+	constructor() {
+		super();
+
+	}
 
 	static get properties() {
 		return {
@@ -99,15 +103,13 @@ class D2LQuickEval extends  QuickEvalLocalize(PolymerElement) {
 
 	static get is() { return 'd2l-quick-eval'; }
 
-	_logViewSelectionTelemetry() {
-		this.logViewQuickEvalEvent(this.toggleState);
-	}
 	_toggleView(e) {
 		if (e.detail.view === 'submissions' || !this.activitiesViewEnabled) {
 			this._showActivitiesView = false;
 		} else {
 			this._showActivitiesView = true;
 		}
+		this.logViewQuickEvalEvent(e.detail.view);
 	}
 
 	_activitiesHref(activitiesViewEnabled) {

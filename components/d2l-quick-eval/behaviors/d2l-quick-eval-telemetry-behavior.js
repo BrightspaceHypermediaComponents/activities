@@ -25,7 +25,14 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 		this._logEvent(eventBody);
 		return eventBody;
 	},
+	logViewQuickEvalEvent: function(viewName) {
+		const eventBody = new window.d2lTelemetryBrowserClient.EventBody();
 
+		eventBody.setAction('View')
+			.addCustom('ViewName', viewName || 'unknown');
+		this._logEvent(eventBody);
+		return eventBody;
+	},
 	_logEvent: function(eventBody) {
 		if (!eventBody || !this.dataTelemetryEndpoint) {
 			return;

@@ -4,6 +4,7 @@ import 'd2l-typography/d2l-typography-shared-styles.js';
 import './d2l-quick-eval-view-toggle.js';
 import './d2l-quick-eval-activities.js';
 import './d2l-quick-eval-submissions.js';
+import './behaviors/d2l-quick-eval-telemetry-behavior.js';
 
 /**
  * @customElement
@@ -98,6 +99,9 @@ class D2LQuickEval extends  QuickEvalLocalize(PolymerElement) {
 
 	static get is() { return 'd2l-quick-eval'; }
 
+	_logViewSelectionTelemetry() {
+		this.logViewQuickEvalEvent(this.toggleState);
+	}
 	_toggleView(e) {
 		if (e.detail.view === 'submissions' || !this.activitiesViewEnabled) {
 			this._showActivitiesView = false;

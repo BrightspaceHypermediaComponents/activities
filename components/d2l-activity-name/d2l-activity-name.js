@@ -20,7 +20,8 @@ class D2LActivityName extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityB
 				.d2l-activity-name-icon {
 					display: inline-block;
 					padding-right: 0.6rem;
-					vertical-align: middle;
+					vertical-align: text-bottom;
+   	 				height: 100%;
 				}
 				:host(:dir(rtl)) .d2l-activity-name-icon {
 					padding-right: 0;
@@ -31,7 +32,7 @@ class D2LActivityName extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityB
 					vertical-align: bottom;
 				}
 				.d2l-activity-name-text-and-icon {
-					display: inline-block;
+					display: inline;
 				}
 			</style>
 			<div class="d2l-activity-name-text-and-icon">

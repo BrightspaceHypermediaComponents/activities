@@ -95,6 +95,9 @@ class D2LActivityName extends mixinBehaviors([D2L.PolymerBehaviors.Siren.EntityB
 	async _getActivityPromise(activityEntity) {
 		let rel;
 		let activityIcon;
+		if (!activityEntity) {
+			return Promise.resolve();
+		}
 		if (activityEntity.hasClass(Classes.activities.userQuizAttemptActivity) || activityEntity.hasClass(Classes.activities.userQuizActivity)) {
 			rel = Rels.quiz;
 			activityIcon = 'd2l-tier1:quizzing';

@@ -259,7 +259,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			return Promise.resolve();
 		}
 		this._loading = true;
-		this.perfMark('submissionsLoadStart');
 
 		try {
 			if (entity.entities) {
@@ -272,7 +271,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			this._updateSearchResultsCount(this._data.length);
 			this._clearAlerts();
 			this.perfMark('submissionsLoadEnd');
-			this.logPerformanceEvent('submissions', 'submissionsLoadStart', 'submissionsLoadEnd');
+			this.logPerformanceEvent('submissions', 'qeViewLoadStart', 'submissionsLoadEnd');
 		} catch (e) {
 			this._logError(e, {developerMessage: 'Unable to load activities from entity.'});
 			this._handleFullLoadFailure();

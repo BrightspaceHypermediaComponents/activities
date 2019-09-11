@@ -56,25 +56,14 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 		}
 		window.performance.mark(name);
 	},
-	perfMeasure: function(name, startMark, endMark) {
+	logPerformanceEvent: function(viewName, startMark, endMark) {
 		if (!window.performance || !window.performance.measure) {
 			return;
 		}
-		/* contrary to spec, start & end marks are not optional in IE */
-		if (!startMark) {
-			startMark = 'viewLoadStart';
-		}
-		if (!endMark) {
-			this.perfMark(name);
-			endMark = name;
-		}
-		window.performance.measure(name, startMark, endMark);
-	},
-	logPerformanceEvent: function(viewName, startMark, endMark) {
 		window.performance.measure(viewName, startMark, endMark);
 		const eventBody = new window.d2lTelemetryBrowserClient.PerformanceEventBody()
-			.addUserTiming(window.performance.getEntriesByType('measure'))
-			.addCustom('ViewName', viewName || 'unknown');
+			.addUserTiming(window.performance.getEntriesByName(viewName))
+			.addCustom('ViewName', `${viewName}LoadTime` || 'unknown');
 
 		this._logEvent(eventBody);
 	}

@@ -230,7 +230,6 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			return;
 		}
 		this._loading = true;
-		this.perfMark('activitiesLoadStart');
 		try {
 			if (entity.entities) {
 				const result = await this._parseActivities(entity);
@@ -242,7 +241,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			this._clearErrors();
 			this._handleLoadSuccess();
 			this.perfMark('activitiesLoadEnd');
-			this.logPerformanceEvent('activities', 'activitiesLoadStart', 'activitiesLoadEnd');
+			this.logPerformanceEvent('activities', 'qeViewLoadStart', 'activitiesLoadEnd');
 		} catch (e) {
 			this._handleLoadFailure();
 			this._logError(e, {developerMessage: 'activities-view: Unable to load activities from entity.'});

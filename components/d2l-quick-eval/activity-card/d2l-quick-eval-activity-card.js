@@ -265,7 +265,7 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 					<button
 						class="d2l-quick-eval-card-indicator"
 						on-click="_handleIndicatorToggle"
-						aria-label$="[[_computeIndicatorLabel(activityName)]]"
+						aria-label$="[[_computeIndicatorLabel(activityName, _indicatorPressed)]]"
 						aria-pressed$="[[_computeIndicatorPressed(_indicatorPressed, _desktopView)]]">
 						<svg width="12px" height="33px" viewBox="0 0 12 33">
 							<circle class="d2l-quick-eval-activity-card-hovered-off" stroke-width="2" cx="5.5" cy="5.5" r="4.5"></circle>
@@ -435,8 +435,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 		return num > 99;
 	}
 
-	_computeIndicatorLabel(activityName) {
-		return this.localize('toggleIndicatorLabel', 'target', activityName);
+	_computeIndicatorLabel(activityName, _indicatorPressed) {
+		if (_indicatorPressed) return this.localize('toggleIndicatorLabelInfo', 'target', activityName);
+		return this.localize('toggleIndicatorLabelActions', 'target', activityName);
 	}
 
 	_computeIndicatorPressed(_indicatorPressed, _desktopView) {

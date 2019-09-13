@@ -241,7 +241,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			this._clearErrors();
 			this._handleLoadSuccess();
 			this.perfMark('activitiesLoadEnd');
-			this.logPerformanceEvent('activities', 'qeViewLoadStart', 'activitiesLoadEnd');
+			this.logAndDestroyPerformanceEvent('activities', 'qeViewLoadStart', 'activitiesLoadEnd');
 		} catch (e) {
 			this._handleLoadFailure();
 			this._logError(e, {developerMessage: 'activities-view: Unable to load activities from entity.'});

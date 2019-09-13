@@ -70,10 +70,7 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 		window.performance.clearMarks(endMark);
 	},
 	_markExists(markName) {
-		return window.performance.getEntries({
-			name: markName,
-			entryType: 'mark'
-		}) ? true : false;
+		return window.performance.getEntriesByName(markName, 'mark').length > 0 ? true : false;
 	}
 };
 

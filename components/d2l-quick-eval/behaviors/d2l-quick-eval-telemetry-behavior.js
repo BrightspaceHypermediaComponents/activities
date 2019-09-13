@@ -56,8 +56,8 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 		}
 		window.performance.mark(name);
 	},
-	logPerformanceEvent: function(viewName, startMark, endMark) {
-		if (!window.performance || !window.performance.measure) {
+	logAndDestroyPerformanceEvent: function(viewName, startMark, endMark) {
+		if (!window.performance || !window.performance.measure || !this._markExists(startMark)) {
 			return;
 		}
 		window.performance.measure(viewName, startMark, endMark);
@@ -66,6 +66,14 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 			.addCustom('ViewName', `${viewName}LoadTime`);
 
 		this._logEvent(eventBody);
+		window.performance.clearMarks(startMark);
+		window.performance.clearMarks(endMark);
+	},
+	_markExists(markName) {
+		return window.performance.getEntries({
+			name: markName,
+			entryType: 'mark'
+		}) ? true : false;
 	}
 };
 

@@ -68,6 +68,7 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 		this._logEvent(eventBody);
 		window.performance.clearMarks(startMark);
 		window.performance.clearMarks(endMark);
+		window.performance.clearMeasures(viewName);
 	},
 	_markExists(markName) {
 		return window.performance.getEntriesByName(markName, 'mark').length > 0 ? true : false;

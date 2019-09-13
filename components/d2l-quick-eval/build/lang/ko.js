@@ -60,7 +60,7 @@ const LangKoImpl = (superClass) => class extends superClass {
 			'submissions': '제출 항목',
 			'tableTitle': '강의 및 도구 전체의 평가되지 않은 학습자 제출 항목 목록',
 			'toggleIndicatorLabelActions': '{target}에 작업 수행',
-			'toggleIndicatorLabelInfo': 'Get Info on {target}',
+			'toggleIndicatorLabelInfo': 'View info on {target}',
 			'tryAgain': '다시 시도',
 			'viewBy': '보기 기준:',
 			'yes': '예'

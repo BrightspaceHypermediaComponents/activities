@@ -54,7 +54,7 @@ const LangEnImpl = (superClass) => class extends superClass {
 			'submissions': 'Submissions',
 			'tableTitle': 'List of unevaluated Learner submissions from across courses and tools',
 			'toggleIndicatorLabelActions': 'Perform Actions on {target}',
-			'toggleIndicatorLabelInfo': 'Get Info on {target}',
+			'toggleIndicatorLabelInfo': 'View info on {target}',
 			'tryAgain': 'Try Again',
 			'newSubmissions': 'New Submissions',
 			'newSubmissionDetails': '{newNum, plural, =0 {{resub, plural, =1 {1 resubmission} other {{resub} resubmissions}}} other {{resub, plural, =0 {{newNum} new} =1{{newNum} new, 1 resubmission} other {{newNum} new, {resub} resubmissions}}}}',

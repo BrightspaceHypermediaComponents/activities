@@ -54,7 +54,7 @@ const LangFrfrImpl = (superClass) => class extends superClass {
 			'submissions': 'Soumissions de devoirs',
 			'tableTitle': 'Liste des soumissions non évaluées de l’apprenant dans l’ensemble des cours et des outils',
 			'toggleIndicatorLabelActions': 'Perform Actions on {target}',
-			'toggleIndicatorLabelInfo': 'Get Info on {target}',
+			'toggleIndicatorLabelInfo': 'View info on {target}',
 			'tryAgain': 'Réessayez',
 			'newSubmissions': 'New Submissions',
 			'newSubmissionDetails': '{newNum, plural, =0 {{resub, plural, =1 {1 resubmission} other {{resub} resubmissions}}} other {{resub, plural, =0 {{newNum} new} =1{{newNum} new, 1 resubmission} other {{newNum} new, {resub} resubmissions}}}}',

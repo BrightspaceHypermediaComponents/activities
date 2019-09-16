@@ -8,6 +8,15 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			window.d2lfetch = {
 				fetch: function() {}
 			};
+			window.performance = {
+				mark: function() {},
+				clearMarks: function() {},
+				clearMeasures: function() {},
+				measure: function() {},
+				getEntriesByName: function() {
+					return true;
+				}
+			};
 		});
 
 		test('_logEvent nothing is returned with no event body', () => {
@@ -69,6 +78,35 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 
 			const event = telemetryBehaviour.logViewQuickEvalEvent(telemetryData);
 			assert.equal(telemetryData, event._custom[0].value);
+		});
+
+		test('logAndDestroyPerformanceEvent event is created properly', () => {
+			telemetryBehaviour.dataTelemetryEndpoint = 'testEndpoint';
+			const telemetryData = 'testView';
+			const expectedTelemetryData = 'testViewLoadTime';
+
+			const event = telemetryBehaviour.logAndDestroyPerformanceEvent(telemetryData);
+			assert.equal(expectedTelemetryData, event._custom[0].value);
+		});
+
+		test('logAndDestroyPerformanceEvent is not created when mark doesnt exist', () => {
+			window.performance = {
+				getEntriesByName: function() {
+					return false;
+				}
+			};
+			telemetryBehaviour.dataTelemetryEndpoint = 'testEndpoint';
+			const telemetryData = 'testView';
+
+			const event = telemetryBehaviour.logAndDestroyPerformanceEvent(telemetryData, 'fake', 'fake');
+
+			window.performance = {
+				getEntriesByName: function() {
+					return true;
+				}
+			};
+
+			assert.equal(undefined, event);
 		});
 	});
 })();

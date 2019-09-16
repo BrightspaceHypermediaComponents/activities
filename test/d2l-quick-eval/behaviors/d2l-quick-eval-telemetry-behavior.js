@@ -13,8 +13,8 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 				clearMarks: function() {},
 				clearMeasures: function() {},
 				measure: function() {},
-				getEntriesByName: function() {
-					return true;
+				getEntriesByName: function(x) {
+					return [x];
 				}
 			};
 		});
@@ -101,8 +101,8 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			const event = telemetryBehaviour.logAndDestroyPerformanceEvent(telemetryData, 'fake', 'fake');
 
 			window.performance = {
-				getEntriesByName: function() {
-					return true;
+				getEntriesByName: function(x) {
+					return x;
 				}
 			};
 

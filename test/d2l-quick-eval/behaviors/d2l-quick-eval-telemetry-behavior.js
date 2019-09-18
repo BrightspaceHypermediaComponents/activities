@@ -9,16 +9,12 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			window.d2lfetch = {
 				fetch: function() {}
 			};
-		});
-
-		suiteTeardown(function() {
-			sandbox.restore();
-		});
-
-		suiteSetup(function() {
 			sandbox = sinon.sandbox.create();
 		});
 
+		teardown(function() {
+			sandbox.restore();
+		});
 		test('_logEvent nothing is returned with no event body', () => {
 			telemetryBehaviour.dataTelemetryEndpoint = 'https:??test.string.d2l';
 			assert.equal(undefined, telemetryBehaviour._logEvent());

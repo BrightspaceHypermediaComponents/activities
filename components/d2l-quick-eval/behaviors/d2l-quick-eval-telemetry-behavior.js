@@ -62,7 +62,7 @@ D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl = {
 		}
 		window.performance.measure(viewName, startMark, endMark);
 		const eventBody = new window.d2lTelemetryBrowserClient.PerformanceEventBody()
-			.setAction('NavigateTo')
+			.setAction('LoadView')
 			.addUserTiming(window.performance.getEntriesByName(viewName))
 			.addCustom('ViewName', `${viewName}LoadTime`);
 

@@ -82,6 +82,7 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			const expectedViewName = 'testViewLoadTime';
 			const startMark = 'start';
 			const endMark = 'end';
+			const actionName = 'LoadView';
 			const performanceMock = sandbox.mock(window.performance);
 			performanceMock.expects('clearMarks').withArgs(startMark);
 			performanceMock.expects('clearMarks').withArgs(endMark);
@@ -91,8 +92,9 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			performanceMock.expects('getEntriesByName').withArgs(viewName).returns([1, 2]);
 
 			const event = telemetryBehaviour.logAndDestroyPerformanceEvent(viewName, startMark, endMark);
-
 			assert.equal(expectedViewName, event._custom[0].value);
+			assert.equal(actionName, event._action);
+
 			sandbox.verify();
 		});
 

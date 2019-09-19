@@ -7,9 +7,12 @@
 
 	<title>d2l-quick-eval test</title>
 
-	<script src="../../../@babel/polyfill/browser.js"></script>
-	<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-	<script src="../../../wct-browser-legacy/browser.js"></script>
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="/node_modules/mocha/mocha.js"></script>
+	<script src="/node_modules/chai/chai.js"></script>
+	<script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+	<script src="/node_modules/wct-mocha/wct-mocha.js"></script>
+	<script src="/node_modules/sinon/pkg/sinon.js"></script>
 	<script type="module" src="./quick-eval-logging-test-component.js"></script>
 </head>
 
@@ -42,7 +45,7 @@
 
 			test('sends POST request with expected options formatted in the correct way', function(done) {
 
-				sandbox.stub(window, 'fetch', function(logger, options) {
+				sandbox.stub(window, 'fetch').callsFake(function(logger, options) {
 
 					assert.equal('expectedLogger', logger);
 
@@ -64,7 +67,7 @@
 				const testErrorMessage = 'expectedTestErrorMessage';
 				const expectedInfo = 'expectedInfo';
 
-				sandbox.stub(window, 'fetch', function(logger, options) {
+				sandbox.stub(window, 'fetch').callsFake(function(logger, options) {
 
 					const messageBody = JSON.parse(options.body);
 					assert.isTrue(Array.isArray(messageBody));
@@ -93,7 +96,7 @@
 
 				const throwingMessage = 'expectedThrowingMessage';
 
-				sandbox.stub(window, 'fetch', function(logger, options) {
+				sandbox.stub(window, 'fetch').callsFake(function(logger, options) {
 
 					const messageBody = JSON.parse(options.body);
 					assert.isTrue(Array.isArray(messageBody));

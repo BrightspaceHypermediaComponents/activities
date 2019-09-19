@@ -23,9 +23,8 @@ class ActivityEvaluationIconBase extends ActivityEvaluationIconBaseLocalize(Poly
 				}
 			</style>
 			<template is="dom-if" if="[[draft]]">
-				<d2l-icon id$="[[_tooltipForId]]" icon="d2l-tier1:draft"></d2l-icon>
+				<d2l-icon aria-label$="[[localize('draftInfo')]]" icon="d2l-tier1:draft"></d2l-icon>
 				<d2l-tooltip
-					for="[[_tooltipForId]]"
 					position="bottom"
 					offset="15"
 				>
@@ -43,16 +42,8 @@ class ActivityEvaluationIconBase extends ActivityEvaluationIconBaseLocalize(Poly
 				type: Boolean,
 				value: false,
 				reflectToAttribute: true
-			},
-			_tooltipForId: {
-				type: String,
-				computed: '_computeTooltipForId()'
 			}
 		};
-	}
-
-	_computeTooltipForId() {
-		return D2L.Id.getUniqueId();
 	}
 }
 

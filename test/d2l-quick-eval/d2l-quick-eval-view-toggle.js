@@ -90,7 +90,7 @@
 		});
 		test('When _handleSelectionChange triggered with valid switch and valid href ensure config is updated', function(done) {
 			const validHref = 'https://www.d2l.com/';
-			sandbox.stub(window.d2lfetch, 'fetch', function(request) {
+			sandbox.stub(window.d2lfetch, 'fetch').callsFake(function(request) {
 				assert.equal(request.url, validHref);
 				done();
 			});

@@ -30,7 +30,6 @@
 				assert.equal('d2l-tier1:draft', draftIconName);
 
 				var draftIconToolTip = draftEvaluation.shadowRoot.querySelector('d2l-tooltip');
-				assert.equal(draftIcon.id, draftIconToolTip.for);
 				assert.equal('bottom', draftIconToolTip.getAttribute('position'));
 				assert.equal('15', draftIconToolTip.getAttribute('offset'));
 

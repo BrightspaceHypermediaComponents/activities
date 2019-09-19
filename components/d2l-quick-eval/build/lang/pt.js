@@ -59,7 +59,8 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'submissionList': 'Lista de Envio',
 			'submissions': 'Envios',
 			'tableTitle': 'Lista de envios de alunos não avaliados de todos os cursos e ferramentas',
-			'toggleIndicatorLabel': 'Executar ações em {target}',
+			'toggleIndicatorLabelActions': 'Executar ações em {target}',
+			'toggleIndicatorLabelInfo': 'View info on {target}',
 			'tryAgain': 'Tentar novamente',
 			'viewBy': 'Exibir por:',
 			'yes': 'Sim'

@@ -85,6 +85,15 @@ D2L.PolymerBehaviors.Siren.D2LSirenHelperBehaviorImpl = {
 				}
 			);
 		}
+		const searchVal = GetQueryStringParam('collectionSearch', parsedUrl);
+		if (searchVal) {
+			extraParams.push(
+				{
+					name: 'collectionSearch',
+					value: searchVal
+				}
+			);
+		}
 
 		return extraParams;
 	},

@@ -4,7 +4,6 @@ import '../../d2l-activity-name/d2l-activity-name.js';
 import 'd2l-colors/d2l-colors.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier3-icons.js';
-import 'd2l-polymer-behaviors/d2l-visible-on-ancestor-behavior.js';
 import '@brightspace-ui/core/components/meter/meter-radial.js';
 import './d2l-quick-eval-activity-card-items.js';
 import './d2l-quick-eval-activity-card-new-submissions.js';
@@ -15,7 +14,7 @@ import 'd2l-typography/d2l-typography-shared-styles.js';
 class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 	static get template() {
 		return html`
-			<style include="d2l-visible-on-ancestor-styles">
+			<style>
 				:host {
 					display: block;
 				}
@@ -39,7 +38,6 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				}
 				.d2l-quick-eval-card-actions d2l-quick-eval-activity-card-action-button {
 					height: 2.1rem;
-					background: white;
 				}
 				.d2l-quick-eval-card-indicator {
 					display: none;
@@ -127,12 +125,15 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						width: 2.1rem;
 						height: 3rem;
 					}
-					d2l-quick-eval-activity-card-items[visible-on-ancestor] {
+					d2l-quick-eval-activity-card-items {
+						transition: transform 200ms ease-out, opacity 200ms ease-out;
+					}
+					.d2l-quick-eval-card-actions d2l-quick-eval-activity-card-items {
 						position: absolute;
 						top: 0;
-						right: 0;
+						right: 2.1rem;
 					}
-					:host(:dir(rtl)) d2l-quick-eval-activity-card-items[visible-on-ancestor] {
+					:host(:dir(rtl)) .d2l-quick-eval-card-actions d2l-quick-eval-activity-card-items {
 						left: 0;
 						right: initial;
 					}
@@ -179,6 +180,10 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 						width: 7.5rem;
 						height: 3rem;
 					}
+					[not-seen-desktop] {
+						opacity: 0;
+						transform: translateY(-10px);
+					}
 				}
 				:host([hidden]) {
 					display: none;
@@ -203,11 +208,9 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 
 			</style>
 			<div
-				class="d2l-quick-eval-card d2l-visible-on-ancestor-target"
+				class="d2l-quick-eval-card"
 				on-mouseenter="_handleOnMouseenter"
-				on-mouseleave="_handleOnMouseleave"
-				on-focusin="_handleOnFocusin"
-				on-focusout="_handleOnFocusout">
+				on-mouseleave="_handleOnMouseleave">
 				<div class="d2l-quick-eval-card-titles">
 					<h3 class="d2l-activity-name-wrapper">
 						<d2l-activity-name href="[[activityNameHref]]" token="[[token]]"></d2l-activity-name>
@@ -217,14 +220,14 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				<div class="d2l-quick-eval-card-right">
 					<div class="d2l-quick-eval-activity-card-items-container">
 						<div class="d2l-quick-eval-card-meters">
-							<d2l-quick-eval-activity-card-items>
-								<div>
+							<d2l-quick-eval-activity-card-items not-seen-desktop$="[[_indicatorPressed]]">
+								<div class="d2l-meter-radial-container" aria-hidden$="[[_computeIndicatorPressed(_indicatorPressed, _desktopView)]]">
 									<d2l-meter-radial value="[[completed]]" max="[[assigned]]" percent$="[[_denominatorOver99(assigned)]]" text="[[localize('completed')]]"></d2l-meter-radial>
 								</div>
-								<div>
+								<div class="d2l-meter-radial-container" aria-hidden$="[[_computeIndicatorPressed(_indicatorPressed, _desktopView)]]">
 									<d2l-meter-radial value="[[evaluated]]" max="[[assigned]]" percent$="[[_denominatorOver99(assigned)]]" text="[[localize('evaluated')]]"></d2l-meter-radial>
 								</div>
-								<div>
+								<div class="d2l-meter-radial-container" aria-hidden$="[[_computeIndicatorPressed(_indicatorPressed, _desktopView)]]">
 									<d2l-meter-radial value="[[published]]" max="[[assigned]]" percent$="[[_denominatorOver99(assigned)]]" text="[[localize('published')]]"></d2l-meter-radial>
 								</div>
 							</d2l-quick-eval-activity-card-items>
@@ -235,34 +238,40 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 							resubmitted="[[resubmitted]]"
 							activity-type="[[activityType]]"
 							hidden$="[[!_showNewSubmissions(newSubmissions, resubmitted)]]"></d2l-quick-eval-activity-card-new-submissions>
+						<button
+							class="d2l-quick-eval-card-indicator"
+							on-click="_handleIndicatorToggle"
+							aria-label$="[[_computeIndicatorLabel(activityName, _indicatorPressed)]]"
+							aria-pressed$="[[_computeIndicatorPressed(_indicatorPressed, _desktopView)]]">
+							<svg width="12px" height="33px" viewBox="0 0 12 33">
+								<circle class="d2l-quick-eval-activity-card-hovered-off" stroke-width="2" cx="5.5" cy="5.5" r="4.5"></circle>
+								<circle class="d2l-quick-eval-activity-card-hovered-on" stroke-width="2" cx="5.5" cy="26.5" r="4.5"></circle>
+							</svg>
+						</button>
 						<div class="d2l-quick-eval-card-actions">
-							<d2l-quick-eval-activity-card-items visible-on-ancestor small>
+							<d2l-quick-eval-activity-card-items not-seen-desktop$="[[!_indicatorPressed]]" small>
 								<d2l-quick-eval-activity-card-action-button
 									icon-name="evaluate-all"
 									text="[[localize('evaluateAll')]]"
-									on-click="_dispatchViewEvaluateAllEvent"></d2l-quick-eval-activity-card-action-button>
+									on-click="_dispatchViewEvaluateAllEvent"
+									tab-index-number="[[_computeTabstop(_indicatorPressed, _desktopView)]]"
+									aria-hidden$="[[_computeOppositeIndicatorPressed(_indicatorPressed, _desktopView)]]"></d2l-quick-eval-activity-card-action-button>
 								<d2l-quick-eval-activity-card-action-button
 									icon-name="view-submission-list"
 									text="[[localize('submissionList')]]"
-									on-click="_dispatchViewSubmissionListEvent"></d2l-quick-eval-activity-card-action-button>
+									on-click="_dispatchViewSubmissionListEvent"
+									tab-index-number="[[_computeTabstop(_indicatorPressed, _desktopView)]]"
+									aria-hidden$="[[_computeOppositeIndicatorPressed(_indicatorPressed, _desktopView)]]"></d2l-quick-eval-activity-card-action-button>
 								<d2l-quick-eval-activity-card-action-button
 									icon-name="publish-all"
 									text="[[localize('publishAll')]]"
 									on-click="_dispatchPublishAllEvent"
-									disabled$="[[_disablePublishAllButton(publishAll)]]"></d2l-quick-eval-activity-card-action-button>
+									disabled$="[[_disablePublishAllButton(publishAll)]]"
+									tab-index-number="[[_computeTabstop(_indicatorPressed, _desktopView)]]"
+									aria-hidden$="[[_computeOppositeIndicatorPressed(_indicatorPressed, _desktopView)]]"></d2l-quick-eval-activity-card-action-button>
 							</d2l-quick-eval-activity-card-items>
 						</div>
 					</div>
-					<button
-						class="d2l-quick-eval-card-indicator"
-						on-click="_handleIndicatorToggle"
-						aria-label$="[[_computeIndicatorLabel(activityName)]]"
-						aria-pressed$="[[_indicatorPressed]]">
-						<svg width="12px" height="33px" viewBox="0 0 12 33">
-							<circle class="d2l-quick-eval-activity-card-hovered-off" stroke-width="2" cx="5.5" cy="5.5" r="4.5"></circle>
-							<circle class="d2l-quick-eval-activity-card-hovered-on" stroke-width="2" cx="5.5" cy="26.5" r="4.5"></circle>
-						</svg>
-					</button>
 				</div>
 			</div>
 		`;
@@ -328,26 +337,21 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				type: String
 			},
 			_indicatorPressed: {
-				type: String,
-				value: 'false'
+				type: Boolean,
+				value: false
 			},
 			_hovered: {
 				type: Boolean,
 				value: false
 			},
-			// Becaue IE11 and Edge don't have :focus-within selector.
-			focusWithin: {
+			_desktopView: {
 				type: Boolean,
-				value: false,
-				reflectToAttribute: true
+				value: false
+			},
+			mql: {
+				type: Object
 			}
 		};
-	}
-
-	ready() {
-		super.ready();
-		window.addEventListener('resize', this._onWindowResize.bind(this));
-		this._onWindowResize();
 	}
 
 	_dispatchViewSubmissionListEvent() {
@@ -363,6 +367,22 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 				}
 			)
 		);
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.mql = window.matchMedia('(min-width: 900px)');
+		this._updateScreenWidth = this._updateScreenWidth.bind(this);
+		this._updateScreenWidth(this.mql);
+		this.mql.addListener(this._updateScreenWidth);
+	}
+
+	disconnectedCallback() {
+		this.mql.removeListener(this._updateScreenWidth);
+	}
+
+	_updateScreenWidth(e) {
+		this._desktopView = e.matches;
 	}
 
 	_dispatchViewEvaluateAllEvent() {
@@ -406,59 +426,42 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 		return (newSubmissions > 0) || (resubmitted > 0);
 	}
 
-	_onWindowResize() {
-		const width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-		const actions = this.shadowRoot.querySelector('.d2l-quick-eval-card-actions d2l-quick-eval-activity-card-items');
-		if (width >= 900) {
-			actions.setAttribute('visible-on-ancestor', '');
-		} else {
-			actions.removeAttribute('visible-on-ancestor');
-			actions.removeAttribute('d2l-visible-on-ancestor-hide');
-		}
-	}
-
 	_denominatorOver99(num) {
 		return num > 99;
 	}
 
-	_computeIndicatorLabel(activityName) {
-		return this.localize('toggleIndicatorLabel', 'target', activityName);
-	}
-
-	_handleIndicatorToggle() {
-		const attr = 'd2l-visible-on-ancestor-hide';
-		const actions = this.shadowRoot.querySelector('.d2l-quick-eval-card-actions d2l-quick-eval-activity-card-items');
-		if (actions.hasAttribute(attr)) {
-			actions.removeAttribute(attr);
-			const firstButton = this.shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button');
-			firstButton.focus();
-			this._indicatorPressed = 'true';
+	_computeIndicatorLabel(activityName, _indicatorPressed) {
+		if (_indicatorPressed) {
+			return this.localize('toggleIndicatorLabelInfo', 'target', activityName);
 		} else {
-			actions.setAttribute(attr, attr);
-			this._indicatorPressed = 'false';
+			return this.localize('toggleIndicatorLabelActions', 'target', activityName);
 		}
 	}
 
+	_computeIndicatorPressed(_indicatorPressed, _desktopView) {
+		return (_indicatorPressed && _desktopView).toString();
+	}
+
+	_computeOppositeIndicatorPressed(_indicatorPressed, _desktopView) {
+		return this._computeIndicatorPressed(!_indicatorPressed, _desktopView);
+	}
+
+	_computeTabstop(_indicatorPressed, _desktopView) {
+		return _indicatorPressed || !_desktopView ? 0 : -1;
+	}
+
+	_handleIndicatorToggle() {
+		this._indicatorPressed = !this._indicatorPressed;
+	}
+
 	_handleOnMouseenter() {
-		this._indicatorPressed = 'true';
+		this._indicatorPressed = true;
 		this._hovered = true;
 	}
 
 	_handleOnMouseleave() {
-		this._indicatorPressed = 'false';
+		this._indicatorPressed = false;
 		this._hovered = false;
-	}
-
-	_handleOnFocusin() {
-		this.focusWithin = true;
-		this._indicatorPressed = 'true';
-	}
-
-	_handleOnFocusout() {
-		this.focusWithin = false;
-		if (!this._hovered) {
-			this._indicatorPressed = 'false';
-		}
 	}
 
 	_disablePublishAllButton() {

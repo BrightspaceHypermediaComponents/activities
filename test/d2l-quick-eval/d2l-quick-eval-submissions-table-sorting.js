@@ -193,7 +193,7 @@ suite('d2l-quick-eval-activities-list-sorting', () => {
 			testData.forEach(testCase => {
 				test(testCase.name, () => {
 					const activeSortKey = 'activityName';
-					const stub = sinon.stub(list, '_applySortAndFetchData', () => Promise.resolve());
+					const stub = sinon.stub(list, '_applySortAndFetchData').callsFake(() => Promise.resolve());
 					const e = {
 						detail: {
 							headerId: activeSortKey

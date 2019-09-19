@@ -60,7 +60,10 @@ class D2LQuickEval extends
 			<d2l-quick-eval-activities href="[[_activitiesHref(activitiesViewEnabled)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
 		`;
 	}
-
+	ready() {
+		super.ready();
+		this.perfMark('qeViewLoadStart');
+	}
 	static get properties() {
 		return {
 			headerText: {

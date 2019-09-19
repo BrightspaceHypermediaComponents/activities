@@ -59,7 +59,8 @@ const LangSvImpl = (superClass) => class extends superClass {
 			'submissionList': 'Inlämningslista',
 			'submissions': 'inlämningar',
 			'tableTitle': 'Lista över ej utvärderade elevinlämningar från kurser och verktyg',
-			'toggleIndicatorLabel': 'Utför åtgärder på {target}',
+			'toggleIndicatorLabelActions': 'Utför åtgärder på {target}',
+			'toggleIndicatorLabelInfo': 'View info on {target}',
 			'tryAgain': 'Försök på nytt',
 			'viewBy': 'Visa enligt:',
 			'yes': 'Ja'

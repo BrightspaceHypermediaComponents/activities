@@ -108,6 +108,7 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 				}
 			</style>
 			<button
+				tabindex$="[[tabIndexNumber]]"
 				aria-labelledby$="[[_labelledbyId]]"
 				aria-expanded$="[[ariaExpanded]]"
 				aria-haspopup$="[[ariaHaspopup]]"
@@ -145,6 +146,10 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 			},
 			disabled: {
 				type: Boolean
+			},
+			tabIndexNumber: {
+				type: Number,
+				value: 0
 			}
 		};
 	}

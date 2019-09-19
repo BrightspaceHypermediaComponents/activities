@@ -16,6 +16,7 @@ import './d2l-quick-eval-no-criteria-results-image.js';
 import './d2l-quick-eval-search-results-summary-container.js';
 import './activities-list/d2l-quick-eval-activities-list.js';
 import './d2l-quick-eval-activities-skeleton.js';
+import './behaviors/d2l-quick-eval-telemetry-behavior.js';
 
 /**
  * @customElement
@@ -25,7 +26,8 @@ import './d2l-quick-eval-activities-skeleton.js';
 class D2LQuickEvalActivities extends mixinBehaviors(
 	[	D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehavior,
 		D2L.PolymerBehaviors.QuickEval.D2LHMFilterBehaviour,
-		D2L.PolymerBehaviors.QuickEval.D2LHMSearchBehaviour
+		D2L.PolymerBehaviors.QuickEval.D2LHMSearchBehaviour,
+		D2L.PolymerBehaviors.QuickEval.TelemetryBehaviorImpl
 	],
 	QuickEvalLogging(QuickEvalLocalize(PolymerElement))
 ) {
@@ -228,7 +230,6 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			return;
 		}
 		this._loading = true;
-
 		try {
 			if (entity.entities) {
 				const result = await this._parseActivities(entity);
@@ -239,6 +240,8 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			this._updateSearchResultsCount(this._data);
 			this._clearErrors();
 			this._handleLoadSuccess();
+			this.perfMark('activitiesLoadEnd');
+			this.logAndDestroyPerformanceEvent('activities', 'qeViewLoadStart', 'activitiesLoadEnd');
 		} catch (e) {
 			this._handleLoadFailure();
 			this._logError(e, {developerMessage: 'activities-view: Unable to load activities from entity.'});

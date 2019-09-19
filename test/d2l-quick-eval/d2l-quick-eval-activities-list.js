@@ -114,7 +114,7 @@ suite('d2l-quick-eval-activities-list', function() {
 					assert.equal(card.completed, a.completed);
 					assert.equal(card.published, a.published);
 					assert.equal(card.evaluated, a.evaluated);
-					assert.equal(card.newsubmissions, a.newSubmissions);
+					assert.equal(card.newSubmissions, a.newSubmissions);
 					assert.equal(card.resubmitted, a.resubmitted);
 					assert.equal(card.dueDate, a.dueDate);
 					assert.equal(card.activityType, a.activityType);

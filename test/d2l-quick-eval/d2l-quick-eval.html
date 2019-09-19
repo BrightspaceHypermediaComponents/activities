@@ -5,8 +5,12 @@
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
 		<title>d2l-quick-eval test</title>
-		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-		<script src="../../../wct-browser-legacy/browser.js"></script>
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="/node_modules/mocha/mocha.js"></script>
+		<script src="/node_modules/chai/chai.js"></script>
+		<script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+		<script src="/node_modules/wct-mocha/wct-mocha.js"></script>
+		<script src="/node_modules/sinon/pkg/sinon.js"></script>
 
 		<!-- For IE11 -->
 		<script src="../../../lie/dist/lie.polyfill.min.js"></script>
@@ -17,20 +21,20 @@
 	<body>
 		<test-fixture id="basic">
 			<template strip-whitespace>
-				<d2l-quick-eval 
-					href="data/unassessedActivities.json" 
-					submission-href="data/unassessedActivities.json" 
-					activities-href="data/unassessedActivitiesCollection.json" 
+				<d2l-quick-eval
+					href="data/unassessedActivities.json"
+					submission-href="data/unassessedActivities.json"
+					activities-href="data/unassessedActivitiesCollection.json"
 					token="whatever"></d2l-quick-eval>
 			</template>
 		</test-fixture>
 
 		<test-fixture id="masterTeacher">
 			<template strip-whitespace>
-				<d2l-quick-eval 
-					href="data/unassessedActivities.json" 
-					submission-href="data/unassessedActivities.json" 
-					token="whatever" 
+				<d2l-quick-eval
+					href="data/unassessedActivities.json"
+					submission-href="data/unassessedActivities.json"
+					token="whatever"
 					master-teacher></d2l-quick-eval>
 			</template>
 		</test-fixture>

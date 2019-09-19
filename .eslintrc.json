@@ -9,7 +9,8 @@
   },
   "rules": {
     "no-var": "error",
-    "prefer-const": "error"
+    "prefer-const": "error",
+    "sort-class-members/sort-class-members": "off"
   },
   "globals": {
     "fastdom": false

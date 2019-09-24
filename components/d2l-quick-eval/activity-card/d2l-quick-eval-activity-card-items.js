@@ -1,8 +1,7 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-colors/d2l-colors.js';
 
-class D2LQuickEvalActivityCardItems extends mixinBehaviors([D2L.PolymerBehaviors.VisibleOnAncestorBehavior], PolymerElement) {
+class D2LQuickEvalActivityCardItems extends PolymerElement {
 	static get template() {
 		return html`
 			<style>

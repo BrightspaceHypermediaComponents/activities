@@ -57,7 +57,7 @@ class D2LQuickEval extends
 			</template>
 			<d2l-quick-eval-view-toggle current-selected="[[toggleState]]" toggle-href="[[toggleHref]]" hidden$="[[!activitiesViewEnabled]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
 			<d2l-quick-eval-submissions href="[[submissionsHref]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" data-telemetry-endpoint="[[dataTelemetryEndpoint]]" hidden$="[[_showActivitiesView]]" master-teacher="[[masterTeacher]]"></d2l-quick-eval-submissions>
-			<d2l-quick-eval-activities href="[[_activitiesHref(activitiesViewEnabled)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
+			<d2l-quick-eval-activities href="[[_activitiesHref(activitiesViewEnabled, activitiesHref)]]" token="[[token]]" logging-endpoint="[[loggingEndpoint]]" hidden$="[[!_showActivitiesView]]"></d2l-quick-eval-activities>
 		`;
 	}
 	ready() {

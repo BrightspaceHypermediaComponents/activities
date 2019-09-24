@@ -1,0 +1,74 @@
+{
+	"class": [
+		"assignment-activity",
+		"published"
+	],
+	"entities": [
+		{
+			"class": [
+				"due-date",
+				"date"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/date"
+			],
+			"properties": {
+				"date": "2019-09-20T03:59:00.000Z",
+				"localizedDate": "2019-09-19T23:59:00.000"
+			}
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"https://activities.api.brightspace.com/rels/activity-usage",
+				"self"
+			],
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.activities.api.dev.brightspace.com/activities/6606_2000_7/usages/123065"
+		},
+		{
+			"rel": [
+				"https://activities.api.brightspace.com/rels/user-activity-usage",
+				"https://activities.api.brightspace.com/rels/my-activity-usage"
+			],
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.activities.api.dev.brightspace.com/activities/6606_2000_7/usages/123065/users/169"
+		},
+		{
+			"rel": [
+				"https://activities.api.brightspace.com/rels/evaluation-status"
+			],
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.activities.api.dev.brightspace.com/activities/6606_2000_7/usages/123065/evaluation-status"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.organizations.api.dev.brightspace.com/123065"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/assignment"
+			],
+			"href": "./data/assignmentActivity.json"
+		},
+		{
+			"rel": [
+				"https://alignments.api.brightspace.com/rels/alignments"
+			],
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.alignments.api.dev.brightspace.com/activity-usage/6606_2000_7/123065"
+		},
+		{
+			"rel": [
+				"https://conditions.api.brightspace.com/rels/conditions"
+			],
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.conditions.api.dev.brightspace.com/activity-usage/TmpZd05sOHlNREF3WHpjLjEyMzA2NQ"
+		}
+	],
+	"actions": [
+		{
+			"href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.assignments.api.dev.brightspace.com/123065/folders/7/setDraft/1",
+			"name": "set-draft",
+			"method": "POST"
+		}
+	]
+}

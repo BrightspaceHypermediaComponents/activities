@@ -5,18 +5,26 @@ addons:
   chrome: stable
 install:
 - npm install
-script:
-- npm run lint
-- |
-  if [ $TRAVIS_PULL_REQUEST != false ] && [ $TRAVIS_SECURE_ENV_VARS == true ]; then
-    echo "Pull request, running visual difference tests...";
-    npm run test:diff || travis_terminate 1;
-    echo "Pull request with secure environment variables, running Sauce tests...";
-    npm run test:polymer:sauce || travis_terminate 1;
-  else
-    echo "Not a pull request and/or no secure environment variables, running headless tests...";
-    npm run test:polymer:local || travis_terminate 1;
-  fi
+jobs:
+  include:
+  - stage: code-tests
+    script:
+    - npm run lint
+    - |
+      if [ $TRAVIS_PULL_REQUEST != false ] && [ $TRAVIS_SECURE_ENV_VARS == true ]; then
+        echo "Pull request with secure environment variables, running Sauce tests...";
+        npm run test:polymer:sauce || travis_terminate 1;
+      else
+        echo "Not a pull request and/or no secure environment variables, running headless tests...";
+        npm run test:polymer:local || travis_terminate 1;
+      fi
+  - stage: visual-difference-tests
+    script:
+    - |
+      if [ $TRAVIS_PULL_REQUEST != false ] && [ $TRAVIS_SECURE_ENV_VARS == true ]; then
+        echo "Pull request, running visual difference tests...";
+        npm run test:diff || travis_terminate 1;
+      fi
 after_success:
 - frauci-update-version && export TRAVIS_TAG=$(frauci-get-version)
 deploy:

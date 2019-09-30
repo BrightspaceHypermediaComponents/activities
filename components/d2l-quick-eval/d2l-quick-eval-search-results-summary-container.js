@@ -8,7 +8,7 @@ class D2LQuickEvalSearchResultsSummaryContainer extends QuickEvalLocalize(Polyme
 		<style>
 			:host {
 				border-radius: 8px;
-				background-color: var(--d2l-color-regolith);
+				background-color: black;
 				border: 1px solid var(--d2l-color-gypsum);
 				color: var(--d2l-color-ferrite);
 				display: block;

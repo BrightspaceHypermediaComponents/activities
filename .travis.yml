@@ -25,7 +25,8 @@ jobs:
         echo "Running visual difference tests...";
         npm run test:diff || travis_terminate 1;
       fi
-after_success:
+after_script:
+- echo $TRAVIS_TEST_RESULT
 - frauci-update-version && export TRAVIS_TAG=$(frauci-get-version)
 deploy:
   provider: releases

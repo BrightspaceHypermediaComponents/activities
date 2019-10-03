@@ -13,21 +13,11 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
-		<script>
-			function changeLocale(locale) { // eslint-disable-line no-unused-vars
-				document.getElementsByTagName('html')[0].lang = locale;
-			}
-		</script>
 		<d2l-demo-page page-title="d2l-activity-assignment-editor-detail">
 			<h2>d2l-activity-assignment-editor-detail</h2>
 			<d2l-demo-snippet>
 				<d2l-activity-assignment-editor-detail token="secret" href="./data/assignmentActivity.json"></d2l-activity-assignment-editor-detail>
 			</d2l-demo-snippet>
-
-			<button onclick="changeLocale('en')">Reset locale to "en"</button>
-			<button onclick="changeLocale('fr')">Change locale to "fr"<br/>(supported language)</button>
-			<button onclick="changeLocale('no')">Change locale to "no"<br/>(unsupported language)</button>
-			<button onclick="changeLocale('fr-ca')">Change locale to "fr-ca"<br/>(supported language,<br/>unsupported locale)</button>
 		</d2l-demo-page>
 	</body>
 </html>

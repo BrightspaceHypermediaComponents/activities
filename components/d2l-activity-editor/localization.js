@@ -1,39 +1,27 @@
-import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
-
-const SUPPORTED_LANGUAGES = ['en', 'fr'];
-const cache = {};
-
-export async function getLocalizeResources(langs, baseUrl) {
-	const supportedLanguages = langs.reverse().filter(language => {
-		return SUPPORTED_LANGUAGES.indexOf(language) > -1;
-	});
-
-	const sergeLangterms = supportedLanguages.map(language => {
-		const url = resolveUrl(`./lang/${language}.json`, baseUrl);
-		if (cache[url]) {
-			return cache[url];
+export async function getLocalizeResources(langs) {
+	const imports = [];
+	let supportedLanguage;
+	for (const language of langs.reverse()) {
+		switch (language) {
+			case 'en':
+				supportedLanguage = 'en';
+				imports.push(import('./lang/build/en.js'));
+				break;
+			case 'fr':
+				supportedLanguage = 'fr';
+				imports.push(import('./lang/build/fr.js'));
+				break;
 		}
-
-		const langterms = fetch(url).then(res => res.json()).then(json => {
-			const langterms = {};
-			for (const langterm in json) {
-				langterms[langterm] = json[langterm].translation;
-			}
-			return langterms;
-		});
-		cache[url] = langterms;
-		return langterms;
-	});
-
-	const responses = await Promise.all(sergeLangterms);
-
+	}
+	const translationFiles = await Promise.all(imports);
 	const langterms = {};
-	responses.forEach(language => {
-		Object.assign(langterms, language);
-	});
-
+	for (const translationFile of translationFiles) {
+		for (const langterm in translationFile.translations) {
+			langterms[langterm] = translationFile.translations[langterm].translation;
+		}
+	}
 	return {
-		language: supportedLanguages[supportedLanguages.length - 1],
+		language: supportedLanguage,
 		resources: langterms
 	};
 }

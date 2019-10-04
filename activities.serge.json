@@ -97,17 +97,7 @@
     "callback_plugins": [{
       "plugin": "run_command",
       "data": {
-        "command": "export LANG_PATH=./components/d2l-activity-editor/d2l-activity-assignment-editor/lang"
-      }
-    },{
-      "plugin": "run_command",
-      "data": {
-        "command": "rm -rf $LANG_PATH/build && mkdir -p $LANG_PATH/build"
-      }
-    }, {
-      "plugin": "run_command",
-      "data": {
-        "command": "for language in $(find $LANG_PATH -name \"*.json\" -type f -printf \"%f\\n\" | sed 's/\\.json$//'); do echo \"export const translations = JSON.parse(\\`$(cat $LANG_PATH/$language.json)\\`);\" > $LANG_PATH/build/$language.js; done"
+        "command": "echo \"export const translations = JSON.parse(\\`$(cat %OUTFILE%)\\`);\" > %OUTPATH%/build/%LANG%.js"
       }
     }]
   }

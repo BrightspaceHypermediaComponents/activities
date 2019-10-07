@@ -97,7 +97,7 @@
     "callback_plugins": [{
       "plugin": "run_command",
       "data": {
-        "command": "echo \"export const translations = JSON.parse(\\`$(cat %OUTFILE%)\\`);\" > %OUTPATH%/build/%LANG%.js"
+        "command": "echo \"export const translations = $(cat %OUTFILE%);\" > %OUTPATH%/build/%LANG%.js"
       }
     }]
   }

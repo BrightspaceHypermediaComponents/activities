@@ -1,4 +1,4 @@
-export const translations = JSON.parse(`{
+export const translations = {
   "name": {
     "translation": "Nom",
     "context": "Helpful hints to make the Serge translation better"
@@ -7,4 +7,4 @@ export const translations = JSON.parse(`{
     "translation": "Le nom est requis",
     "context": "Helpful hints to make the Serge translation better"
   }
-}`);
+};

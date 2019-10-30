@@ -16,6 +16,15 @@ import {LangTr} from './build/lang/tr.js';
 import {LangZhtw} from './build/lang/zh-tw.js';
 import {LangZh} from './build/lang/zh.js';
 
+const LangImpl = (prefix, langObj, superClass) => class extends superClass {
+	constructor() {
+		super();
+		this[prefix] = langObj;
+	}
+};
+
+const LANGUAGES = ['ar', 'de', 'en', 'es', 'fi', 'fr', 'ja', 'ko', 'nl', 'pt', 'sv', 'tr', 'zh-tw', 'zh'];
+
 /* @polymerMixin */
 const ActivityListItemLocalizeImpl = (superClass) => {
 	const langMixins = [
@@ -35,9 +44,9 @@ const ActivityListItemLocalizeImpl = (superClass) => {
 		LangZh
 	];
 	let mixinLang = mixinBehaviors([D2L.PolymerBehaviors.LocalizeBehavior], superClass);
-	for (const langMixin of langMixins) {
-		mixinLang = langMixin(mixinLang);
-	}
+	LANGUAGES.forEach((langPrefix, index)=> {
+		mixinLang = dedupingMixin(LangImpl.bind(null, langPrefix, langMixins[index])).call(null, mixinLang);
+	});
 	return class extends mixinLang {
 		constructor() {
 			super();

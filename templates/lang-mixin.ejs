@@ -1,14 +1,2 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
-
-/* @polymerMixin */
-const Lang<%- data.properLang %>Impl = (superClass) => class extends superClass {
-	constructor() {
-		super();
-		this.<%- data.lang %> = <%- data.resources %>;
-	}
-};
-
-export const Lang<%- data.properLang %> = dedupingMixin(Lang<%- data.properLang %>Impl);
+export const Lang<%- data.properLang %> = <%- data.resources %>;
 

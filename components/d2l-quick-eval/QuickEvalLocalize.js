@@ -25,7 +25,7 @@ const LangImpl = (prefix, langObj, superClass) => class extends superClass {
 	}
 };
 
-const LANGUAGES = ['ar', 'en', 'da-dk', 'de', 'es', 'fi', 'fr', 'fr-fr', 'ja', 'ko', 'nl', 'pt', 'sv', 'tr', 'zh-tw', 'zh' ];
+const LANGUAGES = ['ar', 'da-dk', 'de', 'en', 'es', 'fi', 'fr', 'fr-fr', 'ja', 'ko', 'nl', 'pt', 'sv', 'tr', 'zh-tw', 'zh' ];
 
 /* @polymerMixin */
 const QuickEvalLocalizeImpl = (superClass) => {

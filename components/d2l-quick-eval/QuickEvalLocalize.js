@@ -25,7 +25,7 @@ const LangImpl = (prefix, langObj, superClass) => class extends superClass {
 	}
 };
 
-const LANGUAGES = ["ar", "en", "da-dk", "de", "es", "fi", "fr", "fr-fr", "ja", "ko", "nl", "pt", "sv", "tr", "zh-tw", "zh" ];
+const LANGUAGES = ['ar', 'en', 'da-dk', 'de', 'es', 'fi', 'fr', 'fr-fr', 'ja', 'ko', 'nl', 'pt', 'sv', 'tr', 'zh-tw', 'zh' ];
 
 /* @polymerMixin */
 const QuickEvalLocalizeImpl = (superClass) => {
@@ -51,7 +51,6 @@ const QuickEvalLocalizeImpl = (superClass) => {
 	LANGUAGES.forEach((langPrefix, index)=> {
 		mixinLang = dedupingMixin(LangImpl.bind(null, langPrefix, langMixins[index])).call(null, mixinLang);
 	});
-
 
 	return class extends mixinLang {
 		constructor() {

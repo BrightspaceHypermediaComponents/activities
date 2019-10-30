@@ -1,12 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
-
-/* @polymerMixin */
-const LangKoImpl = (superClass) => class extends superClass {
-	constructor() {
-		super();
-		this.ko = {
+export const LangKo = {
 			'activities': '활동',
 			'activityName': '활동 이름',
 			'assignment': '과제',
@@ -65,8 +57,4 @@ const LangKoImpl = (superClass) => class extends superClass {
 			'viewBy': '보기 기준:',
 			'yes': '예'
 		};
-	}
-};
-
-export const LangKo = dedupingMixin(LangKoImpl);
 

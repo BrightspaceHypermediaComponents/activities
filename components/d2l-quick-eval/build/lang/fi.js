@@ -1,12 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
-
-/* @polymerMixin */
-const LangFiImpl = (superClass) => class extends superClass {
-	constructor() {
-		super();
-		this.fi = {
+export const LangFi = {
 			'activities': 'Activities',
 			'activityName': 'Activity Name',
 			'assignment': 'Assignment',
@@ -65,8 +57,4 @@ const LangFiImpl = (superClass) => class extends superClass {
 			'viewBy': 'View by:',
 			'yes': 'Yes'
 		};
-	}
-};
-
-export const LangFi = dedupingMixin(LangFiImpl);
 

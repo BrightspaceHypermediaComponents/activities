@@ -1,12 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
-
-/* @polymerMixin */
-const LangZhImpl = (superClass) => class extends superClass {
-	constructor() {
-		super();
-		this.zh = {
+export const LangZh = {
 			'activities': '活动',
 			'activityName': '活动名称',
 			'assignment': '作业',
@@ -65,8 +57,3 @@ const LangZhImpl = (superClass) => class extends superClass {
 			'viewBy': '查看方式：',
 			'yes': '是'
 		};
-	}
-};
-
-export const LangZh = dedupingMixin(LangZhImpl);
-

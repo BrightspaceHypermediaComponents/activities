@@ -1,12 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
-
-/* @polymerMixin */
-const LangZhtwImpl = (superClass) => class extends superClass {
-	constructor() {
-		super();
-		this.zhtw = {
+export const LangZhtw = {
 			'activities': '活動',
 			'activityName': '活動名稱',
 			'assignment': '作業',
@@ -65,8 +57,3 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'viewBy': '檢視依據：',
 			'yes': '是'
 		};
-	}
-};
-
-export const LangZhtw = dedupingMixin(LangZhtwImpl);
-

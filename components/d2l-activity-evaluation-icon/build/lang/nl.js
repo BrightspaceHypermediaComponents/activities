@@ -1,4 +1,4 @@
 export const LangNl = {
-			'draftInfo': 'Evaluatie opgeslagen als concept'
-		};
+	'draftInfo': 'Evaluatie opgeslagen als concept'
+};
 

@@ -1,4 +1,4 @@
 export const LangTr = {
-			'draftInfo': 'Değerlendirme taslak olarak kaydedildi'
-		};
+	'draftInfo': 'Değerlendirme taslak olarak kaydedildi'
+};
 

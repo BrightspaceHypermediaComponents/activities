@@ -1,5 +1,5 @@
 export const LangEn = {
-			'enroll': 'Enroll',
-			'clickToViewActivity': 'Click to view activity'
-		};
+	'enroll': 'Enroll',
+	'clickToViewActivity': 'Click to view activity'
+};
 

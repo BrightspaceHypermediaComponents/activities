@@ -1,4 +1,4 @@
 export const LangEs = {
-			'draftInfo': 'Evaluación guardada como borrador'
-		};
+	'draftInfo': 'Evaluación guardada como borrador'
+};
 

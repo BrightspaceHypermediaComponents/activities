@@ -1,4 +1,4 @@
 export const LangFrfr = {
-			'draftInfo': 'Évaluation enregistrée comme brouillon'
-		};
+	'draftInfo': 'Évaluation enregistrée comme brouillon'
+};
 

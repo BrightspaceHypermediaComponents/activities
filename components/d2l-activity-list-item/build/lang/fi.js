@@ -1,4 +1,4 @@
 export const LangFi = {
-			'enroll': 'Enroll'
-		};
+	'enroll': 'Enroll'
+};
 

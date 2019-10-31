@@ -1,4 +1,4 @@
 export const LangDadk = {
-			'draftInfo': 'Evaluering gemt som kladde'
-		};
+	'draftInfo': 'Evaluering gemt som kladde'
+};
 

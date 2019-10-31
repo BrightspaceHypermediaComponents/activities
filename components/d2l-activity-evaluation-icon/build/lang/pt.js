@@ -1,4 +1,4 @@
 export const LangPt = {
-			'draftInfo': 'Avaliação salva como rascunho'
-		};
+	'draftInfo': 'Avaliação salva como rascunho'
+};
 

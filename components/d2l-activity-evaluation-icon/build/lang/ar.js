@@ -1,4 +1,4 @@
 export const LangAr = {
-			'draftInfo': 'تم حفظ التقييم كمسودة'
-		};
+	'draftInfo': 'تم حفظ التقييم كمسودة'
+};
 

@@ -1,4 +1,4 @@
 export const LangFi = {
-			'draftInfo': 'Evaluation saved as draft'
-		};
+	'draftInfo': 'Evaluation saved as draft'
+};
 

@@ -1,4 +1,4 @@
 export const LangEn = {
-			'draftInfo': 'Evaluation saved as draft'
-		};
+	'draftInfo': 'Evaluation saved as draft'
+};
 

@@ -23,7 +23,7 @@ const LangImpl = (prefix, langObj, superClass) => class extends superClass {
 	}
 };
 
-const LANGUAGES = ["ar", "de", "en", "es", "fi", "fr", "ja", "ko", "nl", "pt", "sv", "tr", "zh-tw", "zh" ];
+const LANGUAGES = ['ar', 'de', 'en', 'es', 'fi', 'fr', 'ja', 'ko', 'nl', 'pt', 'sv', 'tr', 'zh-tw', 'zh' ];
 
 /* @polymerMixin */
 const ActivityEvaluationIconBaseLocalizeImpl = (superClass) => {

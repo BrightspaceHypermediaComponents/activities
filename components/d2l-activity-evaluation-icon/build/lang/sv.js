@@ -1,4 +1,4 @@
 export const LangSv = {
-			'draftInfo': 'Utvärderingen sparades som utkast'
-		};
+	'draftInfo': 'Utvärderingen sparades som utkast'
+};
 

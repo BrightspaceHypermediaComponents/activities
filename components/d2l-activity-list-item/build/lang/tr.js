@@ -1,5 +1,5 @@
 export const LangTr = {
-			'clickToViewActivity': 'Etkinliği görüntülemek için tıklayın',
-			'enroll': 'Kaydol'
-		};
+	'clickToViewActivity': 'Etkinliği görüntülemek için tıklayın',
+	'enroll': 'Kaydol'
+};
 

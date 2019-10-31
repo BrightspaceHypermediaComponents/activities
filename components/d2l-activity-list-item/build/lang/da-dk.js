@@ -1,4 +1,4 @@
 export const LangDadk = {
-			'enroll': 'Tilmeld'
-		};
+	'enroll': 'Tilmeld'
+};
 

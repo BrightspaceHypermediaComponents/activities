@@ -1,4 +1,4 @@
 export const LangDe = {
-			'draftInfo': 'Bewertung als Entwurf gespeichert'
-		};
+	'draftInfo': 'Bewertung als Entwurf gespeichert'
+};
 

@@ -56,22 +56,22 @@ const QuickEvalLocalizeImpl = (superClass) => {
 		constructor() {
 			super();
 			this.resources = {
-				'en': this.en,
-				'ar': this.ar,
-				'da-dk': this.dadk,
-				'de': this.de,
-				'es': this.es,
-				'fi': this.fi,
-				'fr': this.fr,
-				'fr-fr': this.frfr,
-				'ja': this.ja,
-				'ko': this.ko,
-				'nl': this.nl,
-				'pt': this.pt,
-				'sv': this.sv,
-				'tr': this.tr,
-				'zh': this.zh,
-				'zh-tw': this.zhtw
+				'en': this['en'],
+				'ar': this['ar'],
+				'da-dk': this['da-dk'],
+				'de': this['de'],
+				'es': this['es'],
+				'fi': this['fi'],
+				'fr': this['fr'],
+				'fr-fr': this['fr-fr'],
+				'ja': this['ja'],
+				'ko': this['ko'],
+				'nl': this['nl'],
+				'pt': this['pt'],
+				'sv': this['sv'],
+				'tr': this['tr'],
+				'zh': this['zh'],
+				'zh-tw': this['zh-tw']
 			};
 		}
 		static get properties() {

@@ -65,7 +65,7 @@ const ActivityEvaluationIconBaseLocalizeImpl = (superClass) => {
 				'sv': this.sv,
 				'tr': this.tr,
 				'zh': this.zh,
-				'zh-tw': this.zhtw
+				'zh-tw': this['zh-tw']
 			};
 		}
 		static get properties() {

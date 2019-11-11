@@ -1,0 +1,26 @@
+{
+   "completionType" : {
+      "context" : "Label for the completion type field when creating/editing an assignment",
+      "translation" : "Marked as completed"
+   },
+   "dueDate" : {
+      "context" : "Label for the due date field when creating/editing an activity",
+      "translation" : "Due Date"
+   },
+   "emptyNameError" : {
+      "context" : "사용자에게 활동 이름이 필수 필드임을 알리는 오류 메시지",
+      "translation" : "이름이 필요함"
+   },
+   "instructions" : {
+      "context" : "활동을 생성/편집할 때 지침 필드에 대한 라벨",
+      "translation" : "지시사항"
+   },
+   "name" : {
+      "context" : "활동을 생성/편집할 때 이름 필드에 대한 라벨",
+      "translation" : "이름"
+   },
+   "submissionType" : {
+      "context" : "Label for the submission type field when creating/editing an assignment",
+      "translation" : "Submission Type"
+   }
+}

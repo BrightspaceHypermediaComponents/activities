@@ -1,0 +1,10 @@
+{
+   "dueDate" : {
+      "context" : "ARIA label for the due date field when creating/editing an activity",
+      "translation" : "Uiterste datum"
+   },
+   "dueTime" : {
+      "context" : "ARIA label for the due time field when creating/editing an activity",
+      "translation" : "Due Time"
+   }
+}

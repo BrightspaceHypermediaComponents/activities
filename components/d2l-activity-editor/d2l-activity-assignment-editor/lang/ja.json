@@ -1,0 +1,26 @@
+{
+   "completionType" : {
+      "context" : "Label for the completion type field when creating/editing an assignment",
+      "translation" : "Marked as completed"
+   },
+   "dueDate" : {
+      "context" : "Label for the due date field when creating/editing an activity",
+      "translation" : "Due Date"
+   },
+   "emptyNameError" : {
+      "context" : "アクティビティ名が必修項目であることをユーザーに通知するエラーメッセージ",
+      "translation" : "名前は必須です"
+   },
+   "instructions" : {
+      "context" : "アクティビティを作成/編集する際の手順フィールドのラベル",
+      "translation" : "手順"
+   },
+   "name" : {
+      "context" : "アクティビティを作成/編集する際の名前フィールドのラベル",
+      "translation" : "名前"
+   },
+   "submissionType" : {
+      "context" : "Label for the submission type field when creating/editing an assignment",
+      "translation" : "Submission Type"
+   }
+}

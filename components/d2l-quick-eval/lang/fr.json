@@ -52,7 +52,7 @@
    "submissions" : "Soumissions",
    "tableTitle" : "Liste des soumissions des apprenants non évaluées provenant des cours et des outils",
    "toggleIndicatorLabelActions" : "Exécuter des actions sur {target}",
-   "toggleIndicatorLabelInfo": "Afficher l'information sur {target}",
+   "toggleIndicatorLabelInfo" : "Afficher l’info sur {cible}",
    "tryAgain" : "Réessayer",
    "viewBy" : "Afficher par :",
    "yes" : "Oui"

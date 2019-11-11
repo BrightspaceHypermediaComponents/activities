@@ -1,0 +1,26 @@
+{
+   "completionType" : {
+      "context" : "Label for the completion type field when creating/editing an assignment",
+      "translation" : "Marked as completed"
+   },
+   "dueDate" : {
+      "context" : "Label for the due date field when creating/editing an activity",
+      "translation" : "截止日期"
+   },
+   "emptyNameError" : {
+      "context" : "錯誤訊息，用於告知使用者活動名稱為必填欄位",
+      "translation" : "名稱為必填"
+   },
+   "instructions" : {
+      "context" : "建立/編輯活動時的指示欄位標籤",
+      "translation" : "指示"
+   },
+   "name" : {
+      "context" : "建立/編輯活動時的名稱欄位標籤",
+      "translation" : "名稱"
+   },
+   "submissionType" : {
+      "context" : "Label for the submission type field when creating/editing an assignment",
+      "translation" : "Submission Type"
+   }
+}

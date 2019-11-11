@@ -1,0 +1,26 @@
+{
+   "completionType" : {
+      "context" : "Label for the completion type field when creating/editing an assignment",
+      "translation" : "Marked as completed"
+   },
+   "dueDate" : {
+      "context" : "Label for the due date field when creating/editing an activity",
+      "translation" : "Due Date"
+   },
+   "emptyNameError" : {
+      "context" : "Kullanıcıya etkinlik adının zorunlu bir alan olduğunu bildiren hata mesajı",
+      "translation" : "Ad gerekli"
+   },
+   "instructions" : {
+      "context" : "Bir etkinlik oluşturulurken/düzenlenirken sunulan talimat alanı için etiket",
+      "translation" : "Talimatlar"
+   },
+   "name" : {
+      "context" : "Bir etkinlik oluşturulurken/düzenlenirken sunulan ad alanı için etiket",
+      "translation" : "Ad"
+   },
+   "submissionType" : {
+      "context" : "Label for the submission type field when creating/editing an assignment",
+      "translation" : "Submission Type"
+   }
+}

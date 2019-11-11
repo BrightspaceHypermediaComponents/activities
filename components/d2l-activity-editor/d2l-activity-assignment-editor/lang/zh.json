@@ -1,0 +1,26 @@
+{
+   "completionType" : {
+      "context" : "Label for the completion type field when creating/editing an assignment",
+      "translation" : "Marked as completed"
+   },
+   "dueDate" : {
+      "context" : "Label for the due date field when creating/editing an activity",
+      "translation" : "截止日期"
+   },
+   "emptyNameError" : {
+      "context" : "通知用户活动名称是必填字段的错误消息",
+      "translation" : "需要提供名称"
+   },
+   "instructions" : {
+      "context" : "创建/编辑活动时说明字段的标签",
+      "translation" : "说明"
+   },
+   "name" : {
+      "context" : "创建/编辑活动时名称字段的标签",
+      "translation" : "名称"
+   },
+   "submissionType" : {
+      "context" : "Label for the submission type field when creating/editing an assignment",
+      "translation" : "Submission Type"
+   }
+}

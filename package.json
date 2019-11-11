@@ -10,8 +10,8 @@
     "lint": "npm run lint:wc && npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.html",
     "lint:wc": "polymer lint -i \"./*\" \"components\" \"demo\" \"test\"",
-    "test:diff": "mocha ./**/*.visual-diff.js -t 40000",
-    "test:diff:golden": "mocha ./**/*.visual-diff.js -t 40000 --golden",
+    "test:diff": "mocha test/**/*.visual-diff.js -t 40000",
+    "test:diff:golden": "mocha test/**/*.visual-diff.js -t 40000 --golden",
     "test:diff:golden:commit": "commit-goldens",
     "test:polymer:local": "polymer test --skip-plugin sauce",
     "test:polymer:sauce": "polymer test --skip-plugin local",
@@ -52,7 +52,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.47.1",
+  "version": "3.48.3",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",

@@ -13,7 +13,8 @@ D2L.PolymerBehaviors.QuickEval.D2LHMFilterBehaviourImpl = {
 
 	properties: {
 		filterHref: {
-			type: String
+			type: String,
+			computed: '_computeFilterHref(entity)'
 		},
 		filterApplied: {
 			type: Boolean,
@@ -26,10 +27,6 @@ D2L.PolymerBehaviors.QuickEval.D2LHMFilterBehaviourImpl = {
 		filtersLoading: {
 			type: Boolean,
 			value: false
-		},
-		_lazyFilterHref: {
-			type: String,
-			computed: '_computeFilterHref(entity)'
 		}
 	},
 
@@ -65,10 +62,6 @@ D2L.PolymerBehaviors.QuickEval.D2LHMFilterBehaviourImpl = {
 		this.entity = e.detail.filteredActivities;
 		this.filtersLoading = false;
 		this._clearErrors();
-	},
-
-	_applyFilterHref: function() {
-		this.filterHref = this._lazyFilterHref;
 	},
 
 	clearFilters: async function() {

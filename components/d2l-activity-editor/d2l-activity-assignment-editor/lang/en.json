@@ -18,5 +18,9 @@
   "submissionType": {
     "translation": "Submission Type",
     "context": "Label for the submission type field when creating/editing an assignment"
+  },
+  "completionType": {
+    "translation": "Marked as completed",
+    "context": "Label for the completion type field when creating/editing an assignment"
   }
 }

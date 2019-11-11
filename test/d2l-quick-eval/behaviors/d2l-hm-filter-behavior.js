@@ -23,21 +23,7 @@ suite('d2l-hm-filter-behavior', function() {
 		};
 
 		filterBehavior.entity = SirenParse(entity);
-		filterBehavior._applyFilterHref();
 		assert.isOk(filterBehavior.filterHref);
-	});
-	test('filterHref is not set if _applyFilterHref is not called', () => {
-		const entity = {
-			'links': [
-				{
-					'rel': ['https://api.brightspace.com/rels/filters'],
-					'href': '/not/a/real/url'
-				}
-			]
-		};
-
-		filterBehavior.entity = SirenParse(entity);
-		assert.isNotOk(filterBehavior.filterHref);
 	});
 	test('Properly set filterHref given invalid entity', () => {
 		filterBehavior.entity = null;

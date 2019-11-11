@@ -97,7 +97,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 					href="[[filterHref]]"
 					token="[[token]]"
 					category-whitelist="[[_filterIds]]"
-					result-size="[[_numberOfActivitiesToShow]]">
+					result-size="[[_numberOfActivitiesToShow]]"
+					lazy-load-options>
 				</d2l-hm-filter>
 				<d2l-hm-search
 					token="[[token]]"
@@ -237,14 +238,14 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			},
 			_showLoadingSkeleton: {
 				type: Boolean,
-				computed: '_computeShowLoadingSkeleton(_loading, searchLoading)'
+				computed: '_computeShowLoadingSkeleton(_loading, filtersLoading, searchLoading)'
 			},
 			hidden: {
 				type: Boolean
 			},
 			_showSearchSummary: {
 				type: Boolean,
-				computed: '_computeShowSearchSummary(_loading, searchLoading, searchApplied)'
+				computed: '_computeShowSearchSummary(_loading, filtersLoading, searchLoading, searchApplied)'
 			},
 			_initialLoad: {
 				type: Boolean,
@@ -302,7 +303,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		} finally {
 			this._loading = false;
 			this._initialLoad = false;
-			this._applyFilterHref();
 		}
 	}
 
@@ -532,12 +532,12 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		return _loadingMore;
 	}
 
-	_computeShowLoadingSkeleton(_loading, searchLoading) {
-		return _loading || searchLoading;
+	_computeShowLoadingSkeleton(_loading, filtersLoading, searchLoading) {
+		return _loading || filtersLoading || searchLoading;
 	}
 
-	_computeShowSearchSummary(_loading, searchLoading, searchApplied) {
-		return !_loading && !searchLoading && searchApplied;
+	_computeShowSearchSummary(_loading, filtersLoading, searchLoading, searchApplied) {
+		return !_loading && !filtersLoading && !searchLoading && searchApplied;
 	}
 
 	ready() {

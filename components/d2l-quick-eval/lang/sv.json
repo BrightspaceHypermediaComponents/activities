@@ -52,7 +52,7 @@
    "submissions" : "inlämningar",
    "tableTitle" : "Lista över ej utvärderade elevinlämningar från kurser och verktyg",
    "toggleIndicatorLabelActions" : "Utför åtgärder på {target}",
-   "toggleIndicatorLabelInfo": "Visa info om {target}",
+   "toggleIndicatorLabelInfo" : "Visa information om {target}",
    "tryAgain" : "Försök på nytt",
    "viewBy" : "Visa enligt:",
    "yes" : "Ja"

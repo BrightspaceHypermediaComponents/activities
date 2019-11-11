@@ -52,8 +52,8 @@
    "submissions" : "提交",
    "tableTitle" : "来自各个课程和工具的未评估学员提交的列表",
    "toggleIndicatorLabelActions" : "在 {target} 上执行操作",
-   "toggleIndicatorLabelInfo": "查看有关 {target} 的信息",
+   "toggleIndicatorLabelInfo" : "查看有关 {target} 的信息",
    "tryAgain" : "请重试",
-   "viewBy" : "查看方式：",
+   "viewBy" : "查看人：",
    "yes" : "是"
 }

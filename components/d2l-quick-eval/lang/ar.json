@@ -52,7 +52,7 @@
    "submissions" : "الإرسالات",
    "tableTitle" : "قائمة بعمليات إرسال المتعلّم غير المقيّمة من المقررات التعليمية والأدوات",
    "toggleIndicatorLabelActions" : "تنفيذ الإجراءات في {target}",
-   "toggleIndicatorLabelInfo": "عرض المعلومات في {target}",
+   "toggleIndicatorLabelInfo" : "عرض المعلومات في {target}",
    "tryAgain" : "المحاولة مرة أخرى",
    "viewBy" : "عرض حسب:",
    "yes" : "نعم"

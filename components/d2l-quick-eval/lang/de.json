@@ -52,7 +52,7 @@
    "submissions" : "Abgaben",
    "tableTitle" : "Liste nicht bewerteter Abgaben von Lernern in allen Kursen und Tools",
    "toggleIndicatorLabelActions" : "Aktionen für {target} ausführen",
-   "toggleIndicatorLabelInfo": "Informationen auf {target} anzeigen",
+   "toggleIndicatorLabelInfo" : "Informationen zu {target} anzeigen",
    "tryAgain" : "Erneut versuchen",
    "viewBy" : "Anzeigen nach:",
    "yes" : "Ja"

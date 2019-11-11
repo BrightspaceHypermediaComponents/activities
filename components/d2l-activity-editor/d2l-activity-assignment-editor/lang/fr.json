@@ -1,0 +1,26 @@
+{
+    "completionType" : {
+        "context" : "Label for the completion type field when creating/editing an assignment",
+        "translation" : "Marked as completed"
+    },
+    "dueDate" : {
+        "context" : "Label for the due date field when creating/editing an activity",
+        "translation" : "Due Date"
+    },
+    "emptyNameError" : {
+        "context" : "Error message to inform user that the activity name is a required field",
+        "translation" : "Le nom est obligatoire"
+    },
+    "instructions" : {
+        "context" : "Label for the instruction field when creating/editing an activity",
+        "translation" : "Instructions"
+    },
+    "name" : {
+        "context" : "Label for the name field when creating/editing an activity",
+        "translation" : "Nom"
+    },
+    "submissionType" : {
+        "context" : "Label for the submission type field when creating/editing an assignment",
+        "translation" : "Submission Type"
+    }
+}

@@ -210,7 +210,7 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 		if (activityNameHref === '') {
 			Promise.reject('Activity name href was empty');
 		}
-		return this._followHref(this._getActivityNameHref(entity))
+		return this._followHref(this.activityNameHref)
 			.then(function(a) {
 				let rel;
 				if (a.entity.hasClass(Classes.activities.userQuizAttemptActivity) || a.entity.hasClass(Classes.activities.userQuizActivity)) {

@@ -231,7 +231,10 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			},
 			_publishAllDialogMessage: {
 				type: String
-			}
+			},
+			dataTelemetryEndpoint: {
+				type: String
+			},
 		};
 	}
 	static get observers() {

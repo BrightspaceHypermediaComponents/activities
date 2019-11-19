@@ -234,7 +234,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			},
 			dataTelemetryEndpoint: {
 				type: String
-			},
+			}
 		};
 	}
 	static get observers() {

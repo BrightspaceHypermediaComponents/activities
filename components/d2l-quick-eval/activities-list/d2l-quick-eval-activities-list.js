@@ -80,6 +80,7 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 										activity-type="[[a.activityType]]"
 										activity-name-href="[[a.activityNameHref]]"
 										activity-name="[[a.activityName]]"
+										dismiss-enabled="[[dismissEnabled]]"
 										token="[[token]]"
 										on-mouseenter="_handleOnMouseenter"
 										on-mouseleave="_handleOnMouseleave"></d2l-quick-eval-activity-card>
@@ -115,6 +116,10 @@ class D2LQuickEvalActivitiesList extends QuickEvalLocalize(PolymerElement) {
 					// 	}
 					// }
 				]
+			},
+			dismissEnabled: {
+				type: Boolean,
+				value: false
 			},
 			token: {
 				type: String

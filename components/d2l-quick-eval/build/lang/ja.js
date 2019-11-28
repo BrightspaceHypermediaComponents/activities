@@ -2,6 +2,7 @@ export const LangJa = {
 	'activities': 'アクティビティ',
 	'activityName': 'アクティビティ名',
 	'assignment': '課題',
+	'cancel': 'Cancel',
 	'caughtUp': '学習はすべて順調に進んでいます！',
 	'checkBackOften': '新規送信物を頻繁にチェックしてください。',
 	'clearSearch': '検索のクリア',
@@ -10,6 +11,8 @@ export const LangJa = {
 	'confirmation': '確認',
 	'courseName': 'コース',
 	'discussion': 'ディスカッション',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': '名、姓',
 	'due': '期限: {date}',
 	'evaluate': '{displayName} さんの評価',
@@ -42,6 +45,7 @@ export const LangJa = {
 	'publishAllToastMessageTruncated': '{truncatedActivityName}… の評価が正常に発行されました。',
 	'published': '公開済み',
 	'quiz': 'クイズ',
+	'restore': 'Restore',
 	'search': '検索',
 	'searchResultsMore': '{num} 件以上の検索結果',
 	'searchResultsMultiple': '{num} 件の検索結果',
@@ -57,4 +61,3 @@ export const LangJa = {
 	'viewBy': '表示対象:',
 	'yes': 'はい'
 };
-

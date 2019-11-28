@@ -3,6 +3,7 @@ import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-visibility-editor.js';
+import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
@@ -31,7 +32,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			_canEditSubmissionType: { type: Boolean },
 			_completionTypes: { type: Array },
 			_canEditCompletionType: { type: Boolean },
-			_showCompletionType: { type: Boolean }
+			_showCompletionType: { type: Boolean },
+			_attachmentsHref: { type: String }
 		};
 	}
 
@@ -89,6 +91,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		this._canEditSubmissionType = assignment.canEditSubmissionType();
 		this._completionTypes = assignment.completionTypeOptions();
 		this._canEditCompletionType = assignment.canEditCompletionType();
+		this._attachmentsHref = assignment.attachmentsCollectionHref();
 	}
 
 	_saveOnChange(jobName) {
@@ -241,6 +244,12 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</d2l-activity-availability-dates-editor>
 			</div>
 
+			<div id="assignment-attachments-editor-container" ?hidden="${!this._attachmentsHref}">
+				<d2l-activity-attachments-editor
+					.href="${this._attachmentsHref}"
+					.token="${this.token}">
+				</d2l-activity-attachments-editor>
+			</div>
 		`;
 	}
 }

@@ -12,6 +12,14 @@
 		div {
 			margin: 10px;
 		}
+		#dismiss-with-publish {
+			height: 300px;
+			display: flex;
+			align-items: flex-end;
+		}
+		#dismiss {
+			height: 300px;
+		}
 		</style>
 		<script type="module">
 			import '@brightspace-ui/core/components/typography/typography.js';
@@ -135,6 +143,32 @@
 				newSubmissions="10"
 				resubmitted="10"
 				activity-type="discussion"></d2l-quick-eval-activity-card>
+		</div>
+
+		<div id="dismiss">
+			<d2l-quick-eval-activity-card
+				assigned="30"
+				completed="12"
+				published="13"
+				evaluated="14"
+				newSubmissions="10"
+				resubmitted="10"
+				activity-type="discussion"
+				dismiss-enabled
+				publish-all=""></d2l-quick-eval-activity-card>
+		</div>
+
+		<div id="dismiss-with-publish">
+			<d2l-quick-eval-activity-card
+				assigned="30"
+				completed="12"
+				published="13"
+				evaluated="14"
+				newSubmissions="10"
+				resubmitted="10"
+				activity-type="discussion"
+				dismiss-enabled
+				publish-all="blah"></d2l-quick-eval-activity-card>
 		</div>
 	</body>
 </html>

@@ -62,7 +62,7 @@
 				<h4>Note: Load more button is expected to fail on last click, but should resolve itself when clicking it again</h4>
 				<hr/><br/>
 				<template strip-whitespace>
-					<d2l-quick-eval header-text="Quick Eval" master-teacher search-enabled activities-href="pages/?sort=bydate-a" submissions-href="pages/?sort=bydate-a" token="whatever" activities-view-enabled></d2l-quick-eval>
+					<d2l-quick-eval dismiss-enabled header-text="Quick Eval" master-teacher search-enabled activities-href="pages/?sort=bydate-a" submissions-href="pages/?sort=bydate-a" token="whatever" activities-view-enabled></d2l-quick-eval>
 				</template>
 			</demo-snippet>
 
@@ -70,7 +70,7 @@
 				<h4>Note: Load more button is expected to fail on last click, but should resolve itself when clicking it again</h4>
 				<hr/><br/>
 				<template strip-whitespace>
-					<d2l-quick-eval header-text="Quick Eval" master-teacher search-enabled href="pages/?sort=bydate-a" token="whatever"></d2l-quick-eval>
+					<d2l-quick-eval dismiss-enabled header-text="Quick Eval" master-teacher search-enabled href="pages/?sort=bydate-a" token="whatever"></d2l-quick-eval>
 				</template>
 			</demo-snippet>
 
@@ -78,7 +78,7 @@
 				<h4>Note: This will always show an error. It demonstrates how the component looks when failing to load data</h4>
 				<hr/><br/>
 				<template strip-whitespace>
-					<d2l-quick-eval master-teacher href="invalid" token="whatever"></d2l-quick-eval>
+					<d2l-quick-eval dismiss-enabled master-teacher href="invalid" token="whatever"></d2l-quick-eval>
 				</template>
 			</demo-snippet>
 
@@ -86,7 +86,7 @@
 				<h4>Note: This is hacking in the attribute to show what a filter error looks like. Once filter demo data exists, this demo can be improved.</h4>
 				<hr/><br/>
 				<template strip-whitespace>
-					<d2l-quick-eval _show-filter-error="true" header-text="Quick Eval" href="pages/?sort=bydate-a" token="whatever"></d2l-quick-eval>
+					<d2l-quick-eval dismiss-enabled _show-filter-error="true" header-text="Quick Eval" href="pages/?sort=bydate-a" token="whatever"></d2l-quick-eval>
 				</template>
 			</demo-snippet>
 		</div>

@@ -12,6 +12,7 @@ import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/list/list-item.js';
 import '@d2l/switch/d2l-switch.js';
 import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
+import '@brightspace-ui-labs/edit-in-place/d2l-labs-edit-in-place.js';
 
 class CollectionEditor extends EntityMixinLit(LitElement) {
 
@@ -82,6 +83,16 @@ class CollectionEditor extends EntityMixinLit(LitElement) {
 				justify-content: space-between;
 				align-items: center;
 			}
+			.d2l-activity-collection-title-header {
+				min-height:52px;
+				margin-top:6px;
+				margin-bottom:6px;
+				margin-right: 6px;
+				overflow:hidden;
+			}
+			.d2l-activity-visbility-label {
+				white-space: nowrap;
+			}
 			.d2l-activity-collection-body {
 				padding: 15px 30px;
 				background-color: var(--d2l-color-regolith);
@@ -117,14 +128,16 @@ class CollectionEditor extends EntityMixinLit(LitElement) {
 			<div class="d2l-activity-collection-header">
 				<div>Edit Learning Path</div>
 				<div class="d2l-activity-collection-title">
-					<h1 class="d2l-heading-1">${this._specialization.getName()}</h1>
+					<h1 class="d2l-heading-1 d2l-activity-collection-title-header">
+						<d2l-labs-edit-in-place size="49" placeholder="Untitled Learning Path" maxlength="128" value="${this._specialization.getName()}" @change=${this._TitleChanged}></d2l-labs-edit-in-place>
+					</h1>
 					<div class="d2l-activity-collection-toggle-container">
 						<d2l-switch aria-label="Visibility Toggle" label-right @click="${this._updateVisibility}"></d2l-switch>
-						<div class="d2l-label-text"><d2l-icon icon=${icon}></d2l-icon> ${term}</div>
+						<div class="d2l-label-text d2l-activity-visbility-label"><d2l-icon icon=${icon}></d2l-icon> ${term}</div>
 					</div>
 				</div>
 				<div class="d2l-body-compact">
-					${this._specialization.getDescription()}
+					<d2l-labs-edit-in-place size="49" placeholder="Enter a description" value="${this._specialization.getDescription()}" @change=${this._DescriptionChanged}></d2l-labs-edit-in-place>
 				</div>
 			</div>
 			<div class="d2l-activity-collection-body">
@@ -134,6 +147,14 @@ class CollectionEditor extends EntityMixinLit(LitElement) {
 				</div>
 			</div>
 		`;
+	}
+
+	_TitleChanged(e) {
+		this._specialization.setName(e.target.value);
+	}
+
+	_DescriptionChanged(e) {
+		this._specialization.setDescription(e.target.value);
 	}
 }
 customElements.define('d2l-activity-collection-editor', CollectionEditor);

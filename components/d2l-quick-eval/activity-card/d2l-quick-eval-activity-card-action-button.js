@@ -24,7 +24,7 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 					display: block;
 				}
 				:host([hidden]) {
-					display: none;
+					display: none !important;
 				}
 				button {
 					display: flex;

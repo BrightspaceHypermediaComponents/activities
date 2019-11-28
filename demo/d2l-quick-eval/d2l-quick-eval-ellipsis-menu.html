@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-quick-eval-ellipsis-menu demo</title>
+
+		<!-- For IE11 -->
+		<script src="../../node_modules/lie/dist/lie.polyfill.min.js"></script>
+		<script type="module" src="../../node_modules/whatwg-fetch/fetch.js"></script>
+		<script type="module" src="../../node_modules/url-polyfill/url-polyfill.js"></script>
+
+		<script type="module">
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+			import 'd2l-typography/d2l-typography.js';
+			import './update-direction.js';
+			import '../../components/d2l-quick-eval/dismiss/d2l-quick-eval-ellipsis-menu.js';
+
+			const $_documentContainer = document.createElement('template');
+			$_documentContainer.innerHTML = `
+				<custom-style>
+					<style is="custom-style" include="demo-pages-shared-styles"></style>
+				</custom-style>
+				<custom-style include="d2l-typography">
+					<style is="custom-style" include="d2l-typography"></style>
+				</custom-style>
+				<style>
+					html {
+						font-size: 20px;
+					}
+				</style>
+			`;
+			document.body.appendChild($_documentContainer.content);
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div class="vertical-section-container fixedSize">
+			<h3>d2l-quick-eval-ellipsis-menu demo</h3>
+			<demo-snippet>
+				<template strip-whitespace>
+					<d2l-quick-eval-ellipsis-menu></d2l-quick-eval-ellipsis-menu>
+				</template>
+			</demo-snippet>
+		</div>
+	</body>
+</html>

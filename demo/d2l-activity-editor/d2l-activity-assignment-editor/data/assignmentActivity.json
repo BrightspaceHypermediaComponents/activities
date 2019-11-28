@@ -151,6 +151,12 @@
       "href": "https://ids.brightspace.com/activities/dropbox/F074BF85-DA75-4C60-B5E9-181E7D731372-13"
     },
     {
+    "rel": [
+      "https://assignments.api.brightspace.com/rels/attachments"
+      ],
+      "href": "./data/attachmentsCollection.json"
+    },
+    {
       "rel": [
         "https://activities.api.brightspace.com/rels/activity-usage"
       ],

@@ -1,0 +1,89 @@
+{
+  "class": [
+    "collection",
+    "attachments"
+  ],
+  "entities": [
+    {
+      "rel": [
+        "item",
+        "https://assignments.api.brightspace.com/rels/link"
+      ],
+      "href": "./attachment.json"
+    },
+    {
+      "rel": [
+        "item",
+        "https://assignments.api.brightspace.com/rels/link"
+      ],
+      "href": "attachment.json"
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "up",
+        "https://assignments.api.brightspace.com/rels/assignment"
+      ],
+      "href": "https://8b4b0787-25ca-43d2-89ab-b9495546ad09.assignments.api.proddev.d2l/6613/folders/3"
+    }
+  ],
+  "actions": [
+    {
+      "type": "multipart/form-data",
+      "title": "Add file",
+      "href": "https://8b4b0787-25ca-43d2-89ab-b9495546ad09.assignments.api.proddev.d2l/6613/folders/3/attach-file",
+      "name": "add-file",
+      "method": "POST"
+    },
+    {
+      "type": "application/x-www-form-urlencoded",
+      "title": "Attach a link to the assignment folder",
+      "href": "https://8b4b0787-25ca-43d2-89ab-b9495546ad09.assignments.api.proddev.d2l/6613/folders/3/attach-link",
+      "name": "add-link",
+      "method": "POST",
+      "fields": [
+        {
+          "type": "text",
+          "name": "name"
+        },
+        {
+          "type": "url",
+          "name": "href"
+        }
+      ]
+    },
+    {
+      "type": "application/x-www-form-urlencoded",
+      "href": "https://8b4b0787-25ca-43d2-89ab-b9495546ad09.assignments.api.proddev.d2l/6613/folders/3/attach-link",
+      "name": "add-google-drive-link",
+      "method": "POST",
+      "fields": [
+        {
+          "type": "text",
+          "name": "name"
+        },
+        {
+          "type": "url",
+          "name": "href"
+        }
+      ]
+    },
+    {
+      "type": "application/x-www-form-urlencoded",
+      "href": "https://8b4b0787-25ca-43d2-89ab-b9495546ad09.assignments.api.proddev.d2l/6613/folders/3/attach-link",
+      "name": "add-onedrive-link",
+      "method": "POST",
+      "fields": [
+        {
+          "type": "text",
+          "name": "name"
+        },
+        {
+          "type": "url",
+          "name": "href"
+        }
+      ]
+    }
+  ]
+}

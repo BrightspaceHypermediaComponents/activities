@@ -167,10 +167,13 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				id$="[[_activitiesListId]]"
 				hidden$="[[!_shouldShowActivitiesList(_data, _showLoadingSkeleton)]]"
 				courses="[[_data]]"
+				dismiss-enabled="[[dismissEnabled]]"
 				token="[[token]]"
 				on-d2l-quick-eval-activity-publish-all="_publishAll"
 				on-d2l-quick-eval-activity-view-submission-list="_navigateSubmissionList"
 				on-d2l-quick-eval-activity-view-evaluate-all="_navigateEvaluateAll"
+				on-d2l-quick-eval-activity-dismiss-until="_dismissUntil"
+				on-d2l-quick-eval-activity-edit-activity="_editActivity"
 				>
 			</d2l-quick-eval-activities-list>
 			<d2l-dialog-confirm title-text="[[localize('confirmation')]]" text="[[_publishAllDialogMessage]]">
@@ -234,6 +237,10 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			},
 			dataTelemetryEndpoint: {
 				type: String
+			},
+			dismissEnabled: {
+				type: Boolean,
+				value: false
 			}
 		};
 	}
@@ -411,6 +418,14 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 					});
 			}
 		});
+	}
+
+	_dismissUntil() {
+		//console.log('dismiss until');
+	}
+
+	_editActivity() {
+		//console.log('edit activity');
 	}
 
 	_computeActivitiesListId() {

@@ -2,6 +2,7 @@ export const LangAr = {
 	'activities': 'النشاطات',
 	'activityName': 'اسم النشاط',
 	'assignment': 'الفرض',
+	'cancel': 'Cancel',
 	'caughtUp': 'لقد انتهيت من مهامك!',
 	'checkBackOften': 'تحقق باستمرار من احتمال توفر عمليات إرسال جديدة.',
 	'clearSearch': 'مسح البحث',
@@ -10,6 +11,8 @@ export const LangAr = {
 	'confirmation': 'تأكيد',
 	'courseName': 'المقرر التعليمي',
 	'discussion': 'المناقشة',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': 'الاسم الأول، اسم العائلة',
 	'due': 'تاريخ الاستحقاق: {date}',
 	'evaluate': 'تقييم {displayName}',
@@ -42,6 +45,7 @@ export const LangAr = {
 	'publishAllToastMessageTruncated': 'تم نشر تقييمات {truncatedActivityName}… بنجاح.',
 	'published': 'منشور',
 	'quiz': 'الاختبار',
+	'restore': 'Restore',
 	'search': 'بحث',
 	'searchResultsMore': 'أكثر من {num} من نتائج البحث',
 	'searchResultsMultiple': '{num} من نتائج البحث',
@@ -57,4 +61,3 @@ export const LangAr = {
 	'viewBy': 'عرض حسب:',
 	'yes': 'نعم'
 };
-

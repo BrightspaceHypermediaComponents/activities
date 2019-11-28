@@ -2,6 +2,7 @@ export const LangZhtw = {
 	'activities': '活動',
 	'activityName': '活動名稱',
 	'assignment': '作業',
+	'cancel': 'Cancel',
 	'caughtUp': '您已趕上最新進度！',
 	'checkBackOften': '請經常返回查看新的提交項目。',
 	'clearSearch': '清除搜尋',
@@ -10,6 +11,8 @@ export const LangZhtw = {
 	'confirmation': '確認',
 	'courseName': '課程',
 	'discussion': '討論',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': '名字，姓氏',
 	'due': '截止日期：{date}',
 	'evaluate': '評估{displayName}',
@@ -42,6 +45,7 @@ export const LangZhtw = {
 	'publishAllToastMessageTruncated': '{truncatedActivityName}... 評估已成功發佈。',
 	'published': '已發佈',
 	'quiz': '測驗',
+	'restore': 'Restore',
 	'search': '搜尋',
 	'searchResultsMore': '{num}+ 個搜尋結果',
 	'searchResultsMultiple': '{num} 個搜尋結果',
@@ -52,9 +56,8 @@ export const LangZhtw = {
 	'submissions': '提交項目',
 	'tableTitle': '此清單包含所有課程和工具中未評估的學習者提交項目',
 	'toggleIndicatorLabelActions': '對 {target} 執行動作',
-	'toggleIndicatorLabelInfo': '在 {target} 上檢視資訊',
+	'toggleIndicatorLabelInfo': '檢視 {target} 相關資訊',
 	'tryAgain': '再試一次',
 	'viewBy': '檢視依據：',
 	'yes': '是'
 };
-

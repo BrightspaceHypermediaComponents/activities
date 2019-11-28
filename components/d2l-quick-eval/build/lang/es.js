@@ -2,6 +2,7 @@ export const LangEs = {
 	'activities': 'Actividades',
 	'activityName': 'Nombre de la actividad',
 	'assignment': 'Asignación',
+	'cancel': 'Cancel',
 	'caughtUp': 'Ya está al día.',
 	'checkBackOften': 'Vuelva a revisar a menudo para ver los nuevos envíos.',
 	'clearSearch': 'Borrar búsqueda',
@@ -10,6 +11,8 @@ export const LangEs = {
 	'confirmation': 'Confirmación',
 	'courseName': 'Curso',
 	'discussion': 'Debate',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': 'Nombre, Apellido',
 	'due': 'Fecha de entrega: {date}',
 	'evaluate': 'Evaluar {displayName}',
@@ -42,6 +45,7 @@ export const LangEs = {
 	'publishAllToastMessageTruncated': '{truncatedActivityName}… evaluaciones publicadas correctamente.',
 	'published': 'Publicado',
 	'quiz': 'Cuestionario',
+	'restore': 'Restore',
 	'search': 'Buscar',
 	'searchResultsMore': 'Más de {num} resultados de búsqueda',
 	'searchResultsMultiple': '{num} resultados de búsqueda',
@@ -52,9 +56,8 @@ export const LangEs = {
 	'submissions': 'Materiales enviados',
 	'tableTitle': 'Lista de envíos no evaluados del estudiante de todos los cursos y herramientas',
 	'toggleIndicatorLabelActions': 'Realizar acciones en {target}',
-	'toggleIndicatorLabelInfo': 'Ver información sobre {target}',
+	'toggleIndicatorLabelInfo': 'Ver información en {target}',
 	'tryAgain': 'Volver a intentarlo',
 	'viewBy': 'Ver por:',
 	'yes': 'Sí'
 };
-

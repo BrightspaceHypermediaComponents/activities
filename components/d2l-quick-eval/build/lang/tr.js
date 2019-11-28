@@ -2,6 +2,7 @@ export const LangTr = {
 	'activities': 'Etkinlikler',
 	'activityName': 'Etkinlik Adı',
 	'assignment': 'Ödev',
+	'cancel': 'Cancel',
 	'caughtUp': 'Yetiştin!',
 	'checkBackOften': 'Yeni gönderiler için belirli aralıklarla tekrar kontrol edin.',
 	'clearSearch': 'Aramayı Temizle',
@@ -10,6 +11,8 @@ export const LangTr = {
 	'confirmation': 'Onay',
 	'courseName': 'Ders',
 	'discussion': 'Tartışma',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': 'Ad, Soyad',
 	'due': 'Bitiş:{date}',
 	'evaluate': 'Değerlendir: {displayName}',
@@ -42,6 +45,7 @@ export const LangTr = {
 	'publishAllToastMessageTruncated': '{truncatedActivityName}… değerlendirmeler başarılı bir şekilde yayınlandı.',
 	'published': 'Yayınlandı',
 	'quiz': 'Sınav',
+	'restore': 'Restore',
 	'search': 'Ara',
 	'searchResultsMore': '{num}+ Arama Sonucu',
 	'searchResultsMultiple': '{num} Arama Sonucu',
@@ -52,9 +56,8 @@ export const LangTr = {
 	'submissions': 'Gönderimler',
 	'tableTitle': 'Dersler ve araçlar genelinde değerlendirilmemiş Öğrenci gönderilerinin listesi',
 	'toggleIndicatorLabelActions': '{target} Üzerinde Eylemler Gerçekleştir',
-	'toggleIndicatorLabelInfo': 'Şuradaki bilgileri görüntüleyin: {target}',
+	'toggleIndicatorLabelInfo': '{target} ile ilgili bilgileri görüntüleyin',
 	'tryAgain': 'Tekrar Dene',
 	'viewBy': 'Görüntüleme ölçütü:',
 	'yes': 'Evet'
 };
-

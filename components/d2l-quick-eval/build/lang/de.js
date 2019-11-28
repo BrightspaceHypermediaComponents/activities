@@ -2,6 +2,7 @@ export const LangDe = {
 	'activities': 'Aktivitäten',
 	'activityName': 'Name der Aktivität',
 	'assignment': 'Übung',
+	'cancel': 'Cancel',
 	'caughtUp': 'Sie sind auf dem neuesten Stand!',
 	'checkBackOften': 'Sehen Sie regelmäßig nach, ob neue Abgaben verfügbar sind.',
 	'clearSearch': 'Suche löschen',
@@ -10,6 +11,8 @@ export const LangDe = {
 	'confirmation': 'Bestätigung',
 	'courseName': 'Kurs',
 	'discussion': 'Diskussion',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': 'Vorname, Nachname',
 	'due': 'Abgabetermin:',
 	'evaluate': '{displayName} bewerten',
@@ -42,6 +45,7 @@ export const LangDe = {
 	'publishAllToastMessageTruncated': '{trunatedActivityName}-...-Bewertungen erfolgreich veröffentlicht.',
 	'published': 'Veröffentlicht',
 	'quiz': 'Test',
+	'restore': 'Restore',
 	'search': 'Suchen',
 	'searchResultsMore': 'Über {num} Suchergebnisse',
 	'searchResultsMultiple': '{num} Suchergebnisse',
@@ -52,9 +56,8 @@ export const LangDe = {
 	'submissions': 'Abgaben',
 	'tableTitle': 'Liste nicht bewerteter Abgaben von Lernern in allen Kursen und Tools',
 	'toggleIndicatorLabelActions': 'Aktionen für {target} ausführen',
-	'toggleIndicatorLabelInfo': 'Informationen auf {target} anzeigen',
+	'toggleIndicatorLabelInfo': 'Informationen zu {target} anzeigen',
 	'tryAgain': 'Erneut versuchen',
 	'viewBy': 'Anzeigen nach:',
 	'yes': 'Ja'
 };
-

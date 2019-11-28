@@ -2,6 +2,7 @@ export const LangSv = {
 	'activities': 'Aktiviteter',
 	'activityName': 'Aktivitetsnamn',
 	'assignment': 'Uppgift',
+	'cancel': 'Cancel',
 	'caughtUp': 'Du är ifatt!',
 	'checkBackOften': 'Du bör kontrollera om det finns nya inlämningar här med regelbundna intervall.',
 	'clearSearch': 'Rensa sökning',
@@ -10,6 +11,8 @@ export const LangSv = {
 	'confirmation': 'Bekräftelse',
 	'courseName': 'Kurs',
 	'discussion': 'Diskussion',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': 'Förnamn, efternamn',
 	'due': 'Förfaller: {date}',
 	'evaluate': 'Utvärdera {displayName}',
@@ -42,6 +45,7 @@ export const LangSv = {
 	'publishAllToastMessageTruncated': '{truncatedActivityName}… utvärderingar har publicerats.',
 	'published': 'Publicerad',
 	'quiz': 'Förhör',
+	'restore': 'Restore',
 	'search': 'Sökning',
 	'searchResultsMore': '{num}+ sökresultat',
 	'searchResultsMultiple': '{num} sökresultat',
@@ -52,9 +56,8 @@ export const LangSv = {
 	'submissions': 'inlämningar',
 	'tableTitle': 'Lista över ej utvärderade elevinlämningar från kurser och verktyg',
 	'toggleIndicatorLabelActions': 'Utför åtgärder på {target}',
-	'toggleIndicatorLabelInfo': 'Visa info om {target}',
+	'toggleIndicatorLabelInfo': 'Visa information om {target}',
 	'tryAgain': 'Försök på nytt',
 	'viewBy': 'Visa enligt:',
 	'yes': 'Ja'
 };
-

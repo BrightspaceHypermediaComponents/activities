@@ -1,16 +1,16 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import {LitQuickEvalLocalize} from '../LitQuickEvalLocalize.js';
 import 'd2l-dropdown/d2l-dropdown.js';
 import 'd2l-dropdown/d2l-dropdown-menu.js';
 import 'd2l-menu/d2l-menu.js';
 import './d2l-quick-eval-activity-card-action-button.js';
 
-class D2LQuickEvalActivityCardActionButtonMore extends LocalizeMixin(LitElement) {
+class D2LQuickEvalActivityCardActionButtonMore extends LitQuickEvalLocalize(LitElement) {
 
 	static get styles() {
 		return css`
 			:host([hidden]) {
-				display: none;
+				display: none !important;
 			}
 			d2l-quick-eval-activity-card-action-button {
 				height: 100%;
@@ -24,18 +24,30 @@ class D2LQuickEvalActivityCardActionButtonMore extends LocalizeMixin(LitElement)
 	}
 	render() {
 		return html`
-			<d2l-dropdown text="More Actions">
+			<d2l-dropdown text="${this.localize('moreActions')}">
 				<d2l-quick-eval-activity-card-action-button 
 					icon-full-name="tier1:more"
-					text="More Actions"
-					class="d2l-dropdown-opener"></d2l-quick-eval-activity-card-action-button>
+					text="${this.localize('moreActions')}"
+					class="d2l-dropdown-opener"
+					tab-index-number="${this.tabIndexNumber}"></d2l-quick-eval-activity-card-action-button>
 				<d2l-dropdown-menu>
-					<d2l-menu label="More Actions">
+					<d2l-menu label="${this.localize('moreActions')}">
 						<slot></slot>
 					</d2l-menu>
 				</d2l-dropdown-menu>
 			</d2l-dropdown>
 		`;
+	}
+	constructor() {
+		super();
+		this.tabIndexNumber = 0;
+	}
+	static get properties() {
+		return {
+			tabIndexNumber: {
+				type: Number
+			}
+		};
 	}
 }
 

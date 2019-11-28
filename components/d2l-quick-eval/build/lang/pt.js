@@ -2,6 +2,7 @@ export const LangPt = {
 	'activities': 'Atividades',
 	'activityName': 'Nome da Atividade',
 	'assignment': 'Atribuição',
+	'cancel': 'Cancel',
 	'caughtUp': 'Você está em dia!',
 	'checkBackOften': 'Verifique com frequência se há novos envios.',
 	'clearSearch': 'Limpar Pesquisa',
@@ -10,6 +11,8 @@ export const LangPt = {
 	'confirmation': 'Confirmação',
 	'courseName': 'Curso',
 	'discussion': 'Discussão',
+	'dismissedActivities': 'Dismissed activities',
+	'dismissedActivitiesList': 'Dismissed Activities List',
 	'displayName': 'Nome e Sobrenome',
 	'due': 'Prazo: {date}',
 	'evaluate': 'Avaliar {displayName}',
@@ -42,6 +45,7 @@ export const LangPt = {
 	'publishAllToastMessageTruncated': '{truncedActivityName}... Avaliações publicadas com êxito.',
 	'published': 'Publicado',
 	'quiz': 'Questionário',
+	'restore': 'Restore',
 	'search': 'Pesquisar',
 	'searchResultsMore': '{num}+ resultados da pesquisa',
 	'searchResultsMultiple': '{num} resultados da pesquisa',
@@ -52,9 +56,8 @@ export const LangPt = {
 	'submissions': 'Envios',
 	'tableTitle': 'Lista de envios de alunos não avaliados de todos os cursos e ferramentas',
 	'toggleIndicatorLabelActions': 'Executar ações em {target}',
-	'toggleIndicatorLabelInfo': 'Visualizar informação em {target}',
+	'toggleIndicatorLabelInfo': 'Exibir informações em {target}',
 	'tryAgain': 'Tentar novamente',
 	'viewBy': 'Exibir por:',
 	'yes': 'Sim'
 };
-

@@ -1,4 +1,5 @@
 import 'd2l-inputs/d2l-input-text.js';
+import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-visibility-editor.js';
@@ -232,6 +233,14 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					${this._getCompletionTypeOptions()}
 				</select>
 			</div>
+
+			<div id="availability-dates-container">
+				<d2l-activity-availability-dates-editor
+					.href="${this._activityUsageHref}"
+					.token="${this.token}">
+				</d2l-activity-availability-dates-editor>
+			</div>
+
 		`;
 	}
 }

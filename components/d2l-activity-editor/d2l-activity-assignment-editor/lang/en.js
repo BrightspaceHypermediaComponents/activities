@@ -8,5 +8,5 @@ export default {
 	"name": "Name", // Label for the name field when creating/editing an activity
 	"submissionType": "Submission Type", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Annotation Tools", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
-	"annotationToolDescripton": "Make annotation tools available for assessment" //Description next to the checkbox for annotation tools when creating/editing an assignment
+	"annotationToolDescription": "Make annotation tools available for assessment" //Description next to the checkbox for annotation tools when creating/editing an assignment
 };

@@ -1,6 +1,7 @@
 import 'd2l-inputs/d2l-input-text.js';
 import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
+import 'd2l-inputs/d2l-input-checkbox.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-visibility-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
@@ -33,6 +34,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			_completionTypes: { type: Array },
 			_canEditCompletionType: { type: Boolean },
 			_showCompletionType: { type: Boolean },
+			_canSeeAnnotations: {type: Boolean },
+			_annotationToolsAvailable: { type: Boolean },
 			_attachmentsHref: { type: String }
 		};
 	}
@@ -105,6 +108,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		this._canEditSubmissionType = assignment.canEditSubmissionType();
 		this._completionTypes = assignment.completionTypeOptions();
 		this._canEditCompletionType = assignment.canEditCompletionType();
+		this._canSeeAnnotations = assignment.canSeeAnnotations();
+		this._annotationToolsAvailable = assignment.getAvailableAnnotationTools();
 		this._attachmentsHref = assignment.attachmentsCollectionHref();
 	}
 
@@ -184,6 +189,11 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		return html`
 			${this._completionTypes.map(option => html`<option value=${option.value} ?selected=${option.selected}>${option.title}</option>`)}
 		`;
+	}
+
+	_toggleAnnotationToolsAvailability() {
+		this._annotationToolsAvailable = !this._annotationToolsAvailable;
+		this.wrapSaveAction(super._entity.setAnnotationToolsAvailability(this._annotationToolsAvailable));
 	}
 
 	render() {
@@ -266,6 +276,17 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					.token="${this.token}">
 				</d2l-activity-release-conditions-editor>
 			</div>
+
+			<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
+				<label class="d2l-label-text">${this.localize('annotationTools')}</label>
+					<d2l-input-checkbox
+						@change="${this._toggleAnnotationToolsAvailability}"
+						?checked="${this._annotationToolsAvailable}">
+						ariaLabel=${this.localize('annotationToolDescription')}>
+						${this.localize('annotationToolDescription')}
+					</d2l-input-checkbox>
+			</div>
+
 		`;
 	}
 }

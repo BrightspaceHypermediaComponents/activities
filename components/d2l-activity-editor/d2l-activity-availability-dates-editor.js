@@ -52,8 +52,12 @@ class ActivityAvailabilityDatesEditor extends SaveStatusMixin(EntityMixinLit(Loc
 		if (entity) {
 			this._startDate = entity.startDate();
 			this._endDate = entity.endDate();
-			this._canEditStartDate = entity.canEditStartDate();
-			this._canEditEndDate = entity.canEditEndDate();
+			entity.canEditEndDate().then(
+				canEditEndDateResult => {this._canEditEndDate = canEditEndDateResult;}
+			);
+			entity.canEditStartDate().then(
+				canEditStartDateResult => {this._canEditStartDate = canEditStartDateResult;}
+			);
 		}
 
 		super._entity = entity;

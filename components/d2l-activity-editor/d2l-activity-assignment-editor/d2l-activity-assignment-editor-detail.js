@@ -1,4 +1,5 @@
 import 'd2l-inputs/d2l-input-text.js';
+import './d2l-assignment-turnitin-editor';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
@@ -284,6 +285,9 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					.token="${this.token}">
 				</d2l-activity-release-conditions-editor>
 			</div>
+
+			<d2l-assignment-turnitin-editor .token="${this.token}" .href="${this.href}">
+			</d2l-assignment-turnitin-editor>
 
 			<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
 				<label class="d2l-label-text">${this.localize('annotationTools')}</label>

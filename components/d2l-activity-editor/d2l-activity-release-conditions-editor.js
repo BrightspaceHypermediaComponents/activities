@@ -43,8 +43,10 @@ class ActivityReleaseConditionsEditor extends EntityMixinLit(LocalizeMixin(LitEl
 			return;
 		}
 
-		this._hidden = !entity.canEditReleaseConditions();
-		this._url = entity.editReleaseConditionsUrl();
+		if (entity) {
+			this._hidden = !entity.canEditReleaseConditions();
+			this._url = entity.editReleaseConditionsUrl();
+		}
 		super._entity = entity;
 	}
 

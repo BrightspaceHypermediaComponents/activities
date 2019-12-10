@@ -13,8 +13,7 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 		return {
 			_canAddLink: { type: Boolean },
 			_canAddGoogleDriveLink: { type: Boolean },
-			_canAddOneDriveLink: { type: Boolean },
-			_tooltipBoundary: { type: Object }
+			_canAddOneDriveLink: { type: Boolean }
 		};
 	}
 

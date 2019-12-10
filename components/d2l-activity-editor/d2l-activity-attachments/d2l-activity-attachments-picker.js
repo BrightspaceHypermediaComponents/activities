@@ -13,7 +13,8 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 		return {
 			_canAddLink: { type: Boolean },
 			_canAddGoogleDriveLink: { type: Boolean },
-			_canAddOneDriveLink: { type: Boolean }
+			_canAddOneDriveLink: { type: Boolean },
+			_tooltipBoundary: { type: Object }
 		};
 	}
 
@@ -48,6 +49,11 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 	constructor() {
 		super();
 		this._setEntityType(AttachmentCollectionEntity);
+
+		this._tooltipBoundary = {
+			left: 20 + 12, // padding-left applied to d2l-activity-attachments-picker + padding-left of d2l-button-icon
+			right: 0
+		};
 	}
 
 	set _entity(entity) {
@@ -158,31 +164,50 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 					?hidden="${!this._canAddLink}"
 					@click="${this._launchAddQuicklinkDialog}">
 				</d2l-button-icon>
-				<d2l-tooltip for="add-quicklink-button">${this.localize('addQuicklink')}</d2l-tooltip>
+				<d2l-tooltip
+					for="add-quicklink-button"
+					.boundary="${this._tooltipBoundary}">
+					${this.localize('addQuicklink')}
+				</d2l-tooltip>
 
 				<d2l-button-icon
 					id="add-link-button"
 					icon="d2l-tier1:link"
+					boundary="${this._tooltipBoundary}"
 					?hidden="${!this._canAddLink}"
 					@click="${this._launchAddLinkDialog}">
 				</d2l-button-icon>
-				<d2l-tooltip for="add-link-button">${this.localize('addLink')}</d2l-tooltip>
+				<d2l-tooltip
+					for="add-link-button"
+					.boundary="${this._tooltipBoundary}">
+					${this.localize('addLink')}
+				</d2l-tooltip>
 
 				<d2l-button-icon
 					id="add-google-drive-link-button"
 					icon="d2l-tier1:google-drive"
+					boundary="${this._tooltipBoundary}"
 					?hidden="${!this._canAddGoogleDriveLink}"
 					@click="${this._launchAddGoogleDriveLinkDialog}">
 				</d2l-button-icon>
-				<d2l-tooltip for="add-google-drive-link-button">${this.localize('addGoogleDriveLink')}</d2l-tooltip>
+				<d2l-tooltip
+					for="add-google-drive-link-button"
+					.boundary="${this._tooltipBoundary}">
+					${this.localize('addGoogleDriveLink')}
+				</d2l-tooltip>
 
 				<d2l-button-icon
 					id="add-onedrive-link-button"
 					icon="d2l-tier1:one-drive"
+					boundary="${this._tooltipBoundary}"
 					?hidden="${!this._canAddOneDriveLink}"
 					@click="${this._launchAddOneDriveLinkDialog}">
 				</d2l-button-icon>
-				<d2l-tooltip for="add-onedrive-link-button">${this.localize('addOneDriveLink')}</d2l-tooltip>
+				<d2l-tooltip
+					for="add-onedrive-link-button"
+					.boundary="${this._tooltipBoundary}">
+					${this.localize('addOneDriveLink')}
+				</d2l-tooltip>
 			</div>
 		`;
 	}

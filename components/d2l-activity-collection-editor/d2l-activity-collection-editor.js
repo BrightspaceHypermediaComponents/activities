@@ -166,17 +166,14 @@ class CollectionEditor extends EntityMixinLit(LitElement) {
 				background-color: var(--d2l-color-regolith);
 				height: 100%;
 			}
-			.d2l-activity-collection-description {
-				overflow:hidden;
-			}
 			.d2l-activity-collection-header {
 				box-shadow: inset 0 -1px 0 0 var(--d2l-color-gypsum);
 				padding: 15px 30px;
+				overflow:hidden;
 			}
 			.d2l-activity-collection-title-header {
 				margin: 6px 0px 0px 0px;
 				min-height: 52px;
-				overflow: hidden;
 				padding: 0px 6px 6px 0px;
 			}
 			.d2l-activity-collection-toggle-container {
@@ -248,7 +245,7 @@ class CollectionEditor extends EntityMixinLit(LitElement) {
 						<h1 class="d2l-heading-1 d2l-activity-collection-title-header">
 							<d2l-labs-edit-in-place size="49" placeholder="Untitled Learning Path" maxlength="128" value="${this._name}" @change=${this._titleChanged}></d2l-labs-edit-in-place>
 						</h1>
-						<div class="d2l-body-compact d2l-activity-collection-description">
+						<div class="d2l-body-compact">
 							<d2l-labs-edit-in-place size="49" placeholder="Enter a description" maxlength="280" value="${this._description}" @change=${this._descriptionChanged}></d2l-labs-edit-in-place>
 						</div>
 					</div>

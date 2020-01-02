@@ -209,6 +209,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 			}
 			.d2l-activity-collection-description {
 				margin-bottom: 0.95rem;
+				max-width: 600px;
 			}
 			.d2l-activity-collection-header {
 				background: white;
@@ -224,7 +225,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 				position: relative;
 			}
 			.d2l-activity-collection-header-col1 {
-				max-width: 600px;
+				overflow: hidden;
 			}
 			.d2l-activity-collection-title-header {
 				margin: 9px 0px 6px 0;
@@ -340,8 +341,9 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 				}
 				.d2l-activity-collection-title-header {
 					margin-bottom: 0;
-					margin-right: 7.5rem;
+					margin-right: 9.0rem;
 					min-height: 2.3rem;
+					overflow: Hidden;
 				}
 				.d2l-activity-collection-header {
 					padding-left: 0.8rem;

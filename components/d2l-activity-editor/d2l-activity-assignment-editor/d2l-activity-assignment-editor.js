@@ -51,6 +51,9 @@ class AssignmentEditor extends PendingContainerMixin(EntityMixinLit(LitElement))
 		super();
 		this._setEntityType(AssignmentActivityUsageEntity);
 		this._assignmentHref = '';
+		document.addEventListener('d2l-pending-resolved', this._onPendingResolved, {
+			once: true
+		});
 	}
 
 	set _entity(entity) {
@@ -94,11 +97,10 @@ class AssignmentEditor extends PendingContainerMixin(EntityMixinLit(LitElement))
 	render() {
 		return html`
 			<d2l-activity-editor
-				?loading="${this._hasPendingChildren && !this._initialLoadComplete}"
+				?loading="${!this._initialLoadComplete && this._hasPendingChildren}"
 				unfurlEndpoint="${this.unfurlEndpoint}"
 				trustedSitesEndpoint="${this.trustedSitesEndpoint}"
-				@d2l-request-provider="${this._onRequestProvider}"
-				@d2l-pending-resolved="${this._onPendingResolved}">
+				@d2l-request-provider="${this._onRequestProvider}">
 
 				<d2l-template-primary-secondary slot="editor">
 					<slot name="editor-nav" slot="header"></slot>

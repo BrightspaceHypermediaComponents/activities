@@ -1,9 +1,12 @@
 import 'd2l-inputs/d2l-input-text.js';
+import 'd2l-inputs/d2l-input-checkbox.js';
+import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-score-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
+import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
@@ -23,6 +26,10 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			_name: { type: String },
 			_nameError: { type: String },
 			_canEditName: { type: Boolean },
+			_isAnonymousMarkingAvailable: { type: Boolean },
+			_isAnonymousMarkingEnabled: { type: Boolean },
+			_canEditAnonymousMarking: { type: Boolean },
+			_anonymousMarkingHelpText: { type: String },
 			_instructions: { type: String },
 			_instructionsRichTextEditorConfig: { type: Object },
 			_canEditInstructions: { type: Boolean },
@@ -34,6 +41,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 	static get styles() {
 		return [
 			labelStyles,
+			bodySmallStyles,
 			css`
 				:host {
 					display: block;
@@ -54,6 +62,12 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				:host([dir="rtl"]) #score-container {
 					margin-right: 0;
 					margin-left: 40px;
+				}
+				d2l-input-checkbox-spacer {
+					margin-top: -0.9rem;
+				}
+				d2l-input-checkbox-spacer[hidden] {
+					display: none;
 				}
 			`
 		];
@@ -86,6 +100,10 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 		this._name = assignment.name();
 		this._canEditName = assignment.canEditName();
+		this._isAnonymousMarkingAvailable = assignment.isAnonymousMarkingAvailable();
+		this._isAnonymousMarkingEnabled = assignment.isAnonymousMarkingEnabled();
+		this._canEditAnonymousMarking = assignment.canEditAnonymousMarking();
+		this._anonymousMarkingHelpText = assignment.getAnonymousMarkingHelpText();
 		this._instructions = assignment.instructionsEditorHtml();
 		this._instructionsRichTextEditorConfig = assignment.instructionsRichTextEditorConfig();
 		this._canEditInstructions = assignment.canEditInstructions();
@@ -99,6 +117,10 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 	_saveName(value) {
 		this.wrapSaveAction(super._entity.setName(value));
+	}
+
+	_saveAnonymousMarking(event) {
+		this.wrapSaveAction(super._entity.setAnonymousMarking(event.target.checked));
 	}
 
 	_saveInstructions(value) {
@@ -200,6 +222,20 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					href="${this._attachmentsHref}"
 					.token="${this.token}">
 				</d2l-activity-attachments-editor>
+			</div>
+
+			<div id="assignment-anonymous-marking-editor-container" ?hidden="${!this._isAnonymousMarkingAvailable}">
+				<label class="d2l-label-text">${this.localize('lblAnonymousMarking')}</label>
+				<d2l-input-checkbox
+					@change="${this._saveAnonymousMarking}"
+					?checked="${this._isAnonymousMarkingEnabled}"
+					?disabled="${!this._canEditAnonymousMarking}"
+					ariaLabel="${this.localize('chkAnonymousMarking')}">
+					${this.localize('chkAnonymousMarking')}
+				</d2l-input-checkbox>
+				<d2l-input-checkbox-spacer ?hidden="${!this._anonymousMarkingHelpText}">
+					<span class="d2l-body-small">${this._anonymousMarkingHelpText}</span>
+				</d2l-input-checkbox-spacer>
 			</div>
 		`;
 	}

@@ -16,7 +16,8 @@
     "test:polymer:local": "polymer test --skip-plugin sauce",
     "test:polymer:sauce": "polymer test --skip-plugin local",
     "test": "npm run lint && npm run test:polymer:local",
-    "serve": "polymer serve"
+    "serve": "polymer serve",
+    "clean-lang": "rm -rf components/d2l-activity-collection-editor/lang/* && rm -rf components/d2l-activity-editor/d2l-activity-assignment-editor/lang/* && rm -rf components/d2l-activity-editor/d2l-activity-attachments/lang/* && rm -rf components/d2l-activity-editor/lang/* && rm -rf components/d2l-activity-evaluation-icon/build/lang/* && rm -rf components/d2l-activity-list-item/build/lang/* && rm -rf components/d2l-quick-eval/build/lang/*"
   },
   "author": "D2L Corporation",
   "license": "Apache-2.0",

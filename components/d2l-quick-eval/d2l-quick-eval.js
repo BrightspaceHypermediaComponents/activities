@@ -60,7 +60,7 @@ class D2LQuickEval extends
 					<h1 class="d2l-quick-eval-header-with-toggle" hidden$="[[!activitiesViewEnabled]]">[[headerText]]</h1>
 					<h1 class="d2l-quick-eval-header" hidden$="[[activitiesViewEnabled]]">[[headerText]]</h1>
 				</template>
-				<d2l-quick-eval-ellipsis-menu href="[[dismissedActivitiesHref]]" token="[[token]]" hidden$="[[!dismissEnabled]]" course-level="[[courseLevel]]"></d2l-quick-eval-ellipsis-menu>
+				<d2l-quick-eval-ellipsis-menu href="[[dismissedActivitiesHref]]" token="[[token]]" hidden$="[[!dismissEnabled]]" course-level="[[courseLevel]]" title="[[localize('optionsForQuickEval')]]"></d2l-quick-eval-ellipsis-menu>
 			</div>
 			<d2l-quick-eval-view-toggle current-selected="[[toggleState]]" toggle-href="[[toggleHref]]" hidden$="[[!activitiesViewEnabled]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
 			<d2l-quick-eval-submissions

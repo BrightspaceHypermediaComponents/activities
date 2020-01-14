@@ -17,7 +17,9 @@
     "test:polymer:sauce": "polymer test --skip-plugin local",
     "test": "npm run lint && npm run test:polymer:local",
     "serve": "polymer serve",
-    "clean-lang": "rm -rf components/d2l-activity-collection-editor/lang/* && rm -rf components/d2l-activity-editor/d2l-activity-assignment-editor/lang/* && rm -rf components/d2l-activity-editor/d2l-activity-attachments/lang/* && rm -rf components/d2l-activity-editor/lang/* && rm -rf components/d2l-activity-evaluation-icon/build/lang/* && rm -rf components/d2l-activity-list-item/build/lang/* && rm -rf components/d2l-quick-eval/build/lang/*"
+    "clean-lang": "rm -rf components/d2l-activity-collection-editor/lang/* components/d2l-activity-editor/d2l-activity-assignment-editor/lang/* components/d2l-activity-editor/d2l-activity-attachments/lang/* components/d2l-activity-editor/lang/* components/d2l-activity-evaluation-icon/build/lang/* components/d2l-activity-list-item/build/lang/* components/d2l-quick-eval/build/lang/*",
+    "reset-lang": "git checkout components/d2l-activity-collection-editor/lang/* components/d2l-activity-editor/d2l-activity-assignment-editor/lang/* components/d2l-activity-editor/d2l-activity-attachments/lang/* components/d2l-activity-editor/lang/* components/d2l-activity-evaluation-icon/build/lang/* components/d2l-activity-list-item/build/lang/* components/d2l-quick-eval/build/lang/*",
+    "build-no-lang": "npm run clean-lang && npm run build && npm run reset-lang" 
   },
   "author": "D2L Corporation",
   "license": "Apache-2.0",

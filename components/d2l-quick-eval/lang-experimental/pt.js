@@ -52,6 +52,7 @@ export const LangEn = {
 	'noDismissedActivities': 'No momento, não há atividades dispensadas. Aqui é possível visualizar e restaurar as atividades dispensadas.',
 	'noResults': 'Nenhum resultado aqui.',
 	'noSubmissions': 'Não há envios que precisem de sua atenção.',
+	'optionsForQuickEval' : 'Options for Quick Eval',
 	'publishAll': 'Publicar Tudo',
 	'publishAllConfirmDialogMessage': '{evaluated} de {assigned} usuários receberão feedback sobre a publicação. Deseja continuar?',
 	'publishAllToastMessage': 'Avaliações de {activityName} publicadas com êxito.',

@@ -53,6 +53,7 @@ export const LangTr = {
 			'noDismissedActivities': 'Şu anda çıkarılan etkinliğiniz yok. Çıkarılan etkinlikler buradan görüntülenebilir ve geri yüklenebilir.',
 			'noResults': 'Sonuç yok.',
 			'noSubmissions': 'İlgilenmeniz gereken gönderi yok.',
+			'optionsForQuickEval' : 'Options for Quick Eval',
 			'publishAll': 'Tümünü Yayımla',
 			'publishAllConfirmDialogMessage': '{assigned} kullanıcıdan {evaluated} tanesi yayımlama konusunda geri bildirim alacak. Devam etmek istiyor musunuz?',
 			'publishAllToastMessage': '{activityName} değerlendirmeler başarılı bir şekilde yayınlandı.',

@@ -53,6 +53,7 @@ export const LangNl = {
 			'noDismissedActivities': 'U hebt nu geen genegeerde activiteiten. U kunt hier genegeerde activiteiten bekijken en herstellen.',
 			'noResults': 'Geen resultaten hier.',
 			'noSubmissions': 'Er zijn geen indieningen die uw aandacht nodig hebben.',
+			'optionsForQuickEval' : 'Options for Quick Eval',
 			'publishAll': 'Alles publiceren',
 			'publishAllConfirmDialogMessage': '{evaluated} van de {assigned} gebruikers ontvangt feedback over publicatie. Wilt u doorgaan?',
 			'publishAllToastMessage': '{activityName} evaluaties zijn gepubliceerd.',

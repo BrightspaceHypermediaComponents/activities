@@ -52,6 +52,7 @@ export const LangEn = {
 	'noDismissedActivities': 'Actualmente, no tiene actividades descartadas. Aquí se pueden ver y restaurar las actividades descartadas.',
 	'noResults': 'No hay resultados aquí.',
 	'noSubmissions': 'No hay materiales enviados que requieran su atención.',
+	'optionsForQuickEval' : 'Options for Quick Eval',
 	'publishAll': 'Publicar todo',
 	'publishAllConfirmDialogMessage': '{evaluated} de {assigned} usuarios recibirán comentarios sobre la publicación. ¿Desea continuar?',
 	'publishAllToastMessage': 'Evaluaciones de {activityName} publicadas correctamente.',

@@ -52,6 +52,7 @@ export const LangEn = {
 	'noDismissedActivities': '您目前没有取消的活动。已取消的活动可以在此处查看和恢复。',
 	'noResults': '此处没有结果。',
 	'noSubmissions': '没有需要您注意的提交。',
+	'optionsForQuickEval' : 'Options for Quick Eval',
 	'publishAll': '全部发布',
 	'publishAllConfirmDialogMessage': '{assigned} 个用户中的 {evaluated} 个用户将收到有关发布的反馈。是否继续？',
 	'publishAllToastMessage': '{activityName} 评估已成功发布。',

@@ -52,6 +52,7 @@ export const LangEn = {
 	'noDismissedActivities': 'Sie haben derzeit keine verworfenen Aktivitäten. Verworfene Aktivitäten können hier angezeigt und wiederhergestellt werden.',
 	'noResults': 'Keine Ergebnisse hier.',
 	'noSubmissions': 'Es gibt keine Abgaben, die Ihre Aufmerksamkeit erfordern.',
+	'optionsForQuickEval' : 'Options for Quick Eval',
 	'publishAll': 'Alle veröffentlichen',
 	'publishAllConfirmDialogMessage': '{evaluated} von {assigned} Benutzern erhalten bei Veröffentlichung Feedback. Möchten Sie den Vorgang fortsetzen?',
 	'publishAllToastMessage': 'Bewertungen für {activityName} erfolgreich veröffentlicht.',

@@ -51,6 +51,7 @@ export const LangDadk = {
 			'noDismissedActivities': 'You currently have no dismissed activities. Dismissed activities can be viewed and restored here.',
 			'noResults': 'Ingen resultater her.',
 			'noSubmissions': 'Der er ingen afleveringer, der kræver din opmærksomhed.',
+			'optionsForQuickEval' : 'Options for Quick Eval',
 			'publishAll': 'Publish All',
 			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'publishAllToastMessage': '{activityName} evaluations published successfully.',

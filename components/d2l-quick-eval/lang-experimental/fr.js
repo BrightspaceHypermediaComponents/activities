@@ -52,6 +52,7 @@ export const LangEn = {
 	'noDismissedActivities': 'Vous n’avez actuellement aucune activité rejetée. Les activités rejetées peuvent être visualisées et restaurées ici.',
 	'noResults': 'Aucun résultat ici.',
 	'noSubmissions': 'Aucune soumission ne requiert votre attention.',
+	'optionsForQuickEval' : 'Options for Quick Eval',
 	'publishAll': 'Tout publier',
 	'publishAllConfirmDialogMessage': '{evaluated} utilisateurs sur {assigned} recevront de la rétroaction à la publication. Voulez-vous continuer?',
 	'publishAllToastMessage': 'Évaluations {activityName} publiées avec succès.',

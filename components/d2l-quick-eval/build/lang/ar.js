@@ -53,6 +53,7 @@ export const LangAr = {
 			'noDismissedActivities': 'ليس لديك حاليًا أي أنشطة تم رفضها. يمكن عرض الأنشطة التي تم رفضها واستعادتها هنا.',
 			'noResults': 'لا تتوفر أي نتائج هنا.',
 			'noSubmissions': 'لا تتوفر أي عمليات إرسال تتطلب اهتمامك.',
+			'optionsForQuickEval' : 'Options for Quick Eval',
 			'publishAll': 'نشر الكل',
 			'publishAllConfirmDialogMessage': 'سيتلقى {evaluated} من أصل {assigned} من المستخدمين ملاحظات حول النشر. هل تريد المتابعة؟',
 			'publishAllToastMessage': 'تم نشر تقييمات {activityName} بنجاح.',

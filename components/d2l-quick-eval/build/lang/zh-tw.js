@@ -53,6 +53,7 @@ export const LangZhtw = {
 			'noDismissedActivities': '您目前沒有已關閉的活動。可在此檢視和還原已關閉的活動。',
 			'noResults': '這裡沒有任何結果。',
 			'noSubmissions': '沒有提交項目需要您注意。',
+			'optionsForQuickEval' : 'Options for Quick Eval',
 			'publishAll': '全部發佈',
 			'publishAllConfirmDialogMessage': '{assigned} 個使用者中有 {evaluated} 個使用者將在發佈時收到意見反應。是否要繼續？',
 			'publishAllToastMessage': '{activityName} 評估已成功發佈。',

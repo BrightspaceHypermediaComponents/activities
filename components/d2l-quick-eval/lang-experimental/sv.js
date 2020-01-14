@@ -52,6 +52,7 @@ export const LangEn = {
 	'noDismissedActivities': 'Du har inga avstängda aktiviteter för närvarande. Du kan visa och återställa avstängda aktiviteter här.',
 	'noResults': 'Det finns inga resultat här.',
 	'noSubmissions': 'Det finns inga inlämningar som du behöver utföra någon åtgärd på.',
+	'optionsForQuickEval' : 'Options for Quick Eval',
 	'publishAll': 'Publicera alla',
 	'publishAllConfirmDialogMessage': '{evaluated} av {assigned} användare får feedback vid publicering. Vill du fortsätta?',
 	'publishAllToastMessage': '{activityName} utvärderingar har publicerats.',

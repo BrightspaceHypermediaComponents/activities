@@ -53,6 +53,7 @@
    "noDismissedActivities" : "現在破棄したアクティビティはありません。破棄したアクティビティは、ここで表示したり復元したりできます。",
    "noResults" : "ここには結果がありません。",
    "noSubmissions" : "確認が必要な送信物はありません。",
+   "optionsForQuickEval" : "Options for Quick Eval",
    "publishAll" : "すべて公開",
    "publishAllConfirmDialogMessage" : "{assigned} 人中 {evaluated} 人のユーザーが、公開に関するフィードバックを受け取ります。続行しますか？",
    "publishAllToastMessage" : "{activityName} の評価が正常に発行されました。",

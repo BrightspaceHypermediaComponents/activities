@@ -8,6 +8,7 @@ export default {
 	"addQuicklink": "Attach Link to Existing Activity", // Tooltip for a button that adds a link to an existing activity
 	"back": "Back", // Text for a back button
 	"closeDialog": "Close Dialog", // ARIA text for button to close dialog
+	"recordAudio": "Record Audio", // Text for a button that opens a dialog to record audio
 	"recordVideo": "Record Video", // Text for a button that opens a dialog to record video
 	"save": "Save", // Text for a save button
 };

@@ -40,6 +40,7 @@
    "loading" : "Yükleniyor",
    "masterTeacher" : "Öğretmen",
    "moreActions" : "Daha Fazla Eylem",
+   "multiCourseQuickEval": "Multi-Course Quick Eval",
    "newAttempts" : "Yeni Denemeler",
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 yeniden deneme} other {{reAttemptNum} reattempts}}} other {{reAttemptNum, plural, =0 {{newNum} new} =1{{newNum} new, 1 yeniden deneme} other {{newNum} new, {reAttemptNum} yeniden deneme}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {1 dizi veya yanıt} other {{numInteractions} dizi veya yanıt}}",

@@ -172,8 +172,4 @@ suite('d2l-quick-eval-activities', function() {
 		var alert = act.shadowRoot.querySelector('.d2l-quick-eval-activities-load-error-alert');
 		assert.equal(false, alert.hasAttribute('hidden'));
 	});
-	test('filter whitelist returns expected filters', () => {
-		const expectedFilters = [ 'c806bbc6-cfb3-4b6b-ae74-d5e4e319183d', 'f2b32f03-556a-4368-945a-2614b9f41f76' ];
-		assert.deepEqual(act._filterIds, expectedFilters);
-	});
 });

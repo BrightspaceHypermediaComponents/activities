@@ -16,7 +16,8 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 			_canAddLink: { type: Boolean },
 			_canAddGoogleDriveLink: { type: Boolean },
 			_canAddOneDriveLink: { type: Boolean },
-			_canRecordVideo: { type: Boolean }
+			_canRecordVideo: { type: Boolean },
+			_canRecordAudio: { type: Boolean }
 		};
 	}
 
@@ -80,6 +81,10 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 		D2L.ActivityEditor.RecordVideoDialogCallback = file => {
 			this.wrapSaveAction(super._entity.addVideoNoteAttachment(file.FileSystemType, file.FileId));
 		};
+		// Referenced by the server-side ActivitiesView renderer
+		D2L.ActivityEditor.RecordAudioDialogCallback = file => {
+			this.wrapSaveAction(super._entity.addAudioNoteAttachment(file.FileSystemType, file.FileId));
+		};
 	}
 
 	set _entity(entity) {
@@ -93,6 +98,7 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 			this._canAddGoogleDriveLink = entity.canAddGoogleDriveLinkAttachment();
 			this._canAddOneDriveLink = entity.canAddOneDriveLinkAttachment();
 			this._canRecordVideo = entity.canAddVideoNoteAttachment();
+			this._canRecordAudio = entity.canAddAudioNoteAttachment();
 		}
 
 		super._entity = entity;
@@ -174,6 +180,13 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 		}
 	}
 
+	_launchRecordAudioDialog() {
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.RecordAudioDialogOpener');
+		if (opener) {
+			opener();
+		}
+	}
+
 	render() {
 		return html`
 			<div class="button-container">
@@ -238,6 +251,13 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 				</d2l-tooltip>
 
 				<div class="button-container-right">
+					<d2l-button-subtle
+						id="record-audio-button"
+						icon="tier1:file-audio"
+						?hidden="${!this._canRecordAudio}"
+						text="${this.localize('recordAudio')}"
+						@click="${this._launchRecordAudioDialog}">
+					</d2l-button-subtle>
 					<d2l-button-subtle
 						id="record-video-button"
 						icon="tier1:file-video"

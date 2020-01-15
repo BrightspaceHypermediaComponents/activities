@@ -40,6 +40,7 @@
    "loading" : "يتم الآن التحميل",
    "masterTeacher" : "المعلّم",
    "moreActions" : "مزيد من الإجراءات",
+   "multiCourseQuickEval": "Multi-Course Quick Eval",
    "newAttempts" : "محاولات جديدة",
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {إعادة محاولة واحدة} other ‏{{reAttemptNum} من إعادة المحاولات}}} other {{reAttemptNum, plural, =0 {{newNum} إعادة محاولة جديدة} =1{{newNum} إعادة محاولة واحدة جديدة} other {{newNum}{reAttemptNum} من إعادة المحاولات الجديدة}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {ترابط أو رد واحد} other {{numInteractions} من الترابطات أو الردود}}",

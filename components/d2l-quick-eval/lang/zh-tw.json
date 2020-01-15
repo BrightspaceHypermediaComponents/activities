@@ -40,6 +40,7 @@
    "loading" : "正在載入",
    "masterTeacher" : "教師",
    "moreActions" : "其他動作",
+   "multiCourseQuickEval": "Multi-Course Quick Eval",
    "newAttempts" : "新嘗試",
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 次重新嘗試} other {{reAttemptNum} 次重新嘗試}}} other {{reAttemptNum, plural, =0 {{newNum} 次新嘗試} =1{{newNum} 次新嘗試，1 次重新嘗試} other {{newNum} 次新嘗試，{reAttemptNum} 次重新嘗試}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {1 個討論串或回覆} other {{numInteractions} 個討論串或回覆}}",

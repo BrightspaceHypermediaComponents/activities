@@ -40,6 +40,7 @@ export const LangZh = {
 			'loading': '正在加载',
 			'masterTeacher': '教师',
 			'moreActions': '更多操作',
+			'multiCourseQuickEval': 'Multi-Course Quick Eval',
 			'newAttempts': '新的尝试',
 			'newAttemptsDetails': '{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 reattempt} other {{reAttemptNum} reattempts}}} other {{reAttemptNum, plural, =0 {{newNum} new} =1{{newNum} new, 1 reattempt} other {{newNum} new, {reAttemptNum} reattempts}}}}',
 			'newPostDetails': '{numInteractions, plural, =1 {1 thread or reply} other {{numInteractions} threads or replies}}',

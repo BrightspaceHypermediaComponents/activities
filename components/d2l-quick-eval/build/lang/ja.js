@@ -40,6 +40,7 @@ export const LangJa = {
 			'loading': '読み込み中',
 			'masterTeacher': '講師',
 			'moreActions': 'その他のアクション',
+			'multiCourseQuickEval': 'Multi-Course Quick Eval',
 			'newAttempts': '新しい試行',
 			'newAttemptsDetails': '{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 回の再試行} other {{reAttemptNum} 回の再試行}}} other {{reAttemptNum, plural, =0 {{newNum} new} =1{{newNum} 新しい 1 回の再試行} other {{newNum} 新しい {reAttemptNum} 回の再試行}}}}',
 			'newPostDetails': '{numInteractions, plural, =1 {1 個のスレッドまたは返信} other {{numInteractions} 個のスレッドまたは返信}}',

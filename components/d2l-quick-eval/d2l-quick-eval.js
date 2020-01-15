@@ -60,7 +60,7 @@ class D2LQuickEval extends
 					<h1 class="d2l-quick-eval-header-with-toggle" hidden$="[[!activitiesViewEnabled]]">[[headerText]]</h1>
 					<h1 class="d2l-quick-eval-header" hidden$="[[activitiesViewEnabled]]">[[headerText]]</h1>
 				</template>
-				<d2l-quick-eval-ellipsis-menu href="[[dismissedActivitiesHref]]" token="[[token]]" hidden$="[[!dismissEnabled]]" course-level="[[courseLevel]]" title="[[localize('optionsForQuickEval')]]"></d2l-quick-eval-ellipsis-menu>
+				<d2l-quick-eval-ellipsis-menu href="[[dismissedActivitiesHref]]" token="[[token]]" hidden$="[[!dismissEnabled]]" course-level="[[courseLevel]]" title="[[localize('optionsForQuickEval')]]" multi-course-quick-eval-href="[[multiCourseQuickEvalHref]]"></d2l-quick-eval-ellipsis-menu>
 			</div>
 			<d2l-quick-eval-view-toggle current-selected="[[toggleState]]" toggle-href="[[toggleHref]]" hidden$="[[!activitiesViewEnabled]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
 			<d2l-quick-eval-submissions
@@ -73,7 +73,7 @@ class D2LQuickEval extends
 				returning-to-quick-eval="[[returningToQuickEval]]"
 				course-level="[[courseLevel]]"
 				course-level-name="[[courseLevelName]]"
-				submission-filters="[[submissionFilters]]"></d2l-quick-eval-submissions>
+				filter-ids="[[submissionFilters]]"></d2l-quick-eval-submissions>
 			<d2l-quick-eval-activities
 				href="[[_lazyActivitiesHref]]"
 				token="[[token]]"
@@ -81,7 +81,7 @@ class D2LQuickEval extends
 				hidden$="[[!_displayActivities(toggleState, activitiesViewEnabled)]]"
 				dismiss-enabled="[[dismissEnabled]]"
 				course-level="[[courseLevel]]"
-				activity-filters="[[activityFilters]]"></d2l-quick-eval-activities>
+				filter-ids="[[activityFilters]]"></d2l-quick-eval-activities>
 		`;
 	}
 
@@ -150,6 +150,10 @@ class D2LQuickEval extends
 				value: false
 			},
 			courseLevelName: {
+				type: String,
+				value: ''
+			},
+			multiCourseQuickEvalHref: {
 				type: String,
 				value: ''
 			},

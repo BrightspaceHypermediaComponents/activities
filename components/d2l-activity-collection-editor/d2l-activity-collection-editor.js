@@ -2,6 +2,7 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { repeat } from 'lit-html/directives/repeat';
 import { until } from 'lit-html/directives/until.js';
+import { guard } from 'lit-html/directives/guard';
 import { heading1Styles, heading4Styles, bodyCompactStyles, bodyStandardStyles, labelStyles} from '@brightspace-ui/core/components/typography/styles.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
@@ -229,6 +230,8 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 		return [ heading1Styles, heading4Styles, bodyCompactStyles, bodyStandardStyles, labelStyles, css`
 			:host {
 				display: block;
+				position: relative;
+				z-index: 0;
 			}
 			:host([hidden]) {
 				display: none;
@@ -548,8 +551,10 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 					<div class="d2l-heading-4 d2l-activity-collection-sub-header">${this.localize('editLearningPath')}</div>
 					<div class="d2l-activity-collection-base-info">
 						<div class="d2l-activity-collection-header-col1" style="position: relative">
-							${until(learningPathTitle, learningPathTitleSketeton)}
-							${until(learningPathDescription, learningPathDescriptionSketeton)}
+							${guard([this._loaded], () => html`
+								${until(learningPathTitle, learningPathTitleSketeton)}
+								${until(learningPathDescription, learningPathDescriptionSketeton)}
+							`)}
 						</div>
 						${learningPathVisibilityToggle}
 					</div>
@@ -654,7 +659,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 						</svg>
 					</div>
 				</d2l-list-item-content>
-				<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', 'Title')}" icon="d2l-tier1:close-default" disabled>
+				<d2l-button-icon slot="actions" icon="d2l-tier1:close-default" disabled>
 			</d2l-list-item>
 		`;
 		return html`<d2l-list>${(new Array(numberOfItems)).fill(itemsSkeleton)}</d2l-list>`;

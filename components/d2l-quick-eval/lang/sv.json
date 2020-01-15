@@ -40,6 +40,7 @@
    "loading" : "Laddar",
    "masterTeacher" : "Lärare",
    "moreActions" : "Fler åtgärder",
+   "multiCourseQuickEval": "Multi-Course Quick Eval",
    "newAttempts" : "Nya försök",
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 reattempt} other {{reAttemptNum} återförsök}}} other {{reAttemptNum, plural, =0 {{newNum} new} =1{{newNum} nytt, 1 återförsök} other {{newNum} new, {reAttemptNum} återförsök}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {1 tråd eller svar} other {{numInteractions} trådar eller svar}}",

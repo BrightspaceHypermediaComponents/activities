@@ -41,7 +41,7 @@ class D2LQuickEvalEllipsisMenu extends LitQuickEvalLocalize(LitElement) {
 		return html`
 		<d2l-dropdown-more text="${this.localize('optionsForQuickEval')}">
 			<d2l-dropdown-menu>
-				<d2l-menu aria-label="${this.localize('optionsForQuickEval')}">
+				<d2l-menu label="${this.localize('optionsForQuickEval')}">
 					<d2l-menu-item
 					@d2l-menu-item-select="${this._open.bind(this)}"
 					text="${this.localize('dismissedActivities')}"></d2l-menu-item>

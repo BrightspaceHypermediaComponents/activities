@@ -40,6 +40,7 @@
    "loading" : "Carregando",
    "masterTeacher" : "Professor",
    "moreActions" : "Mais Ações",
+   "multiCourseQuickEval": "Multi-Course Quick Eval",
    "newAttempts" : "Novas Tentativas",
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 nova tentativa} other {{reAttemptNum} novas tentativas}}} other {{reAttemptNum, plural, =0 {{newNum} new} =1{{newNum} new, 1 nova tentativa} other {{newNum} new, {reAttemptNum} novas tentativas}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {1 conversa ou resposta} other {{numInteractions} conversas ou repostas}}",

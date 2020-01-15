@@ -40,6 +40,7 @@ export const LangNl = {
 			'loading': 'Laden',
 			'masterTeacher': 'Docent',
 			'moreActions': 'Meer acties',
+			'multiCourseQuickEval': 'Multi-Course Quick Eval',
 			'newAttempts': 'Nieuwe pogingen',
 			'newAttemptsDetails': '{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 nieuwe poging} other {{reAttemptNum} nieuwe pogingen}}} other {{reAttemptNum, plural, =0 {{newNum} nieuw} =1{{newNum} nieuw, 1 nieuwe poging} other {{newNum} nieuw, {reAttemptNum} nieuwe pogingen}}}}',
 			'newPostDetails': '{numInteractions, plural, =1 {1 thread of antwoord} other {{numInteractions} threads of antwoorden}}',

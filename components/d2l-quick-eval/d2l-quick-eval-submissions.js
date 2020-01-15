@@ -98,7 +98,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				<d2l-hm-filter
 					href="[[filterHref]]"
 					token="[[token]]"
-					category-whitelist="[[_filterIds]]"
+					category-whitelist="[[filterIds]]"
 					result-size="[[_numberOfActivitiesToShow]]"
 					lazy-load-options>
 				</d2l-hm-filter>
@@ -188,9 +188,9 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				computed: '_computeNumberOfActivitiesToShow(_data, _numberOfActivitiesToShow)',
 				value: 20
 			},
-			_filterIds: {
+			filterIds: {
 				type: Array,
-				computed: '_getFilterIds(masterTeacher)'
+				value: []
 			},
 			_searchResultsCount: {
 				type: Number,
@@ -267,10 +267,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			courseLevelName: {
 				type: String,
 				value: ''
-			},
-			submissionFilters: {
-				type: Array,
-				value: []
 			}
 		};
 	}
@@ -482,15 +478,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		} else {
 			return Promise.reject(new Error(`Could not find sortable header for ${headerId}`));
 		}
-	}
-
-	_getFilterIds(masterTeacher) {
-		// [ 'activity-name', 'enrollments', 'completion-date' ]
-		let filters = [ 'c806bbc6-cfb3-4b6b-ae74-d5e4e319183d', 'f2b32f03-556a-4368-945a-2614b9f41f76', '05de346e-c94d-4e4b-b887-9c86c9a80351' ];
-		if (masterTeacher) {
-			filters = filters.concat('35b3aca0-c10c-436d-b369-c8a3022455e3'); // [ 'primary-facilitator' ]
-		}
-		return filters;
 	}
 
 	// @override - do not change the name

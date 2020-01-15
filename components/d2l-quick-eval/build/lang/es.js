@@ -40,6 +40,7 @@ export const LangEs = {
 			'loading': 'Cargando',
 			'masterTeacher': 'Profesor',
 			'moreActions': 'Más acciones',
+			'multiCourseQuickEval': 'Multi-Course Quick Eval',
 			'newAttempts': 'Nuevos intentos',
 			'newAttemptsDetails': '{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 reintento} other {{reAttemptNum} reintentos}}} other {{reAttemptNum, plural, =0 {{newNum} new} =1{{newNum} new, 1 reintento} other {{newNum} new, {reAttemptNum} reintentos}}}}',
 			'newPostDetails': '{numInteractions, plural, =1 {1 cadena o respuesta} other {{numInteractions} cadenas o respuestas}}',

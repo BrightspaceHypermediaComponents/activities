@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-quick-eval-activity-card-action-button visual diff tests</title>
+		<script type="module" src="../../../components/d2l-quick-eval/activities-list/d2l-quick-eval-activities-list.js"></script>
+		<style>
+			div {
+				margin-bottom: 10px;
+			}
+			/* 	The no-data activities list has no height, which is causing it to overlay the list below it
+				in the screenshot. This forces it to stack above the populated list. */
+			#basic {
+				min-height: 1px;
+			}
+		</style>
+		<script type="module">
+			import '@brightspace-ui/core/components/typography/typography.js';
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div id="basic">
+			<d2l-quick-eval-activities-list></d2l-quick-eval-activities-list>
+		</div>
+		<div id="with-data">
+			<d2l-quick-eval-activities-list 
+				courses='[
+					{
+						"name": "Course 1",
+						"activities": [
+							{
+								"assigned": 10,
+								"completed": 1,
+								"published": 2,
+								"evaluated": 3,
+								"newSubmissions": 4,
+								"resubmitted": 5,
+								"dueDate": "2019-01-01",
+								"activityType": "quiz",
+								"activityName": "Activity 1"
+							},
+							{
+								"assigned": 20,
+								"completed": 11,
+								"published": 12,
+								"evaluated": 13,
+								"newSubmissions": 14,
+								"resubmitted": 15,
+								"dueDate": "2019-02-02",
+								"activityType": "discussion",
+								"activityName": "Activity 2"
+							}
+						]
+					},
+					{
+						"name": "Course 2",
+						"activities": [
+							{
+								"assigned": 30,
+								"completed": 21,
+								"published": 22,
+								"evaluated": 23,
+								"newSubmissions": 24,
+								"resubmitted": 25,
+								"dueDate": "2019-03-03",
+								"activityType": "assignment",
+								"activityName": "Activity 3"
+							},
+							{
+								"assigned": 40,
+								"completed": 31,
+								"published": 32,
+								"evaluated": 33,
+								"newSubmissions": 34,
+								"resubmitted": 35,
+								"dueDate": "2019-04-04",
+								"activityType": "discussion",
+								"activityName": "Activity 4"
+							}
+						]
+					}
+				]'></d2l-quick-eval-activities-list>
+		</div>
+	</body>
+</html>

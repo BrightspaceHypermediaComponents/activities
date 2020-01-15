@@ -35,7 +35,7 @@ class D2LQuickEvalEllipsisMenu extends LitQuickEvalLocalize(LitElement) {
 	}
 	render() {
 		return html`
-		<d2l-dropdown-more>
+		<d2l-dropdown-more text="${this.localize('optionsForQuickEval')}">
 			<d2l-dropdown-menu>
 				<d2l-menu>
 					<d2l-menu-item

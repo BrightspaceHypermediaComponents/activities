@@ -624,7 +624,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 
 	_renderCandidateItems() {
 		if (this._candidateItems.length <= 0) {
-			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesInLearningPath')}</div>`;
+			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesFound')}</div>`;
 		}
 
 		const items = repeat(this._candidateItems, (candidate) => candidate.itemSelf, candidate => {

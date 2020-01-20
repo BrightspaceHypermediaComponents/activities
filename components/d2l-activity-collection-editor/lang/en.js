@@ -11,7 +11,8 @@ export default {
 	editLearningPath: "Edit Learning Path", // Title of the page where the page is to edit a list of related learnings. On the page you can edit the title, description and what learning activities are in the list.
 	enterADescription: "Enter a description", // Shows where the user should write a description for the learning path.
 	loadMore: "Load More", // When adding activities to the learning path, this is on a button that will load more potential activities that can be added that match the current search.
-	noActivitiesInLearningPath: "There are no activities in this learning path.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
+	noActivitiesInLearningPath: "There are no activities in this learning path.", // Displayed when the learning path is loaded and contains no activities
+	noActivitiesFound: "There were no activities found using your search term.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 Activity} other {{count} Activities}}", // The number of learning tasks currently in the list.
 	removeActivity: "Remove activity, {courseName} from learning path.", // An action to remove a learning task from a list of tasks that are related
 	search: "Search", // When adding activities to the learning path, this is where you can search for potential activities to add.

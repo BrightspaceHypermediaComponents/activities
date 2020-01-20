@@ -295,7 +295,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 				align-self: flex-start;
 				display: flex;
 				flex-shrink: 0;
-				margin: 0.55rem 0 0.55rem 1.5rem;
+				margin: 0.55rem 0 0.55rem 0rem;
 			}
 
 			.d2l-activity-visbility-label {
@@ -610,7 +610,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 
 	_renderCandidateItems() {
 		if (this._candidateItems.length <= 0) {
-			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesFound')}</div>`;
+			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesInLearningPath')}</div>`;
 		}
 
 		const items = repeat(this._candidateItems, (candidate) => candidate.itemSelf, candidate => {

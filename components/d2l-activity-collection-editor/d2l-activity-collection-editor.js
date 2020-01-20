@@ -421,13 +421,15 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 			}
 
 			@media only screen and (max-width: 615px) {
-				.d2l-activity-collection-toggle-container {
-					position: absolute;
-					right: 0;
+				.d2l-activity-collection-base-info {
+					flex-direction: column;
 				}
+				.d2l-activity-collection-toggle-container {
+					margin-left:0
+				}
+
 				.d2l-activity-collection-title-header {
 					margin-bottom: 0;
-					margin-right: 7.5rem;
 					min-height: 2.3rem;
 				}
 				.d2l-activity-collection-header {
@@ -624,7 +626,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 
 	_renderCandidateItems() {
 		if (this._candidateItems.length <= 0) {
-			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesInLearningPath')}</div>`;
+			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesFound')}</div>`;
 		}
 
 		const items = repeat(this._candidateItems, (candidate) => candidate.itemSelf, candidate => {

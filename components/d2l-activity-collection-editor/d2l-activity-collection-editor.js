@@ -295,7 +295,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 				align-self: flex-start;
 				display: flex;
 				flex-shrink: 0;
-				margin: 0.55rem 0 0.55rem 0rem;
+				margin: 0.55rem 0;
 			}
 
 			.d2l-activity-visbility-label {

@@ -421,17 +421,6 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 			}
 
 			@media only screen and (max-width: 615px) {
-				.d2l-activity-collection-base-info {
-					flex-direction: column;
-				}
-				.d2l-activity-collection-toggle-container {
-					margin-left:0
-				}
-
-				.d2l-activity-collection-title-header {
-					margin-bottom: 0;
-					min-height: 2.3rem;
-				}
 				.d2l-activity-collection-header {
 					padding-left: 0.8rem;
 					padding-right: 0.8rem;
@@ -459,14 +448,9 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 				.d2l-activity-collection-toggle-container-button {
 					display: block;
 					margin-top: 0.35rem;
-					position: absolute;
-					right: 0;
 				}
 				.d2l-activity-collection-toggle-container {
 					display: none;
-				}
-				.d2l-activity-collection-title-header {
-					margin-right: 2.1rem;
 				}
 			}
 		` ];

@@ -1,6 +1,7 @@
 import './d2l-assignment-turnitin-editor';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
+import './d2l-activity-assignment-type-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
@@ -135,6 +136,14 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	render() {
 		return html`
+			<div id="assignment-type-container">
+				<h3 class="d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
+				<d2l-activity-assignment-type-editor
+					href="${this.href}"
+					.token="${this.token}">
+				</d2l-activity-assignment-type-editor>
+			</div>
+
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">${this.localize('submissionType')}</label>
 				<select

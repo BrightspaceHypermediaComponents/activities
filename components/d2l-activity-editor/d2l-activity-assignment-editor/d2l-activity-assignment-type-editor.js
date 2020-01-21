@@ -7,7 +7,7 @@ import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
-import { selectStyles } from '../select-styles.js';
+import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
 class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
 
@@ -40,7 +40,7 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 					display: none;
 				}
 
-				select {
+				block-select {
 					width: 100%;
 					max-width: 300px;
 					display: block;
@@ -189,6 +189,7 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 				<div class="select-list group-info" ?hidden="${this._isIndividualType}">
 					<label class="d2l-label-text">${this.localize('txtGroupCategory')}</label>
 					<select
+						class="d2l-input-select block-select"
 						id="assignemnt-group-categories"
 						@change="${this._changeGroupCategory}"
 						>

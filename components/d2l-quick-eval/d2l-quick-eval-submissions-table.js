@@ -13,6 +13,7 @@ import 'd2l-users/components/d2l-profile-image.js';
 import '../d2l-activity-name/d2l-activity-name.js';
 import '../d2l-activity-evaluation-icon/d2l-activity-evaluation-icon-base.js';
 import './d2l-quick-eval-no-submissions-image.js';
+import './d2l-quick-eval-no-submissions-text.js';
 import './d2l-quick-eval-no-criteria-results-image.js';
 import './d2l-quick-eval-submissions-skeleton.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
@@ -127,7 +128,6 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					height: 15%;
 					width: 15%;
 				}
-				.d2l-quick-eval-no-submissions-heading,
 				.d2l-quick-eval-no-criteria-results-heading {
 					@apply --d2l-heading-2;
 					margin: 0;
@@ -135,8 +135,20 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				.d2l-body-standard {
 					@apply --d2l-body-compact-text;
 				}
+				.d2l-quick-eval-submissions-course-name-heading {
+					@apply --d2l-heading-3;
+					margin-top: 0.8rem;
+					margin-bottom: 0.6rem;
+					max-width: 24rem;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+				}
 			</style>
 			<d2l-offscreen id$="[[_tableDescriptionId]]">[[localize('tableTitle')]]</d2l-offscreen>
+			<template is="dom-if" if="[[courseLevel]]">
+				<h2 title="[[courseLevelName]]" class="d2l-quick-eval-submissions-course-name-heading">[[courseLevelName]]</h2>
+			</template>
 			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[_headerColumns.length]]" aria-rowcount$="[[_data.length]]">
 				<d2l-thead>
 					<d2l-tr>
@@ -201,9 +213,11 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 								<d2l-td class="d2l-quick-eval-truncated-column d2l-activity-name-column">
 									<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
 								</d2l-td>
-								<d2l-td class="d2l-quick-eval-truncated-column d2l-course-name-column">
-									<span title="[[s.courseName]]">[[s.courseName]]</span>
-								</d2l-td>
+								<template is="dom-if" if="[[_shouldDisplayColumn('courseName')]]">
+									<d2l-td class="d2l-quick-eval-truncated-column d2l-course-name-column">
+										<span title="[[s.courseName]]">[[s.courseName]]</span>
+									</d2l-td>
+								</template>
 								<d2l-td>
 									<span>[[_localizeDateTimeFormat(s.submissionDate)]]</span>
 								</d2l-td>
@@ -232,9 +246,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 			<template is="dom-if" if="[[showNoSubmissions]]">
 				<div class="d2l-quick-eval-no-submissions">
 					<d2l-quick-eval-no-submissions-image></d2l-quick-eval-no-submissions-image>
-					<h2 class="d2l-quick-eval-no-submissions-heading">[[localize('caughtUp')]]</h2>
-					<p class="d2l-body-standard">[[localize('noSubmissions')]]</p>
-					<p class="d2l-body-standard">[[localize('checkBackOften')]]</p>
+					<d2l-quick-eval-no-submissions-text course-level="[[courseLevel]]" multi-course-quick-eval-href="[[multiCourseQuickEvalHref]]"></d2l-quick-eval-no-submissions-text>
 				</div>
 			</template>
 			<template is="dom-if" if="[[showNoCriteria]]">
@@ -301,6 +313,18 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 			returningToQuickEval: {
 				type: Boolean,
 				value: false
+			},
+			courseLevel: {
+				type: Boolean,
+				value: false
+			},
+			courseLevelName: {
+				type: String,
+				value: ''
+			},
+			multiCourseQuickEvalHref: {
+				type: String,
+				value: ''
 			}
 		};
 	}
@@ -416,6 +440,9 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 	_shouldDisplayColumn(columnKey) {
 		if (columnKey === 'masterTeacher') {
 			return this.masterTeacher;
+		}
+		if (columnKey === 'courseName') {
+			return !this.courseLevel;
 		}
 		return true;
 	}

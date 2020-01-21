@@ -123,6 +123,12 @@
         "https://conditions.api.brightspace.com/rels/conditions"
       ],
       "href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.conditions.api.dev.brightspace.com/activity-usage/TmpZd05sOHlNREF3WHpjLjEyMzA2NQ"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/grade-candidates"
+      ],
+      "href": "./data/gradeCandidates.json"
     }
   ],
   "actions": [

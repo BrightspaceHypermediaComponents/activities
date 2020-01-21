@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-quick-eval-activity-card-action-button visual diff tests</title>
+		<script type="module" src="../../../components/d2l-quick-eval/d2l-quick-eval-submissions-table.js"></script>
+		<style>
+			div {
+				margin-bottom: 10px;
+			}
+		</style>
+		<script type="module">
+			import '@brightspace-ui/core/components/typography/typography.js';
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div id="basic">
+			<d2l-quick-eval-submissions-table></d2l-quick-eval-submissions-table>
+		</div>
+		<div id="with-data">
+			<d2l-quick-eval-submissions-table 
+				_data='[
+					{
+						"isDraft":true,
+						"userHref":"data/user.json",
+						"activityNameHref":"data/activity.json",
+						"courseName":"Course 1",
+						"submissionDate":"2019-01-01",
+						"displayName":{
+							"firstName":"first",
+							"lastName":"last",
+							"defaultDisplayName":"first last"
+						}
+					},
+					{
+						"isDraft":false,
+						"userHref":"data/user.json",
+						"activityNameHref":"data/activity.json",
+						"courseName":"Course 2",
+						"submissionDate":"2019-02-02",
+						"displayName":{
+							"firstName":"first",
+							"lastName":"last",
+							"defaultDisplayName":"first last"
+						}
+					}
+				]'></d2l-quick-eval-submissions-table>
+		</div>
+		<div id="master-teacher">
+			<d2l-quick-eval-submissions-table
+				_data='[
+					{
+						"isDraft":true,
+						"userHref":"data/user.json",
+						"activityNameHref":"data/activity.json",
+						"courseName":"Course 1",
+						"submissionDate":"2019-01-01",
+						"displayName":{
+							"firstName":"first",
+							"lastName":"last",
+							"defaultDisplayName":"first last"
+						},
+						"masterTeacher":"master"
+					},
+					{
+						"isDraft":false,
+						"userHref":"data/user.json",
+						"activityNameHref":"data/activity.json",
+						"courseName":"Course 2",
+						"submissionDate":"2019-02-02",
+						"displayName":{
+							"firstName":"first",
+							"lastName":"last",
+							"defaultDisplayName":"first last"
+						},
+						"masterTeacher":"master"
+					}
+				]'
+				master-teacher></d2l-quick-eval-submissions-table>
+		</div>
+	</body>
+</html>

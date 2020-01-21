@@ -1,0 +1,84 @@
+{
+  "class": [
+    "collection",
+    "grade-candidates"
+  ],
+  "entities": [
+    {
+      "class": [
+        "grade-candidate"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "name": "Assignment 1 Grade",
+        "maxPoints": "30"
+      },
+      "actions": [
+        {
+          "href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.activities.api.dev.brightspace.com/activities/6606_2000_7/usages/123065/associate-grade",
+          "name": "associate-grade",
+          "method": "POST",
+          "fields": [
+            {
+              "type": "hidden",
+              "name": "gradeItemId",
+              "value": "5006"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://grades.api.brightspace.com/rels/grade"
+          ],
+          "href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.grades.api.dev.brightspace.com/organizations/6609/grades/5006"
+        }
+      ]
+    },
+    {
+      "class": [
+        "grade-candidate"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "name": "Assignment 2 Grade",
+        "maxPoints": "30"
+      },
+      "actions": [
+        {
+          "href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.activities.api.dev.brightspace.com/activities/6606_2000_7/usages/123065/associate-grade",
+          "name": "associate-grade",
+          "method": "POST",
+          "fields": [
+            {
+              "type": "hidden",
+              "name": "gradeItemId",
+              "value": "5007"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://grades.api.brightspace.com/rels/grade"
+          ],
+          "href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.grades.api.dev.brightspace.com/organizations/6609/grades/5007"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "https://f5aa43d7-c082-485c-84f5-4808147fe98a.activities.api.dev.brightspace.com/activities/6606_2000_7/usages/123065/grade-candidates"
+    }
+  ]
+}

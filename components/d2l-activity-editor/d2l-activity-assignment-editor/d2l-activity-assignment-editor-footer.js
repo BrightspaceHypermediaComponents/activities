@@ -35,6 +35,13 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 			}
 			.d2l-activity-assignment-editor-footer-left {
 				flex: 1;
+				display: flex;
+				flex-direction: row-reverse;
+				justify-content: flex-end;
+
+			}
+			.d2l-activity-assignment-editor-footer-right {
+				line-height: 2rem;
 			}
 		`;
 	}
@@ -68,12 +75,14 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 	render() {
 		return html`
 			<div class="d2l-activity-assignment-editor-footer-left">
-				<d2l-button primary>${this.localize('btnSave')}</d2l-button>
-				<d2l-button>${this.localize('btnCancel')}</d2l-button>
 				<d2l-activity-visibility-editor
 					href="${this._activityUsageHref}"
 					.token="${this.token}">
 				</d2l-activity-visibility-editor>
+				<div id="footer-buttons">
+					<d2l-button primary>${this.localize('btnSave')}</d2l-button>
+					<d2l-button>${this.localize('btnCancel')}</d2l-button>
+				</div>
 			</div>
 			<div class="d2l-activity-assignment-editor-footer-right">
 				<slot name="save-status"></slot>

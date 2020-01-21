@@ -66,11 +66,12 @@ class ActivityVisibilityEditor extends SaveStatusMixin(EntityMixinLit(LocalizeMi
 	render() {
 
 		const switchVisibilityText = (this._isDraft ? this.localize('hidden') : this.localize('visible'));
+		const switchVisibilityTextAria = (this._isDraft ? this.localize('ariaHidden') : this.localize('ariaVisible'));
 		const icon = (this._isDraft ? 'tier1:visibility-hide' : 'tier1:visibility-show');
 		const switchEnabled = this._canEditDraft && !this.disabled
 			? html`
 				<d2l-switch
-					aria-label="${switchVisibilityText}"
+					aria-label="${switchVisibilityTextAria}"
 					label-right
 					.checked=${!this._isDraft}
 					@click="${this._updateVisibility}">

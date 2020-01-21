@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-quick-eval-activity-card-action-button visual diff tests</title>
+		<script type="module" src="../../../components/d2l-quick-eval/view-toggle/d2l-quick-eval-view-toggle-button.js"></script>
+		<style>
+			div {
+				margin-bottom: 10px;
+			}
+		</style>
+		<script type="module">
+			import '@brightspace-ui/core/components/typography/typography.js';
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div id="basic">
+			<d2l-quick-eval-view-toggle-button>basic</d2l-quick-eval-view-toggle-button>
+		</div>
+		<div id="left">
+			<d2l-quick-eval-view-toggle-button side="left">left</d2l-quick-eval-view-toggle-button>
+		</div>
+		<div id="right">
+			<d2l-quick-eval-view-toggle-button side="right">right</d2l-quick-eval-view-toggle-button>
+		</div>
+		<div id="selected">
+			<d2l-quick-eval-view-toggle-button selected>selected</d2l-quick-eval-view-toggle-button>
+		</div>
+	</body>
+</html>

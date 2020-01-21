@@ -33,6 +33,7 @@ class D2LQuickEvalActivityCardActionButton extends mixinBehaviors(
 					text-align: center;
 					align-content: center;
 					justify-content: space-between;
+					font-family: inherit;
 					font-size: var(--d2l-quick-eval-card-button-font-size);
 					line-height: calc(var(--d2l-quick-eval-card-button-font-size) - .2rem);
 					color: var(--d2l-color-ferrite);

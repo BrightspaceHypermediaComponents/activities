@@ -4,17 +4,20 @@ import 'd2l-tooltip/d2l-tooltip';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { getLocalizeResources } from '../localization';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin';
 import { SaveStatusMixin } from '../save-status-mixin';
 
-class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
+class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeMixin(RtlMixin(LitElement)))) {
 	static get properties() {
 		return {
 			_canAddFile: { type: Boolean },
 			_canAddLink: { type: Boolean },
 			_canAddGoogleDriveLink: { type: Boolean },
-			_canAddOneDriveLink: { type: Boolean }
+			_canAddOneDriveLink: { type: Boolean },
+			_canRecordVideo: { type: Boolean },
+			_canRecordAudio: { type: Boolean }
 		};
 	}
 
@@ -34,9 +37,19 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 			.button-container {
 				display: flex;
 				flex-direction: row;
+				width: 100%;
 			}
 
-			.button-container > * {
+			.button-container-right {
+				margin-left: auto;
+			}
+			:host([dir="rtl"]) .button-container-right {
+				margin-left: 0;
+				margin-right: auto;
+			}
+
+			d2l-button-icon:not([hidden]),
+			d2l-button-subtle:not([hidden]) {
 				display: inline-block;
 			}
 		`;
@@ -54,6 +67,24 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 			left: 20 + 12, // padding-left applied to d2l-activity-attachments-picker + padding-left of d2l-button-icon
 			right: 0
 		};
+
+		D2L.ActivityEditor = D2L.ActivityEditor || {};
+		// Referenced by the server-side ActivitiesView renderer
+		D2L.ActivityEditor.FileUploadDialogCallback = files => {
+			for (const file of files) {
+				const fileSystemType = file.m_fileSystemType;
+				const fileId = file.m_id;
+				this.wrapSaveAction(super._entity.addFileAttachment(fileSystemType, fileId));
+			}
+		};
+		// Referenced by the server-side ActivitiesView renderer
+		D2L.ActivityEditor.RecordVideoDialogCallback = file => {
+			this.wrapSaveAction(super._entity.addVideoNoteAttachment(file.FileSystemType, file.FileId));
+		};
+		// Referenced by the server-side ActivitiesView renderer
+		D2L.ActivityEditor.RecordAudioDialogCallback = file => {
+			this.wrapSaveAction(super._entity.addAudioNoteAttachment(file.FileSystemType, file.FileId));
+		};
 	}
 
 	set _entity(entity) {
@@ -66,6 +97,8 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 			this._canAddLink = entity.canAddLinkAttachment();
 			this._canAddGoogleDriveLink = entity.canAddGoogleDriveLinkAttachment();
 			this._canAddOneDriveLink = entity.canAddOneDriveLinkAttachment();
+			this._canRecordVideo = entity.canAddVideoNoteAttachment();
+			this._canRecordAudio = entity.canAddAudioNoteAttachment();
 		}
 
 		super._entity = entity;
@@ -80,105 +113,23 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 		return orgUnitId;
 	}
 
-	_openDialog(opener, settings, callback) {
-		const params = new URLSearchParams();
-		params.set('initialViewType', 'Items');
-		params.set('canChangeType', false); // Hides the top toolbar which allows changing the dialog picker type
-		params.set('outputFormat', 'html'); // Only valid value is "html"
-
-		for (const setting in settings) {
-			params.set(setting, settings[setting]);
-		}
-
-		const location = `/d2l/lp/quicklinks/manage/${this._orgUnitId}/CreateDialog?${params.toString()}`;
-
-		const event = D2L.LP.Web.UI.Common.MasterPages.Dialog.Open(
-			opener,
-			new D2L.LP.Web.Http.UrlLocation(location)
-		);
-
-		event.AddListener(callback);
-	}
-
 	_launchAddFileDialog() {
-		const opener = this.shadowRoot.querySelector('#add-file-button');
-
-		const params = new URLSearchParams();
-		params.set('ou', this._orgUnitId);
-		params.set('af', 'mycomputer,oufiles,sharedfiles,mylocker,grouplocker'); // Area Filters
-		params.set('am', '1'); // Allow Multiple files, 1 = allow
-		params.set('fsc', '0'); // Force Save to Course files, 0 = don't force
-		params.set('asc', '0'); // Allow Save to Course files, 0 = don't allow
-		params.set('mfs', '0'); // Max File Size, 0 = don't set (use system setting)
-		params.set('afid', '0'); // Ask For Image Description, 0 = don't ask
-		params.set('uih', ''); // Upload Inline Help langterm, '' = don't show any upload help text (below file picker in My Computer)
-		params.set('f', ''); // Filetype, '' = allow all file types
-		const location = new D2L.LP.Web.Http.UrlLocation(`/d2l/common/dialogs/file/main.d2l?${params.toString()}`);
-
-		const buttons = [
-			{
-				Key: 'save',
-				Text: this.localize('save'),
-				ResponseType: 1, // D2L.Dialog.ResponseType.Positive
-				IsPrimary: true,
-				IsEnabled: true,
-				Param: 'next' // key for fileArea.js
-			},
-			{
-				Text: this.localize('back'),
-				ResponseType: 2, // D2L.Dialog.ResponseType.Negative
-				IsPrimary: false,
-				IsEnabled: true,
-				Param: 'back' // key for fileArea.js
-			}
-		];
-
-		const dialog = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open.bind(
-			this,
-			opener,
-			location,
-			'DialogCallback', // srcCallback
-			'', // resizeCallback
-			'files', // responseDataKey
-			720, // width
-			1280, // height
-			this.localize('closeFilePickerDialog'), // closeText
-			buttons, // buttons
-			false // forceTriggerOnCancel
-		);
-
-		const dialogId = {
-			GetValue: () => 'AttachmentPickerDialog'
-		};
-
-		const callback = () => {
-			const files = D2L.LP.Web.UI.Desktop.MasterPages.Dialog.FileSelectorDialog.GetFiles(dialogId);
-			for (const file of files) {
-				const fileSystemType = file.m_fileSystemType;
-				const fileId = file.m_id;
-				this.wrapSaveAction(super._entity.addFileAttachment(fileSystemType, fileId));
-			}
-		};
-
-		D2L.LP.Web.UI.Desktop.MasterPages.Dialog.FileSelectorDialog.OpenDialog(
-			dialog,
-			dialogId,
-			callback
-		);
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.FileUploadDialogOpener');
+		if (opener) {
+			opener();
+		}
 	}
 
 	_launchAddQuicklinkDialog() {
-		const opener = this.shadowRoot.querySelector('#add-quicklink-button');
-		const settings = {
-			typeKey: '',
-			initialViewType: 'Default',
-			pickOnly: true // Prevents creating new items from the picker
-		};
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.AddQuicklinkDialogOpener');
+		if (!opener) {
+			return;
+		}
 
 		// Required for the async handler below to work in Edge
 		const superEntity = super._entity;
-
-		this._openDialog(opener, settings, async event => {
+		const event = opener();
+		event.AddListener(async event => {
 			const quicklinkUrl = `/d2l/api/lp/unstable/${this._orgUnitId}/quickLinks/${event.m_typeKey}/${event.m_id}`;
 			const response = await fetch(quicklinkUrl);
 			const json = await response.json();
@@ -187,57 +138,68 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 	}
 
 	_launchAddLinkDialog() {
-		const opener = this.shadowRoot.querySelector('#add-link-button');
-		const settings = {
-			typeKey: 'url',
-			customTitle: '', // Hides "Insert Quicklink" title on dialog
-			showCancelButton: false, // Uses urlShowCancelButtonInline instead
-			urlShowCancelButtonInline: true, // Shows the Cancel button next to Insert button
-			urlShowTarget: false // Hides ability to set URL to open in same window/new window
-		};
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.AddLinkDialogOpener');
+		if (!opener) {
+			return;
+		}
 
-		this._openDialog(opener, settings, event => {
+		const event = opener();
+		event.AddListener(event => {
 			this.wrapSaveAction(super._entity.addLinkAttachment(event.m_title, event.m_url));
 		});
 	}
 
 	_launchAddGoogleDriveLinkDialog() {
-		const opener = this.shadowRoot.querySelector('#add-google-drive-link-button');
-		const settings = {
-			typeKey: 'google-drive',
-			customTitleLangTerm: 'Pickers.Quicklinks.titleAddMaterials',
-			showCancelButton: false // Google Drive picker has its own cancel button
-		};
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.AddGoogleDriveLinkDialogOpener');
+		if (!opener) {
+			return;
+		}
 
-		this._openDialog(opener, settings, event => {
+		const event = opener();
+		event.AddListener(event => {
 			this.wrapSaveAction(super._entity.addGoogleDriveLinkAttachment(event.m_title, event.m_url));
 		});
 	}
 
 	_launchAddOneDriveLinkDialog() {
-		const opener = this.shadowRoot.querySelector('#add-onedrive-link-button');
-		const settings = {
-			typeKey: 'one-drive',
-			customTitleLangTerm: 'Pickers.Quicklinks.titleAddMaterials',
-			showCancelButton: false // OneDrive picker has its own cancel button
-		};
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.AddOneDriveLinkDialogOpener');
+		if (!opener) {
+			return;
+		}
 
-		this._openDialog(opener, settings, event => {
+		const event = opener();
+		event.AddListener(event => {
 			this.wrapSaveAction(super._entity.addOneDriveLinkAttachment(event.m_title, event.m_url));
 		});
 	}
 
+	_launchRecordVideoDialog() {
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.RecordVideoDialogOpener');
+		if (opener) {
+			opener();
+		}
+	}
+
+	_launchRecordAudioDialog() {
+		const opener = D2L.LP.Web.UI.ObjectRepository.TryGet('D2L.ActivityEditor.RecordAudioDialogOpener');
+		if (opener) {
+			opener();
+		}
+	}
+
 	render() {
 		return html`
-			<div id="button-container">
+			<div class="button-container">
 				<d2l-button-icon
 					id="add-file-button"
 					icon="d2l-tier1:upload"
+					text="${this.localize('addFile')}"
 					?hidden="${!this._canAddFile}"
 					@click="${this._launchAddFileDialog}">
 				</d2l-button-icon>
 				<d2l-tooltip
 					for="add-file-button"
+					disable-focus-lock
 					.boundary="${this._tooltipBoundary}">
 					${this.localize('addFile')}
 				</d2l-tooltip>
@@ -245,11 +207,13 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 				<d2l-button-icon
 					id="add-quicklink-button"
 					icon="d2l-tier1:quicklink"
+					text="${this.localize('addQuicklink')}"
 					?hidden="${!this._canAddLink}"
 					@click="${this._launchAddQuicklinkDialog}">
 				</d2l-button-icon>
 				<d2l-tooltip
 					for="add-quicklink-button"
+					disable-focus-lock
 					.boundary="${this._tooltipBoundary}">
 					${this.localize('addQuicklink')}
 				</d2l-tooltip>
@@ -257,11 +221,13 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 				<d2l-button-icon
 					id="add-link-button"
 					icon="d2l-tier1:link"
+					text="${this.localize('addLink')}"
 					?hidden="${!this._canAddLink}"
 					@click="${this._launchAddLinkDialog}">
 				</d2l-button-icon>
 				<d2l-tooltip
 					for="add-link-button"
+					disable-focus-lock
 					.boundary="${this._tooltipBoundary}">
 					${this.localize('addLink')}
 				</d2l-tooltip>
@@ -269,11 +235,13 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 				<d2l-button-icon
 					id="add-google-drive-link-button"
 					icon="d2l-tier1:google-drive"
+					text="${this.localize('addGoogleDriveLink')}"
 					?hidden="${!this._canAddGoogleDriveLink}"
 					@click="${this._launchAddGoogleDriveLinkDialog}">
 				</d2l-button-icon>
 				<d2l-tooltip
 					for="add-google-drive-link-button"
+					disable-focus-lock
 					.boundary="${this._tooltipBoundary}">
 					${this.localize('addGoogleDriveLink')}
 				</d2l-tooltip>
@@ -281,14 +249,33 @@ class ActivityAttachmentsPicker extends SaveStatusMixin(EntityMixinLit(LocalizeM
 				<d2l-button-icon
 					id="add-onedrive-link-button"
 					icon="d2l-tier1:one-drive"
+					text="${this.localize('addOneDriveLink')}"
 					?hidden="${!this._canAddOneDriveLink}"
 					@click="${this._launchAddOneDriveLinkDialog}">
 				</d2l-button-icon>
 				<d2l-tooltip
 					for="add-onedrive-link-button"
+					disable-focus-lock
 					.boundary="${this._tooltipBoundary}">
 					${this.localize('addOneDriveLink')}
 				</d2l-tooltip>
+
+				<div class="button-container-right">
+					<d2l-button-subtle
+						id="record-audio-button"
+						icon="tier1:mic"
+						?hidden="${!this._canRecordAudio}"
+						text="${this.localize('recordAudio')}"
+						@click="${this._launchRecordAudioDialog}">
+					</d2l-button-subtle>
+					<d2l-button-subtle
+						id="record-video-button"
+						icon="tier1:file-video"
+						?hidden="${!this._canRecordVideo}"
+						text="${this.localize('recordVideo')}"
+						@click="${this._launchRecordVideoDialog}">
+					</d2l-button-subtle>
+				</div>
 			</div>
 		`;
 	}

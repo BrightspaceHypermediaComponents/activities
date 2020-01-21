@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-quick-eval-no-submissions-text visual diff tests</title>
+		<script type="module" src="../../../components/d2l-quick-eval/d2l-quick-eval-no-submissions-text.js"></script>
+		<style>
+			div {
+				margin-bottom: 10px;
+			}
+		</style>
+		<script type="module">
+			import '@brightspace-ui/core/components/typography/typography.js';
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div id="courselevel">
+			<d2l-quick-eval-no-submissions-text courseLevel multiCourseQuickEvalHref="https://www.google.ca"></d2l-quick-eval-no-submissions-text>
+		</div>
+		<div id="notcourselevel">
+			<d2l-quick-eval-no-submissions-text></d2l-quick-eval-no-submissions-text>
+		</div>
+		<div id="courselevelnolink">
+			<d2l-quick-eval-no-submissions-text courseLevel></d2l-quick-eval-no-submissions-text>
+		</div>
+	</body>
+</html>

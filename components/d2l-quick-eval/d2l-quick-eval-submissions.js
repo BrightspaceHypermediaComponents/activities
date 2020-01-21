@@ -98,7 +98,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				<d2l-hm-filter
 					href="[[filterHref]]"
 					token="[[token]]"
-					category-whitelist="[[_filterIds]]"
+					category-whitelist="[[filterIds]]"
 					result-size="[[_numberOfActivitiesToShow]]"
 					lazy-load-options>
 				</d2l-hm-filter>
@@ -138,8 +138,11 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				show-no-submissions="[[_showNoSubmissions]]"
 				show-no-criteria="[[_showNoCriteria]]"
 				returning-to-quick-eval="[[returningToQuickEval]]"
+				course-level="[[courseLevel]]"
+				course-level-name="[[courseLevelName]]"
 				on-d2l-quick-eval-submissions-table-load-more="_loadMore"
-				on-d2l-quick-eval-submissions-table-sort-requested="_handleSortRequested">
+				on-d2l-quick-eval-submissions-table-sort-requested="_handleSortRequested"
+				multi-course-quick-eval-href="[[multiCourseQuickEvalHref]]">
 			</d2l-quick-eval-submissions-table>
 		`;
 		template.setAttribute('strip-whitespace', 'strip-whitespace');
@@ -186,9 +189,9 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				computed: '_computeNumberOfActivitiesToShow(_data, _numberOfActivitiesToShow)',
 				value: 20
 			},
-			_filterIds: {
+			filterIds: {
 				type: Array,
-				computed: '_getFilterIds(masterTeacher)'
+				value: []
 			},
 			_searchResultsCount: {
 				type: Number,
@@ -257,6 +260,18 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			returningToQuickEval: {
 				type: Boolean,
 				value: false
+			},
+			courseLevel: {
+				type: Boolean,
+				value: false
+			},
+			courseLevelName: {
+				type: String,
+				value: ''
+			},
+			multiCourseQuickEvalHref: {
+				type: String,
+				value: ''
 			}
 		};
 	}
@@ -283,11 +298,11 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		this._loading = true;
 
 		if (this._initialLoad) {
+			this._initialLoad = false;
 			this.filterAppliedShortcut();
 			this.searchAppliedShortcut();
 
 			if (entity.hasClass('empty') && (this.searchApplied || this.filterApplied)) {
-				this._initialLoad = false;
 				this.addEventListener('d2l-hm-filter-filters-loaded', this._handleFilterLoadedNoResultsOnInitialLoad);
 				return;
 			}
@@ -311,7 +326,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			return Promise.reject(e);
 		} finally {
 			this._loading = false;
-			this._initialLoad = false;
 		}
 	}
 
@@ -376,7 +390,10 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				};
 
 				const getUserName = this._getUserPromise(activity, item);
-				const getCourseName = this._getCoursePromise(activity, item);
+				const getCourseName = this.courseLevel
+					? Promise.resolve()
+					: this._getCoursePromise(activity, item);
+
 				const getMasterTeacherName =
 					this.masterTeacher
 						? this._getMasterTeacherPromise(activity, item)
@@ -466,15 +483,6 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		} else {
 			return Promise.reject(new Error(`Could not find sortable header for ${headerId}`));
 		}
-	}
-
-	_getFilterIds(masterTeacher) {
-		// [ 'activity-name', 'enrollments', 'completion-date' ]
-		let filters = [ 'c806bbc6-cfb3-4b6b-ae74-d5e4e319183d', 'f2b32f03-556a-4368-945a-2614b9f41f76', '05de346e-c94d-4e4b-b887-9c86c9a80351' ];
-		if (masterTeacher) {
-			filters = filters.concat('35b3aca0-c10c-436d-b369-c8a3022455e3'); // [ 'primary-facilitator' ]
-		}
-		return filters;
 	}
 
 	// @override - do not change the name

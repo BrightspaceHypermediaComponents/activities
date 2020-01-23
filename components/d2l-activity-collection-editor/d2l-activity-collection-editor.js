@@ -335,6 +335,8 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 			.d2l-add-activity-dialog-selection-count {
 				color: var(--d2l-color-ferrite);
 				font-size: 16px;
+				margin-left: 0.5rem;
+    			align-self: center;
 			}
 			.d2l-list-item-secondary {
 				color: var(--d2l-color-olivine-minus-1);

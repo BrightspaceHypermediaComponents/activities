@@ -178,8 +178,8 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 		const sirenActions = [];
 
 		this._reloadOnOpen = true;
-		while(keys.length > 0) {
-			const keyBatch = keys.splice(0,5);
+		while (keys.length > 0) {
+			const keyBatch = keys.splice(0, 5);
 			const fields  = [{ name: 'actionStates', value: keyBatch }];
 			sirenActions.push(Promise.resolve(performSirenAction(this.token, addAction, fields, true)));
 		}

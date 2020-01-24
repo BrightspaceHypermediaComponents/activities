@@ -501,7 +501,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 
 		const learningPathVisibilityToggle = this._handleFirstLoad(() => {
 			return html`
-				<d2l-activity-visibility-editor class="d2l-activity-collection-toggle-container" ?disabled="${!this._items.length}" .href="${this.href}" .token="${this.token}"></d2l-activity-visibility-editor>
+				<d2l-activity-visibility-editor class="d2l-activity-collection-toggle-container" .href="${this.href}" .token="${this.token}"></d2l-activity-visibility-editor>
 				<d2l-button-icon
 					class="d2l-activity-collection-toggle-container-button"
 					?disabled="${!this._canEditDraft || this.disabled}"

@@ -45,7 +45,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 		this._candidateLoad = new Promise(() => null);
 		this._candidateFirstLoad = false;
 		this.ariaBusy = 'true';
-		this.ariaLive = 'polite';
+		this.role = 'main';
 		this._currentDeleteItemName = '';
 		this._dialogOpen = false;
 		this._isLoadingMore = false;
@@ -238,7 +238,8 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 			_candidateItemsLoading: {type: Boolean},
 			_isLoadingMore: {type: Boolean},
 			ariaBusy: { type: String, reflect: true, attribute: 'aria-busy' },
-			ariaLive: { type: String, reflect: true, attribute: 'aria-live' }
+			ariaLive: { type: String, reflect: true, attribute: 'aria-live' },
+			role: { type: String, reflect: true, attribute: 'role' }
 		};
 	}
 

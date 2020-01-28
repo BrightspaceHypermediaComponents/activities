@@ -116,6 +116,9 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				.d2l-quick-eval-no-criteria-results {
 					text-align: center;
 				}
+				.d2l-quick-eval-no-submissions {
+					padding-top: 47px;
+				}
 				d2l-quick-eval-no-submissions-image {
 					padding-top: 30px;
 					padding-bottom: 30px;
@@ -146,10 +149,10 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				}
 			</style>
 			<d2l-offscreen id$="[[_tableDescriptionId]]">[[localize('tableTitle')]]</d2l-offscreen>
-			<template is="dom-if" if="[[courseLevel]]">
+			<template is="dom-if" if="[[_showCourseName]]">
 				<h2 title="[[courseLevelName]]" class="d2l-quick-eval-submissions-course-name-heading">[[courseLevelName]]</h2>
 			</template>
-			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[_headerColumns.length]]" aria-rowcount$="[[_data.length]]">
+			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[_isTableHeaderHidden]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[_headerColumns.length]]" aria-rowcount$="[[_data.length]]">
 				<d2l-thead>
 					<d2l-tr>
 						<dom-repeat items="[[_headerColumns]]" as="headerColumn">
@@ -310,6 +313,14 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				type: String,
 				computed: '_computeTableDescriptionId()'
 			},
+			_showCourseName: {
+				type: Boolean,
+				computed: '_isCourseNameShown()'
+			},
+			_isTableHeaderHidden: {
+				type: Boolean,
+				computed: '_computeTableHeaderHidden(showNoSubmissions, showNoCriteria)'
+			},
 			returningToQuickEval: {
 				type: Boolean,
 				value: false
@@ -333,6 +344,14 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 			'_handleNameSwap(_headerColumns.0.headers.*)',
 			'_handleNameFocusOnPageForwardBack(showLoadingSkeleton, _data)'
 		];
+	}
+
+	_computeTableHeaderHidden(showNoSubmissions, showNoCriteria) {
+		return showNoSubmissions || showNoCriteria;
+	}
+
+	_isCourseNameShown() {
+		return this.courseLevel;
 	}
 
 	_computeIsLoading(showLoadingSpinner, showLoadingSkeleton) {

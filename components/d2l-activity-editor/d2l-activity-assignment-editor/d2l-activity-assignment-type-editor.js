@@ -1,11 +1,11 @@
-import { bodyCompactStyles, bodyStandardStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles, bodySmallStyles, bodyStandardStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
-import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
@@ -113,14 +113,14 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 	_getGroupCategoryOptions() {
 		return html`
 			${this._groupCategories.map(
-				option => html`
-							<option 
-								value=${option.value}
-								?selected=${option.selected}>
-							${option.title}
-							</option>`
-			)}
-		`; 
+		option => html`
+			<option 
+				value=${option.value}
+				?selected=${option.selected}>
+			${option.title}
+			</option>`
+	)}
+		`;
 	}
 
 	_setIndividualAssignmentType() {

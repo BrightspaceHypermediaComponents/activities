@@ -6,9 +6,9 @@ export default {
 	"addLink": "إرفاق ارتباط ويب", // Tooltip for a button that adds a link to a URL
 	"addOneDriveLink": "إرفاق من OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "إرفاق ارتباط بنشاط موجود", // Tooltip for a button that adds a link to an existing activity
-	"back": "Back", // Text for a back button
+	"back": "رجوع", // Text for a back button
 	"closeDialog": "إغلاق مربع الحوار", // ARIA text for button to close dialog
-	"recordAudio": "Record Audio", // Text for a button that opens a dialog to record audio
-	"recordVideo": "Record Video", // Text for a button that opens a dialog to record video
+	"recordAudio": "تسجيل الصوت", // Text for a button that opens a dialog to record audio
+	"recordVideo": "تسجيل فيديو", // Text for a button that opens a dialog to record video
 	"save": "حفظ", // Text for a save button
 };

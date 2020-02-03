@@ -10,7 +10,7 @@ export default {
 	"emptyNameError": "Ad gerekli", // Error message to inform user that the assignment name is a required field
 	"instructions": "Talimatlar", // Label for the instruction field when creating/editing an assignment
 	"hdrTurnitin": "Turnitin® Entegrasyonu", // turnitin heading
-	"hlpTurnitin": "Turnitin® Entegrasyonu, öğrencilerin çalışmalarını akademik dürüstlük kapsamında değerlendirmek için Originality Check®'i ve harici GradeMark® değerlendirme aracını kullanabilmenizi sağlar.", // turnitin help
+	"hlpTurnitin": "Turnitin® Entegrasyonu, öğrencilerin çalışmalarını akademik dürüstlük kapsamında değerlendirmek için Originality Check®\'i ve harici GradeMark® değerlendirme aracını kullanabilmenizi sağlar.", // turnitin help
 	"btnEditTurnitin": "Turnitin® Entegrasyonunu Yönet", // edit turnitin button
 	"btnCloseDialog": "Bu Diyaloğu Kapat", // close dialog button
 	"name": "Ad", // Label for the name field when creating/editing an activity

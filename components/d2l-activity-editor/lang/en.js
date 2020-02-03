@@ -2,6 +2,8 @@
 
 export default {
 	"btnEditReleaseConditions": "Edit Release Conditions", // edit release conditions button
+	"btnCancel": "Cancel", // cancel button
+	"btnSave": "Save", // save button
 	"dueDate": "Due Date", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "End Date", // ARIA label for the due date field when creating/editing an activity
 	"startDate": "Start Date", // ARIA label for the due date field when creating/editing an activity
@@ -27,4 +29,5 @@ export default {
 	"loading": "Loading...", // Message displayed while page is loading
 	"ok": "Ok", // Text of dialog button to commit action
 	"cancel": "Cancel", // Text of dialog button to cancel action
+	"ariaToolbarShortcutInstructions": "Press ALT-F10 for toolbar, and press ESC to exit toolbar once inside." // Instructions for screenreader users on how to enter and exit the html editor toolbar
 };

@@ -7,6 +7,8 @@ export default {
 	"addOneDriveLink": "Toevoegen vanuit OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "Koppeling toevoegen aan bestaande activiteit", // Tooltip for a button that adds a link to an existing activity
 	"back": "Terug", // Text for a back button
-	"closeFilePickerDialog": "Dialoogvenster sluiten", // ARIA text for button to close file picker dialog
+	"closeDialog": "Dialoogvenster sluiten", // ARIA text for button to close dialog
+	"recordAudio": "Audio opnemen", // Text for a button that opens a dialog to record audio
+	"recordVideo": "Video opnemen", // Text for a button that opens a dialog to record video
 	"save": "Opslaan", // Text for a save button
 };

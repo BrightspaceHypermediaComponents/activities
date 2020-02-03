@@ -1,9 +1,11 @@
 import 'd2l-html-editor/d2l-html-editor.js';
 import 'd2l-html-editor/d2l-html-editor-client.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { getLocalizeResources } from './localization.js';
 import { getUniqueId } from '@brightspace-ui/core/helpers/uniqueId';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 
-class ActivityHtmlEditor extends LitElement {
+class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -115,6 +117,10 @@ class ActivityHtmlEditor extends LitElement {
 		`;
 	}
 
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, import.meta.url);
+	}
+
 	constructor() {
 		super();
 		this._htmlEditorUniqueId = `htmleditor-${getUniqueId()}`;
@@ -177,11 +183,12 @@ class ActivityHtmlEditor extends LitElement {
 				toolbar="bold italic bullist d2l_isf"
 				plugins="lists paste d2l_isf">
 
-				<div id="toolbar-shortcut-${this._htmlEditorUniqueId}" hidden=""></div>
+				<div id="toolbar-shortcut-${this._htmlEditorUniqueId}" hidden="">${this.localize('ariaToolbarShortcutInstructions')}</div>
 				<div
 					class="d2l-html-editor-container"
 					id="${this._htmlEditorUniqueId}"
 					aria-label="${this.ariaLabel}"
+					aria-describedby="toolbar-shortcut-${this._htmlEditorUniqueId}"
 					?disabled="${this.disabled}"
 					role="textbox"
 					prevent-submit>

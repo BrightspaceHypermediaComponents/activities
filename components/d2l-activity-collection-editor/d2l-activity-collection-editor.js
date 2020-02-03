@@ -101,6 +101,10 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 							collection.removeItem(item.self());
 							this._currentDeleteItemName = items[index].name();
 							this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
+							// if the result is an empty learning path, set to hidden
+							if (items.length - 1 === 0) {
+								this._setVisibility(true);
+							}
 						};
 						items[index].itemSelf = item.self();
 						if (typeof this._organizationImageChunk[item.self()] === 'undefined') {
@@ -335,6 +339,8 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 			.d2l-add-activity-dialog-selection-count {
 				color: var(--d2l-color-ferrite);
 				font-size: 16px;
+				margin-left: 0.5rem;
+    			align-self: center;
 			}
 			.d2l-list-item-secondary {
 				color: var(--d2l-color-olivine-minus-1);
@@ -741,6 +747,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 	}
 
 	_titleChanged(e) {
+		e.target.value = e.target.value.trim() !== '' ? e.target.value : this.localize('untitledLearningPath');
 		this._specialization.setName && this._specialization.setName(e.target.value);
 	}
 

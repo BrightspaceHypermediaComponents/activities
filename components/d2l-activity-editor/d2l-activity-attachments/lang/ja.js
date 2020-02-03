@@ -7,6 +7,8 @@ export default {
 	"addOneDriveLink": "OneDrive から添付", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "既存アクティビティへのリンクの添付", // Tooltip for a button that adds a link to an existing activity
 	"back": "戻る", // Text for a back button
-	"closeFilePickerDialog": "ダイアログを閉じる", // ARIA text for button to close file picker dialog
+	"closeDialog": "ダイアログを閉じる", // ARIA text for button to close dialog
+	"recordAudio": "オーディオの録音", // Text for a button that opens a dialog to record audio
+	"recordVideo": "ビデオの録画", // Text for a button that opens a dialog to record video
 	"save": "保存", // Text for a save button
 };

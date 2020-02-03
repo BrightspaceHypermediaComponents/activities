@@ -7,6 +7,8 @@ export default {
 	"addOneDriveLink": "Anlage aus OneDrive hinzufügen", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "Link zu Vorhandener Aktivität hinzufügen", // Tooltip for a button that adds a link to an existing activity
 	"back": "Zurück", // Text for a back button
-	"closeFilePickerDialog": "Dialogfeld schließen", // ARIA text for button to close file picker dialog
+	"closeDialog": "Dialogfeld schließen", // ARIA text for button to close dialog
+	"recordAudio": "Audioaufzeichnung erstellen", // Text for a button that opens a dialog to record audio
+	"recordVideo": "Video aufnehmen", // Text for a button that opens a dialog to record video
 	"save": "Speichern", // Text for a save button
 };

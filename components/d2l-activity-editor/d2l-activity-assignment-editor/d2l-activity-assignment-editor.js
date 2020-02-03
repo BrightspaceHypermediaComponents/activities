@@ -5,11 +5,12 @@ import './d2l-activity-assignment-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import 'd2l-save-status/d2l-save-status.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AssignmentActivityUsageEntity } from 'siren-sdk/src/activities/assignments/AssignmentActivityUsageEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { PendingContainerMixin } from 'siren-sdk/src/mixin/pending-container-mixin.js';
 
-class AssignmentEditor extends PendingContainerMixin(EntityMixinLit(LitElement)) {
+class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(EntityMixinLit(LitElement))) {
 
 	static get properties() {
 		return {
@@ -25,8 +26,7 @@ class AssignmentEditor extends PendingContainerMixin(EntityMixinLit(LitElement))
 			 * API endpoint for determining whether a domain is trusted
 			 */
 			trustedSitesEndpoint: { type: String },
-			_assignmentHref: { type: String },
-			_initialLoadComplete: { type: Boolean }
+			_assignmentHref: { type: String }
 		};
 	}
 
@@ -132,20 +132,12 @@ class AssignmentEditor extends PendingContainerMixin(EntityMixinLit(LitElement))
 		}
 	}
 
-	_onPendingResolved() {
-		// Once we've loaded the page once, this prevents us from ever showing
-		// the "Loading..." div again, even if page components are (re)loading
-		this._initialLoadComplete = true;
-	}
-
 	render() {
 		return html`
 			<d2l-activity-editor
-				?loading="${this._hasPendingChildren && !this._initialLoadComplete}"
 				unfurlEndpoint="${this.unfurlEndpoint}"
 				trustedSitesEndpoint="${this.trustedSitesEndpoint}"
-				@d2l-request-provider="${this._onRequestProvider}"
-				@d2l-pending-resolved="${this._onPendingResolved}">
+				@d2l-request-provider="${this._onRequestProvider}">
 
 				<d2l-template-primary-secondary slot="editor">
 					<slot name="editor-nav" slot="header"></slot>
@@ -171,6 +163,10 @@ class AssignmentEditor extends PendingContainerMixin(EntityMixinLit(LitElement))
 				</d2l-template-primary-secondary>
 			</d2l-activity-editor>
 		`;
+	}
+
+	save() {
+		alert('Save coming soon. We are still autosaving!');
 	}
 }
 customElements.define('d2l-activity-assignment-editor', AssignmentEditor);

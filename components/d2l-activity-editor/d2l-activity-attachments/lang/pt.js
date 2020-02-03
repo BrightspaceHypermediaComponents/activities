@@ -7,6 +7,8 @@ export default {
 	"addOneDriveLink": "Anexar Arquivo do OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "Anexar Link a uma Atividade Existente", // Tooltip for a button that adds a link to an existing activity
 	"back": "Voltar", // Text for a back button
-	"closeFilePickerDialog": "Close Dialog", // ARIA text for button to close file picker dialog
+	"closeDialog": "Fechar Caixa de Diálogo", // ARIA text for button to close dialog
+	"recordAudio": "Gravar Áudio", // Text for a button that opens a dialog to record audio
+	"recordVideo": "Gravar Vídeo", // Text for a button that opens a dialog to record video
 	"save": "Salvar", // Text for a save button
 };

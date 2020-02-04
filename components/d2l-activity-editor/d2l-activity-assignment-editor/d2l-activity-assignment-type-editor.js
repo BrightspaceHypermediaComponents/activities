@@ -40,7 +40,7 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 					display: none;
 				}
 
-				block-select {
+				.block-select {
 					width: 100%;
 					max-width: 300px;
 					display: block;
@@ -55,11 +55,11 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 				}
 
 				.group-info {
-					padding-left: 35px;
+					padding-left: 1.8rem;
 				}
 
 				.info-text {
-					padding-left: 35px;
+					padding-left: 1.8rem;
 				}
 			`
 		];
@@ -79,7 +79,7 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this._groupTypeText = '';
 		this._infoText = '';
 		this._isIndividualType = false;
-		this._isReadOnly = '';
+		this._isReadOnly = true;
 	}
 
 	set _entity(entity) {
@@ -111,16 +111,14 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 	}
 
 	_getGroupCategoryOptions() {
-		return html`
-			${this._groupCategories.map(
-		option => html`
-			<option 
-				value=${option.value}
-				?selected=${option.selected}>
-			${option.title}
-			</option>`
-	)}
-		`;
+		const options = this._groupCategories.map(
+			option => html`
+				<option value=${option.value} ?selected=${option.selected}>
+					${option.title}
+				</option>
+				`
+		);
+		return html`${options}`;
 	}
 
 	_setIndividualAssignmentType() {

@@ -407,6 +407,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 
 			.d2l-activity-collection-skeleton-rect {
 				animation: loadingPulse 1.8s linear infinite;
+				fill: var(--d2l-color-sylvite);
 			}
 
 			.d2l-activity-collection-no-activity {

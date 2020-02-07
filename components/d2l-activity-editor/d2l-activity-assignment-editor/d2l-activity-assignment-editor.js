@@ -42,7 +42,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 				padding: 20px;
 			}
 			.d2l-activity-assignment-editor-secondary-panel {
-				padding: 1px
+				padding: 1px;
 			}
 			d2l-save-status {
 				display: inline-block;

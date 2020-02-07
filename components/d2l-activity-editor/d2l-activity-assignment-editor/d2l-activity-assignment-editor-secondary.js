@@ -81,19 +81,23 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				d2l-input-checkbox-spacer[hidden] {
 					display: none;
 				}
+
 				.summary {
 					list-style: none;
         			margin-left: 0;
 					padding-left: 1.2rem;
 					color: var(--d2l-color-galena);
 				}
+
 				.accordion {
 					padding-top: 0.5rem;
 				}
+
 				.accordion-header {
 					margin-bottom: 0.5rem;
 					margin-top: 0.5rem;
 				}
+				
 				.content {
 					padding-left: 1rem;
 					padding-top: 1rem;

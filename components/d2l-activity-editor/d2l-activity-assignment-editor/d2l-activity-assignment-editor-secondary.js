@@ -81,10 +81,22 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				d2l-input-checkbox-spacer[hidden] {
 					display: none;
 				}
-
 				.summary {
-					padding-left: 0px;
-					margin-top: 0px;
+					list-style: none;
+        			margin-left: 0;
+					padding-left: 1.2rem;
+					color: var(--d2l-color-galena);
+				}
+				.accordion {
+					padding-top: 0.5rem;
+				}
+				.accordion-header {
+					margin-bottom: 0.5rem;
+					margin-top: 0.5rem;
+				}
+				.content {
+					padding-left: 1rem;
+					padding-top: 1rem;
 				}
 			`
 		];
@@ -162,7 +174,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	_getAnonymousGradingSummary() {
 		if(this._isAnonymousMarkingEnabled){
-			return html`<li>${this.localize('anonymousGradingEnabled')}</li>`;
+			return html`<li class="d2l-body-compact">${this.localize('anonymousGradingEnabled')}</li>`;
 		}else{
 			return html`<li style="opacity: 0">${this.localize('anonymousGradingEnabled')}</li>`;
 		}
@@ -174,75 +186,77 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	render() {
 		return html`
-			<d2l-accordion-collapse flex >
-				<h4 class="d2l-heading-3" slot="header">Evaluation Options</h1>
+			<d2l-accordion-collapse class="accordion" flex header-border>
+				<h4 class="accordion-header" slot="header">${this.localize('evaluationAndFeedback')}</h4>
 				<ul slot="summary" class="summary">
-					${this._getAnonymousGradingSummary()}
+					${this._getSummarizedContent()}
 				</ul>
-				<div id="assignment-submission-type-container">
-					<label class="d2l-label-text" for="assignment-submission-type">${this.localize('submissionType')}</label>
-					<select
-						id="assignment-submission-type"
-						class="d2l-input-select block-select"
-						@change="${this._saveSubmissionTypeOnChange}"
-						?disabled="${!this._canEditSubmissionType}">
+				<div class="content">
+					<div id="assignment-submission-type-container">
+						<label class="d2l-label-text" for="assignment-submission-type">${this.localize('submissionType')}</label>
+						<select
+							id="assignment-submission-type"
+							class="d2l-input-select block-select"
+							@change="${this._saveSubmissionTypeOnChange}"
+							?disabled="${!this._canEditSubmissionType}">
 
-						${this._getSubmissionTypeOptions()}
-					</select>
-				</div>
+							${this._getSubmissionTypeOptions()}
+						</select>
+					</div>
 
-				<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
-					<label class="d2l-label-text" for="assignment-completion-type">${this.localize('completionType')}</label>
-					<select
-						id="assignment-completion-type"
-						class="d2l-input-select block-select"
-						@change="${this._saveCompletionTypeOnChange}"
-						?disabled="${!this._canEditCompletionType}">
+					<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
+						<label class="d2l-label-text" for="assignment-completion-type">${this.localize('completionType')}</label>
+						<select
+							id="assignment-completion-type"
+							class="d2l-input-select block-select"
+							@change="${this._saveCompletionTypeOnChange}"
+							?disabled="${!this._canEditCompletionType}">
 
-						${this._getCompletionTypeOptions()}
-					</select>
-				</div>
+							${this._getCompletionTypeOptions()}
+						</select>
+					</div>
 
-				<div id="availability-dates-container">
-					<d2l-activity-availability-dates-editor
-						href="${this._activityUsageHref}"
-						.token="${this.token}">
-					</d2l-activity-availability-dates-editor>
-				</div>
+					<div id="availability-dates-container">
+						<d2l-activity-availability-dates-editor
+							href="${this._activityUsageHref}"
+							.token="${this.token}">
+						</d2l-activity-availability-dates-editor>
+					</div>
 
-				<div id="assignment-release-conditions-container">
-					<h3 class="d2l-heading-4">${this.localize('hdrReleaseConditions')}</h3>
-					<p class="d2l-body-small">${this.localize('hlpReleaseConditions')}</p>
-					<d2l-activity-release-conditions-editor
-						href="${this._activityUsageHref}"
-						.token="${this.token}">
-					</d2l-activity-release-conditions-editor>
-				</div>
+					<div id="assignment-release-conditions-container">
+						<h3 class="d2l-heading-4">${this.localize('hdrReleaseConditions')}</h3>
+						<p class="d2l-body-small">${this.localize('hlpReleaseConditions')}</p>
+						<d2l-activity-release-conditions-editor
+							href="${this._activityUsageHref}"
+							.token="${this.token}">
+						</d2l-activity-release-conditions-editor>
+					</div>
 
-				<d2l-assignment-turnitin-editor .token="${this.token}" href="${this.href}">
-				</d2l-assignment-turnitin-editor>
+					<d2l-assignment-turnitin-editor .token="${this.token}" href="${this.href}">
+					</d2l-assignment-turnitin-editor>
 
-				<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
-					<label class="d2l-label-text">${this.localize('annotationTools')}</label>
+					<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
+						<label class="d2l-label-text">${this.localize('annotationTools')}</label>
+							<d2l-input-checkbox
+								@change="${this._toggleAnnotationToolsAvailability}"
+								?checked="${this._annotationToolsAvailable}"
+								ariaLabel="${this.localize('annotationToolDescription')}">
+								${this.localize('annotationToolDescription')}
+							</d2l-input-checkbox>
+					</div>
+					<div id="assignment-anonymous-marking-editor-container" ?hidden="${!this._isAnonymousMarkingAvailable}">
+						<label class="d2l-label-text">${this.localize('lblAnonymousMarking')}</label>
 						<d2l-input-checkbox
-							@change="${this._toggleAnnotationToolsAvailability}"
-							?checked="${this._annotationToolsAvailable}"
-							ariaLabel="${this.localize('annotationToolDescription')}">
-							${this.localize('annotationToolDescription')}
+							@change="${this._saveAnonymousMarking}"
+							?checked="${this._isAnonymousMarkingEnabled}"
+							?disabled="${!this._canEditAnonymousMarking}"
+							ariaLabel="${this.localize('chkAnonymousMarking')}">
+							${this.localize('chkAnonymousMarking')}
 						</d2l-input-checkbox>
-				</div>
-				<div id="assignment-anonymous-marking-editor-container" ?hidden="${!this._isAnonymousMarkingAvailable}">
-					<label class="d2l-label-text">${this.localize('lblAnonymousMarking')}</label>
-					<d2l-input-checkbox
-						@change="${this._saveAnonymousMarking}"
-						?checked="${this._isAnonymousMarkingEnabled}"
-						?disabled="${!this._canEditAnonymousMarking}"
-						ariaLabel="${this.localize('chkAnonymousMarking')}">
-						${this.localize('chkAnonymousMarking')}
-					</d2l-input-checkbox>
-					<d2l-input-checkbox-spacer ?hidden="${!this._anonymousMarkingHelpText}">
-						<span class="d2l-body-small">${this._anonymousMarkingHelpText}</span>
-					</d2l-input-checkbox-spacer>
+						<d2l-input-checkbox-spacer ?hidden="${!this._anonymousMarkingHelpText}">
+							<span class="d2l-body-small">${this._anonymousMarkingHelpText}</span>
+						</d2l-input-checkbox-spacer>
+					</div>
 				</div>
 			</d2l-accordion-collapse>
 		`;

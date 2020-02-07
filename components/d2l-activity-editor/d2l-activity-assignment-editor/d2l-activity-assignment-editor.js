@@ -38,8 +38,11 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 			:host([hidden]) {
 				display: none;
 			}
-			.d2l-activity-assignment-editor-detail-panel, .d2l-activity-assignment-editor-secondary-panel {
+			.d2l-activity-assignment-editor-detail-panel {
 				padding: 20px;
+			}
+			.d2l-activity-assignment-editor-secondary-panel {
+				padding: 1px
 			}
 			d2l-save-status {
 				display: inline-block;

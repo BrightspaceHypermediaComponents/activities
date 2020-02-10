@@ -97,7 +97,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 					margin-bottom: 0.5rem;
 					margin-top: 0.5rem;
 				}
-				
 				.content {
 					padding-left: 1rem;
 					padding-top: 1rem;
@@ -177,11 +176,12 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 	}
 
 	_getAnonymousGradingSummary() {
-		if(this._isAnonymousMarkingEnabled){
-			return html`<li class="d2l-body-compact">${this.localize('anonymousGradingEnabled')}</li>`;
-		}else{
-			return html`<li style="opacity: 0">${this.localize('anonymousGradingEnabled')}</li>`;
-		}
+		// TODO: replace with MobX once that is setup for this repo
+		return html`
+			<li class="d2l-body-compact" style=${this._isAnonymousMarkingEnabled ? "" : "visibility: hidden"}>
+				${this.localize('anonymousGradingEnabled')}
+			</li>
+		`;
 	}
 
 	_getSummarizedContent() {

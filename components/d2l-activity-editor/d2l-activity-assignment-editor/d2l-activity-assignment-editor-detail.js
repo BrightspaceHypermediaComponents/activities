@@ -4,7 +4,8 @@ import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-score-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
@@ -12,21 +13,18 @@ import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
+import { shared as store } from './state/assignment-store.js';
+
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeMixin(RtlMixin(LitElement))))) {
+class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeMixin(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 		return {
-			_name: { type: String },
 			_nameError: { type: String },
-			_canEditName: { type: Boolean },
-			_instructions: { type: String },
-			_instructionsRichTextEditorConfig: { type: Object },
-			_canEditInstructions: { type: Boolean },
-			_activityUsageHref: { type: String },
 			_attachmentsHref: { type: String }
 		};
 	}
@@ -68,7 +66,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		this._setEntityType(AssignmentEntity);
 		this._debounceJobs = {};
 
-		this._activityUsageHref = '';
 		this._attachmentsHref = '';
 	}
 
@@ -84,12 +81,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			return;
 		}
 
-		this._name = assignment.name();
-		this._canEditName = assignment.canEditName();
-		this._instructions = assignment.instructionsEditorHtml();
-		this._instructionsRichTextEditorConfig = assignment.instructionsRichTextEditorConfig();
-		this._canEditInstructions = assignment.canEditInstructions();
-		this._activityUsageHref = assignment.activityUsageHref();
 		this._attachmentsHref = assignment.attachmentsCollectionHref();
 	}
 
@@ -98,11 +89,11 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 	}
 
 	_saveName(value) {
-		this.wrapSaveAction(super._entity.setName(value));
+		store.getAssignment(this.href).setName(value);
 	}
 
 	_saveInstructions(value) {
-		this.wrapSaveAction(super._entity.setInstructions(value));
+		store.getAssignment(this.href).setInstructions(value);
 	}
 
 	_saveNameOnInput(e) {
@@ -150,16 +141,30 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 	}
 
 	render() {
+		const assignment = store.getAssignment(this.href);
+		if (!assignment) {
+			return html``;
+		}
+
+		const {
+			name,
+			canEditName,
+			instructions,
+			canEditInstructions,
+			instructionsRichTextEditorConfig,
+			activityUsageHref
+		} = assignment;
+
 		return html`
 			<div id="assignment-name-container">
 				<label class="d2l-label-text" for="assignment-name">${this.localize('name')}*</label>
 				<d2l-input-text
 					id="assignment-name"
-					value="${this._name}"
+					value="${name}"
 					@change="${this._saveOnChange('name')}"
 					@input="${this._saveNameOnInput}"
 					aria-label="${this.localize('name')}"
-					?disabled="${!this._canEditName}"
+					?disabled="${!canEditName}"
 					aria-invalid="${this._nameError ? 'true' : ''}"
 					prevent-submit>
 				</d2l-input-text>
@@ -170,7 +175,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				<div id="score-container">
 					<label class="d2l-label-text">${this.localize('scoreOutOf')}</label>
 					<d2l-activity-score-editor
-						href="${this._activityUsageHref}"
+						href="${activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-score-editor>
 				</div>
@@ -178,7 +183,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				<div id="duedate-container">
 					<label class="d2l-label-text">${this.localize('dueDate')}</label>
 					<d2l-activity-due-date-editor
-						href="${this._activityUsageHref}"
+						href="${activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-due-date-editor>
 				</div>
@@ -187,11 +192,11 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			<div id="assignment-instructions-container">
 				<label class="d2l-label-text">${this.localize('instructions')}</label>
 				<d2l-activity-text-editor
-					.value="${this._instructions}"
-					.richtextEditorConfig="${this._instructionsRichTextEditorConfig}"
+					.value="${instructions}"
+					.richtextEditorConfig="${instructionsRichTextEditorConfig}"
 					@d2l-activity-text-editor-change="${this._saveInstructionsOnChange}"
 					ariaLabel="${this.localize('instructions')}"
-					?disabled="${!this._canEditInstructions}">
+					?disabled="${!canEditInstructions}">
 				</d2l-activity-text-editor>
 			</div>
 
@@ -202,6 +207,15 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</d2l-activity-attachments-editor>
 			</div>
 		`;
+	}
+
+	updated(changedProperties) {
+		super.updated(changedProperties);
+
+		if ((changedProperties.has('href') || changedProperties.has('token')) &&
+			this.href && this.token) {
+			super._fetch(() => store.fetchAssignment(this.href, this.token));
+		}
 	}
 }
 customElements.define('d2l-activity-assignment-editor-detail', AssignmentEditorDetail);

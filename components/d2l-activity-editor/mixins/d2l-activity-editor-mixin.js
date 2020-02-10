@@ -36,6 +36,21 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 		}
 	}
 
+	async _fetch(fetcher) {
+		const promise = fetcher();
+		this._sendPendingEvent(promise);
+		return await promise;
+	}
+
+	_sendPendingEvent(promise) {
+		const pendingEvent = new CustomEvent('d2l-pending-state', {
+			composed: true,
+			bubbles: true,
+			detail: { promise }
+		});
+		this.dispatchEvent(pendingEvent);
+	}
+
 	connectedCallback() {
 		if (super.connectedCallback) {
 			super.connectedCallback();

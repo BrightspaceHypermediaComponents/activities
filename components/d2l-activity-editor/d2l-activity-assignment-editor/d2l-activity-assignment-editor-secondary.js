@@ -168,7 +168,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 	_getAnonymousGradingSummary() {
 		// TODO: replace with MobX once that is setup for this repo
 		return html`
-			<li class="d2l-body-compact" style=${this._isAnonymousMarkingEnabled ? "" : "visibility: hidden"}>
+			<li class="d2l-body-compact" style=${this._isAnonymousMarkingEnabled ? '' : 'visibility: hidden'}>
 				${this.localize('anonymousGradingEnabled')}
 			</li>
 		`;

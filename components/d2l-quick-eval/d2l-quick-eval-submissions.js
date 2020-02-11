@@ -571,7 +571,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		result.push({
 			key: 'activityName',
 			headers: [{ key: 'activityName', sortClass: 'activity-name', canSort: false, sorted: false, desc: false }],
-			type: 'activity-name'
+			type: 'activity-name',
+			truncated: true
 		});
 		if (!courseLevel) {
 			result.push({

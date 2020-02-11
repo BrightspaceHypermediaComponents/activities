@@ -96,9 +96,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					overflow: hidden;
 					text-overflow: ellipsis;
 					max-width: 24rem;
-					text-overflow: ellipsis;
 					white-space: nowrap;
-					overflow: hidden;
 				}
 				:host(:dir(rtl)) d2l-activity-name {
 					padding-right: 0;
@@ -142,6 +140,10 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					text-overflow: ellipsis;
 					white-space: nowrap;
 					overflow: hidden;
+				}
+				.d2l-quick-eval-submissions-overflow-hidden {
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 			</style>
 			<d2l-offscreen id$="[[_tableDescriptionId]]">[[localize('tableTitle')]]</d2l-offscreen>
@@ -212,12 +214,12 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 											</d2l-td>
 										</template>
 										<template is="dom-if" if="[[_isColumn(c, 'activity-name')]]">
-											<d2l-td>
+											<d2l-td  class$="[[_computeTruncateClass(c.truncated)]]">
 												<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
 											</d2l-td>
 										</template>
 										<template is="dom-if" if="[[_isColumn(c, 'none')]]">
-											<d2l-td class="[[_computeTruncateClass(c.truncated)]]">
+											<d2l-td class$="[[_computeTruncateClass(c.truncated)]] d2l-quick-eval-submissions-overflow-hidden">
 												<span title="[[_computeColumnText(s, c)]]">[[_computeColumnText(s, c)]]</span>
 											</d2l-td>
 										</template>

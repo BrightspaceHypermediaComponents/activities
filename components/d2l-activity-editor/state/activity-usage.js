@@ -28,6 +28,8 @@ export class ActivityUsage {
 		runInAction(() => {
 			this.dueDate = entity.dueDate();
 			this.canEditDueDate = canEditDueDate;
+			this.isDraft = entity.isDraft();
+			this.canEditDraft = entity.canEditDraft();
 		});
 	}
 
@@ -35,17 +37,24 @@ export class ActivityUsage {
 		this.dueDate = date;
 	}
 
+	setDraftStatus(isDraft) {
+		this.isDraft = isDraft;
+	}
+
+	setCanEditDraft(value) {
+		this.canEditDraft = value;
+	}
+
 	async save() {
 		if (!this._entity) {
 			return;
 		}
 
-		// TODO - replace with aggregate save method
-		// await this._entity.save({
-		// 	dueDate: this.dueDate
-		// });
+		await this._entity.save({
+			dueDate: this.dueDate,
+			isDraft: this.isDraft
+		});
 
-		await this._entity.setDueDate(this.dueDate);
 		await this.fetch();
 	}
 }
@@ -54,8 +63,12 @@ decorate(ActivityUsage, {
 	// props
 	dueDate: observable,
 	canEditDueDate: observable,
+	isDraft: observable,
+	canEditDraft: observable,
 	// actions
 	load: action,
 	setDueDate: action,
+	setDraftStatus: action,
+	setCanEditDraft: action,
 	save: action
 });

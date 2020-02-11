@@ -12,7 +12,9 @@ describe('Activity Usage', function() {
 
 	const defaultEntityMock = {
 		dueDate: () => '2020-01-23T04:59:00.000Z',
-		canEditDueDate: () => Promise.resolve(true)
+		canEditDueDate: () => Promise.resolve(true),
+		isDraft: () => true,
+		canEditDraft: () => true
 	};
 
 	afterEach(() => {
@@ -40,6 +42,9 @@ describe('Activity Usage', function() {
 
 			expect(activity.dueDate).to.equal('2020-01-23T04:59:00.000Z');
 			expect(activity.canEditDueDate).to.be.true;
+
+			expect(activity.isDraft).to.be.true;
+			expect(activity.canEditDraft).to.be.true;
 
 			expect(fetchEntity.mock.calls.length).to.equal(1);
 			expect(ActivityUsageEntity.mock.calls[0][0]).to.equal(sirenEntity);
@@ -71,15 +76,31 @@ describe('Activity Usage', function() {
 
 			activity.setDueDate('2020-02-23T04:59:00.000Z');
 		});
+
+		it('reacts to is draft', async(done) => {
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+
+			when(
+				() => activity.isDraft === false,
+				() => {
+					done();
+				}
+			);
+
+			activity.setDraftStatus(false);
+		});
 	});
 
 	describe('saving', () => {
-		const setDueDate = jest.fn();
+		const save = jest.fn();
 
 		beforeEach(() => {
 			sirenEntity = sinon.stub();
 
-			ActivityUsageEntity.mockImplementation(() => Object.assign({}, defaultEntityMock,	{ setDueDate }));
+			ActivityUsageEntity.mockImplementation(() => Object.assign({}, defaultEntityMock,	{
+				save
+			}));
 
 			fetchEntity.mockImplementation(() => sirenEntity);
 		});
@@ -89,10 +110,15 @@ describe('Activity Usage', function() {
 			await activity.fetch();
 
 			activity.setDueDate('2020-02-23T04:59:00.000Z');
+			activity.setDraftStatus(false);
+
 			await activity.save();
 
-			expect(setDueDate.mock.calls.length).to.equal(1);
-			expect(setDueDate.mock.calls[0][0]).to.equal('2020-02-23T04:59:00.000Z');
+			expect(save.mock.calls.length).to.equal(1);
+			expect(save.mock.calls[0][0]).to.eql({
+				dueDate: '2020-02-23T04:59:00.000Z',
+				isDraft: false
+			});
 		});
 	});
 });

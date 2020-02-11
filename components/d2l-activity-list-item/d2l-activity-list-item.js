@@ -626,7 +626,7 @@ class D2lActivityListItem extends mixinBehaviors([
 
 		//Use a temporary div to strip html out of the content
 		if (description) {
-			var tempDiv = document.createElement('div');
+			const tempDiv = document.createElement('div');
 			tempDiv.innerHTML = description;
 			description = tempDiv.textContent || tempDiv.innerText;
 		}

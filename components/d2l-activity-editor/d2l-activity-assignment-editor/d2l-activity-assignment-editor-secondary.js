@@ -4,7 +4,7 @@ import '../d2l-activity-release-conditions-editor.js';
 import './d2l-activity-assignment-type-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
-import 'd2l-accordion/d2l-accordion-collapse.js';
+import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
@@ -169,83 +169,83 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 	_getAnonymousGradingSummary() {
 		// TODO: replace with MobX once that is setup for this repo
 		return html`
-			<li class="d2l-body-compact" style=${this._isAnonymousMarkingEnabled ? '' : 'visibility: hidden'}>
+			<li class="d2l-body-compact summary-line" ?hidden=${!this._isAnonymousMarkingEnabled}>
 				${this.localize('anonymousGradingEnabled')}
 			</li>
 		`;
 	}
 
-	_getSummarizedContent() {
+	_getSummarizedContentForEvaluationAndFeedback() {
 		return this._getAnonymousGradingSummary();
 	}
 
 	render() {
 		return html`
-			<d2l-accordion-collapse class="accordion" flex header-border>
-				<h4 class="accordion-header" slot="header">${this.localize('evaluationAndFeedback')}</h4>
-				<ul slot="summary" class="summary">
-					${this._getSummarizedContent()}
-				</ul>
-				<div class="content">
-					<div id="assignment-type-container">
-						<h3 class="d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
-						<d2l-activity-assignment-type-editor
-							href="${this.href}"
-							.token="${this.token}">
-						</d2l-activity-assignment-type-editor>
-					</div>
+				<div id="assignment-type-container">
+					<h3 class="d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
+					<d2l-activity-assignment-type-editor
+						href="${this.href}"
+						.token="${this.token}">
+					</d2l-activity-assignment-type-editor>
+				</div>
 
-					<div id="assignment-submission-type-container">
-						<label class="d2l-label-text" for="assignment-submission-type">${this.localize('submissionType')}</label>
-						<select
-							id="assignment-submission-type"
-							class="d2l-input-select block-select"
-							@change="${this._saveSubmissionTypeOnChange}"
-							?disabled="${!this._canEditSubmissionType}">
+				<div id="assignment-submission-type-container">
+					<label class="d2l-label-text" for="assignment-submission-type">${this.localize('submissionType')}</label>
+					<select
+						id="assignment-submission-type"
+						class="d2l-input-select block-select"
+						@change="${this._saveSubmissionTypeOnChange}"
+						?disabled="${!this._canEditSubmissionType}">
 
-							${this._getSubmissionTypeOptions()}
-						</select>
-					</div>
+						${this._getSubmissionTypeOptions()}
+					</select>
+				</div>
 
-					<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
-						<label class="d2l-label-text" for="assignment-completion-type">${this.localize('completionType')}</label>
-						<select
-							id="assignment-completion-type"
-							class="d2l-input-select block-select"
-							@change="${this._saveCompletionTypeOnChange}"
-							?disabled="${!this._canEditCompletionType}">
+				<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
+					<label class="d2l-label-text" for="assignment-completion-type">${this.localize('completionType')}</label>
+					<select
+						id="assignment-completion-type"
+						class="d2l-input-select block-select"
+						@change="${this._saveCompletionTypeOnChange}"
+						?disabled="${!this._canEditCompletionType}">
 
-							${this._getCompletionTypeOptions()}
-						</select>
-					</div>
+						${this._getCompletionTypeOptions()}
+					</select>
+				</div>
 
-					<div id="availability-dates-container">
-						<d2l-activity-availability-dates-editor
-							href="${this._activityUsageHref}"
-							.token="${this.token}">
-						</d2l-activity-availability-dates-editor>
-					</div>
+				<div id="availability-dates-container">
+					<d2l-activity-availability-dates-editor
+						href="${this._activityUsageHref}"
+						.token="${this.token}">
+					</d2l-activity-availability-dates-editor>
+				</div>
 
-					<div id="assignment-release-conditions-container">
-						<h3 class="d2l-heading-4">${this.localize('hdrReleaseConditions')}</h3>
-						<p class="d2l-body-small">${this.localize('hlpReleaseConditions')}</p>
-						<d2l-activity-release-conditions-editor
-							href="${this._activityUsageHref}"
-							.token="${this.token}">
-						</d2l-activity-release-conditions-editor>
-					</div>
+				<div id="assignment-release-conditions-container">
+					<h3 class="d2l-heading-4">${this.localize('hdrReleaseConditions')}</h3>
+					<p class="d2l-body-small">${this.localize('hlpReleaseConditions')}</p>
+					<d2l-activity-release-conditions-editor
+						href="${this._activityUsageHref}"
+						.token="${this.token}">
+					</d2l-activity-release-conditions-editor>
+				</div>
 
-					<d2l-assignment-turnitin-editor .token="${this.token}" href="${this.href}">
-					</d2l-assignment-turnitin-editor>
+				<d2l-assignment-turnitin-editor .token="${this.token}" href="${this.href}">
+				</d2l-assignment-turnitin-editor>
 
+				<d2l-labs-accordion-collapse class="accordion" flex header-border>
+					<h4 class="accordion-header" slot="header">${this.localize('evaluationAndFeedback')}</h4>
+					<ul slot="summary" class="summary">
+						${this._getSummarizedContentForEvaluationAndFeedback()}
+					</ul>
+					<div class="content">
 					<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
-						<label class="d2l-label-text">${this.localize('annotationTools')}</label>
-							<d2l-input-checkbox
-								@change="${this._toggleAnnotationToolsAvailability}"
-								?checked="${this._annotationToolsAvailable}"
-								ariaLabel="${this.localize('annotationToolDescription')}">
-								${this.localize('annotationToolDescription')}
-							</d2l-input-checkbox>
+					<label class="d2l-label-text">${this.localize('annotationTools')}</label>
+						<d2l-input-checkbox
+							@change="${this._toggleAnnotationToolsAvailability}"
+							?checked="${this._annotationToolsAvailable}"
+							ariaLabel="${this.localize('annotationToolDescription')}">
+							${this.localize('annotationToolDescription')}
+						</d2l-input-checkbox>
 					</div>
 					<div id="assignment-anonymous-marking-editor-container" ?hidden="${!this._isAnonymousMarkingAvailable}">
 						<label class="d2l-label-text">${this.localize('lblAnonymousMarking')}</label>
@@ -260,8 +260,8 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 							<span class="d2l-body-small">${this._anonymousMarkingHelpText}</span>
 						</d2l-input-checkbox-spacer>
 					</div>
-				</div>
-			</d2l-accordion-collapse>
+				</d2l-labs-accordion-collapse>
+			</div>
 		`;
 	}
 }

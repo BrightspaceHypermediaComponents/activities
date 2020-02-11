@@ -81,6 +81,10 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				d2l-input-checkbox-spacer[hidden] {
 					display: none;
 				}
+
+				.assignment-type-heading {
+					margin: 0 0 0.5rem 0;
+				}
 			`
 		];
 	}
@@ -158,7 +162,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 	render() {
 		return html`
 			<div id="assignment-type-container">
-				<h3 class="d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
+				<h3 class="assignment-type-heading d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
 				<d2l-activity-assignment-type-editor
 					href="${this.href}"
 					.token="${this.token}">

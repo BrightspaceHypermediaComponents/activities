@@ -15,7 +15,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		return {
 			_folderTypeText: { type: String },
 			_groupCategories: { type: Array },
-			_groupHomepageLink: { type: String },
 			_groupTypeDisabled: { type: Boolean },
 			_groupTypeText: { type: String },
 			_infoText: { type: String },
@@ -79,7 +78,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this._setEntityType(AssignmentEntity);
 		this._folderTypeText = '';
 		this._groupCategories = [];
-		this._groupHomepageLink = '';
 		this._groupTypeDisabled = false;
 		this._groupTypeText = '';
 		this._infoText = '';
@@ -103,7 +101,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this._isReadOnly = assignment.isAssignmentTypeReadOnly();
 		this._groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled();
 		this._groupCategories = assignment.getAssignmentTypeGroupCategoryOptions();
-		this._groupHomepageLink = assignment.getGroupsHomepageLink();
 		this._folderTypeText =
 			this._isIndividualType
 				? this.localize('txtIndividual')

@@ -1,7 +1,6 @@
-import './d2l-assignment-turnitin-editor';
-import '../d2l-activity-availability-dates-editor.js';
-import '../d2l-activity-release-conditions-editor.js';
+import './d2l-activity-assignment-availability-editor.js';
 import './d2l-activity-assignment-type-editor.js';
+import './d2l-assignment-turnitin-editor';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
@@ -184,6 +183,12 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	render() {
 		return html`
+
+			<d2l-activity-assignment-availability-editor
+				href="${this._activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-assignment-availability-editor>
+
 			<div id="assignment-type-container">
 				<h3 class="assignment-type-heading d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
 				<d2l-activity-assignment-type-editor
@@ -214,22 +219,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 					${this._getCompletionTypeOptions()}
 				</select>
-			</div>
-
-			<div id="availability-dates-container">
-				<d2l-activity-availability-dates-editor
-					href="${this._activityUsageHref}"
-					.token="${this.token}">
-				</d2l-activity-availability-dates-editor>
-			</div>
-
-			<div id="assignment-release-conditions-container">
-				<h3 class="d2l-heading-4">${this.localize('hdrReleaseConditions')}</h3>
-				<p class="d2l-body-small">${this.localize('hlpReleaseConditions')}</p>
-				<d2l-activity-release-conditions-editor
-					href="${this._activityUsageHref}"
-					.token="${this.token}">
-				</d2l-activity-release-conditions-editor>
 			</div>
 
 			<d2l-labs-accordion-collapse class="accordion" flex header-border>

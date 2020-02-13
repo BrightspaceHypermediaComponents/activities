@@ -54,8 +54,8 @@ class ActivityRubricsListEditor extends RtlMixin(EntityMixinLit((LitElement))) {
 
 	_getRubrics() {
 		const singleAssociations = this._singleAssociationHrefs.map(
-		singleAssociationHref =>
-			 html`
+			singleAssociationHref =>
+				html`
 				<d2l-activity-rubric-editor
 					href="${singleAssociationHref}"
 					.token="${this.token}">

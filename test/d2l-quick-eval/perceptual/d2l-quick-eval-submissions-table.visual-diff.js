@@ -50,7 +50,8 @@ describe('d2l-quick-eval-submissions-table', function() {
 			headers.push({
 				key: 'activityName',
 				headers: [{ key: 'activityName', sortClass: 'activity-name', canSort: false, sorted: false, desc: false }],
-				type: 'activity-name'
+				type: 'activity-name',
+				truncated: true
 			});
 			if (!c) {
 				headers.push({
@@ -102,6 +103,19 @@ describe('d2l-quick-eval-submissions-table', function() {
 						defaultDisplayName: 'first last'
 					},
 					masterTeacher: 'Master Teacher'
+				},
+				{
+					isDraft: false,
+					userHref: 'data/user.json',
+					activityNameHref: 'data/activity.json',
+					courseName: 'This is a really long course name that really should truncate with an ellipsis because it is way too long.',
+					localizedSubmissionDate: '2019-02-02',
+					displayName: {
+						firstName: 'first',
+						lastName: 'last',
+						defaultDisplayName: 'first last'
+					},
+					masterTeacher: 'Master Teacher'
 				}
 			];
 		}, name, masterTeacher, courseLevel);
@@ -114,7 +128,11 @@ describe('d2l-quick-eval-submissions-table', function() {
 				dpi._loading = false;
 			});
 			table.shadowRoot.querySelectorAll('d2l-activity-name').forEach((dan, index) => {
-				dan._activityName = `Activity ${index + 1}`;
+				if (index === table._data.length - 1) {
+					dan._activityName = 'This is a really long activity name that really should truncate with an ellipsis because it is way too long.';
+				} else {
+					dan._activityName = `Activity ${index + 1}`;
+				}
 				dan._activityIcon = 'd2l-tier1:quizzing';
 			});
 		}, name);

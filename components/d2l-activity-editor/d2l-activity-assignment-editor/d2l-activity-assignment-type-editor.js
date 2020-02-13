@@ -15,7 +15,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		return {
 			_folderTypeText: { type: String },
 			_groupCategories: { type: Array },
-			_groupHomepageLink: { type: String },
 			_groupTypeDisabled: { type: Boolean },
 			_groupTypeText: { type: String },
 			_infoText: { type: String },
@@ -59,7 +58,12 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 				}
 
 				.info-text {
-					padding-left: 1.8rem;
+					padding-left: 1.7rem;
+					margin: 0.1rem 0 0 0;
+				}
+
+				.individual-type {
+					margin: 0 0 0.5rem 0;
 				}
 			`
 		];
@@ -74,7 +78,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this._setEntityType(AssignmentEntity);
 		this._folderTypeText = '';
 		this._groupCategories = [];
-		this._groupHomepageLink = '';
 		this._groupTypeDisabled = false;
 		this._groupTypeText = '';
 		this._infoText = '';
@@ -98,7 +101,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this._isReadOnly = assignment.isAssignmentTypeReadOnly();
 		this._groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled();
 		this._groupCategories = assignment.getAssignmentTypeGroupCategoryOptions();
-		this._groupHomepageLink = assignment.getGroupsHomepageLink();
 		this._folderTypeText =
 			this._isIndividualType
 				? this.localize('txtIndividual')
@@ -133,25 +135,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this.wrapSaveAction(super._entity.setAssignmentTypeGroupCategory(event.target.value));
 	}
 
-	_getAssignmentInfoText() {
-
-		if (this._groupHomepageLink === null) {
-			return html`<p class="info-text d2l-body-small">${this._infoText}</p>`;
-		} else {
-			return html`
-			<a
-				class="info-text d2l-body-small"
-				target="_blank"
-				rel="noreferrer noopener"
-				href="${this._groupHomepageLink}"
-			>
-			${this._infoText}
-			</a>
-		`;
-		}
-
-	}
-
 	render() {
 		return html`
 			<div ?hidden=${!this._isReadOnly} id="read-only-assignment-type-container">
@@ -161,7 +144,7 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 			</div>
 			
 			<div ?hidden=${this._isReadOnly} id="editable-assignment-type-container">
-				<label class="d2l-input-radio-label">
+				<label class="individual-type d2l-input-radio-label">
 					<input
 						id="assignment-type-individual"
 						type="radio"
@@ -194,7 +177,7 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 						${this._getGroupCategoryOptions()}
 					</select>
 				</div>
-				${this._getAssignmentInfoText()}
+				<p class="info-text d2l-body-small">${this._infoText}</p>
 			</div>
 		`;
 	}

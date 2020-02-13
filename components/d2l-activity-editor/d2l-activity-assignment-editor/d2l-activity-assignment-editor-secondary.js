@@ -5,6 +5,7 @@ import './d2l-activity-assignment-type-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import '../d2l-activity-rubrics-list-container.js';
+import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
@@ -82,6 +83,19 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				d2l-input-checkbox-spacer[hidden] {
 					display: none;
 				}
+
+				.summary {
+					list-style: none;
+					padding-left: 0.2rem;
+					color: var(--d2l-color-galena);
+				}
+
+				.content {
+					padding-top: 1rem;
+
+				.assignment-type-heading {
+					margin: 0 0 0.5rem 0;
+				}
 			`
 		];
 	}
@@ -156,10 +170,23 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 		this.wrapSaveAction(super._entity.setAnonymousMarking(event.target.checked));
 	}
 
+	_getAnonymousGradingSummary() {
+		// TODO: replace with MobX once that is setup for this repo
+		return html`
+			<li class="d2l-body-compact summary-line" ?hidden=${!this._isAnonymousMarkingEnabled}>
+				${this.localize('anonymousGradingEnabled')}
+			</li>
+		`;
+	}
+
+	_getSummarizedContentForEvaluationAndFeedback() {
+		return this._getAnonymousGradingSummary();
+	}
+
 	render() {
 		return html`
 			<div id="assignment-type-container">
-				<h3 class="d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
+				<h3 class="assignment-type-heading d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
 				<d2l-activity-assignment-type-editor
 					href="${this.href}"
 					.token="${this.token}">
@@ -211,10 +238,13 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				</d2l-activity-release-conditions-editor>
 			</div>
 
-			<d2l-assignment-turnitin-editor .token="${this.token}" href="${this.href}">
-			</d2l-assignment-turnitin-editor>
-
-			<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
+			<d2l-labs-accordion-collapse class="accordion" flex header-border>
+				<h4 class="accordion-header" slot="header">${this.localize('evaluationAndFeedback')}</h4>
+				<ul slot="summary" class="summary">
+					${this._getSummarizedContentForEvaluationAndFeedback()}
+				</ul>
+				<div class="content">
+				<div id="annotations-checkbox-container" ?hidden="${!this._canSeeAnnotations}">
 				<label class="d2l-label-text">${this.localize('annotationTools')}</label>
 					<d2l-input-checkbox
 						@change="${this._toggleAnnotationToolsAvailability}"
@@ -222,20 +252,24 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 						ariaLabel="${this.localize('annotationToolDescription')}">
 						${this.localize('annotationToolDescription')}
 					</d2l-input-checkbox>
-			</div>
-			<div id="assignment-anonymous-marking-editor-container" ?hidden="${!this._isAnonymousMarkingAvailable}">
-				<label class="d2l-label-text">${this.localize('lblAnonymousMarking')}</label>
-				<d2l-input-checkbox
-					@change="${this._saveAnonymousMarking}"
-					?checked="${this._isAnonymousMarkingEnabled}"
-					?disabled="${!this._canEditAnonymousMarking}"
-					ariaLabel="${this.localize('chkAnonymousMarking')}">
-					${this.localize('chkAnonymousMarking')}
-				</d2l-input-checkbox>
-				<d2l-input-checkbox-spacer ?hidden="${!this._anonymousMarkingHelpText}">
-					<span class="d2l-body-small">${this._anonymousMarkingHelpText}</span>
-				</d2l-input-checkbox-spacer>
-			</div>
+				</div>
+				<div id="assignment-anonymous-marking-editor-container" ?hidden="${!this._isAnonymousMarkingAvailable}">
+					<label class="d2l-label-text">${this.localize('lblAnonymousMarking')}</label>
+					<d2l-input-checkbox
+						@change="${this._saveAnonymousMarking}"
+						?checked="${this._isAnonymousMarkingEnabled}"
+						?disabled="${!this._canEditAnonymousMarking}"
+						ariaLabel="${this.localize('chkAnonymousMarking')}">
+						${this.localize('chkAnonymousMarking')}
+					</d2l-input-checkbox>
+					<d2l-input-checkbox-spacer ?hidden="${!this._anonymousMarkingHelpText}">
+						<span class="d2l-body-small">${this._anonymousMarkingHelpText}</span>
+					</d2l-input-checkbox-spacer>
+				</div>
+				<d2l-assignment-turnitin-editor .token="${this.token}" href="${this.href}">
+				</d2l-assignment-turnitin-editor>
+				</div>
+			</d2l-labs-accordion-collapse>
 		`;
 	}
 }

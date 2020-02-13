@@ -28,12 +28,24 @@ export class ObjectStore {
 	get(href) {
 		return this._objects.get(href);
 	}
+
+	put(href, object) {
+		this._objects.set(href, object);
+		this._fetches.set(href, Promise.resolve(object));
+	}
+
+	clear() {
+		this._objects.clear();
+		this._fetches.clear();
+	}
 }
 
 decorate(ObjectStore, {
 	// properties
 	_objects: observable.shallow,
 	// actions
-	fetch: action
+	fetch: action,
+	put: action,
+	clear: action
 });
 

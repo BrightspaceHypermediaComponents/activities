@@ -26,7 +26,7 @@ import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
 import 'd2l-alert/d2l-alert-toast.js';
 import '@brightspace-ui-labs/edit-in-place/d2l-labs-edit-in-place.js';
-import '../d2l-activity-editor/d2l-activity-visibility-editor.js';
+import '../d2l-activity-editor/d2l-activity-visibility-auto-editor.js';
 import { getLocalizeResources } from './localization.js';
 
 const baseUrl = import.meta.url;
@@ -509,7 +509,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 
 		const learningPathVisibilityToggle = this._handleFirstLoad(() => {
 			return html`
-				<d2l-activity-visibility-editor class="d2l-activity-collection-toggle-container" ?disabled="${!this._items.length}" .href="${this.href}" .token="${this.token}"></d2l-activity-visibility-editor>
+				<d2l-activity-visibility-auto-editor class="d2l-activity-collection-toggle-container" ?disabled="${!this._items.length}" .href="${this.href}" .token="${this.token}"></d2l-activity-visibility-auto-editor>
 				<d2l-button-icon
 					class="d2l-activity-collection-toggle-container-button"
 					?disabled="${!this._canEditDraft || this.disabled}"

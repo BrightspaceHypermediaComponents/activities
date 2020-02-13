@@ -35,7 +35,7 @@ class ActivityAvailabilityDatesSummary
 	render() {
 
 		const activity = store.get(this.href);
-		if (activity == null) {
+		if (!activity) {
 			return html``;
 		}
 
@@ -44,11 +44,11 @@ class ActivityAvailabilityDatesSummary
 
 		let text;
 
-		if (startDate != null && endDate != null) {
+		if (startDate && endDate) {
 			text = this.localize('txtAvailabilityStartAndEnd', { startDate, endDate });
-		} else if (startDate != null) {
+		} else if (startDate) {
 			text = this.localize('txtAvailabilityStartOnly', { startDate });
-		} else if (endDate != null) {
+		} else if (endDate) {
 			text = this.localize('txtAvailabilityEndOnly', { endDate });
 		} else {
 			text = this.localize('txtAvailabilityNeither');
@@ -59,7 +59,7 @@ class ActivityAvailabilityDatesSummary
 
 	_formatDate(suspiciousString) {
 
-		if (suspiciousString == null) {
+		if (!suspiciousString) {
 			return null;
 		}
 

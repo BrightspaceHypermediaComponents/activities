@@ -3,7 +3,7 @@ import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import './d2l-activity-rubric-editor';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { Associations } from 'siren-sdk/src/activities/Associations';
+import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 

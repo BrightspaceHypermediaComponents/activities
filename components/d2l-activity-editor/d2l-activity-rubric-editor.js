@@ -2,7 +2,7 @@ import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { Association } from 'siren-sdk/src/activities/Association';
+import { Association } from 'siren-sdk/src/activities/Association.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from './save-status-mixin';

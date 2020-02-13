@@ -1,7 +1,7 @@
 import 'd2l-rubric/d2l-rubric';
 import './d2l-activity-rubrics-list-editor';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
+import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';

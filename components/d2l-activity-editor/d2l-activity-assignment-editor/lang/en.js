@@ -22,6 +22,5 @@ export default {
 	"txtIndividual": "Individual Assignment", // Label for individual assignment type
 	"txtGroup": "Group Assignment", // Label for group assignment type,
 	"txtGroupCategoryWithName": "Group Category: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
-	"txtGroupCategory": "Group Category", // Label for group category
-	"txtRubrics": "Rubrics" // Label for rubrics heading
+	"txtGroupCategory": "Group Category" // Label for group category
 };

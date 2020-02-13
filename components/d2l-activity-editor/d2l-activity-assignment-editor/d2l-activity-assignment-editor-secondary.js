@@ -4,7 +4,7 @@ import '../d2l-activity-release-conditions-editor.js';
 import './d2l-activity-assignment-type-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
-import './d2l-activity-assignment-rubrics-editor.js';
+import '../d2l-activity-rubrics-list-container.js';
 import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
@@ -197,12 +197,10 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				</d2l-activity-availability-dates-editor>
 			</div>
 
-			<div id="rubrics-container">
-				<d2l-activity-assignment-rubrics-editor
-					href="${this.href}"
-					.token="${this.token}">
-				</d2l-activity-assignment-rubrics-editor>
-			</div>
+			<d2l-activity-rubrics-list-container
+				href="${this._activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-rubrics-list-container>
 
 			<div id="assignment-release-conditions-container">
 				<h3 class="d2l-heading-4">${this.localize('hdrReleaseConditions')}</h3>

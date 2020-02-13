@@ -12,11 +12,9 @@ describe('Activity Usage', function() {
 
 	const defaultEntityMock = {
 		startDate: () => '2020-01-22T04:59:00.000Z',
-		canEditStartDate: () => Promise.resolve(true),
 		dueDate: () => '2020-01-23T04:59:00.000Z',
-		canEditDueDate: () => Promise.resolve(true),
 		endDate: () => '2020-01-24T04:59:00.000Z',
-		canEditEndDate: () => Promise.resolve(true),
+		canEditDates: () => Promise.resolve(true),
 		isDraft: () => true,
 		canEditDraft: () => true
 	};
@@ -44,14 +42,10 @@ describe('Activity Usage', function() {
 			const activity = new ActivityUsage('http://1', 'token');
 			await activity.fetch();
 
+			expect(activity.canEditDates).to.be.true;
 			expect(activity.startDate).to.equal('2020-01-22T04:59:00.000Z');
-			expect(activity.canEditStartDate).to.be.true;
-
 			expect(activity.dueDate).to.equal('2020-01-23T04:59:00.000Z');
-			expect(activity.canEditDueDate).to.be.true;
-
 			expect(activity.endDate).to.equal('2020-01-24T04:59:00.000Z');
-			expect(activity.canEditEndDate).to.be.true;
 
 			expect(activity.isDraft).to.be.true;
 			expect(activity.canEditDraft).to.be.true;

@@ -46,23 +46,21 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 
 	render() {
 		const activity = store.get(this.href);
-		let canEditStartDate, canEditEndDate, startDate, endDate;
+		let canEditDates, startDate, endDate;
 
 		if (!activity) {
-			canEditStartDate = false;
-			canEditEndDate = false;
+			canEditDates = false;
 			startDate = null;
 			endDate = null;
 		} else {
-			canEditStartDate = activity.canEditStartDate;
-			canEditEndDate = activity.canEditEndDate;
+			canEditDates = activity.canEditDates;
 			startDate = activity.startDate;
 			endDate = activity.endDate;
 		}
 
 		return html`
-			<label class="d2l-label-text" ?hidden=${!canEditStartDate}>${this.localize('startDate')}</label>
-			<div id="startdate-container" ?hidden=${!canEditStartDate}>
+			<label class="d2l-label-text" ?hidden=${!canEditDates}>${this.localize('startDate')}</label>
+			<div id="startdate-container" ?hidden=${!canEditDates}>
 				<d2l-datetime-picker
 					hide-label
 					name="startDate"
@@ -76,8 +74,8 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 					@d2l-datetime-picker-datetime-cleared="${this._onStartDatetimePickerDatetimeCleared}">
 				</d2l-datetime-picker>
 			</div>
-			<label class="d2l-label-text" ?hidden=${!canEditEndDate}>${this.localize('endDate')}</label>
-			<div id="enddate-container" ?hidden=${!canEditEndDate}>
+			<label class="d2l-label-text" ?hidden=${!canEditDates}>${this.localize('endDate')}</label>
+			<div id="enddate-container" ?hidden=${!canEditDates}>
 				<d2l-datetime-picker
 					hide-label
 					name="endDate"

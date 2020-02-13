@@ -10,8 +10,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 	beforeEach(async() => {
 		href = 'http://activity/1';
 		activity = new ActivityUsage(href, 'token');
-		activity.setCanEditStartDate(true);
-		activity.setCanEditEndDate(true);
+		activity.setCanEditDates(true);
 		activity.setStartDate('2020-02-24T04:59:00.000Z');
 		activity.setEndDate('2020-02-26T04:59:00.000Z');
 		store.put(href, activity);
@@ -54,8 +53,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 
 	describe('hidden', function() {
 		beforeEach(async() => {
-			activity.setCanEditStartDate(false);
-			activity.setCanEditEndDate(false);
+			activity.setCanEditDates(false);
 			await elementUpdated(el);
 		});
 

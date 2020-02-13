@@ -63,7 +63,7 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 
 	render() {
 		const activity = store.get(this.href);
-		let dueDate, canEditDueDate;
+		let dueDate, canEditDates;
 
 		// We have to render with null values for dueDate initially due to issues with
 		// how the d2l-datetime-picker converts between the date & datetime attributes.
@@ -75,14 +75,14 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 		// Will be able to fix when we have a new data time component.
 		if (!activity) {
 			dueDate = null;
-			canEditDueDate = false;
+			canEditDates = false;
 		} else {
 			dueDate = activity.dueDate;
-			canEditDueDate = activity.canEditDueDate;
+			canEditDates = activity.canEditDates;
 		}
 
 		return html`
-			${this.dateTemplate(dueDate, canEditDueDate)}
+			${this.dateTemplate(dueDate, canEditDates)}
 		`;
 	}
 

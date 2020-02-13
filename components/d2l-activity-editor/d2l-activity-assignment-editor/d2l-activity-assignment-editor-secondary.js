@@ -1,7 +1,7 @@
 import './d2l-assignment-turnitin-editor';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
-import './d2l-activity-assignment-type-editor.js';
+import './d2l-activity-assignment-editor-submission-and-completion.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
@@ -91,6 +91,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 				.content {
 					padding-top: 1rem;
+				}
 
 				.assignment-type-heading {
 					margin: 0 0 0.5rem 0;
@@ -184,38 +185,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	render() {
 		return html`
-			<div id="assignment-type-container">
-				<h3 class="assignment-type-heading d2l-heading-4">${this.localize('txtAssignmentType')}</h3>
-				<d2l-activity-assignment-type-editor
-					href="${this.href}"
-					.token="${this.token}">
-				</d2l-activity-assignment-type-editor>
-			</div>
-
-			<div id="assignment-submission-type-container">
-				<label class="d2l-label-text" for="assignment-submission-type">${this.localize('submissionType')}</label>
-				<select
-					id="assignment-submission-type"
-					class="d2l-input-select block-select"
-					@change="${this._saveSubmissionTypeOnChange}"
-					?disabled="${!this._canEditSubmissionType}">
-
-					${this._getSubmissionTypeOptions()}
-				</select>
-			</div>
-
-			<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
-				<label class="d2l-label-text" for="assignment-completion-type">${this.localize('completionType')}</label>
-				<select
-					id="assignment-completion-type"
-					class="d2l-input-select block-select"
-					@change="${this._saveCompletionTypeOnChange}"
-					?disabled="${!this._canEditCompletionType}">
-
-					${this._getCompletionTypeOptions()}
-				</select>
-			</div>
-
 			<div id="availability-dates-container">
 				<d2l-activity-availability-dates-editor
 					href="${this._activityUsageHref}"
@@ -231,6 +200,11 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 					.token="${this.token}">
 				</d2l-activity-release-conditions-editor>
 			</div>
+
+			<d2l-activity-assignment-editor-submission-and-completion
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-assignment-editor-submission-and-completion>
 
 			<d2l-labs-accordion-collapse class="accordion" flex header-border>
 				<h4 class="accordion-header" slot="header">${this.localize('evaluationAndFeedback')}</h4>

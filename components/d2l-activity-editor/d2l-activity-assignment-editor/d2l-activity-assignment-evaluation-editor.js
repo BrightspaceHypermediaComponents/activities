@@ -1,4 +1,5 @@
-import './d2l-assignment-turnitin-editor';
+import './d2l-activity-assignment-annotations-summary.js';
+import './d2l-assignment-turnitin-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
@@ -146,17 +147,12 @@ class ActivityAssignmentEvaluationEditor
 
 	_renderAnnotationsSummary(){
 
-		const shouldRenderSummaryLine =
-			this._canSeeAnnotations &&
-			!this._annotationToolsAvailable
-		if( !shouldRenderSummaryLine ) {
-			return;
-		}
-
 		return html`
-			<li class="d2l-body-compact">
-				${this.localize('txtAnnotationsOff')}
-			</li>
+			<d2l-activity-assignment-annotations-summary
+				href="${this.href}"
+				.token="${this.token}"
+				>
+			</d2l-activity-assignment-annotations-summary>
 		`;
 	}
 

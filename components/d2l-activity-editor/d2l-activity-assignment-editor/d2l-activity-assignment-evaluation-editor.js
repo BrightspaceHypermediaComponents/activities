@@ -1,4 +1,5 @@
 import './d2l-activity-assignment-annotations-summary.js';
+import './d2l-activity-assignment-annotations-editor.js';
 import './d2l-assignment-turnitin-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
@@ -16,9 +17,8 @@ class ActivityAssignmentEvaluationEditor
 	extends SaveStatusMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
 
 	static get properties() {
+
 		return {
-			_canSeeAnnotations: {type: Boolean },
-			_annotationToolsAvailable: { type: Boolean },
 			_isAnonymousMarkingAvailable: { type: Boolean },
 			_isAnonymousMarkingEnabled: { type: Boolean },
 			_canEditAnonymousMarking: { type: Boolean },
@@ -94,17 +94,10 @@ class ActivityAssignmentEvaluationEditor
 			return;
 		}
 
-		this._canSeeAnnotations = assignment.canSeeAnnotations();
-		this._annotationToolsAvailable = assignment.getAvailableAnnotationTools();
 		this._isAnonymousMarkingAvailable = assignment.isAnonymousMarkingAvailable();
 		this._isAnonymousMarkingEnabled = assignment.isAnonymousMarkingEnabled();
 		this._canEditAnonymousMarking = assignment.canEditAnonymousMarking();
 		this._anonymousMarkingHelpText = assignment.getAnonymousMarkingHelpText();
-	}
-
-	_toggleAnnotationToolsAvailability() {
-		this._annotationToolsAvailable = !this._annotationToolsAvailable;
-		this.wrapSaveAction(super._entity.setAnnotationToolsAvailability(this._annotationToolsAvailable));
 	}
 
 	_saveAnonymousMarking(event) {
@@ -150,8 +143,7 @@ class ActivityAssignmentEvaluationEditor
 		return html`
 			<d2l-activity-assignment-annotations-summary
 				href="${this.href}"
-				.token="${this.token}"
-				>
+				.token="${this.token}">
 			</d2l-activity-assignment-annotations-summary>
 		`;
 	}
@@ -159,18 +151,11 @@ class ActivityAssignmentEvaluationEditor
 	_renderAnnotationsEditor() {
 
 		return html`
-			<div class="editor"
-				?hidden="${!this._canSeeAnnotations}">
-				<label class="d2l-label-text">
-					${this.localize('annotationTools')}
-				</label>
-				<d2l-input-checkbox
-					@change="${this._toggleAnnotationToolsAvailability}"
-					?checked="${this._annotationToolsAvailable}"
-					ariaLabel="${this.localize('annotationToolDescription')}">
-					${this.localize('annotationToolDescription')}
-				</d2l-input-checkbox>
-			</div>
+			<d2l-activity-assignment-annotations-editor
+				class="editor"
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-assignment-annotations-editor>
 		`;
 	}
 

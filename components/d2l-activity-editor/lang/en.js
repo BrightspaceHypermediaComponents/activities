@@ -17,6 +17,10 @@ export default {
 	"noStartDate": "No start date", // Placeholder text for due date field when no due date is set
 	"visible": "Visible", // Label displayed with the visibility switch when visible
 	"ariaVisible": "Visible to students", // Aria Label for the visibility switch when visible
+	"txtAvailabilityStartAndEnd": "Availability starts {startDate} and ends {endDate}", // start/end text
+	"txtAvailabilityStartOnly": "Availability starts {startDate}", // start only text
+	"txtAvailabilityEndOnly": "Availability ends {endDate}", // end only text
+	"txtAvailabilityNeither": "Always available", // always available text
 	"ungraded": "Ungraded", // State of score field when there is no score and no grade item, when creating/editing an activity
 	"inGrades": "In Grades", // State of the grades field when there is a score, and an associated grade item
 	"notInGrades": "Not in Grades", // State of the grades field when there is a score, but no associated grade item

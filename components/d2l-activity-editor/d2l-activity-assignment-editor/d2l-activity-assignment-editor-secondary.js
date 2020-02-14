@@ -128,39 +128,12 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 			return;
 		}
 
-		this._activityUsageHref = assignment.activityUsageHref();
-		this._submissionTypes = assignment.submissionTypeOptions();
-		this._canEditSubmissionType = assignment.canEditSubmissionType();
-		this._completionTypes = assignment.completionTypeOptions();
-		this._canEditCompletionType = assignment.canEditCompletionType();
 		this._canSeeAnnotations = assignment.canSeeAnnotations();
 		this._annotationToolsAvailable = assignment.getAvailableAnnotationTools();
 		this._isAnonymousMarkingAvailable = assignment.isAnonymousMarkingAvailable();
 		this._isAnonymousMarkingEnabled = assignment.isAnonymousMarkingEnabled();
 		this._canEditAnonymousMarking = assignment.canEditAnonymousMarking();
 		this._anonymousMarkingHelpText = assignment.getAnonymousMarkingHelpText();
-	}
-
-	_saveSubmissionTypeOnChange() {
-		const submissionType = this.shadowRoot.querySelector('select#assignment-submission-type').value;
-		this.wrapSaveAction(super._entity.setSubmissionType(submissionType));
-	}
-
-	_saveCompletionTypeOnChange() {
-		const completionType = this.shadowRoot.querySelector('select#assignment-completion-type').value;
-		this.wrapSaveAction(super._entity.setCompletionType(completionType));
-	}
-
-	_getSubmissionTypeOptions() {
-		return html`
-			${this._submissionTypes.map(option => html`<option value=${option.value} ?selected=${option.selected}>${option.title}</option>`)}
-		`;
-	}
-
-	_getCompletionTypeOptions() {
-		return html`
-			${this._completionTypes.map(option => html`<option value=${option.value} ?selected=${option.selected}>${option.title}</option>`)}
-		`;
 	}
 
 	_toggleAnnotationToolsAvailability() {

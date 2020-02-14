@@ -142,21 +142,25 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 		`;
 	}
 
-	_renderAssignmentTypeContainer(){
+	_renderAssignmentType(){
 		return html `
 			<div id="assignment-type-container">
 				<h3 class="assignment-type-heading d2l-heading-4">
 					${this.localize('txtAssignmentType')}
 				</h3>
 				<d2l-activity-assignment-type-editor
-					href="${this._activityUsageHref}"
+					href="${this.href}"
 					.token="${this.token}">
 				</d2l-activity-assignment-type-editor>
 			</div>
 		`
 	}
 
-	_renderAssignmentSubmissionTypeContainer(){
+	_renderAssignmentTypeSummary(){
+		return html``;
+	}
+
+	_renderAssignmentSubmissionType(){
 		return html `
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">
@@ -173,7 +177,11 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 		`
 	}
 
-	_renderAssignmentCompletionTypeContainer(){
+	_renderAssignmentSubmissionTypeSummary(){
+		return html``;
+	}
+
+	_renderAssignmentCompletionType(){
 		return html `
 			<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
 				<label class="d2l-label-text" for="assignment-completion-type">
@@ -190,6 +198,10 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 		`
 	}
 
+	_renderAssignmentCompletionTypeSummary(){
+		return html``;
+	}
+
 	render() {
         return html`
             <d2l-labs-accordion-collapse class="accordion" flex header-border>
@@ -197,11 +209,13 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 					${this.localize("submissionCompletionAndCategorization")}
 				</h4>
 				<ul class="summary" slot="summary">
-					<li><b>TODO</b></li>
+					${this._renderAssignmentTypeSummary()}
+					${this._renderAssignmentSubmissionTypeSummary()}
+					${this._renderAssignmentCompletionTypeSummary()}
 				</ul>
-				${this._renderAssignmentTypeContainer()}
-				${this._renderAssignmentSubmissionTypeContainer()}
-				${this._renderAssignmentCompletionTypeContainer()}
+				${this._renderAssignmentType()}
+				${this._renderAssignmentSubmissionType()}
+				${this._renderAssignmentCompletionType()}
 			</d2l-labs-accordion-collapse>
 		`;
 	}

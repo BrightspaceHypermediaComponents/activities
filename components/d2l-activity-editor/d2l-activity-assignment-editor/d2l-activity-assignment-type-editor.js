@@ -88,7 +88,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
 			this._onAssignmentChange(entity);
-			debugger;
 			super._entity = entity;
 		}
 	}
@@ -101,7 +100,6 @@ class AssignmentTypeEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit(Local
 		this._infoText = assignment.getAssignmentTypeInformationText();
 		this._isReadOnly = assignment.isAssignmentTypeReadOnly();
 		this._groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled();
-		debugger;
 		this._groupCategories = assignment.getAssignmentTypeGroupCategoryOptions();
 		this._folderTypeText =
 			this._isIndividualType

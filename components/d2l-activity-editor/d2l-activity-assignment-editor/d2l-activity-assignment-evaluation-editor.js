@@ -66,7 +66,7 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 		`;
 	}
 
-	_renderAnnotationsSummary(){
+	_renderAnnotationsSummary() {
 
 		return html`
 			<d2l-activity-assignment-annotations-summary

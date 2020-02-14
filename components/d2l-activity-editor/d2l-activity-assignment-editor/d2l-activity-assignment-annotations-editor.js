@@ -44,10 +44,12 @@ class ActivityAssignmentAnnotationsEditor
 	}
 
 	static async getLocalizeResources(langs) {
+
 		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
+
 		super();
 		this._setEntityType(AssignmentEntity);
 	}
@@ -81,7 +83,7 @@ class ActivityAssignmentAnnotationsEditor
 	render() {
 
 		const shouldRenderEditor = this._canSeeAnnotations;
-		if( !shouldRenderEditor ) {
+		if (!shouldRenderEditor) {
 			return html``;
 		}
 

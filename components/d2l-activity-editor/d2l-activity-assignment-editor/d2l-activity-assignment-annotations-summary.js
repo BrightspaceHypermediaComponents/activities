@@ -16,10 +16,12 @@ class ActivityAssignmentAnnotationsSummary
 	}
 
 	static async getLocalizeResources(langs) {
+
 		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
+
 		super();
 		this._setEntityType(AssignmentEntity);
 	}
@@ -47,7 +49,7 @@ class ActivityAssignmentAnnotationsSummary
 		const shouldRenderSummaryText =
 			this._canSeeAnnotations &&
 			!this._annotationToolsAvailable
-		if( !shouldRenderSummaryText ) {
+		if (!shouldRenderSummaryText) {
 			return html``;
 		}
 

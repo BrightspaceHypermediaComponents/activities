@@ -3,7 +3,6 @@ import '../d2l-activity-release-conditions-editor.js';
 import './d2l-assignment-turnitin-editor';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
 import './d2l-activity-assignment-availability-editor.js';
-import './d2l-activity-assignment-type-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import '../d2l-activity-rubrics-list-container.js';

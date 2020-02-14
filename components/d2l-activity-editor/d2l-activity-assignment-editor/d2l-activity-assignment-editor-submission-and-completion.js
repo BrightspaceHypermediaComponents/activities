@@ -14,8 +14,6 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 
 	static get properties() {
 		return {
-			href: { type: String },
-			token: { type: Object },
 			_submissionTypes: { type: Array },
 			_canEditSubmissionType: { type: Boolean },
 			_completionTypes: { type: Array },

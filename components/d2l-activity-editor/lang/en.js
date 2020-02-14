@@ -5,11 +5,11 @@ export default {
 	"btnCancel": "Cancel", // cancel button
 	"btnSave": "Save", // save button
 	"dueDate": "Due Date", // ARIA label for the due date field when creating/editing an activity
-	"endDate": "End Date", // ARIA label for the due date field when creating/editing an activity
-	"startDate": "Start Date", // ARIA label for the due date field when creating/editing an activity
+	"endDate": "End Date", // ARIA label for the end date field when creating/editing an activity
+	"startDate": "Start Date", // ARIA label for the start date field when creating/editing an activity
 	"dueTime": "Due Time", // ARIA label for the due time field when creating/editing an activity
-	"endTime": "End Time", // ARIA label for the due time field when creating/editing an activity
-	"startTime": "Start Time", // ARIA label for the due time field when creating/editing an activity
+	"endTime": "End Time", // ARIA label for the end time field when creating/editing an activity
+	"startTime": "Start Time", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Hidden", // Label displayed with the visibility switch when hidden
 	"ariaHidden": "Hidden from students", // Aria Label for the visibility switch when hidden
 	"noDueDate": "No due date", // Placeholder text for due date field when no due date is set
@@ -34,5 +34,6 @@ export default {
 	"ok": "Ok", // Text of dialog button to commit action
 	"cancel": "Cancel", // Text of dialog button to cancel action
 	"ariaToolbarShortcutInstructions": "Press ALT-F10 for toolbar, and press ESC to exit toolbar once inside.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
-	"editGradesLink": "Edit Grades Link" // Link text and dialog title for the edit grades dialog
+	"editGradesLink": "Edit Grades Link", // Link text and dialog title for the edit grades dialog,
+	"hdrRubrics": "Rubrics" //Header for the rubrics section
 };

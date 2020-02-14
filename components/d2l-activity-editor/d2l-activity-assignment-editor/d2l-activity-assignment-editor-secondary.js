@@ -15,13 +15,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	static get properties() {
 		return {
-			_activityUsageHref: { type: String },
-			_submissionTypes: { type: Array },
-			_canEditSubmissionType: { type: Boolean },
-			_completionTypes: { type: Array },
-			_canEditCompletionType: { type: Boolean },
-			_showCompletionType: { type: Boolean },
-			_attachmentsHref: { type: String },
+			_activityUsageHref: { type: String }
 		};
 	}
 

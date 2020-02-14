@@ -15,7 +15,7 @@ class ActivityAssignmentAnnotationsEditor
 		return {
 			_canSeeAnnotations: { type: Boolean },
 			_annotationToolsAvailable: { type: Boolean },
-;		}
+		};
 	}
 
 	static get styles() {

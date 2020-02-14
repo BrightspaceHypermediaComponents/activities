@@ -154,13 +154,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				</select>
 			</div>
 
-			<div id="availability-dates-container">
-				<d2l-activity-availability-dates-editor
-					href="${this._activityUsageHref}"
-					.token="${this.token}">
-				</d2l-activity-availability-dates-editor>
-			</div>
-
 			<d2l-activity-rubrics-list-container
 				href="${this._activityUsageHref}"
 				.token="${this.token}">

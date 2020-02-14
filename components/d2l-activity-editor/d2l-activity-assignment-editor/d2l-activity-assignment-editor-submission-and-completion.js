@@ -1,14 +1,14 @@
-import './d2l-activity-assignment-type-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
-import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import './d2l-activity-assignment-type-editor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
-import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
+import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
 class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
 
@@ -81,7 +81,7 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 		this._completionTypes = assignment.completionTypeOptions();
 		this._canEditCompletionType = assignment.canEditCompletionType();
 	}
-	
+
 	_saveCompletionTypeOnChange() {
 		const completionType = this.shadowRoot.querySelector('select#assignment-completion-type').value;
 		this.wrapSaveAction(super._entity.setCompletionType(completionType));
@@ -104,7 +104,7 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 		`;
 	}
 
-	_renderAssignmentType(){
+	_renderAssignmentType() {
 		return html `
 			<div id="assignment-type-container">
 				<h3 class="assignment-type-heading d2l-heading-4">
@@ -115,14 +115,14 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 					.token="${this.token}">
 				</d2l-activity-assignment-type-editor>
 			</div>
-		`
+		`;
 	}
 
-	_renderAssignmentTypeSummary(){
+	_renderAssignmentTypeSummary() {
 		return html``;
 	}
 
-	_renderAssignmentSubmissionType(){
+	_renderAssignmentSubmissionType() {
 		return html `
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">
@@ -136,14 +136,14 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 						${this._getSubmissionTypeOptions()}
 				</select>
 			</div>
-		`
+		`;
 	}
 
-	_renderAssignmentSubmissionTypeSummary(){
+	_renderAssignmentSubmissionTypeSummary() {
 		return html``;
 	}
 
-	_renderAssignmentCompletionType(){
+	_renderAssignmentCompletionType() {
 		return html `
 			<div id="assignment-completion-type-container" ?hidden="${!this._completionTypes.length > 0}">
 				<label class="d2l-label-text" for="assignment-completion-type">
@@ -157,18 +157,18 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 						${this._getCompletionTypeOptions()}
 				</select>
 			</div>
-		`
+		`;
 	}
 
-	_renderAssignmentCompletionTypeSummary(){
+	_renderAssignmentCompletionTypeSummary() {
 		return html``;
 	}
 
 	render() {
-        return html`
+		return html`
             <d2l-labs-accordion-collapse class="accordion" flex header-border>
 				<h4 class="accordion-header" slot="header">
-					${this.localize("submissionCompletionAndCategorization")}
+					${this.localize('submissionCompletionAndCategorization')}
 				</h4>
 				<ul class="summary" slot="summary">
 					${this._renderAssignmentTypeSummary()}

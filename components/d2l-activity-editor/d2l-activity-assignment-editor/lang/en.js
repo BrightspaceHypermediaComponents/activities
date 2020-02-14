@@ -7,6 +7,7 @@ export default {
 	"lblAnonymousMarking": "Anonymous Marking", // Label for anonymous marking
 	"chkAnonymousMarking": "Hide student names during assessment", // Checkbox for anonymous marking
 	"dueDate": "Due Date", // ARIA label for the due date field when creating/editing an activity
+	"txtAnnotationsOff": "Annotations off", // annotations off text
 	"emptyNameError": "Name is required", // Error message to inform user that the assignment name is a required field
 	"instructions": "Instructions", // Label for the instruction field when creating/editing an assignment
 	"hdrTurnitin": "Turnitin® Integration", // turnitin heading

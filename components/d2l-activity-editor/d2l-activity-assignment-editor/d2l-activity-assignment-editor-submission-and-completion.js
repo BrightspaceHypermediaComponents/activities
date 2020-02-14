@@ -126,7 +126,6 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 	}
 
 	_getSubmissionTypeOptions() {
-		console.log('_getSubmissionTypeOptions: this._submissionTypes.length == ', this._submissionTypes.length);
 		return html`
 			${this._submissionTypes.map(option => html`<option value=${option.value} ?selected=${option.selected}>${option.title}</option>`)}
 		`;

@@ -12,7 +12,7 @@ class ActivityAssignmentAnnotationsSummary
 		return {
 			_canSeeAnnotations: { type: Boolean },
 			_annotationToolsAvailable: { type: Boolean },
-		}
+		};
 	}
 
 	static async getLocalizeResources(langs) {
@@ -48,7 +48,7 @@ class ActivityAssignmentAnnotationsSummary
 
 		const shouldRenderSummaryText =
 			this._canSeeAnnotations &&
-			!this._annotationToolsAvailable
+			!this._annotationToolsAvailable;
 		if (!shouldRenderSummaryText) {
 			return html``;
 		}

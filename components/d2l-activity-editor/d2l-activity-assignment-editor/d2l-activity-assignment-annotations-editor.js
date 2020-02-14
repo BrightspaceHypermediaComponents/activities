@@ -15,7 +15,7 @@ class ActivityAssignmentAnnotationsEditor
 		return {
 			_canSeeAnnotations: { type: Boolean },
 			_annotationToolsAvailable: { type: Boolean },
-		}
+;		}
 	}
 
 	static get styles() {
@@ -40,7 +40,7 @@ class ActivityAssignmentAnnotationsEditor
 				padding-left: 1rem;
 			}
 			`
-		]
+		];
 	}
 
 	static async getLocalizeResources(langs) {

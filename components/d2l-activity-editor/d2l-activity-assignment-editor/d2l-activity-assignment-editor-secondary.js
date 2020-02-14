@@ -1,13 +1,13 @@
-import './d2l-assignment-turnitin-editor';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
+import './d2l-assignment-turnitin-editor';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
 import './d2l-activity-assignment-availability-editor.js';
 import './d2l-activity-assignment-type-editor.js';
 import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
-import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
@@ -15,7 +15,6 @@ import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
-import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
 class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
 
@@ -39,10 +38,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 
 	static get styles() {
 		return [
-			bodySmallStyles,
-			heading4Styles,
 			labelStyles,
-			selectStyles,
 			css`
 				:host {
 					display: block;
@@ -52,16 +48,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				}
 				:host > div {
 					padding-bottom: 20px;
-				}
-
-				.block-select {
-					width: 100%;
-					max-width: 300px;
-					display: block;
-				}
-
-				.d2l-heading-4 {
-					margin: 0 0 0.6rem 0;
 				}
 
 				.d2l-body-small {
@@ -94,10 +80,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				.content {
 					padding-top: 1rem;
 				}
-
-				.assignment-type-heading {
-					margin: 0 0 0.5rem 0;
-				}
 			`
 		];
 	}
@@ -111,8 +93,6 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 		this._setEntityType(AssignmentEntity);
 		this._debounceJobs = {};
 
-		this._submissionTypes = [];
-		this._completionTypes = [];
 		this._activityUsageHref = '';
 	}
 
@@ -128,6 +108,7 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 			return;
 		}
 
+		this._activityUsageHref = assignment.activityUsageHref();
 		this._canSeeAnnotations = assignment.canSeeAnnotations();
 		this._annotationToolsAvailable = assignment.getAvailableAnnotationTools();
 		this._isAnonymousMarkingAvailable = assignment.isAnonymousMarkingAvailable();

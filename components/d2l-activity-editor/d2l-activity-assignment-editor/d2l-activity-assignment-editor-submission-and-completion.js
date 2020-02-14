@@ -1,6 +1,6 @@
 import './d2l-activity-assignment-type-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
-import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
@@ -19,28 +19,16 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 			_submissionTypes: { type: Array },
 			_canEditSubmissionType: { type: Boolean },
 			_completionTypes: { type: Array },
-			_canEditCompletionType: { type: Boolean },
-			_showCompletionType: { type: Boolean }
+			_canEditCompletionType: { type: Boolean }
 		};
 	}
 
 	static get styles() {
 		return [
-			bodySmallStyles,
 			heading4Styles,
 			labelStyles,
 			selectStyles,
 			css`
-				:host {
-					display: block;
-				}
-				:host([hidden]) {
-					display: none;
-				}
-				:host > div {
-					padding-bottom: 20px;
-				}
-
 				.block-select {
 					width: 100%;
 					max-width: 300px;
@@ -51,35 +39,10 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 					margin: 0 0 0.6rem 0;
 				}
 
-				.d2l-body-small {
-					margin: 0 0 0.3rem 0;
-				}
-
-				d2l-input-checkbox {
-					padding-right: 20px;
-				}
-
-				:host([dir="rtl"]) d2l-input-checkbox {
-					padding-right: 0;
-					padding-left: 20px;
-				}
-
-				d2l-input-checkbox-spacer {
-					margin-top: -0.9rem;
-				}
-
-				d2l-input-checkbox-spacer[hidden] {
-					display: none;
-				}
-
 				.summary {
 					list-style: none;
 					padding-left: 0.2rem;
 					color: var(--d2l-color-galena);
-				}
-
-				.content {
-					padding-top: 1rem;
 				}
 
 				.assignment-type-heading {
@@ -113,7 +76,6 @@ class AssignmentEditorSubmissionAndCompletion extends SaveStatusMixin(RtlMixin(E
 			return;
 		}
 
-		this._activityUsageHref = assignment.activityUsageHref();
 		this._submissionTypes = assignment.submissionTypeOptions();
 		this._canEditSubmissionType = assignment.canEditSubmissionType();
 		this._completionTypes = assignment.completionTypeOptions();

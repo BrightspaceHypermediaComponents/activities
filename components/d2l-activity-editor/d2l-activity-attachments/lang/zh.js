@@ -7,6 +7,8 @@ export default {
 	"addOneDriveLink": "从 OneDrive 附加", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "将链接附加至现有活动", // Tooltip for a button that adds a link to an existing activity
 	"back": "返回", // Text for a back button
-	"closeFilePickerDialog": "关闭对话框", // ARIA text for button to close file picker dialog
+	"closeDialog": "关闭对话框", // ARIA text for button to close dialog
+	"recordAudio": "录制音频", // Text for a button that opens a dialog to record audio
+	"recordVideo": "录像", // Text for a button that opens a dialog to record video
 	"save": "保存", // Text for a save button
 };

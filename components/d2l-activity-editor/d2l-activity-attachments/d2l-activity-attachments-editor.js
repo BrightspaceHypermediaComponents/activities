@@ -1,10 +1,11 @@
 import './d2l-activity-attachments-list';
 import './d2l-activity-attachments-picker';
-import { css, html, LitElement } from 'lit-element/lit-element';
-import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
+import { css, html } from 'lit-element/lit-element';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
+import { shared as store } from './state/attachment-collections-store.js';
 
-class ActivityAttachmentsEditor extends EntityMixinLit(LitElement) {
+class ActivityAttachmentsEditor extends ActivityEditorMixin(MobxLitElement) {
 	static get properties() {
 		return {
 			_canAddAttachments: { type: Boolean }
@@ -23,34 +24,40 @@ class ActivityAttachmentsEditor extends EntityMixinLit(LitElement) {
 	}
 
 	constructor() {
-		super();
-		this._setEntityType(AttachmentCollectionEntity);
-	}
-
-	set _entity(entity) {
-		if (!this._entityHasChanged(entity)) {
-			return;
-		}
-
-		if (entity) {
-			this._canAddAttachments = entity.canAddAttachments();
-		}
-
-		super._entity = entity;
+		super(store);
 	}
 
 	render() {
+		const collection = store.get(this.href);
+		if (!collection) {
+			return html``;
+		}
+
+		const {
+			canAddAttachments,
+		} = collection;
+
 		return html`
 			<d2l-activity-attachments-list
 				href="${this.href}"
 				.token="${this.token}">
 			</d2l-activity-attachments-list>
-			<d2l-activity-attachments-picker
-				?hidden="${!this._canAddAttachments}"
-				href="${this.href}"
-				.token="${this.token}">
-			</d2l-activity-attachments-picker>
+
+			${canAddAttachments	?	html`
+				<d2l-activity-attachments-picker
+					href="${this.href}"
+					.token="${this.token}"
+				>
+				</d2l-activity-attachments-picker>
+			` :	html``}
 		`;
+	}
+
+	async save() {
+		const collection = store.get(this.href);
+		if (collection) {
+			await collection.save();
+		}
 	}
 }
 customElements.define('d2l-activity-attachments-editor', ActivityAttachmentsEditor);

@@ -13,8 +13,7 @@ class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 			value: { type: String },
 			ariaLabel: { type: String },
 			disabled: { type: Boolean },
-			_htmlEditorUniqueId: { type: String },
-			_valueSet: { type: Boolean }
+			_htmlEditorUniqueId: { type: String }
 		};
 	}
 
@@ -124,33 +123,6 @@ class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 	constructor() {
 		super();
 		this._htmlEditorUniqueId = `htmleditor-${getUniqueId()}`;
-		this._valueSet = false;
-	}
-
-	set value(newValue) {
-		const oldValue = this.value;
-
-		if (!this._valueSet) {
-			const editorContainer = this.shadowRoot.querySelector('d2l-html-editor > .d2l-html-editor-container');
-			if (editorContainer) {
-				this._valueSet = true;
-				editorContainer.innerHTML = newValue;
-			}
-		}
-
-		this.requestUpdate('value', oldValue);
-	}
-
-	set richtextEditorConfig(newValue) {
-		const oldValue = this.richtextEditorConfig;
-
-		const editorConfig = newValue || {};
-		const editor = this.shadowRoot.querySelector('d2l-html-editor');
-		if (editor) {
-			editor.d2lPluginSettings = editorConfig.properties || {};
-		}
-
-		this.requestUpdate('richtextEditorConfig', oldValue);
 	}
 
 	_resolveUrl() {
@@ -194,6 +166,25 @@ class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 					prevent-submit>
 				</div>
 			</d2l-html-editor>`;
+	}
+
+	updated(changedProperties) {
+		super.updated(changedProperties);
+		// This is acknowledged to be non-idiomatic (manipulating DOM outside render), but this
+		// is unforunately a necessary evil of using the tinymce/HTML editor.
+		if (changedProperties.has('richtextEditorConfig')) {
+			const editor = this.shadowRoot.querySelector('d2l-html-editor');
+			if (editor) {
+				editor.d2lPluginSettings = this.richtextEditorConfig.properties || {};
+			}
+		}
+
+		if (changedProperties.has('value') && typeof changedProperties.get('value') === 'undefined') {
+			const editorContainer = this.shadowRoot.querySelector('d2l-html-editor > .d2l-html-editor-container');
+			if (editorContainer) {
+				editorContainer.innerHTML = this.value;
+			}
+		}
 	}
 }
 

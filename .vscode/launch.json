@@ -1,0 +1,90 @@
+{
+    // Use IntelliSense to learn about possible Node.js debug attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest All",
+            "program": "${workspaceRoot}/node_modules/.bin/jest",
+            "args": [
+                "--runInBand",
+                "--env=jsdom",
+                "--watch"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "windows": {
+                "program": "${workspaceRoot}/node_modules/jest/bin/jest"
+            },
+            "cwd": "${workspaceRoot}/",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Jest Current File",
+            "program": "${workspaceRoot}/node_modules/.bin/jest",
+            "disableOptimisticBPs": true,
+            "args": [
+                "--runInBand",
+                "${fileBasename}",
+                "--env=jsdom",
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "windows": {
+                "program": "${workspaceRoot}/node_modules/jest/bin/jest"
+            },
+            "cwd": "${workspaceRoot}/"
+        },
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Jest Current File",
+        //     "program": "${workspaceRoot}/node_modules/.bin/jest",
+        //     "disableOptimisticBPs": true,
+        //     "args": [
+        //         "--runInBand",
+        //         "${input:testName}", // Doesn't resolve input
+        //         "${relativeFile}", // Doesn't work on windows as uses back slash path separators which jest doesn't like
+        //         "--env=jsdom",
+        //     ],
+        //     "console": "integratedTerminal",
+        //     "internalConsoleOptions": "neverOpen",
+        //     "windows": {
+        //         "program": "${workspaceRoot}/node_modules/jest/bin/jest"
+        //     },
+        //     "cwd": "${workspaceRoot}/"
+        // },
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Jest Workspace File",
+        //     "program": "${workspaceRoot}/node_modules/.bin/jest",
+        //     "disableOptimisticBPs": true,
+        //     "args": [
+        //         "--runInBand",
+        //          "--env=jsdom"
+        //     ],
+        //     "console": "integratedTerminal",
+        //     "internalConsoleOptions": "neverOpen",
+        //     "windows": {
+        //         "program": "${workspaceRoot}/node_modules/jest/bin/jest"
+        //     },
+        //     "cwd": "${workspaceRoot}/"
+        // }
+    ],
+    "inputs": [
+        {
+            "type": "promptString",
+            "id": "testName",
+            "description": "The file or name you want to test",
+            "default": "echo ${fileBasename}"
+        }
+    ]
+}

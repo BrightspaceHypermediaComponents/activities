@@ -1,17 +1,12 @@
 import '@d2l/d2l-attachment/components/attachment-list';
 import './d2l-activity-attachment';
-import { css, html, LitElement } from 'lit-element/lit-element';
-import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
+import { css, html } from 'lit-element/lit-element';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { repeat } from 'lit-html/directives/repeat';
+import { shared as store } from './state/attachment-collections-store.js';
 
-class ActivityAttachmentsList extends EntityMixinLit(LitElement) {
-	static get properties() {
-		return {
-			_attachmentUrls: { type: Array },
-			_isEditMode: { type: Boolean }
-		};
-	}
+class ActivityAttachmentsList extends ActivityEditorMixin(MobxLitElement) {
 
 	static get styles() {
 		return css`
@@ -25,34 +20,23 @@ class ActivityAttachmentsList extends EntityMixinLit(LitElement) {
 	}
 
 	constructor() {
-		super();
-		this._setEntityType(AttachmentCollectionEntity);
-	}
-
-	set _entity(entity) {
-		if (!this._entityHasChanged(entity)) {
-			return;
-		}
-
-		if (entity) {
-			const attachments = entity.getAttachmentEntities();
-			this._attachmentUrls = attachments.map(attachment => {
-				if (attachment.href) {
-					return attachment.href;
-				}
-
-				return attachment.getLinkByRel('self').href;
-			});
-			this._isEditMode = entity.canAddAttachments();
-		}
-
-		super._entity = entity;
+		super(store);
 	}
 
 	render() {
+		const collection = store.get(this.href);
+		if (!collection) {
+			return html``;
+		}
+
+		const {
+			attachments,
+			canAddAttachments
+		} = collection;
+
 		return html`
-			<d2l-labs-attachment-list ?editing="${this._isEditMode}">
-				${repeat(this._attachmentUrls, href => href, href => html`
+			<d2l-labs-attachment-list ?editing="${canAddAttachments}">
+				${repeat(attachments, href => href, href => html`
 					<li slot="attachment" class="panel">
 						<d2l-activity-attachment
 							href="${href}"

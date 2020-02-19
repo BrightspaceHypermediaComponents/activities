@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script src="/node_modules/mocha/mocha.js"></script>
+	<script src="/node_modules/wct-mocha/wct-mocha.js"></script>
+</head>
+
+</head>
+
+<body>
+	<script>
+		// Load and run all tests (.html, .js):
+		WCT.loadSuites([
+			'd2l-activity-editor.html',
+			'd2l-activity-editor-buttons.html',
+			'd2l-activity-visibility-editor.html',
+			'd2l-activity-availability-dates-editor.html',
+			'mixins/d2l-activity-editor-container-mixin.html',
+			'mixins/d2l-activity-editor-mixin.html',
+			'd2l-activity-attachments/d2l-activity-attachment.html',
+			'd2l-activity-attachments/d2l-activity-attachments-list.html',
+			'd2l-activity-attachments/d2l-activity-attachments-picker.html',
+			'd2l-activity-attachments/d2l-activity-attachments-editor.html',
+			'd2l-activity-assignment-editor/d2l-activity-assignment-editor.html',
+			'd2l-activity-assignment-editor/d2l-activity-assignment-editor-detail.html'
+		]);
+		// Sometimes when running in Travis/Sauce, WCT is timing out when loading a test.
+		// Using the Sauce "extendedDebugging": true, property in wct.conf.json, I was able
+		// to verify that sometimes it does seem to take a long time to load all the hundreds
+		// of imported modules required to run tests.
+		// See this issue https://github.com/Polymer/tools/issues/3457
+		// Discovered through trial and error that we seem to be able to hack the loadTimeout here.
+		WCT._ChildRunner.loadTimeout = 120000;
+	</script>
+</body>
+
+</html>

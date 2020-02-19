@@ -56,7 +56,7 @@ export const LangAr = {
 			'noResults': 'لا تتوفر أي نتائج هنا.',
 			'noSubmissions': 'لا تتوفر أي عمليات إرسال تتطلب اهتمامك.',
 			'noSubmissionsCourseLevel': 'There are no submissions that need your attention in this course.',
-			'optionsForQuickEval' : 'Options for Quick Eval',
+			'optionsForQuickEval': 'Options for Quick Eval',
 			'publishAll': 'نشر الكل',
 			'publishAllConfirmDialogMessage': 'سيتلقى {evaluated} من أصل {assigned} من المستخدمين ملاحظات حول النشر. هل تريد المتابعة؟',
 			'publishAllToastMessage': 'تم نشر تقييمات {activityName} بنجاح.',

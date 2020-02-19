@@ -18,6 +18,7 @@ jobs:
         echo "Not a pull request and/or no secure environment variables, running headless tests...";
         npm run test:polymer:local || travis_terminate 1;
       fi
+    - npm run test:js
   - stage: visual-difference-tests
     script:
     - |

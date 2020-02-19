@@ -7,6 +7,8 @@ export default {
 	"addOneDriveLink": "OneDrive'dan ekle", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "Mevcut Etkinliğe Bağlantı Ekle", // Tooltip for a button that adds a link to an existing activity
 	"back": "Geri", // Text for a back button
-	"closeFilePickerDialog": "İletişim Kutusunu Kapat", // ARIA text for button to close file picker dialog
+	"closeDialog": "İletişim Kutusunu Kapat", // ARIA text for button to close dialog
+	"recordAudio": "Ses Kaydet", // Text for a button that opens a dialog to record audio
+	"recordVideo": "Video Kaydet", // Text for a button that opens a dialog to record video
 	"save": "Kaydet", // Text for a save button
 };

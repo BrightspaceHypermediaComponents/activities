@@ -1,4 +1,4 @@
-import { defineCE, expect, fixture } from '@open-wc/testing';
+import { defineCE, expect, fixture, oneEvent } from '@open-wc/testing';
 import { ActivityEditorContainerMixin } from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin} from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-mixin.js';
 
@@ -20,5 +20,13 @@ describe('d2l-activity-editor-mixin', function() {
 
 		el.firstElementChild.remove();
 		expect(el._editors).to.be.empty;
+	});
+
+	it('sends pending event', async() => {
+		const el = await fixture(`<${editor}></${editor}>`);
+
+		setTimeout(() => el._fetch(() => Promise.resolve()));
+
+		await oneEvent(el, 'd2l-pending-state');
 	});
 });

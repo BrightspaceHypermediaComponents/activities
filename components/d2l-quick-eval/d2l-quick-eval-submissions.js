@@ -128,9 +128,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				href="[[href]]"
 				token="[[token]]"
 				logging-endpoint="[[loggingEndpoint]]"
-				master-teacher="[[masterTeacher]]"
 				_data="[[_data]]"
-				_header-columns="[[_headerColumns]]"
+				header-columns="[[_headerColumns]]"
 				show-loading-spinner="[[_showLoadingSpinner]]"
 				show-loading-skeleton="[[_showLoadingSkeleton]]"
 				show-load-more="[[_showLoadMore]]"
@@ -157,32 +156,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			},
 			_headerColumns: {
 				type: Array,
-				value: [
-					{
-						key: 'displayName',
-						meta: { firstThenLast: true },
-						headers: [
-							{ key: 'firstName', sortClass: 'first-name', suffix: ',', canSort: false, sorted: false, desc: false },
-							{ key: 'lastName', sortClass: 'last-name', canSort: false, sorted: false, desc: false }
-						]
-					},
-					{
-						key: 'activityName',
-						headers: [{ key: 'activityName', sortClass: 'activity-name', canSort: false, sorted: false, desc: false }]
-					},
-					{
-						key: 'courseName',
-						headers: [{ key: 'courseName', sortClass: 'course-name', canSort: false, sorted: false, desc: false }]
-					},
-					{
-						key: 'submissionDate',
-						headers: [{ key: 'submissionDate', sortClass: 'completion-date', canSort: false, sorted: false, desc: false }]
-					},
-					{
-						key: 'masterTeacher',
-						headers: [{ key: 'masterTeacher', sortClass: 'primary-facilitator', canSort: false, sorted: false, desc: false }]
-					}
-				]
+				value: [],
+				computed: '_computeHeaders(masterTeacher, courseLevel)'
 			},
 			_numberOfActivitiesToShow: {
 				type: Number,
@@ -378,12 +353,13 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		entity.entities.forEach(function(activity) {
 			promises.push(new Promise(function(resolve) {
 				const activityLink = this._getRelativeUriProperty(activity, extraParams);
+				const subDate = this._getSubmissionDate(activity);
 				const item = {
 					displayName: '',
 					userHref: this._getUserHref(activity),
 					courseName: '',
 					activityNameHref: this._getActivityNameHref(activity),
-					submissionDate: this._getSubmissionDate(activity),
+					localizedSubmissionDate: this.formatDateTime(new Date(subDate)),
 					activityLink: this._formBackToQuickEvalLink(activityLink),
 					masterTeacher: '',
 					isDraft: this._determineIfActivityIsDraft(activity)
@@ -458,6 +434,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 		telemetryData.columnName = headerId;
 
 		this._headerColumns.forEach((headerColumn, i) => {
+			this._handleNameSwap(headerColumn, headerId);
 			headerColumn.headers.forEach((header, j) => {
 				if ((header.key === headerId) && header.canSort) {
 					const descending = header.sorted && !header.desc;
@@ -482,6 +459,27 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			});
 		} else {
 			return Promise.reject(new Error(`Could not find sortable header for ${headerId}`));
+		}
+	}
+
+	_shouldSwapNames(id) {
+		if (id === 'firstName') {
+			return this._headerColumns[0].headers[0].key !== 'firstName';
+		}
+		if (id === 'lastName') {
+			return this._headerColumns[0].headers[0].key !== 'lastName';
+		}
+		return false;
+	}
+
+	_handleNameSwap(column, id) {
+		if (column.key === 'displayName' && this._shouldSwapNames(id)) {
+			const tmp = column.headers[0];
+			this.set('_headerColumns.0.headers.0', column.headers[1]);
+			this.set('_headerColumns.0.headers.1', tmp);
+			this.set('_headerColumns.0.headers.0.suffix', ',');
+			this.set('_headerColumns.0.headers.1.suffix', '');
+			this.set('_headerColumns.0.meta.firstThenLast', id === 'firstName');
 		}
 	}
 
@@ -555,6 +553,49 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 
 	_computeShowSearchSummary(_loading, filtersLoading, searchLoading, searchApplied) {
 		return !_loading && !filtersLoading && !searchLoading && searchApplied;
+	}
+
+	_computeHeaders(masterTeacher, courseLevel) {
+
+		const result = [];
+		result.push({
+			key: 'displayName',
+			meta: { firstThenLast: true },
+			headers: [
+				{ key: 'firstName', sortClass: 'first-name', suffix: ',', canSort: false, sorted: false, desc: false },
+				{ key: 'lastName', sortClass: 'last-name', canSort: false, sorted: false, desc: false }
+			],
+			type: 'user',
+			widthOverride: masterTeacher ? 25 : 30
+		});
+		result.push({
+			key: 'activityName',
+			headers: [{ key: 'activityName', sortClass: 'activity-name', canSort: false, sorted: false, desc: false }],
+			type: 'activity-name',
+			truncated: true
+		});
+		if (!courseLevel) {
+			result.push({
+				key: 'courseName',
+				headers: [{ key: 'courseName', sortClass: 'course-name', canSort: false, sorted: false, desc: false }],
+				type: 'none',
+				truncated: true
+			});
+		}
+		result.push({
+			key: 'localizedSubmissionDate',
+			headers: [{ key: 'submissionDate', sortClass: 'completion-date', canSort: false, sorted: false, desc: false }],
+			type: 'none',
+			widthOverride: masterTeacher ? 15 : 20
+		});
+		if (masterTeacher) {
+			result.push({
+				key: 'masterTeacher',
+				headers: [{ key: 'masterTeacher', sortClass: 'primary-facilitator', canSort: false, sorted: false, desc: false }],
+				type: 'none'
+			});
+		}
+		return result;
 	}
 
 	ready() {

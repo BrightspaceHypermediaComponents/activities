@@ -623,8 +623,13 @@ class D2lActivityListItem extends mixinBehaviors([
 
 	_handleOrganizationResponse(organization) {
 		let description = organization.properties && organization.properties.description;
+
+		//Use a temporary div to strip html out of the content and display html entities.
 		if (description) {
 			description = description.replace(/<[^>]*>/g, '');
+			const tempDiv = document.createElement('div');
+			tempDiv.innerHTML = description;
+			description = tempDiv.textContent || tempDiv.innerText;
 		}
 		this._description = description;
 

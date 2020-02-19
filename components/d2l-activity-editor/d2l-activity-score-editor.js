@@ -355,13 +355,13 @@ class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixin
 										@d2l-menu-item-select="${this._setUngraded}"
 									></d2l-menu-item>
 									<d2l-menu-item
-										text="Edit Grade Item Link"
+										text="${this.localize('editGradesLink')}"
 										@d2l-menu-item-select="${this._setGradeItem}"
 									></d2l-menu-item>
 								</d2l-menu>
 							</d2l-dropdown-menu>
 						</d2l-dropdown>
-						<d2l-dialog title-text="Edit Grade Item Link">
+						<d2l-dialog title-text="${this.localize('editGradesLink')}">
 							<d2l-activity-grade-candidate-selector
 								href="${this._gradeCandidatesHref}"
 								.token="${this.token}">

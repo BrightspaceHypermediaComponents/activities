@@ -17,7 +17,6 @@ import './d2l-quick-eval-no-submissions-text.js';
 import './d2l-quick-eval-no-criteria-results-image.js';
 import './d2l-quick-eval-submissions-skeleton.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
-import {StringEndsWith} from './compatability/ie11shims.js';
 
 /**
  * @customElement
@@ -97,9 +96,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					overflow: hidden;
 					text-overflow: ellipsis;
 					max-width: 24rem;
-					text-overflow: ellipsis;
 					white-space: nowrap;
-					overflow: hidden;
 				}
 				:host(:dir(rtl)) d2l-activity-name {
 					padding-right: 0;
@@ -144,46 +141,48 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					white-space: nowrap;
 					overflow: hidden;
 				}
+				.d2l-quick-eval-submissions-overflow-hidden {
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
 			</style>
 			<d2l-offscreen id$="[[_tableDescriptionId]]">[[localize('tableTitle')]]</d2l-offscreen>
 			<template is="dom-if" if="[[courseLevel]]">
 				<h2 title="[[courseLevelName]]" class="d2l-quick-eval-submissions-course-name-heading">[[courseLevelName]]</h2>
 			</template>
-			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[_headerColumns.length]]" aria-rowcount$="[[_data.length]]">
+			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[headerColumns.length]]" aria-rowcount$="[[_data.length]]">
 				<d2l-thead>
 					<d2l-tr>
-						<dom-repeat items="[[_headerColumns]]" as="headerColumn">
+						<dom-repeat items="[[headerColumns]]" as="headerColumn">
 							<template>
-								<template is="dom-if" if="[[_shouldDisplayColumn(headerColumn.key)]]">
-									<d2l-th class$=[[_getWidthCssClass(headerColumn.key)]]>
-										<dom-repeat items="[[headerColumn.headers]]" as="header">
-											<template>
-												<template is="dom-if" if="[[header.canSort]]">
-													<d2l-table-col-sort-button
-														nosort$="[[!header.sorted]]"
-														desc$="[[header.desc]]"
-														on-click="_dispatchSortRequestedEvent"
-														id="[[header.key]]"
-														title="[[_localizeSortText(header.key)]]"
-														aria-label$="[[_localizeSortText(header.key)]]"
-														aria-live="assertive"
-													>
-														<span aria-hidden="true">[[localize(header.key)]]</span>
-													</d2l-table-col-sort-button>
-													<template is="dom-if" if="[[header.suffix]]">
-														<span>[[header.suffix]]&nbsp;</span>
-													</template>
-												</template>
-												<template is="dom-if" if="[[!header.canSort]]">
-													<span>[[localize(header.key)]]</span>
-													<template is="dom-if" if="[[header.suffix]]">
-														<span>[[header.suffix]]&nbsp;</span>
-													</template>
+								<d2l-th class$=[[_getWidthCssClass(headerColumn.widthOverride)]]>
+									<dom-repeat items="[[headerColumn.headers]]" as="header">
+										<template>
+											<template is="dom-if" if="[[header.canSort]]">
+												<d2l-table-col-sort-button
+													nosort$="[[!header.sorted]]"
+													desc$="[[header.desc]]"
+													on-click="_dispatchSortRequestedEvent"
+													id="[[header.key]]"
+													title="[[_localizeSortText(header.key)]]"
+													aria-label$="[[_localizeSortText(header.key)]]"
+													aria-live="assertive"
+												>
+													<span aria-hidden="true">[[localize(header.key)]]</span>
+												</d2l-table-col-sort-button>
+												<template is="dom-if" if="[[header.suffix]]">
+													<span>[[header.suffix]]&nbsp;</span>
 												</template>
 											</template>
-										</dom-repeat>
-									</d2l-th>
-								</template>
+											<template is="dom-if" if="[[!header.canSort]]">
+												<span>[[localize(header.key)]]</span>
+												<template is="dom-if" if="[[header.suffix]]">
+													<span>[[header.suffix]]&nbsp;</span>
+												</template>
+											</template>
+										</template>
+									</dom-repeat>
+								</d2l-th>
 							</template>
 						</dom-repeat>
 					</d2l-tr>
@@ -192,40 +191,40 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					<dom-repeat items="[[_data]]" as="s">
 						<template>
 							<d2l-tr>
-								<d2l-td class="d2l-username-column">
-									<template is="dom-if" if="[[s.userHref]]">
-										<d2l-profile-image
-											class="d2l-user-badge-image"
-											href="[[s.userHref]]"
-											token="[[token]]"
-											small
-											aria-hidden="true">
-										</d2l-profile-image>
+								<dom-repeat items="[[headerColumns]]" as="c">
+									<template>
+										<template is="dom-if" if="[[_isColumn(c, 'user')]]">
+											<d2l-td class="d2l-quick-eval-truncated-column d2l-username-column">
+												<template is="dom-if" if="[[s.userHref]]">
+													<d2l-profile-image
+														class="d2l-user-badge-image"
+														href="[[s.userHref]]"
+														token="[[token]]"
+														small
+														aria-hidden="true">
+													</d2l-profile-image>
+												</template>
+												<d2l-link
+													title="[[_localizeEvaluationText(s, c.meta.firstThenLast)]]"
+													href="[[s.activityLink]]"
+													aria-label$="[[_localizeEvaluationText(s, c.meta.firstThenLast)]]"
+													class="d2l-quick-eval-submissions-table-name-link"
+												>[[_formatDisplayName(s, c.meta.firstThenLast)]]</d2l-link>
+												<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
+											</d2l-td>
+										</template>
+										<template is="dom-if" if="[[_isColumn(c, 'activity-name')]]">
+											<d2l-td  class$="[[_computeTruncateClass(c.truncated)]]">
+												<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
+											</d2l-td>
+										</template>
+										<template is="dom-if" if="[[_isColumn(c, 'none')]]">
+											<d2l-td class$="[[_computeTruncateClass(c.truncated)]] d2l-quick-eval-submissions-overflow-hidden">
+												<span title="[[_computeColumnText(s, c)]]">[[_computeColumnText(s, c)]]</span>
+											</d2l-td>
+										</template>
 									</template>
-									<d2l-link
-										title="[[_localizeEvaluationText(s, _headerColumns.0.meta.firstThenLast)]]"
-										href="[[s.activityLink]]"
-										aria-label$="[[_localizeEvaluationText(s, _headerColumns.0.meta.firstThenLast)]]"
-										class="d2l-quick-eval-submissions-table-name-link"
-									>[[_formatDisplayName(s, _headerColumns.0.meta.firstThenLast)]]</d2l-link>
-									<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
-								</d2l-td>
-								<d2l-td class="d2l-quick-eval-truncated-column d2l-activity-name-column">
-									<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
-								</d2l-td>
-								<template is="dom-if" if="[[_shouldDisplayColumn('courseName')]]">
-									<d2l-td class="d2l-quick-eval-truncated-column d2l-course-name-column">
-										<span title="[[s.courseName]]">[[s.courseName]]</span>
-									</d2l-td>
-								</template>
-								<d2l-td>
-									<span>[[_localizeDateTimeFormat(s.submissionDate)]]</span>
-								</d2l-td>
-								<template is="dom-if" if="[[_shouldDisplayColumn('masterTeacher')]]">
-									<d2l-td>
-										<span>[[s.masterTeacher]]</span>
-									</d2l-td>
-								</template>
+								<dom-repeat>
 							</d2l-tr>
 						</template>
 					</dom-repeat>
@@ -263,11 +262,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 	}
 	static get properties() {
 		return {
-			masterTeacher: {
-				type: Boolean,
-				value: false
-			},
-			_headerColumns: {
+			headerColumns: {
 				type: Array,
 				value: []
 			},
@@ -285,6 +280,10 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 					isHealthy: true,
 					errorMessage: ''
 				}
+			},
+			_defaultColumnWidth: {
+				type: Number,
+				computed: '_computeDefaultColumnWidth(headerColumns)'
 			},
 			showLoadingSpinner: {
 				type: Boolean,
@@ -330,24 +329,12 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 	}
 	static get observers() {
 		return [
-			'_handleNameSwap(_headerColumns.0.headers.*)',
 			'_handleNameFocusOnPageForwardBack(showLoadingSkeleton, _data)'
 		];
 	}
 
 	_computeIsLoading(showLoadingSpinner, showLoadingSkeleton) {
 		return showLoadingSpinner || showLoadingSkeleton;
-	}
-
-	_handleNameSwap(entry) {
-		if (entry && StringEndsWith(entry.path, '1.sorted')) {
-			const tmp = this._headerColumns[0].headers[0];
-			this.set('_headerColumns.0.headers.0', this._headerColumns[0].headers[1]);
-			this.set('_headerColumns.0.headers.1', tmp);
-			this.set('_headerColumns.0.headers.0.suffix', ',');
-			this.set('_headerColumns.0.headers.1.suffix', '');
-			this.set('_headerColumns.0.meta.firstThenLast', this._headerColumns[0].headers[0].key === 'firstName');
-		}
 	}
 
 	_handleNameFocusOnPageForwardBack() {
@@ -404,47 +391,34 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 		return `${lastName}, ${firstName}`;
 	}
 
-	_localizeDateTimeFormat(localizedDate) {
-		return this.formatDateTime(new Date(localizedDate));
+	_getWidthCssClass(relativeWidth) {
+		return `d2l-quick-eval-${relativeWidth || this._defaultColumnWidth}-column`;
 	}
 
-	_getWidthCssClass(columnKey) {
-		if (this.masterTeacher) {
-			switch (columnKey) {
-				case 'displayName':
-					return 'd2l-quick-eval-25-column';
-				case 'activityName':
-				case 'courseName':
-				case 'masterTeacher':
-					return 'd2l-quick-eval-20-column';
-				case 'submissionDate':
-					return 'd2l-quick-eval-15-column';
-				default:
-					throw new Error(`Invalid column key: ${columnKey}`);
+	_computeDefaultColumnWidth(headers) {
+		let unDef = 0, totalDef = 0;
+		headers.forEach(h => {
+			totalDef += h.widthOverride || 0;
+			if (!h.widthOverride) {
+				unDef++;
 			}
-		} else {
-			switch (columnKey) {
-				case 'displayName':
-					return 'd2l-quick-eval-30-column';
-				case 'activityName':
-				case 'courseName':
-					return 'd2l-quick-eval-25-column';
-				case 'submissionDate':
-					return 'd2l-quick-eval-20-column';
-				default:
-					throw new Error(`Invalid column key: ${columnKey}`);
-			}
+		});
+		if (unDef > 0) {
+			return (100 - totalDef) / unDef;
 		}
+		return 0;
 	}
 
-	_shouldDisplayColumn(columnKey) {
-		if (columnKey === 'masterTeacher') {
-			return this.masterTeacher;
-		}
-		if (columnKey === 'courseName') {
-			return !this.courseLevel;
-		}
-		return true;
+	_computeTruncateClass(truncated) {
+		return truncated ? 'd2l-quick-eval-truncated-column' : '';
+	}
+
+	_isColumn(column, type) {
+		return column.type === type || (!column.type && type === 'none');
+	}
+
+	_computeColumnText(row, column) {
+		return row[column.key];
 	}
 
 	_computeTableDescriptionId() {

@@ -15,7 +15,7 @@ const editor = defineCE(
 );
 
 function connectedEvent(editor) {
-	return  new CustomEvent('d2l-activity-editor-connected', {
+	return new CustomEvent('d2l-activity-editor-connected', {
 		detail: { editor },
 		bubbles: true,
 		composed: true,

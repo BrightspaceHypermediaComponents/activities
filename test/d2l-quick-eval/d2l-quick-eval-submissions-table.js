@@ -377,34 +377,44 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 				done();
 			});
 		});
-		test('_getWidthCssClass returns correct value when passed column key (with master teacher off)', () => {
-			const validColumnKeys = ['displayName', 'activityName', 'courseName', 'submissionDate'];
-			const expectedCssClasses = ['d2l-quick-eval-30-column', 'd2l-quick-eval-25-column', 'd2l-quick-eval-25-column', 'd2l-quick-eval-20-column'];
-
-			const actualCssClasses = validColumnKeys.map(list._getWidthCssClass.bind(list));
-			assert.deepEqual(expectedCssClasses, actualCssClasses);
-		});
-		test('_getWidthCssClass returns correct value when passed column key (with master teacher on)', () => {
-			const validColumnKeys = ['displayName', 'activityName', 'courseName', 'submissionDate', 'masterTeacher'];
-			const expectedCssClasses = ['d2l-quick-eval-25-column', 'd2l-quick-eval-20-column', 'd2l-quick-eval-20-column', 'd2l-quick-eval-15-column', 'd2l-quick-eval-20-column'];
-
-			list.masterTeacher = true;
-
-			const actualCssClasses = validColumnKeys.map(list._getWidthCssClass.bind(list));
-			assert.deepEqual(expectedCssClasses, actualCssClasses);
-		});
-		suite('_getWidthCssClass throws an error when passed an invalid column key', () => {
+		suite('_getWidthCssClass and _defaultColumnWidth', () => {
 			[
-				{
-					name: 'master teacher on', masterTeacher: true
-				},
-				{
-					name: 'master teacher off', masterTeacher: false
-				}
+				{ input: 15, output: 'd2l-quick-eval-15-column'},
+				{ input: 20, output: 'd2l-quick-eval-20-column'},
+				{ input: 25, output: 'd2l-quick-eval-25-column'},
+				{ input: 30, output: 'd2l-quick-eval-30-column'},
+				{ input: null, output: 'd2l-quick-eval-25-column'},
+				{ input: undefined, output: 'd2l-quick-eval-25-column'}
+			].forEach(testCase => {
+				test(`_getWidthCssClass returns ${testCase.output} when given ${testCase.input}`, () => {
+					list.headerColumns = [{}, {}, {}, {}];
+					assert.equal(list._getWidthCssClass(testCase.input), testCase.output);
+				});
+			});
+			[
+				{ headers: [{}, {}, {}, {}], output: 25 },
+				{ headers: [{}, {}, {}, {}, {}], output: 20 },
+				{ headers: [{ widthOverride: 40 }, {}, {}, {}], output: 20 },
+				{ headers: [{}, {}, { widthOverride: 40 }, {}], output: 20 },
+				{ headers: [{ widthOverride: 30 }, {}, { widthOverride: 20 }, {}], output: 25 },
+				{ headers: [{ widthOverride: 25 }, {}, {}, {}, { widthOverride: 15 }], output: 20 }
+			].forEach(testCase => {
+				test('_defaultColumnWidth is calculated correctly.', () => {
+					list.headerColumns = testCase.headers;
+					assert.equal(testCase.output, list._defaultColumnWidth);
+					assert.equal(`d2l-quick-eval-${testCase.output}-column`, list._getWidthCssClass());
+				});
+			});
+		});
+		suite('_isColumn', () => {
+			[
+				{ input: 'same', match: 'same', expected: true },
+				{ input: 'same', match: 'different', expected: false },
+				{ input: null, match: 'different', expected: false },
+				{ input: null, match: 'none', expected: true }
 			].forEach((testCase) => {
-				test(testCase.name, () => {
-					list.masterTeacher = testCase.masterTeacher;
-					assert.throws(() => list._getWidthCssClass('notARealColumnKey'), 'Invalid column key: notARealColumnKey');
+				test(`Calling _isColumn with ${testCase.input} and ${testCase.match} should ${testCase.expected ? '' : 'not '} match.`, () => {
+					assert.equal(list._isColumn({type: testCase.input}, testCase.match), testCase.expected);
 				});
 			});
 		});

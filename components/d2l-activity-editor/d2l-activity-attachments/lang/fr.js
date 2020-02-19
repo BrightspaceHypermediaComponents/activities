@@ -6,7 +6,9 @@ export default {
 	"addLink": "Joindre un lien Web", // Tooltip for a button that adds a link to a URL
 	"addOneDriveLink": "Joindre à partir de OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"addQuicklink": "Joindre un lien à l’activité existante", // Tooltip for a button that adds a link to an existing activity
-	"back": "Back", // Text for a back button
-	"closeFilePickerDialog": "Fermer la boîte de dialogue", // ARIA text for button to close file picker dialog
+	"back": "Précédent", // Text for a back button
+	"closeDialog": "Fermer la boîte de dialogue", // ARIA text for button to close dialog
+	"recordAudio": "Enregistrer un fichier audio", // Text for a button that opens a dialog to record audio
+	"recordVideo": "Enregistrer une vidéo", // Text for a button that opens a dialog to record video
 	"save": "Enregistrer", // Text for a save button
 };

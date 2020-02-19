@@ -16,9 +16,10 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 		};
 	}
 
-	constructor() {
+	constructor(store) {
 		super();
 		this._container = null;
+		this.store = store;
 	}
 
 	async save() {}
@@ -36,6 +37,21 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 		}
 	}
 
+	async _fetch(fetcher) {
+		const promise = fetcher();
+		this._sendPendingEvent(promise);
+		return await promise;
+	}
+
+	_sendPendingEvent(promise) {
+		const pendingEvent = new CustomEvent('d2l-pending-state', {
+			composed: true,
+			bubbles: true,
+			detail: { promise }
+		});
+		this.dispatchEvent(pendingEvent);
+	}
+
 	connectedCallback() {
 		if (super.connectedCallback) {
 			super.connectedCallback();
@@ -51,6 +67,15 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 
 		if (super.disconnectedCallback) {
 			super.disconnectedCallback();
+		}
+	}
+
+	updated(changedProperties) {
+		super.updated(changedProperties);
+
+		if ((changedProperties.has('href') || changedProperties.has('token')) &&
+			this.href && this.token) {
+			this.store && this._fetch(() => this.store.fetch(this.href, this.token));
 		}
 	}
 };

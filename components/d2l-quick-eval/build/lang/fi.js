@@ -54,7 +54,7 @@ export const LangFi = {
 			'noResults': 'No results here.',
 			'noSubmissions': 'There are no submissions that need your attention.',
 			'noSubmissionsCourseLevel': 'There are no submissions that need your attention in this course.',
-			'optionsForQuickEval' : 'Options for Quick Eval',
+			'optionsForQuickEval': 'Options for Quick Eval',
 			'publishAll': 'Publish All',
 			'publishAllConfirmDialogMessage': '{evaluated} out of {assigned} users will receive feedback on publishing. Do you want to continue?',
 			'publishAllToastMessage': '{activityName} evaluations published successfully.',

@@ -1,7 +1,7 @@
-import {html, css, LitElement} from 'lit-element/lit-element.js';
+import {html, LitElement} from 'lit-element/lit-element.js';
 import {LitQuickEvalLocalize} from './LitQuickEvalLocalize.js';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
-import { heading2Styles } from '@brightspace-ui/core/components/typography/styles'
+import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import '@brightspace-ui/core/components/link/link.js';
 
 class D2LQuickEvalNoSubmissionsText extends LitQuickEvalLocalize(LitElement) {

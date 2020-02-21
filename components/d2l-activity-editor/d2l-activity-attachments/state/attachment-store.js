@@ -31,16 +31,16 @@ export class AttachmentStore extends ObjectStore {
 		return this._createLink(OneDriveAttachment, name, url);
 	}
 
-	_createFile(Type, name, fileSystemType, fileId) {
+	_createFile(Type, name, fileSystemType, fileId, previewUrl) {
 		const tempId = nextTempId();
 		const file = new Type(tempId);
-		file.initFile(name, fileSystemType, fileId);
+		file.initFile(name, fileSystemType, fileId, previewUrl);
 		this.put(tempId, file);
 		return file;
 	}
 
-	createFile(name, fileSystemType, fileId) {
-		return this._createFile(FileAttachment, name, fileSystemType, fileId);
+	createFile(name, fileSystemType, fileId, previewUrl) {
+		return this._createFile(FileAttachment, name, fileSystemType, fileId, previewUrl);
 	}
 
 	createAudio(name, fileSystemType, fileId) {

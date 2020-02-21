@@ -64,7 +64,8 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 			for (const file of files) {
 				const fileSystemType = file.m_fileSystemType;
 				const fileId = file.m_id;
-				this._addToCollection(attachmentStore.createFile(file.m_name, fileSystemType, fileId));
+				const previewUrl = file.m_previewUrl;
+				this._addToCollection(attachmentStore.createFile(file.m_name, fileSystemType, fileId, previewUrl));
 			}
 		};
 		// Referenced by the server-side ActivitiesView renderer

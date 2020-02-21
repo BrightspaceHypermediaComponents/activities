@@ -84,7 +84,7 @@ describe('Attachment', function() {
 	describe('FileAttachment', () => {
 		it('initializes', () => {
 			const file = new FileAttachment('http://attachment/1', 'token');
-			file.initFile('MyDocument.pdf', 'Temp', '12345');
+			file.initFile('MyDocument.pdf', 'Temp', '12345', 'https://fake.com/MyDocument.pdf/view');
 
 			expect(file.attachment.name).to.equal('MyDocument.pdf');
 			expect(file.attachment.id).to.equal('http://attachment/1');
@@ -92,8 +92,7 @@ describe('Attachment', function() {
 			expect(file.fileSystemType).to.equal('Temp');
 			expect(file.fileId).to.equal('12345');
 
-			// TODO - Need to find a way to set url to temp file
-			expect(file.attachment.url).to.equal('MyDocument.pdf');
+			expect(file.attachment.url).to.equal('https://fake.com/MyDocument.pdf/view');
 
 			expect(file.creating).to.be.true;
 			expect(file.editing).to.be.true;

@@ -31,11 +31,11 @@ describe('Attachment Store', function() {
 
 	describe('Files', () => {
 		it('creates new', () => {
-			const file = store.createFile('MyDocument.pdf', 'Temp', '12345');
+			const file = store.createFile('MyDocument.pdf', 'Temp', '12345', 'https://fake.com/MyDocument.pdf/view');
 
 			expect(file).to.be.an.instanceof(FileAttachment);
 			expect(file.attachment.name).to.equal('MyDocument.pdf');
-			expect(file.attachment.url).to.equal('MyDocument.pdf');
+			expect(file.attachment.url).to.equal('https://fake.com/MyDocument.pdf/view');
 			expect(store.get(file.href)).to.equal(file);
 		});
 	});

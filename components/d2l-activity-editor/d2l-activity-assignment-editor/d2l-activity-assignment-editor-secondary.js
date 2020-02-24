@@ -78,14 +78,10 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 				.token="${this.token}">
 			</d2l-activity-assignment-editor-submission-and-completion>
 
-			<d2l-activity-rubrics-list-container
-				href="${this._activityUsageHref}"
-				.token="${this.token}">
-			</d2l-activity-rubrics-list-container>
-
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
-				.token="${this.token}">
+				.token="${this.token}"
+				activityUsageHref=${this._activityUsageHref}>
 			</d2l-activity-assignment-evaluation-editor>
 		`;
 	}

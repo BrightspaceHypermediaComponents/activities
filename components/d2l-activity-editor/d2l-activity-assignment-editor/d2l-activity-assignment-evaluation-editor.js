@@ -14,6 +14,7 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 		return {
 			href: { type: String },
 			token: { type: Object },
+			activityUsageHref: { type: String }
 		};
 	}
 
@@ -102,6 +103,15 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 		`;
 	}
 
+	_renderRubricsCollectionEditor() {
+		return html`
+			<d2l-activity-rubrics-list-container
+				href="${this.activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-rubrics-list-container>
+		`;
+	}
+
 	render() {
 
 		return html`
@@ -114,6 +124,7 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 					${this._renderAnnotationsSummary()}
 					${this._renderTurnitinSummary()}
 				</ul>
+				${this._renderRubricsCollectionEditor()}
 				${this._renderAnnotationsEditor()}
 				${this._renderAnonymousMarkingEditor()}
 				${this._renderTurnitinEditor()}

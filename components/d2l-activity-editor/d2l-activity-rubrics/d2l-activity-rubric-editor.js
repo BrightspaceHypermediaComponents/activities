@@ -5,7 +5,7 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { SaveStatusMixin } from './save-status-mixin';
+import { SaveStatusMixin } from '../save-status-mixin';
 
 class ActivityRubricsEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit((LitElement)))) {
 

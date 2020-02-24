@@ -1,7 +1,7 @@
 import './d2l-activity-assignment-availability-editor.js';
 import './d2l-activity-assignment-evaluation-editor.js';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
-import '../d2l-activity-rubrics-list-container.js';
+import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';

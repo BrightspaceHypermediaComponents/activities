@@ -1,3 +1,4 @@
+import './d2l-activity-conditions-editor.js';
 import '@brightspace-ui/core/components/button/button.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
@@ -46,6 +47,7 @@ class ActivityReleaseConditionsEditor extends EntityMixinLit(LocalizeMixin(LitEl
 		if (entity) {
 			this._hidden = !entity.canEditReleaseConditions();
 			this._url = entity.editReleaseConditionsUrl();
+			this._conditionsHref = entity.conditionsHref();
 		}
 		super._entity = entity;
 	}
@@ -69,6 +71,11 @@ class ActivityReleaseConditionsEditor extends EntityMixinLit(LocalizeMixin(LitEl
 				text="${this.localize('btnEditReleaseConditions')}"
 				@click="${this._onClickEdit}">
 			</d2l-button-subtle>
+
+			<d2l-activity-conditions-editor
+				href="${this._conditionsHref}"
+				.token="${this.token}">
+			</d2l-activity-conditions-editor>
 		`;
 	}
 }

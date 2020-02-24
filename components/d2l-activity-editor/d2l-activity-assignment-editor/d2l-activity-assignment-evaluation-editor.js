@@ -2,7 +2,7 @@ import './d2l-activity-assignment-annotations-editor.js';
 import './d2l-activity-assignment-annotations-summary.js';
 import './d2l-activity-assignment-anonymous-marking-editor.js';
 import './d2l-activity-assignment-anonymous-marking-summary.js';
-import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container.js'
+import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container.js';
 import './d2l-assignment-turnitin-editor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { getLocalizeResources } from '../localization.js';

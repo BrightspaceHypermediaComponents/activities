@@ -14,7 +14,7 @@ class D2LQuickEvalNoCriteriaResultsImage extends PolymerElement {
 			</style>
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 155.475 205.349">
 			    <defs>
-			        <style>.cls-1{fill:#f9fafb;}.cls-2{fill:#e6eaf0;}.cls-3,.cls-6{fill:none;stroke-miterlimit:10;stroke-width:6.343px;}.cls-3{stroke:#b9c2d0;}.cls-4{fill:#b9c2d0;}.cls-5{fill:#7c8695;}.cls-6{stroke:#ffba59;stroke-linecap:round;}.cls-7{fill:#fae5c8;}.cls-8{fill:#f2f3f5;}.cls-9{fill:#ffba59;}.cls-10{fill:#fae3cf;}.cls-11{fill:#ff6b70;}.cls-12{fill:#fae1e2;}</style>
+			        <style>.cls-1{fill:#f9fbff;}.cls-2{fill:#e3e9f1;}.cls-3,.cls-6{fill:none;stroke-miterlimit:10;stroke-width:6.343px;}.cls-3{stroke:#b5bdc2;}.cls-4{fill:#b5bdc2;}.cls-5{fill:#868c8f;}.cls-6{stroke:#ffba59;stroke-linecap:round;}.cls-7{fill:#fff9d6;}.cls-8{fill:#f1f5fb;}.cls-9{fill:#ffba59;}.cls-10{fill:#fff3e0;}.cls-11{fill:#ff575a;}.cls-12{fill:#ffede8;}</style>
 			    </defs>
 			    <g data-name="Layer 2">
 			        <g data-name="Layer 4">

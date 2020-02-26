@@ -1,6 +1,6 @@
 import 'd2l-dropdown/d2l-dropdown-button-subtle.js';
 import 'd2l-dropdown/d2l-dropdown-menu.js';
-import { css, html, LitElement } from 'lit-element/lit-element';
+import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from './localization';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';

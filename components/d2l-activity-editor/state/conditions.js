@@ -1,6 +1,6 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { LegacyConditions } from 'siren-sdk/src/activities/conditions/LegacyConditions.js';
 import { fetchEntity } from '../state/fetch-entity.js';
+import { LegacyConditions } from 'siren-sdk/src/activities/conditions/LegacyConditions.js';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -118,15 +118,7 @@ export class Conditions {
 
 	_constructKey(dto) {
 
-		return (
-			dto.ConditionTypeId + ',' +
-			dto.Id1 + ',' +
-			dto.Id2 + ',' +
-			dto.Id2 + ',' +
-			dto.Percentage1 + ',' +
-			dto.Percentage2 + ',' +
-			dto.Int1
-		);
+		return `${dto.ConditionTypeId},${dto.Id1},${dto.Id2},${dto.Id2},${dto.Percentage1},${dto.Percentage2},${dto.Int1}`;
 	}
 
 	add(dto) {
@@ -175,7 +167,7 @@ export class Conditions {
 			Percentage1: dto.Percentage1,
 			Percentage2: dto.Percentage2,
 			Int1: dto.Int1
-		}
+		};
 	}
 
 	async save() {

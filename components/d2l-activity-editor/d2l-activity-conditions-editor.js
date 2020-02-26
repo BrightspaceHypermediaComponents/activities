@@ -144,16 +144,16 @@ class ActivityConditionsEditor extends ActivityEditorMixin(LocalizeMixin(MobxLit
 
 		// Launch into our friend, the LMS, to do the thing.
 		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
-				/*               opener: */ event.target,
-				/*             location: */ location,
-				/*          srcCallback: */ 'CreateCondition',
-				/*       resizeCallback: */ '',
-				/*      responseDataKey: */ 'condition',
-				/*                width: */ 638,
-				/*               height: */ 588,
-				/*            closeText: */ createNewCloseText,
-				/*              buttons: */ buttons,
-				/* forceTriggerOnCancel: */ false
+			/*               opener: */ event.target,
+			/*             location: */ location,
+			/*          srcCallback: */ 'CreateCondition',
+			/*       resizeCallback: */ '',
+			/*      responseDataKey: */ 'condition',
+			/*                width: */ 638,
+			/*               height: */ 588,
+			/*            closeText: */ createNewCloseText,
+			/*              buttons: */ buttons,
+			/* forceTriggerOnCancel: */ false
 		);
 		delayedResult.AddListener(result => {
 

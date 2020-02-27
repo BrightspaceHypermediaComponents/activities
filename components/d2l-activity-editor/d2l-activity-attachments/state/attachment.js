@@ -96,7 +96,7 @@ export class OneDriveAttachment extends LinkAttachment {
 }
 
 export class FileAttachment extends Attachment {
-	initFile(name, fileSystemType, fileId) {
+	initFile(name, fileSystemType, fileId, previewUrl) {
 		this.editing = true;
 		this.creating = true;
 
@@ -106,8 +106,8 @@ export class FileAttachment extends Attachment {
 		this.attachment = {
 			id: this.href,
 			name: name,
-			// TODO - Need to find a way to get access to temp file URL
-			url: name,
+			// file preview URL
+			url: previewUrl,
 			type: 'Document'
 		};
 	}

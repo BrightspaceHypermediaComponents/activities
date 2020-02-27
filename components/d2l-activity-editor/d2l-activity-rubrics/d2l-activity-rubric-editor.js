@@ -79,7 +79,7 @@ class ActivityRubricsEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit((Lit
 				class="delete-association-button"
 				icon="tier1:close-default"
 				@click="${this._deleteAssociation}"
-			/>
+			></d2l-button-icon>
 
 		</div>
 		`;

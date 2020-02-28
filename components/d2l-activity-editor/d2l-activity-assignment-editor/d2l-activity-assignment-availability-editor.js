@@ -4,6 +4,8 @@ import '../d2l-activity-release-conditions-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
+
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
@@ -45,13 +47,9 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 				.d2l-body-small {
 					margin: 0 0 0.3rem 0;
 				}
-
-				.summary {
-					list-style: none;
-					padding-left: 0.2rem;
-					color: var(--d2l-color-galena);
-				}
-			`
+			`,
+			summarizerHeaderStyles,
+			summarizerSummaryStyles,
 		];
 	}
 
@@ -127,13 +125,13 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 	render() {
 		return html`
 			<d2l-labs-accordion-collapse flex header-border ?opened=${this._errorInAccordion}>
-				<h4 class="header" slot="header">
+				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
 					${this.localize('hdrAvailability')}
 				</h4>
-				<ul class="summary" slot="summary">
-					${this._renderAvailabilityDatesSummary()}
-					${this._renderReleaseConditionSummary()}
-					${this._renderSpecialAccessSummary()}
+				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+					<li>${this._renderAvailabilityDatesSummary()}</li>
+					<li>${this._renderReleaseConditionSummary()}</li>
+					<li>${this._renderSpecialAccessSummary()}</li>
 				</ul>
 				${this._renderAvailabilityDatesEditor()}
 				${this._renderReleaseConditionEditor()}

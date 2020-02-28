@@ -1,7 +1,8 @@
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import './d2l-activity-assignment-type-editor.js';
+import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
@@ -12,10 +13,15 @@ import { shared as store } from './state/assignment-store.js';
 class AssignmentEditorSubmissionAndCompletion extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
 	static get styles() {
 		return [
+			bodySmallStyles,
 			heading4Styles,
 			labelStyles,
 			selectStyles,
 			css`
+				:host {
+					display: block;
+				}
+
 				.block-select {
 					width: 100%;
 					max-width: 300px;
@@ -25,17 +31,12 @@ class AssignmentEditorSubmissionAndCompletion extends ActivityEditorMixin(Locali
 				.d2l-heading-4 {
 					margin: 0 0 0.6rem 0;
 				}
-
-				.summary {
-					list-style: none;
-					padding-left: 0.2rem;
-					color: var(--d2l-color-galena);
-				}
-
 				.assignment-type-heading {
 					margin: 0 0 0.5rem 0;
 				}
-			`
+			`,
+			summarizerHeaderStyles,
+			summarizerSummaryStyles
 		];
 	}
 
@@ -138,13 +139,13 @@ class AssignmentEditorSubmissionAndCompletion extends ActivityEditorMixin(Locali
 		const assignment = store.getAssignment(this.href);
 		return html`
             <d2l-labs-accordion-collapse class="accordion" flex header-border>
-				<h4 class="accordion-header" slot="header">
+				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
 					${this.localize('submissionCompletionAndCategorization')}
 				</h4>
-				<ul class="summary" slot="summary">
-					${this._renderAssignmentTypeSummary()}
-					${this._renderAssignmentSubmissionTypeSummary()}
-					${this._renderAssignmentCompletionTypeSummary()}
+				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+					<li>${this._renderAssignmentTypeSummary()}</li>
+					<li>${this._renderAssignmentSubmissionTypeSummary()}</li>
+					<li>${this._renderAssignmentCompletionTypeSummary()}</li>
 				</ul>
 				${this._renderAssignmentType()}
 				${this._renderAssignmentSubmissionType(assignment)}

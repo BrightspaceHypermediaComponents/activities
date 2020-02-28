@@ -4,6 +4,8 @@ import './d2l-activity-assignment-editor-secondary.js';
 import './d2l-activity-assignment-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import 'd2l-save-status/d2l-save-status.js';
+import '@brightspace-ui/core/components/colors/colors.js';
+
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -37,11 +39,18 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 			:host([hidden]) {
 				display: none;
 			}
-			.d2l-activity-assignment-editor-detail-panel, .d2l-activity-assignment-editor-secondary-panel {
+			.d2l-activity-assignment-editor-detail-panel {
 				padding: 20px;
+			}
+			.d2l-activity-assignment-editor-secondary-panel {
+				padding: 10px;
 			}
 			d2l-save-status {
 				display: inline-block;
+			}
+			div[slot="secondary"] {
+				height: 100%;
+				background: var(--d2l-color-gypsum);
 			}
 		`;
 	}
@@ -133,12 +142,13 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 					slot="primary"
 					class="d2l-activity-assignment-editor-detail-panel">
 				</d2l-activity-assignment-editor-detail>
-				<d2l-activity-assignment-editor-secondary
-					href="${assignmentHref}"
-					.token="${this.token}"
-					slot="secondary"
-					class="d2l-activity-assignment-editor-secondary-panel">
-				</d2l-activity-assignment-editor-secondary>
+				<div slot="secondary">
+					<d2l-activity-assignment-editor-secondary
+						href="${assignmentHref}"
+						.token="${this.token}"
+						class="d2l-activity-assignment-editor-secondary-panel">
+					</d2l-activity-assignment-editor-secondary>
+				</div>
 				<d2l-activity-assignment-editor-footer
 					href="${assignmentHref}"
 					.token="${this.token}"

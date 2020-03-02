@@ -90,7 +90,9 @@ export class Assignment {
 
 		await this._entity.save({
 			name: this.name,
-			instructions: this.instructions
+			instructions: this.instructions,
+			submissionType: this.submissionType,
+			completionType: this.completionTypeOptions.length === 0 ? 0 : this.completionType
 		});
 		await this.fetch();
 	}

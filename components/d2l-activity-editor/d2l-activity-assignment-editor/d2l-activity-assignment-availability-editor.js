@@ -3,11 +3,16 @@ import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
+import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
+
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
+import { shared as store } from '../state/activity-store.js';
 
-class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(LitElement) {
+class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorMixin(MobxLitElement)) {
 
 	static get properties() {
 
@@ -42,13 +47,9 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(LitElement) {
 				.d2l-body-small {
 					margin: 0 0 0.3rem 0;
 				}
-
-				.summary {
-					list-style: none;
-					padding-left: 0.2rem;
-					color: var(--d2l-color-galena);
-				}
-			`
+			`,
+			summarizerHeaderStyles,
+			summarizerSummaryStyles,
 		];
 	}
 
@@ -111,17 +112,26 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(LitElement) {
 		return html``;
 	}
 
-	render() {
+	// Returns true if any error states relevant to this accordion are set
+	get _errorInAccordion() {
+		const activity = store.get(this.href);
+		if (!activity) {
+			return false;
+		}
 
+		return activity.endDateErrorTerm || activity.startDateErrorTerm;
+	}
+
+	render() {
 		return html`
-			<d2l-labs-accordion-collapse flex header-border>
-				<h4 class="header" slot="header">
+			<d2l-labs-accordion-collapse flex header-border ?opened=${this._errorInAccordion}>
+				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
 					${this.localize('hdrAvailability')}
 				</h4>
-				<ul class="summary" slot="summary">
-					${this._renderAvailabilityDatesSummary()}
-					${this._renderReleaseConditionSummary()}
-					${this._renderSpecialAccessSummary()}
+				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+					<li>${this._renderAvailabilityDatesSummary()}</li>
+					<li>${this._renderReleaseConditionSummary()}</li>
+					<li>${this._renderSpecialAccessSummary()}</li>
 				</ul>
 				${this._renderAvailabilityDatesEditor()}
 				${this._renderReleaseConditionEditor()}

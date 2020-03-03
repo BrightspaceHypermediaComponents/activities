@@ -1,5 +1,4 @@
 import 'd2l-datetime-picker/d2l-datetime-picker';
-import 'd2l-tooltip/d2l-tooltip';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from './localization';
@@ -46,7 +45,6 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 	}
 
 	dateTemplate(date, canEdit, errorTerm) {
-		//TODO: Ugly hacked-in error tooltips can probably be removed when we have date pickers with proper error styling
 		return html`
 			<div id="datetime-picker-container" ?hidden="${!canEdit}">
 				<d2l-datetime-picker
@@ -59,18 +57,12 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 					overrides="${this._overrides}"
 					placeholder="${this.localize('noDueDate')}"
 					aria-invalid="${errorTerm ? 'true' : 'false'}"
+					invalid="${errorTerm}"
+					tooltip-red
+					boundary="{&quot;below&quot;:240}"
 					@d2l-datetime-picker-datetime-changed="${this._onDatetimePickerDatetimeChanged}"
 					@d2l-datetime-picker-datetime-cleared="${this._onDatetimePickerDatetimeCleared}">
 				</d2l-datetime-picker>
-				${errorTerm ? html`
-					<d2l-tooltip
-						id="score-tooltip"
-						for="date"
-						position="bottom"
-					>
-						${errorTerm}
-					</d2l-tooltip>
-				` : null}
 			</div>
 		`;
 	}

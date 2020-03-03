@@ -8,31 +8,20 @@ import 'd2l-dropdown/d2l-dropdown.js';
 import 'd2l-dropdown/d2l-dropdown-menu.js';
 import 'd2l-tooltip/d2l-tooltip';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { css, html, LitElement } from 'lit-element/lit-element';
-import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
-import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
-import { ErrorHandlingMixin } from './error-handling-mixin.js';
+import { css, html } from 'lit-element/lit-element';
+import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from './localization';
 import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { SaveStatusMixin } from './save-status-mixin';
-import { timeOut } from '@polymer/polymer/lib/utils/async.js';
+import { shared as store } from './state/activity-store.js';
 
-class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeMixin(RtlMixin(LitElement))))) {
+class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
-			_scoreOutOf: { type: String },
-			_canEditScoreOutOf: { type: Boolean },
-			_emptyScoreOutOfError: { type: String },
-			_invalidScoreOutOfError: { type: String },
-			_inGrades: { type: Boolean },
-			_gradeType: { type: String },
-			_isUngraded: { type: Boolean },
-			_canSeeGrades: { type: Boolean },
-			_canEditGrades: { type: Boolean },
+			_focusUngraded: { type: Boolean },
 			_gradeCandidatesHref: { type: String }
 		};
 	}
@@ -155,16 +144,7 @@ class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixin
 	}
 
 	constructor() {
-		super();
-		this._setEntityType(ActivityUsageEntity);
-		this._scoreOutOf = '';
-		this._inGrades = false;
-		this._gradeType = '';
-		this._isUngraded = true;
-		this._canEditScoreOutOf = false;
-		this._canSeeGrades = false;
-		this._canEditGrades = false;
-		this._debounceJobs = {};
+		super(store);
 		this._gradeCandidatesHref = '';
 
 		this._tooltipBoundary = {
@@ -173,33 +153,12 @@ class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixin
 		};
 	}
 
-	set _entity(entity) {
-		if (!this._entityHasChanged(entity)) {
-			return;
-		}
-
-		if (entity) {
-			if (!this._isError()) {
-				this._scoreOutOf = entity.scoreOutOf().toString();
-			}
-			this._inGrades = entity.inGrades();
-			this._gradeType = (entity.gradeType() || 'Points').toLowerCase();
-			this._isUngraded = !this._inGrades && !this._scoreOutOf;
-			this._canEditScoreOutOf = entity.canEditScoreOutOf();
-			this._canSeeGrades = entity.canSeeGrades();
-			this._canEditGrades = entity.canEditGrades();
-			this._gradeCandidatesHref = entity.gradeCandidatesHref();
-		}
-
-		super._entity = entity;
-	}
-
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
 		changedProperties.forEach((oldValue, propName) => {
-			if (propName === '_isUngraded') {
-				const toFocus = this._isUngraded ?
+			if (propName === '_focusUngraded' && typeof oldValue !== 'undefined') {
+				const toFocus = this._focusUngraded ?
 					this.shadowRoot.querySelector('#ungraded') :
 					this.shadowRoot.querySelector('#score-out-of');
 				toFocus.focus();
@@ -208,77 +167,40 @@ class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixin
 	}
 
 	_onScoreOutOfChanged() {
+		const scoreAndGrade = store.get(this.href).scoreAndGrade;
 		const scoreOutOf = this.shadowRoot.querySelector('#score-out-of').value;
-		if (scoreOutOf === this._scoreOutOf) {
+		if (scoreOutOf === scoreAndGrade.scoreOutOf) {
 			return;
 		}
-		const isScoreEmpty = (scoreOutOf || '').trim().length === 0;
-		const isScoreInvalid = scoreOutOf && scoreOutOf.length !== 0 &&
-			(isNaN(scoreOutOf) || scoreOutOf < 0.01 || scoreOutOf > 9999999999);
 
-		const scoreErrorLangterm = isScoreEmpty ? 'emptyScoreOutOfError' : 'invalidScoreOutOfError';
-		const setErrorProperty = isScoreEmpty ? '_emptyScoreOutOfError' : '_invalidScoreOutOfError';
-		const clearErrorProperty = isScoreEmpty ? '_invalidScoreOutOfError' : '_emptyScoreOutOfError';
-		const tooltipId = 'score-tooltip';
-
-		if ((this._inGrades && isScoreEmpty) || isScoreInvalid) {
-			this._scoreOutOf = scoreOutOf;
-			this.clearError(clearErrorProperty);
-			this.setError(setErrorProperty, scoreErrorLangterm, tooltipId);
-		} else if (!this.inGrades && isScoreEmpty) {
-			this._scoreOutOf = scoreOutOf;
-		} else {
-			this.clearError('_emptyScoreOutOfError');
-			this.clearError('_invalidScoreOutOfError');
-			this._debounceJobs.scoreOutOf = Debouncer.debounce(
-				this._debounceJobs.scoreOutOf,
-				timeOut.after(500),
-				() => this.wrapSaveAction(super._entity.setScoreOutOf(scoreOutOf, this._inGrades))
-			);
-
-		}
+		scoreAndGrade.setScoreOutOf(scoreOutOf);
 	}
 
 	_addToGrades() {
-		if (!this._isError()) {
-			if (!this._scoreOutOf) {
-				this._inGrades = true;
-			} else {
-				this.wrapSaveAction(super._entity.addToGrades());
-			}
-		}
+		store.get(this.href).scoreAndGrade.addToGrades();
 	}
 
 	_removeFromGrades() {
-		this.clearError('_emptyScoreOutOfError');
-		if (!this._isError()) {
-			if (!this._scoreOutOf) {
-				this._inGrades = false;
-			} else {
-				this.wrapSaveAction(super._entity.removeFromGrades());
-			}
-		}
+		store.get(this.href).scoreAndGrade.removeFromGrades();
 	}
 
 	_setGraded() {
-		this._isUngraded = false;
-		this._inGrades = this._canEditGrades;
+		const scoreAndGrade = store.get(this.href).scoreAndGrade;
+		scoreAndGrade.setGraded(scoreAndGrade.canEditGrades);
 	}
 
 	_setUngraded() {
-		this.clearError('_emptyScoreOutOfError');
-		this.clearError('_invalidScoreOutOfError');
-		this._isUngraded = true;
-		this.wrapSaveAction(super._entity.setUngraded());
+		store.get(this.href).scoreAndGrade.setUngraded();
 	}
 
 	_addOrRemoveMenuItem() {
-		return this._inGrades ? html`
+		const scoreAndGrade = store.get(this.href).scoreAndGrade;
+		return scoreAndGrade.inGrades ? html`
 			<d2l-menu-item
 				text="${this.localize('removeFromGrades')}"
 				@d2l-menu-item-select="${this._removeFromGrades}"
 			></d2l-menu-item>
-		` : this._canEditGrades ? html`
+		` : scoreAndGrade.canEditGrades ? html`
 			<d2l-menu-item
 				text="${this.localize('addToGrades')}"
 				@d2l-menu-item-select="${this._addToGrades}"
@@ -297,12 +219,25 @@ class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixin
 		this.wrapSaveAction(selectedGradeCandidate.associateGrade());
 	}
 
-	_isError() {
-		return this._emptyScoreOutOfError || this._invalidScoreOutOfError;
-	}
-
 	render() {
-		return this._isUngraded ? html`
+		const activity = store.get(this.href);
+		if (!activity) {
+			return html``;
+		}
+
+		const {
+			scoreOutOf,
+			scoreOutOfError,
+			canEditScoreOutOf,
+			gradeType,
+			inGrades,
+			isUngraded,
+			canSeeGrades
+		} = activity.scoreAndGrade;
+
+		this._focusUngraded = isUngraded;
+
+		return isUngraded ? html`
 			<div id="ungraded-button-container">
 				<button id="ungraded" class="d2l-input"
 					@click="${this._setGraded}"
@@ -317,38 +252,37 @@ class ActivityScoreEditor extends ErrorHandlingMixin(SaveStatusMixin(EntityMixin
 						id="score-out-of"
 						label="${this.localize('scoreOutOf')}"
 						label-hidden
-						value="${this._scoreOutOf}"
+						value="${scoreOutOf}"
 						size=4
 						@change="${this._onScoreOutOfChanged}"
 						@blur="${this._onScoreOutOfChanged}"
-						aria-invalid="${this._isError() ? 'true' : ''}"
-						?disabled="${!this._canEditScoreOutOf}"
+						aria-invalid="${scoreOutOfError ? 'true' : ''}"
+						?disabled="${!canEditScoreOutOf}"
 					></d2l-input-text>
-					${this._isError() ? html`
+					${scoreOutOfError ? html`
 						<d2l-tooltip
 							id="score-tooltip"
 							for="score-out-of"
 							position="bottom"
-							?showing="${this._isError()}"
+							showing
 							.boundary="${this._tooltipBoundary}"
 						>
-							${this._emptyScoreOutOfError ? html`<span>${this._emptyScoreOutOfError}</span>` : null}
-							${this._invalidScoreOutOfError ? html`<span>${this._invalidScoreOutOfError}</span>` : null}
+							${scoreOutOfError ? html`<span>${this.localize(scoreOutOfError)}</span>` : null}
 						</d2l-tooltip>
 					` : null}
-					<div class="d2l-body-compact grade-type-text">${this._gradeType}</div>
+					<div class="d2l-body-compact grade-type-text">${gradeType}</div>
 				</div>
-				${this._canSeeGrades ? html`
+				${canSeeGrades ? html`
 					<div id="grade-info-container">
 						<div id="divider"></div>
 						<d2l-dropdown>
 							<button class="d2l-label-text grade-info d2l-dropdown-opener">
-								${this._inGrades ? html`<d2l-icon icon="tier1:grade"></d2l-icon>` : null}
-								<div>${this._inGrades ? this.localize('inGrades') : this.localize('notInGrades')}</div>
+								${inGrades ? html`<d2l-icon icon="tier1:grade"></d2l-icon>` : null}
+								<div>${inGrades ? this.localize('inGrades') : this.localize('notInGrades')}</div>
 								<d2l-icon icon="tier1:chevron-down"></d2l-icon>
 							</button>
 							<d2l-dropdown-menu id="grade-dropdown" align="start" no-pointer vertical-offset="3px">
-								<d2l-menu label="${this._inGrades ? this.localize('inGrades') : this.localize('notInGrades')}">
+								<d2l-menu label="${inGrades ? this.localize('inGrades') : this.localize('notInGrades')}">
 									${this._addOrRemoveMenuItem()}
 									<d2l-menu-item
 										text="${this.localize('setUngraded')}"

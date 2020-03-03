@@ -27,5 +27,6 @@ export default {
 	"txtGroup": "Group Assignment", // Label for group assignment type,
 	"txtGroupCategoryWithName": "Group Category: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Group Category", // Label for group category
-	"submissionCompletionAndCategorization": "Submission, Completion & Categorization" // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "Submission, Completion & Categorization", // Label for the availability and dates summarizer
+	"assignmentSaveError": "Your assignment wasn't saved. Please correct the field(s) outlined in red." // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 };

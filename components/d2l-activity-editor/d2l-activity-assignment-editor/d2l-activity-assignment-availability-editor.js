@@ -2,7 +2,7 @@ import '../d2l-activity-availability-dates-summary.js';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-release-conditions-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
-import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 
@@ -27,7 +27,7 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 
 		return [
 			bodySmallStyles,
-			heading4Styles,
+			heading3Styles,
 			css`
 				:host {
 					display: block;
@@ -143,9 +143,9 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 				header-border
 				?opened=${this._isOpened()}
 				@d2l-labs-accordion-collapse-state-changed=${this._onAccordionStateChange}>
-				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
+				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
 					${this.localize('hdrAvailability')}
-				</h4>
+				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
 					<li>${this._renderAvailabilityDatesSummary()}</li>
 					<li>${this._renderReleaseConditionSummary()}</li>

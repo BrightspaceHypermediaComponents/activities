@@ -1,6 +1,6 @@
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import './d2l-activity-assignment-type-editor.js';
-import { bodySmallStyles, heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodySmallStyles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -14,7 +14,7 @@ class AssignmentEditorSubmissionAndCompletion extends ActivityEditorMixin(Locali
 	static get styles() {
 		return [
 			bodySmallStyles,
-			heading4Styles,
+			heading3Styles,
 			labelStyles,
 			selectStyles,
 			css`
@@ -139,9 +139,9 @@ class AssignmentEditorSubmissionAndCompletion extends ActivityEditorMixin(Locali
 		const assignment = store.getAssignment(this.href);
 		return html`
             <d2l-labs-accordion-collapse class="accordion" flex header-border>
-				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
+				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
 					${this.localize('submissionCompletionAndCategorization')}
-				</h4>
+				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
 					<li>${this._renderAssignmentTypeSummary()}</li>
 					<li>${this._renderAssignmentSubmissionTypeSummary()}</li>

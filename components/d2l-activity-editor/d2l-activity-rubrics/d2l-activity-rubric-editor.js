@@ -30,6 +30,7 @@ class ActivityRubricsEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit((Lit
 					align-items: center;
 				}
 				.delete-association-button {
+					flex-shrink: 0;
 					margin-left: 0.2rem;
 				}
 				.association-box{

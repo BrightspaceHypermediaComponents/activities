@@ -62,18 +62,15 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 
 		const dialog = this.shadowRoot.querySelector('d2l-dialog');
 		if (dialog) {
-			dialog.opened = toggle;
-			this._open = toggle;
 			if (toggle) {
 				this.shadowRoot.querySelector('d2l-add-associations').reset();
 			}
+			dialog.opened = toggle;
 		}
 	}
 
 	_resizeDialog(e) {
-		if (e.currentTarget) {
-			e.currentTarget.resize();
-		}
+		e.currentTarget.resize();
 	}
 
 	_closeAttachRubricDialog() {

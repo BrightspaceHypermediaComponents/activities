@@ -112,6 +112,6 @@
     "merge-stream": "^1.0.1",
     "mobx": "^5.15.2",
     "require-dir": "^1.2.0",
-    "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1.10.24"
+    "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1"
   }
 }

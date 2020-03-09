@@ -8,6 +8,7 @@ import { getLocalizeResources } from '../localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import store from '../d2l-activity-rubrics/state/association-collection-store.js';
 
 class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixin(LitElement)))) {
 
@@ -73,7 +74,11 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 		e.currentTarget.resize();
 	}
 
-	_closeAttachRubricDialog() {
+	_closeAttachRubricDialog(e) {
+		const entity = store.get(this._rubricAssociationsHref);
+		if (e && e.detail && e.detail.associations) {
+			entity.addAssociations(e.detail.associations);
+		}
 		this._toggleDialog(false);
 	}
 
@@ -112,6 +117,7 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 					.token="${this.token}"
 					href="${this.href}"
 					type="rubrics"
+					skipSave="true"
 				></d2l-add-associations>
 			</d2l-dialog>
 		`;

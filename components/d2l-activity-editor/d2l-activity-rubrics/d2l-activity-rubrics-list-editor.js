@@ -1,19 +1,13 @@
 import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
-import './d2l-activity-rubric-editor';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { Associations } from 'siren-sdk/src/activities/Associations.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import store from './state/association-collection-store';
 
-class ActivityRubricsListEditor extends RtlMixin(EntityMixinLit((LitElement))) {
-
-	static get properties() {
-		return {
-			_singleAssociationHrefs: { type: String }
-		};
-	}
+class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitElement))) {
 
 	static get styles() {
 		return [
@@ -28,45 +22,82 @@ class ActivityRubricsListEditor extends RtlMixin(EntityMixinLit((LitElement))) {
 				.d2l-heading-4 {
 					margin: 0 0 0.6rem 0;
 				}
+				.association-container {
+					margin: 0 0 1rem 0;
+					display: flex;
+					align-items: center;
+				}
+				.delete-association-button {
+					flex-shrink: 0;
+					margin-left: 0.2rem;
+				}
+				.association-box{
+					flex-grow: 1;
+				}
 			`
 		];
 	}
 
 	constructor() {
-		super();
-		this._setEntityType(Associations);
-		this._singleAssociationHrefs = [];
+		super(store);
 	}
 
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onActivityUsageChange(entity);
-			super._entity = entity;
-		}
-	}
-
-	_onActivityUsageChange(associations) {
-		if (!associations) {
+	async _deleteAssociation(e) {
+		const entity = store.get(this.href);
+		if (!entity) {
 			return;
 		}
-		this._singleAssociationHrefs = associations.getSingleAssocationHrefs();
+
+		await entity.deleteAssociation(e.target.dataset.id);
 	}
 
-	_getRubrics() {
-		const singleAssociations = this._singleAssociationHrefs.map(
-			singleAssociationHref =>
-				html`
-				<d2l-activity-rubric-editor
-					href="${singleAssociationHref}"
+	async save() {
+		const entity = store.get(this.href);
+		if (!entity) {
+			return;
+		}
+		await entity.save();
+	}
+
+	_renderAssociation(association) {
+		const shouldShowRubric = (association.isAssociated || association.isAssociating)
+			&& !association.isDeleting;
+		if ( shouldShowRubric ) {
+			return html`
+			<div class="association-container">
+				<d2l-rubric
+					class="association-box"
+					force-compact
+					href="${association.rubricHref}"
 					.token="${this.token}">
-				</d2l-activity-rubric-editor>
-			`
-		);
-		return html`${singleAssociations}`;
+				</d2l-rubric>
+				<d2l-button-icon
+					class="delete-association-button"
+					icon="tier1:close-default"
+					data-id="${association.rubricHref}"
+					@click="${this._deleteAssociation}"
+				></d2l-button-icon>
+			</div>
+			`;
+		}
 	}
 
 	render() {
-		return html`${this._getRubrics()}`;
+
+		const entity = store.get(this.href);
+		
+		if (!entity) {
+			return html``;
+		}
+		
+		const associations = entity.getAssociationsMap;
+		const associationsToDisplay = [];
+
+		associations.forEach(
+			a => associationsToDisplay.push(this._renderAssociation(a))
+		);	
+
+		return html`${associationsToDisplay}`;
 	}
 }
 customElements.define('d2l-activity-rubrics-list-editor', ActivityRubricsListEditor);

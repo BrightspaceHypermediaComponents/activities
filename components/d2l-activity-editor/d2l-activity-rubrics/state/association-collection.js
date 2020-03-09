@@ -1,6 +1,6 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
+import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });
@@ -46,7 +46,7 @@ export class AssociationCollection {
 
 	addAssociations(associationsToAdd) {
 		const associationEntities = associationsToAdd.map(
-			ata => new AssociationEntity(ata, this.token)
+			ata => new Association(ata, this.token)
 		);
 		associationEntities.forEach(entity => {
 

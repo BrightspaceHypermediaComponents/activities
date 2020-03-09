@@ -21,7 +21,7 @@ class ActivityUsageConditionsEditor extends ActivityEditorMixin(MobxLitElement) 
 	render() {
 
 		const entity = store.get(this.href);
-		if (!entity) {
+		if (!entity || !entity.conditionsHref) {
 			return html``;
 		}
 

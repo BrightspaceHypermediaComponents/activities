@@ -1,5 +1,5 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { AssociationCollectionEntity } from 'siren-sdk/src/activities/Associations.js';
+import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
@@ -17,7 +17,7 @@ export class AssociationCollection {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 
 		if (sirenEntity) {
-			const entity = new AssociationCollectionEntity(sirenEntity, this.token);
+			const entity = new Associations(sirenEntity, this.token);
 			this.load(entity);
 		}
 		return this;

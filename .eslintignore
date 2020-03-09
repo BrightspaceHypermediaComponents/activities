@@ -1,1 +1,2 @@
-components/d2l-quick-eval/build/
+components/**/lang/*.js
+components/d2l-quick-eval/lang-experimental/

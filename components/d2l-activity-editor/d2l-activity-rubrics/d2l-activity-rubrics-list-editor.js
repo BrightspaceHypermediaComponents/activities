@@ -62,7 +62,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 	_renderAssociation(association) {
 		const shouldShowRubric = (association.isAssociated || association.isAssociating)
 			&& !association.isDeleting;
-		if ( shouldShowRubric ) {
+		if (shouldShowRubric) {
 			return html`
 			<div class="association-container">
 				<d2l-rubric
@@ -85,17 +85,17 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 	render() {
 
 		const entity = store.get(this.href);
-		
+
 		if (!entity) {
 			return html``;
 		}
-		
+
 		const associations = entity.getAssociationsMap;
 		const associationsToDisplay = [];
 
 		associations.forEach(
 			a => associationsToDisplay.push(this._renderAssociation(a))
-		);	
+		);
 
 		return html`${associationsToDisplay}`;
 	}

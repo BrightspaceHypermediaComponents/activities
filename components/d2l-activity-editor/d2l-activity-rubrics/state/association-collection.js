@@ -28,11 +28,11 @@ export class AssociationCollection {
 
 		this.associationsMap = new Map();
 
-		this._entity.getAllAssociations().forEach( asc => {
+		this._entity.getAllAssociations().forEach(asc => {
 
 			const associationEntity = new AssociationEntity(asc, this.token);
 			const rubricHref = associationEntity.getRubricLink();
-			const formattedEntity = this._formatAssociationEntity( associationEntity );
+			const formattedEntity = this._formatAssociationEntity(associationEntity);
 
 			if (!this.associationsMap.has(rubricHref)) {
 				this.associationsMap.set(rubricHref, formattedEntity);
@@ -40,7 +40,7 @@ export class AssociationCollection {
 		});
 	}
 
-	get getAssociationsMap(){
+	get getAssociationsMap() {
 		return this.associationsMap;
 	}
 
@@ -48,12 +48,12 @@ export class AssociationCollection {
 		const associationEntities = associationsToAdd.map(
 			ata => new AssociationEntity(ata, this.token)
 		);
-		associationEntities.forEach( entity => {
-		
+		associationEntities.forEach(entity => {
+
 			const rubricHref = entity.getRubricLink();
 
-			if ( this.associationsMap.has(rubricHref)) {
-				let association = this.associationsMap.get(rubricHref);
+			if (this.associationsMap.has(rubricHref)) {
+				const association = this.associationsMap.get(rubricHref);
 
 				if (association.isDeleting) {
 					association.isDeleting = false;
@@ -67,14 +67,14 @@ export class AssociationCollection {
 				this.associationsMap.set(rubricHref, association);
 
 			}
-		})
+		});
 
 	}
 
-	deleteAssociation(rubricHref){
-		
+	deleteAssociation(rubricHref) {
+
 		if (this.associationsMap.has(rubricHref)) {
-			let association = this.associationsMap.get( rubricHref );
+			const association = this.associationsMap.get(rubricHref);
 
 			if (association.isAssociating) {
 				association.isAssociating = false;
@@ -82,22 +82,22 @@ export class AssociationCollection {
 				association.isDeleting = true;
 			}
 
-			this.associationsMap.set( rubricHref, association );
+			this.associationsMap.set(rubricHref, association);
 
 		}
 	}
 
 	async save() {
 		const associations = this.associationsMap.values();
-		
-		for await (let association of associations) {
+
+		for await (const association of associations) {
 			await this._saveChanges(association);
 		}
 	}
 
 	_formatAssociationEntity(entity) {
 
-		const id = entity.getRubricLink(); 
+		const id = entity.getRubricLink();
 
 		const isAssociated = entity.isSingleAssociation();
 
@@ -107,15 +107,15 @@ export class AssociationCollection {
 			isAssociated: isAssociated,
 			isAssociating: false,
 			isDeleting: false
-		}
+		};
 
 		return associationObj;
 	}
 
-	async _saveChanges( association ) {
+	async _saveChanges(association) {
 		if (association.isAssociating) {
 			await association.entity.createAssociation();
-		} else if( association.isDeleting) {
+		} else if (association.isDeleting) {
 			await association.entity.deleteAssociation();
 		}
 	}

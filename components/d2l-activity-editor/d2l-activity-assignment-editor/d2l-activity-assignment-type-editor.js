@@ -110,10 +110,32 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 		assignment.setAssignmentTypeGroupCategory(event.target.value);
 	}
 
+	_getInformationText(assignment) {
+		if (!assignment) {
+			return;
+		}
+
+		const isIndividualAssignmentType = assignment.isIndividualAssignmentType;
+
+		if (assignment.isGroupAssignmentTypeDisabled) {
+			return this.localize('folderTypeCannotChange');
+		}
+
+		if (isIndividualAssignmentType && assignment.groupCategories.length === 0) {
+			return this.localize('folderTypeNoGroups');
+		}
+
+		if (!isIndividualAssignmentType) {
+			return this.localize('folderTypeCreateGroups');
+		}
+
+		return;
+	}
+
 	render() {
 		const assignment = store.getAssignment(this.href);
 		const isIndividualType = assignment ? assignment.isIndividualAssignmentType : true;
-		const infoText = assignment ? assignment.infoText : '';
+		const infoText = this._getInformationText(assignment);
 		const isReadOnly = assignment ? assignment.isReadOnly : true;
 		const groupTypeDisabled = assignment ? assignment.isGroupAssignmentTypeDisabled : true;
 

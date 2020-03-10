@@ -29,5 +29,8 @@ export default {
 	"txtGroupCategory": "Group Category", // Label for group category,
 	"txtGroupAssignmentSummary": "Group assignment", // Summary message for accordion when assignment type is set to group
 	"submissionCompletionAndCategorization": "Submission, Completion & Categorization", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Your assignment wasn't saved. Please correct the field(s) outlined in red." // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Your assignment wasn't saved. Please correct the field(s) outlined in red.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields,
+	"folderTypeCannotChange": "Assignment type cannot be changed once submissions are present", // Folder type cannot change
+	"folderTypeNoGroups": "No groups exist. Create new groups in the Groups tool.", // Folder type no groups
+	"folderTypeCreateGroups": "Create new groups in the Groups tool." // Folder type create groups
 };

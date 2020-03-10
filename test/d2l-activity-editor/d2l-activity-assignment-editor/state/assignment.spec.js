@@ -31,6 +31,8 @@ describe('Assignment ', function() {
 				isAnonymousMarkingEnabled: () => undefined,
 				canEditAnonymousMarking: () => undefined,
 				getAnonymousMarkingHelpText: () => undefined,
+				canSeeAnnotations: () => undefined,
+				getAvailableAnnotationTools: () => undefined,
 				activityUsageHref: () => 'http://activity/1',
 				submissionTypeOptions: () => [
 					{title: 'File submission', value: 0, completionTypes: null, selected: false},

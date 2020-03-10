@@ -60,6 +60,8 @@ export class Assignment {
 		this.isAnonymousMarkingEnabled = entity.isAnonymousMarkingEnabled();
 		this.canEditAnonymousMarking = entity.canEditAnonymousMarking();
 		this.anonymousMarkingHelpText = entity.getAnonymousMarkingHelpText();
+		this.canSeeAnnotations = entity.canSeeAnnotations();
+		this.annotationToolsAvailable = entity.getAvailableAnnotationTools();
 		this.activityUsageHref = entity.activityUsageHref();
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.completionTypeOptions = entity.completionTypeOptions();
@@ -83,6 +85,10 @@ export class Assignment {
 		this.isAnonymousMarkingEnabled = value;
 	}
 
+	setAnnotationToolsAvailable(value) {
+		this.annotationToolsAvailable = value;
+	}
+
 	setName(value) {
 		this.name = value;
 	}
@@ -100,6 +106,7 @@ export class Assignment {
 			name: this.name,
 			instructions: this.instructions,
 			isAnonymous: this.isAnonymousMarkingEnabled,
+			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? 0 : this.completionType
 		});
@@ -118,6 +125,8 @@ decorate(Assignment, {
 	isAnonymousMarkingEnabled: observable,
 	canEditAnonymousMarking: observable,
 	anonymousMarkingHelpText: observable,
+	canSeeAnnotations: observable,
+	annotationToolsAvailable: observable,
 	activityUsageHref: observable,
 	completionTypeOptions: observable,
 	canEditSubmissionType: observable,
@@ -129,6 +138,7 @@ decorate(Assignment, {
 	setName: action,
 	setInstructions: action,
 	setAnonymousMarking: action,
+	setAnnotationToolsAvailable: action,
 	setSubmissionType: action,
 	setCompletionType: action,
 	save: action

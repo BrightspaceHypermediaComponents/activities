@@ -93,8 +93,9 @@ export class Assignment {
 	setToGroupAssignmentType() {
 		this.isIndividualAssignmentType = false;
 		this.assignmentTypeSelectedGroupCategoryId =
-			this.assignmentTypeSelectedGroupCategoryId ?
-				String(this.assignmentTypeSelectedGroupCategoryId) : String(this.groupCategories[0].value);
+			this.assignmentTypeSelectedGroupCategoryId 
+				? String(this.assignmentTypeSelectedGroupCategoryId) 
+				: String(this.groupCategories[0].value);
 	}
 
 	setAssignmentTypeGroupCategory(value) {

@@ -96,18 +96,15 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 	}
 
 	_setIndividualAssignmentType() {
-		const assignment = store.getAssignment(this.href);
-		assignment.setToIndividualAssignmentType();
+		store.getAssignment(this.href).setToIndividualAssignmentType();
 	}
 
 	_setGroupAssignmentType() {
-		const assignment = store.getAssignment(this.href);
-		assignment.setToGroupAssignmentType();
+		store.getAssignment(this.href).setToGroupAssignmentType();
 	}
 
 	_changeGroupCategory(event) {
-		const assignment = store.getAssignment(this.href);
-		assignment.setAssignmentTypeGroupCategory(event.target.value);
+		store.getAssignment(this.href).setAssignmentTypeGroupCategory(event.target.value);
 	}
 
 	_getInformationText(assignment) {

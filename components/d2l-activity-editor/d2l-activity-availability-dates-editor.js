@@ -29,37 +29,38 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 	}
 
 	_onStartDatetimePickerDatetimeCleared() {
-		store.get(this.href).setStartDate('');
+		store.get(this.href).dates.setStartDate('');
 	}
 
 	_onStartDatetimePickerDatetimeChanged(e) {
-		store.get(this.href).setStartDate(e.detail.toISOString());
+		store.get(this.href).dates.setStartDate(e.detail.toISOString());
 	}
 
 	_onEndDatetimePickerDatetimeCleared() {
-		store.get(this.href).setEndDate('');
+		store.get(this.href).dates.setEndDate('');
 	}
 
 	_onEndDatetimePickerDatetimeChanged(e) {
-		store.get(this.href).setEndDate(e.detail.toISOString());
+		store.get(this.href).dates.setEndDate(e.detail.toISOString());
 	}
 
 	render() {
-		const activity = store.get(this.href);
+		const entity = store.get(this.href);
+		const dates = entity ? entity.dates : null;
 		let canEditDates, startDate, endDate, startDateErrorTerm, endDateErrorTerm;
 
-		if (!activity) {
+		if (!dates) {
 			canEditDates = false;
 			startDate = null;
 			endDate = null;
 			startDateErrorTerm = null;
 			endDateErrorTerm = null;
 		} else {
-			canEditDates = activity.canEditDates;
-			startDate = activity.startDate;
-			endDate = activity.endDate;
-			startDateErrorTerm = this.localize(activity.startDateErrorTerm);
-			endDateErrorTerm = this.localize(activity.endDateErrorTerm);
+			canEditDates = dates.canEditDates;
+			startDate = dates.startDate;
+			endDate = dates.endDate;
+			startDateErrorTerm = this.localize(dates.startDateErrorTerm);
+			endDateErrorTerm = this.localize(dates.endDateErrorTerm);
 		}
 
 		return html`

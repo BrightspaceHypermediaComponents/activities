@@ -37,11 +37,11 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 	}
 
 	_onDatetimePickerDatetimeCleared() {
-		store.get(this.href).setDueDate('');
+		store.get(this.href).dates.setDueDate('');
 	}
 
 	_onDatetimePickerDatetimeChanged(e) {
-		store.get(this.href).setDueDate(e.detail.toISOString());
+		store.get(this.href).dates.setDueDate(e.detail.toISOString());
 	}
 
 	dateTemplate(date, canEdit, errorTerm) {
@@ -68,7 +68,8 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 	}
 
 	render() {
-		const activity = store.get(this.href);
+		const entity = store.get(this.href);
+		const dates = entity ? entity.dates : null;
 		let dueDate, canEditDates, errorTerm;
 
 		// We have to render with null values for dueDate initially due to issues with
@@ -79,14 +80,14 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitEle
 		// Tried passing an invalid date attribute to force it to use our datetime attribute
 		// but the 2-way data binding with the vaadin date picker always overrides it
 		// Will be able to fix when we have a new data time component.
-		if (!activity || this._isFirstLoad) {
+		if (!dates || this._isFirstLoad) {
 			dueDate = null;
 			canEditDates = false;
 			errorTerm = null;
 		} else {
-			dueDate = activity.dueDate;
-			canEditDates = activity.canEditDates;
-			errorTerm = this.localize(activity.dueDateErrorTerm);
+			dueDate = dates.dueDate;
+			canEditDates = dates.canEditDates;
+			errorTerm = this.localize(dates.dueDateErrorTerm);
 		}
 
 		return html`

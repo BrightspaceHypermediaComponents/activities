@@ -23,7 +23,8 @@ describe('d2l-activity-score-editor', function() {
 			gradeType: () => 'Points',
 			canEditScoreOutOf: () => true,
 			canSeeGrades: () => true,
-			canEditGrades: () => true
+			canEditGrades: () => true,
+			gradeCandidatesHref: () => ''
 		});
 		href = 'http://activity/1';
 

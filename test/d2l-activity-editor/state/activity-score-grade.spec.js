@@ -24,7 +24,8 @@ describe('Activity Score Grade', function() {
 			gradeType: () => 'Points',
 			canEditScoreOutOf: () => true,
 			canSeeGrades: () => true,
-			canEditGrades: () => true
+			canEditGrades: () => true,
+			gradeCandidatesHref: () => ''
 		};
 	});
 

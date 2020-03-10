@@ -1,9 +1,9 @@
 import '../d2l-activity-availability-dates-summary.js';
 import '../d2l-activity-availability-dates-editor.js';
-import '../d2l-activity-release-conditions-editor.js';
+import '../d2l-activity-usage-conditions-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
-import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -18,14 +18,15 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 
 		return {
 			href: { type: String },
-			token: { type: Object }
+			token: { type: Object },
+			_opened: { type: Boolean }
 		};
 	}
 
 	static get styles() {
 
 		return [
-			bodySmallStyles,
+			heading3Styles,
 			heading4Styles,
 			css`
 				:host {
@@ -43,10 +44,6 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 				.d2l-heading-4 {
 					margin: 0 0 0.6rem 0;
 				}
-
-				.d2l-body-small {
-					margin: 0 0 0.3rem 0;
-				}
 			`,
 			summarizerHeaderStyles,
 			summarizerSummaryStyles,
@@ -55,6 +52,15 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 
 	static async getLocalizeResources(langs) {
 		return getLocalizeResources(langs, import.meta.url);
+	}
+
+	constructor() {
+		super();
+		this._opened = false;
+	}
+
+	_onAccordionStateChange(e) {
+		this._opened = e.detail.opened;
 	}
 
 	_renderAvailabilityDatesSummary() {
@@ -91,13 +97,11 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 				<h3 class="d2l-heading-4">
 					${this.localize('hdrReleaseConditions')}
 				</h3>
-				<p class="d2l-body-small">
-					${this.localize('hlpReleaseConditions')}
-				</p>
-				<d2l-activity-release-conditions-editor
+				<d2l-activity-usage-conditions-editor
+					description="${this.localize('hlpReleaseConditions')}"
 					href="${this.href}"
 					.token="${this.token}">
-				</d2l-activity-release-conditions-editor>
+				</d2l-activity-usage-conditions-editor>
 			</div>
 		`;
 	}
@@ -113,21 +117,29 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 	}
 
 	// Returns true if any error states relevant to this accordion are set
-	get _errorInAccordion() {
+	_errorInAccordion() {
 		const activity = store.get(this.href);
-		if (!activity) {
+		if (!activity || !activity.dates) {
 			return false;
 		}
 
-		return activity.endDateErrorTerm || activity.startDateErrorTerm;
+		return !!(activity.dates.endDateErrorTerm || activity.dates.startDateErrorTerm);
+	}
+
+	_isOpened() {
+		return this._opened || this._errorInAccordion();
 	}
 
 	render() {
 		return html`
-			<d2l-labs-accordion-collapse flex header-border ?opened=${this._errorInAccordion}>
-				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
+			<d2l-labs-accordion-collapse
+				flex
+				header-border
+				?opened=${this._isOpened()}
+				@d2l-labs-accordion-collapse-state-changed=${this._onAccordionStateChange}>
+				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
 					${this.localize('hdrAvailability')}
-				</h4>
+				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
 					<li>${this._renderAvailabilityDatesSummary()}</li>
 					<li>${this._renderReleaseConditionSummary()}</li>

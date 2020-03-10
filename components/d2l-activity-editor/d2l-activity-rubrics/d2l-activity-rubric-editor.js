@@ -26,11 +26,16 @@ class ActivityRubricsEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit((Lit
 				}
 				.rubric-container {
 					margin: 0 0 1rem 0;
-					width: 100%;
-					max-width: 400px;
-					display: block;
+					display: flex;
+					align-items: center;
 				}
-
+				.delete-association-button {
+					flex-shrink: 0;
+					margin-left: 0.2rem;
+				}
+				.association-box{
+					flex-grow: 1;
+				}
 			`
 		];
 	}
@@ -57,14 +62,26 @@ class ActivityRubricsEditor extends SaveStatusMixin(RtlMixin(EntityMixinLit((Lit
 		this._rubricHref = association.getRubricLink();
 	}
 
+	_deleteAssociation() {
+		this.wrapSaveAction(super._entity.deleteAssociation());
+	}
+
 	render() {
 		return html`
 		<div class="rubric-container">
 			<d2l-rubric
+				class="association-box"
 				force-compact
 				href="${this._rubricHref}"
 				.token="${this.token}">
 			</d2l-rubric>
+			
+			<d2l-button-icon
+				class="delete-association-button"
+				icon="tier1:close-default"
+				@click="${this._deleteAssociation}"
+			></d2l-button-icon>
+
 		</div>
 		`;
 	}

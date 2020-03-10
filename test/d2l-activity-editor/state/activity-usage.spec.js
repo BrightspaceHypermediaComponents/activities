@@ -22,7 +22,9 @@ describe('Activity Usage', function() {
 		gradeType: () => 'Points',
 		canEditScoreOutOf: () => true,
 		canSeeGrades: () => true,
-		canEditGrades: () => true
+		canEditGrades: () => true,
+		gradeCandidatesHref: () => '',
+		conditionsHref: () => undefined
 	};
 
 	afterEach(() => {
@@ -48,11 +50,6 @@ describe('Activity Usage', function() {
 			const activity = new ActivityUsage('http://1', 'token');
 			await activity.fetch();
 
-			expect(activity.canEditDates).to.be.true;
-			expect(activity.startDate).to.equal('2020-01-22T04:59:00.000Z');
-			expect(activity.dueDate).to.equal('2020-01-23T04:59:00.000Z');
-			expect(activity.endDate).to.equal('2020-01-24T04:59:00.000Z');
-
 			expect(activity.isDraft).to.be.true;
 			expect(activity.canEditDraft).to.be.true;
 
@@ -71,48 +68,6 @@ describe('Activity Usage', function() {
 			});
 
 			fetchEntity.mockImplementation(() => sirenEntity);
-		});
-
-		it('reacts to start date', async(done) => {
-			const activity = new ActivityUsage('http://1', 'token');
-			await activity.fetch();
-
-			when(
-				() => activity.startDate === '2020-02-21T04:59:00.000Z',
-				() => {
-					done();
-				}
-			);
-
-			activity.setStartDate('2020-02-21T04:59:00.000Z');
-		});
-
-		it('reacts to due date', async(done) => {
-			const activity = new ActivityUsage('http://1', 'token');
-			await activity.fetch();
-
-			when(
-				() => activity.dueDate === '2020-02-23T04:59:00.000Z',
-				() => {
-					done();
-				}
-			);
-
-			activity.setDueDate('2020-02-23T04:59:00.000Z');
-		});
-
-		it('reacts to end date', async(done) => {
-			const activity = new ActivityUsage('http://1', 'token');
-			await activity.fetch();
-
-			when(
-				() => activity.endDate === '2020-02-25T04:59:00.000Z',
-				() => {
-					done();
-				}
-			);
-
-			activity.setEndDate('2020-02-25T04:59:00.000Z');
 		});
 
 		it('reacts to is draft', async(done) => {
@@ -147,19 +102,21 @@ describe('Activity Usage', function() {
 			const activity = new ActivityUsage('http://1', 'token');
 			await activity.fetch();
 
-			activity.setStartDate('2020-02-22T04:59:00.000Z');
-			activity.setDueDate('2020-02-23T04:59:00.000Z');
-			activity.setEndDate('2020-02-24T04:59:00.000Z');
+			activity.dates.setStartDate('2020-02-22T04:59:00.000Z');
+			activity.dates.setDueDate('2020-02-23T04:59:00.000Z');
+			activity.dates.setEndDate('2020-02-24T04:59:00.000Z');
 			activity.setDraftStatus(false);
 
 			await activity.save();
 
 			expect(save.mock.calls.length).to.equal(1);
 			expect(save.mock.calls[0][0]).to.eql({
-				startDate: '2020-02-22T04:59:00.000Z',
-				dueDate: '2020-02-23T04:59:00.000Z',
-				endDate: '2020-02-24T04:59:00.000Z',
 				isDraft: false,
+				dates: {
+					startDate: '2020-02-22T04:59:00.000Z',
+					dueDate: '2020-02-23T04:59:00.000Z',
+					endDate: '2020-02-24T04:59:00.000Z'
+				},
 				scoreAndGrade: {
 					scoreOutOf: '10',
 					inGrades: true

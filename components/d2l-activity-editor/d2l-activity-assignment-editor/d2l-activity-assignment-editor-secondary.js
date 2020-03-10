@@ -34,6 +34,7 @@ class AssignmentEditorSecondary extends RtlMixin(EntityMixinLit(LocalizeMixin(Li
 					margin-bottom: 10px;
 					border-radius: 8px;
 					padding: 20px;
+					padding-top: 0;
 				}
 			`
 		];

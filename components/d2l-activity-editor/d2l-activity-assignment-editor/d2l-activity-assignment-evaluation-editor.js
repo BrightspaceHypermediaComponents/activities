@@ -5,7 +5,7 @@ import './d2l-activity-assignment-anonymous-marking-summary.js';
 import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container.js';
 import './d2l-assignment-turnitin-editor.js';
 
-import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 
@@ -27,7 +27,7 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 
 		return [
 			bodySmallStyles,
-			heading4Styles,
+			heading3Styles,
 			css`
 				:host {
 					display: block;
@@ -120,9 +120,9 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 
 		return html`
 			<d2l-labs-accordion-collapse flex header-border>
-				<h4 class="d2l-heading-4 activity-summarizer-header" slot="header">
+				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
 					${this.localize('evaluationAndFeedback')}
-				</h4>
+				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
 					<li>${this._renderAnonymousMarkingSummary()}</li>
 					<li>${this._renderAnnotationsSummary()}</li>

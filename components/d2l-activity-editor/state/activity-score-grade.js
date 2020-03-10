@@ -14,6 +14,8 @@ export class ActivityScoreGrade {
 		this.canEditScoreOutOf = entity.canEditScoreOutOf();
 		this.canSeeGrades = entity.canSeeGrades();
 		this.canEditGrades = entity.canEditGrades();
+
+		this.gradeCandidatesHref = entity.gradeCandidatesHref();
 	}
 
 	setScoreOutOf(value) {
@@ -70,6 +72,7 @@ decorate(ActivityScoreGrade, {
 	canEditScoreOutOf: observable,
 	canSeeGrades: observable,
 	canEditGrades: observable,
+	gradeCandidatesHref: observable,
 	// actions
 	setScoreOutOf: action,
 	setUngraded: action,

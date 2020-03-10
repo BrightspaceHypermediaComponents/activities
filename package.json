@@ -61,7 +61,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.52.72",
+  "version": "3.52.84",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -80,6 +80,7 @@
     "@polymer/iron-resizable-behavior": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
     "d2l-alert": "BrightspaceUI/alert#semver:^4",
+    "d2l-associations": "BrightspaceHypermediaComponents/associations#semver:^1",
     "d2l-button": "BrightspaceUI/button#semver:^5",
     "d2l-card": "BrightspaceUI/card#semver:^6",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",

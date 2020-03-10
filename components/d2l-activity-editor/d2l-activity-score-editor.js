@@ -11,6 +11,7 @@ import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from './localization';
+import { shared as gradeCandidateCollectionStore } from './d2l-activity-grades/state/grade-candidate-collection-store.js';
 import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -22,7 +23,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 	static get properties() {
 		return {
 			_focusUngraded: { type: Boolean },
-			_gradeCandidatesHref: { type: String }
 		};
 	}
 
@@ -145,7 +145,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 
 	constructor() {
 		super(store);
-		this._gradeCandidatesHref = '';
 
 		this._tooltipBoundary = {
 			left: 5,
@@ -209,14 +208,26 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 	}
 
 	async _setGradeItem() {
+		const scoreAndGrade = store.get(this.href).scoreAndGrade;
+		const gradeCandidatesHref = scoreAndGrade.gradeCandidatesHref;
+		const gradeCandidateCollection = gradeCandidateCollectionStore.get(gradeCandidatesHref);
+		const oldGradeSelected = gradeCandidateCollection.selected;
+
 		const dialog = this.shadowRoot.querySelector('d2l-dialog');
 		const action = await dialog.open();
-		// TODO: add condition here if gradeItemId is same as current one to prevent unneeded api call?
 		if (action !== 'done') {
 			return;
 		}
-		const selectedGradeCandidate = dialog.querySelector('d2l-activity-grade-candidate-selector').selected;
-		this.wrapSaveAction(selectedGradeCandidate.associateGrade());
+
+		const newGradeSelected = gradeCandidateCollection.selected;
+		if (oldGradeSelected.href === newGradeSelected.href) {
+			return;
+		}
+
+		this._setGraded();
+		if (newGradeSelected.maxPoints !== undefined) {
+			scoreAndGrade.setScoreOutOf(newGradeSelected.maxPoints.toString());
+		}
 	}
 
 	render() {
@@ -232,7 +243,8 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 			gradeType,
 			inGrades,
 			isUngraded,
-			canSeeGrades
+			canSeeGrades,
+			gradeCandidatesHref
 		} = activity.scoreAndGrade;
 
 		this._focusUngraded = isUngraded;
@@ -289,15 +301,15 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 										@d2l-menu-item-select="${this._setUngraded}"
 									></d2l-menu-item>
 									<d2l-menu-item
-										text="${this.localize('editGradesLink')}"
+										text="${this.localize('chooseFromGrades')}"
 										@d2l-menu-item-select="${this._setGradeItem}"
 									></d2l-menu-item>
 								</d2l-menu>
 							</d2l-dropdown-menu>
 						</d2l-dropdown>
-						<d2l-dialog title-text="${this.localize('editGradesLink')}">
+						<d2l-dialog title-text="${this.localize('chooseFromGrades')}">
 							<d2l-activity-grade-candidate-selector
-								href="${this._gradeCandidatesHref}"
+								href="${gradeCandidatesHref}"
 								.token="${this.token}">
 							</d2l-activity-grade-candidate-selector>
 							<d2l-button slot="footer" primary dialog-action="done">${this.localize('ok')}</d2l-button>

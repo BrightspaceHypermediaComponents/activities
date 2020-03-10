@@ -43,7 +43,7 @@
    "moreActions" : "مزيد من الإجراءات",
    "multiCourseQuickEval" : "التقييم السريع لعدة مقررات تعليمية",
    "newAttempts" : "محاولات جديدة",
-   "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {إعادة محاولة واحدة} other ‏{{reAttemptNum} من إعادة المحاولات}}} other {{reAttemptNum, plural, =0 {{newNum} إعادة محاولة جديدة} =1{{newNum} إعادة محاولة واحدة جديدة} other {{newNum}{reAttemptNum} من إعادة المحاولات الجديدة}}}}",
+   "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {إعادة محاولة واحدة} other {{reAttemptNum} من إعادة المحاولات}}} other {{reAttemptNum, plural, =0 {{newNum} إعادة محاولة جديدة} =1{{newNum} إعادة محاولة واحدة جديدة} other {{newNum}{reAttemptNum} من إعادة المحاولات الجديدة}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {ترابط أو رد واحد} other {{numInteractions} من الترابطات أو الردود}}",
    "newPosts" : "منشورات جديدة",
    "newSubmissionDetails" : "{newNum, plural, =0 {{resub, plural, =1 {عملية إعادة إرسال واحدة} other {{resub} من عمليات إعادة الإرسال}}} other {{resub, plural, =0 {{newNum} إعادة محاولة جديدة} =1{{newNum} عملية إعادة إرسال واحدة جديدة} other {{newNum} {resub} من عمليات إعادة الإرسال الجديدة}}}}",

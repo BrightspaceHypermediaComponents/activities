@@ -46,7 +46,7 @@ export class AssociationCollection {
 
 	addAssociations(associationsToAdd) {
 
-		for( const ata of associationsToAdd ) {
+		for (const ata of associationsToAdd) {
 			const entity = new Association(ata, this.token);
 
 			const rubricHref = entity.getRubricLink();

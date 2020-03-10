@@ -56,6 +56,10 @@ export class Assignment {
 		this.instructions = entity.instructionsEditorHtml();
 		this.canEditInstructions = entity.canEditInstructions();
 		this.instructionsRichTextEditorConfig = entity.instructionsRichTextEditorConfig();
+		this.isAnonymousMarkingAvailable = entity.isAnonymousMarkingAvailable();
+		this.isAnonymousMarkingEnabled = entity.isAnonymousMarkingEnabled();
+		this.canEditAnonymousMarking = entity.canEditAnonymousMarking();
+		this.anonymousMarkingHelpText = entity.getAnonymousMarkingHelpText();
 		this.activityUsageHref = entity.activityUsageHref();
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.completionTypeOptions = entity.completionTypeOptions();
@@ -75,6 +79,10 @@ export class Assignment {
 		this.completionType = value;
 	}
 
+	setAnonymousMarking(value) {
+		this.isAnonymousMarkingEnabled = value;
+	}
+
 	setName(value) {
 		this.name = value;
 	}
@@ -91,6 +99,7 @@ export class Assignment {
 		await this._entity.save({
 			name: this.name,
 			instructions: this.instructions,
+			isAnonymous: this.isAnonymousMarkingEnabled,
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? 0 : this.completionType
 		});
@@ -105,6 +114,10 @@ decorate(Assignment, {
 	instructions: observable,
 	canEditInstructions: observable,
 	instructionsRichTextEditorConfig: observable,
+	isAnonymousMarkingAvailable: observable,
+	isAnonymousMarkingEnabled: observable,
+	canEditAnonymousMarking: observable,
+	anonymousMarkingHelpText: observable,
 	activityUsageHref: observable,
 	completionTypeOptions: observable,
 	canEditSubmissionType: observable,
@@ -115,6 +128,7 @@ decorate(Assignment, {
 	load: action,
 	setName: action,
 	setInstructions: action,
+	setAnonymousMarking: action,
 	setSubmissionType: action,
 	setCompletionType: action,
 	save: action

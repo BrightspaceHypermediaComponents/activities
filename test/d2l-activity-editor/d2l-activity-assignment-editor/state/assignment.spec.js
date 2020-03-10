@@ -30,7 +30,7 @@ describe('Assignment ', function() {
 				isAnonymousMarkingAvailable: () => undefined,
 				isAnonymousMarkingEnabled: () => undefined,
 				canEditAnonymousMarking: () => undefined,
-				anonymousMarkingHelpText: () => undefined,
+				getAnonymousMarkingHelpText: () => undefined,
 				activityUsageHref: () => 'http://activity/1',
 				submissionTypeOptions: () => [
 					{title: 'File submission', value: 0, completionTypes: null, selected: false},

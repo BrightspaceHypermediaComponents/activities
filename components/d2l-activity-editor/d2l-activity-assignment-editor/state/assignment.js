@@ -67,11 +67,10 @@ export class Assignment {
 		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled();
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
-		this.infoText = entity.getAssignmentTypeInformationText();
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
 
 		if (!this.isIndividualAssignmentType) {
-			this.assignmentTypeSelectedGroupCategoryId = String(
+			this.selectedGroupCategoryId = String(
 				this.groupCategories.find(category => category.selected === true).value
 			);
 		}
@@ -92,14 +91,14 @@ export class Assignment {
 
 	setToGroupAssignmentType() {
 		this.isIndividualAssignmentType = false;
-		this.assignmentTypeSelectedGroupCategoryId =
-			this.assignmentTypeSelectedGroupCategoryId
-				? String(this.assignmentTypeSelectedGroupCategoryId)
+		this.selectedGroupCategoryId =
+			this.selectedGroupCategoryId
+				? String(this.selectedGroupCategoryId)
 				: String(this.groupCategories[0].value);
 	}
 
 	setAssignmentTypeGroupCategory(value) {
-		this.assignmentTypeSelectedGroupCategoryId = value;
+		this.selectedGroupCategoryId = value;
 	}
 
 	setName(value) {
@@ -121,7 +120,7 @@ export class Assignment {
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? String(0) : this.completionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.assignmentTypeSelectedGroupCategoryId
+			groupTypeId: this.selectedGroupCategoryId
 		});
 		await this.fetch();
 	}
@@ -140,12 +139,9 @@ decorate(Assignment, {
 	canEditCompletionType: observable,
 	submissionType: observable,
 	completionType: observable,
-	isGroupAssignmentTypeDisabled: observable,
 	isIndividualAssignmentType: observable,
 	groupCategories: observable,
-	infoText: observable,
-	isReadOnly: observable,
-	assignmentTypeSelectedGroupCategoryId: observable,
+	selectedGroupCategoryId: observable,
 	// actions
 	load: action,
 	setName: action,
@@ -154,5 +150,6 @@ decorate(Assignment, {
 	setCompletionType: action,
 	save: action,
 	setToIndividualAssignmentType: action,
-	setToGroupAssignmentType: action
+	setToGroupAssignmentType: action,
+	setAssignmentTypeGroupCategory: action
 });

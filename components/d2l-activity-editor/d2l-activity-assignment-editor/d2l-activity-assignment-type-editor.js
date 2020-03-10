@@ -10,13 +10,6 @@ import { shared as store } from './state/assignment-store.js';
 
 class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
 
-	static get properties() {
-		return {
-			_folderTypeText: { type: String },
-			_groupTypeText: { type: String }
-		};
-	}
-
 	static get styles() {
 		return [
 			bodyCompactStyles,
@@ -67,26 +60,11 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 		return getLocalizeResources(langs, import.meta.url);
 	}
 
-	_onAssignmentChange(assignment) {
-		if (!assignment) {
-			return;
-		}
-		this._folderTypeText =
-			this._isIndividualType
-				? this.localize('txtIndividual')
-				: this.localize('txtGroup');
-
-		if (!this._isIndividualType) {
-			const selectedGroupCategoryName = assignment.getAssignmentTypeSelectedGroupCategoryName();
-			this._groupTypeText = this.localize('txtGroupCategoryWithName', 'groupCategory', selectedGroupCategoryName);
-		}
-	}
-
 	_getGroupCategoryOptions(assignment) {
 		if (assignment) {
 			return html`${assignment.groupCategories.map(
 				option => html`
-					<option value=${option.value} ?selected=${option.selected}>
+					<option value=${option.value} ?selected=${String(option.value) === assignment.selectedGroupCategoryId}>
 						${option.title}
 					</option>
 					`
@@ -114,7 +92,7 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 
 		const isIndividualAssignmentType = assignment.isIndividualAssignmentType;
 
-		if (assignment.isGroupAssignmentTypeDisabled) {
+		if (assignment.isReadOnly) {
 			return this.localize('folderTypeCannotChange');
 		}
 

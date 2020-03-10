@@ -117,7 +117,7 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 					.token="${this.token}"
 					href="${this.href}"
 					type="rubrics"
-					skipSave="true"
+					?skipSave="${true}"
 				></d2l-add-associations>
 			</d2l-dialog>
 		`;

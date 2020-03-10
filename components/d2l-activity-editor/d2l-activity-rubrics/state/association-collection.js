@@ -40,15 +40,14 @@ export class AssociationCollection {
 		});
 	}
 
-	get getAssociationsMap() {
-		return this.associationsMap;
+	fetchAssociations() {
+		return Array.from(this.associationsMap.values());
 	}
 
 	addAssociations(associationsToAdd) {
-		const associationEntities = associationsToAdd.map(
-			ata => new Association(ata, this.token)
-		);
-		associationEntities.forEach(entity => {
+
+		for( const ata of associationsToAdd ) {
+			const entity = new Association(ata, this.token);
 
 			const rubricHref = entity.getRubricLink();
 
@@ -59,15 +58,14 @@ export class AssociationCollection {
 					association.isDeleting = false;
 				} else {
 					if (association.isAssociated) {
-						return;
+						continue;
 					}
 					association.isAssociating = true;
 				}
 
-				this.associationsMap.set(rubricHref, association);
-
 			}
-		});
+
+		}
 
 	}
 
@@ -81,8 +79,6 @@ export class AssociationCollection {
 			} else {
 				association.isDeleting = true;
 			}
-
-			this.associationsMap.set(rubricHref, association);
 
 		}
 	}

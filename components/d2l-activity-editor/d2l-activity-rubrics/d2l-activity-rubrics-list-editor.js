@@ -42,13 +42,13 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 		super(store);
 	}
 
-	async _deleteAssociation(e) {
+	_deleteAssociation(e) {
 		const entity = store.get(this.href);
 		if (!entity) {
 			return;
 		}
 
-		await entity.deleteAssociation(e.target.dataset.id);
+		entity.deleteAssociation(e.target.dataset.id);
 	}
 
 	async save() {
@@ -79,6 +79,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 				></d2l-button-icon>
 			</div>
 			`;
+		} else {
+			return html``;
 		}
 	}
 
@@ -90,14 +92,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 			return html``;
 		}
 
-		const associations = entity.getAssociationsMap;
-		const associationsToDisplay = [];
-
-		associations.forEach(
-			a => associationsToDisplay.push(this._renderAssociation(a))
-		);
-
-		return html`${associationsToDisplay}`;
+		const associations = entity.fetchAssociations();
+		return html`${associations.map(this._renderAssociation, this)}`;
 	}
 }
 customElements.define('d2l-activity-rubrics-list-editor', ActivityRubricsListEditor);

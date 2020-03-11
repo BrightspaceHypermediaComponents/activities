@@ -40,6 +40,7 @@ class ActivityAttachment extends ActivityEditorMixin(MobxLitElement) {
 
 		return html`
 			<d2l-labs-attachment
+			  baseHref=""
 				attachmentId="${id}"
 				.attachment="${attachment}"
 				?deleted="${deleted}"

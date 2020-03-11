@@ -43,12 +43,12 @@ export class AttachmentStore extends ObjectStore {
 		return this._createFile(FileAttachment, name, fileSystemType, fileId, previewUrl);
 	}
 
-	createAudio(name, fileSystemType, fileId) {
-		return this._createFile(AudioAttachment, name, fileSystemType, fileId);
+	createAudio(name, fileSystemType, fileId, previewUrl) {
+		return this._createFile(AudioAttachment, name, fileSystemType, fileId, previewUrl);
 	}
 
-	createVideo(name, fileSystemType, fileId) {
-		return this._createFile(VideoAttachment, name, fileSystemType, fileId);
+	createVideo(name, fileSystemType, fileId, previewUrl) {
+		return this._createFile(VideoAttachment, name, fileSystemType, fileId, previewUrl);
 	}
 }
 

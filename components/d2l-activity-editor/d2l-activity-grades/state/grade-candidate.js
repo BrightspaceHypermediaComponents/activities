@@ -36,7 +36,6 @@ export class GradeCandidate {
 
 	async load(entity) {
 		this.href = this.gradeCandidateEntity.href();
-		this.canAssociateGrade = this.gradeCandidateEntity.canAssociateGrade();
 		this.isCategory = this.gradeCandidateEntity.isCategory();
 		this.isCurrentAssociation = this.gradeCandidateEntity.isCurrentAssociation();
 
@@ -57,7 +56,6 @@ export class GradeCandidate {
 decorate(GradeCandidate, {
 	// props
 	baseWeight: observable,
-	canAssociateGrade: observable,
 	gradeCandidates: observable,
 	isCategory: observable,
 	isCurrentAssociation: observable,

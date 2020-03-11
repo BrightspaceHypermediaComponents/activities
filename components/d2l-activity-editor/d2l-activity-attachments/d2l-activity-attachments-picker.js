@@ -60,7 +60,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 
 		D2L.ActivityEditor = D2L.ActivityEditor || {};
 		// Referenced by the server-side ActivitiesView renderer
-		D2L.ActivityEditor.FileUploadDialogCallback = files => {
+		D2L.ActivityEditor.FileUploadDialogCallback = (files) => {
 			for (const file of files) {
 				const fileSystemType = file.m_fileSystemType;
 				const fileId = file.m_id;
@@ -69,12 +69,16 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 			}
 		};
 		// Referenced by the server-side ActivitiesView renderer
-		D2L.ActivityEditor.RecordVideoDialogCallback = file => {
-			this._addToCollection(attachmentStore.createVideo(file.m_name, file.FileSystemType, file.FileId));
+		D2L.ActivityEditor.RecordVideoDialogCallback = async(file) => {
+			const collection = store.get(this.href);
+			const previewUrl = await collection.getPreviewUrl(file.FileSystemType, file.FileId);
+			this._addToCollection(attachmentStore.createVideo(file.m_name, file.FileSystemType, file.FileId, previewUrl));
 		};
 		// Referenced by the server-side ActivitiesView renderer
-		D2L.ActivityEditor.RecordAudioDialogCallback = file => {
-			this._addToCollection(attachmentStore.createAudio(file.m_name, file.FileSystemType, file.FileId));
+		D2L.ActivityEditor.RecordAudioDialogCallback = async(file) => {
+			const collection = store.get(this.href);
+			const previewUrl = await collection.getPreviewUrl(file.FileSystemType, file.FileId);
+			this._addToCollection(attachmentStore.createAudio(file.m_name, file.FileSystemType, file.FileId, previewUrl));
 		};
 	}
 

@@ -23,6 +23,8 @@ describe('Activity Usage', function() {
 		canEditScoreOutOf: () => true,
 		canSeeGrades: () => true,
 		canEditGrades: () => true,
+		gradeHref: () => '',
+		associatedGrade: () => undefined,
 		gradeCandidatesHref: () => '',
 		conditionsHref: () => undefined
 	};
@@ -118,6 +120,7 @@ describe('Activity Usage', function() {
 					endDate: '2020-02-24T04:59:00.000Z'
 				},
 				scoreAndGrade: {
+					associatedGrade: undefined,
 					scoreOutOf: '10',
 					inGrades: true
 				}

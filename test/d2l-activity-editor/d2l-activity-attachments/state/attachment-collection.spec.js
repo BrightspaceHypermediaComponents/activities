@@ -5,6 +5,8 @@ import { AttachmentCollectionsStore } from '../../../../components/d2l-activity-
 import { AttachmentStore } from '../../../../components/d2l-activity-editor/d2l-activity-attachments/state/attachment-store.js';
 import chaiAsPromised from 'chai-as-promised';
 import { fetchEntity } from '../../../../components/d2l-activity-editor/state/fetch-entity.js';
+import { FilePreviewLocationEntity } from 'siren-sdk/src/files/FilePreviewLocationEntity.js';
+import { FilesHomeEntity } from 'siren-sdk/src/files/FilesHomeEntity.js';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import { when } from 'mobx';
@@ -13,6 +15,8 @@ chai.use(chaiAsPromised);
 chai.use(sinonChai);
 
 jest.mock('siren-sdk/src/activities/AttachmentCollectionEntity.js');
+jest.mock('siren-sdk/src/files/FilesHomeEntity.js');
+jest.mock('siren-sdk/src/files/FilePreviewLocationEntity.js');
 jest.mock('../../../../components/d2l-activity-editor/state/fetch-entity.js');
 
 describe('Attachment Collection', function() {
@@ -25,7 +29,8 @@ describe('Attachment Collection', function() {
 		canAddOneDriveLinkAttachment: () => true,
 		canAddVideoNoteAttachment: () => true,
 		canAddAudioNoteAttachment: () => false,
-		getAttachmentEntityHrefs: () => []
+		getAttachmentEntityHrefs: () => [],
+		getFilesHref: () => 'https://b4b1eaba-26aa-4017-b37c-33e22649e477.files.api.proddev.d2l/121213'
 	};
 
 	afterEach(() => {
@@ -63,6 +68,7 @@ describe('Attachment Collection', function() {
 			expect(collection.canAddOneDriveLink).to.be.true;
 			expect(collection.canRecordVideo).to.be.true;
 			expect(collection.canRecordAudio).to.be.false;
+			expect(collection._filesHref).to.equal('https://b4b1eaba-26aa-4017-b37c-33e22649e477.files.api.proddev.d2l/121213');
 
 			expect(collection.attachments.length).to.equal(2);
 			expect(collection.attachments[0]).to.equal('http://attachment/1');
@@ -89,6 +95,45 @@ describe('Attachment Collection', function() {
 			);
 
 			collection.addAttachment(attachment);
+		});
+	});
+
+	describe('file preview location', () => {
+
+		let sirenFilePreviewLocationEntity;
+
+		beforeEach(() => {
+			sirenFilePreviewLocationEntity = sinon.stub();
+
+			FilesHomeEntity.mockImplementation(() => {
+				return {
+					getFilePreviewLocationEntity: () => sirenFilePreviewLocationEntity
+				};
+			});
+
+			FilePreviewLocationEntity.mockImplementation(() => {
+				return {
+					previewLocation: () => '/d2l/lp/files/12356'
+				};
+			});
+		});
+
+		afterEach(() => {
+			FilesHomeEntity.mockClear();
+			FilePreviewLocationEntity.mockClear();
+		});
+
+		it('fetches file preview location', async() => {
+			const collection = new AttachmentCollection('http://collection/1', 'token');
+			const previewLocation = await collection.getPreviewUrl();
+
+			expect(previewLocation).to.equal('/d2l/lp/files/12356');
+
+			expect(fetchEntity.mock.calls.length).to.equal(1);
+			expect(FilesHomeEntity.mock.calls[0][0]).to.equal(sirenEntity);
+			expect(FilesHomeEntity.mock.calls[0][1]).to.equal('token');
+			expect(FilePreviewLocationEntity.mock.calls[0][0]).to.equal(sirenFilePreviewLocationEntity);
+			expect(FilePreviewLocationEntity.mock.calls[0][1]).to.equal('token');
 		});
 	});
 

@@ -25,6 +25,8 @@ describe('Activity Score Grade', function() {
 			canEditScoreOutOf: () => true,
 			canSeeGrades: () => true,
 			canEditGrades: () => true,
+			associatedGrade: () => null,
+			gradeHref: () => 'http://test-grade-href',
 			gradeCandidatesHref: () => ''
 		};
 	});
@@ -65,6 +67,8 @@ describe('Activity Score Grade', function() {
 				catchErrors(done, () => {
 					expect(activity.scoreOutOf).to.be.empty;
 					expect(activity.inGrades).to.be.false;
+					expect(activity.associatedGrade).to.be.null;
+					expect(activity.gradeHref).to.be.empty;
 				})
 			);
 
@@ -90,7 +94,10 @@ describe('Activity Score Grade', function() {
 
 			when(
 				() => !activity.inGrades,
-				done
+				catchErrors(done, () => {
+					expect(activity.associatedGrade).to.be.null;
+					expect(activity.gradeHref).to.be.empty;
+				})
 			);
 
 			activity.removeFromGrades();

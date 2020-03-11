@@ -211,7 +211,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 		const scoreAndGrade = store.get(this.href).scoreAndGrade;
 		const gradeCandidatesHref = scoreAndGrade.gradeCandidatesHref;
 		const gradeCandidateCollection = gradeCandidateCollectionStore.get(gradeCandidatesHref);
-		const oldGradeSelected = gradeCandidateCollection.selected;
+		const oldGradeHref = scoreAndGrade.gradeHref;
 
 		const dialog = this.shadowRoot.querySelector('d2l-dialog');
 		const action = await dialog.open();
@@ -219,15 +219,12 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 			return;
 		}
 
-		const newGradeSelected = gradeCandidateCollection.selected;
-		if (oldGradeSelected.href === newGradeSelected.href) {
+		const selected = gradeCandidateCollection.selected;
+		if (oldGradeHref && oldGradeHref === selected.href) {
 			return;
 		}
 
-		this._setGraded();
-		if (newGradeSelected.maxPoints !== undefined) {
-			scoreAndGrade.setScoreOutOf(newGradeSelected.maxPoints.toString());
-		}
+		scoreAndGrade.setAssociatedGrade(selected);
 	}
 
 	render() {

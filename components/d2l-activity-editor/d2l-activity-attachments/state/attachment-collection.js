@@ -1,6 +1,8 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
+import { FilePreviewLocationEntity } from 'siren-sdk/src/files/FilePreviewLocationEntity.js';
+import { FilesHomeEntity } from 'siren-sdk/src/files/FilesHomeEntity.js';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -31,8 +33,31 @@ export class AttachmentCollection {
 		this.canAddOneDriveLink = entity.canAddOneDriveLinkAttachment();
 		this.canRecordVideo = entity.canAddVideoNoteAttachment();
 		this.canRecordAudio = entity.canAddAudioNoteAttachment();
+		this._filesHref = entity.getFilesHref();
 
 		this.attachments = entity.getAttachmentEntityHrefs() || [];
+	}
+
+	async _getFilesEntity() {
+		if (!this._filesEntity) {
+			const sirenEntity = await fetchEntity(this._filesHref, this.token);
+			if (sirenEntity) {
+				this._filesEntity = new FilesHomeEntity(sirenEntity, this.token, { remove: () => { } });
+			}
+		}
+		return this._filesEntity;
+	}
+
+	async getPreviewUrl(fileSystemType, fileId) {
+		const filesEntity = await this._getFilesEntity();
+		if (!filesEntity) {
+			return '';
+		}
+		const sirenFilePreviewLocation = await filesEntity.getFilePreviewLocationEntity(fileSystemType, fileId);
+		if (sirenFilePreviewLocation) {
+			const filePreviewLocation = new FilePreviewLocationEntity(sirenFilePreviewLocation, this.token, { remove: () => { } });
+			return filePreviewLocation.previewLocation();
+		}
 	}
 
 	setCanAddAttachments(value) {

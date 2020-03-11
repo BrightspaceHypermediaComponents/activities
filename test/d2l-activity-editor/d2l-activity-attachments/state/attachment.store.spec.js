@@ -1,4 +1,4 @@
-import { FileAttachment, LinkAttachment } from '../../../../components/d2l-activity-editor/d2l-activity-attachments/state/attachment.js';
+import { AudioAttachment, FileAttachment, LinkAttachment, VideoAttachment } from '../../../../components/d2l-activity-editor/d2l-activity-attachments/state/attachment.js';
 import { AttachmentStore } from '../../../../components/d2l-activity-editor/d2l-activity-attachments/state/attachment-store.js';
 import { expect } from 'chai';
 
@@ -36,6 +36,28 @@ describe('Attachment Store', function() {
 			expect(file).to.be.an.instanceof(FileAttachment);
 			expect(file.attachment.name).to.equal('MyDocument.pdf');
 			expect(file.attachment.url).to.equal('https://fake.com/MyDocument.pdf/view');
+			expect(store.get(file.href)).to.equal(file);
+		});
+	});
+
+	describe('Audio', () => {
+		it('creates new', () => {
+			const file = store.createAudio('MyDocument.mp3', 'Temp', '12345', 'https://fake.com/MyDocument.mp3/view');
+
+			expect(file).to.be.an.instanceof(AudioAttachment);
+			expect(file.attachment.name).to.equal('MyDocument.mp3');
+			expect(file.attachment.url).to.equal('https://fake.com/MyDocument.mp3/view');
+			expect(store.get(file.href)).to.equal(file);
+		});
+	});
+
+	describe('Video', () => {
+		it('creates new', () => {
+			const file = store.createVideo('MyDocument.mp4', 'Temp', '12345', 'https://fake.com/MyDocument.mp4/view');
+
+			expect(file).to.be.an.instanceof(VideoAttachment);
+			expect(file.attachment.name).to.equal('MyDocument.mp4');
+			expect(file.attachment.url).to.equal('https://fake.com/MyDocument.mp4/view');
 			expect(store.get(file.href)).to.equal(file);
 		});
 	});

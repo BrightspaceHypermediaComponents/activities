@@ -100,7 +100,8 @@ export class ActivityUsage {
 			},
 			scoreAndGrade: {
 				scoreOutOf: this.scoreAndGrade.scoreOutOf,
-				inGrades: this.scoreAndGrade.inGrades
+				inGrades: this.scoreAndGrade.inGrades,
+				associatedGrade: (this.scoreAndGrade.associatedGrade || {}).gradeCandidateEntity
 			}
 		});
 

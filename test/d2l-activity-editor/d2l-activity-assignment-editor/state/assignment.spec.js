@@ -27,6 +27,10 @@ describe('Assignment ', function() {
 				instructionsEditorHtml: () => 'These are your instructions',
 				canEditInstructions: () => true,
 				instructionsRichTextEditorConfig: () => {},
+				isAnonymousMarkingAvailable: () => undefined,
+				isAnonymousMarkingEnabled: () => undefined,
+				canEditAnonymousMarking: () => undefined,
+				getAnonymousMarkingHelpText: () => undefined,
 				activityUsageHref: () => 'http://activity/1',
 				submissionTypeOptions: () => [
 					{title: 'File submission', value: 0, completionTypes: null, selected: false},

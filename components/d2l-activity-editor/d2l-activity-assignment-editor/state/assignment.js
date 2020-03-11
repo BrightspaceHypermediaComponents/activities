@@ -107,7 +107,7 @@ export class Assignment {
 	setAssignmentTypeGroupCategory(value) {
 		this.selectedGroupCategoryId = value;
 	}
-	
+
 	setAnonymousMarking(value) {
 		this.isAnonymousMarkingEnabled = value;
 	}

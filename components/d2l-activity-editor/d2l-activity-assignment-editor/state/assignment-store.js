@@ -26,3 +26,4 @@ export class AssignmentStore {
 }
 
 export const shared = new AssignmentStore();
+export const { _assignments: assignments } = shared;

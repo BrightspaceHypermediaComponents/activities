@@ -1,6 +1,6 @@
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import './d2l-activity-assignment-type-editor.js';
-import './d2l-activity-assignment-type-summary-editor.js';
+import './d2l-activity-assignment-type-summary.js';
 import { bodySmallStyles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
@@ -12,6 +12,7 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { shared as store } from './state/assignment-store.js';
 
 class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
+
 	static get styles() {
 		return [
 			bodySmallStyles,
@@ -89,10 +90,10 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 
 	_renderAssignmentTypeSummary() {
 		return html`
-			<d2l-activity-assignment-type-summary-editor
+			<d2l-activity-assignment-type-summary
 				href="${this.href}"
 				.token="${this.token}">
-			</d2l-activity-assignment-type-summary-editor>
+			</d2l-activity-assignment-type-summary>
 		`;
 	}
 

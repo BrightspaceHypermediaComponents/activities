@@ -6,7 +6,7 @@ import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
-import { shared as store } from './state/assignment-store.js';
+import { assignments as store } from './state/assignment-store.js';
 
 class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
 
@@ -60,6 +60,10 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 		return getLocalizeResources(langs, import.meta.url);
 	}
 
+	constructor() {
+		super(store);
+	}
+
 	_getGroupCategoryOptions(assignment) {
 		if (assignment) {
 			return html`${assignment.groupCategories.map(
@@ -74,15 +78,15 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 	}
 
 	_setIndividualAssignmentType() {
-		store.getAssignment(this.href).setToIndividualAssignmentType();
+		store.get(this.href).setToIndividualAssignmentType();
 	}
 
 	_setGroupAssignmentType() {
-		store.getAssignment(this.href).setToGroupAssignmentType();
+		store.get(this.href).setToGroupAssignmentType();
 	}
 
 	_changeGroupCategory(event) {
-		store.getAssignment(this.href).setAssignmentTypeGroupCategory(event.target.value);
+		store.get(this.href).setAssignmentTypeGroupCategory(event.target.value);
 	}
 
 	_getInformationText(assignment) {
@@ -108,11 +112,16 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 	}
 
 	render() {
-		const assignment = store.getAssignment(this.href);
-		const isIndividualType = assignment ? assignment.isIndividualAssignmentType : true;
+		const assignment = store.get(this.href);
+
+		if (!assignment) {
+			return html``;
+		}
+
+		const isIndividualType = assignment.isIndividualAssignmentType;
 		const infoText = this._getInformationText(assignment);
-		const isReadOnly = assignment ? assignment.isReadOnly : true;
-		const groupTypeDisabled = assignment ? assignment.isGroupAssignmentTypeDisabled : true;
+		const isReadOnly = assignment.isReadOnly;
+		const groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled;
 
 		return html`
 			<div ?hidden=${!isReadOnly} id="read-only-assignment-type-container">

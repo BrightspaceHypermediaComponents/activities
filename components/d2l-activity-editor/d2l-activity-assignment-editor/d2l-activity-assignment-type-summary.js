@@ -3,9 +3,11 @@ import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
-import { shared as store } from './state/assignment-store.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { assignments as store } from './state/assignment-store.js';
 
-class ActivityTypeSummaryEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
+class AssignmentTypeSummary extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
+
 	static get styles() {
 		return css`
 			:host {
@@ -21,8 +23,12 @@ class ActivityTypeSummaryEditor extends ActivityEditorMixin(LocalizeMixin(MobxLi
 		return getLocalizeResources(langs, import.meta.url);
 	}
 
+	constructor() {
+		super(store);
+	}
+
 	render() {
-		const assignment = store.getAssignment(this.href);
+		const assignment = store.get(this.href);
 		if (assignment && !assignment.isIndividualAssignmentType) {
 			return html`${this.localize('txtGroupAssignmentSummary')}`;
 		}
@@ -32,6 +38,6 @@ class ActivityTypeSummaryEditor extends ActivityEditorMixin(LocalizeMixin(MobxLi
 }
 
 customElements.define(
-	'd2l-activity-assignment-type-summary-editor',
-	ActivityTypeSummaryEditor
+	'd2l-activity-assignment-type-summary',
+	AssignmentTypeSummary
 );

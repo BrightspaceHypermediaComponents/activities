@@ -69,7 +69,8 @@ export class Assignment {
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
 
-		if (!this.isIndividualAssignmentType) {
+		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {
+			this.selectedGroupCategoryId = String(this.groupCategories[0].value);
 			const category = this.groupCategories.find(category => category.selected === true);
 
 			if (category) {

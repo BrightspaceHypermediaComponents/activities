@@ -97,20 +97,30 @@ export class Assignment {
 		this.instructions = value;
 	}
 
-	async save() {
-		if (!this._entity) {
-			return;
-		}
-
-		await this._entity.save({
+	_makeAssignmentData() {
+		return {
 			name: this.name,
 			instructions: this.instructions,
 			isAnonymous: this.isAnonymousMarkingEnabled,
 			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? 0 : this.completionType
-		});
+		};
+	}
+	async save() {
+		if (!this._entity) {
+			return;
+		}
+		await this._entity.save(this._makeAssignmentData());
 		await this.fetch();
+	}
+
+	get dirty() {
+		return !this._entity.equals(this._makeAssignmentData());
+	}
+
+	delete() {
+		return this._entity.delete();
 	}
 }
 

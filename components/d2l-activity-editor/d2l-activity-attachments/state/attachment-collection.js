@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { FilePreviewLocationEntity } from 'siren-sdk/src/files/FilePreviewLocationEntity.js';
@@ -138,6 +138,30 @@ export class AttachmentCollection {
 			}
 		}
 	}
+
+	_hasChanged(attachment) {
+		if (attachment.deleted && !attachment.creating) {
+			return true;
+		} else if (attachment.creating && !attachment.deleted) {
+			return true;
+		}
+		return false;
+	}
+
+	get dirty() {
+		const attachmentStore = this.store.getAttachmentStore();
+		if (!attachmentStore) {
+			return false;
+		}
+
+		for (const href of this.attachments) {
+			const attachment = attachmentStore.get(href);
+			if (attachment && this._hasChanged(attachment)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 decorate(AttachmentCollection, {
@@ -150,6 +174,7 @@ decorate(AttachmentCollection, {
 	canRecordVideo: observable,
 	canRecordAudio: observable,
 	attachments: observable,
+	dirty: computed,
 	// actions
 	load: action,
 	setCanAddAttachments: action,

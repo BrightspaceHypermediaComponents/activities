@@ -187,6 +187,12 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 				${this._editorTemplate}
 
 			</d2l-activity-editor>
+
+			<d2l-dialog title-text="${this.localize('discardChangesTitle')}">
+				<span>${this.localize('discardChangesQuestion')}</span>
+				<d2l-button slot="footer" primary dialog-action="confirm">${this.localize('yesLabel')}</d2l-button>
+				<d2l-button slot="footer" dialog-action="cancel">${this.localize('noLabel')}</d2l-button>
+			</d2l-dialog>
 		`;
 	}
 
@@ -204,6 +210,20 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 		await assignment.save();
 	}
 
+	hasPendingChanges() {
+		const activity = store.getActivity(this.href);
+		if (!activity) {
+			return false;
+		}
+
+		const assignment = store.getAssignment(activity.assignmentHref);
+		if (!assignment) {
+			return false;
+		}
+
+		return assignment.dirty;
+	}
+
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
@@ -211,6 +231,12 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 			this.href && this.token) {
 			super._fetch(() => store.fetchActivity(this.href, this.token));
 		}
+	}
+
+	delete() {
+		const activity = store.getActivity(this.href);
+		const assignment = activity && store.getAssignment(activity.assignmentHref);
+		return assignment && assignment.delete();
 	}
 }
 customElements.define('d2l-activity-assignment-editor', AssignmentEditor);

@@ -26,6 +26,10 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 
 	async save() {}
 
+	hasPendingChanges() {
+		return false;
+	}
+
 	_dispatchActivityEditorEvent() {
 		const event = new CustomEvent('d2l-activity-editor-connected', {
 			detail: { editor: this },

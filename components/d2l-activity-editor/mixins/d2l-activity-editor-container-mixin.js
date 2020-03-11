@@ -2,10 +2,21 @@ import { getFirstFocusableDescendant } from '@brightspace-ui/core/helpers/focus.
 
 export const ActivityEditorContainerMixin = superclass => class extends superclass {
 
+	static get properties() {
+		return {
+			/**
+			 * Is Creating New
+			 */
+			isNew: { type: Boolean }
+		};
+	}
+
 	constructor() {
 		super();
 		this.addEventListener('d2l-activity-editor-connected', this._registerEditor);
 		this.addEventListener('d2l-activity-editor-save', this._save);
+		this.addEventListener('d2l-activity-editor-cancel', this._cancel);
+
 		this._editors = new Set();
 		this.isError = false;
 	}
@@ -40,6 +51,8 @@ export const ActivityEditorContainerMixin = superclass => class extends supercla
 		return false;
 	}
 
+	async delete() {}
+
 	async _save() {
 		const validations = [];
 		for (const editor of this._editors) {
@@ -68,4 +81,21 @@ export const ActivityEditorContainerMixin = superclass => class extends supercla
 		this.dispatchEvent(this.saveCompleteEvent);
 	}
 
+	async _cancel() {
+		const hasPendingChanges = Array.from(this._editors).some(editor => editor.hasPendingChanges());
+
+		if (hasPendingChanges) {
+			const dialog = this.shadowRoot.querySelector('d2l-dialog');
+			const action = await dialog.open();
+			if (action === 'cancel') {
+				return;
+			}
+		}
+
+		if (this.isNew) {
+			await this.delete();
+		}
+
+		this.dispatchEvent(this.saveCompleteEvent);
+	}
 };

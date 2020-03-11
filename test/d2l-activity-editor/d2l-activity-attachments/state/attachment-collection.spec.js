@@ -219,4 +219,30 @@ describe('Attachment Collection', function() {
 			});
 		});
 	});
+	describe('detect change', () => {
+		it('when attachment deleted=true creating=true', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: true, creating: true};
+			const result = collection._hasChanged(attachment);
+			expect(false).equals(result);
+		});
+		it('when attachment deleted=false creating=false', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: false, creating: false};
+			const result = collection._hasChanged(attachment);
+			expect(false).equals(result);
+		});
+		it('when attachment deleted=true creating=false', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: true, creating: false};
+			const result = collection._hasChanged(attachment);
+			expect(true).equals(result);
+		});
+		it('when attachment deleted=false creating=true', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: false, creating: true};
+			const result = collection._hasChanged(attachment);
+			expect(true).equals(result);
+		});
+	});
 });

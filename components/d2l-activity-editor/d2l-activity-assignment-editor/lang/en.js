@@ -30,5 +30,9 @@ export default {
 	"txtGroupCategoryWithName": "Group Category: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Group Category", // Label for group category
 	"submissionCompletionAndCategorization": "Submission, Completion & Categorization", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Your assignment wasn't saved. Please correct the fields outlined in red." // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Your assignment wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"discardChangesTitle": "Discard changes?", // Discard Changes User Prompt
+	"discardChangesQuestion": "Are you sure you want to discard your changes?", // Discard Changes User Prompt
+	"yesLabel": "Yes",
+	"noLabel": "No"
 };

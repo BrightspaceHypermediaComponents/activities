@@ -86,12 +86,8 @@ export class ActivityUsage {
 		}
 	}
 
-	async save() {
-		if (!this._entity) {
-			return;
-		}
-
-		await this._entity.save({
+	_makeUsageData() {
+		return {
 			isDraft: this.isDraft,
 			dates: {
 				dueDate: this.dates.dueDate,
@@ -103,9 +99,21 @@ export class ActivityUsage {
 				inGrades: this.scoreAndGrade.inGrades,
 				associatedGrade: (this.scoreAndGrade.associatedGrade || {}).gradeCandidateEntity
 			}
-		});
+		};
+	}
+
+	async save() {
+		if (!this._entity) {
+			return;
+		}
+
+		await this._entity.save(this._makeUsageData());
 
 		await this.fetch();
+	}
+
+	get dirty() {
+		return !this._entity.equals(this._makeUsageData());
 	}
 }
 

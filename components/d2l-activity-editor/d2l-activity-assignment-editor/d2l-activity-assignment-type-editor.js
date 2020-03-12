@@ -122,11 +122,15 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 		const infoText = this._getInformationText(assignment);
 		const isReadOnly = assignment.isReadOnly;
 		const groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled;
+		const folderTypeText =	isIndividualType ? this.localize('txtIndividual') : this.localize('txtGroup');
+		const groupTypeText = !isIndividualType && assignment.selectedGroupCategoryName
+			? this.localize('txtGroupCategoryWithName', 'groupCategory', assignment.selectedGroupCategoryName)
+			: '';
 
 		return html`
 			<div ?hidden=${!isReadOnly} id="read-only-assignment-type-container">
-				<div class="d2l-body-standard">${this._folderTypeText}</div>
-				<div class="d2l-body-compact">${this._groupTypeText}</div>
+				<div class="d2l-body-standard">${folderTypeText}</div>
+				<div class="d2l-body-compact">${groupTypeText}</div>
 				<p class="d2l-body-small">${infoText}</p>
 			</div>
 			

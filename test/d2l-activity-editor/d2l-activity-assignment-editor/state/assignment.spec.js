@@ -73,7 +73,8 @@ describe('Assignment ', function() {
 				isIndividualAssignmentType: () => true,
 				getAssignmentTypeGroupCategoryOptions: () => [],
 				getAssignmentTypeInformationText: () => '',
-				isAssignmentTypeReadOnly: () => false
+				isAssignmentTypeReadOnly: () => false,
+				getAssignmentTypeSelectedGroupCategoryName: () => null
 			};
 		});
 

@@ -72,6 +72,7 @@ export class Assignment {
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
+		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
 		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {
 			this.selectedGroupCategoryId = String(this.groupCategories[0].value);
@@ -160,6 +161,7 @@ decorate(Assignment, {
 	selectedGroupCategoryId: observable,
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
+	selectedGroupCategoryName: observable,
 	// actions
 	load: action,
 	setName: action,

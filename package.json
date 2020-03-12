@@ -33,7 +33,6 @@
     "@polymer/iron-test-helpers": "^3.0.0-pre.18",
     "@polymer/test-fixture": "^4.0.2",
     "@webcomponents/webcomponentsjs": "^2.2.1",
-    "async": "^1.5.2",
     "axe-core": "^3.4.1",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^25.1.0",

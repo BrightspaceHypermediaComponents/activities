@@ -65,6 +65,14 @@ class ActivityEditor extends PendingContainerMixin(ActivityEditorMixin(LocalizeM
 		}
 	}
 
+	hasPendingChanges() {
+		const activity = store.get(this.href);
+		if (activity) {
+			return activity.dirty;
+		}
+		return false;
+	}
+
 	render() {
 		return html`
 			<div ?hidden="${!this.loading}" class="d2l-activity-editor-loading">${this.localize('loading')}</div>

@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { FilePreviewLocationEntity } from 'siren-sdk/src/files/FilePreviewLocationEntity.js';
@@ -102,9 +102,6 @@ export class AttachmentCollection {
 			throw new Error('No attachment store configured. Cannot save');
 		}
 
-		const discarded = [];
-		let hasChanged = false;
-
 		for (const href of this.attachments) {
 			// TODO - Should we run these concurrently using an array of promises?
 			// Siren action helper will still serialize them but we could setup the
@@ -112,31 +109,35 @@ export class AttachmentCollection {
 			const attachment = attachmentStore.get(href);
 			if (attachment.deleted && !attachment.creating) {
 				await attachment.delete();
-				hasChanged = true;
 			}
 			if (attachment.creating && !attachment.deleted) {
 				await attachment.save(this._entity);
-				hasChanged = true;
-			}
-
-			if (attachment.creating && attachment.deleted) {
-				discarded.push(href);
-			}
-
-			// Clean up store reference to temporary or deleted attachments
-			if (attachment.creating || attachment.deleted) {
-				attachmentStore.remove(href);
 			}
 		}
+	}
 
-		if (hasChanged) {
-			await this.fetch();
-		} else if (discarded.length > 0) {
-			// Clean up new attachments that were removed before save
-			for (const href of discarded) {
-				this.attachments.remove(href);
+	_hasChanged(attachment) {
+		if (attachment.deleted && !attachment.creating) {
+			return true;
+		} else if (attachment.creating && !attachment.deleted) {
+			return true;
+		}
+		return false;
+	}
+
+	get dirty() {
+		const attachmentStore = this.store.getAttachmentStore();
+		if (!attachmentStore) {
+			return false;
+		}
+
+		for (const href of this.attachments) {
+			const attachment = attachmentStore.get(href);
+			if (attachment && this._hasChanged(attachment)) {
+				return true;
 			}
 		}
+		return false;
 	}
 }
 
@@ -150,6 +151,7 @@ decorate(AttachmentCollection, {
 	canRecordVideo: observable,
 	canRecordAudio: observable,
 	attachments: observable,
+	dirty: computed,
 	// actions
 	load: action,
 	setCanAddAttachments: action,

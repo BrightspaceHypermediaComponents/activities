@@ -34,5 +34,9 @@ export default {
 	"assignmentSaveError": "Your assignment wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "Assignment type cannot be changed once submissions are present", // Folder type cannot change
 	"folderTypeNoGroups": "No groups exist. Create new groups in the Groups tool.", // Folder type no groups
-	"folderTypeCreateGroups": "Create new groups in the Groups tool." // Folder type create groups
+	"folderTypeCreateGroups": "Create new groups in the Groups tool.", // Folder type create groups
+	"discardChangesTitle": "Discard changes?", // Discard Changes User Prompt
+	"discardChangesQuestion": "Are you sure you want to discard your changes?", // Discard Changes User Prompt
+	"yesLabel": "Yes",
+	"noLabel": "No"
 };

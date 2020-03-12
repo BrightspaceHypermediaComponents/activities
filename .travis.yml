@@ -33,6 +33,10 @@ deploy:
   api_key: "$GITHUB_RELEASE_TOKEN"
   on:
     tags: true
+notifications:
+  email:
+    recipients:
+      - Alex.Bedley@D2L.com
 env:
   global:
   - OWNER_NAME: Brightspacehypermediacomponents

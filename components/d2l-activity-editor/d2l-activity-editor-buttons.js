@@ -27,16 +27,17 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 		return getLocalizeResources(langs, import.meta.url);
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-	}
-
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
-
-	async _save() {
+	_save() {
 		const event = new CustomEvent('d2l-activity-editor-save', {
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		this.dispatchEvent(event);
+	}
+
+	_cancel() {
+		const event = new CustomEvent('d2l-activity-editor-cancel', {
 			bubbles: true,
 			composed: true,
 			cancelable: true
@@ -47,7 +48,7 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 	render() {
 		return html`
 			<d2l-button primary @click="${this._save}">${this.localize('btnSave')}</d2l-button>
-			<d2l-button>${this.localize('btnCancel')}</d2l-button>
+			<d2l-button @click="${this._cancel}">${this.localize('btnCancel')}</d2l-button>
 		`;
 	}
 }

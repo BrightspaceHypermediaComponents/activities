@@ -180,8 +180,7 @@ describe('Attachment Collection', function() {
 				await collection.save();
 
 				expect(mockDelete).to.have.been.calledOnce;
-				expect(fetchEntity.mock.calls.length).to.equal(2);
-				expect(attachmentStore.get('http://attachment/1')).to.be.undefined;
+				expect(fetchEntity.mock.calls.length).to.equal(1);
 			});
 
 			it('ignores new attachments that were immediately removed', async() => {
@@ -197,8 +196,6 @@ describe('Attachment Collection', function() {
 				await collection.save();
 
 				expect(mockDelete.callCount).to.equal(0);
-				expect(attachmentStore.get('http://attachment/1')).to.be.undefined;
-				expect(collection.attachments).to.be.empty;
 			});
 
 			it('saves new attachments', async() => {
@@ -214,9 +211,34 @@ describe('Attachment Collection', function() {
 				await collection.save();
 
 				expect(mockSave).to.have.been.calledWithExactly(AttachmentCollectionEntity.mock.results[0].value);
-				expect(fetchEntity.mock.calls.length).to.equal(2);
-				expect(attachmentStore.get('http://attachment/1')).to.be.undefined;
+				expect(fetchEntity.mock.calls.length).to.equal(1);
 			});
+		});
+	});
+	describe('detect change', () => {
+		it('when attachment deleted=true creating=true', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: true, creating: true};
+			const result = collection._hasChanged(attachment);
+			expect(false).equals(result);
+		});
+		it('when attachment deleted=false creating=false', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: false, creating: false};
+			const result = collection._hasChanged(attachment);
+			expect(false).equals(result);
+		});
+		it('when attachment deleted=true creating=false', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: true, creating: false};
+			const result = collection._hasChanged(attachment);
+			expect(true).equals(result);
+		});
+		it('when attachment deleted=false creating=true', () => {
+			const collection = new AttachmentCollection('http://collection/1', 'token', {});
+			const attachment = {deleted: false, creating: true};
+			const result = collection._hasChanged(attachment);
+			expect(true).equals(result);
 		});
 	});
 });

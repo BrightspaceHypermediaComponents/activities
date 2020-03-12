@@ -72,13 +72,13 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		D2L.ActivityEditor.RecordVideoDialogCallback = async(file) => {
 			const collection = store.get(this.href);
 			const previewUrl = await collection.getPreviewUrl(file.FileSystemType, file.FileId);
-			this._addToCollection(attachmentStore.createVideo(file.m_name, file.FileSystemType, file.FileId, previewUrl));
+			this._addToCollection(attachmentStore.createVideo(file.FileName, file.FileSystemType, file.FileId, previewUrl));
 		};
 		// Referenced by the server-side ActivitiesView renderer
 		D2L.ActivityEditor.RecordAudioDialogCallback = async(file) => {
 			const collection = store.get(this.href);
 			const previewUrl = await collection.getPreviewUrl(file.FileSystemType, file.FileId);
-			this._addToCollection(attachmentStore.createAudio(file.m_name, file.FileSystemType, file.FileId, previewUrl));
+			this._addToCollection(attachmentStore.createAudio(file.FileName, file.FileSystemType, file.FileId, previewUrl));
 		};
 	}
 

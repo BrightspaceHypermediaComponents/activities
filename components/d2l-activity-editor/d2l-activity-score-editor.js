@@ -292,14 +292,14 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 							</button>
 							<d2l-dropdown-menu id="grade-dropdown" align="start" no-pointer vertical-offset="3px">
 								<d2l-menu label="${inGrades ? this.localize('inGrades') : this.localize('notInGrades')}">
+									<d2l-menu-item
+										text="${this.localize('chooseFromGrades')}"
+										@d2l-menu-item-select="${this._setGradeItem}"
+									></d2l-menu-item>
 									${this._addOrRemoveMenuItem()}
 									<d2l-menu-item
 										text="${this.localize('setUngraded')}"
 										@d2l-menu-item-select="${this._setUngraded}"
-									></d2l-menu-item>
-									<d2l-menu-item
-										text="${this.localize('chooseFromGrades')}"
-										@d2l-menu-item-select="${this._setGradeItem}"
 									></d2l-menu-item>
 								</d2l-menu>
 							</d2l-dropdown-menu>

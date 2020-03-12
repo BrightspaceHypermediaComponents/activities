@@ -1,6 +1,13 @@
 import { ActivityScoreGrade} from '../../../components/d2l-activity-editor/state/activity-score-grade.js';
 import { expect } from 'chai';
+import { fetchEntity } from '../../../components/d2l-activity-editor/state/fetch-entity.js';
+import { GradeCandidate } from '../../../components/d2l-activity-editor/d2l-activity-grades/state/grade-candidate.js';
+import { GradeEntity } from 'siren-sdk/src/activities/GradeEntity.js';
+import sinon from 'sinon';
 import { when } from 'mobx';
+
+jest.mock('siren-sdk/src/activities/GradeEntity.js');
+jest.mock('../../../components/d2l-activity-editor/state/fetch-entity.js');
 
 function catchErrors(done, callback) {
 	return function() {
@@ -112,6 +119,58 @@ describe('Activity Score Grade', function() {
 			);
 
 			activity.setScoreOutOf('99');
+		});
+
+		describe('associated grade', () => {
+			let sirenEntity;
+
+			const gradeEntityMock = {
+				name: () => '',
+				baseWeight: () => '',
+				maxPoints: () => 50
+			};
+
+			beforeEach(() => {
+				sirenEntity = sinon.stub();
+
+				GradeEntity.mockImplementation(() => {
+					return gradeEntityMock;
+				});
+
+				fetchEntity.mockImplementation(() => Promise.resolve(sirenEntity));
+			});
+
+			afterEach(() => {
+				sinon.restore();
+				GradeEntity.mockClear();
+				fetchEntity.mockClear();
+			});
+
+			it('reacts to set associated grade', async(done) => {
+				const activity = new ActivityScoreGrade(defaultEntityMock);
+
+				when(
+					() => activity.associatedGrade,
+					catchErrors(done, () => {
+						expect(activity.gradeHref).to.equal('http://grade-candidate-href');
+						expect(activity.inGrades).to.be.true;
+						expect(activity.isUngraded).to.be.false;
+						expect(activity.scoreOutOf).to.equal('50');
+					})
+				);
+
+				const gradeCandidateEntityMock = {
+					isCategory: () => false,
+					isCurrentAssociation: () => false,
+					href: () => 'http://grade-candidate-href',
+					getGradeCandidates: () => []
+				};
+
+				const gradeCandidate = new GradeCandidate(gradeCandidateEntityMock, 'token');
+				await gradeCandidate.fetch();
+
+				activity.setAssociatedGrade(gradeCandidate);
+			});
 		});
 	});
 

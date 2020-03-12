@@ -1,22 +1,14 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { SaveStatusMixin } from '../save-status-mixin.js';
+import { assignments as store } from './state/assignment-store.js';
 
 class ActivityAssignmentAnnotationsEditor
-	extends SaveStatusMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
-
-	static get properties() {
-
-		return {
-			_canSeeAnnotations: { type: Boolean },
-			_annotationToolsAvailable: { type: Boolean },
-		};
-	}
+	extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
 
 	static get styles() {
 
@@ -50,39 +42,23 @@ class ActivityAssignmentAnnotationsEditor
 
 	constructor() {
 
-		super();
-		this._setEntityType(AssignmentEntity);
+		super(store);
 	}
 
-	set _entity(entity) {
+	_toggleAnnotationToolsAvailability(event) {
 
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
-	}
-
-	_onAssignmentChange(assignment) {
-
-		if (!assignment) {
-			return;
-		}
-
-		this._canSeeAnnotations = assignment.canSeeAnnotations();
-		this._annotationToolsAvailable = assignment.getAvailableAnnotationTools();
-	}
-
-	_toggleAnnotationToolsAvailability() {
-
-		const value = !this._annotationToolsAvailable;
-		const promise = super._entity.setAnnotationToolsAvailability(value);
-		this._annotationToolsAvailable = value;
-		this.wrapSaveAction(promise);
+		const entity = store.get(this.href);
+		entity.setAnnotationToolsAvailable(event.target.checked);
 	}
 
 	render() {
 
-		const shouldRenderEditor = this._canSeeAnnotations;
+		const entity = store.get(this.href);
+		if (!entity) {
+			return html``;
+		}
+
+		const shouldRenderEditor = entity.canSeeAnnotations;
 		if (!shouldRenderEditor) {
 			return html``;
 		}
@@ -93,7 +69,7 @@ class ActivityAssignmentAnnotationsEditor
 			</label>
 			<d2l-input-checkbox
 				@change="${this._toggleAnnotationToolsAvailability}"
-				?checked="${this._annotationToolsAvailable}"
+				?checked="${entity.annotationToolsAvailable}"
 				ariaLabel="${this.localize('annotationToolDescription')}">
 				${this.localize('annotationToolDescription')}
 			</d2l-input-checkbox>

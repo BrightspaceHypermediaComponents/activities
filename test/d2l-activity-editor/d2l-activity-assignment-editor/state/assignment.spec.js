@@ -159,4 +159,13 @@ describe('Assignment ', function() {
 		expect(assignment.completionType).to.equal('1');
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
+
+	it('setTurnitin', async() => {
+		const assignment = new Assignment('http://assignment/1', 'token');
+		await assignment.fetch();
+		assignment.setTurnitin(true, true);
+
+		expect(assignment.isOriginalityCheckEnabled).to.equal(true);
+		expect(assignment.isGradeMarkEnabled).to.equal(true);
+	});
 });

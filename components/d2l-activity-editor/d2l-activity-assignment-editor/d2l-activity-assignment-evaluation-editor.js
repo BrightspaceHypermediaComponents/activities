@@ -4,6 +4,7 @@ import './d2l-activity-assignment-anonymous-marking-editor.js';
 import './d2l-activity-assignment-anonymous-marking-summary.js';
 import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container.js';
 import './d2l-assignment-turnitin-editor.js';
+import './d2l-assignment-turnitin-summary.js';
 
 import { bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
@@ -94,7 +95,12 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 
 	_renderTurnitinSummary() {
 
-		return html``;
+		return html`
+			<d2l-assignment-turnitin-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-assignment-turnitin-summary>
+		`;
 	}
 
 	_renderTurnitinEditor() {

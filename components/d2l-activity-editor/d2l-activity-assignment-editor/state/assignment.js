@@ -63,6 +63,10 @@ export class Assignment {
 		this.canSeeAnnotations = entity.canSeeAnnotations();
 		this.annotationToolsAvailable = entity.getAvailableAnnotationTools();
 		this.activityUsageHref = entity.activityUsageHref();
+		this.canEditTurnitin = entity.canEditTurnitin();
+		this.editTurnitinUrl = entity.editTurnitinUrl();
+		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
+		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.completionTypeOptions = entity.completionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
@@ -89,6 +93,11 @@ export class Assignment {
 	setSubmissionType(value) {
 		this.submissionType = value;
 		this._setValidCompletionTypeForSubmissionType();
+	}
+
+	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
+		this.isOriginalityCheckEnabled = isOriginalityCheckEnabled;
+		this.isGradeMarkEnabled = isGradeMarkEnabled;
 	}
 
 	setCompletionType(value) {
@@ -173,6 +182,10 @@ decorate(Assignment, {
 	completionTypeOptions: observable,
 	canEditSubmissionType: observable,
 	canEditCompletionType: observable,
+	canEditTurnitin: observable,
+	editTurnitinUrl: observable,
+	isOriginalityCheckEnabled: observable,
+	isGradeMarkEnabled: observable,
 	submissionType: observable,
 	completionType: observable,
 	isIndividualAssignmentType: observable,
@@ -188,6 +201,7 @@ decorate(Assignment, {
 	setAnonymousMarking: action,
 	setAnnotationToolsAvailable: action,
 	setSubmissionType: action,
+	setTurnitin: action,
 	setCompletionType: action,
 	save: action,
 	setToIndividualAssignmentType: action,

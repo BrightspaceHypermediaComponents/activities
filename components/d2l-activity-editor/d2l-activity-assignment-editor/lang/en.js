@@ -10,10 +10,15 @@ export default {
 	"txtAnnotationsOff": "Annotations off", // annotations off text
 	"emptyNameError": "Name is required", // Error message to inform user that the assignment name is a required field
 	"instructions": "Instructions", // Label for the instruction field when creating/editing an assignment
-	"hdrTurnitin": "Turnitin® Integration", // turnitin heading
-	"hlpTurnitin": "The Turnitin® Integration allows you to use Originality Check® to assess student work for academic integrity and to use the GradeMark® external evaluation tool for assessment.", // turnitin help
-	"btnEditTurnitin": "Manage Turnitin® Integration", // edit turnitin button
+	"hdrTurnitin": "Turnitin Integration", // turnitin heading
+	"hlpTurnitin": "Turnitin® adds additional functionality to evaluation.", // turnitin help
+	"btnEditTurnitin": "Manage Turnitin", // edit turnitin button
 	"btnCloseDialog": "Close this Dialog", // close dialog button
+	"txtOriginalityCheckOn": "Originality Check On", // originality check on text
+	"txtGradeMarkOn": "GradeMark On", // grade mark on text
+	"txtTurnitinOn1": "Originality Check and GradeMark On", // turnitin on text, variant 1
+	"txtTurnitinOn2": "Originality Check On", // turnitin on text, variant 2
+	"txtTurnitinOn3": "GradeMark On", // turnitin on text, variant 3
 	"btnCancel": "Cancel", // cancel button
 	"btnSave": "Save", // save button
 	"hdrAvailability": "Availability Dates & Conditions", // availability header

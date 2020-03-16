@@ -33,7 +33,7 @@ describe('d2l-activity-attachments-picker', function() {
 		});
 
 		it('renders buttons', async() => {
-			expect(el.shadowRoot.querySelectorAll('d2l-button-icon').length).to.equal(5);
+			expect(el.shadowRoot.querySelectorAll('d2l-button-icon').length).to.equal(8);
 			expect(el.shadowRoot.querySelectorAll('d2l-button-subtle').length).to.equal(2);
 		});
 	});

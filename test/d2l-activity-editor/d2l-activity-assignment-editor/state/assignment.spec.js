@@ -37,35 +37,30 @@ describe('Assignment ', function() {
 				submissionTypeOptions: () => [
 					{title: 'File submission', value: 0, completionTypes: null, selected: false},
 					{title: 'Text submission', value: 1, completionTypes: null, selected: false},
-					{title: 'On paper submission', value: 2, completionTypes: [2, 3, 4], selected: true},
-					{title: 'Observed in person', value: 3, completionTypes: [1, 3, 4], selected: false}
+					{title: 'On paper submission', value: 2, completionTypes: [1, 2, 3], selected: true},
+					{title: 'Observed in person', value: 3, completionTypes: [1, 2, 3], selected: false}
 				],
 				allCompletionTypeOptions: () => [
 					{
 						'title': 'Automatically on submission',
 						'value': 0,
-						'selected': true
+						'selected': false
 					},
 					{
 						'title': 'Manually by learners',
-						'value': 2,
+						'value': 1,
 						'selected': false
 					},
 					{
 						'title': 'Automatically on evaluation',
-						'value': 3,
+						'value': 2,
 						'selected': false
 					},
 					{
 						'title': 'Automatically on due date',
-						'value': 1,
-						'selected': false
+						'value': 3,
+						'selected': true
 					}
-				],
-				completionTypeOptions: () => [
-					{title: 'Manually by learners', value: 2},
-					{title: 'Automatically on evaluation', value: 3},
-					{title: 'Automatically on due date', value: 4}
 				],
 				canEditSubmissionType: () => true,
 				canEditCompletionType: () => true,
@@ -93,13 +88,13 @@ describe('Assignment ', function() {
 		expect(assignment.submissionTypeOptions).to.eql([
 			{title: 'File submission', value: 0, completionTypes: null, selected: false},
 			{title: 'Text submission', value: 1, completionTypes: null, selected: false},
-			{title: 'On paper submission', value: 2, completionTypes: [2, 3, 4], selected: true},
-			{title: 'Observed in person', value: 3, completionTypes: [1, 3, 4], selected: false}
+			{title: 'On paper submission', value: 2, completionTypes: [1, 2, 3], selected: true},
+			{title: 'Observed in person', value: 3, completionTypes: [1, 2, 3], selected: false}
 		]);
 		expect(assignment.completionTypeOptions).to.eql([
-			{title: 'Manually by learners', value: 2},
-			{title: 'Automatically on evaluation', value: 3},
-			{title: 'Automatically on due date', value: 4}
+			{selected: false, title: 'Manually by learners', value: 1},
+			{selected: false, title: 'Automatically on evaluation', value: 2},
+			{selected: true, title: 'Automatically on due date', value: 3}
 		]);
 		expect(assignment.canEditSubmissionType).to.equal(true);
 		expect(assignment.canEditCompletionType).to.equal(true);
@@ -149,10 +144,10 @@ describe('Assignment ', function() {
 	it('setSubmissionType when current completion type is no longer valid', async() => {
 		const assignment = new Assignment('http://assignment/1', 'token');
 		await assignment.fetch();
-		assignment.setSubmissionType('3');
+		assignment.setSubmissionType('0');
 
-		expect(assignment.submissionType).to.equal('3');
-		expect(assignment.completionType).to.equal('1');
+		expect(assignment.submissionType).to.equal('0');
+		expect(assignment.completionType).to.equal('2');
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
 });

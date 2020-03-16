@@ -64,7 +64,6 @@ export class Assignment {
 		this.annotationToolsAvailable = entity.getAvailableAnnotationTools();
 		this.activityUsageHref = entity.activityUsageHref();
 		this.submissionTypeOptions = entity.submissionTypeOptions();
-		this.completionTypeOptions = entity.completionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditSubmissionType = entity.canEditSubmissionType();
 		this.canEditCompletionType = entity.canEditCompletionType();
@@ -75,6 +74,8 @@ export class Assignment {
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
+
+		this._setValidCompletionTypeForSubmissionType();
 
 		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {
 			this.selectedGroupCategoryId = String(this.groupCategories[0].value);

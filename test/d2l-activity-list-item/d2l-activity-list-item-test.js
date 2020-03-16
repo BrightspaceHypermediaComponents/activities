@@ -17,7 +17,7 @@ describe('d2l-activity-list-item', () => {
 	}
 
 	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+		sandbox = sinon.createSandbox();
 		activityEntity = window.D2L.Hypermedia.Siren.Parse({
 			class:['activity'],
 			links: [{

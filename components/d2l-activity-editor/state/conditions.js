@@ -18,7 +18,6 @@ export class Conditions {
 		this._conditions = new Map(); // Id -> { id, text }
 		this._conditionsToCreate = new Map(); // Key -> LegacyDTO
 		this._conditionsToRemove = new Set(); // Id
-		this._parser = new DOMParser();
 	}
 
 	async fetch() {
@@ -146,12 +145,6 @@ export class Conditions {
 		return `${dto.ConditionTypeId},${dto.Id1},${dto.Id2},${dto.Id2},${dto.Percentage1},${dto.Percentage2},${dto.Int1}`;
 	}
 
-	_asPlainText(legacyHtml) {
-
-		const doc = this._parser.parseFromString(legacyHtml, 'text/html');
-		return doc.body.textContent || '';
-	}
-
 	setOperator(value) {
 
 		const item = this._operators.find(x => x.value === value);
@@ -170,9 +163,6 @@ export class Conditions {
 			dto.forEach(this.add, this);
 			return;
 		}
-
-		// Legacy gives us HTML, which we can't render quite yet.
-		dto.Text = this._asPlainText(dto.Text);
 
 		const isExistingCondition = this._conditions.has(dto.Id);
 		if (isExistingCondition) {

@@ -37,8 +37,8 @@ describe('Assignment ', function() {
 				submissionTypeOptions: () => [
 					{title: 'File submission', value: 0, completionTypes: null, selected: false},
 					{title: 'Text submission', value: 1, completionTypes: null, selected: false},
-					{title: 'On paper submission', value: 2, completionTypes: [1, 2, 3], selected: true},
-					{title: 'Observed in person', value: 3, completionTypes: [1, 2, 3], selected: false}
+					{title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true},
+					{title: 'Observed in person', value: 3, completionTypes: [3], selected: false}
 				],
 				allCompletionTypeOptions: () => [
 					{
@@ -88,13 +88,12 @@ describe('Assignment ', function() {
 		expect(assignment.submissionTypeOptions).to.eql([
 			{title: 'File submission', value: 0, completionTypes: null, selected: false},
 			{title: 'Text submission', value: 1, completionTypes: null, selected: false},
-			{title: 'On paper submission', value: 2, completionTypes: [1, 2, 3], selected: true},
-			{title: 'Observed in person', value: 3, completionTypes: [1, 2, 3], selected: false}
+			{title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true},
+			{title: 'Observed in person', value: 3, completionTypes: [3], selected: false}
 		]);
 		expect(assignment.completionTypeOptions).to.eql([
 			{selected: false, title: 'Manually by learners', value: 1},
-			{selected: false, title: 'Automatically on evaluation', value: 2},
-			{selected: true, title: 'Automatically on due date', value: 3}
+			{selected: false, title: 'Automatically on evaluation', value: 2}
 		]);
 		expect(assignment.canEditSubmissionType).to.equal(true);
 		expect(assignment.canEditCompletionType).to.equal(true);
@@ -114,7 +113,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('3');
 
 		expect(assignment.submissionType).to.equal('3');
-		expect(assignment.completionType).to.equal('1');
+		expect(assignment.completionType).to.equal('3');
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
 
@@ -126,7 +125,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('1');
 
 		expect(assignment.submissionType).to.equal('1');
-		expect(assignment.completionType).to.equal('3');
+		expect(assignment.completionType).to.equal(null);
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
 
@@ -147,7 +146,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('0');
 
 		expect(assignment.submissionType).to.equal('0');
-		expect(assignment.completionType).to.equal('2');
+		expect(assignment.completionType).to.equal(null);
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
 });

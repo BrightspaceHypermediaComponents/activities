@@ -23,29 +23,49 @@ export class Assignment {
 	_getValidCompletionTypes(currentSubmissionType) {
 		const selectedSubmissionType = String(currentSubmissionType);
 
-		return this.submissionTypeOptions.find(
+		const submissionType = this.submissionTypeOptions.find(
 			submissionType => submissionType.value.toString() === selectedSubmissionType
-		).completionTypes;
+		);
+
+		if (!submissionType) {
+			return [];
+		}
+
+		return submissionType.completionTypes;
 	}
 
 	_isCompletionTypeValid(completionTypeId, validCompletionTypes) {
 		const completionType = String(completionTypeId);
+
+		if (!validCompletionTypes) {
+			return false;
+		}
+
 		return validCompletionTypes.some(validCompletionType => validCompletionType.toString() === completionType);
+	}
+
+	_getCompletionTypeOptions(validCompletionTypes) {
+		let completionTypeOptions = [];
+
+		if (validCompletionTypes && validCompletionTypes.length > 0) {
+			completionTypeOptions = this.allCompletionTypeOptions.filter(
+				completionType => this._isCompletionTypeValid(completionType.value, validCompletionTypes)
+			);
+		}
+
+		return completionTypeOptions;
 	}
 
 	_setValidCompletionTypeForSubmissionType() {
 		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
+		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
 
-		if (validCompletionTypes && validCompletionTypes.length > 0) {
-			this.completionTypeOptions = this.allCompletionTypeOptions.filter(
-				completionType => this._isCompletionTypeValid(completionType.value, validCompletionTypes)
-			);
-
-			if (this.completionType === null || !this._isCompletionTypeValid(this.completionType, validCompletionTypes)) {
+		if (this.completionType === null || !this._isCompletionTypeValid(this.completionType, validCompletionTypes)) {
+			if (validCompletionTypes && validCompletionTypes.length > 0) {
 				this.completionType = String(validCompletionTypes[0]);
+			} else {
+				this.completionType = null;
 			}
-		} else {
-			this.completionTypeOptions = [];
 		}
 	}
 
@@ -75,7 +95,8 @@ export class Assignment {
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
-		this._setValidCompletionTypeForSubmissionType();
+		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
+		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
 
 		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {
 			this.selectedGroupCategoryId = String(this.groupCategories[0].value);

@@ -306,7 +306,7 @@ class ActivityConditionsEditor
 			/*       resizeCallback: */ '',
 			/*      responseDataKey: */ 'condition',
 			/*                width: */ 638,
-			/*               height: */ 588,
+			/*               height: */ 683,
 			/*            closeText: */ createNewCloseText,
 			/*              buttons: */ buttons,
 			/* forceTriggerOnCancel: */ false

@@ -1,6 +1,7 @@
 import '../d2l-activity-availability-dates-summary.js';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-usage-conditions-editor.js';
+import '../d2l-activity-usage-conditions-summary.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -87,7 +88,12 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 
 	_renderReleaseConditionSummary() {
 
-		return html``;
+		return html`
+			<d2l-activity-usage-conditions-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-usage-conditions-summary>
+		`;
 	}
 
 	_renderReleaseConditionEditor() {

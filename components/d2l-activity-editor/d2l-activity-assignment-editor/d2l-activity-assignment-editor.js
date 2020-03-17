@@ -234,9 +234,8 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 	}
 
 	delete() {
-		const activity = store.getActivity(this.href);
-		const assignment = activity && store.getAssignment(activity.assignmentHref);
-		return assignment && assignment.delete();
+		// the decision is not to delete assignment at this moment, keeping the structure here for future
+		return true;
 	}
 }
 customElements.define('d2l-activity-assignment-editor', AssignmentEditor);

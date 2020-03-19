@@ -39,6 +39,14 @@ export const ActivityEditorContainerMixin = superclass => class extends supercla
 		});
 	}
 
+	get cancelCompleteEvent() {
+		return new CustomEvent('d2l-activity-editor-cancel-complete', {
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+	}
+
 	_focusOnInvalid() {
 		const isAriaInvalid = node => node.getAttribute('aria-invalid') === 'true' && node.getClientRects().length > 0;
 		for (const editor of this._editors) {
@@ -96,6 +104,6 @@ export const ActivityEditorContainerMixin = superclass => class extends supercla
 			await this.delete();
 		}
 
-		this.dispatchEvent(this.saveCompleteEvent);
+		this.dispatchEvent(this.cancelCompleteEvent);
 	}
 };

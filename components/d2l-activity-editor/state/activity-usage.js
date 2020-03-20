@@ -97,7 +97,9 @@ export class ActivityUsage {
 			scoreAndGrade: {
 				scoreOutOf: this.scoreAndGrade.scoreOutOf,
 				inGrades: this.scoreAndGrade.inGrades,
-				associatedGrade: (this.scoreAndGrade.associatedGrade || {}).gradeCandidateEntity
+				associatedGrade: (this.scoreAndGrade.associatedGrade || {}).gradeCandidateEntity,
+				associateNewGradeAction: this.scoreAndGrade.associateNewGradeAction,
+				newGradeName: this.scoreAndGrade.newGradeName
 			}
 		};
 	}

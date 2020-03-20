@@ -19,7 +19,6 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mo
 
 	static get properties() {
 		return {
-			activityName: { type: String },
 			_createNewRadioChecked: { type: Boolean }
 		};
 	}
@@ -72,10 +71,10 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mo
 			return;
 		}
 
+		const gradeCandidateCollection = gradeCandidateCollectionStore.get(scoreAndGrade.gradeCandidatesHref);
 		if (this._createNewRadioChecked) {
-			// Not yet implemented
+			scoreAndGrade.replaceGradeItem(gradeCandidateCollection.associateNewGradeAction);
 		} else {
-			const gradeCandidateCollection = gradeCandidateCollectionStore.get(scoreAndGrade.gradeCandidatesHref);
 			scoreAndGrade.setAssociatedGrade(gradeCandidateCollection.selected);
 		}
 	}
@@ -101,7 +100,8 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mo
 		const {
 			scoreOutOf,
 			scoreOutOfError,
-			gradeCandidatesHref
+			gradeCandidatesHref,
+			newGradeName
 		} = activity.scoreAndGrade;
 
 		return html`
@@ -119,7 +119,7 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mo
 					<div class="d2l-activity-grades-dialog-create-new-container">
 						<div class="d2l-activity-grades-dialog-create-new-icon"><d2l-icon icon="tier1:grade"></d2l-icon></div>
 						<div>
-							<div class="d2l-activity-grades-dialog-create-new-activity-name">${this.activityName}</div>
+							<div class="d2l-activity-grades-dialog-create-new-activity-name">${newGradeName}</div>
 							<div class="d2l-body-small">${scoreOutOf && !scoreOutOfError ? html`
 								${this.localize('points', { points: formatNumber(scoreOutOf, { maximumFractionDigits: 2 })})}
 							` : null }

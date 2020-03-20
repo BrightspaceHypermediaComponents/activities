@@ -163,6 +163,8 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 					this.shadowRoot.querySelector('#ungraded') :
 					this.shadowRoot.querySelector('#score-out-of');
 				toFocus.focus();
+			} else if (propName === 'activityName') {
+				store.get(this.href).scoreAndGrade.setNewGradeName(this.activityName);
 			}
 		});
 	}
@@ -294,8 +296,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 						</d2l-dropdown>
 						<d2l-activity-grades-dialog
 							href="${this.href}"
-							.token="${this.token}"
-							.activityName="${this.activityName}"></d2l-activity-grades-dialog>
+							.token="${this.token}"></d2l-activity-grades-dialog>
 					</div>
 				` : null}
 			</div>

@@ -30,6 +30,8 @@ export class GradeCandidateCollection {
 
 	async load(entity) {
 		this._entity = entity;
+		this.associateNewGradeAction = entity.getAssociateNewGradeAction();
+
 		const gradeCandidatePromises = entity.getGradeCandidates().map(gc => {
 			const gradeCandidateEntity = new GradeCandidateEntity(gc, this.token, { remove: () => { }});
 			return this.fetchGradeCandidate(gradeCandidateEntity);
@@ -79,6 +81,7 @@ export class GradeCandidateCollection {
 decorate(GradeCandidateCollection, {
 	// props
 	gradeCandidates: observable,
+	associateNewGradeAction: observable,
 	selected: observable,
 	// actions
 	load: action,

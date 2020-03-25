@@ -1,8 +1,11 @@
+import './d2l-activity-rubrics-list-editor';
 import 'd2l-associations/add-associations.js';
 import 'd2l-rubric/d2l-rubric';
-import './d2l-activity-rubrics-list-editor';
+import 'd2l-rubric/editor/d2l-rubric-editor.js';
+import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
+import { Association } from 'siren-sdk/src/activities/Association.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from '../localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -10,11 +13,13 @@ import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from '../d2l-activity-rubrics/state/association-collection-store.js';
 
+
 class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixin(LitElement)))) {
 
 	static get properties() {
 		return {
-			_rubricAssociationsHref: { type: String }
+			_rubricAssociationsHref: { type: String },
+			_newlyCreatedPotentialAssociationHref: { type: String }
 		};
 	}
 
@@ -43,6 +48,8 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 		super();
 		this._setEntityType(ActivityUsageEntity);
 		this._rubricAssociationsHref = '';
+		this._newlyCreatedPotentialAssociation = {};
+		this._newlyCreatedPotentialAssociationHref = '';
 	}
 
 	set _entity(entity) {
@@ -86,6 +93,52 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 		this._toggleDialog(true);
 	}
 
+	_closeEditNewAssociationOverlay() {
+		const editNewAssociationOverlay = this.shadowRoot.querySelector('#create-new-association-dialog');
+		if (editNewAssociationOverlay) {
+			editNewAssociationOverlay.close();
+		}
+	}
+
+	_attachRubric() {
+		const entity = store.get(this._rubricAssociationsHref);
+
+		if (!entity) {
+			return;
+		}
+		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
+
+		this._closeEditNewAssociationOverlay();
+
+	}
+
+	async _createNewAssociation() {
+
+		const entity = store.get(this._rubricAssociationsHref);
+		if (!entity) {
+			return;
+		}
+
+		this._newlyCreatedPotentialAssociation = await entity.createPotentialAssociation();
+
+		if (!this._newlyCreatedPotentialAssociation) {
+			return;
+		}
+
+		const potentialAssociationEntity = new Association(
+			this._newlyCreatedPotentialAssociation,
+			this.token
+		);
+
+		this._newlyCreatedPotentialAssociationHref = potentialAssociationEntity.getRubricLink();
+
+		const editNewAssociationOverlay = this.shadowRoot.querySelector('#create-new-association-dialog');
+		if (editNewAssociationOverlay) {
+			editNewAssociationOverlay.open();
+		}
+
+	}
+
 	render() {
 		return html`
 			<h3 class="d2l-heading-4">${this.localize('hdrRubrics')}</h3>
@@ -98,7 +151,8 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 			<d2l-dropdown-button-subtle text="${this.localize('btnAddRubric')}">
 				<d2l-dropdown-menu align="start">
 					<d2l-menu label="${this.localize('btnAddRubric')}">
-						<d2l-menu-item text="${this.localize('btnCreateNew')}">
+						<d2l-menu-item text="${this.localize('btnCreateNew')}"
+							@d2l-menu-item-select="${this._createNewAssociation}">
 						</d2l-menu-item>
 						<d2l-menu-item text="${this.localize('btnAddExisting')}"
 							@d2l-menu-item-select="${this._openAttachRubricDialog}">
@@ -106,6 +160,21 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 					</d2l-menu>
 				</d2l-dropdown-menu>
 			</d2l-dropdown-button-subtle>
+
+			<d2l-simple-overlay id="create-new-association-dialog">
+				<d2l-rubric-editor
+					href="${this._newlyCreatedPotentialAssociationHref}"
+					.token="${this.token}">
+				</d2l-rubric-editor>
+				<d2l-floating-buttons always-float>
+					<d2l-button primary @click="${this._attachRubric}">
+						${this.localize('btnAttachRubric')}
+					</d2l-button>
+					<d2l-button @click="${this._closeEditNewAssociationOverlay}">
+						${this.localize('btnCancel')}
+					</d2l-button>
+				</d2l-floating-buttons>
+			</d2l-simple-overlay>
 
 			<d2l-dialog
 				@associations-done-work="${this._closeAttachRubricDialog}"

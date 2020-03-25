@@ -5,5 +5,7 @@ export default {
 	"btnCreateNew": "Create New", //Text for create new dropdown
 	"btnAddExisting": "Add Existing", //Text for Add Existing dropdown
 	"hdrRubrics": "Rubrics", //Header for the rubrics section
-	"txtAddExisting": "Add Existing" //Title for the attach rubrics dialog
+	"txtAddExisting": "Add Existing", //Title for the attach rubrics dialog
+	"btnAttachRubric": "Attach Rubric", //Button for the attach new rubric overlay
+	"btnCancel": "Cancel", //Button for canceling out of the attach new rubric overlay
 };

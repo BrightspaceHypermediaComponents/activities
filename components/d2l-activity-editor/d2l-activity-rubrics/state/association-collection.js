@@ -91,6 +91,23 @@ export class AssociationCollection {
 		}
 	}
 
+	addPotentialAssociationToMap(rubricHref, formattedEntity) {
+		if (!this.associationsMap.has(rubricHref)) {
+			this.associationsMap.set(rubricHref, formattedEntity);
+		}
+	}
+
+	async createPotentialAssociation() {
+		const newAssociation =  await this._entity.createPotentialAssociation();
+		const associationEntity = new Association(newAssociation, this.token);
+		
+		const rubricHref = associationEntity.getRubricLink();
+		const formattedEntity = this._formatAssociationEntity(associationEntity);
+		this.addPotentialAssociationToMap(rubricHref, formattedEntity);
+
+		return newAssociation;
+	}
+
 	_formatAssociationEntity(entity) {
 
 		const id = entity.getRubricLink();
@@ -124,5 +141,6 @@ decorate(AssociationCollection, {
 	load: action,
 	save: action,
 	addAssociations: action,
-	deleteAssociation: action
+	deleteAssociation: action,
+	addPotentialAssociationToMap: action
 });

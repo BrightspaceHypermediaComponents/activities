@@ -30,6 +30,7 @@ export class ActivityUsage {
 		this.isError = false;
 		this.dates = new ActivityDates(entity);
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
+		this.associationsHref = entity.getRubricAssociationsHref();
 	}
 
 	setDraftStatus(isDraft) {
@@ -128,6 +129,7 @@ decorate(ActivityUsage, {
 	isError: observable,
 	scoreAndGrade: observable,
 	dates: observable,
+	associationsHref: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

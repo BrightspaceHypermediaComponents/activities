@@ -13,7 +13,6 @@ import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from '../d2l-activity-rubrics/state/association-collection-store.js';
 
-
 class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixin(LitElement)))) {
 
 	static get properties() {

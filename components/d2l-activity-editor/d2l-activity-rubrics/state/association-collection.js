@@ -100,7 +100,7 @@ export class AssociationCollection {
 	async createPotentialAssociation() {
 		const newAssociation =  await this._entity.createPotentialAssociation();
 		const associationEntity = new Association(newAssociation, this.token);
-		
+
 		const rubricHref = associationEntity.getRubricLink();
 		const formattedEntity = this._formatAssociationEntity(associationEntity);
 		this.addPotentialAssociationToMap(rubricHref, formattedEntity);

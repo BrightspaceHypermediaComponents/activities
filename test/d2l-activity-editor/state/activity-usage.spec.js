@@ -26,7 +26,8 @@ describe('Activity Usage', function() {
 		gradeHref: () => '',
 		associatedGrade: () => undefined,
 		gradeCandidatesHref: () => '',
-		conditionsHref: () => undefined
+		conditionsHref: () => undefined,
+		associationsHref: () => undefined
 	};
 
 	afterEach(() => {

@@ -47,8 +47,8 @@ export class AssociationCollection {
 	fetchAttachedAssociationsCount() {
 		const associations = Array.from(this.associationsMap.values());
 		let attachedAssociationCount = 0;
-		associations.forEach( association => {
-			if( (association.isAssociated || association.isAssociating)
+		associations.forEach(association => {
+			if ((association.isAssociated || association.isAssociating)
 				&& !association.isDeleting
 			) {
 				attachedAssociationCount++;

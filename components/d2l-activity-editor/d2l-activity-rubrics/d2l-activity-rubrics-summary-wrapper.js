@@ -1,10 +1,10 @@
-import './d2l-activity-rubrics-summary'
+import './d2l-activity-rubrics-summary';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization';
 import { html } from 'lit-element/lit-element';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
-import { shared as store }from '../state/activity-store';
+import { shared as store } from '../state/activity-store';
 
 class ActivityRubricsSummaryWrapper
 	extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {

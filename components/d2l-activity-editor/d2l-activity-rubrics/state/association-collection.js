@@ -44,6 +44,19 @@ export class AssociationCollection {
 		return Array.from(this.associationsMap.values());
 	}
 
+	fetchAttachedAssociationsCount() {
+		const associations = Array.from(this.associationsMap.values());
+		let attachedAssociationCount = 0;
+		associations.forEach(association => {
+			if ((association.isAssociated || association.isAssociating)
+				&& !association.isDeleting
+			) {
+				attachedAssociationCount++;
+			}
+		});
+		return attachedAssociationCount;
+	}
+
 	addAssociations(associationsToAdd) {
 
 		for (const ata of associationsToAdd) {

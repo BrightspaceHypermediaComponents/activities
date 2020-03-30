@@ -26,7 +26,8 @@ describe('Grade Candidate Collection', function() {
 			getGradeCandidates: () => [
 				{'test': 1},
 				{'test': 2}
-			]
+			],
+			getAssociateNewGradeAction: () => {}
 		};
 
 		GradeCandidateCollectionEntity.mockImplementation(() => {

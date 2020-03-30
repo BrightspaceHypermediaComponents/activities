@@ -6,7 +6,7 @@ import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles';
-import { shared as store } from './state/grade-candidate-collection-store.js';
+import { shared as store } from '../state/activity-store.js';
 
 class ActivityGradeCandidateSelector extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
 	static get properties() {
@@ -48,7 +48,7 @@ class ActivityGradeCandidateSelector extends ActivityEditorMixin(LocalizeMixin(M
 	}
 
 	_renderGradeCandidate(gc, selected) {
-		return html`<option value="${gc.href}" ?selected="${selected && gc.href === selected.href}">${gc.name}</option>`;
+		return html`<option value="${gc.href}" .selected="${selected && gc.href === selected.href}">${gc.name}</option>`;
 	}
 
 	_renderGradeCategory(gradeCategory, selected) {
@@ -61,24 +61,24 @@ class ActivityGradeCandidateSelector extends ActivityEditorMixin(LocalizeMixin(M
 
 	_setSelected(event) {
 		if (event && event.target && event.target.value) {
-			const collection = store.get(this.href);
-			if (collection) {
-				collection.setSelected(event.target.value);
+			const activity = store.get(this.href);
+			if (activity && activity.scoreAndGrade.gradeCandidateCollection) {
+				activity.scoreAndGrade.gradeCandidateCollection.setSelected(event.target.value);
 			}
 		}
 	}
 
 	render() {
-		const collection = store.get(this.href);
+		const activity = store.get(this.href);
 
-		if (!collection) {
+		if (!activity || !activity.scoreAndGrade.gradeCandidateCollection) {
 			return html``;
 		}
 
 		const {
 			gradeCandidates,
 			selected
-		} = collection;
+		} = activity.scoreAndGrade.gradeCandidateCollection;
 
 		const formatNumberOptions = { maximumFractionDigits: 2 };
 		const formattedPoints = selected && selected.maxPoints !== undefined ? formatNumber(selected.maxPoints, formatNumberOptions) : '';

@@ -3,6 +3,7 @@ import './d2l-activity-assignment-annotations-summary.js';
 import './d2l-activity-assignment-anonymous-marking-editor.js';
 import './d2l-activity-assignment-anonymous-marking-summary.js';
 import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container.js';
+import '../d2l-activity-rubrics/d2l-activity-rubrics-summary-wrapper.js';
 import './d2l-assignment-turnitin-editor.js';
 import './d2l-assignment-turnitin-summary.js';
 
@@ -113,6 +114,15 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 		`;
 	}
 
+	_renderRubricsSummary() {
+		return html`
+			<d2l-activity-rubrics-summary-wrapper
+				href="${this.activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-rubrics-summary-wrapper>
+		`;
+	}
+
 	_renderRubricsCollectionEditor() {
 		return html`
 			<d2l-activity-rubrics-list-container
@@ -133,6 +143,7 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 					<li>${this._renderAnonymousMarkingSummary()}</li>
 					<li>${this._renderAnnotationsSummary()}</li>
 					<li>${this._renderTurnitinSummary()}</li>
+					<li>${this._renderRubricsSummary()}</li>
 				</ul>
 				${this._renderRubricsCollectionEditor()}
 				${this._renderAnnotationsEditor()}

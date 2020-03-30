@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { GradeCandidate } from './grade-candidate.js';
 import { GradeCandidateCollectionEntity } from 'siren-sdk/src/activities/GradeCandidateCollectionEntity.js';
@@ -11,6 +11,8 @@ export class GradeCandidateCollection {
 	constructor(href, token) {
 		this.href = href;
 		this.token = token;
+		this.gradeCandidates = [];
+		this.selected = null;
 	}
 
 	async fetch() {
@@ -30,12 +32,18 @@ export class GradeCandidateCollection {
 
 	async load(entity) {
 		this._entity = entity;
+		this.associateNewGradeAction = entity.getAssociateNewGradeAction();
 		const gradeCandidatePromises = entity.getGradeCandidates().map(gc => {
 			const gradeCandidateEntity = new GradeCandidateEntity(gc, this.token, { remove: () => { }});
 			return this.fetchGradeCandidate(gradeCandidateEntity);
 		});
-		this.gradeCandidates = await Promise.all(gradeCandidatePromises);
-		this.selected = this._findCurrentAssociation(this.gradeCandidates) || this._findFirstGradeItemFromCandidates(this.gradeCandidates);
+
+		const tempGradeCandidates = await Promise.all(gradeCandidatePromises);
+
+		runInAction(() => {
+			this.gradeCandidates = tempGradeCandidates;
+			this.selected = this._findCurrentAssociation(this.gradeCandidates) || this._findFirstGradeItemFromCandidates(this.gradeCandidates);
+		});
 	}
 
 	setSelected(href) {
@@ -80,6 +88,7 @@ decorate(GradeCandidateCollection, {
 	// props
 	gradeCandidates: observable,
 	selected: observable,
+	associateNewGradeAction: observable,
 	// actions
 	load: action,
 	setSelected: action

@@ -1,9 +1,10 @@
 import { css } from 'lit-element/lit-element.js';
 
+// !important is only needed for old Edge
 export const summarizerHeaderStyles = css`
 	.activity-summarizer-header {
-		margin-top: 20px;
-		margin-bottom: 12px;
+		margin-top: 20px !important;
+		margin-bottom: 12px !important;
 	}
 `;
 

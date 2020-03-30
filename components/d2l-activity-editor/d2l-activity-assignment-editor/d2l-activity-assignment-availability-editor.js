@@ -3,6 +3,7 @@ import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-usage-conditions-editor.js';
 import '../d2l-activity-usage-conditions-summary.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
+import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { bodySmallStyles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
@@ -12,7 +13,7 @@ import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as store } from '../state/activity-store.js';
 
-class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorMixin(MobxLitElement)) {
+class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(LocalizeMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 
@@ -88,6 +89,12 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 
 	_renderReleaseConditionSummary() {
 
+		const shouldRenderConditionSummary = this._isMilestoneEnabled(Milestones.M3);
+
+		if (!shouldRenderConditionSummary) {
+			return html``;
+		}
+
 		return html`
 			<d2l-activity-usage-conditions-summary
 				href="${this.href}"
@@ -97,6 +104,12 @@ class ActivityAssignmentAvailabilityEditor extends LocalizeMixin(ActivityEditorM
 	}
 
 	_renderReleaseConditionEditor() {
+
+		const shouldRenderConditionEditor = this._isMilestoneEnabled(Milestones.M3);
+
+		if (!shouldRenderConditionEditor) {
+			return html``;
+		}
 
 		return html`
 			<div class="editor">

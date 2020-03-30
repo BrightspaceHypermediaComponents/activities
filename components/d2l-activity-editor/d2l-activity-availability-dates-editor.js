@@ -8,7 +8,6 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as store } from './state/activity-store.js';
 
 class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin(MobxLitElement))) {
-	// The start/enddate-container rule is a hack for the old datetime picker. Can hopefully be removed when the new picker is used.
 	static get styles() {
 		return [labelStyles, css`
 			:host {
@@ -19,7 +18,7 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 			}
 			#startdate-container,
 			#enddate-container {
-				min-height: 62px;
+				min-height: 62px; /* Hack to force a consistent the height for the old datetime picker. Can hopefully be removed when the new picker is used. */
 			}
 		`];
 	}

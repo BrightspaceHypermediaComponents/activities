@@ -17,19 +17,20 @@ export class ActivityUsage {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
 			const entity = new ActivityUsageEntity(sirenEntity, this.token, { remove: () => { } });
-			this.load(entity);
+			await this.load(entity);
 		}
 		return this;
 	}
 
-	load(entity) {
+	async load(entity) {
 		this._entity = entity;
 		this.conditionsHref = entity.conditionsHref();
 		this.isDraft = entity.isDraft();
 		this.canEditDraft = entity.canEditDraft();
 		this.isError = false;
 		this.dates = new ActivityDates(entity);
-		this.scoreAndGrade = new ActivityScoreGrade(entity);
+		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
+		this.associationsHref = entity.getRubricAssociationsHref();
 	}
 
 	setDraftStatus(isDraft) {
@@ -97,7 +98,9 @@ export class ActivityUsage {
 			scoreAndGrade: {
 				scoreOutOf: this.scoreAndGrade.scoreOutOf,
 				inGrades: this.scoreAndGrade.inGrades,
-				associatedGrade: (this.scoreAndGrade.associatedGrade || {}).gradeCandidateEntity
+				associatedGrade: this.scoreAndGrade.createNewGrade ? null : this.scoreAndGrade.getAssociatedGradeEntity(),
+				associateNewGradeAction: (this.scoreAndGrade.gradeCandidateCollection || {}).associateNewGradeAction,
+				newGradeName: this.scoreAndGrade.newGradeName
 			}
 		};
 	}
@@ -126,6 +129,7 @@ decorate(ActivityUsage, {
 	isError: observable,
 	scoreAndGrade: observable,
 	dates: observable,
+	associationsHref: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

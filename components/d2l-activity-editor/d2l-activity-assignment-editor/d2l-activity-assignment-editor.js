@@ -33,7 +33,19 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 			/**
 			 * If there is an error on the page. Is used to toggle the d2l-alert.
 			 */
-			isError: { type: Boolean }
+			isError: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-2
+			*/
+			milestoneTwoEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-2
+			*/
+			milestoneThreeEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-2
+			*/
+			milestoneFourEnabled: { type: Boolean }
 		};
 	}
 
@@ -86,6 +98,21 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 	_onRequestProvider(e) {
 		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
 			e.detail.provider = this.htmlEditorEnabled;
+			e.stopPropagation();
+		}
+
+		if (e.detail.key === 'd2l-milestone-two') {
+			e.detail.provider = this.milestoneTwoEnabled;
+			e.stopPropagation();
+		}
+
+		if (e.detail.key === 'd2l-milestone-three') {
+			e.detail.provider = this.milestoneThreeEnabled;
+			e.stopPropagation();
+		}
+
+		if (e.detail.key === 'd2l-milestone-four') {
+			e.detail.provider = this.milestoneFourEnabled;
 			e.stopPropagation();
 		}
 

@@ -37,7 +37,7 @@ export default {
 	"emptyScoreOutOfError": "A points value must be specified for activities in Grades", // Error message to inform user that the score out of value is a required field when a grade item is associated
 	"invalidScoreOutOfError": "Score Out Of must be greater than or equal to 0.01 and less than or equal to 9,999,999,999", // Error message when an invalid score out of value is entered
 	"loading": "Loading...", // Message displayed while page is loading
-	"ok": "Ok", // Text of dialog button to commit action
+	"ok": "OK", // Text of dialog button to commit action
 	"cancel": "Cancel", // Text of dialog button to cancel action
 	"ariaToolbarShortcutInstructions": "Press ALT-F10 for toolbar, and press ESC to exit toolbar once inside.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"chooseFromGrades": "Choose from Grades", // Link text and dialog title for the edit grades dialog,
@@ -46,7 +46,9 @@ export default {
 	"dueBetweenStartEndDate": "Due Date must be after Start Date and before or equal to End Date",
 	"dueAfterStartDate": "Due Date must be after Start Date",
 	"dueBeforeEndDate": "Due Date must be before or equal to End Date",
-	"createAndLinkToNewGradeItem": "Create and link to New Grade Item", //Radio button text
-	"linkToExistingGradeItem": "Link to Existing Grade Item", //Radio button text
+	"createAndLinkToNewGradeItem": "Create and link to a new grade item", //Radio button text
+	"linkToExistingGradeItem": "Link to an existing grade item", //Radio button text
 	"points": "Points: {points}", // Text label for displaying points of a grade
+	"noGradeItems": "No existing grade items", // Reason why existing grade items cannot be linked in the choose grades dialog
+	"noGradeCreatePermission": "You do not have permission to create a new grade item" // Reason why a new grade items cannot be created in the choose grades dialog
 };

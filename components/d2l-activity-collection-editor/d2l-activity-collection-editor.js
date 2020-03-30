@@ -725,7 +725,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 					<div class="d2l-add-activity-dialog" aria-live="polite" aria-busy="${this._candidateItemsLoading}">
 						<div class="d2l-add-activity-dialog-header">
 							<div>
-								<d2l-input-search label="${this.localize('search')}" @d2l-input-search-searched=${this.handleSearch}></d2l-input-search>
+								<d2l-input-search label="${this.localize('search')}" placeholder=${this.localize('searchPlaceholder')} @d2l-input-search-searched=${this.handleSearch}></d2l-input-search>
 							</div>
 							<div class="d2l-add-activity-dialog-selection-count">${selectedNav}</div>
 						</div>

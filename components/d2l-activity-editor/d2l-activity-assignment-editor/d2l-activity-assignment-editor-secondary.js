@@ -2,6 +2,7 @@ import './d2l-activity-assignment-availability-editor.js';
 import './d2l-activity-assignment-evaluation-editor.js';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
+import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
@@ -10,7 +11,7 @@ import { labelStyles } from '@brightspace-ui/core/components/typography/styles.j
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 
-class AssignmentEditorSecondary extends RtlMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
+class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
 
 	static get properties() {
 		return {
@@ -68,24 +69,40 @@ class AssignmentEditorSecondary extends RtlMixin(EntityMixinLit(LocalizeMixin(Li
 	}
 
 	render() {
-		return html`
-
+		const availabilityAccordian = html`
 			<d2l-activity-assignment-availability-editor
 				href="${this._activityUsageHref}"
 				.token="${this.token}">
 			</d2l-activity-assignment-availability-editor>
+		`;
 
+		const shouldRenderCompletionEvaluation = this._isMilestoneEnabled(Milestones.M2);
+
+		if (!shouldRenderCompletionEvaluation) {
+			return availabilityAccordian;
+		}
+
+		const submissionCompletionCategorizationAccordian = html`
 			<d2l-activity-assignment-editor-submission-and-completion-editor
 				href="${this.href}"
 				.token="${this.token}">
 			</d2l-activity-assignment-editor-submission-and-completion-editor>
+		`;
 
+		const evaluationAccordian = html`
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
 				.token="${this.token}"
 				activityUsageHref=${this._activityUsageHref}>
 			</d2l-activity-assignment-evaluation-editor>
 		`;
+
+		return html`
+			${availabilityAccordian}
+			${submissionCompletionCategorizationAccordian}
+			${evaluationAccordian}
+		`;
+
 	}
 }
 customElements.define('d2l-activity-assignment-editor-secondary', AssignmentEditorSecondary);

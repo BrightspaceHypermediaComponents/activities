@@ -29,7 +29,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		};
 	}
 
-	// The #score-and-duedate-container min-height and padding rules are a hack for the old datetime picker. Can hopefully be removed when the new picker is used.
 	static get styles() {
 		return [
 			labelStyles,
@@ -46,8 +45,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				#score-and-duedate-container {
 					display: flex;
 					flex-wrap: wrap;
-					min-height: 90px;
-					padding-bottom: 0;
+					min-height: 90px;  /* Hack to force a consistent the height for the old */
+					padding-bottom: 0; /* datetime picker. Can hopefully be removed when the new picker is used.*/
 				}
 				#score-container {
 					margin-right: 40px;

@@ -255,8 +255,8 @@ class ActivityConditionsEditor
 			/*          srcCallback: */ 'AttachConditions',
 			/*       resizeCallback: */ '',
 			/*      responseDataKey: */ 'conditions',
-			/*                width: */ 638,
-			/*               height: */ 588,
+			/*                width: */ 700,
+			/*               height: */ 650,
 			/*            closeText: */ attachExistingCloseText,
 			/*              buttons: */ buttons,
 			/* forceTriggerOnCancel: */ false
@@ -306,8 +306,8 @@ class ActivityConditionsEditor
 			/*          srcCallback: */ 'CreateCondition',
 			/*       resizeCallback: */ '',
 			/*      responseDataKey: */ 'condition',
-			/*                width: */ 638,
-			/*               height: */ 683,
+			/*                width: */ 700,
+			/*               height: */ 745,
 			/*            closeText: */ createNewCloseText,
 			/*              buttons: */ buttons,
 			/* forceTriggerOnCancel: */ false

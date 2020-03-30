@@ -3,22 +3,22 @@ import 'd2l-associations/add-associations.js';
 import 'd2l-rubric/d2l-rubric';
 import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from '../localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import store from '../d2l-activity-rubrics/state/association-collection-store.js';
+import store from './state/association-collection-store.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 
-class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixin(LitElement)))) {
+class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((LocalizeMixin(MobxLitElement)))) {
 
 	static get properties() {
 		return {
-			_rubricAssociationsHref: { type: String },
-			_newlyCreatedPotentialAssociationHref: { type: String }
+			_newlyCreatedPotentialAssociationHref: { type: String },
+			activityUsageHref: { type: String }
 		};
 	}
 
@@ -44,25 +44,9 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 	}
 
 	constructor() {
-		super();
-		this._setEntityType(ActivityUsageEntity);
-		this._rubricAssociationsHref = '';
+		super(store);
 		this._newlyCreatedPotentialAssociation = {};
 		this._newlyCreatedPotentialAssociationHref = '';
-	}
-
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onActivityUsageChange(entity);
-			super._entity = entity;
-		}
-	}
-
-	_onActivityUsageChange(activityUsage) {
-		if (!activityUsage) {
-			return;
-		}
-		this._rubricAssociationsHref = activityUsage.getRubricAssociationsHref();
 	}
 
 	_toggleDialog(toggle) {
@@ -81,7 +65,7 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 	}
 
 	_closeAttachRubricDialog(e) {
-		const entity = store.get(this._rubricAssociationsHref);
+		const entity = store.get(this.href);
 		if (e && e.detail && e.detail.associations) {
 			entity.addAssociations(e.detail.associations);
 		}
@@ -100,7 +84,7 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 	}
 
 	_attachRubric() {
-		const entity = store.get(this._rubricAssociationsHref);
+		const entity = store.get(this.href);
 
 		if (!entity) {
 			return;
@@ -113,7 +97,7 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 
 	async _createNewAssociation() {
 
-		const entity = store.get(this._rubricAssociationsHref);
+		const entity = store.get(this.href);
 		if (!entity) {
 			return;
 		}
@@ -139,11 +123,18 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 	}
 
 	render() {
+
+		const entity = store.get(this.href);
+
+		if (!entity) {
+			return html``;
+		}
+
 		return html`
 			<h3 class="d2l-heading-4">${this.localize('hdrRubrics')}</h3>
 			<d2l-activity-rubrics-list-editor
-				href="${this._rubricAssociationsHref}"
-				activityUsageHref=${this.href}
+				href="${this.href}"
+				activityUsageHref=${this.activityUsageHref}
 				.token=${this.token}
 			></d2l-activity-rubrics-list-editor>
 
@@ -183,7 +174,7 @@ class ActivityRubricsListContainer extends RtlMixin(EntityMixinLit((LocalizeMixi
 			>
 				<d2l-add-associations
 					.token="${this.token}"
-					href="${this.href}"
+					href="${this.activityUsageHref}"
 					type="rubrics"
 					skipSave
 				></d2l-add-associations>

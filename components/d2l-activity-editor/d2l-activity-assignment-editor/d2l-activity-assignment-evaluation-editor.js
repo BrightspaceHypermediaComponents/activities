@@ -2,7 +2,7 @@ import './d2l-activity-assignment-annotations-editor.js';
 import './d2l-activity-assignment-annotations-summary.js';
 import './d2l-activity-assignment-anonymous-marking-editor.js';
 import './d2l-activity-assignment-anonymous-marking-summary.js';
-import '../d2l-activity-rubrics/d2l-activity-rubrics-list-container.js';
+import '../d2l-activity-rubrics/d2l-activity-rubrics-list-wrapper.js';
 import '../d2l-activity-rubrics/d2l-activity-rubrics-summary-wrapper.js';
 import './d2l-assignment-turnitin-editor.js';
 import './d2l-assignment-turnitin-summary.js';
@@ -125,10 +125,10 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 
 	_renderRubricsCollectionEditor() {
 		return html`
-			<d2l-activity-rubrics-list-container
+			<d2l-activity-rubrics-list-wrapper
 				href="${this.activityUsageHref}"
 				.token="${this.token}">
-			</d2l-activity-rubrics-list-container>
+			</d2l-activity-rubrics-list-wrapper>
 		`;
 	}
 

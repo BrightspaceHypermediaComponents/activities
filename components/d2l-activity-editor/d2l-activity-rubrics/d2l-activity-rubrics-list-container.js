@@ -1,6 +1,7 @@
 import './d2l-activity-rubrics-list-editor';
 import 'd2l-associations/add-associations.js';
 import 'd2l-rubric/d2l-rubric';
+import 'd2l-rubric/d2l-rubric-title';
 import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -13,7 +14,7 @@ import store from './state/association-collection-store.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 
-class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((LocalizeMixin(MobxLitElement)))) {
+class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -33,8 +34,20 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((Localiz
 					display: none;
 				}
 				.d2l-heading-4 {
+					margin: 0 0 0 0;
+				}
+				.rubric-heading-container {
+					display: flex;
+					align-items: center;
 					margin: 0 0 0.6rem 0;
 				}
+				.preview-rubrics {
+					flex-shrink: 0;
+				}
+				.rubric-heading-title {
+					flex-grow: 1;
+				}
+				 
 			`
 		];
 	}
@@ -51,7 +64,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((Localiz
 
 	_toggleDialog(toggle) {
 
-		const dialog = this.shadowRoot.querySelector('d2l-dialog');
+		const dialog = this.shadowRoot.querySelector('#attach-rubric-dialog');
 		if (dialog) {
 			if (toggle) {
 				this.shadowRoot.querySelector('d2l-add-associations').reset();
@@ -122,6 +135,40 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((Localiz
 
 	}
 
+	_renderRubricPreviews() {
+
+		const entity = store.get(this.href);
+		if (!entity) {
+			return html``;
+		}
+
+		const associations = entity.fetchAssociations();
+		return associations.map( a => {
+			const shouldShowRubric = (a.isAssociated || a.isAssociating)
+			&& !a.isDeleting;
+
+			if (shouldShowRubric) {
+				return html`
+				<d2l-rubric href="${a.rubricHref}" .token="${this.token}">
+					<h3>
+						<d2l-rubric-title
+							href="${a.rubricHref}"
+							.token="${this.token}"
+						/>
+					</h3>
+				</d2l-rubric>
+				`
+			}
+		});
+	}
+
+	_launchRubricPreviewDialog(){
+		const dialog = this.shadowRoot.querySelector('#rubric-preview-dialog');
+		if (dialog) {
+			dialog.opened = true;
+		}
+	}
+
 	render() {
 
 		const entity = store.get(this.href);
@@ -130,8 +177,21 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((Localiz
 			return html``;
 		}
 
+		const rubricCount = entity.fetchAttachedAssociationsCount();
+
 		return html`
-			<h3 class="d2l-heading-4">${this.localize('hdrRubrics')}</h3>
+			<div class="rubric-heading-container">
+				<h3 class="d2l-heading-4 rubric-heading-title">
+					${this.localize('hdrRubrics')}
+				</h3>
+				<d2l-button-icon
+					?disabled="${rubricCount <= 0}"
+					class="preview-rubrics"
+					icon="tier1:new-window"
+					@click="${this._launchRubricPreviewDialog}"
+					text="${this.localize('txtOpenRubricPreview')}">
+				</d2l-button-icon>
+			</div>
 			<d2l-activity-rubrics-list-editor
 				href="${this.href}"
 				activityUsageHref=${this.activityUsageHref}
@@ -167,6 +227,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((Localiz
 			</d2l-simple-overlay>
 
 			<d2l-dialog
+				id="attach-rubric-dialog"
 				@associations-done-work="${this._closeAttachRubricDialog}"
 				@associations-resize-dialog="${this._resizeDialog}"
 				width="700"
@@ -178,6 +239,14 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin((Localiz
 					type="rubrics"
 					skipSave
 				></d2l-add-associations>
+			</d2l-dialog>
+
+			<d2l-dialog
+				id="rubric-preview-dialog"
+				width="980"
+				title-text="${this.localize('hdrRubrics')}"
+			>
+				${this._renderRubricPreviews()}
 			</d2l-dialog>
 		`;
 	}

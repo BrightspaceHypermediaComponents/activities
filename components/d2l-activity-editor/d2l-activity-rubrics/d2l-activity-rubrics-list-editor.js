@@ -3,11 +3,13 @@ import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { getLocalizeResources } from '../localization.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from './state/association-collection-store';
 
-class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitElement))) {
+class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin((MobxLitElement)))) {
 
 	static get styles() {
 		return [
@@ -40,6 +42,10 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 
 	constructor() {
 		super(store);
+	}
+
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	_deleteAssociation(e) {
@@ -76,6 +82,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(RtlMixin((MobxLitEle
 					icon="tier1:close-default"
 					data-id="${association.rubricHref}"
 					@click="${this._deleteAssociation}"
+					text=${this.localize('txtDeleteRubric')}
 				></d2l-button-icon>
 			</div>
 			`;

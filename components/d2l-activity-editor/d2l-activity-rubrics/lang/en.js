@@ -9,5 +9,7 @@ export default {
 	"btnCancel": "Cancel", //Button for canceling out of the attach new rubric overlay
 	"txtAddExisting": "Add Existing", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "No rubric added", // rubric summary for no rubrics
-	"txtRubricsAdded": "{count, plural, =1 {1 rubric added} other {{count} rubrics added}}" // rubric summary when rubrics present
+	"txtRubricsAdded": "{count, plural, =1 {1 rubric added} other {{count} rubrics added}}", // count of asoociated rubrics
+	"txtOpenRubricPreview": "Open Rubrics preview dialog", //Text for opening rubric preview dialog
+	"txtDeleteRubric": "Delete Rubric" // Text for deleting rubric icon
 };

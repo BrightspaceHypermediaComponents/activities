@@ -93,6 +93,10 @@ export class Assignment {
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.submissionType = String(entity.submissionType().value);
 		this.completionType = String(entity.completionType().value);
+
+		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
+		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
+
 		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled();
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
@@ -115,6 +119,10 @@ export class Assignment {
 	setSubmissionType(value) {
 		this.submissionType = value;
 		this._setValidCompletionTypeForSubmissionType();
+	}
+
+	setFilesSubmissionLimit(value) {
+		this.filesSubmissionLimit = value;
 	}
 
 	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
@@ -159,6 +167,9 @@ export class Assignment {
 	}
 
 	_makeAssignmentData() {
+		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
+		 		 The cancel workflow is making use of that to detect changes.
+		*/
 		return {
 			name: this.name,
 			instructions: this.instructions,
@@ -167,7 +178,8 @@ export class Assignment {
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? String(0) : this.completionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.selectedGroupCategoryId
+			groupTypeId: this.selectedGroupCategoryId,
+			filesSubmissionLimit: this.filesSubmissionLimit
 		};
 	}
 	async save() {

@@ -43,5 +43,8 @@ export default {
 	"discardChangesTitle": "Discard changes?", // Discard Changes User Prompt
 	"discardChangesQuestion": "Are you sure you want to discard your changes?", // Discard Changes User Prompt
 	"yesLabel": "Yes",
-	"noLabel": "No"
+	"noLabel": "No",
+	"filesSubmissionLimit": "Files Allowed Per Submission",
+	"UnlimitedFilesPerSubmission": "Unlimited",
+	"OneFilePerSubmission": "One File"
 };

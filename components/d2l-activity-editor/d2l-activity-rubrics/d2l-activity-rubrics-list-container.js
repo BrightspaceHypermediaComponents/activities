@@ -5,14 +5,14 @@ import 'd2l-rubric/d2l-rubric-title';
 import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { getLocalizeResources } from '../localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from './state/association-collection-store.js';
-import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { MobxLitElement } from '@adobe/lit-mobx';
 
 class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
 
@@ -143,7 +143,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 
 		const associations = entity.fetchAssociations();
-		return associations.map( a => {
+		return associations.map(a => {
 			const shouldShowRubric = (a.isAssociated || a.isAssociating)
 			&& !a.isDeleting;
 
@@ -153,16 +153,16 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 					<h3>
 						<d2l-rubric-title
 							href="${a.rubricHref}"
-							.token="${this.token}"
-						/>
+							.token="${this.token}">
+						</d2l-rubric-title>
 					</h3>
 				</d2l-rubric>
-				`
+				`;
 			}
 		});
 	}
 
-	_launchRubricPreviewDialog(){
+	_launchRubricPreviewDialog() {
 		const dialog = this.shadowRoot.querySelector('#rubric-preview-dialog');
 		if (dialog) {
 			dialog.opened = true;

@@ -54,7 +54,7 @@ export class AssociationCollection {
 			) {
 				attachedAssociationCount++;
 			}
-		};
+		}
 		return attachedAssociationCount;
 	}
 

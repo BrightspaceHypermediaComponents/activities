@@ -40,12 +40,12 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		];
 	}
 
-	constructor() {
-		super(store);
-	}
-
 	static async getLocalizeResources(langs) {
 		return getLocalizeResources(langs, import.meta.url);
+	}
+
+	constructor() {
+		super(store);
 	}
 
 	_deleteAssociation(e) {

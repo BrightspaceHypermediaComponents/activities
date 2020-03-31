@@ -148,10 +148,6 @@ describe('d2l-activity-card', () => {
 				expect(component._organizationUrl).to.equal(testOrganizationHref);
 			});
 
-			it('should set the image entity', () => {
-				expect(component._image).to.equal(imageEntity);
-			});
-
 			it('should set the activity homepage', () => {
 				expect(component._activityHomepage).to.equal(testActivityHomepage);
 			});

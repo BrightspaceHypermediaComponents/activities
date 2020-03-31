@@ -131,10 +131,6 @@ describe('d2l-activity-list-item', () => {
 				expect(component._organizationUrl).to.equal('/organization/1');
 			});
 
-			it('should set the image entity', () => {
-				expect(component._image).to.equal(imageEntity);
-			});
-
 			it('should set the activity homepage', () => {
 				expect(component._activityHomepage).to.equal('#');
 			});

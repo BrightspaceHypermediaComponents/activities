@@ -110,7 +110,6 @@ class D2lActivityCard extends PolymerElement {
 				type: Boolean,
 				value: false
 			},
-			_image: Object,
 			_accessibilityData: {
 				type: Object,
 				value: function() { return {}; }
@@ -194,32 +193,7 @@ class D2lActivityCard extends PolymerElement {
 		this._activityHomepage = sirenEntity.hasLink(Rels.Activities.activityHomepage) && sirenEntity.getLinkByRel(Rels.Activities.activityHomepage).href;
 		this._organizationUrl = sirenEntity.hasLink(Rels.organization) && sirenEntity.getLinkByRel(Rels.organization).href;
 
-		if (this._organizationUrl) {
-			this._fetchEntity(this._organizationUrl)
-				.then(this._handleOrganizationResponse.bind(this));
-		}
-
 		this.href = sirenEntity.hasLink('self') && sirenEntity.getLinkByRel('self').href;
-	}
-	_handleOrganizationResponse(organization) {
-		if (!organization ||
-			!organization.hasSubEntityByClass) {
-			return;
-		}
-
-		if (organization.hasSubEntityByClass(Classes.courseImage.courseImage)) {
-			const imageEntity = organization.getSubEntityByClass(Classes.courseImage.courseImage);
-			if (imageEntity.href) {
-				this._fetchEntity(imageEntity.href)
-					.then(function(hydratedImageEntity) {
-						this._image = hydratedImageEntity;
-					}.bind(this));
-			} else {
-				this._image = imageEntity;
-			}
-		}
-
-		return Promise.resolve();
 	}
 	_onD2lOrganizationAccessible(e) {
 		if (e && e.detail && e.detail.organization) {

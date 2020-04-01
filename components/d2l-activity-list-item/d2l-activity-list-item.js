@@ -312,7 +312,6 @@ class D2lActivityListItem extends mixinBehaviors([
 				type: Boolean,
 				value: false
 			},
-			_imageUrl: String,
 			_title: String,
 			_category: {
 				type: String,
@@ -328,7 +327,6 @@ class D2lActivityListItem extends mixinBehaviors([
 				observer: '_onTagsChange'
 			},
 			_showDescription: Boolean,
-			_image: Object,
 			_imageLoading: {
 				type: Boolean,
 				value: false

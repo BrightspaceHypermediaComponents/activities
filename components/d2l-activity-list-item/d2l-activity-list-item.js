@@ -7,7 +7,7 @@ import 'fastdom/fastdom.min.js';
 import 'd2l-offscreen/d2l-offscreen-shared-styles.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
-import {Classes, Rels} from 'd2l-hypermedia-constants';
+import {Rels} from 'd2l-hypermedia-constants';
 import 'd2l-fetch/d2l-fetch.js';
 import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
 import 'd2l-organizations/components/d2l-organization-name/d2l-organization-name.js';

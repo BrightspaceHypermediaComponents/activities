@@ -14,6 +14,11 @@ describe('d2l-activity-list-item', () => {
 				ok: true,
 				json: () => { return Promise.resolve(entity); }
 			}));
+		fetchStub.withArgs(sinon.match(url), sinon.match.any)
+			.returns(Promise.resolve({
+				ok: true,
+				json: () => { return Promise.resolve(entity); }
+			}));
 	}
 
 	beforeEach(() => {
@@ -144,8 +149,11 @@ describe('d2l-activity-list-item', () => {
 		});
 
 		it(testCase.name + 'should send text loaded event', done => {
+			let calls = 0;
 			handler = () => {
-				done();
+				if (++calls >= 2) {
+					done();
+				}
 			};
 			window.document.addEventListener('d2l-activity-text-loaded', handler);
 			testCase.beforeEachFn();

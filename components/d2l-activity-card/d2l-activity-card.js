@@ -1,5 +1,5 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { Classes, Rels } from 'd2l-hypermedia-constants';
+import { Rels } from 'd2l-hypermedia-constants';
 import 'fastdom/fastdom.min.js';
 import 'd2l-card/d2l-card.js';
 import 'd2l-card/d2l-card-content-meta.js';

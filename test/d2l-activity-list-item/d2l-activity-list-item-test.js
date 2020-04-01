@@ -106,17 +106,10 @@ describe('d2l-activity-list-item', () => {
 		}
 	].forEach((testCase) => {
 		describe(testCase.name, () => {
-			let textLoadedSuccessfulSpy;
 
 			beforeEach(done => {
-				textLoadedSuccessfulSpy = sinon.spy();
-				window.document.addEventListener('d2l-activity-text-loaded', textLoadedSuccessfulSpy);
 				testCase.beforeEachFn();
 				afterNextRender(component, done);
-			});
-
-			afterEach(() => {
-				window.document.removeEventListener('d2l-activity-text-loaded', textLoadedSuccessfulSpy);
 			});
 
 			it('should set the href', () => {
@@ -135,28 +128,6 @@ describe('d2l-activity-list-item', () => {
 				expect(component._activityHomepage).to.equal('#');
 			});
 
-		});
-
-		let handler;
-		afterEach(() => {
-			window.document.removeEventListener('d2l-activity-text-loaded', handler);
-			window.document.removeEventListener('d2l-activity-image-loaded', handler);
-		});
-
-		it(testCase.name + 'should send text loaded event', done => {
-			handler = () => {
-				done();
-			};
-			window.document.addEventListener('d2l-activity-text-loaded', handler);
-			testCase.beforeEachFn();
-		});
-
-		it(testCase.name + 'should send image loaded event', done => {
-			handler = () => {
-				done();
-			};
-			window.document.addEventListener('d2l-activity-image-loaded', handler);
-			testCase.beforeEachFn();
 		});
 	});
 

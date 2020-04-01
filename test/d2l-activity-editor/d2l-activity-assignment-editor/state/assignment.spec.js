@@ -75,6 +75,7 @@ describe('Assignment ', function() {
 				getAssignmentTypeGroupCategoryOptions: () => [],
 				getAssignmentTypeInformationText: () => '',
 				isAssignmentTypeReadOnly: () => false,
+				assignmentHasSubmissions: () => false,
 				getAssignmentTypeSelectedGroupCategoryName: () => null
 			};
 		});

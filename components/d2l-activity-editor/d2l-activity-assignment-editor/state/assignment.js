@@ -97,6 +97,7 @@ export class Assignment {
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
+		this.assignmentHasSubmissions = entity.assignmentHasSubmissions();
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
 		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);

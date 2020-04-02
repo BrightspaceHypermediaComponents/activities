@@ -28,9 +28,11 @@ import 'd2l-alert/d2l-alert-toast.js';
 import '@brightspace-ui-labs/edit-in-place/d2l-labs-edit-in-place.js';
 import '../d2l-activity-editor/d2l-activity-visibility-auto-editor.js';
 import { getLocalizeResources } from './localization.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
+import { Collection, MobxMixin } from './state/Collection.js';
 
 const baseUrl = import.meta.url;
-class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
+class CollectionEditor extends MobxMixin(LocalizeMixin(EntityMixinLit(MobxLitElement))) {
 
 	constructor() {
 		super();
@@ -51,6 +53,8 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 		this._isLoadingMore = false;
 		this._candidateItemsLoading = false;
 		this._setEntityType(ActivityUsageEntity);
+
+		this._setStateType(Collection);
 	}
 
 	static async getLocalizeResources(langs) {

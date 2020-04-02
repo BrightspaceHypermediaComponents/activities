@@ -120,20 +120,16 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_renderAssignmentFilesSubmissionLimit(assignment) {
-		if (!assignment) {
+		if (!assignment || !assignment.showFilesSubmissionLimit) {
 			return html ``;
 		}
-		const isFileSubmission = assignment.submissionTypeOptions
-			.find(x => x.title === 'File submission' && `${x.value}` === `${assignment.submissionType}`);
 
 		const isReadOnly = !assignment.canEditFilesSubmissionLimit;
 		const radioClasses = {
 			'd2l-input-radio-label': true,
 			'd2l-input-radio-label-disabled': isReadOnly,
 		};
-		if (!isFileSubmission) {
-			return html ``;
-		}
+
 		return html`
 			<div id="assignment-files-submission-limit-container">
 				<label class="d2l-label-text" for="assignment-files-submission-limit-container">

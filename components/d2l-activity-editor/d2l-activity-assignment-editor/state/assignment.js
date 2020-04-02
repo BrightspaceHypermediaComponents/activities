@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
@@ -197,6 +197,11 @@ export class Assignment {
 	delete() {
 		return this._entity.delete();
 	}
+
+	get showFilesSubmissionLimit() {
+		return this.submissionTypeOptions
+			.find(x => x.title === 'File submission' && `${x.value}` === `${this.submissionType}`);
+	}
 }
 
 decorate(Assignment, {
@@ -216,6 +221,8 @@ decorate(Assignment, {
 	completionTypeOptions: observable,
 	canEditSubmissionType: observable,
 	canEditCompletionType: observable,
+	canEditFilesSubmissionLimit: observable,
+	filesSubmissionLimit:observable,
 	canEditTurnitin: observable,
 	editTurnitinUrl: observable,
 	isOriginalityCheckEnabled: observable,
@@ -228,6 +235,7 @@ decorate(Assignment, {
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
 	selectedGroupCategoryName: observable,
+	showFilesSubmissionLimit: computed,
 	// actions
 	load: action,
 	setName: action,
@@ -240,5 +248,6 @@ decorate(Assignment, {
 	save: action,
 	setToIndividualAssignmentType: action,
 	setToGroupAssignmentType: action,
-	setAssignmentTypeGroupCategory: action
+	setAssignmentTypeGroupCategory: action,
+	setFilesSubmissionLimit: action
 });

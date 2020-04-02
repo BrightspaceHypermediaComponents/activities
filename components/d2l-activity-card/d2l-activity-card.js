@@ -1,10 +1,10 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { Classes, Rels } from 'd2l-hypermedia-constants';
+import { Rels } from 'd2l-hypermedia-constants';
 import 'fastdom/fastdom.min.js';
 import 'd2l-card/d2l-card.js';
 import 'd2l-card/d2l-card-content-meta.js';
-import 'd2l-course-image/d2l-course-image.js';
 import 'd2l-fetch/d2l-fetch.js';
+import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
 import 'd2l-organizations/components/d2l-organization-info/d2l-organization-info.js';
 import 'd2l-organizations/components/d2l-organization-name/d2l-organization-name.js';
 import 'd2l-typography/d2l-typography.js';
@@ -61,12 +61,12 @@ class D2lActivityCard extends PolymerElement {
 			<d2l-card text="[[_accessibilityText]]" href$="[[_activityHomepage]]" on-click="_sendClickEvent">
 				<div class="d2l-activity-card-header-container" slot="header">
 					<div class="d2l-activity-list-item-pulse-placeholder" hidden$="[[!_imageLoading]]"></div>
-					<d2l-course-image
+					<d2l-organization-image
 						hidden$="[[_imageLoading]]"
-						image="[[_image]]"
-						sizes="[[_tileSizes]]"
-						type="tile">
-					</d2l-course-image>
+						href="[[_organizationUrl]]"
+						token="[[token]]"
+						type="tile"
+					></d2l-organization-image>
 				</div>
 
 				<div class="d2l-activity-card-content-container" slot="content">
@@ -110,25 +110,6 @@ class D2lActivityCard extends PolymerElement {
 				type: Boolean,
 				value: false
 			},
-			_tileSizes: {
-				type: Object,
-				value: function() {
-					return {
-						mobile: {
-							maxwidth: 767,
-							size: 100
-						},
-						tablet: {
-							maxwidth: 1243,
-							size: 67
-						},
-						desktop: {
-							size: 25
-						}
-					};
-				}
-			},
-			_image: Object,
 			_accessibilityData: {
 				type: Object,
 				value: function() { return {}; }
@@ -151,17 +132,17 @@ class D2lActivityCard extends PolymerElement {
 	}
 	connectedCallback() {
 		super.connectedCallback();
-		const image = this.shadowRoot.querySelector('d2l-course-image');
+		const image = this.shadowRoot.querySelector('d2l-organization-image');
 		if (image) {
-			image.addEventListener('course-image-loaded', this._activityImageLoaded.bind(this));
+			image.addEventListener('d2l-organization-image-loaded', this._activityImageLoaded.bind(this));
 		}
 		this.addEventListener('d2l-organization-accessible', this._onD2lOrganizationAccessible);
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		const image = this.shadowRoot.querySelector('d2l-course-image');
+		const image = this.shadowRoot.querySelector('d2l-organization-image');
 		if (image) {
-			image.removeEventListener('course-image-loaded', this._activityImageLoaded);
+			image.removeEventListener('d2l-organization-image-loaded', this._activityImageLoaded);
 		}
 		this.removeEventListener('d2l-organization-accessible', this._onD2lOrganizationAccessible);
 	}
@@ -212,32 +193,7 @@ class D2lActivityCard extends PolymerElement {
 		this._activityHomepage = sirenEntity.hasLink(Rels.Activities.activityHomepage) && sirenEntity.getLinkByRel(Rels.Activities.activityHomepage).href;
 		this._organizationUrl = sirenEntity.hasLink(Rels.organization) && sirenEntity.getLinkByRel(Rels.organization).href;
 
-		if (this._organizationUrl) {
-			this._fetchEntity(this._organizationUrl)
-				.then(this._handleOrganizationResponse.bind(this));
-		}
-
 		this.href = sirenEntity.hasLink('self') && sirenEntity.getLinkByRel('self').href;
-	}
-	_handleOrganizationResponse(organization) {
-		if (!organization ||
-			!organization.hasSubEntityByClass) {
-			return;
-		}
-
-		if (organization.hasSubEntityByClass(Classes.courseImage.courseImage)) {
-			const imageEntity = organization.getSubEntityByClass(Classes.courseImage.courseImage);
-			if (imageEntity.href) {
-				this._fetchEntity(imageEntity.href)
-					.then(function(hydratedImageEntity) {
-						this._image = hydratedImageEntity;
-					}.bind(this));
-			} else {
-				this._image = imageEntity;
-			}
-		}
-
-		return Promise.resolve();
 	}
 	_onD2lOrganizationAccessible(e) {
 		if (e && e.detail && e.detail.organization) {

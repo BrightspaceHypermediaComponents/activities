@@ -33,6 +33,7 @@ describe('d2l-quick-eval-view-toggle-button', function() {
 							await page.click(selector);
 							break;
 					}
+					await new Promise(resolve => setTimeout(resolve, 100));
 					const rect = await visualDiff.getRect(page, `#${name}`);
 					await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 				});

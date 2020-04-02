@@ -5,9 +5,11 @@ import { bodySmallStyles, heading3Styles, labelStyles } from '@brightspace-ui/co
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { classMap } from 'lit-html/directives/class-map.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { shared as store } from './state/assignment-store.js';
 
@@ -18,6 +20,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 			bodySmallStyles,
 			heading3Styles,
 			labelStyles,
+			radioStyles,
 			selectStyles,
 			css`
 				:host {
@@ -36,6 +39,19 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 
 				.assignment-type-heading {
 					margin: 0 0 0.5rem 0;
+				}
+
+				div[id*="container"] {
+					margin-top: 20px;
+				}
+
+				div[id*="container"] > label.d2l-label-text {
+					display: inline-block;
+					margin-bottom: 10px;
+				}
+
+				.d2l-input-radio-label, .d2l-input-radio-label-disabled {
+					margin-bottom: 10px;
 				}
 			`,
 			summarizerHeaderStyles,
@@ -94,6 +110,58 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 				href="${this.href}"
 				.token="${this.token}">
 			</d2l-activity-assignment-type-summary>
+		`;
+	}
+
+	_setfilesSubmisisonLimit(e) {
+		const assignment = store.getAssignment(this.href);
+		const data = e.target.value;
+		assignment && assignment.setFilesSubmissionLimit(data);
+	}
+
+	_renderAssignmentFilesSubmissionLimit(assignment) {
+		if (!assignment || !assignment.showFilesSubmissionLimit) {
+			return html ``;
+		}
+
+		const isReadOnly = !assignment.canEditFilesSubmissionLimit;
+		const radioClasses = {
+			'd2l-input-radio-label': true,
+			'd2l-input-radio-label-disabled': isReadOnly,
+		};
+
+		return html`
+			<div id="assignment-files-submission-limit-container">
+				<label class="d2l-label-text" for="assignment-files-submission-limit-container">
+					${this.localize('filesSubmissionLimit')}
+				</label>
+
+				<label class="${classMap({'files-submission-limit-unlimited': true, ...radioClasses})}">
+					<input
+						id="files-submission-limit-unlimited"
+						type="radio"
+						name="filesSubmissionLimit"
+						value="unlimited"
+						@change="${this._setfilesSubmisisonLimit}"
+						?disabled=${isReadOnly}
+						?checked="${assignment.filesSubmissionLimit === 'unlimited'}"
+					>
+					${this.localize('UnlimitedFilesPerSubmission')}
+				</label>
+
+				<label class="${classMap({'files-submission-limit-one': true, ...radioClasses})}">
+					<input
+						id="files-submission-limit-one"
+						type="radio"
+						name="filesSubmissionLimit"
+						value="onefilepersubmission"
+						@change="${this._setfilesSubmisisonLimit}"
+						?disabled=${isReadOnly}
+						?checked="${assignment.filesSubmissionLimit === 'onefilepersubmission'}"
+					>
+					${this.localize('OneFilePerSubmission')}
+				</label>
+			</div>
 		`;
 	}
 
@@ -157,6 +225,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 				</ul>
 				${this._renderAssignmentType()}
 				${this._renderAssignmentSubmissionType(assignment)}
+				${this._renderAssignmentFilesSubmissionLimit(assignment)}
 				${this._renderAssignmentCompletionType(assignment)}
 			</d2l-labs-accordion-collapse>
 		`;

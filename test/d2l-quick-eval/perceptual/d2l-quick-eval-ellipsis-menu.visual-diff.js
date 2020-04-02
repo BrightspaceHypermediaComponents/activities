@@ -13,6 +13,7 @@ describe('d2l-quick-eval-ellipsis-menu', function() {
 		await page.setViewport({width: 900, height: 800, deviceScaleFactor: 2});
 		await page.goto(`${visualDiff.getBaseUrl()}/test/d2l-quick-eval/perceptual/d2l-quick-eval-ellipsis-menu.visual-diff.html`, {waitUntil: ['networkidle0', 'load']});
 		await page.bringToFront();
+		await visualDiff.disableAnimations(page);
 	});
 
 	after(() => browser.close());

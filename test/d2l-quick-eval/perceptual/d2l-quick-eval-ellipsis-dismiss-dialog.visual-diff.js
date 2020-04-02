@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const VisualDiff = require('@brightspace-ui/visual-diff');
 
-describe('d2l-quick-eval-ellipsis-dialog', function() {
+describe.skip('d2l-quick-eval-ellipsis-dialog', function() {
 
 	const visualDiff = new VisualDiff('ellipsis-dialog', __dirname);
 

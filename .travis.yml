@@ -4,6 +4,7 @@ node_js:
 addons:
   chrome: stable
 install:
+- rm -rf node_modules/
 - npm install
 jobs:
   include:

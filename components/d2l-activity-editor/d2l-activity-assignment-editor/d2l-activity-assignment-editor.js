@@ -205,6 +205,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 	render() {
 		return html`
 			<d2l-activity-editor
+				type="assignment"
 				.href=${this.href}
 				.token=${this.token}
 				unfurlEndpoint="${this.unfurlEndpoint}"

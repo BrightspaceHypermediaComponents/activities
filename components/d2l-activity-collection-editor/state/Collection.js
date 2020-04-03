@@ -7,7 +7,14 @@ import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntit
 
 configureMobx({ enforceActions: 'observed' });
 
-// ideally, this will extend Activity
+/**
+ * Ideally, this will extend Activity. Collection contains the
+ * logic for speaking to the hypermedia entities. It is a MobX enabled
+ * state attached to the component via the MobXMixin
+ *
+ * @export
+ * @class Collection
+ */
 export class Collection {
 	constructor(href, token) {
 		this._href = href;
@@ -15,7 +22,13 @@ export class Collection {
 		entityFactory(ActivityUsageEntity, href, token, this._onServerResponse.bind(this));
 	}
 
-	// called when we receive a response from the href
+	/**
+	 * Callback function which occurs when we receive the entity
+	 * from the server
+	 *
+	 * @param {*} usage
+	 * @param {*} error
+	 */
 	async _onServerResponse(usage, error) {
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
 			this._specialization = specialization;
@@ -28,6 +41,8 @@ export class Collection {
 	}
 
 	save() {
+		// in theory this will later send a single "publish" request
+		// to the new 'draft' state API
 		this._specialization.setName(this.name);
 		this._specialization.setDescription(this.description);
 	}
@@ -73,8 +88,13 @@ decorate(Collection, {
 	reorderActivity: action
 });
 
-// handles cleanup and other things we don't want to deal with
-// will need smart pointer approach
+/**
+ * Handles the connection between the LitElement component and the shared
+ * state smart pointer, as well as cleanup
+ *
+ * @export
+ * @class MobxMixin
+ */
 export class MobxMixin {
 	static get properties() {
 		return {
@@ -88,7 +108,13 @@ export class MobxMixin {
 			token: { type: String },
 		};
 	}
-	// LitElement function called when a property changes
+	/**
+	 * Lit-Element function called whenever properties are changed
+	 *
+	 * @param {*} changedProperties
+	 * @returns {boolean} true if both href and token are set
+	 * @memberof MobxMixin
+	 */
 	shouldUpdate(changedProperties) {
 		if ((changedProperties.has('href') || changedProperties.has('token')) &&
 			this.href && this.token) {
@@ -97,14 +123,34 @@ export class MobxMixin {
 		}
 		return this.href && this.token;
 	}
-
+	/**
+	 * Removes the reference to the state associated with the component
+	 * Disposes the entity if there are no more references.
+	 * @memberof MobxMixin
+	 */
 	dispose() {
-		// stuff
+		shared.removeRef();
+		if (shared.refCount() === 0){
+			dispose(this._entity);
+			this._state = null;
+		}
 	}
 
+	/**
+	 * Attaches the global state to the object if it exists.
+	 * Creates a new global state object if needed
+	 *
+	 * @returns
+	 * @memberof MobxMixin
+	 */
 	_makeState() {
-		if (typeof this._stateType !== 'function') {
+		if (shared) {
+			this._state = shared.ref;
+			shared.addRef();
 			return;
+		}
+		if (typeof this._stateType !== 'function') {
+			throw Error('State creation failed - state type has no constructor');
 		}
 		this._state = stateFactory(this._stateType, this.href, this.token);
 	}
@@ -112,23 +158,55 @@ export class MobxMixin {
 	_setStateType(type) {
 		this._stateType = type;
 	}
-	// LitElement function called when connected to a document-connected element
+
+	/**
+	 * LitElement lifecycle event. Connects the component to the state
+	 *
+	 * @memberof MobxMixin
+	 */
 	connectedCallback() {
-		// connects the mobx state class
-		// if it already exists, use that
-		// otherwise make a new one
-
+		super.connectedCallback();
+		this._makeState();
 	}
 
+	/**
+	 * Cleanup for disconnected lifecycle event
+	 * de-registers the state
+	 *
+	 * @memberof MobxMixin
+	 */
 	disconnectedCallback() {
-		// clean up and call dispose on the instance of the
-		// Collection instance, IF others are not using it
-		// use a smart pointer to do this
-		// deregister
+		super.disconnectedCallback();
+		this.dispose();
 	}
 }
 
+/**
+ * Create a new state of the specified type
+ *
+ * @param {*} stateType Type of state object to create
+ * @param {*} href Entity href
+ * @param {*} token Entity token
+ * @returns The state object of the given type
+ */
 function stateFactory(stateType, href, token) {
-	// TODO: add smart pointer reference counting stuff
-	return new stateType(href, token);
+	sharedState = smartPointer(new stateType(href, token));
+	return sharedState.ref;
 }
+
+/**
+ * Creates a smart pointer allowing reference counting
+*/
+const smartPointer = (ref) => (function() {
+	let refCount = 1;
+	return {
+		addRef: () => ++refCount,
+		removeRef: () => --refCount,
+		refCount: () => refCount,
+		ref: ref,
+	};
+})();
+
+// Global shared state smart pointer. Begins as null so we may dynamically
+// create the state type
+export let sharedState = null;

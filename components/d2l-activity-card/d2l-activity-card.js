@@ -37,7 +37,6 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 				.d2l-activity-card-content-container {
 					display: flex;
 					flex-direction: column;
-					text-align: center;
 					margin: -0.35rem 0 -0.1rem;
 					overflow-wrap: break-word; /* replaces 'word-wrap' in Firefox, Chrome, Safari */
 					overflow: hidden;
@@ -49,7 +48,7 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 				}
 
 				.d2l-activity-card-activity-information {
-					display:inline-block;
+					display:block;
 				}
 
 				@keyframes pulsingAnimation {

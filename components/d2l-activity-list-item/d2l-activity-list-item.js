@@ -7,9 +7,9 @@ import 'fastdom/fastdom.min.js';
 import 'd2l-offscreen/d2l-offscreen-shared-styles.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
-import 'd2l-course-image/d2l-course-image.js';
-import {Classes, Rels} from 'd2l-hypermedia-constants';
+import {Rels} from 'd2l-hypermedia-constants';
 import 'd2l-fetch/d2l-fetch.js';
+import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
 import 'd2l-organizations/components/d2l-organization-name/d2l-organization-name.js';
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-polymer-behaviors/d2l-focusable-behavior.js';
@@ -225,12 +225,12 @@ class D2lActivityListItem extends mixinBehaviors([
 				<div class="d2l-activity-list-item-link-container">
 					<div class="d2l-activity-list-item-image">
 						<div class="d2l-activity-list-item-pulse-placeholder" hidden$="[[!imagePlaceholder]]"></div>
-						<d2l-course-image
+						<d2l-organization-image
 							hidden$="[[imagePlaceholder]]"
-							image="[[_image]]"
-							sizes="[[_tileSizes]]"
-							type="narrow">
-						</d2l-course-image>
+							href="[[_organizationUrl]]"
+							token="[[token]]"
+							type="narrow"
+						></d2l-organization-image>
 					</div>
 
 					<div class="d2l-activity-list-item-content">
@@ -312,7 +312,6 @@ class D2lActivityListItem extends mixinBehaviors([
 				type: Boolean,
 				value: false
 			},
-			_imageUrl: String,
 			_title: String,
 			_category: {
 				type: String,
@@ -328,7 +327,6 @@ class D2lActivityListItem extends mixinBehaviors([
 				observer: '_onTagsChange'
 			},
 			_showDescription: Boolean,
-			_image: Object,
 			_imageLoading: {
 				type: Boolean,
 				value: false
@@ -336,24 +334,6 @@ class D2lActivityListItem extends mixinBehaviors([
 			_imageLoadingProgress: {
 				type: Boolean,
 				value: false
-			},
-			_tileSizes: {
-				type: Object,
-				value: function() {
-					return {
-						mobile: {
-							maxwidth: 767,
-							size: 100
-						},
-						tablet: {
-							maxwidth: 1243,
-							size: 67
-						},
-						desktop: {
-							size: 25
-						}
-					};
-				}
 			},
 			actionEnroll: {
 				type: String,
@@ -416,8 +396,8 @@ class D2lActivityListItem extends mixinBehaviors([
 			this.addEventListener('iron-resize', this._onIronSize.bind(this));
 			this._setResponsiveSizes(this.offsetWidth);
 
-			const image = this.shadowRoot.querySelector('d2l-course-image');
-			image.addEventListener('course-image-loaded', this._activityImageLoaded.bind(this));
+			const image = this.shadowRoot.querySelector('d2l-organization-image');
+			image.addEventListener('d2l-organization-image-loaded', this._activityImageLoaded.bind(this));
 		});
 	}
 	_onD2lOrganizationAccessible(e) {
@@ -454,8 +434,8 @@ class D2lActivityListItem extends mixinBehaviors([
 		link.removeEventListener('focus', this._onLinkFocus);
 		this.removeEventListener('iron-resize', this._onIronSize);
 
-		const image = this.shadowRoot.querySelector('d2l-course-image');
-		image.removeEventListener('course-image-loaded', this._activityImageLoaded);
+		const image = this.shadowRoot.querySelector('d2l-organization-image');
+		image.removeEventListener('d2l-organization-image-loaded', this._activityImageLoaded);
 	}
 
 	_reset() {
@@ -632,18 +612,6 @@ class D2lActivityListItem extends mixinBehaviors([
 			description = tempDiv.textContent || tempDiv.innerText;
 		}
 		this._description = description;
-
-		if (organization.hasSubEntityByClass(Classes.courseImage.courseImage)) {
-			const imageEntity = organization.getSubEntityByClass(Classes.courseImage.courseImage);
-			if (imageEntity.href) {
-				this._fetchEntity(imageEntity.href)
-					.then(function(hydratedImageEntity) {
-						this._image = hydratedImageEntity;
-					}.bind(this));
-			} else {
-				this._image = imageEntity;
-			}
-		}
 
 		return Promise.resolve();
 	}

@@ -1,3 +1,5 @@
+import { AsyncStateEvent } from '@brightspace-ui/core/helpers/asyncStateEvent.js';
+
 export const ActivityEditorMixin = superclass => class extends superclass {
 
 	static get properties() {
@@ -50,11 +52,7 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 	}
 
 	_sendPendingEvent(promise) {
-		const pendingEvent = new CustomEvent('d2l-pending-state', {
-			composed: true,
-			bubbles: true,
-			detail: { promise }
-		});
+		const pendingEvent = new AsyncStateEvent(promise);
 		this.dispatchEvent(pendingEvent);
 	}
 

@@ -1,4 +1,5 @@
 import { Attachment, AudioAttachment, FileAttachment, GoogleDriveAttachment, LinkAttachment, OneDriveAttachment, VideoAttachment } from './attachment.js';
+
 import { ObjectStore } from '../../state/object-store.js';
 
 let newAttachmentId = 0;

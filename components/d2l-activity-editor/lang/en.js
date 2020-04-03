@@ -17,12 +17,12 @@ export default {
 	"endTime": "End Time", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Start Time", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Hidden", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Hidden from students", // Aria Label for the visibility switch when hidden
+	"ariaHidden": "Hidden from learners", // Aria Label for the visibility switch when hidden
 	"noDueDate": "No due date", // Placeholder text for due date field when no due date is set
 	"noEndDate": "No end date", // Placeholder text for due date field when no due date is set
 	"noStartDate": "No start date", // Placeholder text for due date field when no due date is set
 	"visible": "Visible", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Visible to students", // Aria Label for the visibility switch when visible
+	"ariaVisible": "Visible to learners", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Availability starts {startDate} and ends {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "Availability starts {startDate}", // start only text
 	"txtAvailabilityEndOnly": "Availability ends {endDate}", // end only text

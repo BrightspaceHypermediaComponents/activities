@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
@@ -93,6 +93,10 @@ export class Assignment {
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.submissionType = String(entity.submissionType().value);
 		this.completionType = String(entity.completionType().value);
+
+		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
+		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
+
 		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled();
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
@@ -116,6 +120,10 @@ export class Assignment {
 	setSubmissionType(value) {
 		this.submissionType = value;
 		this._setValidCompletionTypeForSubmissionType();
+	}
+
+	setFilesSubmissionLimit(value) {
+		this.filesSubmissionLimit = value;
 	}
 
 	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
@@ -160,6 +168,9 @@ export class Assignment {
 	}
 
 	_makeAssignmentData() {
+		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
+		 		 The cancel workflow is making use of that to detect changes.
+		*/
 		return {
 			name: this.name,
 			instructions: this.instructions,
@@ -168,7 +179,8 @@ export class Assignment {
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? String(0) : this.completionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.selectedGroupCategoryId
+			groupTypeId: this.selectedGroupCategoryId,
+			filesSubmissionLimit: this.filesSubmissionLimit
 		};
 	}
 	async save() {
@@ -185,6 +197,11 @@ export class Assignment {
 
 	delete() {
 		return this._entity.delete();
+	}
+
+	get showFilesSubmissionLimit() {
+		return this.submissionTypeOptions
+			.find(x => x.title === 'File submission' && `${x.value}` === `${this.submissionType}`);
 	}
 }
 
@@ -205,6 +222,8 @@ decorate(Assignment, {
 	completionTypeOptions: observable,
 	canEditSubmissionType: observable,
 	canEditCompletionType: observable,
+	canEditFilesSubmissionLimit: observable,
+	filesSubmissionLimit:observable,
 	canEditTurnitin: observable,
 	editTurnitinUrl: observable,
 	isOriginalityCheckEnabled: observable,
@@ -217,6 +236,7 @@ decorate(Assignment, {
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
 	selectedGroupCategoryName: observable,
+	showFilesSubmissionLimit: computed,
 	// actions
 	load: action,
 	setName: action,
@@ -229,5 +249,6 @@ decorate(Assignment, {
 	save: action,
 	setToIndividualAssignmentType: action,
 	setToGroupAssignmentType: action,
-	setAssignmentTypeGroupCategory: action
+	setAssignmentTypeGroupCategory: action,
+	setFilesSubmissionLimit: action
 });

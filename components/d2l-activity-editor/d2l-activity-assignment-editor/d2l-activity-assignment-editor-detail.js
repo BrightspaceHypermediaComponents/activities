@@ -4,20 +4,24 @@ import '../d2l-activity-due-date-editor.js';
 import '../d2l-activity-score-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
+
 import { css, html } from 'lit-element/lit-element.js';
+
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { shared as attachmentCollectionStore } from '../d2l-activity-attachments/state/attachment-collections-store.js';
+import { shared as attachmentStore } from '../d2l-activity-attachments/state/attachment-store.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { getLocalizeResources } from '../localization.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { LinksInMessageProcessor } from '@d2l/d2l-attachment/helpers/links-in-message-processor.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
 import { shared as store } from './state/assignment-store.js';
-
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeMixin(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
@@ -25,7 +29,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 	static get properties() {
 		return {
 			_nameError: { type: String },
-			_attachmentsHref: { type: String }
+			_attachmentsHref: { type: String },
+			_linksProcessor: { type: Object }
 		};
 	}
 
@@ -45,8 +50,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				#score-and-duedate-container {
 					display: flex;
 					flex-wrap: wrap;
-					min-height: 90px;  /* Hack to force a consistent the height for the old */
-					padding-bottom: 0; /* datetime picker. Can hopefully be removed when the new picker is used.*/
 				}
 				#score-container {
 					margin-right: 40px;
@@ -69,6 +72,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		this._debounceJobs = {};
 
 		this._attachmentsHref = '';
+		this._linksProcessor = new LinksInMessageProcessor();
 	}
 
 	set _entity(entity) {
@@ -76,6 +80,23 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			this._onAssignmentChange(entity);
 			super._entity = entity;
 		}
+	}
+
+	_addToCollection(attachment) {
+		const collection = attachmentCollectionStore.get(this._attachmentsHref);
+		collection.addAttachment(attachment);
+	}
+
+	addLinks(links) {
+		links = links || [];
+		links.forEach(element => {
+			this._addToCollection(attachmentStore.createLink(element.name, element.url));
+		});
+	}
+
+	_saveInstructions(value) {
+		store.getAssignment(this.href).setInstructions(value);
+		this._linksProcessor.process(value, linkAttachments => this.addLinks(linkAttachments));
 	}
 
 	_onAssignmentChange(assignment) {
@@ -92,10 +113,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 	_saveName(value) {
 		store.getAssignment(this.href).setName(value);
-	}
-
-	_saveInstructions(value) {
-		store.getAssignment(this.href).setInstructions(value);
 	}
 
 	_saveNameOnInput(e) {

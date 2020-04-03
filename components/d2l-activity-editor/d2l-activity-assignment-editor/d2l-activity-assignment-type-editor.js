@@ -96,7 +96,7 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 
 		const isIndividualAssignmentType = assignment.isIndividualAssignmentType;
 
-		if (assignment.hasSubmissions) {
+		if (assignment.assignmentHasSubmissions) {
 			return this.localize('folderTypeCannotChange');
 		}
 
@@ -120,7 +120,7 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 
 		const isIndividualType = assignment.isIndividualAssignmentType;
 		const infoText = this._getInformationText(assignment);
-		const isReadOnly = assignment.isReadOnly || assignment.hasSubmissions;
+		const isReadOnly = assignment.isReadOnly;
 		const groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled;
 		const folderTypeText =	isIndividualType ? this.localize('txtIndividual') : this.localize('txtGroup');
 		const groupTypeText = !isIndividualType && assignment.selectedGroupCategoryName

@@ -86,7 +86,6 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 							show-semester-name="[[showSemesterName]]"
 						></d2l-organization-info>
 
-
 						<template is="dom-if" if="[[_showActivityInformation(_organizationActivityLoaded, showActivityType)]]">
 							<div class="d2l-activity-card-activity-information">
 								<d2l-icon icon="tier1:course"></d2l-icon>
@@ -222,7 +221,6 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 				.then(this._handleOrganizationResponse.bind(this));
 		}
 	}
-
 	_handleOrganizationResponse(organization) {
 		if (!organization) {
 			return;
@@ -233,14 +231,12 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 		this._activityTypeAccessible();
 		return Promise.resolve();
 	}
-
 	_activityTypeAccessible() {
 		if (this.showActivityType) {
 			this._accessibilityData.activityType = this._organizationActivityType;
 			this._accessibilityText = this._accessibilityDataToString(this._accessibilityData);
 		}
 	}
-
 	_onD2lOrganizationAccessible(e) {
 		if (e && e.detail && e.detail.organization) {
 			if (e.detail.organization.name) {
@@ -299,7 +295,6 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 		}
 		return match[0];
 	}
-
 	_showActivityInformation(_organizationActivityLoaded, showActivityType) {
 		return _organizationActivityLoaded && showActivityType;
 	}

@@ -4,6 +4,8 @@ import { NamedEntityMixin } from 'siren-sdk/src/entityAddons/named-entity-mixin.
 import { DescribableEntityMixin } from 'siren-sdk/src/entityAddons/describable-entity-mixin.js';
 import { SimpleEntity } from 'siren-sdk/src/es6/SimpleEntity.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
+import { ActionCollectionEntity } from 'siren-sdk/src/activities/ActionCollectionEntity.js';
+import { performSirenAction } from 'siren-sdk/src/es6/SirenAction.js';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -19,6 +21,14 @@ export class Collection {
 	constructor(href, token) {
 		this._href = href;
 		this._token = token;
+
+		this._loadedImages = [];
+		this._organizationImageChunk = {};
+		this._candidateItemsLoading = false;
+		this._candidateFirstLoad = false;
+		this.activities = [];
+		this._candidateItems = [];
+
 		entityFactory(ActivityUsageEntity, href, token, this._onServerResponse.bind(this));
 	}
 
@@ -32,12 +42,80 @@ export class Collection {
 	async _onServerResponse(usage, error) {
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
 			this._specialization = specialization;
-			setName(specialization.getName());
-			setDescription(specialization.getDescription());
+			this.name = specialization.getName();
+			this.description = specialization.getDescription();
+		});
+
+		this.isVisible = !usage.isDraft();
+		this.canEditDraft = usage.canEditDraft();
+
+		let hasACollection = false;
+		usage.onActivityCollectionChange(async(collection, error) => {
+			if (error) {
+				return;
+			}
+			hasACollection = true;
+
+			// load the activities onto the collection
+			const items = [];
+			let itemsLoadedOnce = false;
+			const imageChunk = this._loadedImages.length;
+			this._loadedImages[imageChunk] = { loaded: 0, total: null };
+			let totalInLoadingChunk = 0;
+
+			collection.onItemsChange((item, index) => {
+				item.onActivityUsageChange((usage) => {
+					usage.onOrganizationChange((organization) => {
+						items[index] = organization;
+						// items[index].removeItem = () => {
+						// 	this._reloadOnOpen = true;
+						// 	collection.removeItem(item.self());
+						// 	this._currentDeleteItemName = items[index].name();
+						// 	this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
+						// 	// if the result is an empty learning path, set to hidden
+						// 	if (items.length - 1 === 0) {
+						// 		this._setVisibility(true);
+						// 	}
+						// };
+						items[index].itemSelf = item.self();
+						if (typeof this._organizationImageChunk[item.self()] === 'undefined') {
+							this._organizationImageChunk[item.self()] = imageChunk;
+							totalInLoadingChunk++;
+						}
+
+						if (itemsLoadedOnce) {
+							this.activities = items;
+						}
+					});
+				});
+			});
+
+			this._collection = collection;
+			this._addExistingAction = collection._entity.getActionByName('start-add-existing-activity');
+
+			await collection.subEntitiesLoaded();
+			this.activities = items;
+			itemsLoadedOnce = true;
+			this._loadedImages[imageChunk].total = totalInLoadingChunk;
 		});
 
 		await usage.subEntitiesLoaded();
-		setIsLoaded(true);
+		if (!this.isLoaded) {
+			// load candidates
+		}
+		if (!hasACollection) {
+			this.activities = [];
+		}
+		this.setIsLoaded(true);
+		console.log(this);
+	}
+
+	async addActivities() {
+		this._reloadOnOpen = true;
+		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
+		const keys = this._selectedActivities();
+		const fields = [{ name: 'actionStates', value: keys }];
+		await performSirenAction(this.token, addAction, fields, true);
 	}
 
 	save() {
@@ -45,11 +123,16 @@ export class Collection {
 		// to the new 'draft' state API
 		this._specialization.setName(this.name);
 		this._specialization.setDescription(this.description);
+		//usage.setDraftStatus(draftStatus)
 	}
 
 	// to be called whenever the user changes an input
 	validate() {
 
+	}
+
+	setIsVisible(value) {
+		this.isVisible = value;
 	}
 
 	setIsLoaded(value) {
@@ -80,7 +163,11 @@ export class Collection {
 decorate(Collection, {
 	name: observable,
 	description: observable,
+	canEditDraft: observable,
+	isVisible: observable,
 	isLoaded: observable,
+	activities: observable,
+	setIsLoaded: action,
 	setTitle: action,
 	setDescription: action,
 	addActivity: action,
@@ -93,9 +180,8 @@ decorate(Collection, {
  * state smart pointer, as well as cleanup
  *
  * @export
- * @class MobxMixin
  */
-export class MobxMixin {
+export const MobxMixin = superclass => class extends superclass {
 	static get properties() {
 		return {
 			href: {
@@ -129,8 +215,8 @@ export class MobxMixin {
 	 * @memberof MobxMixin
 	 */
 	dispose() {
-		shared.removeRef();
-		if (shared.refCount() === 0){
+		sharedState.removeRef();
+		if (sharedState.refCount() === 0) {
 			dispose(this._entity);
 			this._state = null;
 		}
@@ -144,9 +230,9 @@ export class MobxMixin {
 	 * @memberof MobxMixin
 	 */
 	_makeState() {
-		if (shared) {
-			this._state = shared.ref;
-			shared.addRef();
+		if (sharedState) {
+			this._state = sharedState.ref;
+			sharedState.addRef();
 			return;
 		}
 		if (typeof this._stateType !== 'function') {

@@ -31,7 +31,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	constructor() {
 		super();
 		this._currentSelection = {};
-		this._mainPageLoad = new Promise(() => null);
 		this._candidateLoad = new Promise(() => null);
 		this.ariaBusy = 'true';
 		this.role = 'main';
@@ -49,38 +48,25 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	async getCandidates(action, fields = null, clearList = false) {
-		if (!this._collection) {
-			return;
-		}
 		this._candidateItemsLoading = true;
 		if (clearList) {
 			this._candidateFirstLoad = false;
 		}
-		const resp = await performSirenAction(this.token, action, fields, true);
-		this._actionCollectionEntity = new ActionCollectionEntity(this._collection, resp);
-		const candidateItems = [];
-		const imageChunk = this._loadedImages.length;
-		this._loadedImages[imageChunk] = { loaded: 0, total: null };
-		let totalInLoadingChunk = 0;
-		this._actionCollectionEntity._items().forEach(item => {
-			item.onActivityUsageChange(async usage => {
-				usage.onOrganizationChange((organization) => {
-					const alreadyAdded = this._items.findIndex(item => item.self() === organization.self()) >= 0;
-					candidateItems.push({ item, organization, alreadyAdded, itemSelf: organization.self() });
-					this._organizationImageChunk[organization.self()] = imageChunk;
-					totalInLoadingChunk++;
-				});
-			});
-		});
-		await this._collection.subEntitiesLoaded();
-		if (clearList) {
-			this._candidateItems = candidateItems;
-		} else {
-			this._candidateItems = this._candidateItems.concat(candidateItems);
-		}
-		this._loadedImages[imageChunk].total = totalInLoadingChunk;
+		await this._state.fetchCandidates(action, fields, clearList);
 		this._candidateFirstLoad = true;
 		this._candidateItemsLoading = false;
+	}
+
+	/**
+	 * Handler for adding activities
+	 *
+	 */
+	async addActivities() {
+		this._reloadOnOpen = true;
+		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
+		const keys = this._selectedActivities();
+		const fields = [{ name: 'actionStates', value: keys }];
+		await performSirenAction(this.token, addAction, fields, true);
 	}
 
 	handleSearch(event) {
@@ -130,7 +116,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	static get properties() {
 		return {
 			_addExistingAction: { type: Object },
-			_candidateItems: { type: Array },
 			_selectionCount: { type: Number },
 			_candidateLoad: { type: Object },
 			_candidateItemsLoading: {type: Boolean},
@@ -467,8 +452,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 					</d2l-alert-toast>
 				</div>
 			</div>
-			`;
-			return html`
 			${this._renderCandidates()}
 		`;
 	}
@@ -504,11 +487,11 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	_renderCandidateItems() {
-		if (this._candidateItems.length <= 0) {
+		if (this._state.candidates.length <= 0) {
 			return html`<div class="d2l-activity-collection-no-activity d2l-body-standard">${this.localize('noActivitiesFound')}</div>`;
 		}
 
-		const items = repeat(this._candidateItems, (candidate) => candidate.itemSelf, candidate => {
+		const items = repeat(this._state.candidates, (candidate) => candidate.itemSelf, candidate => {
 			return html`
 				<d2l-list-item selectable ?disabled=${candidate.alreadyAdded} ?selected=${candidate.alreadyAdded || this._currentSelection[candidate.item.getActionState()]} key=${candidate.alreadyAdded ? ifDefined(undefined) : candidate.item.getActionState()}>
 					<div slot="illustration" class="d2l-activitiy-collection-list-item-illustration">
@@ -517,8 +500,8 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 							class="d2l-activitiy-collection-organization-image"
 							href="${candidate.itemSelf}"
 							.token=${this.token}
-							@d2l-organization-image-loaded="${() => this._onListImageLoaded(this._organizationImageChunk[candidate.itemSelf])}"
-							?hidden="${!this._loadedImages[this._organizationImageChunk[candidate.itemSelf]].allLoaded}">
+							@d2l-organization-image-loaded="${() => this._onListImageLoaded(this._state._organizationImageChunk[candidate.itemSelf])}"
+							?hidden="${!this._loadedImages[this._state._organizationImageChunk[candidate.itemSelf]].allLoaded}">
 						</d2l-organization-image>
 					</div>
 					<d2l-list-item-content>
@@ -563,8 +546,8 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		this.updateComplete.then(() => {
 			this._currentCandidateElement = this.shadowRoot.querySelector('.d2l-add-activity-dialog d2l-list');
 		});
-		const candidates = this._handleFirstLoad(this._renderCandidateItems.bind(this),
-			() => {
+		const candidates = this._state.candidatesAreLoaded ? this._renderCandidateItems() :
+			(() => {
 				this._currentCandidateElement && this._currentCandidateElement.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('disabled', true));
 				return html`
 					<div class="d2l-add-activity-dialog-list-disabled">
@@ -572,10 +555,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 					</div>
 					<d2l-loading-spinner size="100"></d2l-loading-spinner>
 				`;
-			},
-			this._candidateFirstLoad,
-			this._candidateLoad
-		);
+			})();
 
 		const loadMore = this._actionCollectionEntity && this._actionCollectionEntity.getNextAction() && !this._isLoadingMore
 			? html`<d2l-button @click=${this.loadMore}>${this.localize('loadMore')}</d2l-button>`

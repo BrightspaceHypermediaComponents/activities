@@ -27,7 +27,7 @@ export class Collection {
 		this._candidateItemsLoading = false;
 		this._candidateFirstLoad = false;
 		this.activities = [];
-		this._candidateItems = [];
+		this.candidates = [];
 
 		entityFactory(ActivityUsageEntity, href, token, this._onServerResponse.bind(this));
 	}
@@ -101,7 +101,8 @@ export class Collection {
 
 		await usage.subEntitiesLoaded();
 		if (!this.isLoaded) {
-			// load candidates
+			// returns a promise
+			this.fetchCandidates(this._addExistingAction, null, true);
 		}
 		if (!hasACollection) {
 			this.activities = [];
@@ -110,12 +111,40 @@ export class Collection {
 		console.log(this);
 	}
 
-	async addActivities() {
-		this._reloadOnOpen = true;
-		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
-		const keys = this._selectedActivities();
-		const fields = [{ name: 'actionStates', value: keys }];
-		await performSirenAction(this.token, addAction, fields, true);
+	/**
+	 * Fetch activities that can be added to the collection
+	 *
+	 * @param {*} action An href action to fetch from
+	 * @param {*} fields The array of fields to search
+	 * @param {*} clear Whether the previous canditates should be removed
+	 * @returns
+	 * @memberof Collection
+	 */
+	async fetchCandidates(action, fields, clear) {
+		if (!this._collection) {
+			return;
+		}
+		this.setCandidatesAreLoaded(false);
+		const resp = await performSirenAction(this._token, action, fields, true);
+		this._actionCollectionEntity = new ActionCollectionEntity(this._collection, resp);
+		const newCandidates = [];
+		const imageChunk = this._loadedImages.length;
+		this._loadedImages[imageChunk] = { loaded: 0, total: null };
+		let totalInLoadingChunk = 0;
+		this._actionCollectionEntity._items().forEach(item => {
+			item.onActivityUsageChange(async usage => {
+				usage.onOrganizationChange((organization) => {
+					const alreadyAdded = this._items.findIndex(item => item.self() === organization.self()) >= 0;
+					newCandidates.push({ item, organization, alreadyAdded, itemSelf: organization.self() });
+					this._organizationImageChunk[organization.self()] = imageChunk;
+					totalInLoadingChunk++;
+				});
+			});
+		});
+		await this._collection.subEntitiesLoaded();
+		this.setCandidates(clear ? newCandidates : this.candidates.concat(newCandidates));
+		this.setCandidatesAreLoaded(true);
+		this._loadedImages[imageChunk].total = totalInLoadingChunk;
 	}
 
 	save() {
@@ -147,7 +176,13 @@ export class Collection {
 		this.description = value;
 	}
 
-	addActivity(activity) {
+	/**
+	 * Add activities to the collection
+	 *
+	 * @param {*} activities Array of activity objects
+	 * @memberof Collection
+	 */
+	addActivities(activities) {
 		//
 	}
 
@@ -158,6 +193,14 @@ export class Collection {
 	reorderActivity(activityToMove, activityBefore) {
 		//
 	}
+
+	setCandidates(activities) {
+		this.candidates = activities;
+	}
+
+	setCandidatesAreLoaded(value) {
+		this.candidatesAreLoaded = value;
+	}
 }
 
 decorate(Collection, {
@@ -167,12 +210,16 @@ decorate(Collection, {
 	isVisible: observable,
 	isLoaded: observable,
 	activities: observable,
+	candidates: observable,
+	candidatesAreLoaded: observable,
 	setIsLoaded: action,
 	setTitle: action,
 	setDescription: action,
 	addActivity: action,
 	removeActivity: action,
-	reorderActivity: action
+	reorderActivity: action,
+	setCandidates: action,
+	setCandidatesAreLoaded: action
 });
 
 /**

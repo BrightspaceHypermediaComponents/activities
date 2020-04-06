@@ -43,8 +43,8 @@ export class Collection {
 		this._usage = usage;
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
 			this._specialization = specialization;
-			this.name = specialization.getName();
-			this.description = specialization.getDescription();
+			this.setName(specialization.getName());
+			this.setDescription(specialization.getDescription());
 		});
 
 		this.isVisible = !usage.isDraft();
@@ -116,7 +116,9 @@ export class Collection {
 		}
 		this.setCandidatesAreLoaded(false);
 		const resp = await performSirenAction(this._token, action, fields, true);
+		// selfless entity - cannot be made with entity factory
 		this._actionCollectionEntity = new ActionCollectionEntity(this._collection, resp);
+
 		const newCandidates = [];
 		const imageChunk = this._loadedImages.length;
 		this._loadedImages[imageChunk] = { loaded: 0, total: null };
@@ -172,13 +174,19 @@ export class Collection {
 	}
 
 	setName(value) {
+		const oldValue = this.name;
 		this.name = value.trim();
-		this._specialization.setName(value);
+		if (oldValue !== value) {
+			this._specialization.setName(value);
+		}
 	}
 
 	setDescription(value) {
+		const oldValue = this.description;
 		this.description = value;
-		this._specialization.setDescription(value);
+		if (oldValue !== value) {
+			this._specialization.setDescription(value);
+		}
 	}
 
 	setActivities(activities) {
@@ -188,17 +196,25 @@ export class Collection {
 	/**
 	 * Add activities to the collection
 	 *
-	 * @param {*} activities Array of activity objects
+	 * @param {*} activityKeys Array of activity keys
 	 * @memberof Collection
 	 */
-	addActivities(activities) {
-		//
+	async addActivities(activityKeys) {
+		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
+		const fields = [{ name: 'actionStates', value: activityKeys }];
+		await performSirenAction(this.token, addAction, fields, true);
 	}
 
+	/**
+	 * Removes an activity from the collection.
+	 * Sets the visibility to hidden if this results in an empty
+	 * collection
+	 *
+	 * @param {*} activity
+	 * @memberof Collection
+	 */
 	removeActivity(activity) {
-		console.log(activity.self());
-		this._collection.removeItem(activity.self());
-		// if the result will be empty, set to hidden
+		this._collection.removeItem(activity.itemSelf);
 		if (this.activities.length - 1 === 0) {
 			this.setIsVisible(false);
 		}
@@ -221,9 +237,10 @@ decorate(Collection, {
 	isLoaded: observable,
 	activities: observable,
 	candidatesAreLoaded: observable,
+
 	setIsLoaded: action,
-	setTitle: action,
 	setDescription: action,
+	setName: action,
 	addActivity: action,
 	removeActivity: action,
 	reorderActivity: action,

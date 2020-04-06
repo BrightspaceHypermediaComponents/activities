@@ -4,7 +4,6 @@ import { repeat } from 'lit-html/directives/repeat';
 import { guard } from 'lit-html/directives/guard';
 import { heading1Styles, heading4Styles, bodyCompactStyles, bodyStandardStyles, labelStyles} from '@brightspace-ui/core/components/typography/styles.js';
 import { classes as organizationClasses } from 'siren-sdk/src/organizations/OrganizationEntity.js';
-import { ActionCollectionEntity } from 'siren-sdk/src/activities/ActionCollectionEntity.js';
 import { performSirenAction } from 'siren-sdk/src/es6/SirenAction.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import '@brightspace-ui/core/components/icons/icon.js';
@@ -31,7 +30,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	constructor() {
 		super();
 		this._currentSelection = {};
-		this._candidateLoad = new Promise(() => null);
 		this.ariaBusy = 'true';
 		this.role = 'main';
 		this._currentDeleteItemName = '';
@@ -51,18 +49,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		this._candidateItemsLoading = true;
 		await this._state.fetchCandidates(action, fields, clearList);
 		this._candidateItemsLoading = false;
-	}
-
-	/**
-	 * Handler for adding activities
-	 *
-	 */
-	async addActivities() {
-		this._reloadOnOpen = true;
-		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
-		const keys = this._selectedActivities();
-		const fields = [{ name: 'actionStates', value: keys }];
-		await performSirenAction(this.token, addAction, fields, true);
 	}
 
 	handleSelectionChange(e) {
@@ -97,7 +83,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 	async open() {
 		if (this._reloadOnOpen) {
-			this._candidateLoad = this.getCandidates(this._addExistingAction, null, true);
+			this.getCandidates(this._state._addExistingAction, null, true);
 			this._reloadOnOpen = false;
 		}
 		await this.shadowRoot.querySelector('d2l-dialog').open();
@@ -105,9 +91,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 	static get properties() {
 		return {
-			_addExistingAction: { type: Object },
 			_selectionCount: { type: Number },
-			_candidateLoad: { type: Object },
 			_candidateItemsLoading: {type: Boolean},
 			_isLoadingMore: {type: Boolean},
 			ariaBusy: { type: String, reflect: true, attribute: 'aria-busy' },
@@ -186,7 +170,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 				grid-template-areas: "." "list" ".";
 				grid-template-columns: 100%;
 				min-height: 500px;
-  				grid-template-rows: auto auto auto;
+				grid-template-rows: auto auto auto;
 			}
 			.d2l-add-activity-dialog-list-disabled,
 			.d2l-add-activity-dialog d2l-loading-spinner,
@@ -592,7 +576,14 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 						</div>
 					</div>
 
-					<d2l-button slot="footer" primary dialog-action="add" @click=${this.addActivities} ?disabled="${!this._selectionCount}">${this.localize('add')}</d2l-button>
+					<d2l-button
+						slot="footer"
+						primary
+						dialog-action="add"
+						@click=${this.addActivities}
+						?disabled="${!this._selectionCount}">
+						${this.localize('add')}
+					</d2l-button>
 					<d2l-button slot="footer" dialog-action>${this.localize('cancel')}</d2l-button>
 				</d2l-dialog>
 			</div>
@@ -619,7 +610,13 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	async handleSearch(event) {
 		await this._state.searchCandidates(event.detail.value);
 	}
-	//TODO: item deletion
+
+	async addActivities() {
+		this._reloadOnOpen = true;
+		const keys = this._selectedActivities();
+		await this._state.addActivities(keys);
+	}
+
 	removeItem(item) {
 		this._reloadOnOpen = true;
 		this._currentDeleteItemName = item.name();

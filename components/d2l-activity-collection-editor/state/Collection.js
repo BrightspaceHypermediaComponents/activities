@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
+import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory.js';
 import { NamedEntityMixin } from 'siren-sdk/src/entityAddons/named-entity-mixin.js';
 import { DescribableEntityMixin } from 'siren-sdk/src/entityAddons/describable-entity-mixin.js';
@@ -40,6 +40,9 @@ export class Collection {
 	 * @param {*} error
 	 */
 	async _onServerResponse(usage, error) {
+		if (error) {
+			//do something with it
+		}
 		this._usage = usage;
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
 			this._specialization = specialization;
@@ -220,9 +223,9 @@ export class Collection {
 		}
 	}
 
-	reorderActivity(activityToMove, activityBefore) {
-		//
-	}
+	// reorderActivity(activityToMove, activityBefore) {
+	// 	//
+	// }
 
 	setCandidatesAreLoaded(value) {
 		this.candidatesAreLoaded = value;
@@ -339,7 +342,7 @@ export const MobxMixin = superclass => class extends superclass {
 		this.dispose();
 		super.disconnectedCallback();
 	}
-}
+};
 
 /**
  * Create a new state of the specified type

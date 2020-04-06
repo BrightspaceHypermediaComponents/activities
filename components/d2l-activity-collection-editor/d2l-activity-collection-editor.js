@@ -37,7 +37,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		this._isLoadingMore = false;
 
 		// any observables in the this state accessed
-		// in render will trigger updates
+		// in render() will trigger updates
 		this._setStateType(Collection);
 	}
 

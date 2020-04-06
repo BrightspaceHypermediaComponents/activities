@@ -68,16 +68,6 @@ export class Collection {
 				item.onActivityUsageChange((usage) => {
 					usage.onOrganizationChange((organization) => {
 						items[index] = organization;
-						// items[index].removeItem = () => {
-						// 	this._reloadOnOpen = true;
-						// 	collection.removeItem(item.self());
-						// 	this._currentDeleteItemName = items[index].name();
-						// 	this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
-						// 	// if the result is an empty learning path, set to hidden
-						// 	if (items.length - 1 === 0) {
-						// 		this._setVisibility(true);
-						// 	}
-						// };
 						items[index].itemSelf = item.self();
 						if (typeof this._organizationImageChunk[item.self()] === 'undefined') {
 							this._organizationImageChunk[item.self()] = imageChunk;
@@ -85,7 +75,7 @@ export class Collection {
 						}
 
 						if (itemsLoadedOnce) {
-							this.activities = items;
+							this.setActivities(items);
 						}
 					});
 				});
@@ -95,7 +85,7 @@ export class Collection {
 			this._addExistingAction = collection._entity.getActionByName('start-add-existing-activity');
 
 			await collection.subEntitiesLoaded();
-			this.activities = items;
+			this.setActivities(items);
 			itemsLoadedOnce = true;
 			this._loadedImages[imageChunk].total = totalInLoadingChunk;
 		});
@@ -106,7 +96,7 @@ export class Collection {
 			this.fetchCandidates(this._addExistingAction, null, true);
 		}
 		if (!hasACollection) {
-			this.activities = [];
+			this.setActivities([]);
 		}
 		this.setIsLoaded(true);
 	}
@@ -134,8 +124,14 @@ export class Collection {
 		this._actionCollectionEntity._items().forEach(item => {
 			item.onActivityUsageChange(async usage => {
 				usage.onOrganizationChange((organization) => {
-					const alreadyAdded = this.candidates.findIndex(item => item.self() === organization.self()) >= 0;
-					newCandidates.push({ item, organization, alreadyAdded, itemSelf: organization.self() });
+					const alreadyAdded = this.activities.findIndex(activity => activity.self() === organization.self()) >= 0;
+					newCandidates.push({
+						item,
+						organization,
+						alreadyAdded,
+						itemSelf: organization.self(),
+						name: organization.name()
+					});
 					this._organizationImageChunk[organization.self()] = imageChunk;
 					totalInLoadingChunk++;
 				});
@@ -143,7 +139,7 @@ export class Collection {
 		});
 		await this._collection.subEntitiesLoaded();
 		this.setCandidatesAreLoaded(true);
-		this.setCandidates(clear ? newCandidates : this.candidates.concat(newCandidates));
+		this.candidates = clear ? newCandidates : this.candidates.concat(newCandidates);
 		this._loadedImages[imageChunk].total = totalInLoadingChunk;
 	}
 
@@ -185,6 +181,10 @@ export class Collection {
 		this._specialization.setDescription(value);
 	}
 
+	setActivities(activities) {
+		this.activities = activities;
+	}
+
 	/**
 	 * Add activities to the collection
 	 *
@@ -196,15 +196,16 @@ export class Collection {
 	}
 
 	removeActivity(activity) {
-		//
+		console.log(activity.self());
+		this._collection.removeItem(activity.self());
+		// if the result will be empty, set to hidden
+		if (this.activities.length - 1 === 0) {
+			this.setIsVisible(false);
+		}
 	}
 
 	reorderActivity(activityToMove, activityBefore) {
 		//
-	}
-
-	setCandidates(activities) {
-		this.candidates = activities;
 	}
 
 	setCandidatesAreLoaded(value) {
@@ -219,7 +220,6 @@ decorate(Collection, {
 	isVisible: observable,
 	isLoaded: observable,
 	activities: observable,
-	candidates: observable,
 	candidatesAreLoaded: observable,
 	setIsLoaded: action,
 	setTitle: action,
@@ -227,7 +227,7 @@ decorate(Collection, {
 	addActivity: action,
 	removeActivity: action,
 	reorderActivity: action,
-	setCandidates: action,
+	setActivities: action,
 	setCandidatesAreLoaded: action
 });
 
@@ -250,6 +250,7 @@ export const MobxMixin = superclass => class extends superclass {
 			token: { type: String },
 		};
 	}
+
 	/**
 	 * Lit-Element function called whenever properties are changed
 	 *

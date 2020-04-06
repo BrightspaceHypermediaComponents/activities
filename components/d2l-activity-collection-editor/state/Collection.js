@@ -40,6 +40,7 @@ export class Collection {
 	 * @param {*} error
 	 */
 	async _onServerResponse(usage, error) {
+		this._usage = usage;
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
 			this._specialization = specialization;
 			this.name = specialization.getName();
@@ -108,7 +109,6 @@ export class Collection {
 			this.activities = [];
 		}
 		this.setIsLoaded(true);
-		console.log(this);
 	}
 
 	/**
@@ -134,7 +134,7 @@ export class Collection {
 		this._actionCollectionEntity._items().forEach(item => {
 			item.onActivityUsageChange(async usage => {
 				usage.onOrganizationChange((organization) => {
-					const alreadyAdded = this._items.findIndex(item => item.self() === organization.self()) >= 0;
+					const alreadyAdded = this.candidates.findIndex(item => item.self() === organization.self()) >= 0;
 					newCandidates.push({ item, organization, alreadyAdded, itemSelf: organization.self() });
 					this._organizationImageChunk[organization.self()] = imageChunk;
 					totalInLoadingChunk++;
@@ -142,16 +142,22 @@ export class Collection {
 			});
 		});
 		await this._collection.subEntitiesLoaded();
-		this.setCandidates(clear ? newCandidates : this.candidates.concat(newCandidates));
 		this.setCandidatesAreLoaded(true);
+		this.setCandidates(clear ? newCandidates : this.candidates.concat(newCandidates));
 		this._loadedImages[imageChunk].total = totalInLoadingChunk;
+	}
+
+	async searchCandidates(value) {
+		const searchAction = this._actionCollectionEntity.getSearchAction();
+		const fields = [{ name: 'collectionSearch', value: value }];
+		await this.fetchCandidates(searchAction, fields, true);
 	}
 
 	save() {
 		// in theory this will later send a single "publish" request
 		// to the new 'draft' state API
-		this._specialization.setName(this.name);
-		this._specialization.setDescription(this.description);
+		//this._specialization.setName(this.name);
+		//this._specialization.setDescription(this.description);
 		//usage.setDraftStatus(draftStatus)
 	}
 
@@ -162,6 +168,7 @@ export class Collection {
 
 	setIsVisible(value) {
 		this.isVisible = value;
+		this._usage.setDraftStatus(!value);
 	}
 
 	setIsLoaded(value) {
@@ -170,10 +177,12 @@ export class Collection {
 
 	setName(value) {
 		this.name = value.trim();
+		this._specialization.setName(value);
 	}
 
 	setDescription(value) {
 		this.description = value;
+		this._specialization.setDescription(value);
 	}
 
 	/**

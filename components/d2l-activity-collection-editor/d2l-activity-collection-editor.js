@@ -49,11 +49,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 	async getCandidates(action, fields = null, clearList = false) {
 		this._candidateItemsLoading = true;
-		if (clearList) {
-			this._candidateFirstLoad = false;
-		}
 		await this._state.fetchCandidates(action, fields, clearList);
-		this._candidateFirstLoad = true;
 		this._candidateItemsLoading = false;
 	}
 
@@ -67,13 +63,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		const keys = this._selectedActivities();
 		const fields = [{ name: 'actionStates', value: keys }];
 		await performSirenAction(this.token, addAction, fields, true);
-	}
-
-	handleSearch(event) {
-		this._candidateLoad = new Promise(() => null);
-		const searchAction = this._actionCollectionEntity.getSearchAction();
-		const fields = [{ name: 'collectionSearch', value: event.detail.value }];
-		this._candidateLoad = this.getCandidates(searchAction, fields, true);
 	}
 
 	handleSelectionChange(e) {
@@ -267,7 +256,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 			.d2l-activitiy-collection-list-item-illustration {
 				display: grid;
 				grid-template-columns: 100%;
-  				grid-template-rows: 100%;
+				grid-template-rows: 100%;
 				grid-template-areas: only-one;
 				position: relative;
 			}
@@ -275,7 +264,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 			.d2l-activity-collection-image-skeleton,
 			.d2l-activitiy-collection-organization-image {
 				grid-column: 1;
-  				grid-row: 1;
+				grid-row: 1;
 			}
 
 			@keyframes loadingPulse {
@@ -348,7 +337,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	render() {
-
 		const learningPathTitleSkeleton = html`
 			<div class="d2l-activity-collection-title-header d2l-activity-collection-header-1-skeleton">
 				<svg width="100%" class="d2l-activity-collection-header-1-skeleton-svg">
@@ -374,7 +362,13 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		`;
 		const learningPathDescription = this._state.isLoaded ? html`
 			<div class="d2l-body-compact d2l-activity-collection-description">
-				<d2l-labs-edit-in-place size="49" placeholder="${this.localize('enterADescription')}" maxlength="280" value="${this._state.description}" @change=${this._descriptionChanged}></d2l-labs-edit-in-place>
+				<d2l-labs-edit-in-place
+					size="49"
+					placeholder="${this.localize('enterADescription')}"
+					maxlength="280"
+					value="${this._state.description}"
+					@change=${this._descriptionChanged}>
+				</d2l-labs-edit-in-place>
 			</div>
 		` : learningPathDescriptionSkeleton;
 
@@ -392,13 +386,12 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 			</div>
 		`;
 
-		// TODO: FIX TOGGLE ACTION
 		const learningPathVisibilityToggle = this._state.isLoaded ? html`
-			<d2l-activity-visibility-auto-editor class="d2l-activity-collection-toggle-container" ?disabled="${!this._state.activities.length}" .href="${this._state._href}" .token="${this._state._token}"></d2l-activity-visibility-auto-editor>
+			<d2l-activity-visibility-auto-editor class="d2l-activity-collection-toggle-container" ?disabled="${!this._state.activities.length}" .href="${this.href}" .token="${this.token}"></d2l-activity-visibility-auto-editor>
 			<d2l-button-icon
 				class="d2l-activity-collection-toggle-container-button"
 				?disabled="${!this._state.canEditDraft || this.disabled}"
-				@click="${() => typeof this._setVisibility === 'function' && this._setVisibility(!this._isDraft)}"
+				@click="${() => this._state.setIsVisible(!this._state.isVisible)}"
 				icon=${this._state.isVisible ? 'tier1:visibility-show' : 'tier1:visibility-hide'}>
 			</d2l-button-icon>
 		` : learningPathVisibilitySkeleton;
@@ -469,7 +462,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 						<d2l-organization-image
 							class="d2l-activitiy-collection-organization-image"
 							href=${item.self()}
-							.token=${this._state._token}
+							.token=${this.token}
 							@d2l-organization-image-loaded="${() => this._onListImageLoaded(this._state._organizationImageChunk[item.itemSelf])}"
 							?hidden="${!this._state._loadedImages[this._state._organizationImageChunk[item.itemSelf]].allLoaded}">
 						</d2l-organization-image>
@@ -478,7 +471,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 						${item.name()}
 						<div slot="secondary">${item.hasClass(organizationClasses.courseOffering) ? this.localize('course') : null}</div>
 					</d2l-list-item-content>
-					<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', item.name())}" icon="d2l-tier1:close-default" @click=${item.removeItem}>
+					<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', item.name())}" icon="d2l-tier1:close-default" @click=${() => removeItem(item)}>
 				</d2l-list-item>
 			`;
 		});
@@ -493,7 +486,11 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 		const items = repeat(this._state.candidates, (candidate) => candidate.itemSelf, candidate => {
 			return html`
-				<d2l-list-item selectable ?disabled=${candidate.alreadyAdded} ?selected=${candidate.alreadyAdded || this._currentSelection[candidate.item.getActionState()]} key=${candidate.alreadyAdded ? ifDefined(undefined) : candidate.item.getActionState()}>
+				<d2l-list-item
+					selectable
+					?disabled=${candidate.alreadyAdded}
+					?selected=${candidate.alreadyAdded || this._currentSelection[candidate.item.getActionState()]}
+					key=${candidate.alreadyAdded ? ifDefined(undefined) : candidate.item.getActionState()}>
 					<div slot="illustration" class="d2l-activitiy-collection-list-item-illustration">
 						${this._renderCourseImageSkeleton()}
 						<d2l-organization-image
@@ -501,7 +498,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 							href="${candidate.itemSelf}"
 							.token=${this.token}
 							@d2l-organization-image-loaded="${() => this._onListImageLoaded(this._state._organizationImageChunk[candidate.itemSelf])}"
-							?hidden="${!this._loadedImages[this._state._organizationImageChunk[candidate.itemSelf]].allLoaded}">
+							?hidden="${!this._state._loadedImages[this._state._organizationImageChunk[candidate.itemSelf]].allLoaded}">
 						</d2l-organization-image>
 					</div>
 					<d2l-list-item-content>
@@ -557,7 +554,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 				`;
 			})();
 
-		const loadMore = this._actionCollectionEntity && this._actionCollectionEntity.getNextAction() && !this._isLoadingMore
+		const loadMore = this._state._actionCollectionEntity && this._state._actionCollectionEntity.getNextAction() && !this._isLoadingMore
 			? html`<d2l-button @click=${this.loadMore}>${this.localize('loadMore')}</d2l-button>`
 			: this._isLoadingMore
 				? html`<d2l-loading-spinner size="85"></d2l-loading-spinner>`
@@ -602,20 +599,29 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	_onListImageLoaded(imageChunk) {
+		console.log(imageChunk);
 		this._state._loadedImages[imageChunk].loaded++;
 		if (!this._state._loadedImages[imageChunk].allLoaded && this._state._loadedImages[imageChunk].total && this._state._loadedImages[imageChunk].loaded >= this._state._loadedImages[imageChunk].total) {
 			this._state._loadedImages[imageChunk].allLoaded = true;
 			this.requestUpdate('_loadedImages', []);
 		}
 	}
-
-	_titleChanged(e) {
-		e.target.value = e.target.value.trim() !== '' ? e.target.value : this.localize('untitledLearningPath');
-		this._specialization.setName && this._specialization.setName(e.target.value);
+	/* User event handlers */
+	_titleChanged(event) {
+		const value = event.target.value.trim() !== '' ? event.target.value : this.localize('untitledLearningPath');
+		this._state.setName(value);
 	}
 
-	_descriptionChanged(e) {
-		this._specialization.setDescription && this._specialization.setDescription(e.target.value);
+	_descriptionChanged(event) {
+		this._state.setDescription(event.target.value);
+	}
+
+	async handleSearch(event) {
+		await this._state.searchCandidates(event.detail.value);
+	}
+	//TODO: item deletion
+	removeItem(item) {
+
 	}
 }
 customElements.define('d2l-activity-collection-editor', CollectionEditor);

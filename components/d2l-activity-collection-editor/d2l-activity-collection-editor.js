@@ -88,10 +88,11 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	async loadMore() {
 		this._isLoadingMore = true;
 		const lastItem = this.shadowRoot.querySelector('d2l-dialog d2l-list d2l-list-item:last-of-type');
-		await this.getCandidates(this._actionCollectionEntity.getNextAction());
-		await this.updateComplete;
+		await this.getCandidates(this._state._actionCollectionEntity.getNextAction());
 		this._isLoadingMore = false;
-		lastItem.nextElementSibling.focus();
+		await this.updateComplete;
+		// TODO: fix the scrolling to top
+		lastItem.focus();
 	}
 
 	async open() {
@@ -471,7 +472,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 						${item.name()}
 						<div slot="secondary">${item.hasClass(organizationClasses.courseOffering) ? this.localize('course') : null}</div>
 					</d2l-list-item-content>
-					<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', item.name())}" icon="d2l-tier1:close-default" @click=${() => removeItem(item)}>
+					<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', item.name())}" icon="d2l-tier1:close-default" @click=${() => this.removeItem(item)}>
 				</d2l-list-item>
 			`;
 		});
@@ -502,7 +503,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 						</d2l-organization-image>
 					</div>
 					<d2l-list-item-content>
-						${candidate.organization.name()}
+						${candidate.name}
 						<div slot="secondary" class="d2l-list-item-secondary">${candidate.alreadyAdded ? html`${this.localize('alreadyAdded')}` : null}</div>
 					</d2l-list-item-content>
 				</d2l-list-item>
@@ -599,7 +600,6 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	_onListImageLoaded(imageChunk) {
-		console.log(imageChunk);
 		this._state._loadedImages[imageChunk].loaded++;
 		if (!this._state._loadedImages[imageChunk].allLoaded && this._state._loadedImages[imageChunk].total && this._state._loadedImages[imageChunk].loaded >= this._state._loadedImages[imageChunk].total) {
 			this._state._loadedImages[imageChunk].allLoaded = true;
@@ -621,7 +621,10 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 	//TODO: item deletion
 	removeItem(item) {
-
+		this._reloadOnOpen = true;
+		this._currentDeleteItemName = item.name();
+		this._state.removeActivity(item);
+		this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
 	}
 }
 customElements.define('d2l-activity-collection-editor', CollectionEditor);

@@ -336,8 +336,8 @@ export const MobxMixin = superclass => class extends superclass {
 	 * @memberof MobxMixin
 	 */
 	disconnectedCallback() {
-		super.disconnectedCallback();
 		this.dispose();
+		super.disconnectedCallback();
 	}
 }
 

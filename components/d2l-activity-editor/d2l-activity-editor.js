@@ -50,7 +50,6 @@ class ActivityEditor extends AsyncContainerMixin(ActivityEditorMixin(LocalizeMix
 	}
 
 	async logLoadingEvent(metricName) {
-		const sourceIds = { assignment: 'assignments' };
 		const eventBody = new Events.PerformanceEventBody()
 			.setAction('LoadView')
 			.setObject(this.href, this.type)
@@ -58,7 +57,7 @@ class ActivityEditor extends AsyncContainerMixin(ActivityEditorMixin(LocalizeMix
 		const event = new Events.TelemetryEvent()
 			.setType('PerformanceEvent')
 			.setDate(new Date())
-			.setSourceId(sourceIds[this.type])
+			.setSourceId(this.telemetryId)
 			.setBody(eventBody);
 		const client = await D2L.Telemetry.CreateClient();
 		client.logUserEvent(event);

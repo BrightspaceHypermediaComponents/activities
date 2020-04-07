@@ -11,6 +11,12 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 				type: String
 			},
 			/**
+			 * Telemetry Id
+			 */
+			telemetryId: {
+				type: String
+			},
+			/**
 			 * Href for the component
 			 */
 			href: {

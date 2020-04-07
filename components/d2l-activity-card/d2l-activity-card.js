@@ -64,7 +64,7 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 				}
 			</style>
 
-			<d2l-card text="[[_accessibilityText]]" href$="[[_activityHomepage]]" on-click="_sendClickEvent">
+			<d2l-card align-center$=[[alignCenter]] text="[[_accessibilityText]]" href$="[[_activityHomepage]]" on-click="_sendClickEvent">
 				<div class="d2l-activity-card-header-container" slot="header">
 					<div class="d2l-activity-list-item-pulse-placeholder" hidden$="[[!_imageLoading]]"></div>
 					<d2l-organization-image
@@ -147,6 +147,10 @@ class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 				value: false
 			},
 			sendEventOnClick: {
+				type: Boolean,
+				value: false,
+			},
+			alignCenter: {
 				type: Boolean,
 				value: false,
 			}

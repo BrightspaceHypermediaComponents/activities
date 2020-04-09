@@ -15,7 +15,7 @@ class MobxMixinComponent extends MobxMixin(MobxLitElement) {
 	}
 }
 
-class MobxComponentNoType extends MobxMixin(MobxLitElement) {
+export class MobxComponentNoType extends MobxMixin(MobxLitElement) {
 	constructor() {
 		super();
 	}

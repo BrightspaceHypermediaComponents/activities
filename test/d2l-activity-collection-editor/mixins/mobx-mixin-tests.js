@@ -1,4 +1,4 @@
-import { expect, assert } from "@open-wc/testing";
+import { MobxComponentNoType } from '../utilities/mobx-mixin.js'
 
 describe('MobxMixin', () => {
 	describe('Single component using state', () => {
@@ -23,7 +23,9 @@ describe('MobxMixin', () => {
 		});
 
 		it('throws an error when state type is not a class', () => {
-			expect(function() { fixture('mobx-bad'); }).to.throw(Error, 'State creation failed - state type has no constructor');
+			expect(function() {
+				(new MobxComponentNoType())._makeState();
+			}).to.throw();
 		});
 	});
 

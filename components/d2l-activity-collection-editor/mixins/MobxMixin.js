@@ -66,7 +66,7 @@ export const MobxMixin = superclass => class extends superclass {
 			return;
 		}
 		if (typeof this._stateType !== 'function') {
-			throw Error('State creation failed - state type has no constructor');
+			throw new StateError('State type has no constructor');
 		}
 		this._state = stateFactory(this._stateType, this.href, this.token);
 	}
@@ -96,6 +96,13 @@ export const MobxMixin = superclass => class extends superclass {
 		super.disconnectedCallback();
 	}
 };
+
+class StateError extends Error {
+	constructor(message) {
+		super(message);
+		this.name = 'StateError';
+	}
+}
 
 /**
  * Create a new state of the specified type

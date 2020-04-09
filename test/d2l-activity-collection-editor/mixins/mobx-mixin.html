@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script src="/node_modules/mocha/mocha.js"></script>
+		<script src="/node_modules/chai/chai.js"></script>
+		<script src="/node_modules/@polymer/test-fixture/test-fixture.js"></script>
+		<script src="/node_modules/wct-mocha/wct-mocha.js"></script>
+		<script src="/node_modules/sinon/pkg/sinon.js"></script>
+
+		<script type="module" src="../utilities/mobx-mixin.js"></script>
+	</head>
+	<body>
+		<test-fixture id="mobx-basic">
+			<template>
+				<mobx-mixin-component></mobx-mixin-component>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="mobx-uses-shared">
+			<template>
+				<mobx-mixin-component></mobx-mixin-component>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="mobx-third-shared">
+			<template>
+				<mobx-mixin-component></mobx-mixin-component>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="mobx-bad">
+			<template>
+				<mobx-component-no-type></mobx-component-no-type>
+			</template>
+		</test-fixture>
+
+		<script type="module" src="./mobx-mixin-tests.js"></script>
+	</body>
+</html>

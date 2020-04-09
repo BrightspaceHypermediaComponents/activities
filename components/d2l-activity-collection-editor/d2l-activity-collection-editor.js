@@ -21,7 +21,8 @@ import '@brightspace-ui-labs/edit-in-place/d2l-labs-edit-in-place.js';
 import '../d2l-activity-editor/d2l-activity-visibility-auto-editor.js';
 import { getLocalizeResources } from './localization.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
-import { Collection, MobxMixin } from './state/Collection.js';
+import { MobxMixin } from './mixins/MobxMixin.js';
+import { Collection } from './state/Collection.js';
 
 const baseUrl = import.meta.url;
 class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {

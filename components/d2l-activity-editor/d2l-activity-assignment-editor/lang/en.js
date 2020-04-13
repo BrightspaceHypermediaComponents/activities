@@ -46,5 +46,6 @@ export default {
 	"noLabel": "No",
 	"filesSubmissionLimit": "Files Allowed Per Submission",
 	"UnlimitedFilesPerSubmission": "Unlimited",
-	"OneFilePerSubmission": "One File"
+	"OneFilePerSubmission": "One File",
+	"submissionsRule": "Submissions"
 };

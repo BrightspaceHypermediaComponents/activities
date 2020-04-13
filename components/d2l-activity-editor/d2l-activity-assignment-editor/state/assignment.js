@@ -94,6 +94,10 @@ export class Assignment {
 		this.submissionType = String(entity.submissionType().value);
 		this.completionType = String(entity.completionType().value);
 
+		this.canEditSubmissionsRule = entity.canEditSubmissionsRule();
+		this.submissionsRule = entity.submissionsRule() || 'keepall';
+		this.submissionsRuleOptions = entity.getSubmissionsRuleOptions();
+
 		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
 		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
 
@@ -124,6 +128,10 @@ export class Assignment {
 
 	setFilesSubmissionLimit(value) {
 		this.filesSubmissionLimit = value;
+	}
+
+	setSubmissionsRule(value) {
+		this.submissionsRule = value;
 	}
 
 	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
@@ -171,7 +179,7 @@ export class Assignment {
 		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
 		 		 The cancel workflow is making use of that to detect changes.
 		*/
-		return {
+		const data = {
 			name: this.name,
 			instructions: this.instructions,
 			isAnonymous: this.isAnonymousMarkingEnabled,
@@ -179,9 +187,15 @@ export class Assignment {
 			submissionType: this.submissionType,
 			completionType: this.completionTypeOptions.length === 0 ? String(0) : this.completionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.selectedGroupCategoryId,
-			filesSubmissionLimit: this.filesSubmissionLimit
+			groupTypeId: this.selectedGroupCategoryId
 		};
+		if (this.showFilesSubmissionLimit) {
+			data.filesSubmissionLimit = this.filesSubmissionLimit;
+		}
+		if (this.showSubmissionsRule) {
+			data.submissionsRule = this.submissionsRule;
+		}
+		return data;
 	}
 	async save() {
 		if (!this._entity) {
@@ -201,7 +215,16 @@ export class Assignment {
 
 	get showFilesSubmissionLimit() {
 		return this.submissionTypeOptions
-			.find(x => x.title === 'File submission' && `${x.value}` === `${this.submissionType}`);
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
+	}
+
+	get showSubmissionsRule() {
+		const isFileSubmission = this.submissionTypeOptions
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
+		const isTextSubmission = this.submissionTypeOptions
+			.find(x => String(x.value) === '1' && `${x.value}` === `${this.submissionType}`);
+
+		return isFileSubmission || isTextSubmission;
 	}
 }
 
@@ -229,6 +252,7 @@ decorate(Assignment, {
 	isOriginalityCheckEnabled: observable,
 	isGradeMarkEnabled: observable,
 	submissionType: observable,
+	submissionsRule: observable,
 	completionType: observable,
 	isIndividualAssignmentType: observable,
 	groupCategories: observable,
@@ -237,6 +261,7 @@ decorate(Assignment, {
 	isReadOnly: observable,
 	selectedGroupCategoryName: observable,
 	showFilesSubmissionLimit: computed,
+	showSubmissionsRule: computed,
 	// actions
 	load: action,
 	setName: action,
@@ -250,5 +275,6 @@ decorate(Assignment, {
 	setToIndividualAssignmentType: action,
 	setToGroupAssignmentType: action,
 	setAssignmentTypeGroupCategory: action,
-	setFilesSubmissionLimit: action
+	setFilesSubmissionLimit: action,
+	setSubmissionsRule: action
 });

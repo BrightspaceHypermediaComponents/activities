@@ -111,6 +111,12 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 		assignment && assignment.setFilesSubmissionLimit(data);
 	}
 
+	_setSubmisisonsRule(e) {
+		const assignment = store.getAssignment(this.href);
+		const data = e.target.value;
+		assignment && assignment.setSubmissionsRule(data);
+	}
+
 	_renderAssignmentFilesSubmissionLimit(assignment) {
 		if (!assignment || !assignment.showFilesSubmissionLimit) {
 			return html ``;
@@ -153,6 +159,39 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 					>
 					${this.localize('OneFilePerSubmission')}
 				</label>
+			</div>
+		`;
+	}
+	_renderAssignmentSubmissionsRule(assignment) {
+		if (!assignment || !assignment.showSubmissionsRule) {
+			return html ``;
+		}
+
+		const isReadOnly = !assignment.canEditSubmissionsRule;
+		const radioClasses = {
+			'd2l-input-radio-label': true,
+			'd2l-input-radio-label-disabled': isReadOnly,
+		};
+
+		return html `
+			<div id="assignment-submissions-rule-container">
+				<label class="d2l-label-text" for="assignment-submissions-rule-container">
+					${this.localize('submissionsRule')}
+				</label>
+
+				${assignment.submissionsRuleOptions.map((x) => html`
+					<label class="${classMap(radioClasses)}">
+						<input
+							type="radio"
+							name="submissionsRule"
+							.value="${x.value}"
+							@change="${this._setSubmisisonsRule}"
+							?disabled=${isReadOnly}
+							?checked="${assignment.submissionsRule === x.value}"
+						>
+						${x.title}
+					</label>
+				`) }
 			</div>
 		`;
 	}
@@ -228,6 +267,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 				${this._renderAssignmentType()}
 				${this._renderAssignmentSubmissionType(assignment)}
 				${this._renderAssignmentFilesSubmissionLimit(assignment)}
+				${this._renderAssignmentSubmissionsRule(assignment)}
 				${this._renderAssignmentCompletionType(assignment)}
 			</d2l-labs-accordion-collapse>
 		`;

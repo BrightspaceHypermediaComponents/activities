@@ -1,6 +1,7 @@
 import { Collection } from '../../../components/d2l-activity-collection-editor/state/Collection.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { fixture, html, oneEvent, waitUntil, expect } from '@open-wc/testing';
+import * as SirenAction from 'siren-sdk/src/es6/SirenAction.js';
 
 describe('Collection', () => {
 	let sandbox,
@@ -78,6 +79,15 @@ describe('Collection', () => {
 	});
 
 	describe('_fetchCandidates', () => {
+		beforeEach(() => {
+			// this fails because ES modules cannot be stubbed
+			sinon.stub(SirenAction, 'performSirenAction').callsFake(() => true);
+			state._collection = collectionEntity;
+		});
 
+		it('Sets the candidates', async() => {
+			// stub out actioncollectionentity
+			await state.fetchCandidates('http://3', [], true);
+		});
 	});
 });

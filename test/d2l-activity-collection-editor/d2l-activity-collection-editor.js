@@ -1,5 +1,5 @@
 import { runAxe } from '@brightspace-ui/core/tools/a11y-test-helper.js';
-import { fixture, html } from '@open-wc/testing';
+import { fixture, html, expect } from '@open-wc/testing';
 
 describe('d2l-activity-collection-editor', () => {
 	let element;
@@ -27,9 +27,13 @@ describe('d2l-activity-collection-editor', () => {
 			await element.updateComplete;
 		});
 
-		it('Updates when state properties change', () => {
-			console.log(element._state.activities);
-			console.log(element._state.name);
+		it('Sets the state properties from the hypermedia response', () => {
+			expect(element._state.name).to.exist;
+			expect(element._state.description).to.exist;
+		});
+
+		it('Updates when the state is updated', () => {
+
 		});
 	});
 

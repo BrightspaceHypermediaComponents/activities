@@ -1,0 +1,178 @@
+{
+  "entities": [
+    {
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "id": "TmpZd05sODNNRFl3TURCZk1USXhNelk1LjEyMTM2OQ"
+      },
+      "actions": [
+        {
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection?targetId=TmpZd05sODNNRFl3TURCZk1USXhNelk1LjEyMTM2OQ",
+          "name": "remove-activity",
+          "method": "DELETE"
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "self"
+          ],
+          "href": "data/activity-collection.json"
+        },
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "http://1"
+        },
+        {
+          "rel": [
+            "up",
+            "collection"
+          ],
+          "href": "https://1"
+        },
+        {
+          "rel": [
+            "next"
+          ],
+          "href": "http://1"
+        }
+      ]
+    },
+    {
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "id": "TmpZd05sODNNRFl3TURCZk1USXlNRFF5LjEyMjA0Mg"
+      },
+      "actions": [
+        {
+          "href": "http://1",
+          "name": "remove-activity",
+          "method": "DELETE"
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "self"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/TmpZd05sODNNRFl3TURCZk1USXlNRFF5LjEyMjA0Mg"
+        },
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_122042/usages/122042"
+        },
+        {
+          "rel": [
+            "up",
+            "collection"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection"
+        },
+        {
+          "rel": [
+            "prev"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/TmpZd05sODNNRFl3TURCZk1USXhNelk1LjEyMTM2OQ"
+        },
+        {
+          "rel": [
+            "next"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/TmpZd05sODNNRFl3TURCZk1USXhPRFUwLjEyMTg1NA"
+        }
+      ]
+    },
+    {
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "id": "TmpZd05sODNNRFl3TURCZk1USXhPRFUwLjEyMTg1NA"
+      },
+      "actions": [
+        {
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection?targetId=TmpZd05sODNNRFl3TURCZk1USXhPRFUwLjEyMTg1NA",
+          "name": "remove-activity",
+          "method": "DELETE"
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "self"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/TmpZd05sODNNRFl3TURCZk1USXhPRFUwLjEyMTg1NA"
+        },
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_121854/usages/121854"
+        },
+        {
+          "rel": [
+            "up",
+            "collection"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection"
+        },
+        {
+          "rel": [
+            "prev"
+          ],
+          "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/TmpZd05sODNNRFl3TURCZk1USXlNRFF5LjEyMjA0Mg"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage",
+        "up"
+      ],
+      "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466"
+    }
+  ],
+  "actions": [
+    {
+      "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/actions?mode=New",
+      "name": "start-add-new-activity",
+      "method": "POST"
+    },
+    {
+      "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection/actions?mode=Existing",
+      "name": "start-add-existing-activity",
+      "method": "POST"
+    },
+    {
+      "href": "https://9ae77247-1335-4f42-93b3-8be8586eb2ee.activities.api.dev.brightspace.com/activities/6606_706000_123466/usages/123466/collection",
+      "name": "move-activity",
+      "method": "PATCH",
+      "fields": [
+        {
+          "type": "text",
+          "name": "itemToMoveId"
+        },
+        {
+          "type": "text",
+          "name": "targetId"
+        }
+      ]
+    }
+  ]
+}

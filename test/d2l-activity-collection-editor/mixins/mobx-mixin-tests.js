@@ -1,4 +1,4 @@
-import { MobxComponentNoType } from '../utilities/mobx-mixin.js'
+import { MobxComponentNoType } from '../utilities/mobx-mixin.js';
 
 describe('MobxMixin', () => {
 	describe('Single component using state', () => {

@@ -1,9 +1,6 @@
 import { Collection } from '../../../components/d2l-activity-collection-editor/state/Collection.js';
-import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
-import { fixture, html, oneEvent, waitUntil, expect } from '@open-wc/testing';
-import * as SirenAction from 'siren-sdk/src/es6/SirenAction.js';
 
-describe('Collection', () => {
+describe('Collection unit tests', () => {
 	let sandbox,
 		state,
 		usageEntity,
@@ -15,13 +12,19 @@ describe('Collection', () => {
 	beforeEach(() => {
 		sandbox = sinon.createSandbox();
 		state = new Collection(null, null);
-		// real call to entityFactory within constructor does nothing
+		state._setSirenProvider({
+			entityFactory: sandbox.stub(),
+			performAction: sandbox.stub(),
+			createActionCollection: sandbox.stub().returns({
+				items: () => [{...itemEntity}, {...itemEntity}]
+			})
+		});
 		usageEntity = {
 			isDraft: () => true,
 			canEditDraft: () => true,
-			onSpecializationChange: sinon.stub(),
-			onActivityCollectionChange: sinon.stub(),
-			subEntitiesLoaded: sinon.stub().resolves(true)
+			onSpecializationChange: sandbox.stub(),
+			onActivityCollectionChange: sandbox.stub(),
+			subEntitiesLoaded: sandbox.stub().resolves(true)
 		};
 		specializationEntity = {
 			getName: () => 'Name',
@@ -30,20 +33,28 @@ describe('Collection', () => {
 			setDescription: () => {}
 		};
 		collectionEntity = {
-			onItemsChange: sinon.stub(),
-			subEntitiesLoaded: sinon.stub().resolves(true),
+			onItemsChange: sandbox.stub(),
+			subEntitiesLoaded: sandbox.stub().resolves(true),
 			_entity: {
-				getActionByName: sinon.stub().returns('http://2')
-			}
+				getActionByName: sandbox.stub().returns('http://2')
+			},
+			removeItem: sandbox.stub()
 		};
 		itemEntity = {
 			onActivityUsageChange: (func) => func(itemUsageEntity),
-			self: sinon.stub()
+			self: sandbox.stub()
 		};
 		itemUsageEntity = {
 			onOrganizationChange: (func) => func({ ...organizationEntity })
 		};
-		organizationEntity = {};
+		organizationEntity = {
+			self: sandbox.stub().returns('http://org'),
+			name: () => 'Org name'
+		};
+	});
+
+	afterEach(() => {
+		sandbox.restore();
 	});
 
 	describe('_onServerResponse', () => {
@@ -61,7 +72,7 @@ describe('Collection', () => {
 		});
 
 		it('Sets the activities array', async() => {
-			state.fetchCandidates = sinon.stub(state, 'fetchCandidates');
+			state.fetchCandidates = sandbox.stub(state, 'fetchCandidates');
 			collectionEntity.onItemsChange = (func) => {
 				// clone itemEntity and run callback three times
 				for (let i = 0; i < 3; i++) {
@@ -73,21 +84,18 @@ describe('Collection', () => {
 
 			expect(state._loadedImages).is.not.empty;
 			expect(state.activities).has.length(3);
-
-			state.fetchCandidates.restore();
 		});
 	});
 
 	describe('_fetchCandidates', () => {
 		beforeEach(() => {
-			// this fails because ES modules cannot be stubbed
-			sinon.stub(SirenAction, 'performSirenAction').callsFake(() => true);
 			state._collection = collectionEntity;
 		});
 
 		it('Sets the candidates', async() => {
-			// stub out actioncollectionentity
+			expect(state.candidates).to.be.empty;
 			await state.fetchCandidates('http://3', [], true);
+			expect(state.candidates).to.be.lengthOf(2);
 		});
 	});
 });

@@ -1,0 +1,58 @@
+{
+  "class": [
+    "activity-usage",
+    "learning-path",
+    "draft-published-entity",
+    "published"
+  ],
+  "links": [
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage",
+        "self"
+      ],
+      "href": "data/activity-usage-lp.json"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-collection"
+      ],
+      "href": "data/activity-collection.json"
+    },
+    {
+      "rel": [
+        "https://api.brightspace.com/rels/organization",
+        "https://api.brightspace.com/rels/specialization"
+      ],
+      "href": "data/organization.json"
+    },
+    {
+      "rel": [
+        "alternate"
+      ],
+      "type": "text/html",
+      "href": "http://127.0.0.1:8081/components/d2l-activities/test/d2l-activity-admin-list/d2l-activity-admin-list.html"
+    },
+    {
+      "rel": [
+        "edit"
+      ],
+      "type": "text/html",
+      "href": "http://127.0.0.1:8081/components/d2l-activities/test/d2l-activity-collection-editor/d2l-activity-collection-editor.html"
+    }
+  ],
+  "actions": [
+    {
+      "href": "https://organizations.api.proddev.d2l/123059",
+      "name": "update-draft",
+      "method": "PATCH",
+      "fields": [
+        {
+          "type": "checkbox",
+          "name": "draft",
+          "value": true
+        }
+      ]
+    }
+  ]
+}

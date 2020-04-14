@@ -1,0 +1,161 @@
+{
+  "class": [
+    "named-entity",
+    "describable-entity",
+    "draft-published-entity",
+    "published",
+    "active",
+    "learning-path"
+  ],
+  "properties": {
+    "name": "Learning Path Test",
+    "code": "LP",
+    "startDate": null,
+    "endDate": null,
+    "isActive": true,
+    "description": "Description of collection"
+  },
+  "entities": [
+    {
+      "class": [
+        "richtext",
+        "description"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "text": "Description of collection",
+        "html": "Description of collection"
+      }
+    },
+    {
+      "class": [
+        "color"
+      ],
+      "rel": [
+        "https://api.brightspace.com/rels/color"
+      ],
+      "properties": {
+        "hexString": "#008eab",
+        "description": ""
+      }
+    },
+    {
+      "class": [
+        "course-image"
+      ],
+      "rel": [
+        "https://api.brightspace.com/rels/organization-image",
+        "nofollow"
+      ],
+      "href": "https://s.brightspace.com/course-images/images/6c194994-1474-4df3-8d88-5be5f5f4a7a5"
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "https://api.brightspace.com/rels/my-organization-awards"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/organization-activities"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/my-organization-activities"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://api.brightspace.com/rels/sequence"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://files.api.brightspace.com/rels/files"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://assignments.api.brightspace.com/rels/assignments"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://outcomes.api.brightspace.com/rels/intents"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "../data/organization.json"
+    },
+    {
+      "rel": [
+        "https://enrollments.api.brightspace.com/rels/primary-facilitators"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://api.brightspace.com/rels/notification-alerts"
+      ],
+      "href": "http://1"
+    },
+    {
+      "rel": [
+        "https://notifications.api.brightspace.com/rels/my-alerts"
+      ],
+      "href": "http://1"
+    }
+  ],
+  "actions": [
+    {
+      "href": "https://1",
+      "name": "update-name",
+      "method": "PATCH",
+      "fields": [
+        {
+          "class": [
+            "required"
+          ],
+          "type": "text",
+          "name": "name",
+          "value": "Learning Path Test"
+        }
+      ]
+    },
+    {
+      "href": "https://1",
+      "name": "update-description",
+      "method": "PATCH",
+      "fields": [
+        {
+          "class": [
+            "required"
+          ],
+          "type": "text",
+          "name": "description",
+          "value": "Description of collection"
+        }
+      ]
+    }
+  ]
+}

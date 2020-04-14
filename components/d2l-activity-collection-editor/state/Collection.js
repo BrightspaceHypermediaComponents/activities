@@ -29,7 +29,22 @@ export class Collection {
 		this.activities = [];
 		this.candidates = [];
 
-		entityFactory(ActivityUsageEntity, href, token, this._onServerResponse.bind(this));
+		this._setSirenProvider({
+			entityFactory: entityFactory,
+			performAction: performSirenAction,
+			createActionCollection: (parent, entity) => new ActionCollectionEntity(parent, entity)
+		});
+		this._sirenProvider.entityFactory(ActivityUsageEntity, href, token, this._onServerResponse.bind(this));
+	}
+
+	/**
+	 * Set the siren provider. Allows for easier dependency injection
+	 *
+	 * @param {*} provider
+	 * @memberof Collection
+	 */
+	_setSirenProvider(provider) {
+		this._sirenProvider = provider;
 	}
 
 	/**
@@ -43,6 +58,7 @@ export class Collection {
 		if (error) {
 			//do something with it
 		}
+		console.log('running');
 		this._entity = usage; // for disposal
 		this._usage = usage;
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
@@ -119,15 +135,15 @@ export class Collection {
 			return;
 		}
 		this.setCandidatesAreLoaded(false);
-		const resp = await performSirenAction(this._token, action, fields, true);
+		const resp = await this._sirenProvider.performAction(this._token, action, fields, true);
 		// selfless entity - cannot be made with entity factory
-		this._actionCollectionEntity = new ActionCollectionEntity(this._collection, resp);
+		this._actionCollectionEntity = this._sirenProvider.createActionCollection(this._collection, resp);
 
 		const newCandidates = [];
 		const imageChunk = this._loadedImages.length;
 		this._loadedImages[imageChunk] = { loaded: 0, total: null };
 		let totalInLoadingChunk = 0;
-		this._actionCollectionEntity._items().forEach(item => {
+		this._actionCollectionEntity.items().forEach(item => {
 			item.onActivityUsageChange(async usage => {
 				usage.onOrganizationChange((organization) => {
 					const alreadyAdded = this.activities.findIndex(activity => activity.self() === organization.self()) >= 0;
@@ -206,7 +222,7 @@ export class Collection {
 	async addActivities(activityKeys) {
 		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
 		const fields = [{ name: 'actionStates', value: activityKeys }];
-		await performSirenAction(this.token, addAction, fields, true);
+		await this._sirenProvider.performAction(this.token, addAction, fields, true);
 	}
 
 	/**

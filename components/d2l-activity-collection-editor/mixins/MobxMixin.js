@@ -22,9 +22,10 @@ export const MobxMixin = superclass => class extends superclass {
 
 	/**
 	 * Lit-Element function called whenever properties are changed
+	 * Results in an update if true
 	 *
 	 * @param {*} changedProperties
-	 * @returns {boolean} true if both href and token are set
+	 * @returns {boolean} True if both href and token are set.
 	 * @memberof MobxMixin
 	 */
 	shouldUpdate(changedProperties) {
@@ -33,7 +34,7 @@ export const MobxMixin = superclass => class extends superclass {
 			this.dispose();
 			this._makeState();
 		}
-		return this.href && this.token;
+		return (this.href && this.token ? true : false);
 	}
 	/**
 	 * Removes the reference to the state associated with the component

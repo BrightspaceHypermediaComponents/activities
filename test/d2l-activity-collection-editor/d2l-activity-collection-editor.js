@@ -3,6 +3,16 @@ import { fixture, html, waitUntil, expect, elementUpdated } from '@open-wc/testi
 describe('d2l-activity-collection-editor', () => {
 	let element;
 
+	describe('Null Collection', () => {
+		it('Passes A11y aXe tests', async() => {
+			element = await fixture(html`
+				<d2l-activity-collection-editor>
+				</d2l-activity-collection-editor>
+			`);
+			await expect(element).to.be.accessible();
+		});
+	});
+
 	describe('Collection with name/description', () => {
 		beforeEach(async() => {
 			element = await fixture(html`
@@ -12,10 +22,6 @@ describe('d2l-activity-collection-editor', () => {
 				</d2l-activity-collection-editor>
 			`);
 			await waitUntil(() => element._state.isLoaded, 'Element did not load fully');
-		});
-
-		it('Passes A11y aXe tests', async() => {
-			await expect(element).to.be.accessible();
 		});
 
 		it('Sets the state properties from the hypermedia response', () => {

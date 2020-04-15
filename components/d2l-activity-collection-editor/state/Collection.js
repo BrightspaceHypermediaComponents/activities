@@ -56,9 +56,8 @@ export class Collection {
 	 */
 	async _onServerResponse(usage, error) {
 		if (error) {
-			//do something with it
+			return;
 		}
-		console.log('running');
 		this._entity = usage; // for disposal
 		this._usage = usage;
 		usage.onSpecializationChange(NamedEntityMixin(DescribableEntityMixin(SimpleEntity)), (specialization) => {
@@ -67,7 +66,7 @@ export class Collection {
 			this.setDescription(specialization.getDescription());
 		});
 
-		this.isVisible = !usage.isDraft();
+		this.setIsVisible(!usage.isDraft());
 		this.canEditDraft = usage.canEditDraft();
 
 		let hasACollection = false;
@@ -85,8 +84,14 @@ export class Collection {
 			let totalInLoadingChunk = 0;
 
 			collection.onItemsChange((item, index) => {
-				item.onActivityUsageChange((usage) => {
-					usage.onOrganizationChange((organization) => {
+				item.onActivityUsageChange((usage, error) => {
+					if (error) {
+						return;
+					}
+					usage.onOrganizationChange((organization, error) => {
+						if (error) {
+							return;
+						}
 						items[index] = organization;
 						items[index].itemSelf = item.self();
 						if (typeof this._organizationImageChunk[item.self()] === 'undefined') {
@@ -165,6 +170,12 @@ export class Collection {
 		this._loadedImages[imageChunk].total = totalInLoadingChunk;
 	}
 
+	/**
+	 * Search for candidate activities
+	 *
+	 * @param {*} value
+	 * @memberof Collection
+	 */
 	async searchCandidates(value) {
 		const searchAction = this._actionCollectionEntity.getSearchAction();
 		const fields = [{ name: 'collectionSearch', value: value }];
@@ -184,27 +195,49 @@ export class Collection {
 
 	}
 
-	setIsVisible(value) {
+	/**
+	 * Action to set the visibility status
+	 *
+	 * @param {*} value True or false
+	 * @param {*} autosave Save this change to the entity
+	 * @memberof Collection
+	 */
+	setIsVisible(value, autosave) {
 		this.isVisible = value;
-		this._usage.setDraftStatus(!value);
+		if (autosave) {
+			this._usage.setDraftStatus(!value);
+		}
 	}
 
 	setIsLoaded(value) {
 		this.isLoaded = value;
 	}
 
-	setName(value) {
+	/**
+	 * Sets the name if the new one is different
+	 *
+	 * @param {*} value New name to set
+	 * @param {*} autosave Save this change to the entity
+	 * @memberof Collection
+	 */
+	setName(value, autosave) {
 		const oldValue = this.name;
 		this.name = value.trim();
-		if (oldValue !== value) {
+		if (oldValue !== value && autosave) {
 			this._specialization.setName(value);
 		}
 	}
 
-	setDescription(value) {
+	/**
+	 * Sets the name if the new one is different
+	 *
+	 * @param {*} value Name to set
+	 * @param {*} autosave Save this change to the entity
+	 */
+	setDescription(value, autosave) {
 		const oldValue = this.description;
 		this.description = value;
-		if (oldValue !== value) {
+		if (oldValue !== value && autosave) {
 			this._specialization.setDescription(value);
 		}
 	}
@@ -217,7 +250,6 @@ export class Collection {
 	 * Add activities to the collection
 	 *
 	 * @param {*} activityKeys Array of activity keys
-	 * @memberof Collection
 	 */
 	async addActivities(activityKeys) {
 		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
@@ -231,7 +263,6 @@ export class Collection {
 	 * collection
 	 *
 	 * @param {*} activity
-	 * @memberof Collection
 	 */
 	removeActivity(activity) {
 		this._collection.removeItem(activity.itemSelf);

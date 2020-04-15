@@ -1,39 +1,35 @@
-import { runAxe } from '@brightspace-ui/core/tools/a11y-test-helper.js';
-import { fixture, html, expect } from '@open-wc/testing';
+import { fixture, html, waitUntil, expect, elementUpdated } from '@open-wc/testing';
 
 describe('d2l-activity-collection-editor', () => {
 	let element;
 
-	describe('Null collection', () => {
-		beforeEach(async() => {
-			element = await fixture(html`<d2l-activity-collection-editor></d2l-activity-collection-editor>`);
-			await element.updateComplete;
-		});
-
-		it('should pass all axe tests', async() => {
-			await runAxe(element);
-		});
-	});
-
 	describe('Collection with name/description', () => {
 		beforeEach(async() => {
-			window.D2L.Siren.WhitelistBehavior._testMode(true);
 			element = await fixture(html`
 				<d2l-activity-collection-editor
 					href="data/activity-usage-lp.json"
 					token="1234">
 				</d2l-activity-collection-editor>
 			`);
-			await element.updateComplete;
+			await waitUntil(() => element._state.isLoaded, 'Element did not load fully');
+		});
+
+		it('Passes A11y aXe tests', async() => {
+			await expect(element).to.be.accessible();
 		});
 
 		it('Sets the state properties from the hypermedia response', () => {
 			expect(element._state.name).to.exist;
 			expect(element._state.description).to.exist;
+			expect(element._state.isVisible).to.be.true;
+			expect(element._state.activities).to.be.empty;
 		});
 
-		it('Updates when the state is updated', () => {
-
+		it('Does not re-render if name is touched outside of autosave', async() => {
+			element._state.setName('Foobar');
+			await elementUpdated(element);
+			const name = element.shadowRoot.querySelector('.d2l-activity-collection-title-header d2l-labs-edit-in-place').value;
+			expect(name).to.be.equal('Learning Path Test');
 		});
 	});
 

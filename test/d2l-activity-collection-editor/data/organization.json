@@ -55,80 +55,14 @@
   "links": [
     {
       "rel": [
-        "https://api.brightspace.com/rels/my-organization-awards"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://activities.api.brightspace.com/rels/organization-activities"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://activities.api.brightspace.com/rels/my-organization-activities"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://activities.api.brightspace.com/rels/activity-usage"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://api.brightspace.com/rels/sequence"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://files.api.brightspace.com/rels/files"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://assignments.api.brightspace.com/rels/assignments"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://outcomes.api.brightspace.com/rels/intents"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
         "self"
       ],
       "href": "../data/organization.json"
-    },
-    {
-      "rel": [
-        "https://enrollments.api.brightspace.com/rels/primary-facilitators"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://api.brightspace.com/rels/notification-alerts"
-      ],
-      "href": "http://1"
-    },
-    {
-      "rel": [
-        "https://notifications.api.brightspace.com/rels/my-alerts"
-      ],
-      "href": "http://1"
     }
   ],
   "actions": [
     {
-      "href": "https://1",
+      "href": "https://example.com/123061",
       "name": "update-name",
       "method": "PATCH",
       "fields": [
@@ -143,7 +77,7 @@
       ]
     },
     {
-      "href": "https://1",
+      "href": "https://example.com/123061",
       "name": "update-description",
       "method": "PATCH",
       "fields": [

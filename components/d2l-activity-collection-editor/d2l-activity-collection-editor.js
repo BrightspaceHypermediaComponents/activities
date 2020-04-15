@@ -332,7 +332,13 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 		const learningPathTitle = this._state.isLoaded ? html`
 				<h1 class="d2l-heading-1 d2l-activity-collection-title-header">
-					<d2l-labs-edit-in-place size="49" placeholder="${this.localize('untitledLearningPath')}" maxlength="128" value="${this._state.name}" @change=${this._titleChanged}></d2l-labs-edit-in-place>
+					<d2l-labs-edit-in-place
+						size="49"
+						placeholder="${this.localize('untitledLearningPath')}"
+						maxlength="128"
+						value="${this._state.name}"
+						@change=${this._titleChanged}>
+					</d2l-labs-edit-in-place>
 				</h1>
 		` : learningPathTitleSkeleton;
 
@@ -376,7 +382,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 			<d2l-button-icon
 				class="d2l-activity-collection-toggle-container-button"
 				?disabled="${!this._state.canEditDraft || this.disabled}"
-				@click="${() => this._state.setIsVisible(!this._state.isVisible)}"
+				@click="${this._toggleVisibility}"
 				icon=${this._state.isVisible ? 'tier1:visibility-show' : 'tier1:visibility-hide'}>
 			</d2l-button-icon>
 		` : learningPathVisibilitySkeleton;
@@ -598,13 +604,17 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		}
 	}
 	/* User event handlers */
+	_toggleVisibility() {
+		this._state.setIsVisible(!this._state.isVisible, true);
+	}
+
 	_titleChanged(event) {
 		const value = event.target.value.trim() !== '' ? event.target.value : this.localize('untitledLearningPath');
-		this._state.setName(value);
+		this._state.setName(value, true);
 	}
 
 	_descriptionChanged(event) {
-		this._state.setDescription(event.target.value);
+		this._state.setDescription(event.target.value, true);
 	}
 
 	async handleSearch(event) {

@@ -1,0 +1,153 @@
+{
+  "class": [
+    "collection",
+    "actions"
+  ],
+  "entities": [
+    {
+      "class": [
+        "existing-activity-usage"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "actionState": "YWN0aXZpdHlVc2FnZT1UbXBaZDA1c09ETk5SRmwzVFVSQ1prMVVTWGhPVkUweExqRXlNVFV6TlF8YWN0aW9uSWQ9NWM0YTFiMTItZTA0OS00MTBhLThkOWItNDgzNjEyOWUzODhi"
+      },
+      "actions": [
+        {
+          "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection",
+          "name": "20th-Century French Theatre",
+          "method": "POST",
+          "fields": [
+            {
+              "type": "hidden",
+              "name": "actionStates",
+              "value": "YWN0aXZpdHlVc2FnZT1UbXBaZDA1c09ETk5SRmwzVFVSQ1prMVVTWGhPVkUweExqRXlNVFV6TlF8YWN0aW9uSWQ9NWM0YTFiMTItZTA0OS00MTBhLThkOWItNDgzNjEyOWUzODhi"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage",
+            "self"
+          ],
+          "href": "../data/base/organization-activity-usage.json"
+        }
+      ]
+    },
+    {
+      "class": [
+        "existing-activity-usage"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "actionState": "YWN0aXZpdHlVc2FnZT1UbXBaZDA1c09ETk5SRmwzVFVSQ1prMVVTWGxOUkZGNUxqRXlNakEwTWd8YWN0aW9uSWQ9NWM0YTFiMTItZTA0OS00MTBhLThkOWItNDgzNjEyOWUzODhi"
+      },
+      "actions": [
+        {
+          "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection",
+          "name": "Accounting 1200-01",
+          "method": "POST",
+          "fields": [
+            {
+              "type": "hidden",
+              "name": "actionStates",
+              "value": "YWN0aXZpdHlVc2FnZT1UbXBaZDA1c09ETk5SRmwzVFVSQ1prMVVTWGxOUkZGNUxqRXlNakEwTWd8YWN0aW9uSWQ9NWM0YTFiMTItZTA0OS00MTBhLThkOWItNDgzNjEyOWUzODhi"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage",
+            "self"
+          ],
+          "href": "../data/base/organization-activity-usage.json"
+        }
+      ]
+    },
+    {
+      "class": [
+        "existing-activity-usage"
+      ],
+      "rel": [
+        "item"
+      ],
+      "properties": {
+        "actionState": "YWN0aXZpdHlVc2FnZT1UbXBaZDA1c09ETk5SRmwzVFVSQ1prMVVTWGhOYWtWNkxqRXlNVEl4TXd8YWN0aW9uSWQ9NWM0YTFiMTItZTA0OS00MTBhLThkOWItNDgzNjEyOWUzODhi"
+      },
+      "actions": [
+        {
+          "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection",
+          "name": "Accounting Information Systems",
+          "method": "POST",
+          "fields": [
+            {
+              "type": "hidden",
+              "name": "actionStates",
+              "value": "YWN0aXZpdHlVc2FnZT1UbXBaZDA1c09ETk5SRmwzVFVSQ1prMVVTWGhOYWtWNkxqRXlNVEl4TXd8YWN0aW9uSWQ9NWM0YTFiMTItZTA0OS00MTBhLThkOWItNDgzNjEyOWUzODhi"
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage",
+            "self"
+          ],
+          "href": "../data/base/organization-activity-usage.json"
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "up"
+      ],
+      "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection"
+    }
+  ],
+  "actions": [
+    {
+      "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection/actions?bookmark=121311&mode=Existing",
+      "name": "next",
+      "method": "POST",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "collectionSearch"
+        }
+      ]
+    },
+    {
+      "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection/actions?mode=Existing",
+      "name": "search",
+      "method": "POST",
+      "fields": [
+        {
+          "type": "search",
+          "name": "collectionSearch"
+        }
+      ]
+    },
+    {
+      "href": "https://a71e6beb-ddbc-4b15-8cbf-11b5bf524779.activities.api.dev.brightspace.com/activities/6606_706000_123059/usages/123059/collection",
+      "name": "execute-multiple",
+      "method": "POST",
+      "fields": [
+        {
+          "type": "text",
+          "name": "actionStates"
+        }
+      ]
+    }
+  ]
+}

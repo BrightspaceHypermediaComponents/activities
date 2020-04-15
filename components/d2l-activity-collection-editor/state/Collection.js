@@ -67,7 +67,7 @@ export class Collection {
 		});
 
 		this.setIsVisible(!usage.isDraft());
-		this.canEditDraft = usage.canEditDraft();
+		this.setCanEditDraft(usage.canEditDraft());
 
 		let hasACollection = false;
 		usage.onActivityCollectionChange(async(collection, error) => {
@@ -209,6 +209,10 @@ export class Collection {
 		}
 	}
 
+	setCanEditDraft(value) {
+		this.canEditDraft = value;
+	}
+
 	setIsLoaded(value) {
 		this.isLoaded = value;
 	}
@@ -254,7 +258,7 @@ export class Collection {
 	async addActivities(activityKeys) {
 		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
 		const fields = [{ name: 'actionStates', value: activityKeys }];
-		await this._sirenProvider.performAction(this.token, addAction, fields, true);
+		await this._sirenProvider.performAction(this._token, addAction, fields, true);
 	}
 
 	/**
@@ -290,8 +294,10 @@ decorate(Collection, {
 	candidatesAreLoaded: observable,
 
 	setIsLoaded: action,
+	setIsVisible: action,
 	setDescription: action,
 	setName: action,
+	setCanEditDraft: action,
 	addActivity: action,
 	removeActivity: action,
 	reorderActivity: action,

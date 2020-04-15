@@ -25,7 +25,7 @@ export const MobxMixin = superclass => class extends superclass {
 	 * Results in an update if true
 	 *
 	 * @param {*} changedProperties
-	 * @returns {boolean} True if both href and token are set.
+	 * @returns {boolean} true if both href and token exist
 	 * @memberof MobxMixin
 	 */
 	shouldUpdate(changedProperties) {
@@ -34,7 +34,7 @@ export const MobxMixin = superclass => class extends superclass {
 			this.dispose();
 			this._makeState();
 		}
-		return (this.href && this.token ? true : false);
+		return this.href && this.token ? true : false;
 	}
 	/**
 	 * Removes the reference to the state associated with the component

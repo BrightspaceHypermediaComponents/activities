@@ -25,7 +25,7 @@ describe('d2l-activity-collection-editor', () => {
 			expect(element._state.activities).to.be.empty;
 		});
 
-		it('Does not re-render if name is touched outside of autosave', async() => {
+		it('Does not re-render if name is touched outside of first load', async() => {
 			element._state.setName('Foobar');
 			await elementUpdated(element);
 			const name = element.shadowRoot.querySelector('.d2l-activity-collection-title-header d2l-labs-edit-in-place').value;

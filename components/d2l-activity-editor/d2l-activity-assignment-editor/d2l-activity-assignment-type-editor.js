@@ -1,4 +1,4 @@
-import { bodyCompactStyles, bodySmallStyles, bodyStandardStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
@@ -13,7 +13,6 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 	static get styles() {
 		return [
 			bodyCompactStyles,
-			bodyStandardStyles,
 			bodySmallStyles,
 			labelStyles,
 			radioStyles,
@@ -129,11 +128,11 @@ class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 
 		return html`
 			<div ?hidden=${!isReadOnly} id="read-only-assignment-type-container">
-				<div class="d2l-body-standard">${folderTypeText}</div>
+				<div class="d2l-body-compact">${folderTypeText}</div>
 				<div class="d2l-body-compact">${groupTypeText}</div>
 				<p class="d2l-body-small">${infoText}</p>
 			</div>
-			
+
 			<div ?hidden=${isReadOnly} id="editable-assignment-type-container">
 				<label class="individual-type d2l-input-radio-label">
 					<input

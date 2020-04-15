@@ -5,6 +5,18 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 	static get properties() {
 		return {
 			/**
+			 * Activity Type
+			 */
+			type: {
+				type: String
+			},
+			/**
+			 * Telemetry Id
+			 */
+			telemetryId: {
+				type: String
+			},
+			/**
 			 * Href for the component
 			 */
 			href: {

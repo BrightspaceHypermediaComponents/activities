@@ -1,5 +1,5 @@
 import { formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
-import { html, LitElement } from 'lit-element/lit-element.js';
+import { html, LitElement, css } from 'lit-element/lit-element.js';
 import { LitQuickEvalLocalize } from '../LitQuickEvalLocalize.js';
 import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/list/list-item.js';
@@ -8,6 +8,13 @@ import 'd2l-icons/d2l-icon.js';
 import '../../d2l-subtitle/d2l-subtitle.js';
 
 class D2LQuickEvalDismissedActivitiesList extends LitQuickEvalLocalize(LitElement) {
+
+	static get styles() {
+		return css`
+			d2l-icon { border-radius: 0; }
+		`;
+	}
+
 	render() {
 		return html`
 			<d2l-list separators="all">${this.dismissedActivities && this.dismissedActivities.length ? this.dismissedActivities.map((act, index) => html`

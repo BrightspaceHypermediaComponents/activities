@@ -57,18 +57,17 @@ class D2LQuickEval extends
 			</style>
 			<div class="top-container">
 				<template is="dom-if" if="[[headerText]]">
-					<h1 class="d2l-quick-eval-header-with-toggle" hidden$="[[!activitiesViewEnabled]]">[[headerText]]</h1>
-					<h1 class="d2l-quick-eval-header" hidden$="[[activitiesViewEnabled]]">[[headerText]]</h1>
+					<h1 class="d2l-quick-eval-header-with-toggle">[[headerText]]</h1>
 				</template>
 				<d2l-quick-eval-ellipsis-menu href="[[dismissedActivitiesHref]]" token="[[token]]" hidden$="[[!dismissEnabled]]" course-level="[[courseLevel]]" title="[[localize('optionsForQuickEval')]]" multi-course-quick-eval-href="[[multiCourseQuickEvalHref]]"></d2l-quick-eval-ellipsis-menu>
 			</div>
-			<d2l-quick-eval-view-toggle current-selected="[[toggleState]]" toggle-href="[[toggleHref]]" hidden$="[[!activitiesViewEnabled]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
+			<d2l-quick-eval-view-toggle current-selected="[[toggleState]]" toggle-href="[[toggleHref]]" on-d2l-quick-eval-view-toggle-changed="_toggleView"></d2l-quick-eval-view-toggle>
 			<d2l-quick-eval-submissions
 				href="[[_lazySubmissionsHref]]"
 				token="[[token]]"
 				logging-endpoint="[[loggingEndpoint]]"
 				data-telemetry-endpoint="[[dataTelemetryEndpoint]]"
-				hidden$="[[_displayActivities(toggleState, activitiesViewEnabled)]]"
+				hidden$="[[_displayActivities(toggleState)]]"
 				master-teacher="[[masterTeacher]]"
 				returning-to-quick-eval="[[returningToQuickEval]]"
 				course-level="[[courseLevel]]"
@@ -79,7 +78,7 @@ class D2LQuickEval extends
 				href="[[_lazyActivitiesHref]]"
 				token="[[token]]"
 				logging-endpoint="[[loggingEndpoint]]"
-				hidden$="[[!_displayActivities(toggleState, activitiesViewEnabled)]]"
+				hidden$="[[!_displayActivities(toggleState)]]"
 				dismiss-enabled="[[dismissEnabled]]"
 				course-level="[[courseLevel]]"
 				filter-ids="[[activityFilters]]"
@@ -98,10 +97,6 @@ class D2LQuickEval extends
 				type: String
 			},
 			masterTeacher: {
-				type: Boolean,
-				value: false
-			},
-			activitiesViewEnabled: {
 				type: Boolean,
 				value: false
 			},
@@ -127,7 +122,7 @@ class D2LQuickEval extends
 			},
 			_lazyActivitiesHref: {
 				type: String,
-				computed: '_computeLazyActivitiesHref(activitiesHref, toggleState, activitiesViewEnabled)'
+				computed: '_computeLazyActivitiesHref(activitiesHref, toggleState)'
 			},
 			toggleHref: {
 				type: String
@@ -170,11 +165,7 @@ class D2LQuickEval extends
 		};
 	}
 
-	_displayActivities(toggleState, activitiesViewEnabled) {
-		if (!activitiesViewEnabled) {
-			return false;
-		}
-
+	_displayActivities(toggleState) {
 		return toggleState === activities;
 	}
 
@@ -190,8 +181,8 @@ class D2LQuickEval extends
 		return '';
 	}
 
-	_computeLazyActivitiesHref(activitiesHref, toggleState, activitiesViewEnabled) {
-		if ((toggleState === activities && activitiesViewEnabled) || this._lazyActivitiesHref) {
+	_computeLazyActivitiesHref(activitiesHref, toggleState) {
+		if (toggleState === activities || this._lazyActivitiesHref) {
 			return activitiesHref;
 		}
 		return '';

@@ -99,7 +99,7 @@ export class ActivityUsage {
 				scoreOutOf: this.scoreAndGrade.scoreOutOf,
 				inGrades: this.scoreAndGrade.inGrades,
 				associatedGrade: this.scoreAndGrade.createNewGrade ? null : this.scoreAndGrade.getAssociatedGradeEntity(),
-				associateNewGradeAction: (this.scoreAndGrade.gradeCandidateCollection || {}).associateNewGradeAction,
+				associateNewGradeAction: this.scoreAndGrade.getAssociateNewGradeAction(),
 				newGradeName: this.scoreAndGrade.newGradeName
 			}
 		};

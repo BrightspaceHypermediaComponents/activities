@@ -86,6 +86,7 @@ class ActivityGradeCandidateSelector extends ActivityEditorMixin(LocalizeMixin(M
 
 		return html`
 			<select
+				aria-label="${this.localize('gradeItem')}"
 				id="grade-candidates"
 				class="d2l-input-select"
 				@change="${this._setSelected}"

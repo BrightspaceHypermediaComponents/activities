@@ -60,7 +60,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.52.135",
+  "version": "3.52.148",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -72,7 +72,7 @@
     "@adobe/lit-mobx": "0.0.3",
     "@brightspace-ui-labs/accordion": "^2.0.2",
     "@brightspace-ui-labs/edit-in-place": "^1.0.11",
-    "@brightspace-ui/core": "^1.29.5",
+    "@brightspace-ui/core": "^1.39.0",
     "@brightspace-ui/intl": "^3.0.1",
     "@d2l/d2l-attachment": "Brightspace/attachment#semver:^1",
     "@d2l/switch": "Brightspace/d2l-switch.git#semver:^3",

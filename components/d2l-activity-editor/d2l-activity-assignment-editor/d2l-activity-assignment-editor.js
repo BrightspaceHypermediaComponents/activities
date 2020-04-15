@@ -45,7 +45,11 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 			/**
 			* based on the LaunchDarkly flag face-assignments-milestone-2
 			*/
-			milestoneFourEnabled: { type: Boolean }
+			milestoneFourEnabled: { type: Boolean },
+			/**
+			* Set the WidthType on the template to constrain page width if necessary
+			*/
+			widthType: { type: String, attribute: 'width-type' }
 		};
 	}
 
@@ -175,7 +179,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 		} = activity;
 
 		return html`
-			<d2l-template-primary-secondary slot="editor">
+			<d2l-template-primary-secondary slot="editor" width-type="${this.widthType}">
 				<slot name="editor-nav" slot="header"></slot>
 				<div slot="primary" class="d2l-activity-assignment-editor-primary-panel">
 					${this.isError ? html`<d2l-alert type="error">${this.localize('assignmentSaveError')}</d2l-alert>` : null}
@@ -205,6 +209,8 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 	render() {
 		return html`
 			<d2l-activity-editor
+				type="assignment"
+				telemetryId="assignments"
 				.href=${this.href}
 				.token=${this.token}
 				unfurlEndpoint="${this.unfurlEndpoint}"

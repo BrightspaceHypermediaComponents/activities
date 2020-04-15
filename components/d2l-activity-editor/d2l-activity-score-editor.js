@@ -147,11 +147,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 
 	constructor() {
 		super(store);
-
-		this._tooltipBoundary = {
-			left: 5,
-			right: 400
-		};
 	}
 
 	updated(changedProperties) {
@@ -264,7 +259,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 							for="score-out-of"
 							position="bottom"
 							showing
-							.boundary="${this._tooltipBoundary}"
+							align="start"
 						>
 							${scoreOutOfError ? html`<span>${this.localize(scoreOutOfError)}</span>` : null}
 						</d2l-tooltip>

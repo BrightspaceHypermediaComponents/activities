@@ -74,11 +74,6 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 	constructor() {
 		super(store);
 
-		this._tooltipBoundary = {
-			left: 20 + 12, // padding-left applied to d2l-activity-attachments-picker + padding-left of d2l-button-icon
-			right: 0
-		};
-
 		D2L.ActivityEditor = D2L.ActivityEditor || {};
 		// Referenced by the server-side ActivitiesView renderer
 		D2L.ActivityEditor.FileUploadDialogCallback = (files) => {
@@ -217,8 +212,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 				<d2l-tooltip
 					for="add-file-button"
 					aria-hidden="true"
-					disable-focus-lock
-					.boundary="${this._tooltipBoundary}">${this.localize('addFile')}</d2l-tooltip>
+					disable-focus-lock>${this.localize('addFile')}</d2l-tooltip>
 					<!-- Important: keep tooltip content inline, otherwise screenreader gets confused -->
 				<d2l-button-icon
 					id="add-quicklink-button"
@@ -230,8 +224,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 				<d2l-tooltip
 					for="add-quicklink-button"
 					aria-hidden="true"
-					disable-focus-lock
-					.boundary="${this._tooltipBoundary}">${this.localize('addQuicklink')}</d2l-tooltip>
+					disable-focus-lock>${this.localize('addQuicklink')}</d2l-tooltip>
 
 				<d2l-button-icon
 					id="add-link-button"
@@ -243,8 +236,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 				<d2l-tooltip
 					for="add-link-button"
 					aria-hidden="true"
-					disable-focus-lock
-					.boundary="${this._tooltipBoundary}">${this.localize('addLink')}</d2l-tooltip>
+					disable-focus-lock>${this.localize('addLink')}</d2l-tooltip>
 
 				<d2l-button-icon
 					id="add-google-drive-link-button"
@@ -256,8 +248,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 				<d2l-tooltip
 					for="add-google-drive-link-button"
 					aria-hidden="true"
-					disable-focus-lock
-					.boundary="${this._tooltipBoundary}">${this.localize('addGoogleDriveLink')}</d2l-tooltip>
+					disable-focus-lock>${this.localize('addGoogleDriveLink')}</d2l-tooltip>
 
 				<d2l-button-icon
 					id="add-onedrive-link-button"
@@ -269,8 +260,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 				<d2l-tooltip
 					for="add-onedrive-link-button"
 					aria-hidden="true"
-					disable-focus-lock
-					.boundary="${this._tooltipBoundary}">${this.localize('addOneDriveLink')}</d2l-tooltip>
+					disable-focus-lock>${this.localize('addOneDriveLink')}</d2l-tooltip>
 
 				<div class="button-container-right">
 					<d2l-button-subtle

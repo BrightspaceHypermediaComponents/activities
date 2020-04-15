@@ -25,8 +25,7 @@
 					href="data/unassessedActivities.json"
 					submissions-href="data/unassessedActivities.json"
 					activities-href="data/unassessedActivitiesCollection.json"
-					token="whatever"
-					activities-view-enabled></d2l-quick-eval>
+					token="whatever"></d2l-quick-eval>
 			</template>
 		</test-fixture>
 
@@ -37,8 +36,7 @@
 					submissions-href="data/unassessedActivities.json"
 					activities-href="data/unassessedActivitiesCollection.json"
 					token="whatever"
-					toggle-state="activities"
-					activities-view-enabled></d2l-quick-eval>
+					toggle-state="activities"></d2l-quick-eval>
 			</template>
 		</test-fixture>
 
@@ -478,11 +476,7 @@
 						performSearch('test');
 					});
 				});
-				test('toggle is hidden when activitiesViewEnabled is false', function() {
-					assert.isTrue(toggle.hidden);
-				});
-				test('toggle is not hidden when activitiesViewEnabled is true', function() {
-					quickEval.activitiesViewEnabled = true;
+				test('toggle is not hidden by default', function() {
 					assert.isFalse(toggle.hidden);
 				});
 			});

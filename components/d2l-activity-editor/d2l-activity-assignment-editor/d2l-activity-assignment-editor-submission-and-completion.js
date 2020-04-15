@@ -33,14 +33,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 					display: block;
 				}
 
-				.d2l-heading-4 {
-					margin: 0 0 0.6rem 0;
-				}
-
-				.assignment-type-heading {
-					margin: 0 0 0.5rem 0;
-				}
-
 				div[id*="container"] {
 					margin-top: 20px;
 				}
@@ -93,9 +85,9 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	_renderAssignmentType() {
 		return html `
 			<div id="assignment-type-container">
-				<h3 class="assignment-type-heading d2l-heading-4">
+				<label class="d2l-label-text">
 					${this.localize('txtAssignmentType')}
-				</h3>
+				</label>
 				<d2l-activity-assignment-type-editor
 					href="${this.href}"
 					.token="${this.token}">
@@ -183,7 +175,17 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 		`;
 	}
 
-	_renderAssignmentSubmissionTypeSummary() {
+	_renderAssignmentSubmissionTypeSummary(assignment) {
+		if (!assignment) {
+			return html``;
+		}
+
+		const submissionType = assignment.submissionTypeOptions.find(opt => String(opt.value) === assignment.submissionType);
+
+		if (submissionType) {
+			return html `${submissionType.title}`;
+		}
+
 		return html``;
 	}
 
@@ -214,13 +216,13 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	render() {
 		const assignment = store.getAssignment(this.href);
 		return html`
-            <d2l-labs-accordion-collapse class="accordion" flex header-border>
+			<d2l-labs-accordion-collapse class="accordion" flex header-border>
 				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
 					${this.localize('submissionCompletionAndCategorization')}
 				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
 					<li>${this._renderAssignmentTypeSummary()}</li>
-					<li>${this._renderAssignmentSubmissionTypeSummary()}</li>
+					<li>${this._renderAssignmentSubmissionTypeSummary(assignment)}</li>
 					<li>${this._renderAssignmentCompletionTypeSummary()}</li>
 				</ul>
 				${this._renderAssignmentType()}

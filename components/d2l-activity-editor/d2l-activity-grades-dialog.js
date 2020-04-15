@@ -79,7 +79,7 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mo
 			newGradeCandidatesCollection
 		} = scoreAndGrade;
 
-		this._canLinkNewGrade = gradeCandidateCollection && !!gradeCandidateCollection.associateNewGradeAction;
+		this._canLinkNewGrade = !!scoreAndGrade.getAssociateNewGradeAction();
 		this._createNewRadioChecked = createNewGrade && this._canLinkNewGrade;
 		this._hasGradeCandidates = gradeCandidateCollection && gradeCandidateCollection.gradeCandidates.length > 0;
 		const prevSelectedHref = gradeCandidateCollection && gradeCandidateCollection.selected ? gradeCandidateCollection.selected.href : null;

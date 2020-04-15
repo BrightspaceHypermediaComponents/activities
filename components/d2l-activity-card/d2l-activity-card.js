@@ -8,13 +8,15 @@ import 'd2l-organizations/components/d2l-organization-image/d2l-organization-ima
 import 'd2l-organizations/components/d2l-organization-info/d2l-organization-info.js';
 import 'd2l-organizations/components/d2l-organization-name/d2l-organization-name.js';
 import 'd2l-typography/d2l-typography.js';
+import '@brightspace-ui/core/components/icons/icon.js';
+import { classes as organizationClasses } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import SirenParse from 'siren-parser';
-
+import { ActivityCardLocalize } from './ActivityCardLocalize.js';
 /**
- * @customElement
+ * @customElements
  * @polymer
  */
-class D2lActivityCard extends PolymerElement {
+class D2lActivityCard extends ActivityCardLocalize(PolymerElement) {
 	static get template() {
 		return html`
 			<style include="d2l-typography-shared-styles">
@@ -45,6 +47,10 @@ class D2lActivityCard extends PolymerElement {
 					display: block;
 				}
 
+				.d2l-activity-card-activity-information {
+					display:block;
+				}
+
 				@keyframes pulsingAnimation {
 					0% { background-color: var(--d2l-color-sylvite); }
 					50% { background-color: var(--d2l-color-regolith); }
@@ -58,7 +64,7 @@ class D2lActivityCard extends PolymerElement {
 				}
 			</style>
 
-			<d2l-card text="[[_accessibilityText]]" href$="[[_activityHomepage]]" on-click="_sendClickEvent">
+			<d2l-card align-center$=[[alignCenter]] text="[[_accessibilityText]]" href$="[[_activityHomepage]]" on-click="_sendClickEvent">
 				<div class="d2l-activity-card-header-container" slot="header">
 					<div class="d2l-activity-list-item-pulse-placeholder" hidden$="[[!_imageLoading]]"></div>
 					<d2l-organization-image
@@ -79,6 +85,13 @@ class D2lActivityCard extends PolymerElement {
 							show-organization-code="[[showOrganizationCode]]"
 							show-semester-name="[[showSemesterName]]"
 						></d2l-organization-info>
+
+						<template is="dom-if" if="[[_showActivityInformation(_organizationActivityLoaded, showActivityType)]]">
+							<div class="d2l-activity-card-activity-information">
+								<d2l-icon icon="tier1:course"></d2l-icon>
+								<span>[[localize(_organizationActivityType)]]</span>
+							</div>
+						</template>
 					</d2l-card-content-meta>
 				</div>
 			</d2l-card>
@@ -110,6 +123,10 @@ class D2lActivityCard extends PolymerElement {
 				type: Boolean,
 				value: false
 			},
+			showActivityType: {
+				type: Boolean,
+				value: false
+			},
 			_accessibilityData: {
 				type: Object,
 				value: function() { return {}; }
@@ -120,11 +137,20 @@ class D2lActivityCard extends PolymerElement {
 			_semester: String,
 			_organizationUrl: String,
 			_activityHomepage: String,
+			_organizationActivityType: String,
 			_imageLoading: {
 				type: Boolean,
 				value: true
 			},
+			_organizationActivityLoaded: {
+				type: Boolean,
+				value: false
+			},
 			sendEventOnClick: {
+				type: Boolean,
+				value: false,
+			},
+			alignCenter: {
 				type: Boolean,
 				value: false,
 			}
@@ -191,9 +217,29 @@ class D2lActivityCard extends PolymerElement {
 			this._actionEnroll = sirenEntity.getAction('assign');
 		}
 		this._activityHomepage = sirenEntity.hasLink(Rels.Activities.activityHomepage) && sirenEntity.getLinkByRel(Rels.Activities.activityHomepage).href;
+		this.href = sirenEntity.hasLink('self') && sirenEntity.getLinkByRel('self').href;
 		this._organizationUrl = sirenEntity.hasLink(Rels.organization) && sirenEntity.getLinkByRel(Rels.organization).href;
 
-		this.href = sirenEntity.hasLink('self') && sirenEntity.getLinkByRel('self').href;
+		if (this._organizationUrl) {
+			this._fetchEntity(this._organizationUrl)
+				.then(this._handleOrganizationResponse.bind(this));
+		}
+	}
+	_handleOrganizationResponse(organization) {
+		if (!organization) {
+			return;
+		}
+
+		this._organizationActivityType = organization.hasClass(organizationClasses.learningPath) ? organizationClasses.learningPath : organizationClasses.course;
+		this._organizationActivityLoaded = true;
+		this._activityTypeAccessible();
+		return Promise.resolve();
+	}
+	_activityTypeAccessible() {
+		if (this.showActivityType) {
+			this._accessibilityData.activityType = this._organizationActivityType;
+			this._accessibilityText = this._accessibilityDataToString(this._accessibilityData);
+		}
 	}
 	_onD2lOrganizationAccessible(e) {
 		if (e && e.detail && e.detail.organization) {
@@ -217,7 +263,8 @@ class D2lActivityCard extends PolymerElement {
 		const textData = [
 			accessibility.organizationName,
 			accessibility.organizationCode,
-			accessibility.semesterName
+			accessibility.semesterName,
+			accessibility.activityType,
 		];
 		return textData.filter(function(text) {
 			return text && typeof text === 'string';
@@ -251,6 +298,9 @@ class D2lActivityCard extends PolymerElement {
 			return;
 		}
 		return match[0];
+	}
+	_showActivityInformation(_organizationActivityLoaded, showActivityType) {
+		return _organizationActivityLoaded && showActivityType;
 	}
 }
 

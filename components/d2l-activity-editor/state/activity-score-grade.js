@@ -111,6 +111,19 @@ export class ActivityScoreGrade {
 	setNewGradeName(name) {
 		this.newGradeName = name;
 	}
+
+	getAssociateNewGradeAction() {
+		let newGradeCandidateEntity;
+		if (this.newGradeCandidatesCollection && this.newGradeCandidatesCollection.selected) {
+			newGradeCandidateEntity = this.newGradeCandidatesCollection.selected.gradeCandidateEntity;
+		}
+
+		if (!newGradeCandidateEntity) {
+			return;
+		}
+
+		return newGradeCandidateEntity.getSaveAction();
+	}
 }
 
 decorate(ActivityScoreGrade, {

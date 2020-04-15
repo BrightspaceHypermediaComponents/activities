@@ -152,7 +152,7 @@ class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 				min-rows="3"
 				max-rows="1000"
 				fullpage-enabled="0"
-				toolbar="bold italic bullist d2l_isf"
+				toolbar="bold italic underline numlist bullist d2l_isf"
 				plugins="lists paste d2l_isf">
 
 				<div id="toolbar-shortcut-${this._htmlEditorUniqueId}" hidden="">${this.localize('ariaToolbarShortcutInstructions')}</div>

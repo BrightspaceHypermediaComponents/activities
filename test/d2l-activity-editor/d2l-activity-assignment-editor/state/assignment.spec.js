@@ -78,7 +78,32 @@ describe('Assignment ', function() {
 				getAssignmentTypeInformationText: () => '',
 				isAssignmentTypeReadOnly: () => false,
 				assignmentHasSubmissions: () => false,
-				getAssignmentTypeSelectedGroupCategoryName: () => null
+				getAssignmentTypeSelectedGroupCategoryName: () => null,
+				canEditSubmissionsRule: () => true,
+				submissionsRule: () => 'keepall',
+				getSubmissionsRuleOptions: () => [
+					{
+						'type': 'radio',
+						'name': 'submissionsRule',
+						'value': [
+							{
+								'title': 'All submissions are kept',
+								'value': 'keepall',
+								'selected': true
+							},
+							{
+								'title': 'Only one submission allowed',
+								'value': 'onlyone',
+								'selected': false
+							},
+							{
+								'title': 'Only the most recent submission is kept',
+								'value': 'overwritesubmissions',
+								'selected': false
+							}
+						]
+					}
+				]
 			};
 		});
 

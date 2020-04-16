@@ -25,7 +25,6 @@ jobs:
       if [ $TRAVIS_SECURE_ENV_VARS == true ]; then
           echo "Running visual difference tests...";
           npm run test:diff || travis_terminate 1;
-        fi
       fi
   - stage: update-version
     script: frauci-update-version && export TRAVIS_TAG=$(frauci-get-version)

@@ -166,7 +166,11 @@ export class Collection {
 		});
 		await this._collection.subEntitiesLoaded();
 		this.setCandidatesAreLoaded(true);
-		this.candidates = clear ? newCandidates : this.candidates.concat(newCandidates);
+		if (clear) {
+			this.candidates = newCandidates;
+		} else {
+			this.candidates.push(...newCandidates);
+		}
 		this._loadedImages[imageChunk].total = totalInLoadingChunk;
 	}
 

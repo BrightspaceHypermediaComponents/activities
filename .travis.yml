@@ -23,9 +23,6 @@ jobs:
     script:
     - |
       if [ $TRAVIS_SECURE_ENV_VARS == true ]; then
-        if [$TRAVIS_PULL_REQUEST != false] && [$TRAVIS_BRANCH != "master"]; then
-          echo "Pull request not targetting master. Skipping visual diffs";
-        else
           echo "Running visual difference tests...";
           npm run test:diff || travis_terminate 1;
         fi

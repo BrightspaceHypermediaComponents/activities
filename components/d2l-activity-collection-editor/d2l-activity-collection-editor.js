@@ -29,12 +29,13 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 	constructor() {
 		super();
-		this._currentSelection = {};
 		this.ariaBusy = 'true';
 		this.role = 'main';
+		this._currentSelection = {};
 		this._currentDeleteItemName = '';
 		this._dialogOpen = false;
 		this._isLoadingMore = false;
+		this._rerenderCandidates = true;
 
 		// any observables in the this state accessed
 		// in render() will trigger updates
@@ -47,8 +48,12 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 	async getCandidates(action, fields = null, clearList = false) {
 		this._candidateItemsLoading = true;
+		if (clearList) {
+			this._rerenderCandidates = true;
+		}
 		await this._state.fetchCandidates(action, fields, clearList);
 		this._candidateItemsLoading = false;
+		this._rerenderCandidates = false;
 	}
 
 	handleSelectionChange(e) {
@@ -73,12 +78,12 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 
 	async loadMore() {
 		this._isLoadingMore = true;
+		this._rerenderCandidates = false;
 		const lastItem = this.shadowRoot.querySelector('d2l-dialog d2l-list d2l-list-item:last-of-type');
 		await this.getCandidates(this._state._actionCollectionEntity.getNextAction());
 		this._isLoadingMore = false;
 		await this.updateComplete;
-		// TODO: fix the scrolling to top
-		lastItem.focus();
+		lastItem.nextElementSibling.focus();
 	}
 
 	async open() {
@@ -194,7 +199,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 				color: var(--d2l-color-ferrite);
 				font-size: 16px;
 				margin-left: 0.5rem;
-    			align-self: center;
+				align-self: center;
 			}
 			.d2l-list-item-secondary {
 				color: var(--d2l-color-olivine-minus-1);
@@ -533,17 +538,14 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	_renderCandidates() {
 		this.updateComplete.then(() => {
 			this._currentCandidateElement = this.shadowRoot.querySelector('.d2l-add-activity-dialog d2l-list');
+			this._currentCandidateElement && this._currentCandidateElement.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('disabled', true));
 		});
-		const candidates = this._state.candidatesAreLoaded ? this._renderCandidateItems() :
-			(() => {
-				this._currentCandidateElement && this._currentCandidateElement.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('disabled', true));
-				return html`
-					<div class="d2l-add-activity-dialog-list-disabled">
-						${this._currentCandidateElement}
-					</div>
-					<d2l-loading-spinner size="100"></d2l-loading-spinner>
-				`;
-			})();
+		const candidates = this._state.candidatesAreLoaded || !this._rerenderCandidates ? this._renderCandidateItems() : html`
+			<div class="d2l-add-activity-dialog-list-disabled">
+				${this._currentCandidateElement}
+			</div>
+			<d2l-loading-spinner size="100"></d2l-loading-spinner>
+		`;
 
 		const loadMore = this._state._actionCollectionEntity && this._state._actionCollectionEntity.getNextAction() && !this._isLoadingMore
 			? html`<d2l-button @click=${this.loadMore}>${this.localize('loadMore')}</d2l-button>`

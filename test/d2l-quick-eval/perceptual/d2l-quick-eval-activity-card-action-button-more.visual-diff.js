@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const VisualDiff = require('@brightspace-ui/visual-diff');
 
-describe('d2l-quick-eval-activity-card-action-button-more', function() {
+describe.skip('d2l-quick-eval-activity-card-action-button-more', function() {
 
 	const visualDiff = new VisualDiff('activity-card-action-button-more', __dirname);
 

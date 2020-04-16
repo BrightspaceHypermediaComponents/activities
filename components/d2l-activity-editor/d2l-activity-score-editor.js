@@ -159,7 +159,10 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 					this.shadowRoot.querySelector('#score-out-of');
 				toFocus.focus();
 			} else if (propName === 'activityName') {
-				store.get(this.href).scoreAndGrade.setNewGradeName(this.activityName);
+				const activity = store.get(this.href);
+				if (activity) {
+					activity.scoreAndGrade.setNewGradeName(this.activityName);
+				}
 			}
 		});
 	}

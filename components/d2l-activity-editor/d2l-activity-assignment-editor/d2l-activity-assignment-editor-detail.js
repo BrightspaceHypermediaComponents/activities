@@ -1,6 +1,7 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '../d2l-activity-due-date-editor.js';
+import '../d2l-activity-outcomes.js';
 import '../d2l-activity-score-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
@@ -44,7 +45,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				:host([hidden]) {
 					display: none;
 				}
-				:host > div {
+				:host > div,
+				d2l-activity-outcomes {
 					padding-bottom: 20px;
 				}
 				#score-and-duedate-container {
@@ -192,6 +194,11 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</d2l-input-text>
 				${this._getNameTooltip()}
 			</div>
+
+			<d2l-activity-outcomes
+				href="${activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-outcomes>
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">

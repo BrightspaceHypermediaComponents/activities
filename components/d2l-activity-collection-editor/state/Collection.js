@@ -34,17 +34,20 @@ export class Collection {
 			performAction: performSirenAction,
 			createActionCollection: (parent, entity) => new ActionCollectionEntity(parent, entity)
 		});
-		this._sirenProvider.entityFactory(ActivityUsageEntity, href, token, this._onServerResponse.bind(this));
 	}
 
 	/**
 	 * Set the siren provider. Allows for easier dependency injection
+	 * Siren provider can only be set once.
 	 *
 	 * @param {*} provider
-	 * @memberof Collection
 	 */
 	_setSirenProvider(provider) {
+		if (this._sirenProvider) {
+			return;
+		}
 		this._sirenProvider = provider;
+		this._sirenProvider.entityFactory(ActivityUsageEntity, this._href, this._token, this._onServerResponse.bind(this));
 	}
 
 	/**
@@ -133,7 +136,6 @@ export class Collection {
 	 * @param {*} fields The array of fields to search
 	 * @param {*} clear Whether the previous canditates should be removed
 	 * @returns
-	 * @memberof Collection
 	 */
 	async fetchCandidates(action, fields, clear) {
 		if (!this._collection) {
@@ -178,7 +180,6 @@ export class Collection {
 	 * Search for candidate activities
 	 *
 	 * @param {*} value
-	 * @memberof Collection
 	 */
 	async searchCandidates(value) {
 		const searchAction = this._actionCollectionEntity.getSearchAction();
@@ -186,6 +187,11 @@ export class Collection {
 		await this.fetchCandidates(searchAction, fields, true);
 	}
 
+	/**
+	 * Method to save to publish the changes to the collection
+	 * This method is not implemented
+	 *
+	 */
 	save() {
 		// in theory this will later send a single "publish" request
 		// to the new 'draft' state API
@@ -194,7 +200,11 @@ export class Collection {
 		//usage.setDraftStatus(draftStatus)
 	}
 
-	// to be called whenever the user changes an input
+	/**
+	 * Method to be called when the user makes changes to the collection
+	 * This method is not implemented.
+	 *
+	 */
 	validate() {
 
 	}
@@ -204,7 +214,6 @@ export class Collection {
 	 *
 	 * @param {*} value True or false
 	 * @param {*} autosave Save this change to the entity
-	 * @memberof Collection
 	 */
 	setIsVisible(value, autosave) {
 		this.isVisible = value;
@@ -213,45 +222,62 @@ export class Collection {
 		}
 	}
 
+	/**
+	 * Action to set the ability for a user to edit draft
+	 *
+	 * @param {*} value
+	 */
 	setCanEditDraft(value) {
 		this.canEditDraft = value;
 	}
 
+	/**
+	 * Action to set the is loaded status
+	 *
+	 * @param {*} value
+	 */
 	setIsLoaded(value) {
 		this.isLoaded = value;
 	}
 
 	/**
-	 * Sets the name if the new one is different
+	 * Action that sets the name
 	 *
 	 * @param {*} value New name to set
 	 * @param {*} autosave Save this change to the entity
-	 * @memberof Collection
 	 */
 	setName(value, autosave) {
-		const oldValue = this.name;
 		this.name = value.trim();
-		if (oldValue !== value && autosave) {
+		if (autosave) {
 			this._specialization.setName(value);
 		}
 	}
 
 	/**
-	 * Sets the name if the new one is different
+	 * Action that sets the description
 	 *
 	 * @param {*} value Name to set
 	 * @param {*} autosave Save this change to the entity
 	 */
 	setDescription(value, autosave) {
-		const oldValue = this.description;
 		this.description = value;
-		if (oldValue !== value && autosave) {
+		if (autosave) {
 			this._specialization.setDescription(value);
 		}
 	}
 
+	/**
+	 * Action that sets the activities array
+	 * Sets the visilibity to hidden if there are none
+	 *
+	 * @param {*} activities
+	 */
 	setActivities(activities) {
 		this.activities = activities;
+		// hide empty collections
+		if (this.activities.length === 0 && this.isVisible) {
+			this.setIsVisible(false);
+		}
 	}
 
 	/**
@@ -274,15 +300,13 @@ export class Collection {
 	 */
 	removeActivity(activity) {
 		this._collection.removeItem(activity.itemSelf);
-		if (this.activities.length - 1 === 0) {
-			this.setIsVisible(false);
-		}
 	}
 
-	// reorderActivity(activityToMove, activityBefore) {
-	// 	//
-	// }
-
+	/**
+	 * Action that sets the loaded status of the candidates array
+	 *
+	 * @param {*} value
+	 */
 	setCandidatesAreLoaded(value) {
 		this.candidatesAreLoaded = value;
 	}
@@ -304,7 +328,6 @@ decorate(Collection, {
 	setCanEditDraft: action,
 	addActivity: action,
 	removeActivity: action,
-	reorderActivity: action,
 	setActivities: action,
 	setCandidatesAreLoaded: action
 });

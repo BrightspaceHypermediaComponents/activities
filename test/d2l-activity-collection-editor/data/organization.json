@@ -12,7 +12,7 @@
     "code": "LP",
     "startDate": null,
     "endDate": null,
-    "isActive": true,
+    "isActive": false,
     "description": "Description of collection"
   },
   "entities": [

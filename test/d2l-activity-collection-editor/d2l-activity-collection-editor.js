@@ -27,7 +27,7 @@ describe('d2l-activity-collection-editor', () => {
 		it('Sets the state properties from the hypermedia response', () => {
 			expect(element._state.name).to.exist;
 			expect(element._state.description).to.exist;
-			expect(element._state.isVisible).to.be.true;
+			expect(element._state.isVisible).to.be.false;
 			expect(element._state.activities).to.be.empty;
 		});
 

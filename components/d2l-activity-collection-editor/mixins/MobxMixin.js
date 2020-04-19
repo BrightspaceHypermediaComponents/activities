@@ -7,6 +7,14 @@ import { dispose } from 'siren-sdk/src/es6/EntityFactory.js';
  * @export
  */
 export const MobxMixin = superclass => class extends superclass {
+	/**
+	 * LitElememnt function that declares properties. When a declared property
+	 * changes, LitElement will schedule an update.
+	 * https://lit-element.polymer-project.org/guide/properties#declare
+	 *
+	 * @readonly
+	 * @static
+	 */
 	static get properties() {
 		return {
 			href: {
@@ -26,7 +34,6 @@ export const MobxMixin = superclass => class extends superclass {
 	 *
 	 * @param {*} changedProperties
 	 * @returns {boolean} true if both href and token exist
-	 * @memberof MobxMixin
 	 */
 	shouldUpdate(changedProperties) {
 		if ((changedProperties.has('href') || changedProperties.has('token')) &&
@@ -39,7 +46,6 @@ export const MobxMixin = superclass => class extends superclass {
 	/**
 	 * Removes the reference to the state associated with the component
 	 * Disposes the entity if there are no more references.
-	 * @memberof MobxMixin
 	 */
 	dispose() {
 		if (!sharedState || !sharedState.refCount()) {
@@ -56,9 +62,6 @@ export const MobxMixin = superclass => class extends superclass {
 	/**
 	 * Attaches the global state to the object if it exists.
 	 * Creates a new global state object if needed
-	 *
-	 * @returns
-	 * @memberof MobxMixin
 	 */
 	_makeState() {
 		if (sharedState) {
@@ -66,13 +69,13 @@ export const MobxMixin = superclass => class extends superclass {
 			sharedState.addRef();
 			return;
 		}
-		if (typeof this._stateType !== 'function') {
-			throw new StateError('State type has no constructor');
-		}
 		this._state = stateFactory(this._stateType, this.href, this.token);
 	}
 
 	_setStateType(type) {
+		if (typeof type !== 'function') {
+			throw new StateError('State type has no constructor');
+		}
 		this._stateType = type;
 	}
 

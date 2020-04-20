@@ -38,14 +38,10 @@ export class Collection {
 
 	/**
 	 * Set the siren provider. Allows for easier dependency injection
-	 * Siren provider can only be set once.
 	 *
 	 * @param {*} provider
 	 */
 	_setSirenProvider(provider) {
-		if (this._sirenProvider) {
-			return;
-		}
 		this._sirenProvider = provider;
 		this._sirenProvider.entityFactory(ActivityUsageEntity, this._href, this._token, this._onServerResponse.bind(this));
 	}

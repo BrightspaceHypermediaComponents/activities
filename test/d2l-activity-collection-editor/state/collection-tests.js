@@ -88,7 +88,7 @@ describe('Collection unit tests', () => {
 	});
 
 	describe('_fetchCandidates', () => {
-		beforeEach(() => {
+		beforeEach(async() => {
 			state._collection = collectionEntity;
 		});
 

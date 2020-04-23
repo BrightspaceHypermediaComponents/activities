@@ -112,7 +112,7 @@ export class AssociationCollection {
 	}
 
 	async createPotentialAssociation() {
-		const newAssociation =  await this._entity.createPotentialAssociation();
+		const newAssociation = await this._entity.createPotentialAssociation();
 		const associationEntity = new Association(newAssociation, this.token);
 
 		const rubricHref = associationEntity.getRubricLink();
@@ -145,6 +145,17 @@ export class AssociationCollection {
 		} else if (association.isDeleting) {
 			await association.entity.deleteAssociation();
 		}
+	}
+
+	get dirty() {
+		const associations = Array.from(this.associationsMap.values());
+		for (const association of associations) {
+			if (association.isAssociating || association.isDeleting) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
 

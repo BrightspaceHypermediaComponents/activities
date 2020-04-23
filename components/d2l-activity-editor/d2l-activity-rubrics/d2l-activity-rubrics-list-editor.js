@@ -102,5 +102,11 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		const associations = entity.fetchAssociations();
 		return html`${associations.map(this._renderAssociation, this)}`;
 	}
+
+	hasPendingChanges() {
+		const entity = store.get(this.href);
+		return entity && entity.dirty;
+	}
+
 }
 customElements.define('d2l-activity-rubrics-list-editor', ActivityRubricsListEditor);

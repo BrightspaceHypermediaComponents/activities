@@ -42,8 +42,15 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		this._setStateType(Collection);
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, baseUrl);
+	clearAllSelected() {
+		const items = this.shadowRoot.querySelectorAll('d2l-dialog d2l-list d2l-list-item:not([disabled])');
+		items.forEach(item => item.setSelected(false, true));
+		this._currentSelection = {};
+		this._selectionCount = 0;
+	}
+
+	clearDialog() {
+		this.clearAllSelected();
 	}
 
 	async getCandidates(action, fields = null, clearList = false) {
@@ -56,24 +63,13 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		this._rerenderCandidates = false;
 	}
 
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, baseUrl);
+	}
+
 	handleSelectionChange(e) {
 		this._currentSelection[e.detail.key] = e.detail.selected;
 		this._selectionCount = this._selectedActivities().length;
-	}
-
-	_selectedActivities() {
-		return Object.keys(this._currentSelection).filter((key) => this._currentSelection[key]);
-	}
-
-	clearAllSelected() {
-		const items = this.shadowRoot.querySelectorAll('d2l-dialog d2l-list d2l-list-item:not([disabled])');
-		items.forEach(item => item.setSelected(false, true));
-		this._currentSelection = {};
-		this._selectionCount = 0;
-	}
-
-	clearDialog() {
-		this.clearAllSelected();
 	}
 
 	async loadMore() {
@@ -507,39 +503,14 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		return html`<d2l-list @d2l-list-selection-change=${this.handleSelectionChange}>${items}</d2l-list>`;
 	}
 
-	_renderCourseImageSkeleton() {
-		return html`
-			<svg viewBox="0 0 180 77" width="100%" slot="illustration" class="d2l-activity-collection-image-skeleton">
-				<rect x="0" width="100%" y="0" height="100%" stroke="none" class="d2l-activity-collection-skeleton-rect"></rect>
-			</svg>
-		`;
-	}
-
-	_renderItemListSkeleton(numberOfItems) {
-		const itemsSkeleton = html`
-			<d2l-list-item>
-				${this._renderCourseImageSkeleton()}
-				<d2l-list-item-content>
-					<svg width="100%" class="d2l-activity-collection-body-compact-skeleton-svg">
-						<rect x="0" width="40%" y="0" height="100%" stroke="none" rx="4" class="d2l-activity-collection-skeleton-rect"></rect>
-					</svg>
-					<div slot="secondary">
-						<svg width="100%" class="d2l-activity-collection-body-small-skeleton-svg">
-							<rect x="0" width="30%" y="0" height="100%" stroke="none" rx="4" class="d2l-activity-collection-skeleton-rect"></rect>
-						</svg>
-					</div>
-				</d2l-list-item-content>
-				<d2l-button-icon slot="actions" icon="d2l-tier1:close-default" disabled>
-			</d2l-list-item>
-		`;
-		return html`<d2l-list>${(new Array(numberOfItems)).fill(itemsSkeleton)}</d2l-list>`;
-	}
-
 	_renderCandidates() {
-		this.updateComplete.then(() => {
-			this._currentCandidateElement = this.shadowRoot.querySelector('.d2l-add-activity-dialog d2l-list');
-			this._currentCandidateElement && this._currentCandidateElement.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('disabled', true));
-		});
+		if (!this._state.candidatesAreLoaded ) {
+			this.updateComplete.then(() => {
+				this._currentCandidateElement = this.shadowRoot.querySelector('.d2l-add-activity-dialog d2l-list');
+				this._currentCandidateElement && this._currentCandidateElement.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('disabled', true));
+			});
+		}
+
 		const candidates = this._state.candidatesAreLoaded || !this._rerenderCandidates ? this._renderCandidateItems() : html`
 			<div class="d2l-add-activity-dialog-list-disabled">
 				${this._currentCandidateElement}
@@ -598,6 +569,34 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 		`;
 	}
 
+	_renderCourseImageSkeleton() {
+		return html`
+			<svg viewBox="0 0 180 77" width="100%" slot="illustration" class="d2l-activity-collection-image-skeleton">
+				<rect x="0" width="100%" y="0" height="100%" stroke="none" class="d2l-activity-collection-skeleton-rect"></rect>
+			</svg>
+		`;
+	}
+
+	_renderItemListSkeleton(numberOfItems) {
+		const itemsSkeleton = html`
+			<d2l-list-item>
+				${this._renderCourseImageSkeleton()}
+				<d2l-list-item-content>
+					<svg width="100%" class="d2l-activity-collection-body-compact-skeleton-svg">
+						<rect x="0" width="40%" y="0" height="100%" stroke="none" rx="4" class="d2l-activity-collection-skeleton-rect"></rect>
+					</svg>
+					<div slot="secondary">
+						<svg width="100%" class="d2l-activity-collection-body-small-skeleton-svg">
+							<rect x="0" width="30%" y="0" height="100%" stroke="none" rx="4" class="d2l-activity-collection-skeleton-rect"></rect>
+						</svg>
+					</div>
+				</d2l-list-item-content>
+				<d2l-button-icon slot="actions" icon="d2l-tier1:close-default" disabled>
+			</d2l-list-item>
+		`;
+		return html`<d2l-list>${(new Array(numberOfItems)).fill(itemsSkeleton)}</d2l-list>`;
+	}
+
 	_onListImageLoaded(imageChunk) {
 		this._state._loadedImages[imageChunk].loaded++;
 		if (!this._state._loadedImages[imageChunk].allLoaded && this._state._loadedImages[imageChunk].total && this._state._loadedImages[imageChunk].loaded >= this._state._loadedImages[imageChunk].total) {
@@ -605,6 +604,11 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 			this.requestUpdate('_loadedImages', []);
 		}
 	}
+
+	_selectedActivities() {
+		return Object.keys(this._currentSelection).filter((key) => this._currentSelection[key]);
+	}
+
 	/* User event handlers */
 	_toggleVisibility() {
 		this._state.setIsVisible(!this._state.isVisible, true);
@@ -620,7 +624,9 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	async handleSearch(event) {
+		this._rerenderCandidates = true;
 		await this._state.searchCandidates(event.detail.value);
+		this._rerenderCandidates = false;
 	}
 
 	async addActivities() {

@@ -504,7 +504,7 @@ class CollectionEditor extends MobxMixin(LocalizeMixin(MobxLitElement)) {
 	}
 
 	_renderCandidates() {
-		if (!this._state.candidatesAreLoaded ) {
+		if (!this._state.candidatesAreLoaded) {
 			this.updateComplete.then(() => {
 				this._currentCandidateElement = this.shadowRoot.querySelector('.d2l-add-activity-dialog d2l-list');
 				this._currentCandidateElement && this._currentCandidateElement.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('disabled', true));

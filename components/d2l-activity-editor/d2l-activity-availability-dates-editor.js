@@ -16,6 +16,10 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 			:host([hidden]) {
 				display: none;
 			}
+			#startdate-container,
+			#enddate-container {
+				min-height: 62px; /* Hack to force a consistent the height for the old datetime picker. Can hopefully be removed when the new picker is used. */
+			}
 		`];
 	}
 
@@ -29,33 +33,38 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 	}
 
 	_onStartDatetimePickerDatetimeCleared() {
-		store.get(this.href).setStartDate('');
+		store.get(this.href).dates.setStartDate('');
 	}
 
 	_onStartDatetimePickerDatetimeChanged(e) {
-		store.get(this.href).setStartDate(e.detail.toISOString());
+		store.get(this.href).dates.setStartDate(e.detail.toISOString());
 	}
 
 	_onEndDatetimePickerDatetimeCleared() {
-		store.get(this.href).setEndDate('');
+		store.get(this.href).dates.setEndDate('');
 	}
 
 	_onEndDatetimePickerDatetimeChanged(e) {
-		store.get(this.href).setEndDate(e.detail.toISOString());
+		store.get(this.href).dates.setEndDate(e.detail.toISOString());
 	}
 
 	render() {
-		const activity = store.get(this.href);
-		let canEditDates, startDate, endDate;
+		const entity = store.get(this.href);
+		const dates = entity ? entity.dates : null;
+		let canEditDates, startDate, endDate, startDateErrorTerm, endDateErrorTerm;
 
-		if (!activity) {
+		if (!dates) {
 			canEditDates = false;
 			startDate = null;
 			endDate = null;
+			startDateErrorTerm = null;
+			endDateErrorTerm = null;
 		} else {
-			canEditDates = activity.canEditDates;
-			startDate = activity.startDate;
-			endDate = activity.endDate;
+			canEditDates = dates.canEditDates;
+			startDate = dates.startDate;
+			endDate = dates.endDate;
+			startDateErrorTerm = this.localize(dates.startDateErrorTerm);
+			endDateErrorTerm = this.localize(dates.endDateErrorTerm);
 		}
 
 		return html`
@@ -70,6 +79,10 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 					datetime="${startDate}"
 					overrides="${this._overrides}"
 					placeholder="${this.localize('noStartDate')}"
+					aria-invalid="${startDateErrorTerm ? 'true' : 'false'}"
+					invalid="${startDateErrorTerm}"
+					tooltip-red
+					boundary="{&quot;below&quot;:240}"
 					@d2l-datetime-picker-datetime-changed="${this._onStartDatetimePickerDatetimeChanged}"
 					@d2l-datetime-picker-datetime-cleared="${this._onStartDatetimePickerDatetimeCleared}">
 				</d2l-datetime-picker>
@@ -85,6 +98,10 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeMixin
 					datetime="${endDate}"
 					overrides="${this._overrides}"
 					placeholder="${this.localize('noEndDate')}"
+					aria-invalid="${endDateErrorTerm ? 'true' : 'false'}"
+					invalid="${endDateErrorTerm}"
+					tooltip-red
+					boundary="{&quot;below&quot;:240}"
 					@d2l-datetime-picker-datetime-changed="${this._onEndDatetimePickerDatetimeChanged}"
 					@d2l-datetime-picker-datetime-cleared="${this._onEndDatetimePickerDatetimeCleared}">
 				</d2l-datetime-picker>

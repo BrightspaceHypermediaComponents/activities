@@ -9,7 +9,7 @@ import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 			window.d2lfetch = {
 				fetch: function() {}
 			};
-			sandbox = sinon.sandbox.create();
+			sandbox = sinon.createSandbox();
 		});
 
 		teardown(function() {

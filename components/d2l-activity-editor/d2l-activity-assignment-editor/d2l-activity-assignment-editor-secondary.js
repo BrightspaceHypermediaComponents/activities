@@ -1,7 +1,8 @@
 import './d2l-activity-assignment-availability-editor.js';
 import './d2l-activity-assignment-evaluation-editor.js';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
-import '../d2l-activity-rubrics-list-container.js';
+import '@brightspace-ui/core/components/colors/colors.js';
+import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
@@ -9,9 +10,8 @@ import { getLocalizeResources } from '../localization.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { SaveStatusMixin } from '../save-status-mixin.js';
 
-class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
+class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
 
 	static get properties() {
 		return {
@@ -25,14 +25,17 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 			css`
 				:host {
 					display: block;
+					background: var(--d2l-color-gypsum);
 				}
 				:host([hidden]) {
 					display: none;
 				}
-				:host > div {
-					padding-bottom: 20px;
-				}
-
+				:host > * {
+					background: var(--d2l-color-white);
+					margin-bottom: 10px;
+					border-radius: 8px;
+					padding: 20px;
+					padding-top: 0;
 				}
 			`
 		];
@@ -66,28 +69,40 @@ class AssignmentEditorSecondary extends SaveStatusMixin(RtlMixin(EntityMixinLit(
 	}
 
 	render() {
-		return html`
-
+		const availabilityAccordian = html`
 			<d2l-activity-assignment-availability-editor
 				href="${this._activityUsageHref}"
 				.token="${this.token}">
 			</d2l-activity-assignment-availability-editor>
+		`;
 
-			<d2l-activity-assignment-editor-submission-and-completion
+		const shouldRenderCompletionEvaluation = this._isMilestoneEnabled(Milestones.M2);
+
+		if (!shouldRenderCompletionEvaluation) {
+			return availabilityAccordian;
+		}
+
+		const submissionCompletionCategorizationAccordian = html`
+			<d2l-activity-assignment-editor-submission-and-completion-editor
 				href="${this.href}"
 				.token="${this.token}">
-			</d2l-activity-assignment-editor-submission-and-completion>
+			</d2l-activity-assignment-editor-submission-and-completion-editor>
+		`;
 
-			<d2l-activity-rubrics-list-container
-				href="${this._activityUsageHref}"
-				.token="${this.token}">
-			</d2l-activity-rubrics-list-container>
-
+		const evaluationAccordian = html`
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
-				.token="${this.token}">
+				.token="${this.token}"
+				activityUsageHref=${this._activityUsageHref}>
 			</d2l-activity-assignment-evaluation-editor>
 		`;
+
+		return html`
+			${availabilityAccordian}
+			${submissionCompletionCategorizationAccordian}
+			${evaluationAccordian}
+		`;
+
 	}
 }
 customElements.define('d2l-activity-assignment-editor-secondary', AssignmentEditorSecondary);

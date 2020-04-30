@@ -96,7 +96,7 @@ class AdminList extends EntityMixinLit(LitElement) {
 		const items = this._items.map(item =>
 			html`
 			<d2l-list-item href=${ifDefined(item.usage.editHref())}>
-				<d2l-organization-image href=${item.organization.self()} slot="illustration"></d2l-organization-image>
+				<d2l-organization-image href=${item.organization.self()} .token=${this.token} slot="illustration"></d2l-organization-image>
 				<d2l-list-item-content>
 					<div>${item.organization.name()}</div>
 				</d2l-list-item-content>

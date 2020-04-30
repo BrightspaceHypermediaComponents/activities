@@ -4,13 +4,17 @@ import './d2l-activity-assignment-editor-secondary.js';
 import './d2l-activity-assignment-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import 'd2l-save-status/d2l-save-status.js';
+import '@brightspace-ui/core/components/colors/colors.js';
+
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { getLocalizeResources } from '../localization.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as store } from './state/assignment-store.js';
 
-class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(MobxLitElement)) {
+class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -25,7 +29,35 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 			/**
 			 * API endpoint for determining whether a domain is trusted
 			 */
-			trustedSitesEndpoint: { type: String }
+			trustedSitesEndpoint: { type: String },
+			/**
+			 * If there is an error on the page. Is used to toggle the d2l-alert.
+			 */
+			isError: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-2
+			*/
+			milestoneTwoEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-2
+			*/
+			milestoneThreeEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-2
+			*/
+			milestoneFourEnabled: { type: Boolean },
+			/**
+			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
+			*/
+			outcomesTerm: { type: String },
+			/**
+			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
+			*/
+			browseOutcomesText: { type: String },
+			/**
+			* Set the WidthType on the template to constrain page width if necessary
+			*/
+			widthType: { type: String, attribute: 'width-type' }
 		};
 	}
 
@@ -37,13 +69,35 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 			:host([hidden]) {
 				display: none;
 			}
-			.d2l-activity-assignment-editor-detail-panel, .d2l-activity-assignment-editor-secondary-panel {
+			.d2l-activity-assignment-editor-primary-panel {
 				padding: 20px;
+			}
+			d2l-alert {
+				max-width: 100%;
+				margin-bottom: 10px;
+			}
+			.d2l-activity-assignment-editor-secondary-panel {
+				padding: 10px;
 			}
 			d2l-save-status {
 				display: inline-block;
 			}
+			div[slot="secondary"] {
+				height: 100%;
+				background: var(--d2l-color-gypsum);
+			}
 		`;
+	}
+
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, import.meta.url);
+	}
+
+	constructor() {
+		super(store);
+
+		this.type = 'assignment';
+		this.telemetryId = 'assignments';
 	}
 
 	firstUpdated(changedProperties) {
@@ -66,10 +120,37 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 			e.stopPropagation();
 		}
 
+		if (e.detail.key === 'd2l-milestone-two') {
+			e.detail.provider = this.milestoneTwoEnabled;
+			e.stopPropagation();
+		}
+
+		if (e.detail.key === 'd2l-milestone-three') {
+			e.detail.provider = this.milestoneThreeEnabled;
+			e.stopPropagation();
+		}
+
+		if (e.detail.key === 'd2l-milestone-four') {
+			e.detail.provider = this.milestoneFourEnabled;
+			e.stopPropagation();
+		}
+
 		// Provides unfurl API endpoint for d2l-labs-attachment component
 		// https://github.com/Brightspace/attachment/blob/e44cab1f0cecc55dd93acf59212fabc6872c0bd3/components/attachment.js#L110
 		if (e.detail.key === 'd2l-provider-unfurl-api-endpoint') {
 			e.detail.provider = () => this.unfurlEndpoint;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-provider-outcomes-term') {
+			e.detail.provider = this.outcomesTerm;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-provider-browse-outcomes-text') {
+			e.detail.provider = this.browseOutcomesText;
 			e.stopPropagation();
 			return;
 		}
@@ -125,20 +206,22 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 		} = activity;
 
 		return html`
-			<d2l-template-primary-secondary slot="editor">
+			<d2l-template-primary-secondary slot="editor" width-type="${this.widthType}">
 				<slot name="editor-nav" slot="header"></slot>
-				<d2l-activity-assignment-editor-detail
-					href="${assignmentHref}"
-					.token="${this.token}"
-					slot="primary"
-					class="d2l-activity-assignment-editor-detail-panel">
-				</d2l-activity-assignment-editor-detail>
-				<d2l-activity-assignment-editor-secondary
-					href="${assignmentHref}"
-					.token="${this.token}"
-					slot="secondary"
-					class="d2l-activity-assignment-editor-secondary-panel">
-				</d2l-activity-assignment-editor-secondary>
+				<div slot="primary" class="d2l-activity-assignment-editor-primary-panel">
+					${this.isError ? html`<d2l-alert type="error">${this.localize('assignmentSaveError')}</d2l-alert>` : null}
+					<d2l-activity-assignment-editor-detail
+						href="${assignmentHref}"
+						.token="${this.token}">
+					</d2l-activity-assignment-editor-detail>
+				</div>
+				<div slot="secondary">
+					<d2l-activity-assignment-editor-secondary
+						href="${assignmentHref}"
+						.token="${this.token}"
+						class="d2l-activity-assignment-editor-secondary-panel">
+					</d2l-activity-assignment-editor-secondary>
+				</div>
 				<d2l-activity-assignment-editor-footer
 					href="${assignmentHref}"
 					.token="${this.token}"
@@ -153,6 +236,8 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 	render() {
 		return html`
 			<d2l-activity-editor
+				type="${this.type}"
+				telemetryId="${this.telemetryId}"
 				.href=${this.href}
 				.token=${this.token}
 				unfurlEndpoint="${this.unfurlEndpoint}"
@@ -162,6 +247,12 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 				${this._editorTemplate}
 
 			</d2l-activity-editor>
+
+			<d2l-dialog title-text="${this.localize('discardChangesTitle')}">
+				<span>${this.localize('discardChangesQuestion')}</span>
+				<d2l-button slot="footer" primary dialog-action="confirm">${this.localize('yesLabel')}</d2l-button>
+				<d2l-button slot="footer" dialog-action="cancel">${this.localize('noLabel')}</d2l-button>
+			</d2l-dialog>
 		`;
 	}
 
@@ -179,6 +270,20 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 		await assignment.save();
 	}
 
+	hasPendingChanges() {
+		const activity = store.getActivity(this.href);
+		if (!activity) {
+			return false;
+		}
+
+		const assignment = store.getAssignment(activity.assignmentHref);
+		if (!assignment) {
+			return false;
+		}
+
+		return assignment.dirty;
+	}
+
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
@@ -186,6 +291,11 @@ class AssignmentEditor extends ActivityEditorContainerMixin(ActivityEditorMixin(
 			this.href && this.token) {
 			super._fetch(() => store.fetchActivity(this.href, this.token));
 		}
+	}
+
+	delete() {
+		// the decision is not to delete assignment at this moment, keeping the structure here for future
+		return true;
 	}
 }
 customElements.define('d2l-activity-assignment-editor', AssignmentEditor);

@@ -10,10 +10,15 @@ export default {
 	"txtAnnotationsOff": "Annotations off", // annotations off text
 	"emptyNameError": "Name is required", // Error message to inform user that the assignment name is a required field
 	"instructions": "Instructions", // Label for the instruction field when creating/editing an assignment
-	"hdrTurnitin": "Turnitin® Integration", // turnitin heading
-	"hlpTurnitin": "The Turnitin® Integration allows you to use Originality Check® to assess student work for academic integrity and to use the GradeMark® external evaluation tool for assessment.", // turnitin help
-	"btnEditTurnitin": "Manage Turnitin® Integration", // edit turnitin button
+	"hdrTurnitin": "Turnitin Integration", // turnitin heading
+	"hlpTurnitin": "Turnitin® adds additional functionality to evaluation.", // turnitin help
+	"btnEditTurnitin": "Manage Turnitin", // edit turnitin button
 	"btnCloseDialog": "Close this Dialog", // close dialog button
+	"txtOriginalityCheckOn": "Originality Check On", // originality check on text
+	"txtGradeMarkOn": "GradeMark On", // grade mark on text
+	"txtTurnitinOn": "Turnitin enabled", // turnitin on text
+	"btnCancel": "Cancel", // cancel button
+	"btnSave": "Save", // save button
 	"hdrAvailability": "Availability Dates & Conditions", // availability header
 	"name": "Name", // Label for the name field when creating/editing an activity
 	"submissionType": "Submission Type", // Label for the submission type field when creating/editing an assignment
@@ -26,6 +31,19 @@ export default {
 	"txtIndividual": "Individual Assignment", // Label for individual assignment type
 	"txtGroup": "Group Assignment", // Label for group assignment type,
 	"txtGroupCategoryWithName": "Group Category: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
-	"txtGroupCategory": "Group Category", // Label for group category
-	"submissionCompletionAndCategorization": "Submission, Completion & Categorization" // Label for the availability and dates summarizer
+	"txtGroupCategory": "Group Category", // Label for group category,
+	"txtGroupAssignmentSummary": "Group assignment", // Summary message for accordion when assignment type is set to group
+	"submissionCompletionAndCategorization": "Submission, Completion & Categorization", // Label for the availability and dates summarizer
+	"assignmentSaveError": "Your assignment wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"folderTypeCannotChange": "Assignment type cannot be changed once submissions are present", // Folder type cannot change
+	"folderTypeNoGroups": "No groups exist. Create new groups in the Groups tool.", // Folder type no groups
+	"folderTypeCreateGroups": "Create new groups in the Groups tool.", // Folder type create groups
+	"discardChangesTitle": "Discard changes?", // Discard Changes User Prompt
+	"discardChangesQuestion": "Are you sure you want to discard your changes?", // Discard Changes User Prompt
+	"yesLabel": "Yes",
+	"noLabel": "No",
+	"filesSubmissionLimit": "Files Allowed Per Submission",
+	"UnlimitedFilesPerSubmission": "Unlimited",
+	"OneFilePerSubmission": "One File",
+	"submissionsRule": "Submissions"
 };

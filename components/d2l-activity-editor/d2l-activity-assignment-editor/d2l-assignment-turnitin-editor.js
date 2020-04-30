@@ -1,20 +1,15 @@
 import '@brightspace-ui/core/components/button/button.js';
+import '@brightspace-ui/core/components/icons/icon.js';
 import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
-import { css, html, LitElement } from 'lit-element/lit-element';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
+import { css, html } from 'lit-element/lit-element';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
+import { assignments as store } from './state/assignment-store.js';
 
-class AssignmentTurnitinEditor extends EntityMixinLit(LocalizeMixin(LitElement)) {
-
-	static get properties() {
-
-		return {
-			_hidden: { type: Boolean },
-			_url: { type: String }
-		};
-	}
+class AssignmentTurnitinEditor
+	extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
 
 	static get styles() {
 
@@ -26,12 +21,27 @@ class AssignmentTurnitinEditor extends EntityMixinLit(LocalizeMixin(LitElement))
 				margin: 0 0 0.6rem 0;
 			}
 
-			.d2l-body-small {
+			.help-text {
 				margin: 0 0 0.3rem 0;
 			}
 
 			d2l-button-subtle {
 				margin-left: -0.6rem;
+			}
+
+			.feature-summary {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.feature-summary-item {
+				display: inline-block;
+				margin-left: 0.5rem;
+			}
+
+			.feature-summary-item:first-child {
+				margin-left: 0;
 			}
 			`
 		];
@@ -44,30 +54,22 @@ class AssignmentTurnitinEditor extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	constructor() {
 
-		super();
-		this._setEntityType(AssignmentEntity);
-	}
-
-	set _entity(entity) {
-
-		if (!this._entityHasChanged(entity)) {
-			return;
-		}
-
-		if (entity) {
-			this._hidden = !entity.canEditTurnitin();
-			this._url = entity.editTurnitinUrl();
-		}
-		super._entity = entity;
+		super(store);
 	}
 
 	_onClickEdit() {
 
-		if (!this._url) {
+		const entity = store.get(this.href);
+		if (!entity) {
 			return;
 		}
 
-		const location = new D2L.LP.Web.Http.UrlLocation(this._url);
+		const url = entity.editTurnitinUrl;
+		if (!url) {
+			return;
+		}
+
+		const location = new D2L.LP.Web.Http.UrlLocation(url);
 		const buttons = [
 			{
 				Key: 'save',
@@ -85,33 +87,93 @@ class AssignmentTurnitinEditor extends EntityMixinLit(LocalizeMixin(LitElement))
 		];
 
 		// Launch into our friend, the LMS, to do the thing.
-		D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
+		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
 			/*               opener: */ document.body,
 			/*             location: */ location,
 			/*          srcCallback: */ 'SrcCallback',
 			/*       resizeCallback: */ '',
-			/*      responseDataKey: */ '',
-			/*                width: */ 720,
-			/*               height: */ 1280,
+			/*      responseDataKey: */ 'result',
+			/*                width: */ 960,
+			/*               height: */ 960,
 			/*            closeText: */ this.localize('btnCloseDialog'),
 			/*              buttons: */ buttons,
 			/* forceTriggerOnCancel: */ false
 		);
+		delayedResult.AddListener(result => {
+
+			const resultIsValid = Array.isArray(result) && result.length >= 2;
+			if (!resultIsValid) {
+				return;
+			}
+
+			const [isOriginalityCheckEnabled, isGradeMarkEnabled] = result;
+			entity.setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled);
+		});
 	}
 
 	render() {
 
+		const entity = store.get(this.href);
+		if (!entity) {
+			return html``;
+		}
+
+		const {
+			canEditTurnitin,
+			isOriginalityCheckEnabled,
+			isGradeMarkEnabled
+		} = entity;
+
+		const isTurnitinEnabled = isOriginalityCheckEnabled || isGradeMarkEnabled;
+		const isEditorDisplayed = canEditTurnitin || isTurnitinEnabled;
+
+		let featureSummary;
+		if (isTurnitinEnabled) {
+
+			let originalityCheckItem;
+			if (isOriginalityCheckEnabled) {
+				originalityCheckItem = html`
+					<li class="feature-summary-item d2l-body-small">
+						<d2l-icon icon="tier1:check"></d2l-icon>
+						${this.localize('txtOriginalityCheckOn')}
+					</li>
+				`;
+			}
+
+			let gradeMarkItem;
+			if (isGradeMarkEnabled) {
+				gradeMarkItem = html`
+					<li class="feature-summary-item d2l-body-small">
+						<d2l-icon icon="tier1:check"></d2l-icon>
+						${this.localize('txtGradeMarkOn')}
+					</li>
+				`;
+			}
+
+			featureSummary = html`
+				<ul class="feature-summary">
+					${originalityCheckItem}
+					${gradeMarkItem}
+				</ul>
+			`;
+		}
+
 		return html`
-			<div id="assignment-turnitin-container" ?hidden="${this._hidden}">
+			<div id="assignment-turnitin-container" ?hidden="${!isEditorDisplayed}">
 				<h4 class="d2l-heading-4">${this.localize('hdrTurnitin')}</h4>
-				<p class="d2l-body-small">${this.localize('hlpTurnitin')}</p>
+				<p class="help-text d2l-body-small">${this.localize('hlpTurnitin')}</p>
+				${featureSummary}
 				<d2l-button-subtle
 					text="${this.localize('btnEditTurnitin')}"
-					@click="${this._onClickEdit}">
+					@click="${this._onClickEdit}"
+					?hidden="${!canEditTurnitin}">
 				</d2l-button-subtle>
 			</div>
 		`;
 	}
 }
 
-customElements.define('d2l-assignment-turnitin-editor', AssignmentTurnitinEditor);
+customElements.define(
+	'd2l-assignment-turnitin-editor',
+	AssignmentTurnitinEditor
+);

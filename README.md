@@ -1,4 +1,6 @@
 # d2l-activities
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=BrightspaceHypermediaComponents/activities)](https://dependabot.com)
+[![Build status](https://travis-ci.com/brightspaceHypermediaComponents/activities.svg?branch=master)](https://travis-ci.com/brightspaceHypermediaComponents/activities)
 
 Web components to be used with activities entities!
 

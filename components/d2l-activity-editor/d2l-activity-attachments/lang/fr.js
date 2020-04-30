@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "Fermer la boîte de dialogue", // ARIA text for button to close dialog
 	"recordAudio": "Enregistrer un fichier audio", // Text for a button that opens a dialog to record audio
 	"recordVideo": "Enregistrer une vidéo", // Text for a button that opens a dialog to record video
-	"save": "Enregistrer", // Text for a save button
+	"save": "Enregistrer", // Text for a save button,
+	"attach": "Joindre", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"addFileMenu": "Téléversement de fichier", // Attach menu item text
+	"addLinkMenu": "Lien Web", // Attach menu item text
+	"addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"addQuicklinkMenu": "Activité existante" // Attach menu item text
 };

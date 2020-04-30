@@ -17,6 +17,7 @@ export default {
 	numberOfActivities: "{count, plural, =1 {1 activiteit} other {{count} activiteiten}}", // The number of learning tasks currently in the list.
 	removeActivity: "Activiteit verwijderen, {courseName} van het leertraject.", // An action to remove a learning task from a list of tasks that are related
 	search: "Zoeken", // When adding activities to the learning path, this is where you can search for potential activities to add.
+	searchPlaceholder: "Zoeken...", // Placeholder text for the search input to search the list of potential activities.
 	selected: "{count} geselecteerd.", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.
 	untitledLearningPath: "Naamloos leertraject", // Default name of a learning path before the user has changed it.
 };

@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const VisualDiff = require('@brightspace-ui/visual-diff');
 
-describe('d2l-quick-eval-submissions-table', function() {
+describe.skip('d2l-quick-eval-submissions-table', function() {
 
 	const visualDiff = new VisualDiff('submissions-table', __dirname);
 

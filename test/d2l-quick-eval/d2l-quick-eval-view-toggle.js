@@ -11,7 +11,7 @@
 			activitiesView = fixture('activitiesView');
 			submissionsView = fixture('submissionsView');
 			invalidView = fixture('invalidView');
-			sandbox = sinon.sandbox.create();
+			sandbox = sinon.createSandbox();
 		});
 
 		teardown(function() {

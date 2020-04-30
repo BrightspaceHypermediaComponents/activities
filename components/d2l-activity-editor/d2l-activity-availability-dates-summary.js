@@ -39,8 +39,8 @@ class ActivityAvailabilityDatesSummary
 			return html``;
 		}
 
-		const startDate = this._formatDate(activity.startDate);
-		const endDate = this._formatDate(activity.endDate);
+		const startDate = this._formatDate(activity.dates.startDate);
+		const endDate = this._formatDate(activity.dates.endDate);
 
 		let text;
 

@@ -2,8 +2,15 @@ import './d2l-activity-assignment-annotations-editor.js';
 import './d2l-activity-assignment-annotations-summary.js';
 import './d2l-activity-assignment-anonymous-marking-editor.js';
 import './d2l-activity-assignment-anonymous-marking-summary.js';
+import '../d2l-activity-rubrics/d2l-activity-rubrics-list-wrapper.js';
+import '../d2l-activity-rubrics/d2l-activity-rubrics-summary-wrapper.js';
 import './d2l-assignment-turnitin-editor.js';
+import './d2l-assignment-turnitin-summary.js';
+
+import { bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
+
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 
@@ -14,30 +21,30 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 		return {
 			href: { type: String },
 			token: { type: Object },
+			activityUsageHref: { type: String }
 		};
 	}
 
 	static get styles() {
 
-		return css`
-			:host {
-				display: block;
-			}
+		return [
+			bodySmallStyles,
+			heading3Styles,
+			css`
+				:host {
+					display: block;
+				}
 
-			:host([hidden]) {
-				display: none;
-			}
+				:host([hidden]) {
+					display: none;
+				}
 
-			.editor {
-				margin: 1rem 0;
-			}
-
-			.summary {
-				list-style: none;
-				padding-left: 0.2rem;
-				color: var(--d2l-color-galena);
-			}
-		`;
+				.editor {
+					margin: 1rem 0;
+				}
+			`,
+			summarizerHeaderStyles,
+			summarizerSummaryStyles];
 	}
 
 	static async getLocalizeResources(langs) {
@@ -89,7 +96,12 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 
 	_renderTurnitinSummary() {
 
-		return html``;
+		return html`
+			<d2l-assignment-turnitin-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-assignment-turnitin-summary>
+		`;
 	}
 
 	_renderTurnitinEditor() {
@@ -102,18 +114,38 @@ class ActivityAssignmentEvaluationEditor extends LocalizeMixin(LitElement) {
 		`;
 	}
 
+	_renderRubricsSummary() {
+		return html`
+			<d2l-activity-rubrics-summary-wrapper
+				href="${this.activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-rubrics-summary-wrapper>
+		`;
+	}
+
+	_renderRubricsCollectionEditor() {
+		return html`
+			<d2l-activity-rubrics-list-wrapper
+				href="${this.activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-rubrics-list-wrapper>
+		`;
+	}
+
 	render() {
 
 		return html`
 			<d2l-labs-accordion-collapse flex header-border>
-				<h4 class="header" slot="header">
+				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
 					${this.localize('evaluationAndFeedback')}
-				</h4>
-				<ul class="summary" slot="summary">
-					${this._renderAnonymousMarkingSummary()}
-					${this._renderAnnotationsSummary()}
-					${this._renderTurnitinSummary()}
+				</h3>
+				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+					<li>${this._renderAnonymousMarkingSummary()}</li>
+					<li>${this._renderAnnotationsSummary()}</li>
+					<li>${this._renderTurnitinSummary()}</li>
+					<li>${this._renderRubricsSummary()}</li>
 				</ul>
+				${this._renderRubricsCollectionEditor()}
 				${this._renderAnnotationsEditor()}
 				${this._renderAnonymousMarkingEditor()}
 				${this._renderTurnitinEditor()}

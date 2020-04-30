@@ -17,6 +17,7 @@ export default {
 	numberOfActivities: "{count,plural,=1{1개 활동} other {{count}개 활동}}", // The number of learning tasks currently in the list.
 	removeActivity: "학습 경로에서 {courseName}활동을 제거하십시오.", // An action to remove a learning task from a list of tasks that are related
 	search: "검색", // When adding activities to the learning path, this is where you can search for potential activities to add.
+	searchPlaceholder: "검색...", // Placeholder text for the search input to search the list of potential activities.
 	selected: "{count}개 선택됨", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.
 	untitledLearningPath: "제목 없는 학습 경로", // Default name of a learning path before the user has changed it.
 };

@@ -14,10 +14,15 @@ describe('d2l-activity-list-item', () => {
 				ok: true,
 				json: () => { return Promise.resolve(entity); }
 			}));
+		fetchStub.withArgs(sinon.match(url), sinon.match.any)
+			.returns(Promise.resolve({
+				ok: true,
+				json: () => { return Promise.resolve(entity); }
+			}));
 	}
 
 	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+		sandbox = sinon.createSandbox();
 		activityEntity = window.D2L.Hypermedia.Siren.Parse({
 			class:['activity'],
 			links: [{
@@ -131,10 +136,6 @@ describe('d2l-activity-list-item', () => {
 				expect(component._organizationUrl).to.equal('/organization/1');
 			});
 
-			it('should set the image entity', () => {
-				expect(component._image).to.equal(imageEntity);
-			});
-
 			it('should set the activity homepage', () => {
 				expect(component._activityHomepage).to.equal('#');
 			});
@@ -148,8 +149,11 @@ describe('d2l-activity-list-item', () => {
 		});
 
 		it(testCase.name + 'should send text loaded event', done => {
+			let calls = 0;
 			handler = () => {
-				done();
+				if (++calls >= 2) {
+					done();
+				}
 			};
 			window.document.addEventListener('d2l-activity-text-loaded', handler);
 			testCase.beforeEachFn();

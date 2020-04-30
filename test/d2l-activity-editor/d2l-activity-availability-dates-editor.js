@@ -1,18 +1,24 @@
 import '../../components/d2l-activity-editor/d2l-activity-availability-dates-editor';
 import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+import { ActivityDates } from '../../components/d2l-activity-editor/state/activity-dates';
 import { ActivityUsage } from '../../components/d2l-activity-editor/state/activity-usage.js';
 import { shared as store } from '../../components/d2l-activity-editor/state/activity-store.js';
 
 describe('d2l-activity-availability-dates-editor', function() {
 
-	let el, href, activity, startDatePicker, startDatePickerContainer, endDatePicker, endDatePickerContainer, labels;
+	let el, href, activity, dates, startDatePicker, startDatePickerContainer, endDatePicker, endDatePickerContainer, labels;
 
 	beforeEach(async() => {
+		dates = new ActivityDates({
+			canEditDates: () => true,
+			startDate: () => '2020-02-24T04:59:00.000Z',
+			dueDate: () => '2020-02-25T04:59:00.000Z',
+			endDate: () => '2020-02-26T04:59:00.000Z'
+		});
+
 		href = 'http://activity/1';
 		activity = new ActivityUsage(href, 'token');
-		activity.setCanEditDates(true);
-		activity.setStartDate('2020-02-24T04:59:00.000Z');
-		activity.setEndDate('2020-02-26T04:59:00.000Z');
+		activity.setDates(dates);
 		store.put(href, activity);
 
 		el = await fixture(html`
@@ -53,7 +59,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 
 	describe('hidden', function() {
 		beforeEach(async() => {
-			activity.setCanEditDates(false);
+			dates.setCanEditDates(false);
 			await elementUpdated(el);
 		});
 
@@ -76,8 +82,8 @@ describe('d2l-activity-availability-dates-editor', function() {
 		});
 
 		it('displays updated dates on change', async() => {
-			activity.setStartDate('2020-02-25T04:59:00.000Z');
-			activity.setEndDate('2020-02-27T04:59:00.000Z');
+			dates.setStartDate('2020-02-25T04:59:00.000Z');
+			dates.setEndDate('2020-02-27T04:59:00.000Z');
 			await elementUpdated(el);
 
 			expect(startDatePicker).to.have.attr('datetime', '2020-02-25T04:59:00.000Z');

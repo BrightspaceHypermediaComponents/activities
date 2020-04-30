@@ -607,6 +607,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 						<d2l-organization-image
 							class="d2l-activitiy-collection-organization-image"
 							href=${item.self()}
+							.token=${this.token}
 							@d2l-organization-image-loaded="${() => this._onListImageLoaded(this._organizationImageChunk[item.itemSelf])}"
 							?hidden="${!this._loadedImages[this._organizationImageChunk[item.itemSelf]].allLoaded}">
 						</d2l-organization-image>
@@ -636,6 +637,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 						<d2l-organization-image
 							class="d2l-activitiy-collection-organization-image"
 							href="${candidate.itemSelf}"
+							.token=${this.token}
 							@d2l-organization-image-loaded="${() => this._onListImageLoaded(this._organizationImageChunk[candidate.itemSelf])}"
 							?hidden="${!this._loadedImages[this._organizationImageChunk[candidate.itemSelf]].allLoaded}">
 						</d2l-organization-image>
@@ -723,7 +725,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 					<div class="d2l-add-activity-dialog" aria-live="polite" aria-busy="${this._candidateItemsLoading}">
 						<div class="d2l-add-activity-dialog-header">
 							<div>
-								<d2l-input-search label="${this.localize('search')}" @d2l-input-search-searched=${this.handleSearch}></d2l-input-search>
+								<d2l-input-search label="${this.localize('search')}" placeholder=${this.localize('searchPlaceholder')} @d2l-input-search-searched=${this.handleSearch}></d2l-input-search>
 							</div>
 							<div class="d2l-add-activity-dialog-selection-count">${selectedNav}</div>
 						</div>

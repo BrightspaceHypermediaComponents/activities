@@ -1,19 +1,12 @@
-import { html, LitElement } from 'lit-element/lit-element.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from '../localization.js';
+import { html } from 'lit-element/lit-element.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
+import { assignments as store } from './state/assignment-store.js';
 
 class ActivityAssignmentAnnotationsSummary
-	extends EntityMixinLit(LocalizeMixin(LitElement)) {
-
-	static get properties() {
-
-		return {
-			_canSeeAnnotations: { type: Boolean },
-			_annotationToolsAvailable: { type: Boolean },
-		};
-	}
+	extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
 
 	static async getLocalizeResources(langs) {
 
@@ -22,33 +15,19 @@ class ActivityAssignmentAnnotationsSummary
 
 	constructor() {
 
-		super();
-		this._setEntityType(AssignmentEntity);
-	}
-
-	set _entity(entity) {
-
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
-	}
-
-	_onAssignmentChange(assignment) {
-
-		if (!assignment) {
-			return;
-		}
-
-		this._canSeeAnnotations = assignment.canSeeAnnotations();
-		this._annotationToolsAvailable = assignment.getAvailableAnnotationTools();
+		super(store);
 	}
 
 	render() {
 
+		const entity = store.get(this.href);
+		if (!entity) {
+			return html``;
+		}
+
 		const shouldRenderSummaryText =
-			this._canSeeAnnotations &&
-			!this._annotationToolsAvailable;
+			entity.canSeeAnnotations &&
+			!entity.annotationToolsAvailable;
 		if (!shouldRenderSummaryText) {
 			return html``;
 		}

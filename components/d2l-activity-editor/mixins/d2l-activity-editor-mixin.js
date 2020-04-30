@@ -1,7 +1,21 @@
+import { AsyncStateEvent } from '@brightspace-ui/core/helpers/asyncStateEvent.js';
+
 export const ActivityEditorMixin = superclass => class extends superclass {
 
 	static get properties() {
 		return {
+			/**
+			 * Activity Type
+			 */
+			type: {
+				type: String
+			},
+			/**
+			 * Telemetry Id
+			 */
+			telemetryId: {
+				type: String
+			},
 			/**
 			 * Href for the component
 			 */
@@ -22,7 +36,13 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 		this.store = store;
 	}
 
+	async validate() {}
+
 	async save() {}
+
+	hasPendingChanges() {
+		return false;
+	}
 
 	_dispatchActivityEditorEvent() {
 		const event = new CustomEvent('d2l-activity-editor-connected', {
@@ -44,11 +64,7 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 	}
 
 	_sendPendingEvent(promise) {
-		const pendingEvent = new CustomEvent('d2l-pending-state', {
-			composed: true,
-			bubbles: true,
-			detail: { promise }
-		});
+		const pendingEvent = new AsyncStateEvent(promise);
 		this.dispatchEvent(pendingEvent);
 	}
 

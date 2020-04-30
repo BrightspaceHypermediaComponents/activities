@@ -27,7 +27,7 @@ describe('d2l-activity-card', () => {
 	}
 
 	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+		sandbox = sinon.createSandbox();
 		activityEntity = window.D2L.Hypermedia.Siren.Parse({
 			class:['activity'],
 			links: [{
@@ -146,10 +146,6 @@ describe('d2l-activity-card', () => {
 
 			it('should fetch the organization', () => {
 				expect(component._organizationUrl).to.equal(testOrganizationHref);
-			});
-
-			it('should set the image entity', () => {
-				expect(component._image).to.equal(imageEntity);
 			});
 
 			it('should set the activity homepage', () => {

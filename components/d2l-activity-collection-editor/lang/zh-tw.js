@@ -17,6 +17,7 @@ export default {
 	numberOfActivities: "{count, plural, =1 {1 個活動} other {{count} 個活動}}", // The number of learning tasks currently in the list.
 	removeActivity: "從學習路徑移除活動、{courseName}。", // An action to remove a learning task from a list of tasks that are related
 	search: "搜尋", // When adding activities to the learning path, this is where you can search for potential activities to add.
+	searchPlaceholder: "搜尋...", // Placeholder text for the search input to search the list of potential activities.
 	selected: "已選取 {count} 個。", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.
 	untitledLearningPath: "未命名的學習路徑", // Default name of a learning path before the user has changed it.
 };

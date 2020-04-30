@@ -36,7 +36,7 @@
 			setup(function() {
 				logger = fixture('logger');
 				noLogger = fixture('no-logger');
-				sandbox = sinon.sandbox.create();
+				sandbox = sinon.createSandbox();
 			});
 
 			teardown(function() {

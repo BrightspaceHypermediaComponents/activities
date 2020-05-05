@@ -7,6 +7,7 @@ import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import store from './state/association-collection-store';
 
 class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin((MobxLitElement)))) {
@@ -53,8 +54,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		if (!entity) {
 			return;
 		}
-
 		entity.deleteAssociation(e.target.dataset.id);
+		announce(this.localize('txtRubricRemoved'));
 	}
 
 	async save() {

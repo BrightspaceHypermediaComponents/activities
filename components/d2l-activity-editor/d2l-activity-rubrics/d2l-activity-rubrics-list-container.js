@@ -12,6 +12,7 @@ import { heading4Styles } from '@brightspace-ui/core/components/typography/style
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import store from './state/association-collection-store.js';
 
 class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
@@ -81,6 +82,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		const entity = store.get(this.href);
 		if (e && e.detail && e.detail.associations) {
 			entity.addAssociations(e.detail.associations);
+			announce(this.localize('txtRubricAdded'));
 		}
 		this._toggleDialog(false);
 	}
@@ -105,9 +107,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			return;
 		}
 		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
-
 		this._closeEditNewAssociationOverlay();
-
+		announce(this.localize('txtRubricAdded'));
 	}
 
 	async _createNewAssociation() {

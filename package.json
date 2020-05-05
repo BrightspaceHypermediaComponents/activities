@@ -35,7 +35,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.1",
     "axe-core": "^3.4.1",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^25.1.0",
+    "babel-jest": "^26.0.0",
     "chai": "^4.2.0",
     "chai-a11y-axe": "^1.2.2",
     "chai-as-promised": "^7.1.1",

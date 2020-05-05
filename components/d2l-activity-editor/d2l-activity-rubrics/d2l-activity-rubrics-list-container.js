@@ -217,7 +217,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			>
 				<d2l-rubric-editor
 					href="${this._newlyCreatedPotentialAssociationHref}"
-					.token="${this.token}">
+					.token="${this.token}"
+					title-dropdown-hidden>
 				</d2l-rubric-editor>
 				<d2l-floating-buttons always-float>
 					<d2l-button primary @click="${this._attachRubric}">

@@ -6,6 +6,7 @@ import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { getLocalizeResources } from '../localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -81,6 +82,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		const entity = store.get(this.href);
 		if (e && e.detail && e.detail.associations) {
 			entity.addAssociations(e.detail.associations);
+			announce(this.localize('txtRubricAdded'));
 		}
 		this._toggleDialog(false);
 	}
@@ -105,9 +107,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			return;
 		}
 		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
-
 		this._closeEditNewAssociationOverlay();
-
+		announce(this.localize('txtRubricAdded'));
 	}
 
 	async _createNewAssociation() {

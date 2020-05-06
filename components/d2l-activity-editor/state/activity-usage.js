@@ -34,31 +34,37 @@ export class ActivityUsage {
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
 		this.associationsHref = entity.getRubricAssociationsHref();
 
-		/** Learning Outcomes (try setting this up before falling back on legacy competencies, if available) */
-		this.alignmentsHref = entity.alignmentsHref();
-		this.canUpdateAlignments = false;
-		this.hasAlignments = false;
-
-		/** Legacy Competencies */
-		this.competenciesHref = this.alignmentsHref ? null : entity.competenciesHref();
+		/**
+		 * Legacy Competencies
+		 * Href will be available if competencies tool is enabled and outcomes tool is disabled or there are no intents in the course.
+		*/
+		this.competenciesHref = entity.competenciesHref();
 		this.associatedCompetenciesCount = null;
 		this.competenciesDialogUrl = null;
 
-		if (this.alignmentsHref) {
-			const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
+		/**
+		 * Learning Outcomes
+		 * Href will be available if outcomes tool is enabled.
+		 */
+		this.alignmentsHref = this.competenciesHref ? null : entity.alignmentsHref();
+		this.canUpdateAlignments = false;
+		this.hasAlignments = false;
 
-			runInAction(() => {
-				const alignmentsCollection = new AlignmentsCollectionEntity(alignmentsEntity);
-				this.canUpdateAlignments = alignmentsCollection.canUpdateAlignments();
-				this.hasAlignments = alignmentsCollection.getAlignments().length > 0;
-			});
-		} else if (this.competenciesHref) {
+		if (this.competenciesHref) {
 			const competenciesSirenEntity = await fetchEntity(this.competenciesHref, this.token);
 
 			runInAction(() => {
 				const competenciesEntity = new CompetenciesEntity(competenciesSirenEntity);
 				this.competenciesDialogUrl = competenciesEntity.dialogUrl();
 				this.associatedCompetenciesCount = competenciesEntity.associatedCount() || 0;
+			});
+		} else if (this.alignmentsHref) {
+			const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
+
+			runInAction(() => {
+				const alignmentsCollection = new AlignmentsCollectionEntity(alignmentsEntity);
+				this.canUpdateAlignments = alignmentsCollection.canUpdateAlignments();
+				this.hasAlignments = alignmentsCollection.getAlignments().length > 0;
 			});
 		}
 	}

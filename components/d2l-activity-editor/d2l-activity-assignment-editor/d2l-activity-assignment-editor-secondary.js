@@ -93,7 +93,7 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
 				.token="${this.token}"
-				activityUsageHref=${this._activityUsageHref}>
+				.activityUsageHref=${this._activityUsageHref}>
 			</d2l-activity-assignment-evaluation-editor>
 		`;
 

@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "Cerrar cuadro de diálogo", // ARIA text for button to close dialog
 	"recordAudio": "Grabar audio", // Text for a button that opens a dialog to record audio
 	"recordVideo": "Grabar video", // Text for a button that opens a dialog to record video
-	"save": "Guardar", // Text for a save button
+	"save": "Guardar", // Text for a save button,
+	"attach": "Adjuntar", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"addFileMenu": "Carga de archivos", // Attach menu item text
+	"addLinkMenu": "Enlace web", // Attach menu item text
+	"addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"addQuicklinkMenu": "Actividad existente" // Attach menu item text
 };

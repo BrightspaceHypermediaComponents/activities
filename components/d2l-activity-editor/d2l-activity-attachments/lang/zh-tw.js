@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "關閉對話方塊", // ARIA text for button to close dialog
 	"recordAudio": "錄製音訊", // Text for a button that opens a dialog to record audio
 	"recordVideo": "錄製視訊", // Text for a button that opens a dialog to record video
-	"save": "儲存", // Text for a save button
+	"save": "儲存", // Text for a save button,
+	"attach": "附加", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google 雲端硬碟", // Attach menu item text
+	"addFileMenu": "檔案上傳", // Attach menu item text
+	"addLinkMenu": "網頁連結", // Attach menu item text
+	"addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"addQuicklinkMenu": "現有活動" // Attach menu item text
 };

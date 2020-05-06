@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "إغلاق مربع الحوار", // ARIA text for button to close dialog
 	"recordAudio": "تسجيل الصوت", // Text for a button that opens a dialog to record audio
 	"recordVideo": "تسجيل فيديو", // Text for a button that opens a dialog to record video
-	"save": "حفظ", // Text for a save button
+	"save": "حفظ", // Text for a save button,
+	"attach": "إرفاق", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"addFileMenu": "تحميل ملف", // Attach menu item text
+	"addLinkMenu": "ارتباط ويب", // Attach menu item text
+	"addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"addQuicklinkMenu": "النشاط الحالي" // Attach menu item text
 };

@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "Dialoogvenster sluiten", // ARIA text for button to close dialog
 	"recordAudio": "Audio opnemen", // Text for a button that opens a dialog to record audio
 	"recordVideo": "Video opnemen", // Text for a button that opens a dialog to record video
-	"save": "Opslaan", // Text for a save button
+	"save": "Opslaan", // Text for a save button,
+	"attach": "Toevoegen", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"addFileMenu": "Bestand uploaden", // Attach menu item text
+	"addLinkMenu": "Koppeling", // Attach menu item text
+	"addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"addQuicklinkMenu": "Bestaande activiteit" // Attach menu item text
 };

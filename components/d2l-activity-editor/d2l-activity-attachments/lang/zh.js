@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "关闭对话框", // ARIA text for button to close dialog
 	"recordAudio": "录制音频", // Text for a button that opens a dialog to record audio
 	"recordVideo": "录像", // Text for a button that opens a dialog to record video
-	"save": "保存", // Text for a save button
+	"save": "保存", // Text for a save button,
+	"attach": "附加", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"addFileMenu": "文件上传", // Attach menu item text
+	"addLinkMenu": "网页链接", // Attach menu item text
+	"addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"addQuicklinkMenu": "现有活动" // Attach menu item text
 };

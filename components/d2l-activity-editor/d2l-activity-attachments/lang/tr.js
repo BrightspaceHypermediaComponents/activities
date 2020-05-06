@@ -10,5 +10,11 @@ export default {
 	"closeDialog": "İletişim Kutusunu Kapat", // ARIA text for button to close dialog
 	"recordAudio": "Ses Kaydet", // Text for a button that opens a dialog to record audio
 	"recordVideo": "Video Kaydet", // Text for a button that opens a dialog to record video
-	"save": "Kaydet", // Text for a save button
+	"save": "Kaydet", // Text for a save button,
+	"attach": "Ekle", // Text for Attach button to open attachment row
+	"addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"addFileMenu": "Dosya Yükleme", // Attach menu item text
+	"addLinkMenu": "Web Bağlantısı", // Attach menu item text
+	"addOneDriveLinkMenu": "One Drive", // Attach menu item text
+	"addQuicklinkMenu": "Mevcut Etkinlik" // Attach menu item text
 };

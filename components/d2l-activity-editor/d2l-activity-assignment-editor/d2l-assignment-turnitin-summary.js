@@ -28,22 +28,13 @@ class AssignmentTurnitinSummary
 
 		const { isOriginalityCheckEnabled, isGradeMarkEnabled } = entity;
 
-		if (isOriginalityCheckEnabled && isGradeMarkEnabled) {
+		if (isOriginalityCheckEnabled || isGradeMarkEnabled) {
 
-			return html`${this.localize('txtTurnitinOn1')}`;
+			return html`${this.localize('txtTurnitinOn')}`;
 
-		} else if (isOriginalityCheckEnabled) {
-
-			return html`${this.localize('txtTurnitinOn2')}`;
-
-		} else if (isGradeMarkEnabled) {
-
-			return html`${this.localize('txtTurnitinOn3')}`;
-
-		} else {
-
-			return html``;
 		}
+
+		return html``;
 	}
 }
 

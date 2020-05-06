@@ -4,6 +4,7 @@ import 'd2l-rubric/d2l-rubric';
 import 'd2l-rubric/d2l-rubric-title';
 import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
@@ -12,7 +13,6 @@ import { heading4Styles } from '@brightspace-ui/core/components/typography/style
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import store from './state/association-collection-store.js';
 
 class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {

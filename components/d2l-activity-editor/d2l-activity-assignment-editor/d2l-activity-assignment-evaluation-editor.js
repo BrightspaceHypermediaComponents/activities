@@ -167,10 +167,10 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 					${this.localize('evaluationAndFeedback')}
 				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+					<li>${this._renderRubricsSummary()}</li>
 					<li>${this._renderAnonymousMarkingSummary()}</li>
 					<li>${this._renderAnnotationsSummary()}</li>
 					<li>${this._renderTurnitinSummary()}</li>
-					<li>${this._renderRubricsSummary()}</li>
 					${this._m3enabled ? html`<li>${this._renderCompetenciesSummary()}</li>` : null}
 				</ul>
 				${this._renderRubricsCollectionEditor()}

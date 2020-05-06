@@ -1,6 +1,7 @@
 import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';

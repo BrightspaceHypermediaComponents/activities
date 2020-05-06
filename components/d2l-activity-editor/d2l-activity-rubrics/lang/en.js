@@ -13,5 +13,6 @@ export default {
 	"txtOpenRubricPreview": "Open Rubrics preview dialog", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "Delete Rubric", // Text for deleting rubric icon
 	"txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"txtRubricRemoved": "Rubric removed" // Text for notifying screenreader rubric was removed 
+	"txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"btnClose": "Close" // X button for exiting the create new rubric overlay
 };

@@ -37,6 +37,11 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 					padding: 20px;
 					padding-top: 0;
 				}
+				@media only screen and (max-width: 768px) {
+					:host {
+						box-shadow: inset 0px 1px 3px 0px rgba(0,0,0,0.1);
+					}
+				}
 			`
 		];
 	}

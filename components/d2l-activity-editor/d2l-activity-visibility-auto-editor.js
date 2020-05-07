@@ -45,8 +45,8 @@ class ActivityVisibilityAutoEditor extends SaveStatusMixin(EntityMixinLit(LitEle
 		return html`
 			<d2l-activity-visibility-editor-toggle
 				?disabled="${this.disabled}"
-				?isDraft="${this._isDraft}"
-				?canEditDraft="${this._canEditDraft}"
+				?is-draft="${this._isDraft}"
+				?can-edit-draft="${this._canEditDraft}"
 				@click="${this._updateVisibility}"
 			>
 			</d2l-activity-visibility-editor-toggle>

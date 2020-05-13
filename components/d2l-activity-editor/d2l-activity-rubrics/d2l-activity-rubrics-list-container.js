@@ -260,7 +260,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			>
 				<d2l-add-associations
 					.token="${this.token}"
-					href="${this.activityUsageHref}"
+					.href="${this.activityUsageHref}"
 					type="rubrics"
 					skipSave
 				></d2l-add-associations>

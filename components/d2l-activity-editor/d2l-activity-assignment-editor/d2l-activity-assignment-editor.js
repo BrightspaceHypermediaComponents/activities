@@ -5,6 +5,7 @@ import './d2l-activity-assignment-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import 'd2l-save-status/d2l-save-status.js';
 import '@brightspace-ui/core/components/colors/colors.js';
+import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
 
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
@@ -248,11 +249,10 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 
 			</d2l-activity-editor>
 
-			<d2l-dialog title-text="${this.localize('discardChangesTitle')}">
-				<span>${this.localize('discardChangesQuestion')}</span>
+			<d2l-dialog-confirm title-text="${this.localize('discardChangesTitle')}" text=${this.localize('discardChangesQuestion')}>
 				<d2l-button slot="footer" primary dialog-action="confirm">${this.localize('yesLabel')}</d2l-button>
 				<d2l-button slot="footer" dialog-action="cancel">${this.localize('noLabel')}</d2l-button>
-			</d2l-dialog>
+			</d2l-dialog-confirm>
 		`;
 	}
 

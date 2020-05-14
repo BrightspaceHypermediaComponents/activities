@@ -100,8 +100,8 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		if (hasPendingChanges) {
 			const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
 			dialog.opened = true;
-			
-			dialog.addEventListener('d2l-dialog-close', async (e) => {
+
+			dialog.addEventListener('d2l-dialog-close', async(e) => {
 				if (e.detail.action === 'cancel') {
 					return;
 				}
@@ -109,7 +109,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 				if (this.isNew) {
 					await this.delete();
 				}
-		
+
 				this.dispatchEvent(this.cancelCompleteEvent);
 			});
 		}

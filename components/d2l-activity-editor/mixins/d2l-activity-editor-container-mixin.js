@@ -112,6 +112,12 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 
 				this.dispatchEvent(this.cancelCompleteEvent);
 			});
+		} else {
+			if (this.isNew) {
+				await this.delete();
+			}
+
+			this.dispatchEvent(this.cancelCompleteEvent);
 		}
 	}
 };

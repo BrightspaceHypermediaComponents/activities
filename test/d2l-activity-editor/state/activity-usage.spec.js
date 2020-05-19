@@ -129,6 +129,69 @@ describe('Activity Usage', function() {
 			expect(ActivityUsageEntity.mock.calls[0][0]).to.equal(sirenEntity);
 			expect(ActivityUsageEntity.mock.calls[0][1]).to.equal('token');
 		});
+
+		it('fetches new competencies values', async() => {
+			// Setup default activity-usage with default values
+			ActivityUsageEntity.mockImplementation(() => {
+				return defaultEntityMock(true);
+			});
+
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+
+			// Assert default values
+			expect(activity.competenciesHref).to.equal('http://competencies-href/');
+			expect(activity.associatedCompetenciesCount).to.equal(13);
+			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
+			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
+
+			// Override competencies with new values
+			CompetenciesEntity.mockImplementation(() => {
+				return {
+					dialogUrl: () => 'http://competencies-dialog-href-2/',
+					associatedCount: () => 22,
+					unevaluatedCount: () => 11
+				};
+			});
+
+			await activity.loadCompetencies();
+
+			// Assert override values
+			expect(activity.competenciesHref).to.equal('http://competencies-href/');
+			expect(activity.associatedCompetenciesCount).to.equal(22);
+			expect(activity.unevaluatedCompetenciesCount).to.equal(11);
+			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href-2/');
+
+			expect(fetchEntity.mock.calls.length).to.equal(3);
+			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
+			expect(fetchEntity.mock.calls[1][0]).to.equal('http://competencies-href/');
+			expect(fetchEntity.mock.calls[2][0]).to.equal('http://competencies-href/');
+		});
+
+		it('does not fetch competencies without href', async() => {
+			// Setup default activity-usage with default values
+			ActivityUsageEntity.mockImplementation(() => {
+				return defaultEntityMock();
+			});
+
+			const assertExpectations = () => {
+				expect(activity.competenciesHref).to.be.null;
+				expect(activity.associatedCompetenciesCount).to.be.null;
+				expect(activity.unevaluatedCompetenciesCount).to.be.null;
+				expect(activity.competenciesDialogUrl).to.be.null;
+
+				expect(fetchEntity.mock.calls.length).to.equal(2);
+				expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
+				expect(fetchEntity.mock.calls[1][0]).to.equal('http://alignments-href/');
+			};
+
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+			assertExpectations();
+
+			await activity.loadCompetencies();
+			assertExpectations();
+		});
 	});
 
 	describe('updating', () => {

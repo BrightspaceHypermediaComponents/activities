@@ -52,14 +52,7 @@ export class ActivityUsage {
 		this.hasAlignments = false;
 
 		if (this.competenciesHref) {
-			const competenciesSirenEntity = await fetchEntity(this.competenciesHref, this.token);
-
-			runInAction(() => {
-				const competenciesEntity = new CompetenciesEntity(competenciesSirenEntity);
-				this.competenciesDialogUrl = competenciesEntity.dialogUrl();
-				this.associatedCompetenciesCount = competenciesEntity.associatedCount() || 0;
-				this.unevaluatedCompetenciesCount = competenciesEntity.unevaluatedCount() || 0;
-			});
+			await this.loadCompetencies();
 		} else if (this.alignmentsHref) {
 			const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
 
@@ -69,6 +62,21 @@ export class ActivityUsage {
 				this.hasAlignments = alignmentsCollection.getAlignments().length > 0;
 			});
 		}
+	}
+
+	async loadCompetencies(bypassCache) {
+		if (!this.competenciesHref) {
+			return;
+		}
+
+		const sirenEntity = await fetchEntity(this.competenciesHref, this.token, bypassCache);
+
+		runInAction(() => {
+			const entity = new CompetenciesEntity(sirenEntity);
+			this.competenciesDialogUrl = entity.dialogUrl();
+			this.associatedCompetenciesCount = entity.associatedCount() || 0;
+			this.unevaluatedCompetenciesCount = entity.unevaluatedCount() || 0;
+		});
 	}
 
 	setAlignmentsHref(value) {
@@ -199,5 +207,6 @@ decorate(ActivityUsage, {
 	setDates: action,
 	setAlignmentsHref: action,
 	setCanUpdateAlignments: action,
-	setHasAlignments: action
+	setHasAlignments: action,
+	loadCompetencies: action
 });

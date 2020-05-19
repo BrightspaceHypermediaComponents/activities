@@ -211,7 +211,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</div>
 
 				<div id="duedate-container">
-					<label class="d2l-label-text">${this.localize('dueDate')}</label>
 					<d2l-activity-due-date-editor
 						href="${activityUsageHref}"
 						.token="${this.token}">

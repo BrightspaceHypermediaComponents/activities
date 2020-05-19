@@ -26,7 +26,7 @@ class ActivityRubricsListWrapper
 			<d2l-activity-rubrics-list-container
 				href="${entity.associationsHref}"
 				.token="${this.token}"
-				activityUsageHref=${this.href}>
+				.activityUsageHref=${this.href}>
 			</d2l-activity-rubrics-list-container>
 		`;
 	}

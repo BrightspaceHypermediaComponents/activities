@@ -5,10 +5,11 @@ import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { assignments as store } from './state/assignment-store.js';
 
-class AssignmentTypeEditor extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
+class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
 
 	static get styles() {
 		return [

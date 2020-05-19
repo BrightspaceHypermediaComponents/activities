@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "إضافة موجود", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "لم تتم إضافة آلية تقييم", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {آلية تقييم واحدة مضافة} other ‏{{count} من آليات التقييم المضافة}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "فتح مربع حوار معاينة آلية التقييم", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "حذف آلية التقييم" // Text for deleting rubric icon
 };

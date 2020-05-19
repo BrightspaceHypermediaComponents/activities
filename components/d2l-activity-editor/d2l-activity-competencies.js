@@ -1,6 +1,6 @@
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/button/button-subtle.js';
-import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from './localization';
@@ -19,7 +19,7 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 
 	static get styles() {
 		return [
-			bodyCompactStyles,
+			bodySmallStyles,
 			labelStyles,
 			css`
 				:host {
@@ -42,6 +42,9 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 				}
 				.alert-icon {
 					color: red;
+				}
+				.d2l-body-small {
+					margin: 0;
 				}
 			`
 		];
@@ -73,7 +76,7 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 		];
 
 		// Launch into our "friend", the LMS, to do the thing.
-		D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
+		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
 			/*               opener: */ document.body,
 			/*             location: */ location,
 			/*          srcCallback: */ 'SrcCallback',
@@ -85,6 +88,12 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 			/*              buttons: */ buttons,
 			/* forceTriggerOnCancel: */ false
 		);
+
+		// "Close" button handler
+		delayedResult.AddListener(() => store.get(this.href).loadCompetencies(true));
+
+		// "X" abort handler
+		delayedResult.AddReleaseListener(() => store.get(this.href).loadCompetencies(true));
 	}
 
 	_renderDialogOpener(dialogUrl) {
@@ -102,10 +111,10 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 	}
 
 	_renderCountText(count) {
-		const langTerm = this.localize('associatedCompetencies', { count });
+		const langTerm = this.localize('competenciesCount', { count });
 
 		if (count === 0) {
-			return html`<div class="d2l-body-compact">${langTerm}</div>`;
+			return html`<div class="d2l-body-small">${langTerm}</div>`;
 		}
 
 		return html`

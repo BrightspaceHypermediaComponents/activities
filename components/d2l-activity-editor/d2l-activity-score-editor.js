@@ -152,6 +152,16 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
+		if ((changedProperties.has('href') || changedProperties.has('token')) &&
+			this.href && this.token) {
+			this.store && this._fetch(() => {
+				const fetch = this.store.fetch(this.href, this.token);
+				fetch.then(() => {
+					this._setNewGradeName(this.activityName);
+				});
+			});
+		}
+
 		changedProperties.forEach((oldValue, propName) => {
 			if (propName === '_focusUngraded' && typeof oldValue !== 'undefined') {
 				const toFocus = this._focusUngraded ?
@@ -159,12 +169,16 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 					this.shadowRoot.querySelector('#score-out-of');
 				toFocus.focus();
 			} else if (propName === 'activityName') {
-				const activity = store.get(this.href);
-				if (activity) {
-					activity.scoreAndGrade.setNewGradeName(this.activityName);
-				}
+				this._setNewGradeName(this.activityName);
 			}
 		});
+	}
+
+	_setNewGradeName(name) {
+		const activity = store.get(this.href);
+		if (activity) {
+			activity.scoreAndGrade.setNewGradeName(name);
+		}
 	}
 
 	_onScoreOutOfChanged() {

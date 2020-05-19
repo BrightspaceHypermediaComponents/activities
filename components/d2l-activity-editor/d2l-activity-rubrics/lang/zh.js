@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "添加现有", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "未添加量规", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {添加 1 个量规} other {添加 {count} 个量规}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "在预览对话框中打开量规", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "删除量规" // Text for deleting rubric icon
 };

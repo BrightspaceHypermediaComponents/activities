@@ -144,7 +144,7 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 	_renderRubricsCollectionEditor() {
 		return html`
 			<d2l-activity-rubrics-list-wrapper
-				href="${this.activityUsageHref}"
+				.href="${this.activityUsageHref}"
 				.token="${this.token}">
 			</d2l-activity-rubrics-list-wrapper>
 		`;

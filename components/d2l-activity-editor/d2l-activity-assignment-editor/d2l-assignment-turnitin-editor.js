@@ -38,6 +38,7 @@ class AssignmentTurnitinEditor
 			.feature-summary-item {
 				display: inline-block;
 				margin-left: 0.5rem;
+				font-size: 0.7rem;
 			}
 
 			.feature-summary-item:first-child {
@@ -133,7 +134,7 @@ class AssignmentTurnitinEditor
 			let originalityCheckItem;
 			if (isOriginalityCheckEnabled) {
 				originalityCheckItem = html`
-					<li class="feature-summary-item d2l-body-small">
+					<li class="feature-summary-item">
 						<d2l-icon icon="tier1:check"></d2l-icon>
 						${this.localize('txtOriginalityCheckOn')}
 					</li>
@@ -143,7 +144,7 @@ class AssignmentTurnitinEditor
 			let gradeMarkItem;
 			if (isGradeMarkEnabled) {
 				gradeMarkItem = html`
-					<li class="feature-summary-item d2l-body-small">
+					<li class="feature-summary-item">
 						<d2l-icon icon="tier1:check"></d2l-icon>
 						${this.localize('txtGradeMarkOn')}
 					</li>

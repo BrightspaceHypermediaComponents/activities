@@ -99,25 +99,16 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 
 		if (hasPendingChanges) {
 			const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
-			dialog.opened = true;
-
-			dialog.addEventListener('d2l-dialog-close', async(e) => {
-				if (e.detail.action === 'cancel') {
-					return;
-				}
-
-				if (this.isNew) {
-					await this.delete();
-				}
-
-				this.dispatchEvent(this.cancelCompleteEvent);
-			});
-		} else {
-			if (this.isNew) {
-				await this.delete();
+			const action = await dialog.open();
+			if (action === 'cancel' || action === 'abort') {
+				return;
 			}
-
-			this.dispatchEvent(this.cancelCompleteEvent);
 		}
+
+		if (this.isNew) {
+			await this.delete();
+		}
+
+		this.dispatchEvent(this.cancelCompleteEvent);
 	}
 };

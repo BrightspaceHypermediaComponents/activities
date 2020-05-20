@@ -3,6 +3,7 @@ import { ActivityDates } from './activity-dates.js';
 import { ActivityScoreGrade } from './activity-score-grade.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsCollectionEntity } from 'siren-sdk/src/alignments/AlignmentsCollectionEntity.js';
+import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
 import { fetchEntity } from '../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });
@@ -32,11 +33,27 @@ export class ActivityUsage {
 		this.dates = new ActivityDates(entity);
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
 		this.associationsHref = entity.getRubricAssociationsHref();
-		this.alignmentsHref = entity.alignmentsHref();
+
+		/**
+		 * Legacy Competencies
+		 * Href will be available if competencies tool is enabled and outcomes tool is disabled or there are no intents in the course.
+		*/
+		this.competenciesHref = entity.competenciesHref();
+		this.associatedCompetenciesCount = null;
+		this.unevaluatedCompetenciesCount = null;
+		this.competenciesDialogUrl = null;
+
+		/**
+		 * Learning Outcomes
+		 * Href will be available if outcomes tool is enabled.
+		 */
+		this.alignmentsHref = this.competenciesHref ? null : entity.alignmentsHref();
 		this.canUpdateAlignments = false;
 		this.hasAlignments = false;
 
-		if (this.alignmentsHref) {
+		if (this.competenciesHref) {
+			await this.loadCompetencies();
+		} else if (this.alignmentsHref) {
 			const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
 
 			runInAction(() => {
@@ -45,6 +62,21 @@ export class ActivityUsage {
 				this.hasAlignments = alignmentsCollection.getAlignments().length > 0;
 			});
 		}
+	}
+
+	async loadCompetencies(bypassCache) {
+		if (!this.competenciesHref) {
+			return;
+		}
+
+		const sirenEntity = await fetchEntity(this.competenciesHref, this.token, bypassCache);
+
+		runInAction(() => {
+			const entity = new CompetenciesEntity(sirenEntity);
+			this.competenciesDialogUrl = entity.dialogUrl();
+			this.associatedCompetenciesCount = entity.associatedCount() || 0;
+			this.unevaluatedCompetenciesCount = entity.unevaluatedCount() || 0;
+		});
 	}
 
 	setAlignmentsHref(value) {
@@ -159,6 +191,10 @@ decorate(ActivityUsage, {
 	alignmentsHref: observable,
 	canUpdateAlignments: observable,
 	hasAlignments: observable,
+	competenciesHref: observable,
+	associatedCompetenciesCount: observable,
+	unevaluatedCompetenciesCount: observable,
+	competenciesDialogUrl: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,
@@ -171,5 +207,6 @@ decorate(ActivityUsage, {
 	setDates: action,
 	setAlignmentsHref: action,
 	setCanUpdateAlignments: action,
-	setHasAlignments: action
+	setHasAlignments: action,
+	loadCompetencies: action
 });

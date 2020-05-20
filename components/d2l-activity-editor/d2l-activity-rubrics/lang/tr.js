@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "Mevcut Olanı Ekle", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Rubrik eklenmedi", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 rubrik eklendi} other {{count} rubrik eklendi}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "Rubrikleri önizleme diyalog penceresinde aç", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "Rubriği Sil" // Text for deleting rubric icon
 };

@@ -177,11 +177,18 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 	}
 
 	async addActivities() {
-		this._reloadOnOpen = true;
-		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
 		const keys = this._selectedActivities();
-		const fields = [{ name: 'actionStates', value: keys }];
-		await performSirenAction(this.token, addAction, fields, true);
+		const addAction = this._actionCollectionEntity.getExecuteMultipleAction();
+		const sirenActions = [];
+
+		this._reloadOnOpen = true;
+		while (keys.length > 0) {
+			const keyBatch = keys.splice(0, 5);
+			const fields  = [{ name: 'actionStates', value: keyBatch }];
+			sirenActions.push(Promise.resolve(performSirenAction(this.token, addAction, fields, true)));
+		}
+
+		await Promise.all(sirenActions);
 	}
 
 	handleSearch(event) {

@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "Tilføj eksisterende", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Ingen rubrik tilføjet", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 rubrik tilføjet} other {{count} rubrikker tilføjet}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "Åbn Rubrikker fra dialogboksen for forhåndsvisning", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "Slet rubrik" // Text for deleting rubric icon
 };

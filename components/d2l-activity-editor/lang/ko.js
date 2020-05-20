@@ -7,7 +7,7 @@ export default {
 	"btnAddExisting": "기존 항목 추가", // add existing button
 	"btnRemoveCondition": "조건 제거", // remove condition button
 	"lblConditionsOperator": "이 항목을 보려면 사용자가 다음을 충족해야 합니다.", // conditions operator label
-	"txtNumReleaseConditions": "{수, 복수, =1 {{count}개 릴리스 조건} 기타 {{count}개 릴리스 조건}}", // num release condition text
+	"txtNumReleaseConditions": "{count, plural, =1 {{count}개 릴리스 조건} other {{count}개 릴리스 조건}}", // num release condition text
 	"btnCancel": "취소", // cancel button
 	"btnSave": "저장 및 닫기", // save and close button
 	"dueDate": "기한", // ARIA label for the due date field when creating/editing an activity

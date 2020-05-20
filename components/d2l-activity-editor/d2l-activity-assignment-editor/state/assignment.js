@@ -92,7 +92,8 @@ export class Assignment {
 		this.canEditSubmissionType = entity.canEditSubmissionType();
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.submissionType = String(entity.submissionType().value);
-		this.completionType = String(entity.completionType().value);
+		const completionType = entity.completionType();
+		this.completionType = completionType ? String(completionType.value) : null;
 
 		this.canEditSubmissionsRule = entity.canEditSubmissionsRule();
 		this.submissionsRule = entity.submissionsRule() || 'keepall';
@@ -109,7 +110,11 @@ export class Assignment {
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
 		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
-		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
+		if (entity.canEditCompletionType()) {
+			this.completionTypeOptions =  this._getCompletionTypeOptions(validCompletionTypes);
+		} else {
+			this.completionTypeOptions = completionType ? [completionType] : [];
+		}
 
 		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {
 			this.selectedGroupCategoryId = String(this.groupCategories[0].value);

@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "Bestaand toevoegen", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Geen rubric toegevoegd", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 rubric toegevoegd} other {{count} rubrics toegevoegd}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "Dialoogvenster voorbeeldweergave rubrics openen", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "Rubric verwijderen" // Text for deleting rubric icon
 };

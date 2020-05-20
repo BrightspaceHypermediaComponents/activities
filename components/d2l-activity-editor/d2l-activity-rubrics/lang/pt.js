@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "Adicionar Existente", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Nenhuma rubrica adicionada", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 rubrica adicionada} other {{count} rubricas adicionadas}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "Abrir rubricas em uma caixa de visualização", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "Excluir Rubrica" // Text for deleting rubric icon
 };

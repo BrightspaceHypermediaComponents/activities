@@ -3,6 +3,7 @@ import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -53,8 +54,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		if (!entity) {
 			return;
 		}
-
 		entity.deleteAssociation(e.target.dataset.id);
+		announce(this.localize('txtRubricRemoved'));
 	}
 
 	async save() {
@@ -69,6 +70,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		const shouldShowRubric = (association.isAssociated || association.isAssociating)
 			&& !association.isDeleting;
 		if (shouldShowRubric) {
+			const canDeleteAssociation = association.entity.canDeleteAssociation();
+
 			return html`
 			<div class="association-container">
 				<d2l-rubric
@@ -78,6 +81,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 					.token="${this.token}">
 				</d2l-rubric>
 				<d2l-button-icon
+					?hidden="${!canDeleteAssociation}"
 					class="delete-association-button"
 					icon="tier1:close-default"
 					data-id="${association.rubricHref}"

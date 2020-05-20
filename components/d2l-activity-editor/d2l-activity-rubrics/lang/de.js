@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "Vorhandene hinzufügen", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Kein Bewertungsschema hinzugefügt", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 Rubrik hinzugefügt} other {{count} Rubriken hinzugefügt}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "Vorschau „Bewertungsschemata“ öffnen", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "Bewertungsschema löschen" // Text for deleting rubric icon
 };

@@ -10,6 +10,5 @@ export default {
 	"txtAddExisting": "既存の追加", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "追加された注釈がありません", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 つの注釈が追加されました} other {{count} 個の注釈が追加されました}}", // count of asoociated rubrics
-	"txtOpenRubricPreview": "注釈をプレビューウィンドウで開く", //Text for opening rubric preview dialog
 	"txtDeleteRubric": "注釈の削除" // Text for deleting rubric icon
 };

@@ -98,9 +98,9 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		const hasPendingChanges = Array.from(this._editors).some(editor => editor.hasPendingChanges());
 
 		if (hasPendingChanges) {
-			const dialog = this.shadowRoot.querySelector('d2l-dialog');
+			const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
 			const action = await dialog.open();
-			if (action === 'cancel') {
+			if (action === 'cancel' || action === 'abort') {
 				return;
 			}
 		}

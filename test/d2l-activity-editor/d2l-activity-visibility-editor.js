@@ -11,7 +11,7 @@ describe('d2l-activity-visibility-editor-toggle', function() {
 
 		beforeEach(async() => {
 			el = await fixture(html`
-				<d2l-activity-visibility-editor-toggle canEditDraft isDraft></d2l-activity-visibility-editor-toggle>
+				<d2l-activity-visibility-editor-toggle can-edit-draft is-draft></d2l-activity-visibility-editor-toggle>
 			`);
 		});
 
@@ -27,7 +27,7 @@ describe('d2l-activity-visibility-editor-toggle', function() {
 	describe('disabled', () => {
 		beforeEach(async() => {
 			el = await fixture(html`
-				<d2l-activity-visibility-editor-toggle isDraft></d2l-activity-visibility-editor-toggle>
+				<d2l-activity-visibility-editor-toggle is-draft></d2l-activity-visibility-editor-toggle>
 			`);
 		});
 
@@ -69,8 +69,8 @@ describe('d2l-activity-visibility-editor', function() {
 
 	describe('enabled draft', () => {
 		it('renders toggle with correct attributes', async() => {
-			expect(toggle).to.have.attr('canEditDraft');
-			expect(toggle).to.have.attr('isDraft');
+			expect(toggle).to.have.attr('can-edit-draft');
+			expect(toggle).to.have.attr('is-draft');
 		});
 	});
 
@@ -82,8 +82,8 @@ describe('d2l-activity-visibility-editor', function() {
 		});
 
 		it('renders toggle with correct attributes', async() => {
-			expect(toggle).to.not.have.attr('canEditDraft');
-			expect(toggle).to.not.have.attr('isDraft');
+			expect(toggle).to.not.have.attr('can-edit-draft');
+			expect(toggle).to.not.have.attr('is-draft');
 		});
 	});
 });

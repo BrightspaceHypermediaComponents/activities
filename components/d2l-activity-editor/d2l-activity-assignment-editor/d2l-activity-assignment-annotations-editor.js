@@ -25,6 +25,7 @@ class ActivityAssignmentAnnotationsEditor
 
 			d2l-input-checkbox {
 				padding-right: 1rem;
+				margin: 0;
 			}
 
 			:host([dir="rtl"]) d2l-input-checkbox {

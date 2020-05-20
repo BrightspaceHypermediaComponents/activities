@@ -1,6 +1,7 @@
 import { ActivityUsage} from '../../../components/d2l-activity-editor/state/activity-usage.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsCollectionEntity } from 'siren-sdk/src/alignments/AlignmentsCollectionEntity.js';
+import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
 import { expect } from 'chai';
 import { fetchEntity } from '../../../components/d2l-activity-editor/state/fetch-entity.js';
 import sinon from 'sinon';
@@ -8,32 +9,45 @@ import { when } from 'mobx';
 
 jest.mock('siren-sdk/src/activities/ActivityUsageEntity.js');
 jest.mock('siren-sdk/src/alignments/AlignmentsCollectionEntity.js');
+jest.mock('siren-sdk/src/competencies/CompetenciesEntity.js');
 jest.mock('../../../components/d2l-activity-editor/state/fetch-entity.js');
 
 describe('Activity Usage', function() {
 
-	const defaultEntityMock = {
-		startDate: () => '2020-01-22T04:59:00.000Z',
-		dueDate: () => '2020-01-23T04:59:00.000Z',
-		endDate: () => '2020-01-24T04:59:00.000Z',
-		canEditDates: () => true,
-		isDraft: () => true,
-		canEditDraft: () => true,
-		scoreOutOf: () => 10,
-		inGrades: () => true,
-		gradeType: () => 'Points',
-		canEditScoreOutOf: () => true,
-		canSeeGrades: () => true,
-		canEditGrades: () => true,
-		gradeHref: () => '',
-		associatedGrade: () => undefined,
-		gradeCandidatesHref: () => '',
-		conditionsHref: () => undefined,
-		getRubricAssociationsHref: () => undefined,
-		newGradeCandidatesHref: () => undefined,
-		isNewGradeCandidate: () => false,
-		alignmentsHref: () => 'http://alignments-href/'
-	};
+	function defaultEntityMock(useCompetencies) {
+		const alignmentsHref = useCompetencies ? null : 'http://alignments-href/';
+		const competenciesHref = useCompetencies ? 'http://competencies-href/' : null;
+		const associatedCompetenciesCount = useCompetencies ? 13 : null;
+		const unevaluatedCompetenciesCount = useCompetencies ? 10 : null;
+		const competenciesDialogUrl = useCompetencies ? 'http://competencies-dialog-href/' : null;
+
+		return {
+			startDate: () => '2020-01-22T04:59:00.000Z',
+			dueDate: () => '2020-01-23T04:59:00.000Z',
+			endDate: () => '2020-01-24T04:59:00.000Z',
+			canEditDates: () => true,
+			isDraft: () => true,
+			canEditDraft: () => true,
+			scoreOutOf: () => 10,
+			inGrades: () => true,
+			gradeType: () => 'Points',
+			canEditScoreOutOf: () => true,
+			canSeeGrades: () => true,
+			canEditGrades: () => true,
+			gradeHref: () => '',
+			associatedGrade: () => undefined,
+			gradeCandidatesHref: () => '',
+			conditionsHref: () => undefined,
+			getRubricAssociationsHref: () => undefined,
+			newGradeCandidatesHref: () => undefined,
+			isNewGradeCandidate: () => false,
+			alignmentsHref: () => alignmentsHref,
+			competenciesHref: () => competenciesHref,
+			associatedCompetenciesCount: () => associatedCompetenciesCount,
+			unevaluatedCompetenciesCount: () => unevaluatedCompetenciesCount,
+			competenciesDialogUrl: () => competenciesDialogUrl
+		};
+	}
 
 	afterEach(() => {
 		sinon.restore();
@@ -49,7 +63,7 @@ describe('Activity Usage', function() {
 			sirenEntity = sinon.stub();
 
 			ActivityUsageEntity.mockImplementation(() => {
-				return defaultEntityMock;
+				return defaultEntityMock();
 			});
 
 			AlignmentsCollectionEntity.mockImplementation(() => {
@@ -59,10 +73,18 @@ describe('Activity Usage', function() {
 				};
 			});
 
+			CompetenciesEntity.mockImplementation(() => {
+				return {
+					dialogUrl: () => 'http://competencies-dialog-href/',
+					associatedCount: () => 13,
+					unevaluatedCount: () => 10
+				};
+			});
+
 			fetchEntity.mockImplementation(() => Promise.resolve(sirenEntity));
 		});
 
-		it('fetches', async() => {
+		it('fetches with alignments (learning outcomes)', async() => {
 			const activity = new ActivityUsage('http://1', 'token');
 			await activity.fetch();
 
@@ -71,12 +93,104 @@ describe('Activity Usage', function() {
 			expect(activity.canUpdateAlignments).to.be.true;
 			expect(activity.alignmentsHref).to.equal('http://alignments-href/');
 			expect(activity.hasAlignments).to.be.false;
+			expect(activity.competenciesHref).to.be.null;
+			expect(activity.associatedCompetenciesCount).to.be.null;
+			expect(activity.unevaluatedCompetenciesCount).to.be.null;
+			expect(activity.competenciesDialogUrl).to.be.null;
 
 			expect(fetchEntity.mock.calls.length).to.equal(2);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
 			expect(fetchEntity.mock.calls[1][0]).to.equal('http://alignments-href/');
 			expect(ActivityUsageEntity.mock.calls[0][0]).to.equal(sirenEntity);
 			expect(ActivityUsageEntity.mock.calls[0][1]).to.equal('token');
+		});
+
+		it('fetches with competencies', async() => {
+			ActivityUsageEntity.mockImplementation(() => {
+				return defaultEntityMock(true);
+			});
+
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+
+			expect(activity.isDraft).to.be.true;
+			expect(activity.canEditDraft).to.be.true;
+			expect(activity.canUpdateAlignments).to.be.false;
+			expect(activity.alignmentsHref).to.be.null;
+			expect(activity.hasAlignments).to.be.false;
+			expect(activity.competenciesHref).to.equal('http://competencies-href/');
+			expect(activity.associatedCompetenciesCount).to.equal(13);
+			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
+			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
+
+			expect(fetchEntity.mock.calls.length).to.equal(2);
+			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
+			expect(fetchEntity.mock.calls[1][0]).to.equal('http://competencies-href/');
+			expect(ActivityUsageEntity.mock.calls[0][0]).to.equal(sirenEntity);
+			expect(ActivityUsageEntity.mock.calls[0][1]).to.equal('token');
+		});
+
+		it('fetches new competencies values', async() => {
+			// Setup default activity-usage with default values
+			ActivityUsageEntity.mockImplementation(() => {
+				return defaultEntityMock(true);
+			});
+
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+
+			// Assert default values
+			expect(activity.competenciesHref).to.equal('http://competencies-href/');
+			expect(activity.associatedCompetenciesCount).to.equal(13);
+			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
+			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
+
+			// Override competencies with new values
+			CompetenciesEntity.mockImplementation(() => {
+				return {
+					dialogUrl: () => 'http://competencies-dialog-href-2/',
+					associatedCount: () => 22,
+					unevaluatedCount: () => 11
+				};
+			});
+
+			await activity.loadCompetencies();
+
+			// Assert override values
+			expect(activity.competenciesHref).to.equal('http://competencies-href/');
+			expect(activity.associatedCompetenciesCount).to.equal(22);
+			expect(activity.unevaluatedCompetenciesCount).to.equal(11);
+			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href-2/');
+
+			expect(fetchEntity.mock.calls.length).to.equal(3);
+			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
+			expect(fetchEntity.mock.calls[1][0]).to.equal('http://competencies-href/');
+			expect(fetchEntity.mock.calls[2][0]).to.equal('http://competencies-href/');
+		});
+
+		it('does not fetch competencies without href', async() => {
+			// Setup default activity-usage with default values
+			ActivityUsageEntity.mockImplementation(() => {
+				return defaultEntityMock();
+			});
+
+			const assertExpectations = () => {
+				expect(activity.competenciesHref).to.be.null;
+				expect(activity.associatedCompetenciesCount).to.be.null;
+				expect(activity.unevaluatedCompetenciesCount).to.be.null;
+				expect(activity.competenciesDialogUrl).to.be.null;
+
+				expect(fetchEntity.mock.calls.length).to.equal(2);
+				expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
+				expect(fetchEntity.mock.calls[1][0]).to.equal('http://alignments-href/');
+			};
+
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+			assertExpectations();
+
+			await activity.loadCompetencies();
+			assertExpectations();
 		});
 	});
 
@@ -85,7 +199,7 @@ describe('Activity Usage', function() {
 			sirenEntity = sinon.stub();
 
 			ActivityUsageEntity.mockImplementation(() => {
-				return defaultEntityMock;
+				return defaultEntityMock();
 			});
 
 			fetchEntity.mockImplementation(() => sirenEntity);
@@ -112,7 +226,7 @@ describe('Activity Usage', function() {
 		beforeEach(() => {
 			sirenEntity = sinon.stub();
 
-			ActivityUsageEntity.mockImplementation(() => Object.assign({}, defaultEntityMock,	{
+			ActivityUsageEntity.mockImplementation(() => Object.assign({}, defaultEntityMock(),	{
 				save
 			}));
 

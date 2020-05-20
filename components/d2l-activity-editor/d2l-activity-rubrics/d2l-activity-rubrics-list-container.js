@@ -6,6 +6,7 @@ import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { getLocalizeResources } from '../localization.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -36,6 +37,9 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				.d2l-heading-4 {
 					margin: 0 0 0 0;
 				}
+				d2l-dropdown-button-subtle {
+					margin-left: -0.6rem;
+				}
 				.rubric-heading-container {
 					display: flex;
 					align-items: center;
@@ -47,7 +51,6 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				.rubric-heading-title {
 					flex-grow: 1;
 				}
-				 
 			`
 		];
 	}
@@ -81,6 +84,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		const entity = store.get(this.href);
 		if (e && e.detail && e.detail.associations) {
 			entity.addAssociations(e.detail.associations);
+			announce(this.localize('txtRubricAdded'));
 		}
 		this._toggleDialog(false);
 	}
@@ -105,9 +109,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			return;
 		}
 		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
-
 		this._closeEditNewAssociationOverlay();
-
+		announce(this.localize('txtRubricAdded'));
 	}
 
 	async _createNewAssociation() {
@@ -137,46 +140,13 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 	}
 
-	_renderRubricPreviews() {
-
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
-
-		const associations = entity.fetchAssociations();
-		return associations.map(a => {
-			const shouldShowRubric = (a.isAssociated || a.isAssociating)
-			&& !a.isDeleting;
-
-			if (shouldShowRubric) {
-				return html`
-				<d2l-rubric href="${a.rubricHref}" .token="${this.token}">
-					<h3>
-						<d2l-rubric-title
-							href="${a.rubricHref}"
-							.token="${this.token}">
-						</d2l-rubric-title>
-					</h3>
-				</d2l-rubric>
-				`;
-			}
-		});
-	}
-
-	_launchRubricPreviewDialog() {
-		const dialog = this.shadowRoot.querySelector('#rubric-preview-dialog');
-		if (dialog) {
-			dialog.opened = true;
-		}
-	}
-
 	_renderRubricEditor() {
 		if (this._newlyCreatedPotentialAssociationHref !== '') {
 			return html`
 				<d2l-rubric-editor
 					href="${this._newlyCreatedPotentialAssociationHref}"
-					.token="${this.token}">
+					.token="${this.token}"
+					title-dropdown-hidden>
 				</d2l-rubric-editor>`;
 		} else {
 			return html``;
@@ -187,6 +157,40 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		this._newlyCreatedPotentialAssociationHref = '';
 	}
 
+	_renderAddRubricDropdown(entity) {
+
+		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
+		const canCreateAssociation = entity.canCreateAssociation();
+
+		if (!canCreateAssociation && !canCreatePotentialAssociation) {
+			return html``;
+		}
+
+		return html`
+		<d2l-dropdown-button-subtle
+			text="${this.localize('btnAddRubric')}"
+		>
+			<d2l-dropdown-menu align="start">
+				<d2l-menu label="${this.localize('btnAddRubric')}">
+					<d2l-menu-item
+						text="${this.localize('btnCreateNew')}"
+						@d2l-menu-item-select="${this._createNewAssociation}"
+						?hidden=${!canCreatePotentialAssociation}
+					>
+					</d2l-menu-item>
+					<d2l-menu-item
+						text="${this.localize('btnAddExisting')}"
+						@d2l-menu-item-select="${this._openAttachRubricDialog}"
+						?hidden=${!canCreateAssociation}
+					>
+					</d2l-menu-item>
+				</d2l-menu>
+			</d2l-dropdown-menu>
+		</d2l-dropdown-button-subtle>
+		`;
+
+	}
+
 	render() {
 
 		const entity = store.get(this.href);
@@ -195,20 +199,11 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			return html``;
 		}
 
-		const rubricCount = entity.fetchAttachedAssociationsCount();
-
 		return html`
 			<div class="rubric-heading-container">
 				<h3 class="d2l-heading-4 rubric-heading-title">
 					${this.localize('hdrRubrics')}
 				</h3>
-				<d2l-button-icon
-					?disabled="${rubricCount <= 0}"
-					class="preview-rubrics"
-					icon="tier1:new-window"
-					@click="${this._launchRubricPreviewDialog}"
-					text="${this.localize('txtOpenRubricPreview')}">
-				</d2l-button-icon>
 			</div>
 			<d2l-activity-rubrics-list-editor
 				href="${this.href}"
@@ -216,21 +211,11 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				.token=${this.token}
 			></d2l-activity-rubrics-list-editor>
 
-			<d2l-dropdown-button-subtle text="${this.localize('btnAddRubric')}">
-				<d2l-dropdown-menu align="start">
-					<d2l-menu label="${this.localize('btnAddRubric')}">
-						<d2l-menu-item text="${this.localize('btnCreateNew')}"
-							@d2l-menu-item-select="${this._createNewAssociation}">
-						</d2l-menu-item>
-						<d2l-menu-item text="${this.localize('btnAddExisting')}"
-							@d2l-menu-item-select="${this._openAttachRubricDialog}">
-						</d2l-menu-item>
-					</d2l-menu>
-				</d2l-dropdown-menu>
-			</d2l-dropdown-button-subtle>
+			${this._renderAddRubricDropdown(entity)}
 
 			<d2l-simple-overlay
 				id="create-new-association-dialog"
+				close-simple-overlay-alt-text="${this.localize('btnClose')}"
 				no-cancel-on-outside-click
 				@d2l-simple-overlay-close-button-clicked="${this._clearNewRubricHref}"
 				@d2l-simple-overlay-canceled="${this._clearNewRubricHref}"
@@ -255,18 +240,10 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			>
 				<d2l-add-associations
 					.token="${this.token}"
-					href="${this.activityUsageHref}"
+					.href="${this.activityUsageHref}"
 					type="rubrics"
 					skipSave
 				></d2l-add-associations>
-			</d2l-dialog>
-
-			<d2l-dialog
-				id="rubric-preview-dialog"
-				width="980"
-				title-text="${this.localize('hdrRubrics')}"
-			>
-				${this._renderRubricPreviews()}
 			</d2l-dialog>
 		`;
 	}

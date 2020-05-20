@@ -51,5 +51,11 @@ export default {
 	"linkToExistingGradeItem": "Link to an existing grade item", //Radio button text
 	"points": "Points: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "No existing grade items", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "You do not have permission to create a new grade item" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "You do not have permission to create a new grade item", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Learning Objectives", //Text label for the competencies tool integration
+	"manageCompetencies": "Manage Learning Objectives", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}", //Label for number of associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {1 learning objective not being evaluated} other {{count} learning objectives not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Close", //Label for Close button
+	"btnCloseDialog": "Close this Dialog" // close dialog button
 };

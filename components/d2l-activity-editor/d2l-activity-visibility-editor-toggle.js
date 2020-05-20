@@ -10,8 +10,8 @@ class ActivityVisibilityEditorToggle extends LocalizeMixin(LitElement) {
 	static get properties() {
 		return {
 			disabled: { type: Boolean },
-			isDraft: { type: Boolean },
-			canEditDraft: { type: Boolean }
+			isDraft: { type: Boolean, attribute: 'is-draft' },
+			canEditDraft: { type: Boolean, attribute: 'can-edit-draft' }
 		};
 	}
 

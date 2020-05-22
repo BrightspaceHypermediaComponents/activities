@@ -1,0 +1,7 @@
+version: 1
+update_configs:
+  - package_manager: "javascript"
+    default_assignees:
+      - pureooze
+    directory: "/"
+    update_schedule: "daily"

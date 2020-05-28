@@ -70,7 +70,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		const shouldShowRubric = (association.isAssociated || association.isAssociating)
 			&& !association.isDeleting;
 		if (shouldShowRubric) {
-			const canDeleteAssociation = association.entity.canDeleteAssociation();
+			const canDeleteAssociation = association.entity.canDeleteAssociation() || association.isAssociating;
 
 			return html`
 			<div class="association-container">

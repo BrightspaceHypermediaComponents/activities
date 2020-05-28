@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} condición de publicación} other {{count} condiciones de publicación}}", // num release condition text
 	"btnCancel": "Cancelar", // cancel button
 	"btnSave": "Guardar y cerrar", // save and close button
+	"btnSaveMobile": "Guardar", // save and close button for mobile devices
 	"dueDate": "Fecha de vencimiento", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Fecha final", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Fecha de inicio", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Vincular un elemento de calificación existente", //Radio button text
 	"points": "Puntos: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "No hay elementos de calificación existentes", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "No tiene permiso para crear un nuevo elemento de calificación" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "No tiene permiso para crear un nuevo elemento de calificación", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Objetivos de aprendizaje", //Text label for the competencies tool integration
+	"manageCompetencies": "Administrar objetivos de aprendizaje", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Sin objetivos de aprendizaje} =1 {1 objetivo de aprendizaje} other {{count} objetivos de aprendizaje}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Cerrar", //Label for Close button
+	"btnCloseDialog": "Cerrar este cuadro de diálogo" // close dialog button
 };

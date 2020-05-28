@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} 個發佈條件} other {{count} 個發佈條件}}", // num release condition text
 	"btnCancel": "取消", // cancel button
 	"btnSave": "儲存並關閉", // save and close button
+	"btnSaveMobile": "儲存", // save and close button for mobile devices
 	"dueDate": "截止日期", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "結束日期", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "開始日期", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "連結至現有成績項目", //Radio button text
 	"points": "分數：{points}", // Text label for displaying points of a grade
 	"noGradeItems": "無現有成績項目", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "您沒有建立新成績項目的權限" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "您沒有建立新成績項目的權限", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "學習目標", //Text label for the competencies tool integration
+	"manageCompetencies": "管理學習目標", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {沒有學習目標} =1 {1 個學習目標} other {{count} 個學習目標}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "關閉", //Label for Close button
+	"btnCloseDialog": "關閉此對話方塊" // close dialog button
 };

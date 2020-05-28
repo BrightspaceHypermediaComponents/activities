@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} Sürüm Koşulu} other {{count} Sürüm Koşulu}}", // num release condition text
 	"btnCancel": "İptal", // cancel button
 	"btnSave": "Kaydet ve Kapat", // save and close button
+	"btnSaveMobile": "Kaydet", // save and close button for mobile devices
 	"dueDate": "Teslim Tarihi", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Bitiş Tarihi", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Başlangıç Tarihi", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Mevcut not öğesine bağlantı oluştur", //Radio button text
 	"points": "Puan: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "Not öğesi mevcut değil", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "Yeni bir not öğesi oluşturma izniniz yok" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "Yeni bir not öğesi oluşturma izniniz yok", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Öğrenme Hedefleri", //Text label for the competencies tool integration
+	"manageCompetencies": "Öğrenme Hedeflerini Yönet", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Öğrenme hedefi yok} =1 {1 öğrenme hedefi} other {{count} öğrenme hedefi}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Kapat", //Label for Close button
+	"btnCloseDialog": "Bu Diyaloğu Kapat" // close dialog button
 };

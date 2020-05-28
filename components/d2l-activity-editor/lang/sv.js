@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} publiceringsvillkor} other {{count} publiceringsvillkor}}", // num release condition text
 	"btnCancel": "Avbryt", // cancel button
 	"btnSave": "Spara och stäng", // save and close button
+	"btnSaveMobile": "Spara", // save and close button for mobile devices
 	"dueDate": "Förfallodatum", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Slutdatum", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Startdatum", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Länka till ett befintligt betygsobjekt", //Radio button text
 	"points": "Poäng: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "Det finns inga betygsobjekt", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "Du har inte behörighet att skapa betygsobjekt" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "Du har inte behörighet att skapa betygsobjekt", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Inlärningsmål", //Text label for the competencies tool integration
+	"manageCompetencies": "Hantera utbildningsmål", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Inga inlärningsmål} =1 {1 inlärningsmål} other {{count} inlärningsmål}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Stäng", //Label for Close button
+	"btnCloseDialog": "Stäng den här dialogrutan" // close dialog button
 };

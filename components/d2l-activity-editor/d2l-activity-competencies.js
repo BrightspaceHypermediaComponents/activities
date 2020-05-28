@@ -46,6 +46,9 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 				.d2l-body-small {
 					margin: 0;
 				}
+				#no-learning-objectives-summary {
+					margin: 0;
+				}
 			`
 		];
 	}
@@ -114,7 +117,7 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 		const langTerm = this.localize('competenciesCount', { count });
 
 		if (count === 0) {
-			return html`<div class="d2l-body-small">${langTerm}</div>`;
+			return html`<div id="no-learning-objectives-summary" class="d2l-body-small">${langTerm}</div>`;
 		}
 
 		return html`

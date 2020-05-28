@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count}개 릴리스 조건} other {{count}개 릴리스 조건}}", // num release condition text
 	"btnCancel": "취소", // cancel button
 	"btnSave": "저장 및 닫기", // save and close button
+	"btnSaveMobile": "저장", // save and close button for mobile devices
 	"dueDate": "기한", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "종료일", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "시작일", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "기존 평점 항목에 연결합니다.", //Radio button text
 	"points": "점수: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "기존 평점 항목이 없습니다.", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "새 평점 항목을 생성할 권한이 없습니다." // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "새 평점 항목을 생성할 권한이 없습니다.", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "학습 목표", //Text label for the competencies tool integration
+	"manageCompetencies": "학습 목표 관리", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{수, 복수, =0 {학습 목표 없음} =1 {1 학습 목표} 기타 {{count}개의 학습 목표}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "닫기", //Label for Close button
+	"btnCloseDialog": "이 대화 상자 닫기" // close dialog button
 };

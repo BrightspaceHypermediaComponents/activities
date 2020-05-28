@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} betingelse for offentliggørelse} other {{count} betingelser for offentliggørelse}}", // num release condition text
 	"btnCancel": "Annuller", // cancel button
 	"btnSave": "Gem og luk", // save and close button
+	"btnSaveMobile": "Gem", // save and close button for mobile devices
 	"dueDate": "Forfaldsdato", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Slutdato", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Startdato", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Link til et eksisterende karakterelement", //Radio button text
 	"points": "Point: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "Ingen eksisterende karakterelementer", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "Du har ikke tilladelse til at oprette et nyt karakterelement" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "Du har ikke tilladelse til at oprette et nyt karakterelement", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Undervisningsformål", //Text label for the competencies tool integration
+	"manageCompetencies": "Administrer undervisningsformål", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Luk", //Label for Close button
+	"btnCloseDialog": "Luk denne dialogboks" // close dialog button
 };

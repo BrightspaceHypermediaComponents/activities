@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} 個のリリース条件} other {{count} 個のリリース条件}}", // num release condition text
 	"btnCancel": "キャンセル", // cancel button
 	"btnSave": "保存して閉じる", // save and close button
+	"btnSaveMobile": "保存", // save and close button for mobile devices
 	"dueDate": "期限", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "終了日", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "開始日", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "既存の成績項目へのリンク", //Radio button text
 	"points": "ポイント: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "既存の成績項目がありません", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "新規成績項目を作成する権限がありません" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "新規成績項目を作成する権限がありません", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "学習目的", //Text label for the competencies tool integration
+	"manageCompetencies": "学習目的の管理", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {学習目的なし} =1 {1 つの学習目的} other {{count} 個の学習目的}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "閉じる", //Label for Close button
+	"btnCloseDialog": "このダイアログを閉じる" // close dialog button
 };

@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "このダイアログを閉じる", // close dialog button
 	"txtOriginalityCheckOn": "Originality Check のオン", // originality check on text
 	"txtGradeMarkOn": "GradeMark のオン", // grade mark on text
+	"txtTurnitinOn": "Turnitin が有効", // turnitin on text
 	"btnCancel": "キャンセル", // cancel button
 	"btnSave": "保存", // save button
 	"hdrAvailability": "可能な日と条件", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "グループカテゴリ: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "グループカテゴリ", // Label for group category,
 	"txtGroupAssignmentSummary": "グループでの課題", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "送信、完了、分類", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "送信して完了", // Label for the availability and dates summarizer
 	"assignmentSaveError": "課題は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "送信物が存在する場合は、課題タイプを変更できません", // Folder type cannot change
 	"folderTypeNoGroups": "グループが存在しません。グループツールで新規グループを作成します。", // Folder type no groups

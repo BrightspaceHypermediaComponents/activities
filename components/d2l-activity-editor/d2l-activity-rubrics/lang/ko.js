@@ -10,5 +10,8 @@ export default {
 	"txtAddExisting": "기존 항목 추가", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "추가된 루브릭 없음", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {루브릭 1개 추가} other {{count}개 루브릭 추가}}", // count of asoociated rubrics
-	"txtDeleteRubric": "루브릭 삭제" // Text for deleting rubric icon
+	"txtDeleteRubric": "루브릭 삭제", // Text for deleting rubric icon
+	"btnClose": "닫기", // X button for exiting the create new rubric overlay
+	"txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"txtRubricRemoved": "Rubric removed" // Text for notifying screenreader rubric was removed 
 };

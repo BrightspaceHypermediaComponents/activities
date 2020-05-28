@@ -10,5 +10,8 @@ export default {
 	"txtAddExisting": "Lägg till befintligt", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Du har inte lagt till någon rubrik", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 rubrik har lagts till} other {{count} rubriker har lagts till}}", // count of asoociated rubrics
-	"txtDeleteRubric": "Ta bort rubricering" // Text for deleting rubric icon
+	"txtDeleteRubric": "Ta bort rubricering", // Text for deleting rubric icon
+	"btnClose": "Stäng", // X button for exiting the create new rubric overlay
+	"txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"txtRubricRemoved": "Rubric removed" // Text for notifying screenreader rubric was removed 
 };

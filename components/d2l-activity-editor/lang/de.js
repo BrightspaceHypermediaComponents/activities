@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} Freigabebedingung} other {{count} Freigabebedingungen}}", // num release condition text
 	"btnCancel": "Abbrechen", // cancel button
 	"btnSave": "Speichern und schließen", // save and close button
+	"btnSaveMobile": "Speichern", // save and close button for mobile devices
 	"dueDate": "Abgabetermin", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Enddatum", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Startdatum", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Verknüpfung mit einem vorhandenen Benotungsgegenstand", //Radio button text
 	"points": "{points} Punkte", // Text label for displaying points of a grade
 	"noGradeItems": "Keine vorhandenen Benotungsgegenstände", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "Sie haben keine Berechtigung, einen neuen Benotungsgegenstand zu erstellen." // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "Sie haben keine Berechtigung, einen neuen Benotungsgegenstand zu erstellen.", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Lernziele", //Text label for the competencies tool integration
+	"manageCompetencies": "Lernziele verwalten", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Keine Lernziele} =1 {1 Lernziel} andere {{count} Lernziele}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Schließen", //Label for Close button
+	"btnCloseDialog": "Dieses Dialogfeld schließen" // close dialog button
 };

@@ -72,6 +72,7 @@ describe('Assignment ', function() {
 				filesSubmissionLimit: () => 'unlimited',
 				submissionType: () => { return {title: 'On paper submission', value: 2}; },
 				completionType: () => { return {title: 'Manually by learners', value: 2}; },
+				completionTypeValue: () => { return '2'; },
 				isGroupAssignmentTypeDisabled: () => false,
 				isIndividualAssignmentType: () => true,
 				getAssignmentTypeGroupCategoryOptions: () => [],

@@ -10,5 +10,8 @@ export default {
 	"txtAddExisting": "新增現有的", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "未新增量規", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {已新增 1 個量規} other {已新增 {count} 個量規}}", // count of asoociated rubrics
-	"txtDeleteRubric": "刪除量規" // Text for deleting rubric icon
+	"txtDeleteRubric": "刪除量規", // Text for deleting rubric icon
+	"btnClose": "關閉", // X button for exiting the create new rubric overlay
+	"txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"txtRubricRemoved": "Rubric removed" // Text for notifying screenreader rubric was removed 
 };

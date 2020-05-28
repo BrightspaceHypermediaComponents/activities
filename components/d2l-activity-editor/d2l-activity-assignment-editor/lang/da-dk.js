@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "Luk denne dialogboks", // close dialog button
 	"txtOriginalityCheckOn": "Originality Check aktiveret", // originality check on text
 	"txtGradeMarkOn": "GradeMark aktiveret", // grade mark on text
+	"txtTurnitinOn": "Turnitin aktiveret", // turnitin on text
 	"btnCancel": "Annuller", // cancel button
 	"btnSave": "Gem", // save button
 	"hdrAvailability": "Tilgængelighedsdatoer og betingelser", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Gruppekategori: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Gruppekategori", // Label for group category,
 	"txtGroupAssignmentSummary": "Gruppeopgave", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "Aflevering, færdiggørelse og kategorisering", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "Aflevering og færdiggørelse", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Din opgave blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "Opgavetype kan ikke ændres, når opgaverne er afleveret", // Folder type cannot change
 	"folderTypeNoGroups": "Der eksisterer ingen grupper. Opret nye grupper i værktøjet Grupper.", // Folder type no groups

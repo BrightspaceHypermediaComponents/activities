@@ -10,5 +10,8 @@ export default {
 	"txtAddExisting": "Mevcut Olanı Ekle", //Title for the attach rubrics dialog,
 	"txtNoRubricAdded": "Rubrik eklenmedi", // rubric summary for no rubrics
 	"txtRubricsAdded": "{count, plural, =1 {1 rubrik eklendi} other {{count} rubrik eklendi}}", // count of asoociated rubrics
-	"txtDeleteRubric": "Rubriği Sil" // Text for deleting rubric icon
+	"txtDeleteRubric": "Rubriği Sil", // Text for deleting rubric icon
+	"btnClose": "Kapat", // X button for exiting the create new rubric overlay
+	"txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"txtRubricRemoved": "Rubric removed" // Text for notifying screenreader rubric was removed 
 };

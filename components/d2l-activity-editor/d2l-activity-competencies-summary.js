@@ -27,7 +27,7 @@ class ActivityCompetenciesSummary
 			return html``;
 		}
 
-		return html`${this.localize('competenciesCount', { count })}`;
+		return html`${this.localize('competenciesCountSummary', { count })}`;
 	}
 }
 

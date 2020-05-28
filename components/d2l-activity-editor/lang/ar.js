@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} شرط إصدار} other {{count} من شروط الإصدار}}", // num release condition text
 	"btnCancel": "إلغاء", // cancel button
 	"btnSave": "حفظ وإغلاق", // save and close button
+	"btnSaveMobile": "حفظ", // save and close button for mobile devices
 	"dueDate": "تاريخ الاستحقاق", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "تاريخ الانتهاء", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "تاريخ البدء", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "ربط بمادة حالية سيتم وضع علامة عليها", //Radio button text
 	"points": "النقاط: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "ما من مواد حالية سيتم وضع علامة عليها", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "أهداف التعلّم", //Text label for the competencies tool integration
+	"manageCompetencies": "إدارة أهداف التعلّم", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {ما من أهداف تعلّم} =1 {هدف تعلّم واحد} other {{count} من أهداف التعلّم}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "إغلاق", //Label for Close button
+	"btnCloseDialog": "إغلاق مربع الحوار هذا" // close dialog button
 };

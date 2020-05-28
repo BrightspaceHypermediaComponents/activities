@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} condition de diffusion} other {{count} conditions de diffusion}}", // num release condition text
 	"btnCancel": "Annuler", // cancel button
 	"btnSave": "Enregistrer et fermer", // save and close button
+	"btnSaveMobile": "Enregistrer", // save and close button for mobile devices
 	"dueDate": "Date d’échéance", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Date de fin", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Date de début", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Lier à un élément de note existant", //Radio button text
 	"points": "Points : {points}", // Text label for displaying points of a grade
 	"noGradeItems": "Aucun élément de note existant", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "Vous n\'êtes pas autorisé(e) à créer un élément de note" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "Vous n\'êtes pas autorisé(e) à créer un élément de note", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Objectifs d\'apprentissage", //Text label for the competencies tool integration
+	"manageCompetencies": "Gérer les objectifs d’apprentissage", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Aucun objectif d’apprentissage} =1 {1 objectif d’apprentissage} other {{count} objectifs d’apprentissage}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Fermer", //Label for Close button
+	"btnCloseDialog": "Fermer ce dialogue" // close dialog button
 };

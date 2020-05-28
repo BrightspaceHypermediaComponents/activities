@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "Bu Diyaloğu Kapat", // close dialog button
 	"txtOriginalityCheckOn": "Originality Check Açık", // originality check on text
 	"txtGradeMarkOn": "GradeMark Açık", // grade mark on text
+	"txtTurnitinOn": "Turnitin etkinleştirildi", // turnitin on text
 	"btnCancel": "İptal", // cancel button
 	"btnSave": "Kaydet", // save button
 	"hdrAvailability": "Uygunluk Tarihleri ve Koşulları", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Grup Kategorisi: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Grup Kategorisi", // Label for group category,
 	"txtGroupAssignmentSummary": "Grup ödevi", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "Gönderme, Tamamlama ve Kategorilere Ayırma", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "Gönderme ve Tamamlama", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Ödeviniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "Gönderimler mevcut olduğunda ödev türü değiştirilemez", // Folder type cannot change
 	"folderTypeNoGroups": "Hiç grup yok. Gruplar aracında yeni gruplar oluşturun.", // Folder type no groups

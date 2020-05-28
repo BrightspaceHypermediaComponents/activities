@@ -92,8 +92,7 @@ export class Assignment {
 		this.canEditSubmissionType = entity.canEditSubmissionType();
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.submissionType = String(entity.submissionType().value);
-		const completionType = entity.completionType();
-		this.completionType = completionType ? String(completionType.value) : null;
+		this.completionType = entity.completionTypeValue();
 
 		this.canEditSubmissionsRule = entity.canEditSubmissionsRule();
 		this.submissionsRule = entity.submissionsRule() || 'keepall';
@@ -113,6 +112,7 @@ export class Assignment {
 		if (entity.canEditCompletionType()) {
 			this.completionTypeOptions =  this._getCompletionTypeOptions(validCompletionTypes);
 		} else {
+			const completionType = entity.completionType();
 			this.completionTypeOptions = completionType ? [completionType] : [];
 		}
 
@@ -190,10 +190,12 @@ export class Assignment {
 			isAnonymous: this.isAnonymousMarkingEnabled,
 			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.submissionType,
-			completionType: this.completionTypeOptions.length === 0 ? String(0) : this.completionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
 			groupTypeId: this.selectedGroupCategoryId
 		};
+		if (this.canEditCompletionType) {
+			data.completionType = this.completionType;
+		}
 		if (this.showFilesSubmissionLimit) {
 			data.filesSubmissionLimit = this.filesSubmissionLimit;
 		}

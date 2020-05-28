@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "Fermer ce dialogue", // close dialog button
 	"txtOriginalityCheckOn": "Vérification d\'authenticité activée", // originality check on text
 	"txtGradeMarkOn": "Outil GradeMark activé", // grade mark on text
+	"txtTurnitinOn": "Turnitin activé", // turnitin on text
 	"btnCancel": "Annuler", // cancel button
 	"btnSave": "Enregistrer", // save button
 	"hdrAvailability": "Dates et conditions de disponibilité", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Catégorie de groupe : {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Catégorie de groupe", // Label for group category,
 	"txtGroupAssignmentSummary": "Travail de groupe", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "Soumission, achèvement et catégorisation", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "Soumission et achèvement", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Votre travail n\'était pas enregistré. Veuillez corriger les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "Le type de travail ne peut pas être changé lorsque des soumissions existent.", // Folder type cannot change
 	"folderTypeNoGroups": "Aucun groupe n\'existe. Créez des groupes dans l\'outil Groupes.", // Folder type no groups

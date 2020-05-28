@@ -20,6 +20,17 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 				margin-left: 0.75rem;
 				margin-right: 0;
 			}
+			.mobile {
+				display: none;
+			}
+			@media only screen and (max-width: 615px) {
+				.desktop {
+					display: none;
+				}
+				.mobile {
+					display: inline-block;
+				}
+			}
 		`;
 	}
 
@@ -47,7 +58,8 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 
 	render() {
 		return html`
-			<d2l-button primary @click="${this._save}">${this.localize('btnSave')}</d2l-button>
+			<d2l-button class="desktop" primary @click="${this._save}">${this.localize('btnSave')}</d2l-button>
+			<d2l-button class="mobile" primary @click="${this._save}">${this.localize('btnSaveMobile')}</d2l-button>
 			<d2l-button @click="${this._cancel}">${this.localize('btnCancel')}</d2l-button>
 		`;
 	}

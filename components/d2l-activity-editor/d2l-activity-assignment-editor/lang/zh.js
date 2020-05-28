@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "关闭此对话框", // close dialog button
 	"txtOriginalityCheckOn": "原创性检查日期", // originality check on text
 	"txtGradeMarkOn": "GradeMark 日期", // grade mark on text
+	"txtTurnitinOn": "已启用 Turnitin", // turnitin on text
 	"btnCancel": "取消", // cancel button
 	"btnSave": "保存", // save button
 	"hdrAvailability": "可用日期和条件", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "组类别：{groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "组类别", // Label for group category,
 	"txtGroupAssignmentSummary": "小组作业", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "提交、完成和归类", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "提交和完成", // Label for the availability and dates summarizer
 	"assignmentSaveError": "您的作业未保存。请更正以红色标出的字段。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "一旦已有提交，作业类型即无法更改", // Folder type cannot change
 	"folderTypeNoGroups": "没有任何组。在组工具中创建新组。", // Folder type no groups

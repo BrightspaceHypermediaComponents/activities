@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} Condição de Liberação} other {{count} Condições de Liberação}}", // num release condition text
 	"btnCancel": "Cancelar", // cancel button
 	"btnSave": "Salvar e Fechar", // save and close button
+	"btnSaveMobile": "Salvar", // save and close button for mobile devices
 	"dueDate": "Prazo", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Data Final", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Data de Início", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Vincular a um item de nota existente", //Radio button text
 	"points": "Pontos: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "Não há itens de nota existentes", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "Você não tem permissão para criar um novo item de nota" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "Você não tem permissão para criar um novo item de nota", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Objetivos de Aprendizagem", //Text label for the competencies tool integration
+	"manageCompetencies": "Gerenciar Objetivos de Aprendizagem", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Nenhum objetivo de aprendizagem} =1 {1 objetivo de aprendizagem} other {{count} objetivos de aprendizagem}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Fechar", //Label for Close button
+	"btnCloseDialog": "Fechar esta Caixa de Diálogo" // close dialog button
 };

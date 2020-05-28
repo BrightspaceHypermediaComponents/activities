@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} releasevoorwaarde} other {{count} releasevoorwaarden}}", // num release condition text
 	"btnCancel": "Annuleren", // cancel button
 	"btnSave": "Opslaan en sluiten", // save and close button
+	"btnSaveMobile": "Opslaan", // save and close button for mobile devices
 	"dueDate": "Uiterste datum", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "Einddatum", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Startdatum", // ARIA label for the start date field when creating/editing an activity
@@ -51,5 +52,12 @@ export default {
 	"linkToExistingGradeItem": "Koppelen naar een bestaand score-onderdeel", //Radio button text
 	"points": "Punten: {points}", // Text label for displaying points of a grade
 	"noGradeItems": "Geen bestaande score-onderdelen", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "U bent niet gemachtigd om een nieuw score-onderdeel te maken" // Reason why a new grade items cannot be created in the choose grades dialog
+	"noGradeCreatePermission": "U bent niet gemachtigd om een nieuw score-onderdeel te maken", // Reason why a new grade items cannot be created in the choose grades dialog
+	"competencies": "Leerdoelen", //Text label for the competencies tool integration
+	"manageCompetencies": "Leerdoelen beheren", //Button text to launch competencies tool dialog
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Geen leerdoelen} =1 {1 leerdoel} other {{count} leerdoelen}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"btnClose": "Sluiten", //Label for Close button
+	"btnCloseDialog": "Dit dialoogvenster sluiten" // close dialog button
 };

@@ -3,7 +3,6 @@ import './d2l-activity-assignment-editor-detail.js';
 import './d2l-activity-assignment-editor-secondary.js';
 import './d2l-activity-assignment-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
-import 'd2l-save-status/d2l-save-status.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
 
@@ -80,9 +79,6 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 			.d2l-activity-assignment-editor-secondary-panel {
 				padding: 10px;
 			}
-			d2l-save-status {
-				display: inline-block;
-			}
 			div[slot="secondary"] {
 				height: 100%;
 				background: var(--d2l-color-gypsum);
@@ -152,6 +148,17 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 
 		if (e.detail.key === 'd2l-provider-browse-outcomes-text') {
 			e.detail.provider = this.browseOutcomesText;
+			e.stopPropagation();
+			return;
+		}
+
+		// Provides orgUnitId for d2l-labs-attachment
+		// https://github.com/Brightspace/attachment/blob/74a66e85f03790aa9f4e6ec5025cd3c62cfb5264/mixins/attachment-mixin.js#L19
+		if (e.detail.key === 'd2l-provider-org-unit-id') {
+			const activity = store.getActivity(this.href);
+			const assignment = activity && store.getAssignment(activity.assignmentHref);
+			const richTextEditorConfig = assignment && assignment.instructionsRichTextEditorConfig;
+			e.detail.provider = richTextEditorConfig && richTextEditorConfig.properties && richTextEditorConfig.properties.orgUnit && richTextEditorConfig.properties.orgUnit.OrgUnitId;
 			e.stopPropagation();
 			return;
 		}
@@ -228,7 +235,6 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 					.token="${this.token}"
 					slot="footer"
 					class="d2l-activity-assignment-editor-footer">
-					<d2l-save-status id="save-status" slot="save-status"></d2l-save-status>
 				</d2l-activity-assignment-editor-footer>
 			</d2l-template-primary-secondary>
 		`;

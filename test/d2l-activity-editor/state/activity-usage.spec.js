@@ -38,7 +38,7 @@ describe('Activity Usage', function() {
 			associatedGrade: () => undefined,
 			gradeCandidatesHref: () => '',
 			conditionsHref: () => undefined,
-			getRubricAssociationsHref: () => undefined,
+			getDirectRubricAssociationsHref: () => undefined,
 			newGradeCandidatesHref: () => undefined,
 			isNewGradeCandidate: () => false,
 			alignmentsHref: () => alignmentsHref,

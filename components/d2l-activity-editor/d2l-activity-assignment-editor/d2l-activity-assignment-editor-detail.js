@@ -46,7 +46,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					display: none;
 				}
 				:host > div,
-				d2l-activity-outcomes {
+				d2l-activity-outcomes,
+				#score-container {
 					padding-bottom: 20px;
 				}
 				#score-and-duedate-container {

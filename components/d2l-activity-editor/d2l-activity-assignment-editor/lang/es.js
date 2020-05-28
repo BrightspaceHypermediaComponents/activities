@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "Cerrar este cuadro de diálogo", // close dialog button
 	"txtOriginalityCheckOn": "Verificación de originalidad activada", // originality check on text
 	"txtGradeMarkOn": "GradeMark activado", // grade mark on text
+	"txtTurnitinOn": "TurnItIn activado", // turnitin on text
 	"btnCancel": "Cancelar", // cancel button
 	"btnSave": "Guardar", // save button
 	"hdrAvailability": "Fechas y condiciones de disponibilidad", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Categoría de grupo: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Categoría de grupo", // Label for group category,
 	"txtGroupAssignmentSummary": "Asignación grupal", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "Envío, finalización y categorización", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "Envío y finalización", // Label for the availability and dates summarizer
 	"assignmentSaveError": "No se guardó la asignación. Corrija los campos marcados en color rojo.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "El tipo de asignación no se puede cambiar una vez que hay envíos presentes", // Folder type cannot change
 	"folderTypeNoGroups": "No existen grupos. Cree nuevos grupos en la herramienta Grupos.", // Folder type no groups

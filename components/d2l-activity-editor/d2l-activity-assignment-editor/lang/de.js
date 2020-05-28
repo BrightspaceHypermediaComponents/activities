@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "Dieses Dialogfeld schließen", // close dialog button
 	"txtOriginalityCheckOn": "Originalitätsprüfung ein", // originality check on text
 	"txtGradeMarkOn": "GradeMark ein", // grade mark on text
+	"txtTurnitinOn": "Turnitin aktiviert", // turnitin on text
 	"btnCancel": "Abbrechen", // cancel button
 	"btnSave": "Speichern", // save button
 	"hdrAvailability": "Verfügbarkeitsdaten und Bedingungen", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Gruppenkategorie: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Gruppenkategorie", // Label for group category,
 	"txtGroupAssignmentSummary": "Gruppenübung", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "Abgabe, Abschluss und Kategorisierung", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "Abgabe und Abschluss", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Ihre Übung wurde nicht gespeichert. Korrigieren Sie die rot umrandeten Felder.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "Übungstyp kann nicht mehr geändert werden, sobald Abgaben vorhanden sind", // Folder type cannot change
 	"folderTypeNoGroups": "Es sind keine Gruppen vorhanden. Erstellen Sie neue Gruppen im Gruppen-Tool.", // Folder type no groups

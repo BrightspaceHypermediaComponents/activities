@@ -10,6 +10,7 @@ export default {
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} Release Condition} other {{count} Release Conditions}}", // num release condition text
 	"btnCancel": "Cancel", // cancel button
 	"btnSave": "Save and Close", // save and close button
+	"btnSaveMobile": "Save", // save and close button for mobile devices
 	"dueDate": "Due Date", // ARIA label for the due date field when creating/editing an activity
 	"endDate": "End Date", // ARIA label for the end date field when creating/editing an activity
 	"startDate": "Start Date", // ARIA label for the start date field when creating/editing an activity
@@ -54,8 +55,9 @@ export default {
 	"noGradeCreatePermission": "You do not have permission to create a new grade item", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "Learning Objectives", //Text label for the competencies tool integration
 	"manageCompetencies": "Manage Learning Objectives", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}", //Label for number of associated competencies
-	"unevaluatedCompetencies": "{count, plural, =1 {1 learning objective not being evaluated} other {{count} learning objectives not being evaluated}}", //Label for number of unevalated associated competencies
+	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
 	"btnClose": "Close", //Label for Close button
 	"btnCloseDialog": "Close this Dialog" // close dialog button
 };

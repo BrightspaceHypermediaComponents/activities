@@ -32,7 +32,7 @@ export class ActivityUsage {
 		this.isError = false;
 		this.dates = new ActivityDates(entity);
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
-		this.associationsHref = entity.getRubricAssociationsHref();
+		this.associationsHref = entity.getDirectRubricAssociationsHref();
 
 		/**
 		 * Legacy Competencies

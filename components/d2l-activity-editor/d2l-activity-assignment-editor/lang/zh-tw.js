@@ -16,6 +16,7 @@ export default {
 	"btnCloseDialog": "關閉此對話方塊", // close dialog button
 	"txtOriginalityCheckOn": "原創性檢查開啟", // originality check on text
 	"txtGradeMarkOn": "GradeMark 開啟", // grade mark on text
+	"txtTurnitinOn": "已啟用 Turnitin", // turnitin on text
 	"btnCancel": "取消", // cancel button
 	"btnSave": "儲存", // save button
 	"hdrAvailability": "可用情況日期與條件", // availability header
@@ -32,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "群組類別：{groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "群組類別", // Label for group category,
 	"txtGroupAssignmentSummary": "群組作業", // Summary message for accordion when assignment type is set to group
-	"submissionCompletionAndCategorization": "提交、完成與分類", // Label for the availability and dates summarizer
+	"submissionCompletionAndCategorization": "提交與完成", // Label for the availability and dates summarizer
 	"assignmentSaveError": "您的作業未儲存。請修正以紅色顯示的欄位。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeCannotChange": "一旦提交，便無法變更作業類型", // Folder type cannot change
 	"folderTypeNoGroups": "尚無群組。在「群組」工具中建立新群組。", // Folder type no groups

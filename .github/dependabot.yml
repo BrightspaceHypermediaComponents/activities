@@ -1,0 +1,13 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  assignees:
+  - pureooze
+  ignore:
+  - dependency-name: puppeteer
+    versions:
+    - ">= 3.0.a, < 3.1"

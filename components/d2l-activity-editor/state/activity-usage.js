@@ -163,10 +163,19 @@ export class ActivityUsage {
 		};
 	}
 
+	async saveAlignments() {
+		if (this.alignmentsHref && this.canUpdateAlignments) {
+			const alignmentsCollection = new AlignmentsCollectionEntity(await fetchEntity(this.alignmentsHref, this.token), this.token);
+			return alignmentsCollection.save();
+		}
+	}
+
 	async save() {
 		if (!this._entity) {
 			return;
 		}
+
+		await this.saveAlignments();
 
 		await this._entity.save(this._makeUsageData());
 

@@ -69,7 +69,8 @@ describe('Activity Usage', function() {
 			AlignmentsCollectionEntity.mockImplementation(() => {
 				return {
 					getAlignments: () => [],
-					canUpdateAlignments: () => true
+					canUpdateAlignments: () => true,
+					save: () => Promise.resolve()
 				};
 			});
 

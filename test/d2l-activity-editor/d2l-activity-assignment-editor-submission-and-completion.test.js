@@ -59,9 +59,9 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		expect(getAccordion().getAttribute('_state')).to.equal('closed');
 	});
 
-	it('accordion opens when clicked', async() => {
+	it('handles click event', async() => {
 		setTimeout(() => el.click());
-		const target = await oneEvent(el, 'click');
-		console.log(target)
+		const { target } = await oneEvent(el, 'click');
+		expect(target).equals(el);
 	});
 });

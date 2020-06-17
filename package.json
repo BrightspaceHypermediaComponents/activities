@@ -14,6 +14,7 @@
     "test:diff:golden": "mocha test/**/*.visual-diff.js -t 40000 --golden",
     "test:diff:golden:commit": "commit-goldens",
     "test:local:karma": "karma start",
+    "test:local:karma:watch": "karma start --auto-watch=true --single-run=false",
     "test:polymer:local": "polymer test --skip-plugin sauce",
     "test:polymer:sauce": "polymer test --skip-plugin local",
     "test:js": "jest",

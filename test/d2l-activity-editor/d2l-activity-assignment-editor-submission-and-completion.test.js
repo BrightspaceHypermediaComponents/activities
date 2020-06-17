@@ -1,7 +1,7 @@
 import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
 import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
-import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js'
+import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 describe('d2l-activity-assignment-editor-submission-and-completion', function() {
 

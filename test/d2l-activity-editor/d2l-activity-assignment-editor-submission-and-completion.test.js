@@ -1,11 +1,9 @@
 import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
-import { Assignment } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { shared as store } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
+import { aTimeout, expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 import sinon from 'sinon';
+import { shared as store } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 
 describe('d2l-activity-assignment-editor-submission-and-completion', function() {
 
@@ -27,7 +25,12 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 							hasFieldByName: () => true,
 							getFieldByName: () => {
 								return {
-									value: []
+									value: [
+										{
+											value: 1,
+											title: 'completion type 1'
+										}
+									]
 								};
 							},
 						};
@@ -52,12 +55,23 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 					hasFieldByName: () => true,
 					getFieldByName: () => {
 						return {
-							value: []
+							value: [
+								{
+									value: 1, title: 'first submission type'
+								},
+								{
+									value: 2, title: 'second submission type'
+								}
+							]
 						};
 					}
 				};
 			},
-			properties: { submissionType: 1 }
+			properties: { 
+				submissionType: {
+					value: '1', title: 'first submission type'
+				}
+			}
 		});
 		entityStoreFetch = sinon.stub(window.D2L.Siren.EntityStore, 'fetch').returns({
 			hasActionByName: () => true
@@ -67,7 +81,7 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 
 		el = await fixture(
 			html`
-				<d2l-activity-assignment-editor-submission-and-completion-editor href=${href} .token="token">
+				<d2l-activity-assignment-editor-submission-and-completion-editor href=${href} token="token">
 				</d2l-activity-assignment-editor-submission-and-completion-editor>
 			`
 		);
@@ -90,7 +104,7 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		await expect(el).to.be.accessible();
 	});
 
-	it('accordion is not hidden', async() => {
+	it('accordion is not hidden on load', async() => {
 		expect(getAccordion().getAttribute('hidden')).to.be.null;
 	});
 
@@ -111,12 +125,16 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 	});
 
 	it('handles click event', async() => {
+		//TODO: make this check if accordion opens/closes? (maybe out of scope?)
 		setTimeout(() => el.click());
 		const { target } = await oneEvent(el, 'click');
 		expect(target).equals(el);
 	});
 
-	it('canEditCompletionType', async() => {
-		expect(getAccordion().getAttribute('_state')).to.equal('closed');
+	describe('submission-type-container', () => {
+		it('submission type options loads correctly', async() => {
+			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
+			expect(submissionSelect.getElementsByTagName('option').length).to.equal(2);
+		});
 	});
 });

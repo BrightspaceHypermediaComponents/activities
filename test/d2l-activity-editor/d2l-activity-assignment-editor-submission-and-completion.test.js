@@ -1,12 +1,15 @@
 import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
 import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { Assignment } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment.js';
+import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { shared as store } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
+import sinon from 'sinon';
 
 describe('d2l-activity-assignment-editor-submission-and-completion', function() {
 
-	let el, href;
-
+	let el, href, entityStoreGet, entityStoreFetch;
 	function getAccordion() {
 		// returns an Element
 		return el.shadowRoot.querySelector('.accordion');
@@ -14,6 +17,53 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 
 	beforeEach(async() => {
 		href = 'http://activity/1';
+
+		entityStoreGet = sinon.stub(window.D2L.Siren.EntityStore, 'get').returns({
+			hasActionByName: () => true,
+			getSubEntityByRel: () => {
+				return {
+					getActionByName: () => {
+						return {
+							hasFieldByName: () => true,
+							getFieldByName: () => {
+								return {
+									value: []
+								};
+							},
+						};
+					},
+					getSubEntityByRel: () => {},
+					hasActionByName: () => true,
+					hasClass: () => true,
+					properties: {
+						url: ''
+					}
+				};
+			},
+			hasSubEntityByRel: () => {
+				return { hasActionByName: () => true };
+			},
+			hasLinkByRel: () => true,
+			getLinkByRel: () => {
+				return { href: '' };
+			},
+			getActionByName: () => {
+				return {
+					hasFieldByName: () => true,
+					getFieldByName: () => {
+						return {
+							value: []
+						};
+					}
+				};
+			},
+			properties: { submissionType: 1 }
+		});
+		entityStoreFetch = sinon.stub(window.D2L.Siren.EntityStore, 'fetch').returns({
+			hasActionByName: () => true
+		});
+
+		await store.fetchAssignment(href, 'token');
 
 		el = await fixture(
 			html`
@@ -23,9 +73,10 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		);
 	});
 
-	// afterEach(() => {
-	// 	store.clear();
-	// });
+	afterEach(() => {
+		entityStoreGet.restore();
+		entityStoreFetch.restore();
+	});
 
 	describe('constructor', () => {
 
@@ -63,5 +114,9 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		setTimeout(() => el.click());
 		const { target } = await oneEvent(el, 'click');
 		expect(target).equals(el);
+	});
+
+	it('canEditCompletionType', async() => {
+		expect(getAccordion().getAttribute('_state')).to.equal('closed');
 	});
 });

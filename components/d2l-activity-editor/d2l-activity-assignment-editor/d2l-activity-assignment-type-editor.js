@@ -65,6 +65,7 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeMixin(Mo
 	}
 
 	_getGroupCategoryOptions(assignment) {
+		console.log('assignment groupCategories', assignment.groupCategories)
 		if (assignment) {
 			return html`${assignment.groupCategories.map(
 				option => html`

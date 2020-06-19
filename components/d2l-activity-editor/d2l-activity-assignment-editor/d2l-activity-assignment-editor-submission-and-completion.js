@@ -232,8 +232,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	_renderAssignmentCompletionType(assignment) {
 		const canEditCompletionType = assignment ? assignment.canEditCompletionType : false;
 		const completionHidden = assignment ? assignment.completionTypeOptions.length <= 0 : true;
-		console.log('canEditCompletionType', canEditCompletionType)
-		console.log('completionHidden', completionHidden)
 
 		return html `
 			<div id="assignment-completion-type-container" ?hidden="${completionHidden}">

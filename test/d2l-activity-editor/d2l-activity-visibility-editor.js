@@ -19,12 +19,14 @@ describe('d2l-activity-visibility-editor-toggle', function() {
 			await expect(el).to.be.accessible();
 		});
 
-		it('renders switch when enabled', async() => {
-			expect(el.shadowRoot.querySelectorAll('d2l-switch')).to.exist;
+		it('renders switch-visibility when enabled', async() => {
+			expect(el.shadowRoot.querySelectorAll('d2l-switch-visibility')).to.exist;
 		});
+
 	});
 
 	describe('disabled', () => {
+
 		beforeEach(async() => {
 			el = await fixture(html`
 				<d2l-activity-visibility-editor-toggle is-draft></d2l-activity-visibility-editor-toggle>
@@ -35,14 +37,16 @@ describe('d2l-activity-visibility-editor-toggle', function() {
 			await expect(el).to.be.accessible();
 		});
 
-		it('hides switch', async() => {
-			expect(el.shadowRoot.querySelectorAll('d2l-switch')).to.not.exist;
+		it('hides switch-visibility', async() => {
+			expect(el.shadowRoot.querySelectorAll('d2l-switch-visibility')).to.not.exist;
 		});
 
 		it('shows label', async() => {
 			expect(el.shadowRoot.querySelectorAll('div.d2l-label-text')).to.exist;
 		});
+
 	});
+
 });
 
 describe('d2l-activity-visibility-editor', function() {

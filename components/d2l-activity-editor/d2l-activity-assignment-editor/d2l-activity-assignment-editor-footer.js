@@ -28,6 +28,7 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 				display: inline-block;
 			}
 			.d2l-activity-assignment-editor-footer-left {
+				align-items: baseline;
 				flex: 1;
 				display: flex;
 				flex-direction: row-reverse;

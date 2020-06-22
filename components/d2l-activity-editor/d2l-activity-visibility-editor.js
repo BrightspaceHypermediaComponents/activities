@@ -41,7 +41,7 @@ class ActivityVisibilityEditor extends (ActivityEditorMixin(MobxLitElement)) {
 				?disabled="${this.disabled}"
 				?is-draft="${isDraft}"
 				?can-edit-draft="${canEditDraft}"
-				@click="${this._updateVisibility}"
+				@d2l-activity-visibility-editor-toggle-change="${this._updateVisibility}"
 			>
 			</d2l-activity-visibility-editor-toggle>
 		`;

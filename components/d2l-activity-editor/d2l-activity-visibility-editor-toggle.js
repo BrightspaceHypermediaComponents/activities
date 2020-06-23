@@ -55,8 +55,10 @@ class ActivityVisibilityEditorToggle extends LocalizeMixin(LitElement) {
 		this._narrowViewportQuery = matchMedia('only screen and (max-width: 615px)');
 		this._textHidden = this._narrowViewportQuery.matches;
 		if (this._narrowViewportQuery.addEventListener) {
+			// chrome and FF
 			this._narrowViewportQuery.addEventListener('change', (e) => this._textHidden = e.matches);
 		} else if (this._narrowViewportQuery.addListener) {
+			// deprecated API; safari and legacy edge
 			this._narrowViewportQuery.addListener((e) => this._textHidden = e.matches);
 		}
 	}

@@ -18,12 +18,10 @@ export default {
 	"endTime": "結束時間", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "開始時間", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "已隱藏", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "對學習者隱藏", // Aria Label for the visibility switch when hidden
 	"noDueDate": "沒有截止日期", // Placeholder text for due date field when no due date is set
 	"noEndDate": "沒有結束日期", // Placeholder text for due date field when no due date is set
 	"noStartDate": "沒有開始日期", // Placeholder text for due date field when no due date is set
 	"visible": "顯示", // Label displayed with the visibility switch when visible
-	"ariaVisible": "學習者可看到", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "可用情況開始於 {startDate} 並結束於 {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "可用情況開始於 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "可用情況結束於 {endDate}", // end only text

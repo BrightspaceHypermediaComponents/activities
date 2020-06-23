@@ -18,12 +18,10 @@ export default {
 	"endTime": "Eindtijd", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Starttijd", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Verborgen", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Verborgen voor cursisten", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Geen uiterste datum", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Geen einddatum", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Geen startdatum", // Placeholder text for due date field when no due date is set
 	"visible": "Zichtbaar", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Zichtbaar voor cursisten", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Beschikbaarheid begint op {startDate} en eindigt op {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "Beschikbaarheid begint op {startDate}", // start only text
 	"txtAvailabilityEndOnly": "Beschikbaarheid eindigt op {endDate}", // end only text

@@ -18,12 +18,10 @@ export default {
 	"endTime": "Heure de fin", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Heure de début", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Masqué", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Masquée pour l\'étudiant", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Aucune date d’échéance", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Pas de date de fin", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Pas de date de début", // Placeholder text for due date field when no due date is set
 	"visible": "Visible", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Visible pour l\'étudiant", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "La disponibilité commence le {startDate} et se termine le {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "La disponibilité commence le {startDate}", // start only text
 	"txtAvailabilityEndOnly": "La disponibilité se termine le {endDate}", // end only text

@@ -18,12 +18,10 @@ export default {
 	"endTime": "終了時刻", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "開始時刻", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "非表示", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "受講者に対して非表示", // Aria Label for the visibility switch when hidden
 	"noDueDate": "期限がありません", // Placeholder text for due date field when no due date is set
 	"noEndDate": "終了日がありません", // Placeholder text for due date field when no due date is set
 	"noStartDate": "開始日がありません", // Placeholder text for due date field when no due date is set
 	"visible": "表示", // Label displayed with the visibility switch when visible
-	"ariaVisible": "受講者に表示", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "使用可能期間開始日 {startDate}、終了日 {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "使用可能期間開始日 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "使用可能期間終了日 {endDate}", // end only text

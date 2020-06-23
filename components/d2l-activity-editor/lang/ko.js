@@ -18,12 +18,10 @@ export default {
 	"endTime": "종료 시각", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "시작 시각", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "숨김", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "학습자에게 표시되지 않음", // Aria Label for the visibility switch when hidden
 	"noDueDate": "기한 없음", // Placeholder text for due date field when no due date is set
 	"noEndDate": "종료일 없음", // Placeholder text for due date field when no due date is set
 	"noStartDate": "시작일 없음", // Placeholder text for due date field when no due date is set
 	"visible": "표시", // Label displayed with the visibility switch when visible
-	"ariaVisible": "학습자에게 표시됩니다.", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "사용 가능 날짜는 {startDate}에 시작되고 {endDate}에 종료됩니다.", // start/end text
 	"txtAvailabilityStartOnly": "사용 가능 날짜 시작일 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "사용 가능 날짜 종료일 {endDate}", // end only text

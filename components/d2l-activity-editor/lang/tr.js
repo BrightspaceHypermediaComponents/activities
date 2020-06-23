@@ -18,12 +18,10 @@ export default {
 	"endTime": "Bitiş Saati", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Başlangıç Saati", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Gizli", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Öğrencilerden gizli", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Teslim tarihi yok", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Bitiş tarihi yok", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Başlangıç tarihi yok", // Placeholder text for due date field when no due date is set
 	"visible": "Görünür", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Öğrenciler tarafından görülebilir", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Uygunluk, {startDate} tarihinde başlar ve {endDate} tarihinde sona erer", // start/end text
 	"txtAvailabilityStartOnly": "Uygunluk, {startDate} tarihinde başlar", // start only text
 	"txtAvailabilityEndOnly": "Uygunluk, {endDate} tarihinde sona erer", // end only text

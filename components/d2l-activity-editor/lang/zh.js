@@ -18,12 +18,10 @@ export default {
 	"endTime": "结束时间", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "开始时间", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "隐藏", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "对学员不可见", // Aria Label for the visibility switch when hidden
 	"noDueDate": "无截止日期", // Placeholder text for due date field when no due date is set
 	"noEndDate": "无结束日期", // Placeholder text for due date field when no due date is set
 	"noStartDate": "无开始日期", // Placeholder text for due date field when no due date is set
 	"visible": "可见", // Label displayed with the visibility switch when visible
-	"ariaVisible": "对学员可见", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "可用开始日期 {startDate} 和结束日期 {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "可用开始日期 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "可用结束日期 {endDate}", // end only text

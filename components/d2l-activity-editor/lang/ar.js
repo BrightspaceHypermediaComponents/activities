@@ -18,12 +18,10 @@ export default {
 	"endTime": "وقت الانتهاء", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "وقت البدء", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "مخفي", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "مخفي عن المتعلّمين", // Aria Label for the visibility switch when hidden
 	"noDueDate": "ما من تاريخ استحقاق", // Placeholder text for due date field when no due date is set
 	"noEndDate": "ما من تاريخ انتهاء", // Placeholder text for due date field when no due date is set
 	"noStartDate": "ما من تاريخ بدء", // Placeholder text for due date field when no due date is set
 	"visible": "مرئي", // Label displayed with the visibility switch when visible
-	"ariaVisible": "ظاهر للمتعلّمين", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "يبدأ التوفر بتاريخ {startDate} وينتهي بتاريخ {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "يبدأ التوفر بتاريخ {startDate}", // start only text
 	"txtAvailabilityEndOnly": "تاريخ انتهاء التوفر {endDate}", // end only text

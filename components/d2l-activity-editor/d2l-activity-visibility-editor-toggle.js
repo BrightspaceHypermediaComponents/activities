@@ -71,13 +71,12 @@ class ActivityVisibilityEditorToggle extends LocalizeMixin(LitElement) {
 				</d2l-switch-visibility>
 			`;
 		} else {
-			const switchVisibilityText = (this.isDraft ? this.localize('hidden') : this.localize('visible'));
-			const icon = (this.isDraft ? 'tier1:visibility-hide' : 'tier1:visibility-show');
-			const textClasses = {'d2l-offscreen': this._textHidden};
 			return html`
 				<div class="d2l-label-text">
-					<d2l-icon icon=${icon}></d2l-icon>
-					<span class="${classMap(textClasses)}">${switchVisibilityText}</span>
+					<d2l-icon icon=${this.isDraft ? 'tier1:visibility-hide' : 'tier1:visibility-show'}></d2l-icon>
+					<span class="${classMap({'d2l-offscreen': this._textHidden})}">
+						${this.isDraft ? this.localize('hidden') : this.localize('visible')}
+					</span>
 				</div>
 			`;
 		}

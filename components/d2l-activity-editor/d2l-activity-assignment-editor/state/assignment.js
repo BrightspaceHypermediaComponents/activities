@@ -89,11 +89,8 @@ export class Assignment {
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
-		console.log('canEditSubmissionType: ', entity.canEditSubmissionType())
-		console.log('canEditCompletionType: ', entity.canEditCompletionType())
 		this.canEditSubmissionType = entity.canEditSubmissionType();
 		this.canEditCompletionType = entity.canEditCompletionType();
-		console.log('submissionType: ', entity.submissionType())
 		this.submissionType = String(entity.submissionType().value);
 		this.completionType = entity.completionTypeValue();
 

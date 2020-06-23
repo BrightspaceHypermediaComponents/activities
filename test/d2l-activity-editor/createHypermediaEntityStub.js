@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 
-class HypermediaEntity {
+class TestHypermediaEntity {
 
 	get properties() {
 		return {
@@ -70,15 +70,15 @@ class HypermediaEntity {
 	hasClass() {}
 
 	hasFieldByName() {}
-};
+}
 
 export default function createHypermediaEntityStub() {
 
-	const stub = sinon.createStubInstance(HypermediaEntity);
+	const stub = sinon.createStubInstance(TestHypermediaEntity);
 
 	// stub.getProperties.returns();
 	stub.hasActionByName.returns(true);
-	stub.getSubEntityByRel.returns(sinon.createStubInstance(HypermediaEntity));
+	stub.getSubEntityByRel.returns(sinon.createStubInstance(TestHypermediaEntity));
 	stub.hasSubEntityByRel.returns(true);
 	stub.hasLinkByRel.returns(true);
 	stub.getLinkByRel.returns('http://stub');

@@ -23,6 +23,11 @@ export class AssignmentStore {
 	getActivity(href) {
 		return this._activities.get(href);
 	}
+
+	clear() {
+		this._assignments.clear();
+		this._activities.clear();
+	}
 }
 
 export const shared = new AssignmentStore();

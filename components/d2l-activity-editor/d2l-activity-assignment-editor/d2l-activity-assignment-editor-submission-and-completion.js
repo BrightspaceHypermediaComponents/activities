@@ -71,6 +71,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_saveSubmissionTypeOnChange(event) {
+		console.log(event)
 		store.getAssignment(this.href).setSubmissionType(event.target.value);
 	}
 

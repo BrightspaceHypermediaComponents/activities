@@ -1,6 +1,6 @@
 import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
-import { Actions, Rels, Classes } from 'siren-sdk/src/hypermedia-constants';
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { Actions, Classes, Rels } from 'siren-sdk/src/hypermedia-constants';
+import { aTimeout, expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { default as createHypermediaEntityStub} from './createHypermediaEntityStub.js';
 import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
@@ -12,7 +12,6 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 	let href, entityStoreGet, entityStoreFetch;
 
 	async function loadComponent() {
-		store.clear();
 		await store.fetchAssignment(href, 'token');
 
 		return await fixture(
@@ -33,6 +32,7 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 	afterEach(() => {
 		entityStoreGet.restore();
 		entityStoreFetch.restore();
+		store.clear();
 	});
 
 	describe('constructor', () => {
@@ -45,65 +45,87 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 	});
 
 	it('passes accessibility test', async() => {
-		const el = await loadComponent()
+		const el = await loadComponent();
 		await expect(el).to.be.accessible();
 	});
 
 	it('accordion is not hidden on load', async() => {
-		const el = await loadComponent()
+		const el = await loadComponent();
 		expect(el.shadowRoot.querySelector('.accordion').getAttribute('hidden')).to.be.null;
 	});
 
-	it('accordion has a heading', async() => {
-		const el = await loadComponent()
-		const header = el.shadowRoot.querySelectorAll('.accordion > .activity-summarizer-header');
-		expect(header[0].slot).to.equal('header'); //TODO: probably remove this, impl detail
-		expect(header[0].innerText).to.equal(langTerms.submissionCompletionAndCategorization);
-	});
+	describe('accordion', () => {
 
-	it('accordion has a summary', async() => {
-		const el = await loadComponent()
-		const summary = el.shadowRoot.querySelectorAll('.accordion > .activity-summarizer-summary');
-		expect(summary[0].slot).to.equal('summary'); //TODO: probably remove this, impl detail
-		expect(summary[0].getElementsByTagName('li').length).to.equal(3);
-	});
+		it('has a heading', async() => {
+			const el = await loadComponent();
+			const header = el.shadowRoot.querySelectorAll('.accordion > .activity-summarizer-header');
+			expect(header[0].slot).to.equal('header'); //TODO: probably remove this, impl detail
+			expect(header[0].innerText).to.equal(langTerms.submissionCompletionAndCategorization);
+		});
 
-	it('accordion initializes as closed', async() => {
-		const el = await loadComponent()
-		expect(el.shadowRoot.querySelector('.accordion').getAttribute('_state')).to.equal('closed');
-	});
+		it('has a summary', async() => {
+			const el = await loadComponent();
+			const summary = el.shadowRoot.querySelectorAll('.accordion > .activity-summarizer-summary');
+			expect(summary[0].slot).to.equal('summary'); //TODO: probably remove this, impl detail
+			expect(summary[0].getElementsByTagName('li').length).to.equal(3);
+		});
 
-	it('handles click event', async() => {
-		const el = await loadComponent()
-		//TODO: make this check if accordion opens/closes? (maybe out of scope?)
-		setTimeout(() => el.click());
-		const { target } = await oneEvent(el, 'click');
-		expect(target).equals(el);
+		it('initializes as closed', async() => {
+			const el = await loadComponent();
+			expect(el.shadowRoot.querySelector('.accordion').getAttribute('_state')).to.equal('closed');
+		});
+
+		it('handles click event', async() => {
+			const el = await loadComponent();
+			//TODO: make this check if accordion opens/closes? (maybe out of scope?)
+			setTimeout(() => el.click());
+			const { target } = await oneEvent(el, 'click');
+			expect(target).equals(el);
+		});
 	});
 
 	describe('submission-type-container', () => {
-		it('submission type options loads correctly', async() => {
+		it('loads correctly', async() => {
 			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateSubmissionType).returns(true);
-			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateCompletionType).returns(true);
 			const el = await loadComponent();
 			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
 			expect(submissionSelect.getAttribute('disabled')).to.be.null;
 			expect(submissionSelect.getElementsByTagName('option').length).to.equal(2);
 		});
 
-		it('missing canEditSubmissionType action', async() => {
+		it('handles change event', async() => {
+			const el = await loadComponent();
+			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
+
+			setTimeout(() => submissionSelect.change());
+			const { target } = await oneEvent(submissionSelect, 'onchange');
+			await aTimeout(1);
+
+
+		});
+
+		it('is disabled when missing updateSubmissionType action', async() => {
 			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateSubmissionType).returns(false);
-			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateCompletionType).returns(false);
 			const el = await loadComponent();
 			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
 			expect(submissionSelect.getAttribute('disabled')).to.not.be.null;
 		});
 	});
 
-	// describe('completion-type-container', () => {
-	// 	it('completion type options loads correctly', async() => {
-	// 		const completionSelect = el.shadowRoot.querySelector('#assignment-completion-type');
-	// 		expect(completionSelect.getElementsByTagName('option').length).to.equal(2);
-	// 	});
-	// });
+	describe('completion-type-container', () => {
+		it('completion type options loads correctly', async() => {
+			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateCompletionType).returns(true);
+			const el = await loadComponent();
+			const completionSelect = el.shadowRoot.querySelector('#assignment-completion-type');
+			expect(completionSelect.getAttribute('disabled')).to.be.null;
+			// expect(completionSelect.getElementsByTagName('option').length).to.equal(2);
+		});
+
+		it('is disabled when missing updateCompletionType action', async() => {
+			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateCompletionType).returns(false);
+			const el = await loadComponent();
+			const completionSelect = el.shadowRoot.querySelector('#assignment-completion-type');
+			expect(completionSelect.getAttribute('disabled')).to.not.be.null;
+		});
+	});
 });

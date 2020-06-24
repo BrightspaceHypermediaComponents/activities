@@ -77,11 +77,11 @@ export default function createHypermediaEntityStub() {
 	const stub = sinon.createStubInstance(TestHypermediaEntity);
 
 	// stub.getProperties.returns();
-	stub.hasActionByName.returns(true);
 	stub.getSubEntityByRel.returns(sinon.createStubInstance(TestHypermediaEntity));
 	stub.hasSubEntityByRel.returns(true);
 	stub.hasLinkByRel.returns(true);
 	stub.getLinkByRel.returns('http://stub');
+	stub.hasActionByName.returns(true);
 	stub.getActionByName.returns({
 		hasFieldByName: () => true,
 		getFieldByName: () => {

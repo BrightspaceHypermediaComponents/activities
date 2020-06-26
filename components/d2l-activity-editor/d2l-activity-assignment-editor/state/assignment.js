@@ -262,7 +262,6 @@ decorate(Assignment, {
 	editTurnitinUrl: observable,
 	isOriginalityCheckEnabled: observable,
 	isGradeMarkEnabled: observable,
-	submissionType: observable,
 	submissionsRule: observable,
 	completionType: observable,
 	isIndividualAssignmentType: observable,

@@ -61,12 +61,12 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_getSubmissionTypeOptions(assignment) {
-		if (!assignment) {
+		if (!assignment || !assignment.assignmentSubmissionType) {
 			return html``;
 		}
 
 		return html`
-			${assignment.submissionTypeOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.submissionType}>${option.title}</option>`)}
+			${assignment.assignmentSubmissionType.options.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.assignmentSubmissionType.value}>${option.title}</option>`)}
 		`;
 	}
 
@@ -198,7 +198,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_renderAssignmentSubmissionType(assignment) {
-		const canEditSubmissionType = assignment ? assignment.canEditSubmissionType : false;
+		const canEditSubmissionType = assignment ? assignment.assignmentSubmissionType.canEdit : false;
 		return html `
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">
@@ -216,11 +216,11 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_renderAssignmentSubmissionTypeSummary(assignment) {
-		if (!assignment) {
+		if (!assignment || !assignment.assignmentSubmissionType) {
 			return html``;
 		}
 
-		const submissionType = assignment.submissionTypeOptions.find(opt => String(opt.value) === assignment.submissionType);
+		const submissionType = assignment.assignmentSubmissionType.options.find(opt => String(opt.value) === assignment.assignmentSubmissionType.value);
 
 		if (submissionType) {
 			return html `${submissionType.title}`;

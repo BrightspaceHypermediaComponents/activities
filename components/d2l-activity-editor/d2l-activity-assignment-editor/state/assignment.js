@@ -1,5 +1,6 @@
 import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { AssignmentSubmissionType } from './assignment-submission.js'
 import { fetchEntity } from '../../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });
@@ -23,7 +24,7 @@ export class Assignment {
 	_getValidCompletionTypes(currentSubmissionType) {
 		const selectedSubmissionType = String(currentSubmissionType);
 
-		const submissionType = this.submissionTypeOptions.find(
+		const submissionType = this.assignmentSubmissionType.options.find(
 			submissionType => submissionType.value.toString() === selectedSubmissionType
 		);
 
@@ -57,7 +58,7 @@ export class Assignment {
 	}
 
 	_setValidCompletionTypeForSubmissionType() {
-		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
+		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionType.value);
 		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
 
 		if (this.completionType === null || !this._isCompletionTypeValid(this.completionType, validCompletionTypes)) {
@@ -71,6 +72,12 @@ export class Assignment {
 
 	load(entity) {
 		this._entity = entity;
+		this.assignmentSubmissionType = new AssignmentSubmissionType({
+			submissionTypeOptions: entity.submissionTypeOptions(),
+			submissionType: entity.submissionType().value,
+			canEditSubmissionType: entity.canEditSubmissionType()
+		});
+
 		this.name = entity.name();
 		this.canEditName = entity.canEditName();
 		this.instructions = entity.instructionsEditorHtml();
@@ -87,11 +94,8 @@ export class Assignment {
 		this.editTurnitinUrl = entity.editTurnitinUrl();
 		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
-		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
-		this.canEditSubmissionType = entity.canEditSubmissionType();
 		this.canEditCompletionType = entity.canEditCompletionType();
-		this.submissionType = String(entity.submissionType().value);
 		this.completionType = entity.completionTypeValue();
 
 		this.canEditSubmissionsRule = entity.canEditSubmissionsRule();
@@ -108,7 +112,7 @@ export class Assignment {
 		this.assignmentHasSubmissions = entity.assignmentHasSubmissions();
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
-		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
+		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionType.value);
 		if (entity.canEditCompletionType()) {
 			this.completionTypeOptions =  this._getCompletionTypeOptions(validCompletionTypes);
 		} else {
@@ -127,7 +131,7 @@ export class Assignment {
 	}
 
 	setSubmissionType(value) {
-		this.submissionType = value;
+		this.assignmentSubmissionType.value = value;
 		this._setValidCompletionTypeForSubmissionType();
 	}
 
@@ -189,7 +193,7 @@ export class Assignment {
 			instructions: this.instructions,
 			isAnonymous: this.isAnonymousMarkingEnabled,
 			annotationToolsAvailable: this.annotationToolsAvailable,
-			submissionType: this.submissionType,
+			submissionType: this.assignmentSubmissionType.value,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
 			groupTypeId: this.selectedGroupCategoryId
 		};
@@ -221,15 +225,15 @@ export class Assignment {
 	}
 
 	get showFilesSubmissionLimit() {
-		return this.submissionTypeOptions
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
+		return this.assignmentSubmissionType.options
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.assignmentSubmissionType.value}`);
 	}
 
 	get showSubmissionsRule() {
-		const isFileSubmission = this.submissionTypeOptions
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
-		const isTextSubmission = this.submissionTypeOptions
-			.find(x => String(x.value) === '1' && `${x.value}` === `${this.submissionType}`);
+		const isFileSubmission = this.assignmentSubmissionType.options
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.assignmentSubmissionType.value}`);
+		const isTextSubmission = this.assignmentSubmissionType.options
+			.find(x => String(x.value) === '1' && `${x.value}` === `${this.assignmentSubmissionType.value}`);
 
 		return isFileSubmission || isTextSubmission;
 	}
@@ -237,6 +241,7 @@ export class Assignment {
 
 decorate(Assignment, {
 	// props
+	assignmentSubmissionType: observable,
 	name: observable,
 	canEditName: observable,
 	instructions: observable,
@@ -250,7 +255,6 @@ decorate(Assignment, {
 	annotationToolsAvailable: observable,
 	activityUsageHref: observable,
 	completionTypeOptions: observable,
-	canEditSubmissionType: observable,
 	canEditCompletionType: observable,
 	canEditFilesSubmissionLimit: observable,
 	filesSubmissionLimit:observable,

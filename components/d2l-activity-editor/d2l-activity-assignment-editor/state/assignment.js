@@ -1,6 +1,6 @@
 import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { AssignmentSubmissionType } from './assignment-submission.js'
+import { AssignmentSubmissionType } from './assignment-submission.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });

@@ -16,7 +16,6 @@ decorate(AssignmentSubmissionType, {
 	// props
 	options: observable,
 	value: observable,
-	canEdit: observable,
+	canEdit: observable
 	// actions
-	setScoreOutOf: action
 });

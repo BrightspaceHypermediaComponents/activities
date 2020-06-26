@@ -290,5 +290,6 @@ decorate(Assignment, {
 	setToGroupAssignmentType: action,
 	setAssignmentTypeGroupCategory: action,
 	setFilesSubmissionLimit: action,
-	setSubmissionsRule: action
+	setSubmissionsRule: action,
+	setAssignmentSubmissionType: action
 });

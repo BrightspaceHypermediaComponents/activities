@@ -168,7 +168,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 			return html ``;
 		}
 
-		const isReadOnly = !assignment.canEditSubmissionsRule;
+		const isReadOnly = !assignment.assignmentSubmissionType.canEditSubmissionsRule;
 		const radioClasses = {
 			'd2l-input-radio-label': true,
 			'd2l-input-radio-label-disabled': isReadOnly,
@@ -180,7 +180,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 					${this.localize('submissionsRule')}
 				</label>
 
-				${assignment.submissionsRuleOptions.map((x) => html`
+				${assignment.assignmentSubmissionType.submissionsRuleOptions.map((x) => html`
 					<label class="${classMap(radioClasses)}">
 						<input
 							type="radio"
@@ -188,7 +188,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 							.value="${x.value}"
 							@change="${this._setSubmisisonsRule}"
 							?disabled=${isReadOnly}
-							?checked="${assignment.submissionsRule === x.value}"
+							?checked="${assignment.assignmentSubmissionType.submissionsRule === x.value}"
 						>
 						${x.title}
 					</label>
@@ -198,7 +198,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_renderAssignmentSubmissionType(assignment) {
-		const canEditSubmissionType = assignment ? assignment.assignmentSubmissionType.canEdit : false;
+		const canEditSubmissionType = assignment ? assignment.assignmentSubmissionType.canEditSubmissionType : false;
 		return html `
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">

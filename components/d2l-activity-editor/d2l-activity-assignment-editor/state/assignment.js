@@ -75,7 +75,10 @@ export class Assignment {
 		this.assignmentSubmissionType = new AssignmentSubmissionType({
 			submissionTypeOptions: entity.submissionTypeOptions(),
 			submissionType: entity.submissionType().value,
-			canEditSubmissionType: entity.canEditSubmissionType()
+			canEditSubmissionType: entity.canEditSubmissionType(),
+			canEditSubmissionsRule: entity.canEditSubmissionsRule(),
+			submissionsRule: entity.submissionsRule() || 'keepall',
+			submissionsRuleOptions: entity.getSubmissionsRuleOptions()
 		});
 
 		this.name = entity.name();
@@ -97,10 +100,6 @@ export class Assignment {
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.completionType = entity.completionTypeValue();
-
-		this.canEditSubmissionsRule = entity.canEditSubmissionsRule();
-		this.submissionsRule = entity.submissionsRule() || 'keepall';
-		this.submissionsRuleOptions = entity.getSubmissionsRuleOptions();
 
 		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
 		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
@@ -131,7 +130,7 @@ export class Assignment {
 	}
 
 	setSubmissionType(value) {
-		this.assignmentSubmissionType.value = value;
+		this.assignmentSubmissionType.setSubmissionType(value);
 		this._setValidCompletionTypeForSubmissionType();
 	}
 
@@ -140,7 +139,7 @@ export class Assignment {
 	}
 
 	setSubmissionsRule(value) {
-		this.submissionsRule = value;
+		this.assignmentSubmissionType.setSubmissionsRule(value);
 	}
 
 	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
@@ -185,7 +184,7 @@ export class Assignment {
 	}
 
 	setAssignmentSubmissionType(assignmentSubmissionType) {
-		this.assignmentSubmissionType = assignmentSubmissionType;
+		this.assignmentSubmissionType = new AssignmentSubmissionType(assignmentSubmissionType);
 	}
 
 	_makeAssignmentData() {
@@ -208,7 +207,7 @@ export class Assignment {
 			data.filesSubmissionLimit = this.filesSubmissionLimit;
 		}
 		if (this.showSubmissionsRule) {
-			data.submissionsRule = this.submissionsRule;
+			data.submissionsRule = this.assignmentSubmissionType.submissionsRule;
 		}
 		return data;
 	}
@@ -266,7 +265,6 @@ decorate(Assignment, {
 	editTurnitinUrl: observable,
 	isOriginalityCheckEnabled: observable,
 	isGradeMarkEnabled: observable,
-	submissionsRule: observable,
 	completionType: observable,
 	isIndividualAssignmentType: observable,
 	groupCategories: observable,
@@ -290,6 +288,5 @@ decorate(Assignment, {
 	setToGroupAssignmentType: action,
 	setAssignmentTypeGroupCategory: action,
 	setFilesSubmissionLimit: action,
-	setSubmissionsRule: action,
 	setAssignmentSubmissionType: action
 });

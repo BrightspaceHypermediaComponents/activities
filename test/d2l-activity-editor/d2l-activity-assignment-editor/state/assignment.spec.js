@@ -128,7 +128,7 @@ describe('Assignment ', function() {
 			{selected: false, title: 'Manually by learners', value: 1},
 			{selected: false, title: 'Automatically on evaluation', value: 2}
 		]);
-		expect(assignment.assignmentSubmissionType.canEdit).to.equal(true);
+		expect(assignment.assignmentSubmissionType.canEditSubmissionType).to.equal(true);
 		expect(assignment.canEditCompletionType).to.equal(true);
 		expect(assignment.assignmentSubmissionType.value).to.equal('2');
 		expect(assignment.completionType).to.equal('2');

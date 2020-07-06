@@ -6,9 +6,10 @@ import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { getLocalizeResources } from './localization';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from '../../components/d2l-activity-editor/state/activity-store.js';
 
-class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
+class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -29,7 +30,11 @@ class ActivityCompetencies extends ActivityEditorMixin(LocalizeMixin(MobxLitElem
 					display: none;
 				}
 				.competencies-icon {
-					margin-inline-end: 0.6rem;
+					margin-right: 0.6rem;
+				}
+				:host([dir="rtl"]) .competencies-icon {
+					margin-left: 0.6rem;
+					margin-right: 0;
 				}
 				.competencies-count-container {
 					display: flex;

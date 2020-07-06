@@ -16,6 +16,8 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 	static get properties() {
 		return {
 			hidden: { type: Boolean, reflect: true },
+			deferredSave: { type: Boolean },
+			hideIndirectAlignments: { type: Boolean },
 			_featureEnabled: { type: Boolean },
 			_opened: { type: Boolean },
 			_outcomesTerm: { type: String },
@@ -40,12 +42,14 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 
 	constructor() {
 		super(store);
+		this.deferredSave = true;
+		this.hideIndirectAlignments = true;
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
 
-		this._featureEnabled = this._isMilestoneEnabled(Milestones.M3);
+		this._featureEnabled = this._isMilestoneEnabled(Milestones.M3Outcomes);
 		this._browseOutcomesText = this._dispatchRequestProvider('d2l-provider-browse-outcomes-text');
 		this._outcomesTerm = this._dispatchRequestProvider('d2l-provider-outcomes-term');
 	}
@@ -94,14 +98,23 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 	}
 
 	_renderTags() {
-		return html`<label class="d2l-label-text">${this._outcomesTerm}</label>
+		return html`<label class="d2l-label-text" ?hidden="${!this._hasAlignments}">${this._outcomesTerm}</label>
 			<d2l-activity-alignment-tags
 				href="${this.href}"
 				.token="${this.token}"
+				?deferred-save="${this.deferredSave}"
+				?hide-indirect-alignments="${this.hideIndirectAlignments}"
 				browse-outcomes-text="${this._browseOutcomesText}"
 				@d2l-activity-alignment-outcomes-updated="${this._onOutcomeTagDeleted}"
-				@d2l-activity-alignment-tags-update="${this._openDialog}">
+				@d2l-activity-alignment-tags-update="${this._openDialog}"
+				@empty-changed="${this._alignmentTagsEmptyChanged}"
+				?read-only=${!this._hasAlignments}>
 			</d2l-activity-alignment-tags>`;
+	}
+
+	_alignmentTagsEmptyChanged(e) {
+		this._hasAlignments = !e.detail.value;
+		this.requestUpdate();
 	}
 
 	render() {
@@ -112,27 +125,27 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 		}
 
 		const {
-			canUpdateAlignments,
-			hasAlignments
+			canUpdateAlignments
 		} = activity;
 
-		if (!canUpdateAlignments) {
+		if (!canUpdateAlignments && !this._hasAlignments) {
 			this.hidden = true;
-			return html``;
+		} else {
+			this.hidden = false;
 		}
 
-		this.hidden = false;
-
 		return html`
-			${hasAlignments ? this._renderTags() : this._renderDialogOpener()}
-			<d2l-dialog title-text="${this._browseOutcomesText}" ?opened="${this._opened}">
+			${this._renderTags()}
+			${canUpdateAlignments && !this._hasAlignments ? html`${this._renderDialogOpener()}` : null}
+			${canUpdateAlignments ? html`<d2l-dialog title-text="${this._browseOutcomesText}" ?opened="${this._opened}">
 				<d2l-select-outcomes
 					href="${this.href}"
 					.token="${this.token}"
+					?deferred-save="${this.deferredSave}"
 					@d2l-alignment-list-added="${this._onDialogAdd}"
 					@d2l-alignment-list-cancelled="${this._onDialogCancel}">
 				</d2l-select-outcomes>
-			</d2l-dialog>
+			</d2l-dialog>` : null}
 		`;
 	}
 }

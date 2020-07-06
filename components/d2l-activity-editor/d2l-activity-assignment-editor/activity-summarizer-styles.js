@@ -14,7 +14,7 @@ export const summarizerSummaryStyles = css`
 		padding: 0;
 		margin-top: 5px;
 		min-height: 20px;
-		color: var(--d2l-color-galena);
+		color: var(--d2l-color-tungsten);
 	}
 
 	ul.activity-summarizer-summary > li {

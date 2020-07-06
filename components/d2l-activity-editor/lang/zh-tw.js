@@ -18,12 +18,10 @@ export default {
 	"endTime": "結束時間", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "開始時間", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "已隱藏", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "對學習者隱藏", // Aria Label for the visibility switch when hidden
 	"noDueDate": "沒有截止日期", // Placeholder text for due date field when no due date is set
 	"noEndDate": "沒有結束日期", // Placeholder text for due date field when no due date is set
 	"noStartDate": "沒有開始日期", // Placeholder text for due date field when no due date is set
 	"visible": "顯示", // Label displayed with the visibility switch when visible
-	"ariaVisible": "學習者可看到", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "可用情況開始於 {startDate} 並結束於 {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "可用情況開始於 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "可用情況結束於 {endDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "您沒有建立新成績項目的權限", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "學習目標", //Text label for the competencies tool integration
 	"manageCompetencies": "管理學習目標", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCount": "{count, plural, =0 {沒有學習目標} =1 {已附加 1 項} other {已附加 {count} 項}}", //Label for number of associated competencies
 	"competenciesCountSummary": "{count, plural, =0 {沒有學習目標} =1 {1 個學習目標} other {{count} 個學習目標}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {缺少 1 項評量} other {缺少 {count} 項評量}}", //Label for number of unevalated associated competencies
 	"btnClose": "關閉", //Label for Close button
 	"btnCloseDialog": "關閉此對話方塊" // close dialog button
 };

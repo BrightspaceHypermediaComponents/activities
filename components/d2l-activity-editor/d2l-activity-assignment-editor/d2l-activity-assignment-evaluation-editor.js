@@ -25,7 +25,8 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 			href: { type: String },
 			token: { type: Object },
 			activityUsageHref: { type: String },
-			_m3enabled: { type: Boolean }
+			_m2Enabled: { type: Boolean },
+			_m3CompetenciesEnabled: { type: Boolean }
 		};
 	}
 
@@ -60,7 +61,8 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 	connectedCallback() {
 		super.connectedCallback();
 
-		this._m3enabled = this._isMilestoneEnabled(Milestones.M3);
+		this._m2Enabled = this._isMilestoneEnabled(Milestones.M2);
+		this._m3CompetenciesEnabled = this._isMilestoneEnabled(Milestones.M3Competencies);
 	}
 
 	_renderAnonymousMarkingSummary() {
@@ -166,18 +168,18 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 					${this.localize('evaluationAndFeedback')}
 				</h3>
 				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
-					<li>${this._renderRubricsSummary()}</li>
-					${this._m3enabled ? html`<li>${this._renderCompetenciesSummary()}</li>` : null}
-					<li>${this._renderAnonymousMarkingSummary()}</li>
-					<li>${this._renderAnnotationsSummary()}</li>
-					<li>${this._renderTurnitinSummary()}</li>
+					${this._m2Enabled ? html`<li>${this._renderRubricsSummary()}</li>` : null}
+					${this._m3CompetenciesEnabled ? html`<li>${this._renderCompetenciesSummary()}</li>` : null}
+					${this._m2Enabled ? html`<li>${this._renderAnonymousMarkingSummary()}</li>` : null}
+					${this._m2Enabled ? html`<li>${this._renderAnnotationsSummary()}</li>` : null}
+					${this._m2Enabled ? html`<li>${this._renderTurnitinSummary()}</li>` : null}
 				</ul>
 				<div class="editors">
-					${this._renderRubricsCollectionEditor()}
-					${this._m3enabled ? this._renderCompetenciesOpener() : null}
-					${this._renderAnnotationsEditor()}
-					${this._renderAnonymousMarkingEditor()}
-					${this._renderTurnitinEditor()}
+					${this._m2Enabled ? html`${this._renderRubricsCollectionEditor()}` : null}
+					${this._m3CompetenciesEnabled ? this._renderCompetenciesOpener() : null}
+					${this._m2Enabled ? html`${this._renderAnnotationsEditor()}` : null}
+					${this._m2Enabled ? html`${this._renderAnonymousMarkingEditor()}` : null}
+					${this._m2Enabled ? html`${this._renderTurnitinEditor()}` : null}
 				</div>
 			</d2l-labs-accordion-collapse>
 		`;

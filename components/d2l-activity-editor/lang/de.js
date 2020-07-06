@@ -18,12 +18,10 @@ export default {
 	"endTime": "Endzeit", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Startzeit", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Ausgeblendet", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Für Lerner ausgeblendet", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Kein Abgabetermin", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Kein Enddatum", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Kein Startdatum", // Placeholder text for due date field when no due date is set
 	"visible": "Sichtbar", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Für Lerner sichtbar", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Verfügbarkeit beginnt am {StartDate} und endet am {EndDate}", // start/end text
 	"txtAvailabilityStartOnly": "Verfügbarkeit beginnt am {StartDate}", // start only text
 	"txtAvailabilityEndOnly": "Verfügbarkeit endet am {EndDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "Sie haben keine Berechtigung, einen neuen Benotungsgegenstand zu erstellen.", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "Lernziele", //Text label for the competencies tool integration
 	"manageCompetencies": "Lernziele verwalten", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
-	"competenciesCountSummary": "{count, plural, =0 {Keine Lernziele} =1 {1 Lernziel} andere {{count} Lernziele}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"competenciesCount": "{count, plural, =0 {Keine Lernziele} =1 {1 angehängt} other {{count} angehängt}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {Keine Lernziele} =1 {1 Lernziel} other {{count} Lernziele}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 fehlende Bewertung} other {{count} fehlende Bewertungen}}", //Label for number of unevalated associated competencies
 	"btnClose": "Schließen", //Label for Close button
 	"btnCloseDialog": "Dieses Dialogfeld schließen" // close dialog button
 };

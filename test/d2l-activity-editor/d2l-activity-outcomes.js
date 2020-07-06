@@ -4,7 +4,7 @@ import { ActivityUsage } from '../../components/d2l-activity-editor/state/activi
 import { shared as store } from '../../components/d2l-activity-editor/state/activity-store.js';
 
 function _requestProviderMock(e) {
-	if (e.detail.key === 'd2l-milestone-three') {
+	if (e.detail.key === 'd2l-milestone-three-outcomes') {
 		e.detail.provider = true;
 		e.stopPropagation();
 	}

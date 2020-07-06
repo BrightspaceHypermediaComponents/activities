@@ -123,11 +123,56 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		// Required for the async handler below to work in Edge
 		const event = opener();
 		event.AddListener(async event => {
-			const quicklinkUrl = `/d2l/api/lp/unstable/${this._orgUnitId}/quickLinks/${event.m_typeKey}/${event.m_id}`;
-			const response = await fetch(quicklinkUrl);
-			const json = await response.json();
-			this._addToCollection(attachmentStore.createLink(event.m_title, json.QuickLinkTemplate));
+			const quicklinkTemplate = await this._getQuickLinkTemplate(event);
+			this._addToCollection(attachmentStore.createLink(event.m_title, quicklinkTemplate));
 		});
+	}
+
+	get _sources() {
+		return {
+			announcement: 'news',
+			assignment: 'dropbox',
+			calendar: 'schedule',
+			chat: 'chat',
+			checklist: 'checklist',
+			content: 'content',
+			courseFile: 'coursefile',
+			discussion: 'discuss',
+			ePortfolio: 'epobject',
+			formTemplate: 'form',
+			googleDrive: 'google-drive',
+			lti: 'lti',
+			oneDrive: 'one-drive',
+			quiz: 'quiz',
+			selfAssessment: 'selfassess',
+			survey: 'survey',
+			url: 'url'
+		};
+	}
+
+	async _getQuickLinkTemplate(event) {
+		if (event.m_typeKey === this._sources.url) {
+			return event.m_url;
+		}
+
+		const isRemotePlugin = Boolean(
+			event.m_url &&
+			event.m_url.length > 0 &&
+			!Object.values(this._sources).includes(event.m_typeKey)
+		);
+
+		if (isRemotePlugin) {
+			if (/^(http|https|ftp):\/\//i.test(event.m_url)) {
+				return event.m_url;
+			} else {
+				return decodeURIComponent(event.m_url);
+			}
+		}
+
+		const quicklinkUrl = `/d2l/api/lp/unstable/${this._orgUnitId}/quickLinks/${event.m_typeKey}/${event.m_id}`;
+		const response = await fetch(quicklinkUrl);
+		const json = await response.json();
+		return json.QuickLinkTemplate;
 	}
 
 	_addToCollection(attachment) {

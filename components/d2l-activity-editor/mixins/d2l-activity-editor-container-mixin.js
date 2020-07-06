@@ -8,7 +8,15 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 			/**
 			 * Is Creating New
 			 */
-			isNew: { type: Boolean }
+			isNew: { type: Boolean },
+			/**
+			 * If there is an error on the page (client and/or server side).
+			 */
+			isError: { type: Boolean },
+			/**
+			 * If there is a save attempt in progress. After being enabled, it will only disable on validation or save error.
+			 */
+			isSaving: { type: Boolean },
 		};
 	}
 
@@ -20,6 +28,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 
 		this._editors = new Set();
 		this.isError = false;
+		this.isSaving = false;
 	}
 
 	_registerEditor(e) {
@@ -63,6 +72,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 	async delete() {}
 
 	async _save() {
+		this.isSaving = true;
 		this.markSaveStart(this.type, this.telemetryId);
 
 		const validations = [];
@@ -79,13 +89,19 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		// Catch both client- and server-side validation errors
 		if (this._focusOnInvalid()) {
 			this.isError = true;
+			this.isSaving = false;
 			return;
 		}
 
 		for (const editor of this._editors) {
 			// TODO - Once we decide how we want to handle errors we may want to add error handling logic
 			// to the save
-			await editor.save();
+			try {
+				await editor.save();
+			} catch (error) {
+				this.isSaving = false;
+				throw error;
+			}
 		}
 
 		this.isError = false;
@@ -95,9 +111,11 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 	}
 
 	async _cancel() {
-		const hasPendingChanges = Array.from(this._editors).some(editor => editor.hasPendingChanges());
+		const editorsPendingChanges = await Promise.all(
+			Array.from(this._editors).map(editor => editor.hasPendingChanges())
+		);
 
-		if (hasPendingChanges) {
+		if (editorsPendingChanges.some(Boolean)) {
 			const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
 			const action = await dialog.open();
 			if (action === 'cancel' || action === 'abort') {

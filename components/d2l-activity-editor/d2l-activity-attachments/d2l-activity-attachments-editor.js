@@ -17,9 +17,6 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(MobxLitElement) {
 			:host {
 				display: block;
 			}
-			:host > * {
-				margin-bottom: 20px;
-			}
 		`;
 	}
 

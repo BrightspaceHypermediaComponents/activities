@@ -18,12 +18,10 @@ export default {
 	"endTime": "Eindtijd", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Starttijd", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Verborgen", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Verborgen voor cursisten", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Geen uiterste datum", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Geen einddatum", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Geen startdatum", // Placeholder text for due date field when no due date is set
 	"visible": "Zichtbaar", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Zichtbaar voor cursisten", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Beschikbaarheid begint op {startDate} en eindigt op {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "Beschikbaarheid begint op {startDate}", // start only text
 	"txtAvailabilityEndOnly": "Beschikbaarheid eindigt op {endDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "U bent niet gemachtigd om een nieuw score-onderdeel te maken", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "Leerdoelen", //Text label for the competencies tool integration
 	"manageCompetencies": "Leerdoelen beheren", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCount": "{count, plural, =0 {Geen leerdoelen} =1 {1 toegevoegd} other {{count} toegevoegd}}", //Label for number of associated competencies
 	"competenciesCountSummary": "{count, plural, =0 {Geen leerdoelen} =1 {1 leerdoel} other {{count} leerdoelen}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}}", //Label for number of unevalated associated competencies
 	"btnClose": "Sluiten", //Label for Close button
 	"btnCloseDialog": "Dit dialoogvenster sluiten" // close dialog button
 };

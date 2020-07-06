@@ -31,19 +31,31 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 			 */
 			trustedSitesEndpoint: { type: String },
 			/**
-			 * If there is an error on the page. Is used to toggle the d2l-alert.
-			 */
-			isError: { type: Boolean },
-			/**
 			* based on the LaunchDarkly flag face-assignments-milestone-2
 			*/
 			milestoneTwoEnabled: { type: Boolean },
 			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-2
+			* based on the LaunchDarkly flag face-assignments-milestone-3-competencies
 			*/
-			milestoneThreeEnabled: { type: Boolean },
+			milestoneThreeCompetenciesEnabled: { type: Boolean },
 			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-2
+			* based on the LaunchDarkly flag face-assignments-milestone-3-default-scoring-rubric
+			*/
+			milestoneThreeDefaultScoringRubricEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-3-outcomes
+			*/
+			milestoneThreeOutcomesEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-3-release-conditions
+			*/
+			milestoneThreeReleaseConditionsEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-3-special-access
+			*/
+			milestoneThreeSpecialAccessEnabled: { type: Boolean },
+			/**
+			* based on the LaunchDarkly flag face-assignments-milestone-4
 			*/
 			milestoneFourEnabled: { type: Boolean },
 			/**
@@ -97,39 +109,53 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 		this.telemetryId = 'assignments';
 	}
 
-	firstUpdated(changedProperties) {
-		super.firstUpdated(changedProperties);
-
-		this.addEventListener('d2l-siren-entity-save-start', () => {
-			this.shadowRoot.querySelector('#save-status').start();
-		});
-		this.addEventListener('d2l-siren-entity-save-end', () => {
-			this.shadowRoot.querySelector('#save-status').end();
-		});
-		this.addEventListener('d2l-siren-entity-save-error', () => {
-			this.shadowRoot.querySelector('#save-status').error();
-		});
-	}
-
 	_onRequestProvider(e) {
 		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
 			e.detail.provider = this.htmlEditorEnabled;
 			e.stopPropagation();
+			return;
 		}
 
 		if (e.detail.key === 'd2l-milestone-two') {
 			e.detail.provider = this.milestoneTwoEnabled;
 			e.stopPropagation();
+			return;
 		}
 
-		if (e.detail.key === 'd2l-milestone-three') {
-			e.detail.provider = this.milestoneThreeEnabled;
+		if (e.detail.key === 'd2l-milestone-three-competencies') {
+			e.detail.provider = this.milestoneThreeCompetenciesEnabled;
 			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-milestone-three-default-scoring-rubric') {
+			e.detail.provider = this.milestoneThreeDefaultScoringRubricEnabled;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-milestone-three-outcomes') {
+			e.detail.provider = this.milestoneThreeOutcomesEnabled;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-milestone-three-release-conditions') {
+			e.detail.provider = this.milestoneThreeReleaseConditionsEnabled;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-milestone-three-special-access') {
+			e.detail.provider = this.milestoneThreeSpecialAccessEnabled;
+			e.stopPropagation();
+			return;
 		}
 
 		if (e.detail.key === 'd2l-milestone-four') {
 			e.detail.provider = this.milestoneFourEnabled;
 			e.stopPropagation();
+			return;
 		}
 
 		// Provides unfurl API endpoint for d2l-labs-attachment component
@@ -217,7 +243,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 			<d2l-template-primary-secondary slot="editor" width-type="${this.widthType}">
 				<slot name="editor-nav" slot="header"></slot>
 				<div slot="primary" class="d2l-activity-assignment-editor-primary-panel">
-					${this.isError ? html`<d2l-alert type="error">${this.localize('assignmentSaveError')}</d2l-alert>` : null}
+					<d2l-alert type="error" ?hidden=${!this.isError}>${this.localize('assignmentSaveError')}</d2l-alert>
 					<d2l-activity-assignment-editor-detail
 						href="${assignmentHref}"
 						.token="${this.token}">
@@ -247,6 +273,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeMixin(Activi
 				telemetryId="${this.telemetryId}"
 				.href=${this.href}
 				.token=${this.token}
+				?is-saving=${this.isSaving}
 				unfurlEndpoint="${this.unfurlEndpoint}"
 				trustedSitesEndpoint="${this.trustedSitesEndpoint}"
 				@d2l-request-provider="${this._onRequestProvider}">

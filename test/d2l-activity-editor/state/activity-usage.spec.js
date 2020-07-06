@@ -1,3 +1,4 @@
+import { ActivitySpecialAccessEntity } from 'siren-sdk/src/activities/ActivitySpecialAccessEntity.js';
 import { ActivityUsage} from '../../../components/d2l-activity-editor/state/activity-usage.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsCollectionEntity } from 'siren-sdk/src/alignments/AlignmentsCollectionEntity.js';
@@ -7,6 +8,7 @@ import { fetchEntity } from '../../../components/d2l-activity-editor/state/fetch
 import sinon from 'sinon';
 import { when } from 'mobx';
 
+jest.mock('siren-sdk/src/activities/ActivitySpecialAccessEntity.js');
 jest.mock('siren-sdk/src/activities/ActivityUsageEntity.js');
 jest.mock('siren-sdk/src/alignments/AlignmentsCollectionEntity.js');
 jest.mock('siren-sdk/src/competencies/CompetenciesEntity.js');
@@ -45,12 +47,14 @@ describe('Activity Usage', function() {
 			competenciesHref: () => competenciesHref,
 			associatedCompetenciesCount: () => associatedCompetenciesCount,
 			unevaluatedCompetenciesCount: () => unevaluatedCompetenciesCount,
-			competenciesDialogUrl: () => competenciesDialogUrl
+			competenciesDialogUrl: () => competenciesDialogUrl,
+			specialAccessHref: () => null
 		};
 	}
 
 	afterEach(() => {
 		sinon.restore();
+		ActivitySpecialAccessEntity.mockClear();
 		ActivityUsageEntity.mockClear();
 		AlignmentsCollectionEntity.mockClear();
 		fetchEntity.mockClear();
@@ -69,7 +73,8 @@ describe('Activity Usage', function() {
 			AlignmentsCollectionEntity.mockImplementation(() => {
 				return {
 					getAlignments: () => [],
-					canUpdateAlignments: () => true
+					canUpdateAlignments: () => true,
+					save: () => Promise.resolve()
 				};
 			});
 
@@ -78,6 +83,14 @@ describe('Activity Usage', function() {
 					dialogUrl: () => 'http://competencies-dialog-href/',
 					associatedCount: () => 13,
 					unevaluatedCount: () => 10
+				};
+			});
+
+			ActivitySpecialAccessEntity.mockImplementation(() => {
+				return {
+					url: () => 'http://special-access-dialog-href/',
+					userCount: () => 0,
+					isRestricted: () => false
 				};
 			});
 
@@ -90,9 +103,9 @@ describe('Activity Usage', function() {
 
 			expect(activity.isDraft).to.be.true;
 			expect(activity.canEditDraft).to.be.true;
+			expect(activity.specialAccess).to.be.null;
 			expect(activity.canUpdateAlignments).to.be.true;
 			expect(activity.alignmentsHref).to.equal('http://alignments-href/');
-			expect(activity.hasAlignments).to.be.false;
 			expect(activity.competenciesHref).to.be.null;
 			expect(activity.associatedCompetenciesCount).to.be.null;
 			expect(activity.unevaluatedCompetenciesCount).to.be.null;
@@ -117,7 +130,6 @@ describe('Activity Usage', function() {
 			expect(activity.canEditDraft).to.be.true;
 			expect(activity.canUpdateAlignments).to.be.false;
 			expect(activity.alignmentsHref).to.be.null;
-			expect(activity.hasAlignments).to.be.false;
 			expect(activity.competenciesHref).to.equal('http://competencies-href/');
 			expect(activity.associatedCompetenciesCount).to.equal(13);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
@@ -191,6 +203,18 @@ describe('Activity Usage', function() {
 
 			await activity.loadCompetencies();
 			assertExpectations();
+		});
+
+		it('fetches special access', async() => {
+			ActivityUsageEntity.mockImplementation(() => {
+				const defaultEntity = defaultEntityMock();
+				defaultEntity.specialAccessHref = () => 'http://special-access-href';
+				return defaultEntity;
+			});
+
+			const activity = new ActivityUsage('http://1', 'token');
+			await activity.fetch();
+			expect(activity.specialAccess).to.be.an('object');
 		});
 	});
 

@@ -18,12 +18,10 @@ export default {
 	"endTime": "Sluttid", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Starttid", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Dold", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Visas inte för eleverna", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Inget förfallodatum", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Inget slutdatum", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Inget startdatum", // Placeholder text for due date field when no due date is set
 	"visible": "Synlig", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Synlig för elever", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Tillgänglighet börjar {startDate} och upphör {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "Tillgänglighet börjar {startDate}", // start only text
 	"txtAvailabilityEndOnly": "Tillgänglighet upphör {endDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "Du har inte behörighet att skapa betygsobjekt", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "Inlärningsmål", //Text label for the competencies tool integration
 	"manageCompetencies": "Hantera utbildningsmål", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCount": "{count, plural, =0 {Inga inlärningsmål} =1 {1 bifogat} other {{count} bifogade}}", //Label for number of associated competencies
 	"competenciesCountSummary": "{count, plural, =0 {Inga inlärningsmål} =1 {1 inlärningsmål} other {{count} inlärningsmål}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {1 bedömning saknas} other {{count} bedömningar saknas}}", //Label for number of unevalated associated competencies
 	"btnClose": "Stäng", //Label for Close button
 	"btnCloseDialog": "Stäng den här dialogrutan" // close dialog button
 };

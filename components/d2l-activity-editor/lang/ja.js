@@ -18,12 +18,10 @@ export default {
 	"endTime": "終了時刻", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "開始時刻", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "非表示", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "受講者に対して非表示", // Aria Label for the visibility switch when hidden
 	"noDueDate": "期限がありません", // Placeholder text for due date field when no due date is set
 	"noEndDate": "終了日がありません", // Placeholder text for due date field when no due date is set
 	"noStartDate": "開始日がありません", // Placeholder text for due date field when no due date is set
 	"visible": "表示", // Label displayed with the visibility switch when visible
-	"ariaVisible": "受講者に表示", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "使用可能期間開始日 {startDate}、終了日 {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "使用可能期間開始日 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "使用可能期間終了日 {endDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "新規成績項目を作成する権限がありません", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "学習目的", //Text label for the competencies tool integration
 	"manageCompetencies": "学習目的の管理", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCount": "{count, plural, =0 {学習目的なし} =1 {1 個添付} other {{count} 個添付}}", //Label for number of associated competencies
 	"competenciesCountSummary": "{count, plural, =0 {学習目的なし} =1 {1 つの学習目的} other {{count} 個の学習目的}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {1 件評価なし} other {{count} 件評価なし}}", //Label for number of unevalated associated competencies
 	"btnClose": "閉じる", //Label for Close button
 	"btnCloseDialog": "このダイアログを閉じる" // close dialog button
 };

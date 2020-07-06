@@ -18,12 +18,10 @@ export default {
 	"endTime": "Sluttidspunkt", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Starttidspunkt", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Skjult", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Skjult fra elever", // Aria Label for the visibility switch when hidden
 	"noDueDate": "Ingen forfaldsdato", // Placeholder text for due date field when no due date is set
 	"noEndDate": "Ingen slutdato", // Placeholder text for due date field when no due date is set
 	"noStartDate": "Ingen startdato", // Placeholder text for due date field when no due date is set
 	"visible": "Synlig", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Synlig for elever", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Tilgængelighed starter d. {startDate} og slutter d. {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "Tilgængelighed starter d. {startDate}", // start only text
 	"txtAvailabilityEndOnly": "Ikke længere tilgængeligt d. {endDate}", // end only text

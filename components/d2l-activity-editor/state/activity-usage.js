@@ -1,6 +1,7 @@
 import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { ActivityDates } from './activity-dates.js';
 import { ActivityScoreGrade } from './activity-score-grade.js';
+import { ActivitySpecialAccess } from './activity-special-access.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsCollectionEntity } from 'siren-sdk/src/alignments/AlignmentsCollectionEntity.js';
 import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
@@ -34,6 +35,13 @@ export class ActivityUsage {
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
 		this.associationsHref = entity.getDirectRubricAssociationsHref();
 
+		await Promise.all([
+			this._loadSpecialAccess(entity),
+			this._loadCompetencyOutcomes(entity)
+		]);
+	}
+
+	async _loadCompetencyOutcomes(entity) {
 		/**
 		 * Legacy Competencies
 		 * Href will be available if competencies tool is enabled and outcomes tool is disabled or there are no intents in the course.
@@ -46,21 +54,14 @@ export class ActivityUsage {
 		/**
 		 * Learning Outcomes
 		 * Href will be available if outcomes tool is enabled.
-		 */
+		*/
 		this.alignmentsHref = this.competenciesHref ? null : entity.alignmentsHref();
 		this.canUpdateAlignments = false;
-		this.hasAlignments = false;
 
 		if (this.competenciesHref) {
 			await this.loadCompetencies();
 		} else if (this.alignmentsHref) {
-			const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
-
-			runInAction(() => {
-				const alignmentsCollection = new AlignmentsCollectionEntity(alignmentsEntity);
-				this.canUpdateAlignments = alignmentsCollection.canUpdateAlignments();
-				this.hasAlignments = alignmentsCollection.getAlignments().length > 0;
-			});
+			await this._loadOutcomes();
 		}
 	}
 
@@ -79,16 +80,33 @@ export class ActivityUsage {
 		});
 	}
 
+	async _loadOutcomes() {
+		const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
+
+		runInAction(() => {
+			const alignmentsCollection = new AlignmentsCollectionEntity(alignmentsEntity);
+			this.canUpdateAlignments = alignmentsCollection.canUpdateAlignments();
+		});
+	}
+
+	async _loadSpecialAccess(entity) {
+		const specialAccessHref = entity.specialAccessHref();
+		let specialAccess = null;
+
+		if (specialAccessHref) {
+			specialAccess = new ActivitySpecialAccess(specialAccessHref, this.token);
+			await specialAccess.fetch();
+		}
+
+		runInAction(() => this.specialAccess = specialAccess);
+	}
+
 	setAlignmentsHref(value) {
 		this.alignmentsHref = value;
 	}
 
 	setCanUpdateAlignments(value) {
 		this.canUpdateAlignments = value;
-	}
-
-	setHasAlignments(value) {
-		this.hasAlignments = value;
 	}
 
 	setDraftStatus(isDraft) {
@@ -163,18 +181,36 @@ export class ActivityUsage {
 		};
 	}
 
+	async saveAlignments() {
+		if (this.alignmentsHref && this.canUpdateAlignments) {
+			const alignmentsCollection = new AlignmentsCollectionEntity(await fetchEntity(this.alignmentsHref, this.token), this.token);
+			return alignmentsCollection.save();
+		}
+	}
+
 	async save() {
 		if (!this._entity) {
 			return;
 		}
+
+		await this.saveAlignments();
 
 		await this._entity.save(this._makeUsageData());
 
 		await this.fetch();
 	}
 
-	get dirty() {
-		return !this._entity.equals(this._makeUsageData());
+	async _alignmentsDirty() {
+		if (!this.alignmentsHref || !this.canUpdateAlignments) {
+			return false;
+		}
+
+		const alignmentsCollection = new AlignmentsCollectionEntity(await fetchEntity(this.alignmentsHref, this.token), this.token);
+		return alignmentsCollection.hasSubmitAction();
+	}
+
+	async dirty() {
+		return !this._entity.equals(this._makeUsageData()) || await this._alignmentsDirty();
 	}
 }
 
@@ -190,11 +226,11 @@ decorate(ActivityUsage, {
 	associationsHref: observable,
 	alignmentsHref: observable,
 	canUpdateAlignments: observable,
-	hasAlignments: observable,
 	competenciesHref: observable,
 	associatedCompetenciesCount: observable,
 	unevaluatedCompetenciesCount: observable,
 	competenciesDialogUrl: observable,
+	specialAccess: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,
@@ -207,6 +243,5 @@ decorate(ActivityUsage, {
 	setDates: action,
 	setAlignmentsHref: action,
 	setCanUpdateAlignments: action,
-	setHasAlignments: action,
 	loadCompetencies: action
 });

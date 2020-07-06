@@ -18,12 +18,10 @@ export default {
 	"endTime": "End Time", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "Start Time", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "Hidden", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "Hidden from learners", // Aria Label for the visibility switch when hidden
 	"noDueDate": "No due date", // Placeholder text for due date field when no due date is set
 	"noEndDate": "No end date", // Placeholder text for due date field when no due date is set
 	"noStartDate": "No start date", // Placeholder text for due date field when no due date is set
 	"visible": "Visible", // Label displayed with the visibility switch when visible
-	"ariaVisible": "Visible to learners", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "Availability starts {startDate} and ends {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "Availability starts {startDate}", // start only text
 	"txtAvailabilityEndOnly": "Availability ends {endDate}", // end only text
@@ -57,7 +55,11 @@ export default {
 	"manageCompetencies": "Manage Learning Objectives", //Button text to launch competencies tool dialog
 	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
 	"competenciesCountSummary": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {1 missing assessment} other {{count} missing assessments}}", //Label for number of unevalated associated competencies
 	"btnClose": "Close", //Label for Close button
-	"btnCloseDialog": "Close this Dialog" // close dialog button
+	"btnCloseDialog": "Close this Dialog", // close dialog button
+	"btnManageSpecialAccess": "Manage Special Access", // manage special access button
+	"specialAccessRestrictedText": "Only users with special access can see this folder", // restricted special access description
+	"specialAccessNotRestrictedText": "Users can submit outside normal availability dates", // not restricted special access description
+	"specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access" // Label for number of special access users
 };

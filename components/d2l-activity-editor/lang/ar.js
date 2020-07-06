@@ -18,12 +18,10 @@ export default {
 	"endTime": "وقت الانتهاء", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "وقت البدء", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "مخفي", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "مخفي عن المتعلّمين", // Aria Label for the visibility switch when hidden
 	"noDueDate": "ما من تاريخ استحقاق", // Placeholder text for due date field when no due date is set
 	"noEndDate": "ما من تاريخ انتهاء", // Placeholder text for due date field when no due date is set
 	"noStartDate": "ما من تاريخ بدء", // Placeholder text for due date field when no due date is set
 	"visible": "مرئي", // Label displayed with the visibility switch when visible
-	"ariaVisible": "ظاهر للمتعلّمين", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "يبدأ التوفر بتاريخ {startDate} وينتهي بتاريخ {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "يبدأ التوفر بتاريخ {startDate}", // start only text
 	"txtAvailabilityEndOnly": "تاريخ انتهاء التوفر {endDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "أهداف التعلّم", //Text label for the competencies tool integration
 	"manageCompetencies": "إدارة أهداف التعلّم", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"competenciesCount": "{count, plural, =0 {ما من أهداف تعلّم} =1 {مرفق واحد} other {{count} من المرفقات}}", //Label for number of associated competencies
 	"competenciesCountSummary": "{count, plural, =0 {ما من أهداف تعلّم} =1 {هدف تعلّم واحد} other {{count} من أهداف التعلّم}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other ‏{{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
 	"btnClose": "إغلاق", //Label for Close button
 	"btnCloseDialog": "إغلاق مربع الحوار هذا" // close dialog button
 };

@@ -18,12 +18,10 @@ export default {
 	"endTime": "结束时间", // ARIA label for the end time field when creating/editing an activity
 	"startTime": "开始时间", // ARIA label for the start time field when creating/editing an activity
 	"hidden": "隐藏", // Label displayed with the visibility switch when hidden
-	"ariaHidden": "对学员不可见", // Aria Label for the visibility switch when hidden
 	"noDueDate": "无截止日期", // Placeholder text for due date field when no due date is set
 	"noEndDate": "无结束日期", // Placeholder text for due date field when no due date is set
 	"noStartDate": "无开始日期", // Placeholder text for due date field when no due date is set
 	"visible": "可见", // Label displayed with the visibility switch when visible
-	"ariaVisible": "对学员可见", // Aria Label for the visibility switch when visible
 	"txtAvailabilityStartAndEnd": "可用开始日期 {startDate} 和结束日期 {endDate}", // start/end text
 	"txtAvailabilityStartOnly": "可用开始日期 {startDate}", // start only text
 	"txtAvailabilityEndOnly": "可用结束日期 {endDate}", // end only text
@@ -55,9 +53,9 @@ export default {
 	"noGradeCreatePermission": "您没有权限创建新的成绩项目", // Reason why a new grade items cannot be created in the choose grades dialog
 	"competencies": "学习目标", //Text label for the competencies tool integration
 	"manageCompetencies": "管理学习目标", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
-	"competenciesCountSummary": "{count, plural, =0 {无学习目标} =1 {1 个学习目标} 其他 {{count} 个学习目标}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 not being evaluated} other {{count} not being evaluated}}", //Label for number of unevalated associated competencies
+	"competenciesCount": "{count, plural, =0 {无学习目标} =1 {1 个已随附} other {{count} 个已随附}}", //Label for number of associated competencies
+	"competenciesCountSummary": "{count, plural, =0 {无学习目标} =1 {1 个学习目标} other {{count} 个学习目标}}",
+	"unevaluatedCompetencies": "{count, plural, =1 {1 个评估缺失} other {{count} 个评估缺失}}", //Label for number of unevalated associated competencies
 	"btnClose": "关闭", //Label for Close button
 	"btnCloseDialog": "关闭此对话框" // close dialog button
 };

@@ -147,7 +147,8 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 		return html`
 			<d2l-activity-rubrics-list-wrapper
 				.href="${this.activityUsageHref}"
-				.token="${this.token}">
+				.token="${this.token}"
+				.assignmentHref="${this.href}">
 			</d2l-activity-rubrics-list-wrapper>
 		`;
 	}

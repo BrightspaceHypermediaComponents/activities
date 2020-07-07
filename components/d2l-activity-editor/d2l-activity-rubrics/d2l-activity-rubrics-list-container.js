@@ -4,16 +4,20 @@ import 'd2l-rubric/d2l-rubric';
 import 'd2l-rubric/d2l-rubric-title';
 import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
+import '@brightspace-ui/core/components/dropdown/dropdown.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-content.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
+import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
+import associationStore from './state/association-collection-store.js';
 import { getLocalizeResources } from '../localization.js';
-import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import store from './state/association-collection-store.js';
+import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
 class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
 
@@ -27,6 +31,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	static get styles() {
 		return [
 			heading4Styles,
+			labelStyles,
+			selectStyles,
 			css`
 				:host {
 					display: block;
@@ -60,7 +66,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	}
 
 	constructor() {
-		super(store);
+		super(associationStore);
 		this._newlyCreatedPotentialAssociation = {};
 		this._newlyCreatedPotentialAssociationHref = '';
 	}
@@ -81,7 +87,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	}
 
 	_closeAttachRubricDialog(e) {
-		const entity = store.get(this.href);
+		const entity = associationStore.get(this.href);
 		if (e && e.detail && e.detail.associations) {
 			entity.addAssociations(e.detail.associations);
 			announce(this.localize('txtRubricAdded'));
@@ -103,7 +109,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	}
 
 	_attachRubric() {
-		const entity = store.get(this.href);
+		const entity = associationStore.get(this.href);
 
 		if (!entity) {
 			return;
@@ -115,7 +121,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 	async _createNewAssociation() {
 
-		const entity = store.get(this.href);
+		const entity = associationStore.get(this.href);
 		if (!entity) {
 			return;
 		}
@@ -191,9 +197,68 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 	}
 
+	_saveDefaultScoringRubricOnChange(event) {
+		if (!event) {
+			return;
+		}
+	}
+
+	_getDefaultScoringRubricOptions(entity) {
+		if (!entity) {
+			return [];
+		}
+
+		const options = [
+			{
+				title: 'Rubric 1',
+				value: 1
+			},
+			{
+				title: 'Rubric 2',
+				value: 2
+			}
+		];
+
+		return options;
+	}
+
+	_renderDefaultScoringRubric(entity) {
+
+		const assignment = assignmentStore.getAssignment(this.assignmentHref);
+
+		if (!entity || !assignment) {
+			return html``;
+		}
+
+		const isReadOnly = !assignment.canEditDefaultScoringRubric;
+		const defaultScoringOptions = this._getDefaultScoringRubricOptions(entity)
+
+		// TODO get list of associated rubrics
+		console.log('associationsMap: ', entity.associationsMap)
+		console.log('assignmentStore: ', assignmentStore)
+
+		if (!defaultScoringOptions || defaultScoringOptions.length <= 1) {
+			return html``;
+		}
+
+		return html`
+			<label class="d2l-label-text" for="assignment-default-scoring-rubric">
+				Default Scoring Rubric
+			</label>
+			<select
+				id="assignment-default-scoring-rubric"
+				class="d2l-input-select block-select"
+				@change="${this._saveDefaultScoringRubricOnChange}"
+				?disabled=${isReadOnly}>
+					${defaultScoringOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === 1}>${option.title}</option>`)}
+			</select>
+		`;
+
+	}
+
 	render() {
 
-		const entity = store.get(this.href);
+		const entity = associationStore.get(this.href);
 
 		if (!entity) {
 			return html``;
@@ -212,6 +277,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			></d2l-activity-rubrics-list-editor>
 
 			${this._renderAddRubricDropdown(entity)}
+
+			${this._renderDefaultScoringRubric(entity)}
 
 			<d2l-simple-overlay
 				id="create-new-association-dialog"

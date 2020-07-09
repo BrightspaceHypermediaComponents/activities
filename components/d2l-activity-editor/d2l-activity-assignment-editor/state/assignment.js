@@ -87,7 +87,6 @@ export class Assignment {
 		this.editTurnitinUrl = entity.editTurnitinUrl();
 		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
-		debugger;
 		this.canEditDefaultScoringRubric = entity.canEditDefaultScoringRubric();
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();

@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
@@ -27,6 +27,8 @@ export class AssociationCollection {
 		this._entity = entity;
 
 		this.associationsMap = new Map();
+
+		this.associatedRubrics = [];
 
 		this._entity.getAllAssociations().forEach(asc => {
 
@@ -165,11 +167,31 @@ export class AssociationCollection {
 
 		return false;
 	}
+
+	associatedRubrics() {
+		const associations = Array.from(this.associationsMap.values());
+
+		const associated = associations.filter(association => (association.isAssociating || association.isAssociated) && !association.isDeleting);
+
+		return Promise.all(associated.map(async association => {
+			const rubricEntity = await fetchEntity(association.rubricHref, this.token);
+
+			if (!rubricEntity || !rubricEntity.properties) {
+				return;
+			}
+			console.log("rubricEntity", rubricEntity);
+
+			associatedRubrics.push({title: rubricEntity.properties.name, value: 1});
+		}));
+	}
 }
 
 decorate(AssociationCollection, {
 	// props
 	associationsMap: observable,
+	associatedRubricNames: observable,
+	//computed
+	associatedRubrics: action,
 	// actions
 	load: action,
 	save: action,

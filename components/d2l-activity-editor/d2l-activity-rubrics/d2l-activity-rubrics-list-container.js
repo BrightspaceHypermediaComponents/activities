@@ -24,7 +24,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	static get properties() {
 		return {
 			_newlyCreatedPotentialAssociationHref: { type: String },
-			activityUsageHref: { type: String }
+			activityUsageHref: { type: String },
+			defaultScoringOptions: {type: Array}
 		};
 	}
 
@@ -203,23 +204,23 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 	}
 
-	_getDefaultScoringRubricOptions(entity) {
+	async _getDefaultScoringRubricOptions(entity) {
 		if (!entity) {
 			return [];
 		}
 
-		const options = [
-			{
-				title: 'Rubric 1',
-				value: 1
-			},
-			{
-				title: 'Rubric 2',
-				value: 2
-			}
-		];
+		// const options = [
+		// 	{
+		// 		title: 'Rubric 1',
+		// 		value: 1
+		// 	},
+		// 	{
+		// 		title: 'Rubric 2',
+		// 		value: 2
+		// 	}
+		// ];
 
-		return options;
+		Promise.resolve(entity.associatedRubrics());
 	}
 
 	_renderDefaultScoringRubric(entity) {
@@ -231,13 +232,12 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 
 		const isReadOnly = !assignment.canEditDefaultScoringRubric;
-		const defaultScoringOptions = this._getDefaultScoringRubricOptions(entity)
+		this._getDefaultScoringRubricOptions(entity);
 
 		// TODO get list of associated rubrics
-		console.log('associationsMap: ', entity.associationsMap)
-		console.log('assignmentStore: ', assignmentStore)
+		console.log('defaultScoringOptions: ', this.defaultScoringOptions);
 
-		if (!defaultScoringOptions || defaultScoringOptions.length <= 1) {
+		if (!entity.associatedRubricNames || entity.associatedRubricNames.length <= 1) {
 			return html``;
 		}
 
@@ -250,7 +250,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				class="d2l-input-select block-select"
 				@change="${this._saveDefaultScoringRubricOnChange}"
 				?disabled=${isReadOnly}>
-					${defaultScoringOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === 1}>${option.title}</option>`)}
+					${entity.associatedRubricNames.map(option => html`<option value=${option.value} ?selected=${String(option.value) === 1}>${option.title}</option>`)}
 			</select>
 		`;
 

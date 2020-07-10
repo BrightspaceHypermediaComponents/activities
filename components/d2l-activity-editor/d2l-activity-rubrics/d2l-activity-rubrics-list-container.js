@@ -199,28 +199,13 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	}
 
 	_saveDefaultScoringRubricOnChange(event) {
-		if (!event) {
+		const assignment = assignmentStore.getAssignment(this.assignmentHref);
+
+		if (!assignment) {
 			return;
 		}
-	}
 
-	async _getDefaultScoringRubricOptions(entity) {
-		if (!entity) {
-			return [];
-		}
-
-		// const options = [
-		// 	{
-		// 		title: 'Rubric 1',
-		// 		value: 1
-		// 	},
-		// 	{
-		// 		title: 'Rubric 2',
-		// 		value: 2
-		// 	}
-		// ];
-
-		Promise.resolve(entity.associatedRubrics());
+		assignment.setDefaultScoringRubric(event?.target?.value);
 	}
 
 	_renderDefaultScoringRubric(entity) {
@@ -232,12 +217,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 
 		const isReadOnly = !assignment.canEditDefaultScoringRubric;
-		this._getDefaultScoringRubricOptions(entity);
-
-		// TODO get list of associated rubrics
-		console.log('defaultScoringOptions: ', this.defaultScoringOptions);
-
-		if (!entity.associatedRubricNames || entity.associatedRubricNames.length <= 1) {
+		if (!entity.defaultScoringRubricOptions || entity.defaultScoringRubricOptions.length <= 1) {
 			return html``;
 		}
 
@@ -250,7 +230,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				class="d2l-input-select block-select"
 				@change="${this._saveDefaultScoringRubricOnChange}"
 				?disabled=${isReadOnly}>
-					${entity.associatedRubricNames.map(option => html`<option value=${option.value} ?selected=${String(option.value) === 1}>${option.title}</option>`)}
+				<option value="no-default-scoring-rubric" ?selected=${'no-default-scoring-rubric' === assignment.defaultScoringRubricHref}>No default selected</option>
+					${entity.defaultScoringRubricOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.defaultScoringRubricHref}>${option.title}</option>`)}
 			</select>
 		`;
 
@@ -274,6 +255,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				href="${this.href}"
 				activityUsageHref=${this.activityUsageHref}
 				.token=${this.token}
+				.assignmentHref=${this.assignmentHref}
 			></d2l-activity-rubrics-list-editor>
 
 			${this._renderAddRubricDropdown(entity)}

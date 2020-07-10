@@ -15,6 +15,7 @@ export class Assignment {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
 			const entity = new AssignmentEntity(sirenEntity, this.token, { remove: () => { } });
+			console.log('AssignmentEntity: ', entity)
 			this.load(entity);
 		}
 		return this;
@@ -88,6 +89,7 @@ export class Assignment {
 		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
 		this.canEditDefaultScoringRubric = entity.canEditDefaultScoringRubric();
+		this.defaultScoringRubricHref = entity.defaultScoringRubric || 'no-default-scoring-rubric';
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditSubmissionType = entity.canEditSubmissionType();
@@ -181,6 +183,16 @@ export class Assignment {
 		this.instructions = value;
 	}
 
+	setDefaultScoringRubric(rubricHref) {
+		if (rubricHref) {
+			this.defaultScoringRubricHref = rubricHref;
+		}
+	}
+
+	resetDefaultScoringRubricHref() {
+		this.defaultScoringRubricHref = 'no-default-scoring-rubric';
+	}
+
 	_makeAssignmentData() {
 		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
 		 		 The cancel workflow is making use of that to detect changes.
@@ -268,6 +280,7 @@ decorate(Assignment, {
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
 	canEditDefaultScoringRubric: observable,
+	defaultScoringRubricHref: observable,
 	selectedGroupCategoryName: observable,
 	showFilesSubmissionLimit: computed,
 	showSubmissionsRule: computed,
@@ -285,5 +298,7 @@ decorate(Assignment, {
 	setToGroupAssignmentType: action,
 	setAssignmentTypeGroupCategory: action,
 	setFilesSubmissionLimit: action,
-	setSubmissionsRule: action
+	setSubmissionsRule: action,
+	setDefaultScoringRubric: action,
+	resetDefaultScoringRubricHref: action
 });

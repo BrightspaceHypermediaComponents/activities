@@ -1,4 +1,5 @@
-import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
+import { shared as assignmentStore } from '../../d2l-activity-assignment-editor/state/assignment-store.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
@@ -23,16 +24,17 @@ export class AssociationCollection {
 		return this;
 	}
 
-	load(entity) {
+	async load(entity) {
 		this._entity = entity;
 
 		this.associationsMap = new Map();
 
-		this.associatedRubrics = [];
+		this.defaultScoringRubricOptions = [];
 
 		this._entity.getAllAssociations().forEach(asc => {
 
 			const associationEntity = new Association(asc, this.token);
+			console.log('associationEntity: ', associationEntity)
 			const rubricHref = associationEntity.getRubricLink();
 			const formattedEntity = this._formatAssociationEntity(associationEntity);
 
@@ -40,6 +42,32 @@ export class AssociationCollection {
 				this.associationsMap.set(rubricHref, formattedEntity);
 			}
 		});
+
+		const associations = this.fetchAssociations();
+		const validDefaultScoringOption = associations.filter(association => (association.isAssociating || association.isAssociated) && !association.isDeleting);
+
+		for (const option of validDefaultScoringOption) {
+			this.addDefaultScoringRubricOption(option.rubricHref);
+		}
+	}
+
+	async addDefaultScoringRubricOption(rubricHref) {
+		if (rubricHref) {
+			const rubricEntity = await fetchEntity(rubricHref, this.token);
+			runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricHref}));
+		}
+	}
+
+	removeDefaultScoringRubricOption(rubricHref, assignment) {
+		if (rubricHref && assignment) {
+			if (assignment.defaultScoringRubricHref === rubricHref) {
+				assignment.resetDefaultScoringRubricHref();
+			}
+
+			this.defaultScoringRubricOptions = this.defaultScoringRubricOptions.filter(
+				option => option.value !== rubricHref
+			);
+		}
 	}
 
 	fetchAssociations() {
@@ -70,6 +98,8 @@ export class AssociationCollection {
 			if (this.associationsMap.has(rubricHref)) {
 				const association = this.associationsMap.get(rubricHref);
 
+				runInAction(() => this.addDefaultScoringRubricOption(association.rubricHref));
+
 				if (association.isDeleting) {
 					association.isDeleting = false;
 				} else {
@@ -85,10 +115,12 @@ export class AssociationCollection {
 
 	}
 
-	deleteAssociation(rubricHref) {
+	deleteAssociation(rubricHref, assignment) {
 
 		if (this.associationsMap.has(rubricHref)) {
 			const association = this.associationsMap.get(rubricHref);
+
+			this.removeDefaultScoringRubricOption(rubricHref, assignment);
 
 			if (association.isAssociating) {
 				association.isAssociating = false;
@@ -167,35 +199,18 @@ export class AssociationCollection {
 
 		return false;
 	}
-
-	associatedRubrics() {
-		const associations = Array.from(this.associationsMap.values());
-
-		const associated = associations.filter(association => (association.isAssociating || association.isAssociated) && !association.isDeleting);
-
-		return Promise.all(associated.map(async association => {
-			const rubricEntity = await fetchEntity(association.rubricHref, this.token);
-
-			if (!rubricEntity || !rubricEntity.properties) {
-				return;
-			}
-			console.log("rubricEntity", rubricEntity);
-
-			associatedRubrics.push({title: rubricEntity.properties.name, value: 1});
-		}));
-	}
 }
 
 decorate(AssociationCollection, {
 	// props
 	associationsMap: observable,
-	associatedRubricNames: observable,
-	//computed
-	associatedRubrics: action,
+	defaultScoringRubricOptions: observable,
 	// actions
 	load: action,
 	save: action,
 	addAssociations: action,
 	deleteAssociation: action,
-	addPotentialAssociationToMap: action
+	addPotentialAssociationToMap: action,
+	addDefaultScoringRubricOption: action,
+	removeDefaultScoringRubricOption: action
 });

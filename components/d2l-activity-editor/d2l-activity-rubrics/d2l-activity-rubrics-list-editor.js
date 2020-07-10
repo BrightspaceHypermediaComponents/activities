@@ -4,6 +4,7 @@ import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
+import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 import { getLocalizeResources } from '../localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -51,10 +52,12 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 
 	_deleteAssociation(e) {
 		const entity = store.get(this.href);
-		if (!entity) {
+		const assignment = assignmentStore.getAssignment(this.assignmentHref);
+
+		if (!entity || !assignment) {
 			return;
 		}
-		entity.deleteAssociation(e.target.dataset.id);
+		entity.deleteAssociation(e.target.dataset.id, assignment);
 		announce(this.localize('txtRubricRemoved'));
 	}
 

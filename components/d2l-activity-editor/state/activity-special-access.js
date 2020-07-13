@@ -11,8 +11,8 @@ export class ActivitySpecialAccess {
 		this.token = token;
 	}
 
-	async fetch() {
-		const sirenEntity = await fetchEntity(this.href, this.token);
+	async fetch(bypassCache) {
+		const sirenEntity = await fetchEntity(this.href, this.token, bypassCache);
 		if (sirenEntity) {
 			const entity = new ActivitySpecialAccessEntity(sirenEntity, this.token, { remove: () => { } });
 			await this.load(entity);
@@ -26,6 +26,14 @@ export class ActivitySpecialAccess {
 		this.userCount = entity.userCount();
 		this.url = entity.url();
 	}
+
+	setIsRestricted(isRestricted) {
+		this.isRestricted = isRestricted;
+	}
+
+	setUserCount(userCount) {
+		this.userCount = userCount;
+	}
 }
 
 decorate(ActivitySpecialAccess, {
@@ -34,5 +42,7 @@ decorate(ActivitySpecialAccess, {
 	userCount: observable,
 	url: observable,
 	// actions
-	load: action
+	load: action,
+	setIsRestricted: action,
+	setUserCount: action
 });

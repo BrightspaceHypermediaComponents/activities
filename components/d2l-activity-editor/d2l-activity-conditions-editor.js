@@ -64,32 +64,38 @@ class ActivityConditionsEditor
 			css`
 			.d2l-list-item {
 				display: flex;
-				border: 1px solid var(--d2l-color-gypsum);
-				border-radius: 6px;
 				margin-top: 0.5rem;
 				margin-bottom: 0.5rem;
+				align-items: center;
+			}
+
+			.d2l-list-item-body{
+				flex-grow: 1;
+				border: 1px solid var(--d2l-color-chromite);
+				border-radius: 6px;
+				padding: 12px;
 			}
 
 			.d2l-list-item-decoration {
 				flex: 0 0 auto;
-				padding-top: 18px;
-				padding-left: 15px;
-				padding-right: 18px;
-				padding-bottom: 18px;
+				display: flex;
+				margin-right: 12px;
+				margin-bottom: 2px;
+				float: left;	
 			}
 
 			.d2l-list-item-content {
 				flex: 1 1 auto;
-				padding-top: 17px;
-				padding-bottom: 17px;
 				align-self: center;
+				float: left;
+				max-width: 80%;
+				margin-top: -6px;
+				margin-bottom: -5px;
 			}
 
 			.d2l-list-item-deleter {
 				flex: 0 0 auto;
-				padding-top: 6px;
-				padding-left: 6px;
-				padding-right: 6px;
+				margin-left: 4px;
 			}
 			`
 		];
@@ -187,20 +193,22 @@ class ActivityConditionsEditor
 
 		return html`
 			<li class="d2l-list-item">
-				<span class="d2l-list-item-decoration">
-					<d2l-icon
-						icon="tier2:release-conditions"
-						style="width:30px;height:30px;">
-					</d2l-icon>
-				</span>
-				<span
-					class="d2l-list-item-content d2l-body-compact"
-					.innerHTML="${title}">
+				<span class="d2l-list-item-body">
+					<span class="d2l-list-item-decoration">
+						<d2l-icon
+							icon="tier2:release-conditions"
+							style="width:30px;height:30px;">
+						</d2l-icon>
+					</span>
+					<span
+						class="d2l-list-item-content d2l-body-compact"
+						.innerHTML="${title}">
+					</span>
 				</span>
 				<span class="d2l-list-item-deleter">
 					<d2l-button-icon
 						text="${this.localize('btnRemoveCondition')}"
-						icon="tier1:close-large"
+						icon="tier1:close-default"
 						data-key="${key}"
 						@click="${this._removeCondition}">
 					</d2l-button-icon>

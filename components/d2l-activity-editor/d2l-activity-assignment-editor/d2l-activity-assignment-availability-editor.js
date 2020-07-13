@@ -3,6 +3,7 @@ import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-usage-conditions-editor.js';
 import '../d2l-activity-usage-conditions-summary.js';
 import '../d2l-activity-special-access-editor.js';
+import '../d2l-activity-special-access-summary.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { bodySmallStyles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -130,8 +131,16 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 	}
 
 	_renderSpecialAccessSummary() {
+		if (!this._m3SpecialAccessEnabled) {
+			return html``;
+		}
 
-		return html``;
+		return html`
+			<d2l-activity-special-access-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-special-access-summary>
+		`;
 	}
 
 	_renderSpecialAccessEditor() {

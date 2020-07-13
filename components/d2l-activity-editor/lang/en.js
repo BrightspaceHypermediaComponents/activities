@@ -8,6 +8,7 @@ export default {
 	"btnRemoveCondition": "Remove Condition", // remove condition button
 	"lblConditionsOperator": "To view this item, users must satisfy", // conditions operator label
 	"txtNumReleaseConditions": "{count, plural, =1 {{count} Release Condition} other {{count} Release Conditions}}", // num release condition text
+	"txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text
 	"btnCancel": "Cancel", // cancel button
 	"btnSave": "Save and Close", // save and close button
 	"btnSaveMobile": "Save", // save and close button for mobile devices
@@ -61,5 +62,6 @@ export default {
 	"btnManageSpecialAccess": "Manage Special Access", // manage special access button
 	"specialAccessRestrictedText": "Only users with special access can see this folder", // restricted special access description
 	"specialAccessNotRestrictedText": "Users can submit outside normal availability dates", // not restricted special access description
-	"specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access" // Label for number of special access users
+	"specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"specialAccessDialogTitle": "Manage Special Access" // Dialog title
 };

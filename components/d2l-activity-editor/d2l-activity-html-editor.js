@@ -4,6 +4,7 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { getLocalizeResources } from './localization.js';
 import { getUniqueId } from '@brightspace-ui/core/helpers/uniqueId';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
 
 class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 
@@ -125,10 +126,6 @@ class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 		this._htmlEditorUniqueId = `htmleditor-${getUniqueId()}`;
 	}
 
-	_resolveUrl() {
-		return `${import.meta.url}/../../../`;
-	}
-
 	_onContentChange() {
 		const content = this.shadowRoot.querySelector('d2l-html-editor').getContent();
 		this.dispatchEvent(new CustomEvent('d2l-activity-html-editor-change', {
@@ -145,7 +142,7 @@ class ActivityHtmlEditor extends LocalizeMixin(LitElement) {
 			<d2l-html-editor
 				id="assignment-instructions"
 				editor-id="${this._htmlEditorUniqueId}"
-				app-root="${this._resolveUrl()}"
+				app-root="${resolveUrl('../../', import.meta.url)}"
 				@change="${this._onContentChange}"
 				@input="${this._onContentChange}"
 				inline="1"

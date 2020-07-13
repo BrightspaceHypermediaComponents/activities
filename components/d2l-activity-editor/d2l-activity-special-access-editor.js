@@ -1,4 +1,3 @@
-import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -78,9 +77,65 @@ class ActivitySpecialAccessEditor extends ActivityEditorMixin(RtlMixin(LocalizeM
 	_renderManageButton() {
 		return html`
 			<d2l-button-subtle
-				text="${this.localize('btnManageSpecialAccess')}">
+				text="${this.localize('btnManageSpecialAccess')}"
+				@click="${this._openSpecialAccessDialog}">
 			</d2l-button-subtle>
 		`;
+	}
+
+	_openSpecialAccessDialog() {
+		const specialAccess = store.get(this.href).specialAccess;
+		const dialogUrl = specialAccess && specialAccess.url;
+
+		if (!dialogUrl) {
+			return;
+		}
+
+		const location = new D2L.LP.Web.Http.UrlLocation(dialogUrl);
+
+		const buttons = [
+			{
+				Key: 'save',
+				Text: this.localize('btnSave'),
+				ResponseType: 1, // D2L.Dialog.ResponseType.Positive
+				IsPrimary: true,
+				IsEnabled: true
+			},
+			{
+				Text: this.localize('btnCancel'),
+				ResponseType: 2, // D2L.Dialog.ResponseType.Negative
+				IsPrimary: false,
+				IsEnabled: true
+			}
+		];
+
+		// Launch into our "friend", the LMS, to do the thing.
+		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
+			/*               opener: */ document.body,
+			/*             location: */ location,
+			/*          srcCallback: */ 'SrcCallback',
+			/*       resizeCallback: */ '',
+			/*      responseDataKey: */ 'result',
+			/*                width: */ 1920,
+			/*               height: */ 1080,
+			/*            closeText: */ this.localize('btnCloseDialog'),
+			/*              buttons: */ buttons,
+			/* forceTriggerOnCancel: */ false
+		);
+
+		// "X" abort handler
+		// refetch special access in case the user count has changed
+		delayedResult.AddReleaseListener(() => specialAccess.fetch(true));
+
+		// Save or Cancel button handler
+		delayedResult.AddListener(result => {
+			const resultIsValid = Array.isArray(result) && result.length >= 2;
+			if (resultIsValid) {
+				const [isRestricted, userCount] = result;
+				specialAccess.setIsRestricted(isRestricted);
+				specialAccess.setUserCount(userCount);
+			}
+		});
 	}
 
 	render() {

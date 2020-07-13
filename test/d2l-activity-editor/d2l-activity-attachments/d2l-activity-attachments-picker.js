@@ -52,7 +52,7 @@ describe('d2l-activity-attachments-picker', function() {
 			expect(el.shadowRoot.querySelector('d2l-button-icon#add-file-button')).to.have.attr('hidden');
 		});
 	});
-	
+
 	describe('events fire when files uploaded', () => {
 		it('fires file uploaded events when files uploaded', (done) => {
 			const files = [];

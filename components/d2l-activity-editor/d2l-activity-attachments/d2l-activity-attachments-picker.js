@@ -85,7 +85,10 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 			}
 			this.dispatchEvent(new CustomEvent('d2l-activity-attachments-picker-files-uploaded', {
 				bubbles: true,
-				composed: true
+				composed: true,
+				detail: {
+					files: files
+				}
 			}));
 		};
 		// Referenced by the server-side ActivitiesView renderer

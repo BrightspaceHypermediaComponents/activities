@@ -83,6 +83,10 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeMixin(RtlMix
 				const previewUrl = file.m_previewUrl;
 				this._addToCollection(attachmentStore.createFile(file.m_name, fileSystemType, fileId, previewUrl));
 			}
+			this.dispatchEvent(new CustomEvent('d2l-activity-attachments-picker-files-uploaded', {
+				bubbles: true,
+				composed: true
+			}));
 		};
 		// Referenced by the server-side ActivitiesView renderer
 		D2L.ActivityEditor.RecordVideoDialogCallback = async(file) => {

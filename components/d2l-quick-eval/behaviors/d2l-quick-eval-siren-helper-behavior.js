@@ -235,11 +235,11 @@ D2L.PolymerBehaviors.QuickEval.D2LQuickEvalSirenHelperBehaviorImpl = {
 		return this._followHref(activityNameHref)
 			.then(function(a) {
 				let rel;
-				if (a && a.entity && a.entity.hasClass(Classes.activities.userQuizAttemptActivity) || a.entity.hasClass(Classes.activities.userQuizActivity)) {
+				if (a.entity.hasClass(Classes.activities.userQuizAttemptActivity) || a.entity.hasClass(Classes.activities.userQuizActivity)) {
 					rel = Rels.quiz;
-				} else if (a && a.entity && a.entity.hasClass(Classes.activities.userAssignmentActivity)) {
+				} else if (a.entity.hasClass(Classes.activities.userAssignmentActivity)) {
 					rel = Rels.assignment;
-				} else if (a && a.entity && a.entity.hasClass(Classes.activities.userDiscussionActivity)) {
+				} else if (a.entity.hasClass(Classes.activities.userDiscussionActivity)) {
 					rel = Rels.Discussions.topic;
 				} else {
 					return Promise.resolve();

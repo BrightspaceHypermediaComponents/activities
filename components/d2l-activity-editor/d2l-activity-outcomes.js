@@ -137,7 +137,11 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 		return html`
 			${this._renderTags()}
 			${canUpdateAlignments && !this._hasAlignments ? html`${this._renderDialogOpener()}` : null}
-			${canUpdateAlignments ? html`<d2l-dialog title-text="${this._browseOutcomesText}" ?opened="${this._opened}">
+			${canUpdateAlignments ? html`
+			<d2l-dialog
+				title-text="${this._browseOutcomesText}"
+				?opened="${this._opened}"
+				@d2l-dialog-close="${this._closeDialog}">
 				<d2l-select-outcomes
 					href="${this.href}"
 					.token="${this.token}"

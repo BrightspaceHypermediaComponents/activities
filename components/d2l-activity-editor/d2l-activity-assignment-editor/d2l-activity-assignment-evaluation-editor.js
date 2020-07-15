@@ -14,10 +14,9 @@ import { bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 
-class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(LocalizeMixin(LitElement)) {
+class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(LocalizeActivityAssignmentEditorMixin(LitElement)) {
 
 	static get properties() {
 
@@ -51,11 +50,6 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 			`,
 			summarizerHeaderStyles,
 			summarizerSummaryStyles];
-	}
-
-	static async getLocalizeResources(langs) {
-
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	connectedCallback() {

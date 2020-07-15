@@ -4,14 +4,12 @@ import 'd2l-activity-alignments/d2l-select-outcomes.js';
 import { ActivityEditorFeaturesMixin, Milestones } from './mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
-import { getLocalizeResources } from './localization';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(LocalizeMixin(RtlMixin(MobxLitElement)))) {
+class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -34,10 +32,6 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 				display: none;
 			}
 		`];
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {

@@ -1,9 +1,8 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { getLocalizeResources } from './localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 
-class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
+class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElement)) {
 
 	static get styles() {
 		return css`
@@ -37,10 +36,6 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 		`;
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	_save() {
 		const event = new CustomEvent('d2l-activity-editor-save', {
 			bubbles: true,
@@ -61,9 +56,9 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 
 	render() {
 		return html`
-			<d2l-button class="desktop" primary @click="${this._save}">${this.localize('btnSave')}</d2l-button>
-			<d2l-button class="mobile footerBtn" primary @click="${this._save}">${this.localize('btnSaveMobile')}</d2l-button>
-			<d2l-button class="footerBtn" @click="${this._cancel}">${this.localize('btnCancel')}</d2l-button>
+			<d2l-button class="desktop" primary @click="${this._save}">${this.localize('editor.btnSave')}</d2l-button>
+			<d2l-button class="mobile footerBtn" primary @click="${this._save}">${this.localize('editor.btnSaveMobile')}</d2l-button>
+			<d2l-button class="footerBtn" @click="${this._cancel}">${this.localize('editor.btnCancel')}</d2l-button>
 		`;
 	}
 }

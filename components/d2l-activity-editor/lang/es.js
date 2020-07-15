@@ -1,61 +1,98 @@
 /* eslint quotes: 0 */
 
 export default {
-	"btnEditReleaseConditions": "Editar condiciones de publicación", // edit release conditions button
-	"btnAddReleaseCondition": "Agregar condición de publicación", // add release condition button
-	"btnCreateNew": "Crear nuevo", // create new button
-	"btnAddExisting": "Agregar existente", // add existing button
-	"btnRemoveCondition": "Quitar condición", // remove condition button
-	"lblConditionsOperator": "Para ver este elemento, los usuarios deben cumplir con los siguientes requisitos:", // conditions operator label
-	"txtNumReleaseConditions": "{count, plural, =1 {{count} condición de publicación} other {{count} condiciones de publicación}}", // num release condition text
-	"btnCancel": "Cancelar", // cancel button
-	"btnSave": "Guardar y cerrar", // save and close button
-	"btnSaveMobile": "Guardar", // save and close button for mobile devices
-	"dueDate": "Fecha de vencimiento", // ARIA label for the due date field when creating/editing an activity
-	"endDate": "Fecha final", // ARIA label for the end date field when creating/editing an activity
-	"startDate": "Fecha de inicio", // ARIA label for the start date field when creating/editing an activity
-	"dueTime": "Hora de entrega", // ARIA label for the due time field when creating/editing an activity
-	"endTime": "Hora final", // ARIA label for the end time field when creating/editing an activity
-	"startTime": "Hora de inicio", // ARIA label for the start time field when creating/editing an activity
-	"hidden": "Oculto", // Label displayed with the visibility switch when hidden
-	"noDueDate": "No hay fecha de vencimiento", // Placeholder text for due date field when no due date is set
-	"noEndDate": "No hay fecha final", // Placeholder text for due date field when no due date is set
-	"noStartDate": "No hay fecha de inicio", // Placeholder text for due date field when no due date is set
-	"visible": "Visible", // Label displayed with the visibility switch when visible
-	"txtAvailabilityStartAndEnd": "La disponibilidad comienza el {startDate} y termina el {endDate}", // start/end text
-	"txtAvailabilityStartOnly": "La disponibilidad comienza el {startDate}", // start only text
-	"txtAvailabilityEndOnly": "La disponibilidad finaliza el {endDate}", // end only text
-	"txtAvailabilityNeither": "Siempre disponible", // always available text
-	"ungraded": "Sin calificación", // State of score field when there is no score and no grade item, when creating/editing an activity
-	"inGrades": "En Calificaciones", // State of the grades field when there is a score, and an associated grade item
-	"notInGrades": "No está en Calificaciones", // State of the grades field when there is a score, but no associated grade item
-	"addToGrades": "Agregar a las calificaciones", // Menu item for adding grade association
-	"addAGrade": "Agregar una calificación", //ARIA label to add a grade to the activity
-	"removeFromGrades": "Eliminar de Calificaciones", // Menu item for removing grade association
-	"setUngraded": "Restablecer a Sin calificación", // Menu item for setting the activity to ungraded
-	"scoreOutOf": "Puntuación sobre", // ARIA label for the score out of field, when creating/editing an activity
-	"emptyScoreOutOfError": "Se debe especificar un valor en puntos para las actividades en Calificaciones", // Error message to inform user that the score out of value is a required field when a grade item is associated
-	"invalidScoreOutOfError": "Puntuación sobre debe ser mayor o igual que 0.01 y menor o igual que 9,999,999,999", // Error message when an invalid score out of value is entered
-	"loading": "Cargando…", // Message displayed while page is loading
-	"ok": "Aceptar", // Text of dialog button to commit action
-	"cancel": "Cancelar", // Text of dialog button to cancel action
-	"ariaToolbarShortcutInstructions": "Presione ALT-F10 para ver la barra de herramientas y presione ESC para salir de la barra de herramientas.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
-	"chooseFromGrades": "Elegir desde Calificaciones", // Link text and dialog title for the edit grades dialog,
-	"hdrRubrics": "Rúbricas", //Header for the rubrics section
-	"startBeforeEndDate": "La fecha de inicio debe ser una fecha anterior a la fecha final",
-	"dueBetweenStartEndDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio y una fecha anterior o igual a la fecha final.",
-	"dueAfterStartDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio.",
-	"dueBeforeEndDate": "La fecha de vencimiento debe ser una fecha anterior o igual a la fecha final.",
-	"createAndLinkToNewGradeItem": "Crear y vincular a un nuevo elemento de calificación", //Radio button text
-	"linkToExistingGradeItem": "Vincular un elemento de calificación existente", //Radio button text
-	"points": "Puntos: {points}", // Text label for displaying points of a grade
-	"noGradeItems": "No hay elementos de calificación existentes", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "No tiene permiso para crear un nuevo elemento de calificación", // Reason why a new grade items cannot be created in the choose grades dialog
-	"competencies": "Objetivos de aprendizaje", //Text label for the competencies tool integration
-	"manageCompetencies": "Administrar objetivos de aprendizaje", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {Sin objetivos de aprendizaje} =1 {1 adjunto} other {{count} adjuntos}}", //Label for number of associated competencies
-	"competenciesCountSummary": "{count, plural, =0 {Sin objetivos de aprendizaje} =1 {1 objetivo de aprendizaje} other {{count} objetivos de aprendizaje}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 evaluación faltante} other {{count} evaluaciones faltantes}}", //Label for number of unevalated associated competencies
-	"btnClose": "Cerrar", //Label for Close button
-	"btnCloseDialog": "Cerrar este cuadro de diálogo" // close dialog button
+	"editor.btnEditReleaseConditions": "Editar condiciones de publicación", // edit release conditions button
+	"editor.btnAddReleaseCondition": "Agregar condición de publicación", // add release condition button
+	"editor.btnCreateNew": "Crear nuevo", // create new button
+	"editor.btnAddExisting": "Agregar existente", // add existing button
+	"editor.btnRemoveCondition": "Quitar condición", // remove condition button
+	"editor.lblConditionsOperator": "Para ver este elemento, los usuarios deben cumplir con los siguientes requisitos:", // conditions operator label
+	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} condición de publicación} other {{count} condiciones de publicación}}", // num release condition text
+	"editor.btnCancel": "Cancelar", // cancel button
+	"editor.btnSave": "Guardar y cerrar", // save and close button
+	"editor.btnSaveMobile": "Guardar", // save and close button for mobile devices
+	"editor.dueDate": "Fecha de vencimiento", // ARIA label for the due date field when creating/editing an activity
+	"editor.endDate": "Fecha final", // ARIA label for the end date field when creating/editing an activity
+	"editor.startDate": "Fecha de inicio", // ARIA label for the start date field when creating/editing an activity
+	"editor.dueTime": "Hora de entrega", // ARIA label for the due time field when creating/editing an activity
+	"editor.endTime": "Hora final", // ARIA label for the end time field when creating/editing an activity
+	"editor.startTime": "Hora de inicio", // ARIA label for the start time field when creating/editing an activity
+	"editor.hidden": "Oculto", // Label displayed with the visibility switch when hidden
+	"editor.noDueDate": "No hay fecha de vencimiento", // Placeholder text for due date field when no due date is set
+	"editor.noEndDate": "No hay fecha final", // Placeholder text for due date field when no due date is set
+	"editor.noStartDate": "No hay fecha de inicio", // Placeholder text for due date field when no due date is set
+	"editor.visible": "Visible", // Label displayed with the visibility switch when visible
+	"editor.txtAvailabilityStartAndEnd": "La disponibilidad comienza el {startDate} y termina el {endDate}", // start/end text
+	"editor.txtAvailabilityStartOnly": "La disponibilidad comienza el {startDate}", // start only text
+	"editor.txtAvailabilityEndOnly": "La disponibilidad finaliza el {endDate}", // end only text
+	"editor.txtAvailabilityNeither": "Siempre disponible", // always available text
+	"editor.ungraded": "Sin calificación", // State of score field when there is no score and no grade item, when creating/editing an activity
+	"editor.inGrades": "En Calificaciones", // State of the grades field when there is a score, and an associated grade item
+	"editor.notInGrades": "No está en Calificaciones", // State of the grades field when there is a score, but no associated grade item
+	"editor.addToGrades": "Agregar a las calificaciones", // Menu item for adding grade association
+	"editor.addAGrade": "Agregar una calificación", //ARIA label to add a grade to the activity
+	"editor.removeFromGrades": "Eliminar de Calificaciones", // Menu item for removing grade association
+	"editor.setUngraded": "Restablecer a Sin calificación", // Menu item for setting the activity to ungraded
+	"editor.scoreOutOf": "Puntuación sobre", // ARIA label for the score out of field, when creating/editing an activity
+	"editor.emptyScoreOutOfError": "Se debe especificar un valor en puntos para las actividades en Calificaciones", // Error message to inform user that the score out of value is a required field when a grade item is associated
+	"editor.invalidScoreOutOfError": "Puntuación sobre debe ser mayor o igual que 0.01 y menor o igual que 9,999,999,999", // Error message when an invalid score out of value is entered
+	"editor.loading": "Cargando…", // Message displayed while page is loading
+	"editor.ok": "Aceptar", // Text of dialog button to commit action
+	"editor.cancel": "Cancelar", // Text of dialog button to cancel action
+	"editor.ariaToolbarShortcutInstructions": "Presione ALT-F10 para ver la barra de herramientas y presione ESC para salir de la barra de herramientas.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
+	"editor.chooseFromGrades": "Elegir desde Calificaciones", // Link text and dialog title for the edit grades dialog,
+	"editor.hdrRubrics": "Rúbricas", //Header for the rubrics section
+	"editor.startBeforeEndDate": "La fecha de inicio debe ser una fecha anterior a la fecha final",
+	"editor.dueBetweenStartEndDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio y una fecha anterior o igual a la fecha final.",
+	"editor.dueAfterStartDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio.",
+	"editor.dueBeforeEndDate": "La fecha de vencimiento debe ser una fecha anterior o igual a la fecha final.",
+	"editor.createAndLinkToNewGradeItem": "Crear y vincular a un nuevo elemento de calificación", //Radio button text
+	"editor.linkToExistingGradeItem": "Vincular un elemento de calificación existente", //Radio button text
+	"editor.points": "Puntos: {points}", // Text label for displaying points of a grade
+	"editor.noGradeItems": "No hay elementos de calificación existentes", // Reason why existing grade items cannot be linked in the choose grades dialog
+	"editor.noGradeCreatePermission": "No tiene permiso para crear un nuevo elemento de calificación", // Reason why a new grade items cannot be created in the choose grades dialog
+	"editor.competencies": "Objetivos de aprendizaje", //Text label for the competencies tool integration
+	"editor.manageCompetencies": "Administrar objetivos de aprendizaje", //Button text to launch competencies tool dialog
+	"editor.competenciesCount": "{count, plural, =0 {Sin objetivos de aprendizaje} =1 {1 adjunto} other {{count} adjuntos}}", //Label for number of associated competencies
+	"editor.competenciesCountSummary": "{count, plural, =0 {Sin objetivos de aprendizaje} =1 {1 objetivo de aprendizaje} other {{count} objetivos de aprendizaje}}",
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 evaluación faltante} other {{count} evaluaciones faltantes}}", //Label for number of unevalated associated competencies
+	"editor.btnClose": "Cerrar", //Label for Close button
+	"editor.btnCloseDialog": "Cerrar este cuadro de diálogo", // close dialog button
+
+	"rubrics.btnAddRubric": "Agregar rúbrica", //text for add rubric button
+	"rubrics.btnCreateNew": "Crear nuevo", //Text for create new dropdown
+	"rubrics.btnAddExisting": "Agregar existente", //Text for Add Existing dropdown
+	"rubrics.hdrRubrics": "Rúbricas", //Header for the rubrics section
+	"rubrics.btnAttachRubric": "Adjuntar rúbrica", //Button for the attach new rubric overlay
+	"rubrics.btnCancel": "Cancelar", //Button for canceling out of the attach new rubric overlay
+	"rubrics.txtAddExisting": "Agregar existente", //Title for the attach rubrics dialog,
+	"rubrics.txtNoRubricAdded": "No se agregó ninguna rúbrica", // rubric summary for no rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {Una rúbrica agregada} other {{count} rúbricas agregadas}}", // count of asoociated rubrics
+	"rubrics.txtDeleteRubric": "Eliminar rúbrica", // Text for deleting rubric icon
+	"rubrics.btnClose": "Cerrar", // X button for exiting the create new rubric overlay
+	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+
+	"grades.points": "Puntos: {points}", // Text label for displaying points of a grade
+	"grades.weight": "Ponderación: {weight}", // Text label for displaying weight of a grade
+	"grades.gradeItem": "Elemento de calificación", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.newGradeItemCategory": "Categoría de calificación", // Label for selecting a category dropdown
+	"grades.noGradeItemCategory": "Sin categoría", // Category dropdown text for not selecting a category
+
+	"attachments.addGoogleDriveLink": "Adjuntar desde Google Drive", // Tooltip for a button that adds a link to a Google Drive file
+	"attachments.addFile": "Carga de archivos", // Tooltip for a button that opens a file upload dialog
+	"attachments.addLink": "Adjuntar enlace web", // Tooltip for a button that adds a link to a URL
+	"attachments.addOneDriveLink": "Adjuntar desde OneDrive", // Tooltip for a button that adds a link to a OneDrive file
+	"attachments.addQuicklink": "Adjuntar enlace a una actividad existente", // Tooltip for a button that adds a link to an existing activity
+	"attachments.back": "Volver", // Text for a back button
+	"attachments.closeDialog": "Cerrar cuadro de diálogo", // ARIA text for button to close dialog
+	"attachments.recordAudio": "Grabar audio", // Text for a button that opens a dialog to record audio
+	"attachments.recordVideo": "Grabar video", // Text for a button that opens a dialog to record video
+	"attachments.save": "Guardar", // Text for a save button,
+	"attachments.attach": "Adjuntar", // Text for Attach button to open attachment row
+	"attachments.addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"attachments.addFileMenu": "Carga de archivos", // Attach menu item text
+	"attachments.addLinkMenu": "Enlace web", // Attach menu item text
+	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"attachments.addQuicklinkMenu": "Actividad existente" // Attach menu item text
 };

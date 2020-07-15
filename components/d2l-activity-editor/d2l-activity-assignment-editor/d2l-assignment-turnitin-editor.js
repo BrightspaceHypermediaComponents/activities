@@ -3,13 +3,12 @@ import '@brightspace-ui/core/components/icons/icon.js';
 import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { getLocalizeResources } from '../localization';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { assignments as store } from './state/assignment-store.js';
 
 class AssignmentTurnitinEditor
-	extends ActivityEditorMixin(LocalizeMixin(MobxLitElement)) {
+	extends ActivityEditorMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)) {
 
 	static get styles() {
 
@@ -46,11 +45,6 @@ class AssignmentTurnitinEditor
 			}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {

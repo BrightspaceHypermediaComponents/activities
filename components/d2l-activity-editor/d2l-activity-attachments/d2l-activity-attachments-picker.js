@@ -91,12 +91,20 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 			const collection = store.get(this.href);
 			const previewUrl = await collection.getPreviewUrl(file.FileSystemType, file.FileId);
 			this._addToCollection(attachmentStore.createVideo(file.FileName, file.FileSystemType, file.FileId, previewUrl));
+			this.dispatchEvent(new CustomEvent('d2l-activity-attachments-picker-video-uploaded', {
+				bubbles: true,
+				composed: true
+			}));
 		};
 		// Referenced by the server-side ActivitiesView renderer
 		D2L.ActivityEditor.RecordAudioDialogCallback = async(file) => {
 			const collection = store.get(this.href);
 			const previewUrl = await collection.getPreviewUrl(file.FileSystemType, file.FileId);
 			this._addToCollection(attachmentStore.createAudio(file.FileName, file.FileSystemType, file.FileId, previewUrl));
+			this.dispatchEvent(new CustomEvent('d2l-activity-attachments-picker-audio-uploaded', {
+				bubbles: true,
+				composed: true
+			}));
 		};
 	}
 

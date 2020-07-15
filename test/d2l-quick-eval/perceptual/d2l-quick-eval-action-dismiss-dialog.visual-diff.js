@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const VisualDiff = require('@brightspace-ui/visual-diff');
 
-describe.skip('d2l-quick-eval-action-dismiss-dialog', function() {
+describe('d2l-quick-eval-action-dismiss-dialog', function() {
 
 	const visualDiff = new VisualDiff('action-dismiss-dialog', __dirname);
 

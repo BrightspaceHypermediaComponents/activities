@@ -69,6 +69,8 @@ describe('Assignment ', function() {
 				canEditSubmissionType: () => true,
 				canEditCompletionType: () => true,
 				canEditFilesSubmissionLimit: () => true,
+				canEditDefaultScoringRubric: () => true,
+				getDefaultScoringRubric: () => '-1',
 				filesSubmissionLimit: () => 'unlimited',
 				submissionType: () => { return {title: 'On paper submission', value: 2}; },
 				completionType: () => { return {title: 'Manually by learners', value: 2}; },

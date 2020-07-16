@@ -34,7 +34,6 @@ export class AssociationCollection {
 		this._entity.getAllAssociations().forEach(asc => {
 
 			const associationEntity = new Association(asc, this.token);
-			console.log('associationEntity: ', associationEntity)
 			const rubricHref = associationEntity.getRubricLink();
 			const formattedEntity = this._formatAssociationEntity(associationEntity);
 
@@ -54,19 +53,23 @@ export class AssociationCollection {
 	async addDefaultScoringRubricOption(rubricHref) {
 		if (rubricHref) {
 			const rubricEntity = await fetchEntity(rubricHref, this.token);
-			runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricHref}));
+			console.log('rubricEntity: ', rubricEntity)
+			if (rubricEntity) {
+				runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricEntity.properties.id}));
+			}
 		}
 	}
 
-	removeDefaultScoringRubricOption(rubricHref, assignment) {
+	async removeDefaultScoringRubricOption(rubricHref, assignment) {
 		if (rubricHref && assignment) {
-			if (assignment.defaultScoringRubricHref === rubricHref) {
+			const rubricEntity = await fetchEntity(rubricHref, this.token);
+			if (assignment.defaultScoringRubricId === rubricEntity?.properties?.id) {
 				assignment.resetDefaultScoringRubricHref();
 			}
 
-			this.defaultScoringRubricOptions = this.defaultScoringRubricOptions.filter(
-				option => option.value !== rubricHref
-			);
+			runInAction(() => this.defaultScoringRubricOptions = this.defaultScoringRubricOptions.filter(
+				option => option.value !== rubricEntity?.properties?.id
+			));
 		}
 	}
 

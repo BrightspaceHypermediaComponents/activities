@@ -89,7 +89,8 @@ export class Assignment {
 		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
 		this.canEditDefaultScoringRubric = entity.canEditDefaultScoringRubric();
-		this.defaultScoringRubricHref = entity.defaultScoringRubric || 'no-default-scoring-rubric';
+		this.defaultScoringRubricHref = entity.getDefaultScoringRubric() || '-1';
+		console.log('Assignment: ', this.defaultScoringRubricHref)
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditSubmissionType = entity.canEditSubmissionType();
@@ -190,7 +191,7 @@ export class Assignment {
 	}
 
 	resetDefaultScoringRubricHref() {
-		this.defaultScoringRubricHref = 'no-default-scoring-rubric';
+		this.defaultScoringRubricHref = '-1';
 	}
 
 	_makeAssignmentData() {
@@ -204,7 +205,8 @@ export class Assignment {
 			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.submissionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.selectedGroupCategoryId
+			groupTypeId: this.selectedGroupCategoryId,
+			defaultScoringRubricId: this.defaultScoringRubricHref
 		};
 		if (this.canEditCompletionType) {
 			data.completionType = this.completionType;

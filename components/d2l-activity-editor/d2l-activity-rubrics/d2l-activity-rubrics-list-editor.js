@@ -1,6 +1,7 @@
 import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
+import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
@@ -10,7 +11,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from './state/association-collection-store';
 
-class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin((MobxLitElement)))) {
+class ActivityRubricsListEditor extends ActivityEditorFeaturesMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin((MobxLitElement))))) {
 
 	static get styles() {
 		return [
@@ -46,14 +47,26 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 	}
 
 	_deleteAssociation(e) {
-		const entity = store.get(this.href);
-		const assignment = assignmentStore.getAssignment(this.assignmentHref);
+		const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
 
-		if (!entity || !assignment) {
-			return;
+		if (m3FeatureFlagEnabled) {
+			const entity = store.get(this.href);
+			const assignment = assignmentStore.getAssignment(this.assignmentHref);
+
+			if (!entity || !assignment) {
+				return;
+			}
+			entity.deleteAssociation(e.target.dataset.id, assignment);
+			announce(this.localize('rubrics.txtRubricRemoved'));
+		} else {
+			// pre-M3: this does not track default scoring rubric
+			const entity = store.get(this.href);
+			if (!entity) {
+				return;
+			}
+			entity.deleteAssociation_DoNotUse(e.target.dataset.id);
+			announce(this.localize('rubrics.txtRubricRemoved'));
 		}
-		entity.deleteAssociation(e.target.dataset.id, assignment);
-		announce(this.localize('rubrics.txtRubricRemoved'));
 	}
 
 	async save() {

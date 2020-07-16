@@ -6,6 +6,7 @@ import 'd2l-rubric/editor/d2l-rubric-editor.js';
 import 'd2l-simple-overlay/d2l-simple-overlay.js';
 import '@brightspace-ui/core/components/dropdown/dropdown.js';
 import '@brightspace-ui/core/components/dropdown/dropdown-content.js';
+import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -18,7 +19,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
-class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
+class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement)))) {
 
 	static get properties() {
 		return {
@@ -89,7 +90,13 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	_closeAttachRubricDialog(e) {
 		const entity = associationStore.get(this.href);
 		if (e && e.detail && e.detail.associations) {
-			entity.addAssociations(e.detail.associations);
+			const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+
+			if (m3FeatureFlagEnabled) {
+				entity.addAssociations(e.detail.associations);
+			} else {
+				entity.addAssociations_DoNotUse(e.detail.associations)
+			}
 			announce(this.localize('rubrics.txtRubricAdded'));
 		}
 		this._toggleDialog(false);
@@ -114,7 +121,14 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		if (!entity) {
 			return;
 		}
-		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
+
+		const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+
+		if (m3FeatureFlagEnabled) {
+			entity.addAssociations([this._newlyCreatedPotentialAssociation]);
+		} else {
+			entity.addAssociations_DoNotUse([this._newlyCreatedPotentialAssociation]);
+		}
 		this._closeEditNewAssociationOverlay();
 		announce(this.localize('rubrics.txtRubricAdded'));
 	}
@@ -210,8 +224,9 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	_renderDefaultScoringRubric(entity) {
 
 		const assignment = assignmentStore.getAssignment(this.assignmentHref);
+		const shouldRender = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
 
-		if (!entity || !assignment) {
+		if (!entity || !assignment || !shouldRender) {
 			return html``;
 		}
 
@@ -223,7 +238,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		return html`
 			<div class="default-scoring-rubric-heading-container">
 				<label class="d2l-label-text" for="assignment-default-scoring-rubric">
-					Default Scoring Rubric
+					${this.localize('rubrics.defaultScoringRubric')}
 				</label>
 			</div>
 			<select
@@ -231,7 +246,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				class="d2l-input-select block-select"
 				@change="${this._saveDefaultScoringRubricOnChange}"
 				?disabled=${isReadOnly}>
-					<option value="-1" ?selected=${'-1' === assignment.defaultScoringRubricId}>No default selected</option>
+					<option value="-1" ?selected=${'-1' === assignment.defaultScoringRubricId}>${this.localize('rubrics.noDefaultScoringRubricSelected')}</option>
 					${entity.defaultScoringRubricOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.defaultScoringRubricId}>${option.title}</option>`)}
 			</select>
 		`;

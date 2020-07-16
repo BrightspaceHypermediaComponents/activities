@@ -230,12 +230,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				class="d2l-input-select block-select"
 				@change="${this._saveDefaultScoringRubricOnChange}"
 				?disabled=${isReadOnly}>
-				<option value="no-default-scoring-rubric" ?selected=${'no-default-scoring-rubric' === assignment.defaultScoringRubricHref}>No default selected</option>
-					${entity.defaultScoringRubricOptions.map(option => {
-							console.log('option: ', option)
-							return html`<option value=${option.value} ?selected=${String(option.value) === assignment.defaultScoringRubricHref}>${option.title}</option>`
-						})
-					}
+					<option value="-1" ?selected=${'-1' === assignment.defaultScoringRubricId}>No default selected</option>
+					${entity.defaultScoringRubricOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.defaultScoringRubricId}>${option.title}</option>`)}
 			</select>
 		`;
 

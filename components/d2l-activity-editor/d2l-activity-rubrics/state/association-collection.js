@@ -50,26 +50,34 @@ export class AssociationCollection {
 		}
 	}
 
+	getRubricIdFromHref(rubricHref) {
+		if (!rubricHref) {
+			return;
+		}
+
+		return rubricHref.split('/').pop();
+	}
+
 	async addDefaultScoringRubricOption(rubricHref) {
 		if (rubricHref) {
 			const rubricEntity = await fetchEntity(rubricHref, this.token);
-			console.log('rubricEntity: ', rubricEntity)
+			const rubricId = this.getRubricIdFromHref(rubricHref);
 			if (rubricEntity) {
-				runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricEntity.properties.id}));
+				runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricId}));
 			}
 		}
 	}
 
-	async removeDefaultScoringRubricOption(rubricHref, assignment) {
+	removeDefaultScoringRubricOption(rubricHref, assignment) {
 		if (rubricHref && assignment) {
-			const rubricEntity = await fetchEntity(rubricHref, this.token);
-			if (assignment.defaultScoringRubricId === rubricEntity?.properties?.id) {
-				assignment.resetDefaultScoringRubricHref();
+			const rubricId = this.getRubricIdFromHref(rubricHref);
+			if (assignment.defaultScoringRubricId === rubricId) {
+				assignment.resetDefaultScoringRubricId();
 			}
 
-			runInAction(() => this.defaultScoringRubricOptions = this.defaultScoringRubricOptions.filter(
-				option => option.value !== rubricEntity?.properties?.id
-			));
+			this.defaultScoringRubricOptions = this.defaultScoringRubricOptions.filter(
+				option => option.value !== rubricId
+			);
 		}
 	}
 

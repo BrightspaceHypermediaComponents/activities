@@ -15,7 +15,6 @@ export class Assignment {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
 			const entity = new AssignmentEntity(sirenEntity, this.token, { remove: () => { } });
-			console.log('AssignmentEntity: ', entity)
 			this.load(entity);
 		}
 		return this;
@@ -89,8 +88,7 @@ export class Assignment {
 		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
 		this.canEditDefaultScoringRubric = entity.canEditDefaultScoringRubric();
-		this.defaultScoringRubricHref = entity.getDefaultScoringRubric() || '-1';
-		console.log('Assignment: ', this.defaultScoringRubricHref)
+		this.defaultScoringRubricId = String(entity.getDefaultScoringRubric()) || '-1';
 		this.submissionTypeOptions = entity.submissionTypeOptions();
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditSubmissionType = entity.canEditSubmissionType();
@@ -184,14 +182,14 @@ export class Assignment {
 		this.instructions = value;
 	}
 
-	setDefaultScoringRubric(rubricHref) {
-		if (rubricHref) {
-			this.defaultScoringRubricHref = rubricHref;
+	setDefaultScoringRubric(rubricId) {
+		if (rubricId) {
+			this.defaultScoringRubricId = rubricId;
 		}
 	}
 
-	resetDefaultScoringRubricHref() {
-		this.defaultScoringRubricHref = '-1';
+	resetDefaultScoringRubricId() {
+		this.defaultScoringRubricId = '-1';
 	}
 
 	_makeAssignmentData() {
@@ -206,7 +204,7 @@ export class Assignment {
 			submissionType: this.submissionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
 			groupTypeId: this.selectedGroupCategoryId,
-			defaultScoringRubricId: this.defaultScoringRubricHref
+			defaultScoringRubricId: this.defaultScoringRubricId
 		};
 		if (this.canEditCompletionType) {
 			data.completionType = this.completionType;
@@ -282,7 +280,7 @@ decorate(Assignment, {
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
 	canEditDefaultScoringRubric: observable,
-	defaultScoringRubricHref: observable,
+	defaultScoringRubricId: observable,
 	selectedGroupCategoryName: observable,
 	showFilesSubmissionLimit: computed,
 	showSubmissionsRule: computed,
@@ -302,5 +300,5 @@ decorate(Assignment, {
 	setFilesSubmissionLimit: action,
 	setSubmissionsRule: action,
 	setDefaultScoringRubric: action,
-	resetDefaultScoringRubricHref: action
+	resetDefaultScoringRubricId: action
 });

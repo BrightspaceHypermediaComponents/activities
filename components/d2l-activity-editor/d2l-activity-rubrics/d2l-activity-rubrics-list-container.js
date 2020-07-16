@@ -95,7 +95,7 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 			if (m3FeatureFlagEnabled) {
 				entity.addAssociations(e.detail.associations);
 			} else {
-				entity.addAssociations_DoNotUse(e.detail.associations)
+				entity.addAssociations_DoNotUse(e.detail.associations);
 			}
 			announce(this.localize('rubrics.txtRubricAdded'));
 		}

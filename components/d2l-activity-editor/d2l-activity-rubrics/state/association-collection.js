@@ -24,7 +24,7 @@ export class AssociationCollection {
 		return this;
 	}
 
-	async load(entity) {
+	load(entity) {
 		this._entity = entity;
 
 		this.associationsMap = new Map();

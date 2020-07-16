@@ -184,7 +184,7 @@ export class Assignment {
 
 	setDefaultScoringRubric(rubricId) {
 		if (rubricId) {
-			this.defaultScoringRubricId = rubricId;
+			this.defaultScoringRubricId = String(rubricId);
 		}
 	}
 

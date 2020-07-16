@@ -193,4 +193,29 @@ describe('Assignment ', function() {
 		expect(assignment.isOriginalityCheckEnabled).to.equal(true);
 		expect(assignment.isGradeMarkEnabled).to.equal(true);
 	});
+
+	it('setDefaultScoringRubric when valid ID', async() => {
+		const assignment = new Assignment('http://assignment/1', 'token');
+		await assignment.fetch();
+		assignment.setDefaultScoringRubric(2);
+
+		expect(assignment.defaultScoringRubricId).to.equal('2');
+	});
+
+	it('setDefaultScoringRubric when NOT valid ID', async() => {
+		const assignment = new Assignment('http://assignment/1', 'token');
+		await assignment.fetch();
+		assignment.setDefaultScoringRubric(undefined);
+
+		expect(assignment.defaultScoringRubricId).to.equal('-1');
+	});
+
+	it('resetDefaultScoringRubricId', async() => {
+		const assignment = new Assignment('http://assignment/1', 'token');
+		await assignment.fetch();
+		assignment.setDefaultScoringRubric(2);
+		assignment.resetDefaultScoringRubricId();
+
+		expect(assignment.defaultScoringRubricId).to.equal('-1');
+	});
 });

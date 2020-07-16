@@ -1,5 +1,4 @@
 import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
-import { shared as assignmentStore } from '../../d2l-activity-assignment-editor/state/assignment-store.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { fetchEntity } from '../../state/fetch-entity.js';

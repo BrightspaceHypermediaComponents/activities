@@ -199,7 +199,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			return;
 		}
 
-		assignment.setDefaultScoringRubric(event?.target?.value);
+		assignment.setDefaultScoringRubric(event.target.value);
 	}
 
 	_renderDefaultScoringRubric(entity) {

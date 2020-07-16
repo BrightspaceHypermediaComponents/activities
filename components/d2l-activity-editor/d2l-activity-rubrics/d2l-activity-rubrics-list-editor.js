@@ -5,13 +5,12 @@ import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from './state/association-collection-store';
 
-class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin((MobxLitElement)))) {
+class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin((MobxLitElement)))) {
 
 	static get styles() {
 		return [
@@ -42,10 +41,6 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	constructor() {
 		super(store);
 	}
@@ -58,7 +53,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 			return;
 		}
 		entity.deleteAssociation(e.target.dataset.id, assignment);
-		announce(this.localize('txtRubricRemoved'));
+		announce(this.localize('rubrics.txtRubricRemoved'));
 	}
 
 	async save() {
@@ -89,7 +84,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeMixin(RtlMix
 					icon="tier1:close-default"
 					data-id="${association.rubricHref}"
 					@click="${this._deleteAssociation}"
-					text=${this.localize('txtDeleteRubric')}
+					text=${this.localize('rubrics.txtDeleteRubric')}
 				></d2l-button-icon>
 			</div>
 			`;

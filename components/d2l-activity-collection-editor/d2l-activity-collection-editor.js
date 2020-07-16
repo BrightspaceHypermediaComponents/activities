@@ -350,7 +350,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 				margin-left: 0.5rem;
     			align-self: center;
 			}
-			.d2l-list-item-secondary {
+			.d2l-list-item-supporting-info {
 				color: var(--d2l-color-olivine-minus-1);
 				font-size: 14px;
 			}
@@ -621,7 +621,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 					</div>
 					<d2l-list-item-content>
 						${item.name()}
-						<div slot="secondary">${item.hasClass(organizationClasses.courseOffering) ? this.localize('course') : null}</div>
+						<div slot="supporting-info">${item.hasClass(organizationClasses.courseOffering) ? this.localize('course') : null}</div>
 					</d2l-list-item-content>
 					<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', item.name())}" icon="d2l-tier1:close-default" @click=${item.removeItem}>
 				</d2l-list-item>
@@ -651,7 +651,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 					</div>
 					<d2l-list-item-content>
 						${candidate.organization.name()}
-						<div slot="secondary" class="d2l-list-item-secondary">${candidate.alreadyAdded ? html`${this.localize('alreadyAdded')}` : null}</div>
+						<div slot="supporting-info" class="d2l-list-item-supporting-info">${candidate.alreadyAdded ? html`${this.localize('alreadyAdded')}` : null}</div>
 					</d2l-list-item-content>
 				</d2l-list-item>
 			`;
@@ -675,7 +675,7 @@ class CollectionEditor extends LocalizeMixin(EntityMixinLit(LitElement)) {
 					<svg width="100%" class="d2l-activity-collection-body-compact-skeleton-svg">
 						<rect x="0" width="40%" y="0" height="100%" stroke="none" rx="4" class="d2l-activity-collection-skeleton-rect"></rect>
 					</svg>
-					<div slot="secondary">
+					<div slot="supporting-info">
 						<svg width="100%" class="d2l-activity-collection-body-small-skeleton-svg">
 							<rect x="0" width="30%" y="0" height="100%" stroke="none" rx="4" class="d2l-activity-collection-skeleton-rect"></rect>
 						</svg>

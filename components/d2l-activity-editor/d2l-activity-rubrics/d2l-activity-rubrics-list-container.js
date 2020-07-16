@@ -13,13 +13,12 @@ import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import associationStore from './state/association-collection-store.js';
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
-class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
+class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -62,10 +61,6 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	constructor() {
 		super(associationStore);
 		this._newlyCreatedPotentialAssociation = {};
@@ -91,7 +86,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		const entity = associationStore.get(this.href);
 		if (e && e.detail && e.detail.associations) {
 			entity.addAssociations(e.detail.associations);
-			announce(this.localize('txtRubricAdded'));
+			announce(this.localize('rubrics.txtRubricAdded'));
 		}
 		this._toggleDialog(false);
 	}
@@ -117,7 +112,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
 		this._closeEditNewAssociationOverlay();
-		announce(this.localize('txtRubricAdded'));
+		announce(this.localize('rubrics.txtRubricAdded'));
 	}
 
 	async _createNewAssociation() {
@@ -175,18 +170,18 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 		return html`
 		<d2l-dropdown-button-subtle
-			text="${this.localize('btnAddRubric')}"
+			text="${this.localize('rubrics.btnAddRubric')}"
 		>
 			<d2l-dropdown-menu align="start">
-				<d2l-menu label="${this.localize('btnAddRubric')}">
+				<d2l-menu label="${this.localize('rubrics.btnAddRubric')}">
 					<d2l-menu-item
-						text="${this.localize('btnCreateNew')}"
+						text="${this.localize('rubrics.btnCreateNew')}"
 						@d2l-menu-item-select="${this._createNewAssociation}"
 						?hidden=${!canCreatePotentialAssociation}
 					>
 					</d2l-menu-item>
 					<d2l-menu-item
-						text="${this.localize('btnAddExisting')}"
+						text="${this.localize('rubrics.btnAddExisting')}"
 						@d2l-menu-item-select="${this._openAttachRubricDialog}"
 						?hidden=${!canCreateAssociation}
 					>
@@ -248,7 +243,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		return html`
 			<div class="rubric-heading-container">
 				<h3 class="d2l-heading-4 rubric-heading-title">
-					${this.localize('hdrRubrics')}
+					${this.localize('rubrics.hdrRubrics')}
 				</h3>
 			</div>
 			<d2l-activity-rubrics-list-editor
@@ -264,7 +259,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 			<d2l-simple-overlay
 				id="create-new-association-dialog"
-				close-simple-overlay-alt-text="${this.localize('btnClose')}"
+				close-simple-overlay-alt-text="${this.localize('rubrics.btnClose')}"
 				no-cancel-on-outside-click
 				@d2l-simple-overlay-close-button-clicked="${this._clearNewRubricHref}"
 				@d2l-simple-overlay-canceled="${this._clearNewRubricHref}"
@@ -272,10 +267,10 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				${this._renderRubricEditor()}
 				<d2l-floating-buttons always-float>
 					<d2l-button primary @click="${this._attachRubric}">
-						${this.localize('btnAttachRubric')}
+						${this.localize('rubrics.btnAttachRubric')}
 					</d2l-button>
 					<d2l-button @click="${this._closeEditNewAssociationOverlay}">
-						${this.localize('btnCancel')}
+						${this.localize('rubrics.btnCancel')}
 					</d2l-button>
 				</d2l-floating-buttons>
 			</d2l-simple-overlay>
@@ -285,7 +280,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				@associations-done-work="${this._closeAttachRubricDialog}"
 				@associations-resize-dialog="${this._resizeDialog}"
 				width="700"
-				title-text="${this.localize('txtAddExisting')}"
+				title-text="${this.localize('rubrics.txtAddExisting')}"
 			>
 				<d2l-add-associations
 					.token="${this.token}"

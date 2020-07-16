@@ -1,61 +1,98 @@
 /* eslint quotes: 0 */
 
 export default {
-	"btnEditReleaseConditions": "リリース条件の編集", // edit release conditions button
-	"btnAddReleaseCondition": "リリース条件の追加", // add release condition button
-	"btnCreateNew": "新規作成", // create new button
-	"btnAddExisting": "既存の追加", // add existing button
-	"btnRemoveCondition": "条件の削除", // remove condition button
-	"lblConditionsOperator": "この項目を見るには、次の条件を満たしている必要があります", // conditions operator label
-	"txtNumReleaseConditions": "{count, plural, =1 {{count} 個のリリース条件} other {{count} 個のリリース条件}}", // num release condition text
-	"btnCancel": "キャンセル", // cancel button
-	"btnSave": "保存して閉じる", // save and close button
-	"btnSaveMobile": "保存", // save and close button for mobile devices
-	"dueDate": "期限", // ARIA label for the due date field when creating/editing an activity
-	"endDate": "終了日", // ARIA label for the end date field when creating/editing an activity
-	"startDate": "開始日", // ARIA label for the start date field when creating/editing an activity
-	"dueTime": "期限時刻", // ARIA label for the due time field when creating/editing an activity
-	"endTime": "終了時刻", // ARIA label for the end time field when creating/editing an activity
-	"startTime": "開始時刻", // ARIA label for the start time field when creating/editing an activity
-	"hidden": "非表示", // Label displayed with the visibility switch when hidden
-	"noDueDate": "期限がありません", // Placeholder text for due date field when no due date is set
-	"noEndDate": "終了日がありません", // Placeholder text for due date field when no due date is set
-	"noStartDate": "開始日がありません", // Placeholder text for due date field when no due date is set
-	"visible": "表示", // Label displayed with the visibility switch when visible
-	"txtAvailabilityStartAndEnd": "使用可能期間開始日 {startDate}、終了日 {endDate}", // start/end text
-	"txtAvailabilityStartOnly": "使用可能期間開始日 {startDate}", // start only text
-	"txtAvailabilityEndOnly": "使用可能期間終了日 {endDate}", // end only text
-	"txtAvailabilityNeither": "常に使用可能", // always available text
-	"ungraded": "成績評価なし", // State of score field when there is no score and no grade item, when creating/editing an activity
-	"inGrades": "成績にあり", // State of the grades field when there is a score, and an associated grade item
-	"notInGrades": "成績になし", // State of the grades field when there is a score, but no associated grade item
-	"addToGrades": "成績に追加", // Menu item for adding grade association
-	"addAGrade": "成績の追加", //ARIA label to add a grade to the activity
-	"removeFromGrades": "成績から削除", // Menu item for removing grade association
-	"setUngraded": "成績評価なしにリセット", // Menu item for setting the activity to ungraded
-	"scoreOutOf": "満点スコア", // ARIA label for the score out of field, when creating/editing an activity
-	"emptyScoreOutOfError": "成績にあるアクティビティについてポイント値を指定する必要があります", // Error message to inform user that the score out of value is a required field when a grade item is associated
-	"invalidScoreOutOfError": "満点スコアは 0.01 以上 9,999,999,999 以下の数値にする必要があります。", // Error message when an invalid score out of value is entered
-	"loading": "読み込み中...", // Message displayed while page is loading
-	"ok": "OK", // Text of dialog button to commit action
-	"cancel": "キャンセル", // Text of dialog button to cancel action
-	"ariaToolbarShortcutInstructions": "ツールバーを表示するには ALT-F10 キーを、ツールバーを終了するにはツールバーにカーソルを置いた状態で ESC キーを押します。", // Instructions for screenreader users on how to enter and exit the html editor toolbar
-	"chooseFromGrades": "成績から選択", // Link text and dialog title for the edit grades dialog,
-	"hdrRubrics": "注釈", //Header for the rubrics section
-	"startBeforeEndDate": "開始日は終了日の前である必要があります",
-	"dueBetweenStartEndDate": "期限は開始日の後および終了日以前である必要があります",
-	"dueAfterStartDate": "期限は開始日の後である必要があります",
-	"dueBeforeEndDate": "期限は終了日以前である必要があります",
-	"createAndLinkToNewGradeItem": "新規成績項目の作成および新規成績項目へのリンク", //Radio button text
-	"linkToExistingGradeItem": "既存の成績項目へのリンク", //Radio button text
-	"points": "ポイント: {points}", // Text label for displaying points of a grade
-	"noGradeItems": "既存の成績項目がありません", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "新規成績項目を作成する権限がありません", // Reason why a new grade items cannot be created in the choose grades dialog
-	"competencies": "学習目的", //Text label for the competencies tool integration
-	"manageCompetencies": "学習目的の管理", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {学習目的なし} =1 {1 個添付} other {{count} 個添付}}", //Label for number of associated competencies
-	"competenciesCountSummary": "{count, plural, =0 {学習目的なし} =1 {1 つの学習目的} other {{count} 個の学習目的}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {1 件評価なし} other {{count} 件評価なし}}", //Label for number of unevalated associated competencies
-	"btnClose": "閉じる", //Label for Close button
-	"btnCloseDialog": "このダイアログを閉じる" // close dialog button
+	"editor.btnEditReleaseConditions": "リリース条件の編集", // edit release conditions button
+	"editor.btnAddReleaseCondition": "リリース条件の追加", // add release condition button
+	"editor.btnCreateNew": "新規作成", // create new button
+	"editor.btnAddExisting": "既存の追加", // add existing button
+	"editor.btnRemoveCondition": "条件の削除", // remove condition button
+	"editor.lblConditionsOperator": "この項目を見るには、次の条件を満たしている必要があります", // conditions operator label
+	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} 個のリリース条件} other {{count} 個のリリース条件}}", // num release condition text
+	"editor.btnCancel": "キャンセル", // cancel button
+	"editor.btnSave": "保存して閉じる", // save and close button
+	"editor.btnSaveMobile": "保存", // save and close button for mobile devices
+	"editor.dueDate": "期限", // ARIA label for the due date field when creating/editing an activity
+	"editor.endDate": "終了日", // ARIA label for the end date field when creating/editing an activity
+	"editor.startDate": "開始日", // ARIA label for the start date field when creating/editing an activity
+	"editor.dueTime": "期限時刻", // ARIA label for the due time field when creating/editing an activity
+	"editor.endTime": "終了時刻", // ARIA label for the end time field when creating/editing an activity
+	"editor.startTime": "開始時刻", // ARIA label for the start time field when creating/editing an activity
+	"editor.hidden": "非表示", // Label displayed with the visibility switch when hidden
+	"editor.noDueDate": "期限がありません", // Placeholder text for due date field when no due date is set
+	"editor.noEndDate": "終了日がありません", // Placeholder text for due date field when no due date is set
+	"editor.noStartDate": "開始日がありません", // Placeholder text for due date field when no due date is set
+	"editor.visible": "表示", // Label displayed with the visibility switch when visible
+	"editor.txtAvailabilityStartAndEnd": "使用可能期間開始日 {startDate}、終了日 {endDate}", // start/end text
+	"editor.txtAvailabilityStartOnly": "使用可能期間開始日 {startDate}", // start only text
+	"editor.txtAvailabilityEndOnly": "使用可能期間終了日 {endDate}", // end only text
+	"editor.txtAvailabilityNeither": "常に使用可能", // always available text
+	"editor.ungraded": "成績評価なし", // State of score field when there is no score and no grade item, when creating/editing an activity
+	"editor.inGrades": "成績にあり", // State of the grades field when there is a score, and an associated grade item
+	"editor.notInGrades": "成績になし", // State of the grades field when there is a score, but no associated grade item
+	"editor.addToGrades": "成績に追加", // Menu item for adding grade association
+	"editor.addAGrade": "成績の追加", //ARIA label to add a grade to the activity
+	"editor.removeFromGrades": "成績から削除", // Menu item for removing grade association
+	"editor.setUngraded": "成績評価なしにリセット", // Menu item for setting the activity to ungraded
+	"editor.scoreOutOf": "満点スコア", // ARIA label for the score out of field, when creating/editing an activity
+	"editor.emptyScoreOutOfError": "成績にあるアクティビティについてポイント値を指定する必要があります", // Error message to inform user that the score out of value is a required field when a grade item is associated
+	"editor.invalidScoreOutOfError": "満点スコアは 0.01 以上 9,999,999,999 以下の数値にする必要があります。", // Error message when an invalid score out of value is entered
+	"editor.loading": "読み込み中...", // Message displayed while page is loading
+	"editor.ok": "OK", // Text of dialog button to commit action
+	"editor.cancel": "キャンセル", // Text of dialog button to cancel action
+	"editor.ariaToolbarShortcutInstructions": "ツールバーを表示するには ALT-F10 キーを、ツールバーを終了するにはツールバーにカーソルを置いた状態で ESC キーを押します。", // Instructions for screenreader users on how to enter and exit the html editor toolbar
+	"editor.chooseFromGrades": "成績から選択", // Link text and dialog title for the edit grades dialog,
+	"editor.hdrRubrics": "注釈", //Header for the rubrics section
+	"editor.startBeforeEndDate": "開始日は終了日の前である必要があります",
+	"editor.dueBetweenStartEndDate": "期限は開始日の後および終了日以前である必要があります",
+	"editor.dueAfterStartDate": "期限は開始日の後である必要があります",
+	"editor.dueBeforeEndDate": "期限は終了日以前である必要があります",
+	"editor.createAndLinkToNewGradeItem": "新規成績項目の作成および新規成績項目へのリンク", //Radio button text
+	"editor.linkToExistingGradeItem": "既存の成績項目へのリンク", //Radio button text
+	"editor.points": "ポイント: {points}", // Text label for displaying points of a grade
+	"editor.noGradeItems": "既存の成績項目がありません", // Reason why existing grade items cannot be linked in the choose grades dialog
+	"editor.noGradeCreatePermission": "新規成績項目を作成する権限がありません", // Reason why a new grade items cannot be created in the choose grades dialog
+	"editor.competencies": "学習目的", //Text label for the competencies tool integration
+	"editor.manageCompetencies": "学習目的の管理", //Button text to launch competencies tool dialog
+	"editor.competenciesCount": "{count, plural, =0 {学習目的なし} =1 {1 個添付} other {{count} 個添付}}", //Label for number of associated competencies
+	"editor.competenciesCountSummary": "{count, plural, =0 {学習目的なし} =1 {1 つの学習目的} other {{count} 個の学習目的}}",
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 件評価なし} other {{count} 件評価なし}}", //Label for number of unevalated associated competencies
+	"editor.btnClose": "閉じる", //Label for Close button
+	"editor.btnCloseDialog": "このダイアログを閉じる", // close dialog button
+
+	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
+	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown
+	"rubrics.btnAddExisting": "既存の追加", //Text for Add Existing dropdown
+	"rubrics.hdrRubrics": "注釈", //Header for the rubrics section
+	"rubrics.btnAttachRubric": "注釈の添付", //Button for the attach new rubric overlay
+	"rubrics.btnCancel": "キャンセル", //Button for canceling out of the attach new rubric overlay
+	"rubrics.txtAddExisting": "既存の追加", //Title for the attach rubrics dialog,
+	"rubrics.txtNoRubricAdded": "追加された注釈がありません", // rubric summary for no rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 つの注釈が追加されました} other {{count} 個の注釈が追加されました}}", // count of asoociated rubrics
+	"rubrics.txtDeleteRubric": "注釈の削除", // Text for deleting rubric icon
+	"rubrics.btnClose": "閉じる", // X button for exiting the create new rubric overlay
+	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+
+	"grades.points": "ポイント: {points}", // Text label for displaying points of a grade
+	"grades.weight": "加重: {weight}", // Text label for displaying weight of a grade
+	"grades.gradeItem": "成績項目", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.newGradeItemCategory": "成績カテゴリ", // Label for selecting a category dropdown
+	"grades.noGradeItemCategory": "カテゴリなし", // Category dropdown text for not selecting a category
+
+	"attachments.addGoogleDriveLink": "Google ドライブから添付", // Tooltip for a button that adds a link to a Google Drive file
+	"attachments.addFile": "ファイルアップロード", // Tooltip for a button that opens a file upload dialog
+	"attachments.addLink": "ウェブリンクの添付", // Tooltip for a button that adds a link to a URL
+	"attachments.addOneDriveLink": "OneDrive から添付", // Tooltip for a button that adds a link to a OneDrive file
+	"attachments.addQuicklink": "既存アクティビティへのリンクの添付", // Tooltip for a button that adds a link to an existing activity
+	"attachments.back": "戻る", // Text for a back button
+	"attachments.closeDialog": "ダイアログを閉じる", // ARIA text for button to close dialog
+	"attachments.recordAudio": "オーディオの録音", // Text for a button that opens a dialog to record audio
+	"attachments.recordVideo": "ビデオの録画", // Text for a button that opens a dialog to record video
+	"attachments.save": "保存", // Text for a save button,
+	"attachments.attach": "添付", // Text for Attach button to open attachment row
+	"attachments.addGoogleDriveLinkMenu": "Google ドライブ", // Attach menu item text
+	"attachments.addFileMenu": "ファイルアップロード", // Attach menu item text
+	"attachments.addLinkMenu": "ウェブリンク", // Attach menu item text
+	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"attachments.addQuicklinkMenu": "既存アクティビティ" // Attach menu item text
 };

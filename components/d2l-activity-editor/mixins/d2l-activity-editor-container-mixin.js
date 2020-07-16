@@ -111,9 +111,11 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 	}
 
 	async _cancel() {
-		const hasPendingChanges = Array.from(this._editors).some(editor => editor.hasPendingChanges());
+		const editorsPendingChanges = await Promise.all(
+			Array.from(this._editors).map(editor => editor.hasPendingChanges())
+		);
 
-		if (hasPendingChanges) {
+		if (editorsPendingChanges.some(Boolean)) {
 			const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
 			const action = await dialog.open();
 			if (action === 'cancel' || action === 'abort') {

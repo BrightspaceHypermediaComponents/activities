@@ -1,12 +1,10 @@
 import '@brightspace-ui/core/components/switch/switch-visibility.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { classMap } from 'lit-html/directives/class-map.js';
-import { getLocalizeResources } from './localization';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { offscreenStyles } from '@brightspace-ui/core/components/offscreen/offscreen.js';
 
-const baseUrl = import.meta.url;
-class ActivityVisibilityEditorToggle extends LocalizeMixin(LitElement) {
+class ActivityVisibilityEditorToggle extends LocalizeActivityEditorMixin(LitElement) {
 
 	static get properties() {
 		return {
@@ -26,10 +24,6 @@ class ActivityVisibilityEditorToggle extends LocalizeMixin(LitElement) {
 				display: none;
 			}
 		`];
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, baseUrl);
 	}
 
 	constructor() {
@@ -77,7 +71,7 @@ class ActivityVisibilityEditorToggle extends LocalizeMixin(LitElement) {
 				<div class="d2l-label-text">
 					<d2l-icon icon="${this.isDraft ? 'tier1:visibility-hide' : 'tier1:visibility-show'}"></d2l-icon>
 					<span class="${classMap({'d2l-offscreen': this._textHidden})}">
-						${this.isDraft ? this.localize('hidden') : this.localize('visible')}
+						${this.isDraft ? this.localize('editor.hidden') : this.localize('editor.visible')}
 					</span>
 				</div>
 			`;

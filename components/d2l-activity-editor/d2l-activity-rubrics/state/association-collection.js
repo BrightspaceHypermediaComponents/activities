@@ -62,7 +62,10 @@ export class AssociationCollection {
 		if (rubricHref) {
 			const rubricEntity = await fetchEntity(rubricHref, this.token);
 			const rubricId = this.getRubricIdFromHref(rubricHref);
-			if (rubricEntity) {
+
+			const rubricAlreadyAnOption = this.defaultScoringRubricOptions.some(option => option.value === rubricId);
+
+			if (rubricEntity && !rubricAlreadyAnOption) {
 				runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricId}));
 			}
 		}

@@ -23,8 +23,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	static get properties() {
 		return {
 			_newlyCreatedPotentialAssociationHref: { type: String },
-			activityUsageHref: { type: String },
-			defaultScoringOptions: {type: Array}
+			activityUsageHref: { type: String }
 		};
 	}
 

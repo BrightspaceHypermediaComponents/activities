@@ -50,6 +50,11 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 					align-items: center;
 					margin: 0 0 0.6rem 0;
 				}
+				.default-scoring-rubric-heading-container {
+					display: flex;
+					align-items: center;
+					margin: 0.6rem 0 0.6rem 0;
+				}
 				.preview-rubrics {
 					flex-shrink: 0;
 				}
@@ -216,9 +221,11 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 
 		return html`
-			<label class="d2l-label-text" for="assignment-default-scoring-rubric">
-				Default Scoring Rubric
-			</label>
+			<div class="default-scoring-rubric-heading-container">
+				<label class="d2l-label-text" for="assignment-default-scoring-rubric">
+					Default Scoring Rubric
+				</label>
+			</div>
 			<select
 				id="assignment-default-scoring-rubric"
 				class="d2l-input-select block-select"

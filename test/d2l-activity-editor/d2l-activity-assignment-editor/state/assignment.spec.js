@@ -118,7 +118,7 @@ describe('Assignment ', function() {
 		expect(assignment.name).to.equal('Homework 101');
 		expect(assignment.instructions).to.equal('These are your instructions');
 		expect(assignment.activityUsageHref).to.equal('http://activity/1');
-		expect(assignment.assignmentSubmissionType.options).to.eql([
+		expect(assignment.assignmentSubmissionProps.submissionTypeOptions).to.eql([
 			{title: 'File submission', value: 0, completionTypes: null, selected: false},
 			{title: 'Text submission', value: 1, completionTypes: null, selected: false},
 			{title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true},
@@ -128,9 +128,9 @@ describe('Assignment ', function() {
 			{selected: false, title: 'Manually by learners', value: 1},
 			{selected: false, title: 'Automatically on evaluation', value: 2}
 		]);
-		expect(assignment.assignmentSubmissionType.canEditSubmissionType).to.equal(true);
+		expect(assignment.assignmentSubmissionProps.canEditSubmissionType).to.equal(true);
 		expect(assignment.canEditCompletionType).to.equal(true);
-		expect(assignment.assignmentSubmissionType.value).to.equal('2');
+		expect(assignment.assignmentSubmissionProps.submissionType).to.equal('2');
 		expect(assignment.completionType).to.equal('2');
 
 		expect(fetchEntity.mock.calls.length).to.equal(1);
@@ -145,7 +145,7 @@ describe('Assignment ', function() {
 		assignment.completionType = null;
 		assignment.setSubmissionType('3');
 
-		expect(assignment.assignmentSubmissionType.value).to.equal('3');
+		expect(assignment.assignmentSubmissionProps.submissionType).to.equal('3');
 		expect(assignment.completionType).to.equal('3');
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
@@ -157,7 +157,7 @@ describe('Assignment ', function() {
 		assignment.completionType = '3';
 		assignment.setSubmissionType('1');
 
-		expect(assignment.assignmentSubmissionType.value).to.equal('1');
+		expect(assignment.assignmentSubmissionProps.submissionType).to.equal('1');
 		expect(assignment.completionType).to.equal(null);
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
@@ -165,10 +165,10 @@ describe('Assignment ', function() {
 	it('setSubmissionType when current completion type is valid', async() => {
 		const assignment = new Assignment('http://assignment/1', 'token');
 		await assignment.fetch();
-		assignment.assignmentSubmissionType.options[3].completionTypes = [2, 3, 4];
+		assignment.assignmentSubmissionProps.submissionTypeOptions[3].completionTypes = [2, 3, 4];
 		assignment.setSubmissionType('3');
 
-		expect(assignment.assignmentSubmissionType.value).to.equal('3');
+		expect(assignment.assignmentSubmissionProps.submissionType).to.equal('3');
 		expect(assignment.completionType).to.equal('2');
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});
@@ -178,7 +178,7 @@ describe('Assignment ', function() {
 		await assignment.fetch();
 		assignment.setSubmissionType('0');
 
-		expect(assignment.assignmentSubmissionType.value).to.equal('0');
+		expect(assignment.assignmentSubmissionProps.submissionType).to.equal('0');
 		expect(assignment.completionType).to.equal(null);
 		expect(assignment.canEditCompletionType).to.equal(true);
 	});

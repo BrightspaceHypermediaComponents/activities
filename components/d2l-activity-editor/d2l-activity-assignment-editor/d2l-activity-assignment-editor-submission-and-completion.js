@@ -61,12 +61,12 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_getSubmissionTypeOptions(assignment) {
-		if (!assignment || !assignment.assignmentSubmissionType) {
+		if (!assignment || !assignment.assignmentSubmissionProps) {
 			return html``;
 		}
 
 		return html`
-			${assignment.assignmentSubmissionType.options.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.assignmentSubmissionType.value}>${option.title}</option>`)}
+			${assignment.assignmentSubmissionProps.submissionTypeOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.assignmentSubmissionProps.submissionType}>${option.title}</option>`)}
 		`;
 	}
 
@@ -115,15 +115,15 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	_setSubmisisonsRule(e) {
 		const assignment = store.getAssignment(this.href);
 		const data = e.target.value;
-		assignment && assignment.setSubmissionsRule(data);
+		assignment && assignment.assignmentSubmissionProps.setSubmissionsRule(data);
 	}
 
 	_renderAssignmentFilesSubmissionLimit(assignment) {
-		if (!assignment || !assignment.showFilesSubmissionLimit) {
+		if (!assignment || !assignment.assignmentSubmissionProps) {
 			return html ``;
 		}
 
-		const isReadOnly = !assignment.canEditFilesSubmissionLimit;
+		const isReadOnly = !assignment.assignmentSubmissionProps.canEditFilesSubmissionLimit;
 		const radioClasses = {
 			'd2l-input-radio-label': true,
 			'd2l-input-radio-label-disabled': isReadOnly,
@@ -143,7 +143,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 						value="unlimited"
 						@change="${this._setfilesSubmisisonLimit}"
 						?disabled=${isReadOnly}
-						?checked="${assignment.filesSubmissionLimit === 'unlimited'}"
+						?checked="${assignment.assignmentSubmissionProps.filesSubmissionLimit === 'unlimited'}"
 					>
 					${this.localize('UnlimitedFilesPerSubmission')}
 				</label>
@@ -156,7 +156,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 						value="onefilepersubmission"
 						@change="${this._setfilesSubmisisonLimit}"
 						?disabled=${isReadOnly}
-						?checked="${assignment.filesSubmissionLimit === 'onefilepersubmission'}"
+						?checked="${assignment.assignmentSubmissionProps.filesSubmissionLimit === 'onefilepersubmission'}"
 					>
 					${this.localize('OneFilePerSubmission')}
 				</label>
@@ -164,11 +164,14 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 		`;
 	}
 	_renderAssignmentSubmissionsRule(assignment) {
-		if (!assignment || !assignment.showSubmissionsRule) {
+
+		if (!assignment ||
+			!assignment.assignmentSubmissionProps ||
+			!assignment.assignmentSubmissionProps.showSubmissionsRule) {
 			return html ``;
 		}
 
-		const isReadOnly = !assignment.assignmentSubmissionType.canEditSubmissionsRule;
+		const isReadOnly = !assignment.assignmentSubmissionProps.canEditSubmissionsRule;
 		const radioClasses = {
 			'd2l-input-radio-label': true,
 			'd2l-input-radio-label-disabled': isReadOnly,
@@ -180,7 +183,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 					${this.localize('submissionsRule')}
 				</label>
 
-				${assignment.assignmentSubmissionType.submissionsRuleOptions.map((x) => html`
+				${assignment.assignmentSubmissionProps.submissionsRuleOptions.map((x) => html`
 					<label class="${classMap(radioClasses)}">
 						<input
 							type="radio"
@@ -188,7 +191,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 							.value="${x.value}"
 							@change="${this._setSubmisisonsRule}"
 							?disabled=${isReadOnly}
-							?checked="${assignment.assignmentSubmissionType.submissionsRule === x.value}"
+							?checked="${assignment.assignmentSubmissionProps.submissionsRule === x.value}"
 						>
 						${x.title}
 					</label>
@@ -198,7 +201,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_renderAssignmentSubmissionType(assignment) {
-		const canEditSubmissionType = assignment ? assignment.assignmentSubmissionType.canEditSubmissionType : false;
+		const canEditSubmissionType = assignment ? assignment.assignmentSubmissionProps.canEditSubmissionType : false;
 		return html `
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">
@@ -216,11 +219,11 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 	}
 
 	_renderAssignmentSubmissionTypeSummary(assignment) {
-		if (!assignment || !assignment.assignmentSubmissionType) {
+		if (!assignment || !assignment.assignmentSubmissionProps) {
 			return html``;
 		}
 
-		const submissionType = assignment.assignmentSubmissionType.options.find(opt => String(opt.value) === assignment.assignmentSubmissionType.value);
+		const submissionType = assignment.assignmentSubmissionProps.submissionTypeOptions.find(opt => String(opt.value) === assignment.assignmentSubmissionProps.submissionType);
 
 		if (submissionType) {
 			return html `${submissionType.title}`;

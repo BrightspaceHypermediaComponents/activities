@@ -1,6 +1,6 @@
-import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { AssignmentSubmissionType } from './assignment-submission.js';
+import { AssignmentSubmissionProps } from './assignment-submission.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });
@@ -24,7 +24,7 @@ export class Assignment {
 	_getValidCompletionTypes(currentSubmissionType) {
 		const selectedSubmissionType = String(currentSubmissionType);
 
-		const submissionType = this.assignmentSubmissionType.options.find(
+		const submissionType = this.assignmentSubmissionProps.submissionTypeOptions.find(
 			submissionType => submissionType.value.toString() === selectedSubmissionType
 		);
 
@@ -58,7 +58,7 @@ export class Assignment {
 	}
 
 	_setValidCompletionTypeForSubmissionType() {
-		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionType.value);
+		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionProps.submissionType);
 		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
 
 		if (this.completionType === null || !this._isCompletionTypeValid(this.completionType, validCompletionTypes)) {
@@ -72,13 +72,16 @@ export class Assignment {
 
 	load(entity) {
 		this._entity = entity;
-		this.assignmentSubmissionType = new AssignmentSubmissionType({
+		this.assignmentSubmissionProps = new AssignmentSubmissionProps({
 			submissionTypeOptions: entity.submissionTypeOptions(),
 			submissionType: entity.submissionType().value,
 			canEditSubmissionType: entity.canEditSubmissionType(),
 			canEditSubmissionsRule: entity.canEditSubmissionsRule(),
-			submissionsRule: entity.submissionsRule() || 'keepall',
-			submissionsRuleOptions: entity.getSubmissionsRuleOptions()
+			submissionsRule: entity.submissionsRule(),
+			submissionsRuleOptions: entity.getSubmissionsRuleOptions(),
+			canEditFilesSubmissionLimit: entity.canEditFilesSubmissionLimit(),
+			filesSubmissionLimit: entity.filesSubmissionLimit(),
+			assignmentHasSubmissions: entity.assignmentHasSubmissions()
 		});
 
 		this.name = entity.name();
@@ -100,18 +103,13 @@ export class Assignment {
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.completionType = entity.completionTypeValue();
-
-		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
-		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
-
 		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled();
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
 		this.isReadOnly = entity.isAssignmentTypeReadOnly();
-		this.assignmentHasSubmissions = entity.assignmentHasSubmissions();
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
-		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionType.value);
+		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionProps.submissionType);
 		if (entity.canEditCompletionType()) {
 			this.completionTypeOptions =  this._getCompletionTypeOptions(validCompletionTypes);
 		} else {
@@ -130,16 +128,16 @@ export class Assignment {
 	}
 
 	setSubmissionType(value) {
-		this.assignmentSubmissionType.setSubmissionType(value);
+		this.assignmentSubmissionProps.setSubmissionType(value);
 		this._setValidCompletionTypeForSubmissionType();
 	}
 
 	setFilesSubmissionLimit(value) {
-		this.filesSubmissionLimit = value;
+		this.assignmentSubmissionProps.setFilesSubmissionLimit(value);
 	}
 
 	setSubmissionsRule(value) {
-		this.assignmentSubmissionType.setSubmissionsRule(value);
+		this.assignmentSubmissionProps.setSubmissionsRule(value);
 	}
 
 	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
@@ -183,8 +181,8 @@ export class Assignment {
 		this.instructions = value;
 	}
 
-	setAssignmentSubmissionType(assignmentSubmissionType) {
-		this.assignmentSubmissionType = new AssignmentSubmissionType(assignmentSubmissionType);
+	setAssignmentSubmissionType(assignmentSubmissionProps) {
+		this.assignmentSubmissionProps = new AssignmentSubmissionProps(assignmentSubmissionProps);
 	}
 
 	_makeAssignmentData() {
@@ -196,18 +194,18 @@ export class Assignment {
 			instructions: this.instructions,
 			isAnonymous: this.isAnonymousMarkingEnabled,
 			annotationToolsAvailable: this.annotationToolsAvailable,
-			submissionType: this.assignmentSubmissionType.value,
+			submissionType: this.assignmentSubmissionProps.submissionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
 			groupTypeId: this.selectedGroupCategoryId
 		};
 		if (this.canEditCompletionType) {
 			data.completionType = this.completionType;
 		}
-		if (this.showFilesSubmissionLimit) {
-			data.filesSubmissionLimit = this.filesSubmissionLimit;
+		if (this.assignmentSubmissionProps.showFilesSubmissionLimit) {
+			data.filesSubmissionLimit = this.assignmentSubmissionProps.filesSubmissionLimit;
 		}
-		if (this.showSubmissionsRule) {
-			data.submissionsRule = this.assignmentSubmissionType.submissionsRule;
+		if (this.assignmentSubmissionProps.showSubmissionsRule) {
+			data.submissionsRule = this.assignmentSubmissionProps.submissionsRule;
 		}
 		return data;
 	}
@@ -226,25 +224,11 @@ export class Assignment {
 	delete() {
 		return this._entity.delete();
 	}
-
-	get showFilesSubmissionLimit() {
-		return this.assignmentSubmissionType.options
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.assignmentSubmissionType.value}`);
-	}
-
-	get showSubmissionsRule() {
-		const isFileSubmission = this.assignmentSubmissionType.options
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.assignmentSubmissionType.value}`);
-		const isTextSubmission = this.assignmentSubmissionType.options
-			.find(x => String(x.value) === '1' && `${x.value}` === `${this.assignmentSubmissionType.value}`);
-
-		return isFileSubmission || isTextSubmission;
-	}
 }
 
 decorate(Assignment, {
 	// props
-	assignmentSubmissionType: observable,
+	assignmentSubmissionProps: observable,
 	name: observable,
 	canEditName: observable,
 	instructions: observable,
@@ -259,8 +243,6 @@ decorate(Assignment, {
 	activityUsageHref: observable,
 	completionTypeOptions: observable,
 	canEditCompletionType: observable,
-	canEditFilesSubmissionLimit: observable,
-	filesSubmissionLimit:observable,
 	canEditTurnitin: observable,
 	editTurnitinUrl: observable,
 	isOriginalityCheckEnabled: observable,
@@ -272,8 +254,6 @@ decorate(Assignment, {
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
 	selectedGroupCategoryName: observable,
-	showFilesSubmissionLimit: computed,
-	showSubmissionsRule: computed,
 	// actions
 	load: action,
 	setName: action,
@@ -287,6 +267,5 @@ decorate(Assignment, {
 	setToIndividualAssignmentType: action,
 	setToGroupAssignmentType: action,
 	setAssignmentTypeGroupCategory: action,
-	setFilesSubmissionLimit: action,
 	setAssignmentSubmissionType: action
 });

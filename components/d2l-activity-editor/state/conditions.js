@@ -18,6 +18,7 @@ export class Conditions {
 		this._conditions = new Map(); // Id -> { id, text }
 		this._conditionsToCreate = new Map(); // Key -> LegacyDTO
 		this._conditionsToRemove = new Set(); // Id
+		this._conditionsToAdd = new Map(); // Id -> text
 	}
 
 	async fetch() {
@@ -109,6 +110,11 @@ export class Conditions {
 			results.push({ key: key, title: dto.Text });
 		}
 
+		for (const [key, text] of this._conditionsToAdd) {
+
+			results.push({ key: key, title: text });
+		}
+
 		return results;
 	}
 
@@ -138,6 +144,7 @@ export class Conditions {
 		this._conditions = new Map(entity.conditions().map(x => [x.id, x]));
 		this._conditionsToCreate = new Map();
 		this._conditionsToRemove = new Set();
+		this._conditionsToAdd = new Map();
 	}
 
 	_constructKey(dto) {
@@ -167,6 +174,8 @@ export class Conditions {
 		const isExistingCondition = this._conditions.has(dto.Id);
 		if (isExistingCondition) {
 			this._conditionsToRemove.delete(dto.Id);
+		} else if (dto.Id) {
+			this._conditionsToAdd.set(`${dto.Id}`, dto.Text);
 		} else {
 			this._conditionsToCreate.set(this._constructKey(dto), dto);
 		}
@@ -174,7 +183,9 @@ export class Conditions {
 
 	remove(key) {
 
-		const didRemoveNewCondition = this._conditionsToCreate.delete(key);
+		const didRemoveNewCondition =
+			this._conditionsToCreate.delete(key)
+				|| this._conditionsToAdd.delete(key);
 		if (didRemoveNewCondition) {
 			return;
 		}
@@ -212,6 +223,10 @@ export class Conditions {
 			return true;
 		}
 
+		if (this._conditionsToAdd.size > 0) {
+			return true;
+		}
+
 		const operator = this._getSelectedOperator(this._operators);
 		if (operator !== this._operator) {
 			return true;
@@ -235,11 +250,14 @@ export class Conditions {
 			.map(this._formatNewCondition, this);
 		const removeConditions = Array
 			.from(this._conditionsToRemove);
+		const addConditions = Array
+			.from(this._conditionsToAdd.keys());
 
 		await this._entity.save({
 			Operator: this._operator,
 			RemoveConditions: removeConditions,
-			NewConditions: newConditions
+			NewConditions: newConditions,
+			AddConditions: addConditions
 		});
 		await this.fetch();
 	}
@@ -252,6 +270,7 @@ decorate(Conditions, {
 	_conditions: observable,
 	_conditionsToCreate: observable,
 	_conditionsToRemove: observable,
+	_conditionsToAdd: observable,
 	// actions
 	load: action,
 	setOperator: action,

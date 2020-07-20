@@ -1,61 +1,98 @@
 /* eslint quotes: 0 */
 
 export default {
-	"btnEditReleaseConditions": "تحرير شروط الإصدار", // edit release conditions button
-	"btnAddReleaseCondition": "إضافة شروط الإصدار", // add release condition button
-	"btnCreateNew": "إنشاء جديد", // create new button
-	"btnAddExisting": "إضافة موجود", // add existing button
-	"btnRemoveCondition": "إزالة شرط", // remove condition button
-	"lblConditionsOperator": "لعرض هذه المادة، يجب على المستخدمين استيفاء", // conditions operator label
-	"txtNumReleaseConditions": "{count, plural, =1 {{count} شرط إصدار} other {{count} من شروط الإصدار}}", // num release condition text
-	"btnCancel": "إلغاء", // cancel button
-	"btnSave": "حفظ وإغلاق", // save and close button
-	"btnSaveMobile": "حفظ", // save and close button for mobile devices
-	"dueDate": "تاريخ الاستحقاق", // ARIA label for the due date field when creating/editing an activity
-	"endDate": "تاريخ الانتهاء", // ARIA label for the end date field when creating/editing an activity
-	"startDate": "تاريخ البدء", // ARIA label for the start date field when creating/editing an activity
-	"dueTime": "وقت الاستحقاق", // ARIA label for the due time field when creating/editing an activity
-	"endTime": "وقت الانتهاء", // ARIA label for the end time field when creating/editing an activity
-	"startTime": "وقت البدء", // ARIA label for the start time field when creating/editing an activity
-	"hidden": "مخفي", // Label displayed with the visibility switch when hidden
-	"noDueDate": "ما من تاريخ استحقاق", // Placeholder text for due date field when no due date is set
-	"noEndDate": "ما من تاريخ انتهاء", // Placeholder text for due date field when no due date is set
-	"noStartDate": "ما من تاريخ بدء", // Placeholder text for due date field when no due date is set
-	"visible": "مرئي", // Label displayed with the visibility switch when visible
-	"txtAvailabilityStartAndEnd": "يبدأ التوفر بتاريخ {startDate} وينتهي بتاريخ {endDate}", // start/end text
-	"txtAvailabilityStartOnly": "يبدأ التوفر بتاريخ {startDate}", // start only text
-	"txtAvailabilityEndOnly": "تاريخ انتهاء التوفر {endDate}", // end only text
-	"txtAvailabilityNeither": "متوفر دائمًا", // always available text
-	"ungraded": "لم توضَع علامة عليها", // State of score field when there is no score and no grade item, when creating/editing an activity
-	"inGrades": "في حقل العلامات", // State of the grades field when there is a score, and an associated grade item
-	"notInGrades": "ليس في حقل العلامات", // State of the grades field when there is a score, but no associated grade item
-	"addToGrades": "إضافة إلى العلامات", // Menu item for adding grade association
-	"addAGrade": "إضافة علامة", //ARIA label to add a grade to the activity
-	"removeFromGrades": "الإزالة من حقل العلامات", // Menu item for removing grade association
-	"setUngraded": "إعادة التعيين إلى لم توضَع علامة عليها", // Menu item for setting the activity to ungraded
-	"scoreOutOf": "مجموع الدرجات من أصل", // ARIA label for the score out of field, when creating/editing an activity
-	"emptyScoreOutOfError": "يجب تحديد قيمة نقاط الأنشطة في حقل العلامات", // Error message to inform user that the score out of value is a required field when a grade item is associated
-	"invalidScoreOutOfError": "يجب أن يكون \"مجموع الدرجات من أصل\" أكبر من 0,01 أو مساويًا له وأقل من 9999999999 أو مساويًا له.", // Error message when an invalid score out of value is entered
-	"loading": "يتم الآن التحميل...", // Message displayed while page is loading
-	"ok": "موافق", // Text of dialog button to commit action
-	"cancel": "إلغاء", // Text of dialog button to cancel action
-	"ariaToolbarShortcutInstructions": "اضغط على ALT-F10 لفتح شريط الأدوات، واضغط على ESC للخروج من شريط الأدوات عندما يكون مفتوحًا.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
-	"chooseFromGrades": "اختيار من العلامات", // Link text and dialog title for the edit grades dialog,
-	"hdrRubrics": "آليات التقييم", //Header for the rubrics section
-	"startBeforeEndDate": "يجب أن يقع تاريخ البدء قبل تاريخ النهاية",
-	"dueBetweenStartEndDate": "يجب أن يقع تاريخ الاستحقاق بعد تاريخ البدء ويوم تاريخ النهاية أو قبله",
-	"dueAfterStartDate": "يجب أن يقع تاريخ الاستحقاق بعد تاريخ البدء",
-	"dueBeforeEndDate": "يجب أن يقع تاريخ الاستحقاق يوم تاريخ النهاية أو قبله",
-	"createAndLinkToNewGradeItem": "إنشاء مادة جديدة سيتم وضع علامة عليها والربط بها", //Radio button text
-	"linkToExistingGradeItem": "ربط بمادة حالية سيتم وضع علامة عليها", //Radio button text
-	"points": "النقاط: {points}", // Text label for displaying points of a grade
-	"noGradeItems": "ما من مواد حالية سيتم وضع علامة عليها", // Reason why existing grade items cannot be linked in the choose grades dialog
-	"noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها", // Reason why a new grade items cannot be created in the choose grades dialog
-	"competencies": "أهداف التعلّم", //Text label for the competencies tool integration
-	"manageCompetencies": "إدارة أهداف التعلّم", //Button text to launch competencies tool dialog
-	"competenciesCount": "{count, plural, =0 {ما من أهداف تعلّم} =1 {مرفق واحد} other {{count} من المرفقات}}", //Label for number of associated competencies
-	"competenciesCountSummary": "{count, plural, =0 {ما من أهداف تعلّم} =1 {هدف تعلّم واحد} other {{count} من أهداف التعلّم}}",
-	"unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other ‏{{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
-	"btnClose": "إغلاق", //Label for Close button
-	"btnCloseDialog": "إغلاق مربع الحوار هذا" // close dialog button
+	"editor.btnEditReleaseConditions": "تحرير شروط الإصدار", // edit release conditions button
+	"editor.btnAddReleaseCondition": "إضافة شروط الإصدار", // add release condition button
+	"editor.btnCreateNew": "إنشاء جديد", // create new button
+	"editor.btnAddExisting": "إضافة موجود", // add existing button
+	"editor.btnRemoveCondition": "إزالة شرط", // remove condition button
+	"editor.lblConditionsOperator": "لعرض هذه المادة، يجب على المستخدمين استيفاء", // conditions operator label
+	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} شرط إصدار} other {{count} من شروط الإصدار}}", // num release condition text
+	"editor.btnCancel": "إلغاء", // cancel button
+	"editor.btnSave": "حفظ وإغلاق", // save and close button
+	"editor.btnSaveMobile": "حفظ", // save and close button for mobile devices
+	"editor.dueDate": "تاريخ الاستحقاق", // ARIA label for the due date field when creating/editing an activity
+	"editor.endDate": "تاريخ الانتهاء", // ARIA label for the end date field when creating/editing an activity
+	"editor.startDate": "تاريخ البدء", // ARIA label for the start date field when creating/editing an activity
+	"editor.dueTime": "وقت الاستحقاق", // ARIA label for the due time field when creating/editing an activity
+	"editor.endTime": "وقت الانتهاء", // ARIA label for the end time field when creating/editing an activity
+	"editor.startTime": "وقت البدء", // ARIA label for the start time field when creating/editing an activity
+	"editor.hidden": "مخفي", // Label displayed with the visibility switch when hidden
+	"editor.noDueDate": "ما من تاريخ استحقاق", // Placeholder text for due date field when no due date is set
+	"editor.noEndDate": "ما من تاريخ انتهاء", // Placeholder text for due date field when no due date is set
+	"editor.noStartDate": "ما من تاريخ بدء", // Placeholder text for due date field when no due date is set
+	"editor.visible": "مرئي", // Label displayed with the visibility switch when visible
+	"editor.txtAvailabilityStartAndEnd": "يبدأ التوفر بتاريخ {startDate} وينتهي بتاريخ {endDate}", // start/end text
+	"editor.txtAvailabilityStartOnly": "يبدأ التوفر بتاريخ {startDate}", // start only text
+	"editor.txtAvailabilityEndOnly": "تاريخ انتهاء التوفر {endDate}", // end only text
+	"editor.txtAvailabilityNeither": "متوفر دائمًا", // always available text
+	"editor.ungraded": "لم توضَع علامة عليها", // State of score field when there is no score and no grade item, when creating/editing an activity
+	"editor.inGrades": "في حقل العلامات", // State of the grades field when there is a score, and an associated grade item
+	"editor.notInGrades": "ليس في حقل العلامات", // State of the grades field when there is a score, but no associated grade item
+	"editor.addToGrades": "إضافة إلى العلامات", // Menu item for adding grade association
+	"editor.addAGrade": "إضافة علامة", //ARIA label to add a grade to the activity
+	"editor.removeFromGrades": "الإزالة من حقل العلامات", // Menu item for removing grade association
+	"editor.setUngraded": "إعادة التعيين إلى لم توضَع علامة عليها", // Menu item for setting the activity to ungraded
+	"editor.scoreOutOf": "مجموع الدرجات من أصل", // ARIA label for the score out of field, when creating/editing an activity
+	"editor.emptyScoreOutOfError": "يجب تحديد قيمة نقاط الأنشطة في حقل العلامات", // Error message to inform user that the score out of value is a required field when a grade item is associated
+	"editor.invalidScoreOutOfError": "يجب أن يكون \"مجموع الدرجات من أصل\" أكبر من 0,01 أو مساويًا له وأقل من 9999999999 أو مساويًا له.", // Error message when an invalid score out of value is entered
+	"editor.loading": "يتم الآن التحميل...", // Message displayed while page is loading
+	"editor.ok": "موافق", // Text of dialog button to commit action
+	"editor.cancel": "إلغاء", // Text of dialog button to cancel action
+	"editor.ariaToolbarShortcutInstructions": "اضغط على ALT-F10 لفتح شريط الأدوات، واضغط على ESC للخروج من شريط الأدوات عندما يكون مفتوحًا.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
+	"editor.chooseFromGrades": "اختيار من العلامات", // Link text and dialog title for the edit grades dialog,
+	"editor.hdrRubrics": "آليات التقييم", //Header for the rubrics section
+	"editor.startBeforeEndDate": "يجب أن يقع تاريخ البدء قبل تاريخ النهاية",
+	"editor.dueBetweenStartEndDate": "يجب أن يقع تاريخ الاستحقاق بعد تاريخ البدء ويوم تاريخ النهاية أو قبله",
+	"editor.dueAfterStartDate": "يجب أن يقع تاريخ الاستحقاق بعد تاريخ البدء",
+	"editor.dueBeforeEndDate": "يجب أن يقع تاريخ الاستحقاق يوم تاريخ النهاية أو قبله",
+	"editor.createAndLinkToNewGradeItem": "إنشاء مادة جديدة سيتم وضع علامة عليها والربط بها", //Radio button text
+	"editor.linkToExistingGradeItem": "ربط بمادة حالية سيتم وضع علامة عليها", //Radio button text
+	"editor.points": "النقاط: {points}", // Text label for displaying points of a grade
+	"editor.noGradeItems": "ما من مواد حالية سيتم وضع علامة عليها", // Reason why existing grade items cannot be linked in the choose grades dialog
+	"editor.noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها", // Reason why a new grade items cannot be created in the choose grades dialog
+	"editor.competencies": "أهداف التعلّم", //Text label for the competencies tool integration
+	"editor.manageCompetencies": "إدارة أهداف التعلّم", //Button text to launch competencies tool dialog
+	"editor.competenciesCount": "{count, plural, =0 {ما من أهداف تعلّم} =1 {مرفق واحد} other {{count} من المرفقات}}", //Label for number of associated competencies
+	"editor.competenciesCountSummary": "{count, plural, =0 {ما من أهداف تعلّم} =1 {هدف تعلّم واحد} other {{count} من أهداف التعلّم}}",
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other ‏{{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
+	"editor.btnClose": "إغلاق", //Label for Close button
+	"editor.btnCloseDialog": "إغلاق مربع الحوار هذا", // close dialog button
+
+	"rubrics.btnAddRubric": "إضافة آلية تقييم", //text for add rubric button
+	"rubrics.btnCreateNew": "إنشاء جديد", //Text for create new dropdown
+	"rubrics.btnAddExisting": "إضافة موجود", //Text for Add Existing dropdown
+	"rubrics.hdrRubrics": "آليات التقييم", //Header for the rubrics section
+	"rubrics.btnAttachRubric": "إرفاق آلية تقييم", //Button for the attach new rubric overlay
+	"rubrics.btnCancel": "إلغاء", //Button for canceling out of the attach new rubric overlay
+	"rubrics.txtAddExisting": "إضافة موجود", //Title for the attach rubrics dialog,
+	"rubrics.txtNoRubricAdded": "لم تتم إضافة آلية تقييم", // rubric summary for no rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {آلية تقييم واحدة مضافة} other ‏{{count} من آليات التقييم المضافة}}", // count of asoociated rubrics
+	"rubrics.txtDeleteRubric": "حذف آلية التقييم", // Text for deleting rubric icon
+	"rubrics.btnClose": "إغلاق", // X button for exiting the create new rubric overlay
+	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed
+
+	"grades.points": "النقاط: {points}", // Text label for displaying points of a grade
+	"grades.weight": "الوزن: {weight}", // Text label for displaying weight of a grade
+	"grades.gradeItem": "مادة سيتم وضع علامة عليها", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.newGradeItemCategory": "فئة العلامات", // Label for selecting a category dropdown
+	"grades.noGradeItemCategory": "لا توجد فئة", // Category dropdown text for not selecting a category
+
+	"attachments.addGoogleDriveLink": "إرفاق من Google Drive", // Tooltip for a button that adds a link to a Google Drive file
+	"attachments.addFile": "تحميل ملف", // Tooltip for a button that opens a file upload dialog
+	"attachments.addLink": "إرفاق ارتباط ويب", // Tooltip for a button that adds a link to a URL
+	"attachments.addOneDriveLink": "إرفاق من OneDrive", // Tooltip for a button that adds a link to a OneDrive file
+	"attachments.addQuicklink": "إرفاق ارتباط بنشاط موجود", // Tooltip for a button that adds a link to an existing activity
+	"attachments.back": "رجوع", // Text for a back button
+	"attachments.closeDialog": "إغلاق مربع الحوار", // ARIA text for button to close dialog
+	"attachments.recordAudio": "تسجيل الصوت", // Text for a button that opens a dialog to record audio
+	"attachments.recordVideo": "تسجيل فيديو", // Text for a button that opens a dialog to record video
+	"attachments.save": "حفظ", // Text for a save button,
+	"attachments.attach": "إرفاق", // Text for Attach button to open attachment row
+	"attachments.addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
+	"attachments.addFileMenu": "تحميل ملف", // Attach menu item text
+	"attachments.addLinkMenu": "ارتباط ويب", // Attach menu item text
+	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
+	"attachments.addQuicklinkMenu": "النشاط الحالي" // Attach menu item text
 };

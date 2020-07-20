@@ -2,25 +2,28 @@ import '../d2l-activity-availability-dates-summary.js';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-usage-conditions-editor.js';
 import '../d2l-activity-usage-conditions-summary.js';
+import '../d2l-activity-special-access-editor.js';
+import '../d2l-activity-special-access-summary.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { bodySmallStyles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as store } from '../state/activity-store.js';
 
-class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(LocalizeMixin(ActivityEditorMixin(MobxLitElement))) {
+class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_opened: { type: Boolean }
+			_opened: { type: Boolean },
+			_m3ReleaseConditionsEnabled: { type: Boolean },
+			_m3SpecialAccessEnabled: { type: Boolean }
 		};
 	}
 
@@ -52,13 +55,16 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	constructor() {
 		super();
 		this._opened = false;
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+
+		this._m3ReleaseConditionsEnabled = this._isMilestoneEnabled(Milestones.M3ReleaseConditions);
+		this._m3SpecialAccessEnabled = this._isMilestoneEnabled(Milestones.M3SpecialAccess);
 	}
 
 	_onAccordionStateChange(e) {
@@ -88,10 +94,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 	}
 
 	_renderReleaseConditionSummary() {
-
-		const shouldRenderConditionSummary = this._isMilestoneEnabled(Milestones.M3ReleaseConditions);
-
-		if (!shouldRenderConditionSummary) {
+		if (!this._m3ReleaseConditionsEnabled) {
 			return html``;
 		}
 
@@ -104,10 +107,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 	}
 
 	_renderReleaseConditionEditor() {
-
-		const shouldRenderConditionEditor = this._isMilestoneEnabled(Milestones.M3ReleaseConditions);
-
-		if (!shouldRenderConditionEditor) {
+		if (!this._m3ReleaseConditionsEnabled) {
 			return html``;
 		}
 
@@ -126,13 +126,37 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 	}
 
 	_renderSpecialAccessSummary() {
+		if (!this._m3SpecialAccessEnabled) {
+			return html``;
+		}
 
-		return html``;
+		return html`
+			<d2l-activity-special-access-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-special-access-summary>
+		`;
 	}
 
 	_renderSpecialAccessEditor() {
+		const activity = store.get(this.href);
 
-		return html``;
+		if (!this._m3SpecialAccessEnabled || !activity || !activity.specialAccess) {
+			return html``;
+		}
+
+		return html`
+			<div class="editor">
+				<h3 class="d2l-heading-4">
+					${this.localize('hdrSpecialAccess')}
+				</h3>
+				<d2l-activity-special-access-editor
+					description="${this.localize('hlpSpecialAccess')}"
+					href="${this.href}"
+					.token="${this.token}">
+				</d2l-activity-special-access-editor>
+			</div>
+		`;
 	}
 
 	// Returns true if any error states relevant to this accordion are set

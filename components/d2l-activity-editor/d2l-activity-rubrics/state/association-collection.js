@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import { Associations } from 'siren-sdk/src/activities/Associations.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
@@ -28,6 +28,8 @@ export class AssociationCollection {
 
 		this.associationsMap = new Map();
 
+		this.defaultScoringRubricOptions = [];
+
 		this._entity.getAllAssociations().forEach(asc => {
 
 			const associationEntity = new Association(asc, this.token);
@@ -38,6 +40,47 @@ export class AssociationCollection {
 				this.associationsMap.set(rubricHref, formattedEntity);
 			}
 		});
+
+		const associations = this.fetchAssociations();
+		const validDefaultScoringOption = associations.filter(association => (association.isAssociating || association.isAssociated) && !association.isDeleting);
+
+		for (const option of validDefaultScoringOption) {
+			this.addDefaultScoringRubricOption(option.rubricHref);
+		}
+	}
+
+	getRubricIdFromHref(rubricHref) {
+		if (!rubricHref) {
+			return;
+		}
+
+		return rubricHref.split('/').pop();
+	}
+
+	async addDefaultScoringRubricOption(rubricHref) {
+		if (rubricHref) {
+			const rubricEntity = await fetchEntity(rubricHref, this.token);
+			const rubricId = this.getRubricIdFromHref(rubricHref);
+
+			const rubricAlreadyAnOption = this.defaultScoringRubricOptions.some(option => option.value === rubricId);
+
+			if (rubricEntity && !rubricAlreadyAnOption) {
+				runInAction(() => this.defaultScoringRubricOptions.push({title: rubricEntity.properties.name, value: rubricId}));
+			}
+		}
+	}
+
+	removeDefaultScoringRubricOption(rubricHref, assignment) {
+		if (rubricHref && assignment) {
+			const rubricId = this.getRubricIdFromHref(rubricHref);
+			if (assignment.defaultScoringRubricId === rubricId) {
+				assignment.resetDefaultScoringRubricId();
+			}
+
+			this.defaultScoringRubricOptions = this.defaultScoringRubricOptions.filter(
+				option => option.value !== rubricId
+			);
+		}
 	}
 
 	fetchAssociations() {
@@ -68,6 +111,8 @@ export class AssociationCollection {
 			if (this.associationsMap.has(rubricHref)) {
 				const association = this.associationsMap.get(rubricHref);
 
+				runInAction(() => this.addDefaultScoringRubricOption(association.rubricHref));
+
 				if (association.isDeleting) {
 					association.isDeleting = false;
 				} else {
@@ -83,7 +128,48 @@ export class AssociationCollection {
 
 	}
 
-	deleteAssociation(rubricHref) {
+	addAssociations_DoNotUse(associationsToAdd) {
+
+		for (const ata of associationsToAdd) {
+			const entity = new Association(ata, this.token);
+
+			const rubricHref = entity.getRubricLink();
+
+			if (this.associationsMap.has(rubricHref)) {
+				const association = this.associationsMap.get(rubricHref);
+
+				if (association.isDeleting) {
+					association.isDeleting = false;
+				} else {
+					if (association.isAssociated) {
+						continue;
+					}
+					association.isAssociating = true;
+				}
+
+			}
+
+		}
+
+	}
+
+	deleteAssociation(rubricHref, assignment) {
+
+		if (this.associationsMap.has(rubricHref)) {
+			const association = this.associationsMap.get(rubricHref);
+
+			this.removeDefaultScoringRubricOption(rubricHref, assignment);
+
+			if (association.isAssociating) {
+				association.isAssociating = false;
+			} else {
+				association.isDeleting = true;
+			}
+
+		}
+	}
+
+	deleteAssociation_DoNotUse(rubricHref) {
 
 		if (this.associationsMap.has(rubricHref)) {
 			const association = this.associationsMap.get(rubricHref);
@@ -170,10 +256,15 @@ export class AssociationCollection {
 decorate(AssociationCollection, {
 	// props
 	associationsMap: observable,
+	defaultScoringRubricOptions: observable,
 	// actions
 	load: action,
 	save: action,
 	addAssociations: action,
 	deleteAssociation: action,
-	addPotentialAssociationToMap: action
+	addPotentialAssociationToMap: action,
+	addDefaultScoringRubricOption: action,
+	removeDefaultScoringRubricOption: action,
+	deleteAssociation_DoNotUse: action,
+	addAssociations_DoNotUse: action
 });

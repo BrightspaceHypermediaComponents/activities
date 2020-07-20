@@ -100,6 +100,8 @@ export class Assignment {
 		this.editTurnitinUrl = entity.editTurnitinUrl();
 		this.isOriginalityCheckEnabled = entity.isOriginalityCheckEnabled();
 		this.isGradeMarkEnabled = entity.isGradeMarkEnabled();
+		this.canEditDefaultScoringRubric = entity.canEditDefaultScoringRubric();
+		this.defaultScoringRubricId = String(entity.getDefaultScoringRubric()) || '-1';
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.completionType = entity.completionTypeValue();
@@ -185,6 +187,16 @@ export class Assignment {
 		this.assignmentSubmissionProps = new AssignmentSubmissionProps(assignmentSubmissionProps);
 	}
 
+	setDefaultScoringRubric(rubricId) {
+		if (rubricId) {
+			this.defaultScoringRubricId = String(rubricId);
+		}
+	}
+
+	resetDefaultScoringRubricId() {
+		this.defaultScoringRubricId = '-1';
+	}
+
 	_makeAssignmentData() {
 		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
 		 		 The cancel workflow is making use of that to detect changes.
@@ -196,7 +208,8 @@ export class Assignment {
 			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.assignmentSubmissionProps.submissionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.selectedGroupCategoryId
+			groupTypeId: this.selectedGroupCategoryId,
+			defaultScoringRubricId: this.defaultScoringRubricId
 		};
 		if (this.canEditCompletionType) {
 			data.completionType = this.completionType;
@@ -253,6 +266,8 @@ decorate(Assignment, {
 	selectedGroupCategoryId: observable,
 	isGroupAssignmentTypeDisabled: observable,
 	isReadOnly: observable,
+	canEditDefaultScoringRubric: observable,
+	defaultScoringRubricId: observable,
 	selectedGroupCategoryName: observable,
 	// actions
 	load: action,
@@ -267,5 +282,7 @@ decorate(Assignment, {
 	setToIndividualAssignmentType: action,
 	setToGroupAssignmentType: action,
 	setAssignmentTypeGroupCategory: action,
-	setAssignmentSubmissionType: action
+	setAssignmentSubmissionType: action,
+	setDefaultScoringRubric: action,
+	resetDefaultScoringRubricId: action
 });

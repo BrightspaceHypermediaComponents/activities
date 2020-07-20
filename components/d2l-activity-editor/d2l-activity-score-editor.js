@@ -12,14 +12,13 @@ import 'd2l-tooltip/d2l-tooltip';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
-import { getLocalizeResources } from './localization';
 import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(MobxLitElement))) {
+class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -141,10 +140,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	constructor() {
 		super(store);
 	}
@@ -212,12 +207,12 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 		const scoreAndGrade = store.get(this.href).scoreAndGrade;
 		return scoreAndGrade.inGrades ? html`
 			<d2l-menu-item
-				text="${this.localize('removeFromGrades')}"
+				text="${this.localize('editor.removeFromGrades')}"
 				@d2l-menu-item-select="${this._removeFromGrades}"
 			></d2l-menu-item>
 		` : scoreAndGrade.canEditGrades ? html`
 			<d2l-menu-item
-				text="${this.localize('addToGrades')}"
+				text="${this.localize('editor.addToGrades')}"
 				@d2l-menu-item-select="${this._addToGrades}"
 			></d2l-menu-item>
 		` : null;
@@ -252,9 +247,9 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 			<div id="ungraded-button-container">
 				<button id="ungraded" class="d2l-input"
 					@click="${this._setGraded}"
-					aria-label="${this.localize('addAGrade')}"
+					aria-label="${this.localize('editor.addAGrade')}"
 				>
-					${this.localize('ungraded')}
+					${this.localize('editor.ungraded')}
 				</button>
 			</div>
 		` : html`
@@ -262,7 +257,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 				<div id="score-out-of-container">
 					<d2l-input-text
 						id="score-out-of"
-						label="${this.localize('scoreOutOf')}"
+						label="${this.localize('editor.scoreOutOf')}"
 						label-hidden
 						value="${scoreOutOf}"
 						size=4
@@ -290,18 +285,18 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeMixin(RtlMixin(Mob
 						<d2l-dropdown>
 							<button class="d2l-label-text grade-info d2l-dropdown-opener">
 								${inGrades ? html`<d2l-icon icon="tier1:grade"></d2l-icon>` : null}
-								<div>${inGrades ? this.localize('inGrades') : this.localize('notInGrades')}</div>
+								<div>${inGrades ? this.localize('editor.inGrades') : this.localize('editor.notInGrades')}</div>
 								<d2l-icon icon="tier1:chevron-down"></d2l-icon>
 							</button>
 							<d2l-dropdown-menu id="grade-dropdown" align="start" no-pointer vertical-offset="3px">
-								<d2l-menu label="${inGrades ? this.localize('inGrades') : this.localize('notInGrades')}">
+								<d2l-menu label="${inGrades ? this.localize('editor.inGrades') : this.localize('editor.notInGrades')}">
 									<d2l-menu-item
-										text="${this.localize('chooseFromGrades')}"
+										text="${this.localize('editor.chooseFromGrades')}"
 										@d2l-menu-item-select="${this._chooseFromGrades}"
 									></d2l-menu-item>
 									${this._addOrRemoveMenuItem()}
 									<d2l-menu-item
-										text="${this.localize('setUngraded')}"
+										text="${this.localize('editor.setUngraded')}"
 										@d2l-menu-item-select="${this._setUngraded}"
 									></d2l-menu-item>
 								</d2l-menu>

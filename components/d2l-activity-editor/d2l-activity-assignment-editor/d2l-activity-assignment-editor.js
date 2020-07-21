@@ -54,9 +54,9 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeActivityAssi
 			*/
 			milestoneThreeSpecialAccessEnabled: { type: Boolean },
 			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-4
+			* based on the LaunchDarkly flag face-assignments-milestone-4-email-submission
 			*/
-			milestoneFourEnabled: { type: Boolean },
+			milestoneFourEmailSubmission: { type: Boolean },
 			/**
 			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
 			*/
@@ -147,8 +147,8 @@ class AssignmentEditor extends ActivityEditorContainerMixin(LocalizeActivityAssi
 			return;
 		}
 
-		if (e.detail.key === 'd2l-milestone-four') {
-			e.detail.provider = this.milestoneFourEnabled;
+		if (e.detail.key === 'd2l-milestone-four-email-submission') {
+			e.detail.provider = this.milestoneFourEmailSubmission;
 			e.stopPropagation();
 			return;
 		}

@@ -5,7 +5,7 @@ export const Milestones = Object.freeze({
 	M3Outcomes: 'd2l-milestone-three-outcomes',
 	M3ReleaseConditions: 'd2l-milestone-three-release-conditions',
 	M3SpecialAccess: 'd2l-milestone-three-special-access',
-	M4: 'd2l-milestone-four',
+	M4EmailSubmission: 'd2l-milestone-four-email-submission',
 });
 
 export const ActivityEditorFeaturesMixin = superclass => class extends superclass {

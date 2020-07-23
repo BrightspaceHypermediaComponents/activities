@@ -7,6 +7,9 @@ export default {
 	"editor.btnAddExisting": "Add Existing", // add existing button
 	"editor.btnRemoveCondition": "Remove Condition", // remove condition button
 	"editor.lblConditionsOperator": "To view this item, users must satisfy", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} release condition} other {{count} release conditions}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text
 	"editor.btnCancel": "Cancel", // cancel button

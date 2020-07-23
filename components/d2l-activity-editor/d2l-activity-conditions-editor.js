@@ -5,6 +5,7 @@ import 'd2l-dropdown/d2l-dropdown-menu.js';
 import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -181,7 +182,24 @@ class ActivityConditionsEditor
 			return;
 		}
 
-		entity.remove(event.target.dataset.key);
+		const key = event.target.dataset.key;
+		const conditions = this._conditions(entity).reduce((map, x) => {
+			map[`${x.key}`] = x.title;
+			return map;
+		}, {});
+
+		const condition = conditions[key];
+		entity.remove(key);
+
+		if (condition) {
+			// don't want <strong> tags in screenreader text
+			const title = condition.replace(/<strong>|<\/strong>/g, '');
+			announce(`${this.localize('editor.txtConditionRemoved', {title})}`);
+		}
+	}
+
+	_conditions({conditions}) {
+		return conditions;
 	}
 
 	_renderCondition({ key, title }) {
@@ -268,6 +286,20 @@ class ActivityConditionsEditor
 
 			if (result !== undefined) {
 				entity.add(result);
+
+				if (result !== undefined) {
+					entity.add(result);
+
+					if (result.length === 1) {
+						// don't want <strong> tags in screenreader text
+						const title = result[0].Text.replace(/<strong>|<\/strong>/g, '');
+						announce(`${this.localize('editor.txtConditionAdded', {title})}`);
+					}
+					if (result.length > 1) {
+						const count = result.length;
+						announce(`${this.localize('editor.txtConditionsAdded', {count})}`);
+					}
+				}
 			}
 		});
 	}
@@ -319,6 +351,9 @@ class ActivityConditionsEditor
 
 			if (result !== undefined) {
 				entity.add(result);
+
+				const title = result.Text.replace(/<strong>|<\/strong>/g, '');
+				announce(`${this.localize('editor.txtConditionAdded', {title})}`);
 			}
 		});
 	}

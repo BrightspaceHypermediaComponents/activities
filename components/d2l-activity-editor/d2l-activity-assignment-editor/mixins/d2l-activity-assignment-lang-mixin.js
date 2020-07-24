@@ -1,8 +1,25 @@
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { getLocalizeOverrideResources } from '@brightspace-ui/core/helpers/getLocalizeResources.js';
+import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
 
 export const LocalizeActivityAssignmentEditorMixin = superclass => class extends LocalizeMixin(superclass) {
 
 	static async getLocalizeResources(langs) {
+
+		function resolveOverridesFunc() {
+			return resolveUrl(`../lang/overrides.js`, import.meta.url);
+		}
+
+		async function importOverridesFunc(url) {
+			try {
+				const module = await import(url);
+				return module.default;
+			} catch (err) {
+				return null;
+			};
+		}
+		
+
 		let translations;
 		for await (const lang of langs) {
 			switch (lang) {
@@ -50,16 +67,21 @@ export const LocalizeActivityAssignmentEditorMixin = superclass => class extends
 					break;
 			}
 			if (translations && translations.default) {
-				return {
-					language: lang,
-					resources: translations.default
-				};
+				return await getLocalizeOverrideResources(
+					lang,
+					translations.default,
+					resolveOverridesFunc,
+					importOverridesFunc
+				);
 			}
 		}
 		translations = await import('../lang/en.js');
-		return {
-			language: 'en',
-			resources: translations.default
-		};
+		
+		return await getLocalizeOverrideResources(
+			'en',
+			translations.default,
+			resolveOverridesFunc,
+			importOverridesFunc
+		);
 	}
 };

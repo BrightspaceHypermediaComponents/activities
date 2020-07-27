@@ -180,9 +180,9 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 	_renderRubricsList(entity) {
 		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
 		const canCreateAssociation = entity.canCreateAssociation();
-		const totalAssociations = entity.fetchAttachedAssociationsCount();
+		const associationsCount = entity.fetchAttachedAssociationsCount();
 
-		if (!canCreatePotentialAssociation && !canCreateAssociation && totalAssociations === 0) {
+		if (!canCreatePotentialAssociation && !canCreateAssociation && associationsCount === 0) {
 			return html``;
 		}
 

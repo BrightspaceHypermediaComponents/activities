@@ -177,6 +177,30 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 		this._newlyCreatedPotentialAssociationHref = '';
 	}
 
+	_renderRubricsList(entity){
+		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
+		const canCreateAssociation = entity.canCreateAssociation();
+		const totalAssociations = entity.fetchAssociations().length;
+		
+		if (!canCreatePotentialAssociation && !canCreateAssociation && totalAssociations == 0) {
+			return html``;
+		}
+
+		return html`
+			<div class="rubric-heading-container">
+				<h3 class="d2l-heading-4 rubric-heading-title">
+					${this.localize('rubrics.hdrRubrics')}
+				</h3>
+			</div>
+			<d2l-activity-rubrics-list-editor
+				href="${this.href}"
+				.activityUsageHref=${this.activityUsageHref}
+				.token=${this.token}
+				.assignmentHref=${this.assignmentHref}
+			></d2l-activity-rubrics-list-editor>
+			`;
+	}
+
 	_renderAddRubricDropdown(entity) {
 
 		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
@@ -254,7 +278,6 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 	}
 
 	render() {
-
 		const entity = associationStore.get(this.href);
 
 		if (!entity) {
@@ -262,17 +285,7 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 		}
 
 		return html`
-			<div class="rubric-heading-container">
-				<h3 class="d2l-heading-4 rubric-heading-title">
-					${this.localize('rubrics.hdrRubrics')}
-				</h3>
-			</div>
-			<d2l-activity-rubrics-list-editor
-				href="${this.href}"
-				.activityUsageHref=${this.activityUsageHref}
-				.token=${this.token}
-				.assignmentHref=${this.assignmentHref}
-			></d2l-activity-rubrics-list-editor>
+			${this._renderRubricsList(entity)}
 
 			${this._renderAddRubricDropdown(entity)}
 

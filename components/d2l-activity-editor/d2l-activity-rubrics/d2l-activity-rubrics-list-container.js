@@ -177,12 +177,12 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 		this._newlyCreatedPotentialAssociationHref = '';
 	}
 
-	_renderRubricsList(entity){
+	_renderRubricsList(entity) {
 		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
 		const canCreateAssociation = entity.canCreateAssociation();
 		const totalAssociations = entity.fetchAssociations().length;
-		
-		if (!canCreatePotentialAssociation && !canCreateAssociation && totalAssociations == 0) {
+
+		if (!canCreatePotentialAssociation && !canCreateAssociation && totalAssociations === 0) {
 			return html``;
 		}
 

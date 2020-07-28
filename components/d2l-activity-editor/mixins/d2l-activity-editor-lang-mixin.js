@@ -11,15 +11,6 @@ export const LocalizeActivityEditorMixin = superclass => class extends LocalizeM
 		}
 
 		
-		async function importOverridesFunc(url) {
-			try {
-				const module = await import(url);
-				return module.default;
-			} catch (err) {
-				return null;
-			};
-		}
-		
 
 		let translations;
 		for await (const lang of langs) {
@@ -71,8 +62,7 @@ export const LocalizeActivityEditorMixin = superclass => class extends LocalizeM
 				return await getLocalizeOverrideResources(
 					lang,
 					translations.default,
-					resolveOverridesFunc,
-					importOverridesFunc
+					resolveOverridesFunc
 				);
 			}
 		}
@@ -81,8 +71,7 @@ export const LocalizeActivityEditorMixin = superclass => class extends LocalizeM
 		return await getLocalizeOverrideResources(
 			'en',
 			translations.default,
-			resolveOverridesFunc,
-			importOverridesFunc
+			resolveOverridesFunc
 		);
 
 	}

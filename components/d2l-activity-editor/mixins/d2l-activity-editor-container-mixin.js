@@ -1,4 +1,5 @@
 import { ActivityEditorTelemetryMixin } from './d2l-activity-editor-telemetry-mixin';
+import { findComposedAncestor } from '@brightspace-ui/core/helpers/dom.js';
 import { getFirstFocusableDescendant } from '@brightspace-ui/core/helpers/focus.js';
 
 export const ActivityEditorContainerMixin = superclass => class extends ActivityEditorTelemetryMixin(superclass) {
@@ -57,8 +58,12 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		});
 	}
 
+	_hasSkipAlertAncestor(node) {
+		return null !== findComposedAncestor(node, elm => elm && elm.hasAttribute && elm.hasAttribute('skip-alert'));
+	}
+
 	_focusOnInvalid() {
-		const isAriaInvalid = node => node.getAttribute('aria-invalid') === 'true' && node.getClientRects().length > 0;
+		const isAriaInvalid = node => node.getAttribute('aria-invalid') === 'true' && node.getClientRects().length > 0 && !this._hasSkipAlertAncestor(node);
 		for (const editor of this._editors) {
 			const el = getFirstFocusableDescendant(editor, true, isAriaInvalid);
 			if (el) {

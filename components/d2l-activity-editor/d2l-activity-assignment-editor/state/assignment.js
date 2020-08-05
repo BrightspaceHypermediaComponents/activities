@@ -198,6 +198,9 @@ export class Assignment {
 		return data;
 	}
 
+	cancelCreate() {
+		return this._entity.cancelCreate();
+	}
 }
 
 decorate(Assignment, {
@@ -243,5 +246,7 @@ decorate(Assignment, {
 	setAnonymousMarkingProps: action,
 	setDefaultScoringRubric: action,
 	resetDefaultScoringRubricId: action,
-	setNotificationEmail: action
+	setNotificationEmail: action,
+	delete: action,
+	cancelCreate: action
 });

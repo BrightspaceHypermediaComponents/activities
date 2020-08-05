@@ -147,10 +147,13 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 			super._fetch(() => store.fetchActivity(this.href, this.token));
 		}
 	}
-	delete() {
-		// the decision is not to delete assignment at this moment, keeping the structure here for future
-		return true;
+
+	cancelCreate() {
+		const activity = store.getActivity(this.href);
+		const assignment = activity && store.getAssignment(activity.assignmentHref);
+		return assignment && assignment.cancelCreate();
 	}
+
 	hasPendingChanges() {
 		const activity = store.getActivity(this.href);
 		if (!activity) {
@@ -342,6 +345,5 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 			e.stopPropagation();
 		}
 	}
-
 }
 customElements.define('d2l-activity-assignment-editor', AssignmentEditor);

@@ -7,14 +7,18 @@ export default {
 	"editor.btnAddExisting": "Bestaand toevoegen", // add existing button
 	"editor.btnRemoveCondition": "Voorwaarde verwijderen", // remove condition button
 	"editor.lblConditionsOperator": "Om dit item te bekijken, moeten gebruikers voldoen aan", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} releasevoorwaarde} other {{count} releasevoorwaarden}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 gebruiker met speciale toegang} other {{userCount} gebruikers met speciale toegang}}", // num users with special access text
 	"editor.btnCancel": "Annuleren", // cancel button
 	"editor.btnSave": "Opslaan en sluiten", // save and close button
 	"editor.btnSaveMobile": "Opslaan", // save and close button for mobile devices
 	"editor.dueDate": "Uiterste datum", // ARIA label for the due date field when creating/editing an activity
 	"editor.endDate": "Einddatum", // ARIA label for the end date field when creating/editing an activity
 	"editor.startDate": "Startdatum", // ARIA label for the start date field when creating/editing an activity
-	"editor.dueTime": "Uiterste datum", // ARIA label for the due time field when creating/editing an activity
+	"editor.dueTime": "Uiterste tijdstip", // ARIA label for the due time field when creating/editing an activity
 	"editor.endTime": "Eindtijd", // ARIA label for the end time field when creating/editing an activity
 	"editor.startTime": "Starttijd", // ARIA label for the start time field when creating/editing an activity
 	"editor.hidden": "Verborgen", // Label displayed with the visibility switch when hidden
@@ -43,9 +47,9 @@ export default {
 	"editor.chooseFromGrades": "Uit scores kiezen", // Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubrics", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Startdatum moet eerder zijn dan einddatum",
-	"editor.dueBetweenStartEndDate": "Uiterste datum moet later zijn dan startdatum en eerder of tegelijk zijn met einddatum",
+	"editor.dueBetweenStartEndDate": "Uiterste datum moet later zijn dan startdatum en eerder zijn dan of tegelijk zijn met einddatum",
 	"editor.dueAfterStartDate": "Uiterste datum moet later zijn dan startdatum",
-	"editor.dueBeforeEndDate": "Uiterste datum moet eerder of tegelijk zijn met einddatum",
+	"editor.dueBeforeEndDate": "Uiterste datum moet eerder zijn dan of tegelijk zijn met einddatum",
 	"editor.createAndLinkToNewGradeItem": "Een nieuw score-onderdeel maken en ernaar koppelen", //Radio button text
 	"editor.linkToExistingGradeItem": "Koppelen naar een bestaand score-onderdeel", //Radio button text
 	"editor.points": "Punten: {points}", // Text label for displaying points of a grade
@@ -58,20 +62,28 @@ export default {
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Sluiten", //Label for Close button
 	"editor.btnCloseDialog": "Dit dialoogvenster sluiten", // close dialog button
+	"editor.btnManageSpecialAccess": "Speciale toegang beheren", // manage special access button
+	"editor.specialAccessRestrictedText": "Alleen gebruikers met speciale toegang kunnen deze map zien", // restricted special access description
+	"editor.specialAccessNotRestrictedText": "Gebruikers kunnen antwoorden buiten de normale beschikbaarheidsdatums indienen", // not restricted special access description
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessDialogTitle": "Speciale toegang beheren", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Rubric toevoegen", //text for add rubric button
 	"rubrics.btnCreateNew": "Nieuwe maken", //Text for create new dropdown
 	"rubrics.btnAddExisting": "Bestaand toevoegen", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrics", //Header for the rubrics section
-	"rubrics.btnAttachRubric": "Rubric toevoegen", //Button for the attach new rubric overlay
+	"rubrics.btnAttachRubric": "Rubric bijvoegen", //Button for the attach new rubric overlay
 	"rubrics.btnCancel": "Annuleren", //Button for canceling out of the attach new rubric overlay
 	"rubrics.txtAddExisting": "Bestaand toevoegen", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "Geen rubric toegevoegd", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric toegevoegd} other {{count} rubrics toegevoegd}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Rubric verwijderen", // Text for deleting rubric icon
 	"rubrics.btnClose": "Sluiten", // X button for exiting the create new rubric overlay
-	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricAdded": "Rubric toegevoegd", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Rubric verwijderd", // Text for notifying screenreader rubric was removed
+	"rubrics.defaultScoringRubric": "Standaardscorerubric", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.noDefaultScoringRubricSelected": "Geen standaard geselecteerd", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "Punten: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Zwaarte: {weight}", // Text label for displaying weight of a grade

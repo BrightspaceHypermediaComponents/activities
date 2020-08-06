@@ -110,6 +110,7 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.be.null;
 			expect(activity.unevaluatedCompetenciesCount).to.be.null;
 			expect(activity.competenciesDialogUrl).to.be.null;
+			expect(activity.canEditCompetencies).to.be.false;
 
 			expect(fetchEntity.mock.calls.length).to.equal(2);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -134,6 +135,7 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.equal(13);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
 			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
+			expect(activity.canEditCompetencies).to.be.true;
 
 			expect(fetchEntity.mock.calls.length).to.equal(2);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -156,6 +158,7 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.equal(13);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
 			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
+			expect(activity.canEditCompetencies).to.be.true;
 
 			// Override competencies with new values
 			CompetenciesEntity.mockImplementation(() => {
@@ -173,6 +176,7 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.equal(22);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(11);
 			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href-2/');
+			expect(activity.canEditCompetencies).to.be.true;
 
 			expect(fetchEntity.mock.calls.length).to.equal(3);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -191,6 +195,7 @@ describe('Activity Usage', function() {
 				expect(activity.associatedCompetenciesCount).to.be.null;
 				expect(activity.unevaluatedCompetenciesCount).to.be.null;
 				expect(activity.competenciesDialogUrl).to.be.null;
+				expect(activity.canEditCompetencies).to.be.false;
 
 				expect(fetchEntity.mock.calls.length).to.equal(2);
 				expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');

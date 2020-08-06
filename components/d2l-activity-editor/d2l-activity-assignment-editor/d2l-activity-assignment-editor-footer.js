@@ -28,8 +28,8 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 			}
 			.d2l-activity-assignment-editor-footer-left {
 				align-items: baseline;
-				flex: 1;
 				display: flex;
+				flex: 1;
 				flex-direction: row-reverse;
 				justify-content: flex-end;
 			}
@@ -39,7 +39,7 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 			@media only screen and (max-width: 615px) {
 				.d2l-activity-assignment-editor-footer-left {
 					justify-content: space-between;
-					}
+				}
 			}
 		`;
 	}
@@ -70,7 +70,7 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 		return html`
 			<div class="d2l-activity-assignment-editor-footer-left">
 				<d2l-activity-visibility-editor
-					href="${this._activityUsageHref}"
+					.href="${this._activityUsageHref}"
 					.token="${this.token}">
 				</d2l-activity-visibility-editor>
 				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>

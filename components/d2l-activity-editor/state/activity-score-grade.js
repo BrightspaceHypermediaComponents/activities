@@ -10,7 +10,7 @@ export class ActivityScoreGrade {
 		this.scoreOutOfError = null;
 		this.token = token;
 		this.inGrades = entity.inGrades();
-		this.gradeType = (entity.gradeType() || 'Points').toLowerCase();
+		this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
 		this.isUngraded = !this.inGrades && !this.scoreOutOf;
 		this.canEditScoreOutOf = entity.canEditScoreOutOf();
 		this.canSeeGrades = entity.canSeeGrades();

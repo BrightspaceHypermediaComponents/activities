@@ -18,7 +18,7 @@ class ActivityRubricsListWrapper
 		}
 		return html`
 			<d2l-activity-rubrics-list-container
-				href="${entity.associationsHref}"
+				.href="${entity.associationsHref}"
 				.token="${this.token}"
 				.activityUsageHref=${this.href}
 				.assignmentHref=${this.assignmentHref}>

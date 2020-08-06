@@ -17,8 +17,12 @@ class ActivityRubricsSummary
 			return html``;
 		}
 
+		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
+		const canCreateAssociation = entity.canCreateAssociation();
 		const associationsCount = entity.fetchAttachedAssociationsCount();
-		if (associationsCount <= 0) {
+		if (!canCreatePotentialAssociation && !canCreateAssociation) {
+			return html``;
+		} else if (associationsCount <= 0) {
 			return html`${this.localize('rubrics.txtNoRubricAdded')}`;
 		}
 

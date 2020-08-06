@@ -27,6 +27,10 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 			 * Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)
 			 */
 			token: { type: String },
+			/**
+			 * Order in which the editor validation and saving occurs (lowest first)
+			 */
+			saveOrder: { attribute: 'save-order', reflect: true, type: Number },
 		};
 	}
 
@@ -34,6 +38,7 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 		super();
 		this._container = null;
 		this.store = store;
+		this.saveOrder = 1000;
 	}
 
 	async validate() {}

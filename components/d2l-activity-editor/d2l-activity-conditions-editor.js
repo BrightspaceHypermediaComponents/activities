@@ -5,6 +5,7 @@ import 'd2l-dropdown/d2l-dropdown-menu.js';
 import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -33,19 +34,19 @@ class ActivityConditionsEditor
 			}
 
 			.d2l-input-select {
-				width: 100%;
-				max-width: 300px;
 				display: block;
+				max-width: 300px;
+				width: 100%;
 			}
 
 			d2l-dropdown-button-subtle {
 				margin-left: -0.6rem;
 			}
 
-			.conditions {
+			.d2l-conditions {
+				list-style: none;
 				margin: 0;
 				padding: 0;
-				list-style: none;
 			}
 			`,
 			...this.listItemStyles
@@ -58,34 +59,34 @@ class ActivityConditionsEditor
 			bodyCompactStyles,
 			css`
 			.d2l-list-item {
-				display: flex;
-				margin-top: 0.5rem;
-				margin-bottom: 0.5rem;
 				align-items: center;
+				display: flex;
+				margin-bottom: 0.5rem;
+				margin-top: 0.5rem;
 			}
 
-			.d2l-list-item-body{
-				flex-grow: 1;
+			.d2l-list-item-body {
 				border: 1px solid var(--d2l-color-chromite);
 				border-radius: 6px;
+				flex-grow: 1;
 				padding: 12px;
 			}
 
 			.d2l-list-item-decoration {
-				flex: 0 0 auto;
 				display: flex;
-				margin-right: 12px;
+				flex: 0 0 auto;
+				float: left;
 				margin-bottom: 2px;
-				float: left;	
+				margin-right: 12px;
 			}
 
 			.d2l-list-item-content {
-				flex: 1 1 auto;
 				align-self: center;
+				flex: 1 1 auto;
 				float: left;
-				max-width: 80%;
-				margin-top: -6px;
 				margin-bottom: -5px;
+				margin-top: -6px;
+				max-width: 80%;
 			}
 
 			.d2l-list-item-deleter {
@@ -181,7 +182,20 @@ class ActivityConditionsEditor
 			return;
 		}
 
-		entity.remove(event.target.dataset.key);
+		const key = event.target.dataset.key;
+		const conditions = entity.conditions.reduce((map, x) => {
+			map[`${x.key}`] = x.title;
+			return map;
+		}, {});
+
+		const condition = conditions[key];
+		entity.remove(key);
+
+		if (condition) {
+			// don't want <strong> tags in screenreader text
+			const title = condition.replace(/<strong>|<\/strong>/g, '');
+			announce(`${this.localize('editor.txtConditionRemoved', {title})}`);
+		}
 	}
 
 	_renderCondition({ key, title }) {
@@ -215,7 +229,7 @@ class ActivityConditionsEditor
 	_renderConditions({ conditions }) {
 
 		return html`
-			<ul class="conditions">
+			<ul class="d2l-conditions">
 				${conditions.map(this._renderCondition, this)}
 			</ul>
 		`;
@@ -268,6 +282,20 @@ class ActivityConditionsEditor
 
 			if (result !== undefined) {
 				entity.add(result);
+
+				if (result !== undefined) {
+					entity.add(result);
+
+					if (result.length === 1) {
+						// don't want <strong> tags in screenreader text
+						const title = result[0].Text.replace(/<strong>|<\/strong>/g, '');
+						announce(`${this.localize('editor.txtConditionAdded', {title})}`);
+					}
+					if (result.length > 1) {
+						const count = result.length;
+						announce(`${this.localize('editor.txtConditionsAdded', {count})}`);
+					}
+				}
 			}
 		});
 	}
@@ -319,6 +347,9 @@ class ActivityConditionsEditor
 
 			if (result !== undefined) {
 				entity.add(result);
+
+				const title = result.Text.replace(/<strong>|<\/strong>/g, '');
+				announce(`${this.localize('editor.txtConditionAdded', {title})}`);
 			}
 		});
 	}

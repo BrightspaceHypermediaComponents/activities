@@ -11,9 +11,11 @@ class ActivitySpecialAccessSummary extends ActivityEditorMixin(LocalizeActivityE
 	}
 
 	_renderSummary(specialAccess) {
-		const { userCount } = specialAccess;
+		const { isRestricted, userCount } = specialAccess;
 
-		if (userCount === 0) {
+		if (userCount === 0 && isRestricted) {
+			return html`${this.localize('editor.specialAccessHidden')}`;
+		} else if (userCount === 0) {
 			return html``;
 		} else {
 			return html`${this.localize('editor.txtNumSpecialAccess', { userCount })}`;

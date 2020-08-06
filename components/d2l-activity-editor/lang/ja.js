@@ -7,7 +7,11 @@ export default {
 	"editor.btnAddExisting": "既存の追加", // add existing button
 	"editor.btnRemoveCondition": "条件の削除", // remove condition button
 	"editor.lblConditionsOperator": "この項目を見るには、次の条件を満たしている必要があります", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} 個のリリース条件} other {{count} 個のリリース条件}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {特殊なアクセスを持つ 1 人のユーザー} other {特殊なアクセスを持つ {userCount} 人のユーザー}}", // num users with special access text
 	"editor.btnCancel": "キャンセル", // cancel button
 	"editor.btnSave": "保存して閉じる", // save and close button
 	"editor.btnSaveMobile": "保存", // save and close button for mobile devices
@@ -58,6 +62,12 @@ export default {
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 件評価なし} other {{count} 件評価なし}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "閉じる", //Label for Close button
 	"editor.btnCloseDialog": "このダイアログを閉じる", // close dialog button
+	"editor.btnManageSpecialAccess": "特殊なアクセスの管理", // manage special access button
+	"editor.specialAccessRestrictedText": "特殊なアクセスを持つユーザーのみがこのフォルダを表示することができます", // restricted special access description
+	"editor.specialAccessNotRestrictedText": "ユーザーは、通常の利用可能日以外の日にも送信することができます", // not restricted special access description
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessDialogTitle": "特殊なアクセスの管理", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
 	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown
@@ -70,8 +80,10 @@ export default {
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 つの注釈が追加されました} other {{count} 個の注釈が追加されました}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "注釈の削除", // Text for deleting rubric icon
 	"rubrics.btnClose": "閉じる", // X button for exiting the create new rubric overlay
-	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricAdded": "注釈が追加されました", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "注釈が削除されました", // Text for notifying screenreader rubric was removed
+	"rubrics.defaultScoringRubric": "デフォルトのスコア注釈", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.noDefaultScoringRubricSelected": "デフォルトが選択されていません", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "ポイント: {points}", // Text label for displaying points of a grade
 	"grades.weight": "加重: {weight}", // Text label for displaying weight of a grade

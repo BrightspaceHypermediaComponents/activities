@@ -14,7 +14,7 @@ If you don't have it already, install the [Polymer CLI](https://www.polymer-proj
 npm install -g polymer-cli
 ```
 
-To start a [local web server](https://www.polymer-project.org/3.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
+To start a [local web server](https://www.polymer-project.org/3.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and the tests:
 
 ```shell
 polymer serve

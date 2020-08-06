@@ -4,11 +4,11 @@ class D2LSubtitle extends LitElement {
 	static get styles() {
 		return css`
 			span {
-				font-size: .6rem;
+				font-size: 0.6rem;
 			}
 			span::before {
 				content: "\u2022";
-				margin: .2rem;
+				margin: 0.2rem;
 			}
 			:host span:first-of-type::before {
 				content: "";
@@ -16,11 +16,11 @@ class D2LSubtitle extends LitElement {
 			}
 			@media (min-width: 900px) {
 				span {
-					font-size: .7rem;
-					line-height: .9rem;
+					font-size: 0.7rem;
+					line-height: 0.9rem;
 				}
 				:host {
-					line-height: .9rem;
+					line-height: 0.9rem;
 				}
 			}
 		`;

@@ -7,6 +7,9 @@ export default {
 	"editor.btnAddExisting": "Add Existing", // add existing button
 	"editor.btnRemoveCondition": "Remove Condition", // remove condition button
 	"editor.lblConditionsOperator": "To view this item, users must satisfy", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} release condition} other {{count} release conditions}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text
 	"editor.btnCancel": "Cancel", // cancel button
@@ -62,8 +65,9 @@ export default {
 	"editor.btnManageSpecialAccess": "Manage Special Access", // manage special access button
 	"editor.specialAccessRestrictedText": "Only users with special access can see this folder", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Users can submit outside normal availability dates", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
 	"editor.specialAccessDialogTitle": "Manage Special Access", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Add rubric", //text for add rubric button
 	"rubrics.btnCreateNew": "Create New", //Text for create new dropdown
@@ -77,7 +81,7 @@ export default {
 	"rubrics.txtDeleteRubric": "Delete Rubric", // Text for deleting rubric icon
 	"rubrics.btnClose": "Close", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed
 	"rubrics.defaultScoringRubric": "Default Scoring Rubric", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "No default selected", // option in default scoring rubric when no default scoring rubric selected
 
@@ -88,7 +92,7 @@ export default {
 	"grades.noGradeItemCategory": "No Category", // Category dropdown text for not selecting a category
 
 	"attachments.addGoogleDriveLink": "Attach from Google Drive", // Tooltip for a button that adds a link to a Google Drive file
-	"attachments.ddFile": "File Upload", // Tooltip for a button that opens a file upload dialog
+	"attachments.addFile": "File Upload", // Tooltip for a button that opens a file upload dialog
 	"attachments.addLink": "Attach Weblink", // Tooltip for a button that adds a link to a URL
 	"attachments.addOneDriveLink": "Attach from OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"attachments.addQuicklink": "Attach Link to Existing Activity", // Tooltip for a button that adds a link to an existing activity

@@ -28,23 +28,23 @@ class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 				:host([hidden]) {
 					display: none;
 				}
-				.competencies-icon {
+				.d2l-competencies-icon {
 					margin-right: 0.6rem;
 				}
-				:host([dir="rtl"]) .competencies-icon {
+				:host([dir="rtl"]) .d2l-competencies-icon {
 					margin-left: 0.6rem;
 					margin-right: 0;
 				}
-				.competencies-count-container {
-					display: flex;
+				.d2l-competencies-count-container {
 					align-items: center;
+					display: flex;
 					margin-bottom: 0.3rem;
 				}
-				.competencies-count-text {
+				.d2l-competencies-count-text {
 					font-size: 0.7rem;
 					line-height: 0.7rem;
 				}
-				.alert-icon {
+				.d2l-alert-icon {
 					color: red;
 				}
 				.d2l-body-small {
@@ -121,8 +121,8 @@ class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		}
 
 		return html`
-			<d2l-icon class="competencies-icon" icon="tier1:user-competencies"></d2l-icon>
-			<div class="competencies-count-text">${langTerm}</div>
+			<d2l-icon class="d2l-competencies-icon" icon="tier1:user-competencies"></d2l-icon>
+			<div class="d2l-competencies-count-text">${langTerm}</div>
 		`;
 	}
 
@@ -132,9 +132,9 @@ class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		}
 
 		return html`
-			<div class="competencies-count-container">
-				<d2l-icon class="competencies-icon alert-icon" icon="tier1:alert"></d2l-icon>
-				<div class="competencies-count-text">${this.localize('editor.unevaluatedCompetencies', { count })}</div>
+			<div class="d2l-competencies-count-container">
+				<d2l-icon class="d2l-competencies-icon d2l-alert-icon" icon="tier1:alert"></d2l-icon>
+				<div class="d2l-competencies-count-text">${this.localize('editor.unevaluatedCompetencies', { count })}</div>
 			</div>
 		`;
 	}
@@ -153,7 +153,7 @@ class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 
 		return html`
 			<label class="d2l-label-text">${this.localize('editor.competencies')}</label>
-			<div class="competencies-count-container">
+			<div class="d2l-competencies-count-container">
 				${this._renderCountText(count)}
 			</div>
 			${this._renderUnevalCountText(unevalCount)}

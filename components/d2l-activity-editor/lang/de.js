@@ -7,7 +7,11 @@ export default {
 	"editor.btnAddExisting": "Vorhandene hinzufügen", // add existing button
 	"editor.btnRemoveCondition": "Bedingung entfernen", // remove condition button
 	"editor.lblConditionsOperator": "Für die Ansicht dieses Elements müssen Benutzer Folgendes erfüllen:", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} Freigabebedingung} other {{count} Freigabebedingungen}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 Benutzer mit beschränktem Zugriff} other {{userCount} Benutzer mit beschränktem Zugriff}}", // num users with special access text
 	"editor.btnCancel": "Abbrechen", // cancel button
 	"editor.btnSave": "Speichern und schließen", // save and close button
 	"editor.btnSaveMobile": "Speichern", // save and close button for mobile devices
@@ -39,7 +43,7 @@ export default {
 	"editor.loading": "Laden...", // Message displayed while page is loading
 	"editor.ok": "OK", // Text of dialog button to commit action
 	"editor.cancel": "Abbrechen", // Text of dialog button to cancel action
-	"editor.ariaToolbarShortcutInstructions": "Drücken Sie ALT-F10, um die Symbolleiste zu öffnen, und drücken Sie die ESC-Taste, um die Symbolleiste wieder zu schließen.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
+	"editor.ariaToolbarShortcutInstructions": "Drücken Sie Alt+F10, um die Toolbar zu öffnen und Escape, um Sie wieder zu schließen", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Wählen Sie aus den Noten", // Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Bewertungsschemas", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Das Startdatum muss vor dem Enddatum liegen.",
@@ -58,6 +62,12 @@ export default {
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 fehlende Bewertung} other {{count} fehlende Bewertungen}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Schließen", //Label for Close button
 	"editor.btnCloseDialog": "Dieses Dialogfeld schließen", // close dialog button
+	"editor.btnManageSpecialAccess": "Beschränkten Zugriff verwalten", // manage special access button
+	"editor.specialAccessRestrictedText": "Nur Benutzer mit beschränktem Zugriff können diesen Ordner sehen", // restricted special access description
+	"editor.specialAccessNotRestrictedText": "Benutzer können außerhalb normaler Verfügbarkeitszeiträume einreichen", // not restricted special access description
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessDialogTitle": "Beschränkten Zugriff verwalten", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Bewertungsschema hinzufügen", //text for add rubric button
 	"rubrics.btnCreateNew": "Neu erstellen", //Text for create new dropdown
@@ -70,8 +80,10 @@ export default {
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 Rubrik hinzugefügt} other {{count} Rubriken hinzugefügt}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Bewertungsschema löschen", // Text for deleting rubric icon
 	"rubrics.btnClose": "Schließen", // X button for exiting the create new rubric overlay
-	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricAdded": "Bewertungsschema hinzugefügt", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Bewertungsschema entfernt", // Text for notifying screenreader rubric was removed
+	"rubrics.defaultScoringRubric": "Standardmäßiges Punktzahl-Bewertungsschema", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.noDefaultScoringRubricSelected": "Kein Standard ausgewählt", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "{points} Punkte", // Text label for displaying points of a grade
 	"grades.weight": "{weight} Gewicht", // Text label for displaying weight of a grade

@@ -75,8 +75,10 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		this.isSaving = true;
 		this.markSaveStart(this.type, this.telemetryId);
 
+		const orderedEditors = Array.from(this._editors).sort((a, b) => a.saveOrder - b.saveOrder);
+
 		const validations = [];
-		for (const editor of this._editors) {
+		for (const editor of orderedEditors) {
 			validations.push(editor.validate());
 		}
 
@@ -93,7 +95,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 			return;
 		}
 
-		for (const editor of this._editors) {
+		for (const editor of orderedEditors) {
 			// TODO - Once we decide how we want to handle errors we may want to add error handling logic
 			// to the save
 			try {

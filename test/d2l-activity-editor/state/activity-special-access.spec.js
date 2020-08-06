@@ -18,6 +18,14 @@ describe('Activity Special Access', function() {
 		};
 	}
 
+	function readOnlyEntityMock() {
+		return {
+			isRestricted: () => true,
+			userCount: () => 2,
+			url: () => undefined
+		};
+	}
+
 	afterEach(() => {
 		sinon.restore();
 		ActivitySpecialAccessEntity.mockClear();
@@ -44,6 +52,27 @@ describe('Activity Special Access', function() {
 			expect(activitySpecialAccess.isRestricted).to.be.false;
 			expect(activitySpecialAccess.userCount).to.equal(1);
 			expect(activitySpecialAccess.url).to.equal('http://special-access-dialog-href');
+		});
+	});
+
+	describe('fetching readonly', () => {
+		beforeEach(() => {
+			sirenEntity = sinon.stub();
+
+			ActivitySpecialAccessEntity.mockImplementation(() => {
+				return readOnlyEntityMock();
+			});
+
+			fetchEntity.mockImplementation(() => Promise.resolve(sirenEntity));
+		});
+
+		it('fetches readonly entity', async() => {
+			const activitySpecialAccess = new ActivitySpecialAccess('http://1', 'token');
+			await activitySpecialAccess.fetch();
+
+			expect(activitySpecialAccess.isRestricted).to.be.true;
+			expect(activitySpecialAccess.userCount).to.equal(2);
+			expect(activitySpecialAccess.url).to.equal(undefined);
 		});
 	});
 

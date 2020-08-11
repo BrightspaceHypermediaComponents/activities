@@ -98,7 +98,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				<d2l-hm-filter
 					href="[[filterHref]]"
 					token="[[token]]"
-					category-whitelist="[[filterIds]]"
+					category-include-list="[[filterIds]]"
 					result-size="[[_numberOfActivitiesToShow]]"
 					lazy-load-options>
 				</d2l-hm-filter>

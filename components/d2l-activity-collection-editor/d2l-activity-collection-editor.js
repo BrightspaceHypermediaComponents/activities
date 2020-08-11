@@ -283,9 +283,9 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 				padding: 0 0.35rem;
 			}
 			.d2l-activity-collection-activities {
+				margin: 0 -1.5rem;
 				max-width: 881px;
 				padding: 0 0.05rem;
-				margin: 0 -1.5rem;
 			}
 			.d2l-activity-collection-list-actions {
 				align-items: baseline;
@@ -315,7 +315,7 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 				max-width: 600px;
 			}
 			.d2l-activity-collection-title-header {
-				margin: 9px 0px 6px 0;
+				margin: 9px 0 6px 0;
 				min-height: 52px;
 			}
 			.d2l-activity-collection-toggle-container {
@@ -405,9 +405,9 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 
 			.d2l-activitiy-collection-list-item-illustration {
 				display: grid;
+				grid-template-areas: only-one;
 				grid-template-columns: 100%;
 				grid-template-rows: 100%;
-				grid-template-areas: only-one;
 				position: relative;
 			}
 
@@ -438,8 +438,8 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 
 			.d2l-activity-collection-reorder-spinner {
 				left: 50%;
-				margin-left: -42.5px;
 				margin: auto;
+				margin-left: -42.5px;
 				position: absolute;
 				top: 0;
 			}

@@ -23,13 +23,13 @@ class ActivityAssignmentAnnotationsEditor
 			}
 
 			d2l-input-checkbox {
-				padding-right: 1rem;
 				margin: 0;
+				padding-right: 1rem;
 			}
 
 			:host([dir="rtl"]) d2l-input-checkbox {
-				padding-right: 0;
 				padding-left: 1rem;
+				padding-right: 0;
 			}
 			`
 		];
@@ -53,11 +53,6 @@ class ActivityAssignmentAnnotationsEditor
 			return html``;
 		}
 
-		const shouldRenderEditor = entity.canSeeAnnotations;
-		if (!shouldRenderEditor) {
-			return html``;
-		}
-
 		return html`
 			<label class="d2l-label-text">
 				${this.localize('annotationTools')}
@@ -65,7 +60,8 @@ class ActivityAssignmentAnnotationsEditor
 			<d2l-input-checkbox
 				@change="${this._toggleAnnotationToolsAvailability}"
 				?checked="${entity.annotationToolsAvailable}"
-				ariaLabel="${this.localize('annotationToolDescription')}">
+				ariaLabel="${this.localize('annotationToolDescription')}"
+				?disabled="${!entity.canEditAnnotations}">
 				${this.localize('annotationToolDescription')}
 			</d2l-input-checkbox>
 		`;

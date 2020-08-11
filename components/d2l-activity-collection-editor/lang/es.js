@@ -12,10 +12,11 @@ export default {
 	editLearningPath: "Editar plan de aprendizaje", // Title of the page where the page is to edit a list of related learnings. On the page you can edit the title, description and what learning activities are in the list.
 	enterADescription: "Escribir una descripción", // Shows where the user should write a description for the learning path.
 	loadMore: "Cargar más", // When adding activities to the learning path, this is on a button that will load more potential activities that can be added that match the current search.
+	moveActivity: "Se movió {activityName} a la posición {newPosition} de {totalNumberOfActivities}.", // When a activity is moved to a new position in the learning path this message is annouced.
 	noActivitiesInLearningPath: "No hay actividades en esta ruta de aprendizaje.", // Displayed when the learning path is loaded and contains no activities
 	noActivitiesFound: "No se encontraron actividades con este término de búsqueda.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 actividad} other {{count} actividades}}", // The number of learning tasks currently in the list.
-	removeActivity: "Eliminar la actividad {courseName} de la ruta de aprendizaje.", // An action to remove a learning task from a list of tasks that are related
+	removeActivity: "Eliminar", // An action to remove a learning task from a list of tasks that are related
 	search: "Buscar", // When adding activities to the learning path, this is where you can search for potential activities to add.
 	searchPlaceholder: "Buscar…", // Placeholder text for the search input to search the list of potential activities.
 	selected: "{count} seleccionada(s).", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.

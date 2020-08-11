@@ -64,8 +64,8 @@ class AdminList extends EntityMixinLit(LitElement) {
 				}
 				.d2l-activity-admin-list-content {
 					box-sizing: border-box;
-					padding: 0 30px;
 					max-width: 1230px;
+					padding: 0 30px;
 					width: 100%;
 				}
 
@@ -85,8 +85,8 @@ class AdminList extends EntityMixinLit(LitElement) {
 					background-color: --var(--d2l-color-regolith);
 				}
 				.d2l-activity-admin-list-body {
-					padding-top: 72px;
 					padding-bottom: 72px;
+					padding-top: 72px;
 				}
 			`
 		];

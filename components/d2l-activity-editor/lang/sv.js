@@ -7,7 +7,11 @@ export default {
 	"editor.btnAddExisting": "Lägg till befintligt", // add existing button
 	"editor.btnRemoveCondition": "Ta bort villkor", // remove condition button
 	"editor.lblConditionsOperator": "Om användare vill få åtkomst till det här objektet måste de uppfylla", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} publiceringsvillkor} other {{count} publiceringsvillkor}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 användare med specialåtkomst} other {{userCount} användare med specialåtkomst}}", // num users with special access text
 	"editor.btnCancel": "Avbryt", // cancel button
 	"editor.btnSave": "Spara och stäng", // save and close button
 	"editor.btnSaveMobile": "Spara", // save and close button for mobile devices
@@ -58,6 +62,12 @@ export default {
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 bedömning saknas} other {{count} bedömningar saknas}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Stäng", //Label for Close button
 	"editor.btnCloseDialog": "Stäng den här dialogrutan", // close dialog button
+	"editor.btnManageSpecialAccess": "Hantera särskild behörighet", // manage special access button
+	"editor.specialAccessRestrictedText": "Endast användare med specialåtkomst kan se den här mappen", // restricted special access description
+	"editor.specialAccessNotRestrictedText": "Användare kan lämna in utanför normala tillgänglighetsdatum", // not restricted special access description
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessDialogTitle": "Hantera särskild behörighet", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Lägg till rubricering", //text for add rubric button
 	"rubrics.btnCreateNew": "Skapa ny", //Text for create new dropdown
@@ -70,8 +80,10 @@ export default {
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubrik har lagts till} other {{count} rubriker har lagts till}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Ta bort rubricering", // Text for deleting rubric icon
 	"rubrics.btnClose": "Stäng", // X button for exiting the create new rubric overlay
-	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricAdded": "Rubriken har lagts till", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Rubriken har tagits bort", // Text for notifying screenreader rubric was removed
+	"rubrics.defaultScoringRubric": "Standardresultatrubricering", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.noDefaultScoringRubricSelected": "Ingen standard vald", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "Poäng: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Vikt: {weight}", // Text label for displaying weight of a grade

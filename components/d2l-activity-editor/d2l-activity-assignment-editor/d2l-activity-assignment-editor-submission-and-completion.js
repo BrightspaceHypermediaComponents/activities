@@ -1,11 +1,15 @@
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
+import 'd2l-inputs/d2l-input-text.js';
+
 import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-type-summary.js';
-import { bodySmallStyles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import './d2l-activity-submission-email-notification-summary.js';
+import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
+import { bodyCompactStyles, bodySmallStyles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { classMap } from 'lit-html/directives/class-map.js';
+import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
@@ -13,10 +17,21 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeaturesMixin(ActivityEditorMixin(ErrorHandlingMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))))) {
+
+	static get properties() {
+
+		return {
+			_notificationEmailError: { type: String },
+			href: { type: String },
+			token: { type: Object },
+			_m4EmailNotificationEnabled: { type: Boolean }
+		};
+	}
 
 	static get styles() {
 		return [
+			bodyCompactStyles,
 			bodySmallStyles,
 			heading3Styles,
 			labelStyles,
@@ -27,10 +42,10 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 					display: block;
 				}
 
-				.block-select {
-					width: 100%;
-					max-width: 300px;
+				.d2l-block-select {
 					display: block;
+					max-width: 300px;
+					width: 100%;
 				}
 
 				div[id*="container"] {
@@ -42,8 +57,13 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 					margin-bottom: 10px;
 				}
 
-				.d2l-input-radio-label, .d2l-input-radio-label-disabled {
+				.d2l-input-radio-label {
 					margin-bottom: 10px;
+				}
+
+				#notification-email {
+					margin-bottom: 2px;
+					margin-top: 10px;
 				}
 			`,
 			summarizerHeaderStyles,
@@ -51,15 +71,16 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 		];
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+		this._m4EmailNotificationEnabled = this._isMilestoneEnabled(Milestones.M4EmailSubmission);
+	}
+
 	_saveCompletionTypeOnChange(event) {
 		store.getAssignment(this.href).setCompletionType(event.target.value);
 	}
 
 	_getSubmissionTypeOptions(assignment) {
-		if (!assignment) {
-			return html``;
-		}
-
 		return html`
 			${assignment.submissionTypeOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === assignment.submissionType}>${option.title}</option>`)}
 		`;
@@ -118,94 +139,187 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 			return html ``;
 		}
 
-		const isReadOnly = !assignment.canEditFilesSubmissionLimit;
-		const radioClasses = {
-			'd2l-input-radio-label': true,
-			'd2l-input-radio-label-disabled': isReadOnly,
-		};
+		const unlimitedFilesPerSubmissionText = this.localize('UnlimitedFilesPerSubmission');
+		const oneFilePerSubmissionText = this.localize('OneFilePerSubmission');
 
-		return html`
-			<div id="assignment-files-submission-limit-container">
-				<label class="d2l-label-text" for="assignment-files-submission-limit-container">
-					${this.localize('filesSubmissionLimit')}
+		let submissionLimitContent;
+		if (assignment.canEditFilesSubmissionLimit) {
+			submissionLimitContent = html`
+				<label class="d2l-input-radio-label files-submission-limit-unlimited">
+				<input
+					id="files-submission-limit-unlimited"
+					type="radio"
+					name="filesSubmissionLimit"
+					value="unlimited"
+					@change="${this._setfilesSubmisisonLimit}"
+					?checked="${assignment.filesSubmissionLimit === 'unlimited'}"
+				>
+					${unlimitedFilesPerSubmissionText}
 				</label>
 
-				<label class="${classMap({'files-submission-limit-unlimited': true, ...radioClasses})}">
-					<input
-						id="files-submission-limit-unlimited"
-						type="radio"
-						name="filesSubmissionLimit"
-						value="unlimited"
-						@change="${this._setfilesSubmisisonLimit}"
-						?disabled=${isReadOnly}
-						?checked="${assignment.filesSubmissionLimit === 'unlimited'}"
-					>
-					${this.localize('UnlimitedFilesPerSubmission')}
-				</label>
-
-				<label class="${classMap({'files-submission-limit-one': true, ...radioClasses})}">
+				<label class="d2l-input-radio-label files-submission-limit-one">
 					<input
 						id="files-submission-limit-one"
 						type="radio"
 						name="filesSubmissionLimit"
 						value="onefilepersubmission"
 						@change="${this._setfilesSubmisisonLimit}"
-						?disabled=${isReadOnly}
 						?checked="${assignment.filesSubmissionLimit === 'onefilepersubmission'}"
 					>
-					${this.localize('OneFilePerSubmission')}
+					${oneFilePerSubmissionText}
 				</label>
+			`;
+		} else {
+			submissionLimitContent = html`<div class="d2l-body-compact">${assignment.filesSubmissionLimit === 'unlimited' ? unlimitedFilesPerSubmissionText : oneFilePerSubmissionText}</div>`;
+		}
+
+		return html`
+			<div id="assignment-files-submission-limit-container">
+				<label class="d2l-label-text" for="assignment-files-submission-limit-container">
+					${this.localize('filesSubmissionLimit')}
+				</label>
+				${submissionLimitContent}
 			</div>
 		`;
 	}
+
 	_renderAssignmentSubmissionsRule(assignment) {
 		if (!assignment || !assignment.showSubmissionsRule) {
 			return html ``;
 		}
 
-		const isReadOnly = !assignment.canEditSubmissionsRule;
-		const radioClasses = {
-			'd2l-input-radio-label': true,
-			'd2l-input-radio-label-disabled': isReadOnly,
-		};
+		let submissionsRuleContent;
+		if (assignment.canEditSubmissionsRule) {
+			submissionsRuleContent = html`
+				${assignment.submissionsRuleOptions.map((x) => html`
+					<label class="d2l-input-radio-label">
+						<input
+							type="radio"
+							name="submissionsRule"
+							.value="${x.value}"
+							@change="${this._setSubmisisonsRule}"
+							?checked="${assignment.submissionsRule === x.value}"
+						>
+						${x.title}
+					</label>
+				`) }
+			`;
+		} else {
+			const found = assignment.submissionsRuleOptions.find(x => assignment.submissionsRule === x.value);
+			submissionsRuleContent = html`<div class="d2l-body-compact">${found.title}</div>`;
+		}
 
 		return html `
 			<div id="assignment-submissions-rule-container">
 				<label class="d2l-label-text" for="assignment-submissions-rule-container">
 					${this.localize('submissionsRule')}
 				</label>
-
-				${assignment.submissionsRuleOptions.map((x) => html`
-					<label class="${classMap(radioClasses)}">
-						<input
-							type="radio"
-							name="submissionsRule"
-							.value="${x.value}"
-							@change="${this._setSubmisisonsRule}"
-							?disabled=${isReadOnly}
-							?checked="${assignment.submissionsRule === x.value}"
-						>
-						${x.title}
-					</label>
-				`) }
+				${submissionsRuleContent}
 			</div>
 		`;
 	}
 
-	_renderAssignmentSubmissionType(assignment) {
-		const canEditSubmissionType = assignment ? assignment.canEditSubmissionType : false;
+	_renderAssignmentSubmissionNotificationEmail(assignment) {
+		if (!this._m4EmailNotificationEnabled || !assignment || !assignment.showNotificationEmail) {
+			return html ``;
+		}
+
 		return html `
+		<div id="assignment-notification-email-container">
+			<label class="d2l-label-text" for="assignment-notification-email-container">
+				${this.localize('hdrSubmissionNotificationEmail')}
+			</label>
+			<p class="d2l-body-small">
+				${this.localize('hlpSubmissionNotificationEmail')}
+			</p>
+
+			<d2l-input-text
+				id="notification-email"
+				label="${this.localize('hdrSubmissionNotificationEmail')}"
+				label-hidden
+				value="${assignment.notificationEmail}"
+				maxlength="1024"
+				?disabled="${!assignment.canEditNotificationEmail}"
+				@change="${this._onNotificationEmailChanged}"
+				@blur="${this._checkNotificationEmail}"
+				aria-invalid="${this._notificationEmailError ? 'true' : ''}"
+				skip-alert
+				novalidate
+			></d2l-input-text>
+			${this._getNotificationEmailTooltip()}
+		</div>
+	`;
+	}
+	_getNotificationEmailTooltip() {
+		if (this._notificationEmailError) {
+			return html `
+				<d2l-tooltip id="notification-email-tooltip" for="notification-email" state="error" align="start" offset="10">
+					${this._notificationEmailError}
+				</d2l-tooltip>
+			`;
+		}
+	}
+	_checkNotificationEmail(e) {
+		const errorProperty = '_notificationEmailError';
+		const invalidNotificationEmailErrorLangterm = 'invalidNotificationEmailError';
+		const tooltipId = 'notification-email-tooltip';
+
+		const notificationEmail = e.target.value;
+		const isEmpty = (notificationEmail || '').length === 0;
+
+		const matches = /^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$/.exec(notificationEmail);
+		if (!isEmpty && matches === null) {
+			this.setError(errorProperty, invalidNotificationEmailErrorLangterm, tooltipId);
+		} else {
+			this.clearError(errorProperty);
+		}
+	}
+	_onNotificationEmailChanged(e) {
+		const assignment = store.getAssignment(this.href);
+		const data = e.target.value;
+		assignment && assignment.setNotificationEmail(data);
+	}
+
+	_renderSubmissionEmailNotificationSummary(assignment) {
+		if (!this._m4EmailNotificationEnabled || !assignment || !assignment.showNotificationEmail) {
+			return html ``;
+		}
+		return html`
+			<d2l-activity-submission-email-notification-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-submission-email-notification-summary>
+		`;
+	}
+
+	_renderAssignmentSubmissionType(assignment) {
+		if (!assignment) {
+			return html``;
+		}
+
+		let submissionTypeContent = html``;
+		if (assignment.canEditSubmissionType) {
+			submissionTypeContent = html`
+				<select
+					id="assignment-submission-type"
+					class="d2l-input-select d2l-block-select"
+					@change="${this._saveSubmissionTypeOnChange}">
+						${this._getSubmissionTypeOptions(assignment)}
+				</select>
+			`;
+		} else {
+			const submissionType = this._getSelectedSubmissionType(assignment);
+			if (submissionType) {
+				submissionTypeContent = html`<div class="d2l-body-compact">${submissionType.title}</div>`;
+			}
+		}
+
+		return html`
 			<div id="assignment-submission-type-container">
 				<label class="d2l-label-text" for="assignment-submission-type">
 					${this.localize('submissionType')}
 				</label>
-				<select
-					id="assignment-submission-type"
-					class="d2l-input-select block-select"
-					@change="${this._saveSubmissionTypeOnChange}"
-					?disabled="${!canEditSubmissionType}">
-						${this._getSubmissionTypeOptions(assignment)}
-				</select>
+				${submissionTypeContent}
 			</div>
 		`;
 	}
@@ -215,33 +329,60 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 			return html``;
 		}
 
-		const submissionType = assignment.submissionTypeOptions.find(opt => String(opt.value) === assignment.submissionType);
+		const submissionType = this._getSelectedSubmissionType(assignment);
 
 		if (submissionType) {
-			return html `${submissionType.title}`;
+			return html`${submissionType.title}`;
 		}
 
 		return html``;
 	}
 
-	_renderAssignmentCompletionType(assignment) {
-		const canEditCompletionType = assignment ? assignment.canEditCompletionType : false;
-		const completionHidden = assignment ? assignment.completionTypeOptions.length <= 0 : true;
+	_getSelectedSubmissionType(assignment) {
+		if (!assignment || !assignment.submissionTypeOptions) {
+			return html``;
+		}
 
-		return html `
-			<div id="assignment-completion-type-container" ?hidden="${completionHidden}">
+		return assignment.submissionTypeOptions.find(opt => String(opt.value) === assignment.submissionType);
+	}
+
+	_renderAssignmentCompletionType(assignment) {
+		if (!assignment || !assignment.completionTypeOptions || assignment.completionTypeOptions.length === 0) {
+			return html``;
+		}
+
+		let completionTypeContent = html``;
+		if (assignment.canEditCompletionType) {
+			completionTypeContent = html`
+				<select
+					id="assignment-completion-type"
+					class="d2l-input-select d2l-block-select"
+					@change="${this._saveCompletionTypeOnChange}">
+						${this._getCompletionTypeOptions(assignment)}
+				</select>
+			`;
+		} else {
+			const completionType = this._getSelectedCompletionType(assignment);
+			if (completionType) {
+				completionTypeContent = html`<div class="d2l-body-compact">${completionType.title}</div>`;
+			}
+		}
+
+		return html`
+			<div id="assignment-completion-type-container">
 				<label class="d2l-label-text" for="assignment-completion-type">
 					${this.localize('completionType')}
 				</label>
-				<select
-					id="assignment-completion-type"
-					class="d2l-input-select block-select"
-					@change="${this._saveCompletionTypeOnChange}"
-					?disabled="${!canEditCompletionType}">
-						${this._getCompletionTypeOptions(assignment)}
-				</select>
+				${completionTypeContent}
 			</div>
 		`;
+	}
+
+	_getSelectedCompletionType(assignment) {
+		if (!assignment || !assignment.completionTypeOptions) {
+			return html``;
+		}
+		return assignment.completionTypeOptions.find(opt => String(opt.value) === assignment.completionType);
 	}
 
 	_renderAssignmentCompletionTypeSummary() {
@@ -252,19 +393,21 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorMixi
 		const assignment = store.getAssignment(this.href);
 		return html`
 			<d2l-labs-accordion-collapse class="accordion" flex header-border>
-				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
+				<h3 class="d2l-heading-3 d2l-activity-summarizer-header" slot="header">
 					${this.localize('submissionCompletionAndCategorization')}
 				</h3>
-				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+				<ul class="d2l-body-small d2l-activity-summarizer-summary" slot="summary">
 					<li>${this._renderAssignmentTypeSummary()}</li>
 					<li>${this._renderAssignmentSubmissionTypeSummary(assignment)}</li>
 					<li>${this._renderAssignmentCompletionTypeSummary()}</li>
+					<li>${this._renderSubmissionEmailNotificationSummary(assignment)}</li>
 				</ul>
 				${this._renderAssignmentType()}
 				${this._renderAssignmentSubmissionType(assignment)}
 				${this._renderAssignmentFilesSubmissionLimit(assignment)}
 				${this._renderAssignmentSubmissionsRule(assignment)}
 				${this._renderAssignmentCompletionType(assignment)}
+				${this._renderAssignmentSubmissionNotificationEmail(assignment)}
 			</d2l-labs-accordion-collapse>
 		`;
 	}

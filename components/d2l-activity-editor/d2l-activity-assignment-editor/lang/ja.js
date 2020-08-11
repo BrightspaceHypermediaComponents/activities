@@ -33,6 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "グループカテゴリ: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "グループカテゴリ", // Label for group category,
 	"txtGroupAssignmentSummary": "グループでの課題", // Summary message for accordion when assignment type is set to group
+	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "送信して完了", // Label for the availability and dates summarizer
 	"assignmentSaveError": "課題は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "グループが存在しません。グループツールで新規グループを作成します。", // Folder type no groups
@@ -44,5 +45,10 @@ export default {
 	"filesSubmissionLimit": "送信 1 回あたりの許容ファイル数",
 	"UnlimitedFilesPerSubmission": "無制限",
 	"OneFilePerSubmission": "1 つのファイル",
-	"submissionsRule": "送信物"
+	"submissionsRule": "送信物",
+	"hdrSpecialAccess": "特殊なアクセス", // special access heading
+	"hlpSpecialAccess": "特殊なアクセスを使用すると、ユーザーの選択グループまたは特定のユーザーの個別の期限に対してのみ課題を使用可能にすることができます。", // special access help
+	"assignmentLocked": "Some settings are locked because submissions have been received.",
+	"hdrSubmissionNotificationEmail": "Notification Email",
+	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
 };

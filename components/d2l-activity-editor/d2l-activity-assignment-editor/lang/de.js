@@ -33,6 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Gruppenkategorie: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Gruppenkategorie", // Label for group category,
 	"txtGroupAssignmentSummary": "Gruppenübung", // Summary message for accordion when assignment type is set to group
+	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Abgabe und Abschluss", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Ihre Übung wurde nicht gespeichert. Korrigieren Sie die rot umrandeten Felder.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Es sind keine Gruppen vorhanden. Erstellen Sie neue Gruppen im Gruppen-Tool.", // Folder type no groups
@@ -44,5 +45,10 @@ export default {
 	"filesSubmissionLimit": "Zulässige Dateien pro Abgabe",
 	"UnlimitedFilesPerSubmission": "Unbegrenzt",
 	"OneFilePerSubmission": "Eine Datei",
-	"submissionsRule": "Abgaben"
+	"submissionsRule": "Abgaben",
+	"hdrSpecialAccess": "Beschränkter Zugriff", // special access heading
+	"hlpSpecialAccess": "Mit beschränktem Zugriff können Übungen nur für eine ausgewählte Benutzergruppe oder individuelle Abgabetermine für bestimmte Benutzer verfügbar gemacht werden.", // special access help
+	"assignmentLocked": "Some settings are locked because submissions have been received.",
+	"hdrSubmissionNotificationEmail": "Notification Email",
+	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
 };

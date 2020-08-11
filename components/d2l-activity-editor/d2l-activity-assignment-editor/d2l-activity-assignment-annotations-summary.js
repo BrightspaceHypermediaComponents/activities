@@ -20,7 +20,7 @@ class ActivityAssignmentAnnotationsSummary
 		}
 
 		const shouldRenderSummaryText =
-			entity.canSeeAnnotations &&
+			entity.canEditAnnotations &&
 			!entity.annotationToolsAvailable;
 		if (!shouldRenderSummaryText) {
 			return html``;

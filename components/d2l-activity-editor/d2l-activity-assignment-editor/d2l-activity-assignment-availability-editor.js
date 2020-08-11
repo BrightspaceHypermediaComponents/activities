@@ -42,11 +42,11 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 					display: none;
 				}
 
-				.editor {
+				.d2l-editor {
 					margin: 1rem 0;
 				}
 
-				.editor:last-child {
+				.d2l-editor:last-child {
 					margin-bottom: 0;
 				}
 
@@ -88,7 +88,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 	_renderAvailabilityDatesEditor() {
 
 		return html`
-			<div class="editor">
+			<div class="d2l-editor">
 				<d2l-activity-availability-dates-editor
 					href="${this.href}"
 					.token="${this.token}">
@@ -116,7 +116,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 		}
 
 		return html`
-			<div class="editor">
+			<div class="d2l-editor">
 				<h3 class="d2l-heading-4">
 					${this.localize('hdrReleaseConditions')}
 				</h3>
@@ -150,7 +150,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 		}
 
 		return html`
-			<div class="editor">
+			<div class="d2l-editor">
 				<h3 class="d2l-heading-4">
 					${this.localize('hdrSpecialAccess')}
 				</h3>
@@ -184,10 +184,10 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 				header-border
 				?opened=${this._isOpened()}
 				@d2l-labs-accordion-collapse-state-changed=${this._onAccordionStateChange}>
-				<h3 class="d2l-heading-3 activity-summarizer-header" slot="header">
+				<h3 class="d2l-heading-3 d2l-activity-summarizer-header" slot="header">
 					${this.localize('hdrAvailability')}
 				</h3>
-				<ul class="d2l-body-small activity-summarizer-summary" slot="summary">
+				<ul class="d2l-body-small d2l-activity-summarizer-summary" slot="summary">
 					<li>${this._renderAvailabilityDatesSummary()}</li>
 					<li>${this._renderReleaseConditionSummary()}</li>
 					<li>${this._renderSpecialAccessSummary()}</li>

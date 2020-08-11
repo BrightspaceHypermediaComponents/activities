@@ -38,20 +38,31 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 			}
 			.d2l-activity-grades-dialog-create-new-container {
 				display: flex;
+				margin-bottom: 18px;
 			}
 			.d2l-activity-grades-dialog-create-new-activity-name {
-				word-break: break-word;
 				overflow-wrap: anywhere; /* not supported by safari */
+				word-break: break-word;
 			}
 			.d2l-activity-grades-dialog-create-new-icon {
-				padding-right: 10px;
+				padding-right: 9px;
 			}
 			:host([dir="rtl"]) .d2l-activity-grades-dialog-create-new-icon {
+				padding-left: 9px;
 				padding-right: 0;
-				padding-left: 10px;
 			}
-			.d2l-input-radio-label-disabled{
+			.d2l-activity-grades-dialog-grade-icon {
+				padding-bottom: 6px;
+				padding-top: 6px;
+			}
+			.d2l-input-radio-label-disabled {
 				margin-bottom: 0;
+			}
+			.d2l-activity-grade-category-selector {
+				padding-top: 16px;
+			}
+			#linkToExistingGradeItemRadioButton {
+				padding-bottom: 10px;
 			}
 			`
 		];
@@ -140,7 +151,7 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 				<d2l-input-radio-spacer ?hidden="${!this._createNewRadioChecked && this._canLinkNewGrade}">
 					${this._canLinkNewGrade ? html`
 						<div class="d2l-activity-grades-dialog-create-new-container">
-							<div class="d2l-activity-grades-dialog-create-new-icon"><d2l-icon icon="tier1:grade"></d2l-icon></div>
+							<div class="d2l-activity-grades-dialog-create-new-icon"><d2l-icon class="d2l-activity-grades-dialog-grade-icon" icon="tier1:grade"></d2l-icon></div>
 							<div>
 								<div class="d2l-activity-grades-dialog-create-new-activity-name">${newGradeName}</div>
 								<div class="d2l-body-small">${scoreOutOf && !scoreOutOfError ? html`
@@ -156,7 +167,7 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 						</div>
 					`}
 				</d2l-input-radio-spacer>
-				<label class="d2l-input-radio-label ${!this._hasGradeCandidates ? 'd2l-input-radio-label-disabled' : ''}">
+				<label id="linkToExistingGradeItemRadioButton" class="d2l-input-radio-label ${!this._hasGradeCandidates ? 'd2l-input-radio-label-disabled' : ''}">
 					<input
 						type="radio"
 						name="chooseFromGrades"

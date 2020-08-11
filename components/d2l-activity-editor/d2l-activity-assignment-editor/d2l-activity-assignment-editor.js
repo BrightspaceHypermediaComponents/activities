@@ -57,7 +57,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 			/**
 			* based on the LaunchDarkly flag face-assignments-milestone-4-email-submission
 			*/
-			milestoneFourEmailSubmissionEnabled: { type: Boolean },
+			milestoneFourEmailSubmission: { type: Boolean },
 			/**
 			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
 			*/
@@ -85,26 +85,25 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 				padding: 20px;
 			}
 			d2l-alert {
-				margin-bottom: 10px;
 				max-width: 100%;
+				margin-bottom: 10px;
 			}
 			.d2l-activity-assignment-editor-secondary-panel {
 				padding: 10px;
 			}
 			div[slot="secondary"] {
-				background: var(--d2l-color-gypsum);
 				height: 100%;
+				background: var(--d2l-color-gypsum);
 			}
-			.d2l-locked-alert {
-				align-items: baseline;
+			.locked-alert {
 				display: flex;
 			}
 			d2l-icon {
 				padding-right: 1rem;
 			}
 			:host([dir="rtl"]) d2l-icon {
-				padding-left: 1rem;
 				padding-right: 0;
+				padding-left: 1rem;
 			}
 		`;
 	}
@@ -114,7 +113,6 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 
 		this.type = 'assignment';
 		this.telemetryId = 'assignments';
-		this.saveOrder = 2000;
 	}
 
 	_onRequestProvider(e) {
@@ -161,7 +159,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 		}
 
 		if (e.detail.key === 'd2l-milestone-four-email-submission') {
-			e.detail.provider = this.milestoneFourEmailSubmissionEnabled;
+			e.detail.provider = this.milestoneFourEmailSubmission;
 			e.stopPropagation();
 			return;
 		}
@@ -256,7 +254,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 				<div slot="primary" class="d2l-activity-assignment-editor-primary-panel">
 					<d2l-alert type="error" ?hidden=${!this.isError}>${this.localize('assignmentSaveError')}</d2l-alert>
 					<d2l-alert ?hidden=${!hasSubmissions}>
-						<div class="d2l-locked-alert">
+						<div class="locked-alert">
 							<d2l-icon icon="tier1:lock-locked"></d2l-icon>
 							<div>${this.localize('assignmentLocked')}</div>
 						</div>

@@ -39,10 +39,10 @@ class D2LQuickEvalActionDialog extends RtlMixin(LitQuickEvalLocalize(LitElement)
 
 	static get styles() {
 		return [ labelStyles, bodyStandardStyles, radioStyles, css`
-			.d2l-radio-container {
+			.radio-container {
 				margin-top: 0.5rem;
 			}
-			.d2l-datepicker-container {
+			.datepicker-container {
 				margin-bottom: 0.9rem;
 			}
 			` ];
@@ -56,7 +56,7 @@ class D2LQuickEvalActionDialog extends RtlMixin(LitQuickEvalLocalize(LitElement)
 				<div class="d2l-body-standard">${this.localize('dismissingAnActivityHides')}</div>
 				<br/>
 				<p class="d2l-label-text">${this.localize('dismissUntil')}</p>
-				<div class="d2l-radio-container">
+				<div class="radio-container">
 					<label class="d2l-input-radio-label">
 						<input
 						id="dismiss-action-dialog-radio-input-nextSubmission"
@@ -139,7 +139,7 @@ class D2LQuickEvalActionDialog extends RtlMixin(LitQuickEvalLocalize(LitElement)
 
 		if (selectedRadio === DISMISS_TYPES.date) {
 			return html`
-				<div class="d2l-datepicker-container">
+				<div class="datepicker-container">
 					<d2l-datetime-picker
 						@d2l-datetime-picker-datetime-changed="${this._onDatetimePickerDatetimeChanged}"
 						@d2l-datetime-picker-datetime-cleared="${this._onDatetimePickerDatetimeCleared}"

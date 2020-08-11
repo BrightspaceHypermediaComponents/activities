@@ -50,7 +50,6 @@ export class ActivityUsage {
 		this.associatedCompetenciesCount = null;
 		this.unevaluatedCompetenciesCount = null;
 		this.competenciesDialogUrl = null;
-		this.canEditCompetencies = false;
 
 		/**
 		 * Learning Outcomes
@@ -76,7 +75,6 @@ export class ActivityUsage {
 		runInAction(() => {
 			const entity = new CompetenciesEntity(sirenEntity);
 			this.competenciesDialogUrl = entity.dialogUrl();
-			this.canEditCompetencies = !!this.competenciesDialogUrl;
 			this.associatedCompetenciesCount = entity.associatedCount() || 0;
 			this.unevaluatedCompetenciesCount = entity.unevaluatedCount() || 0;
 		});
@@ -197,8 +195,6 @@ export class ActivityUsage {
 
 		await this.saveAlignments();
 
-		await this.scoreAndGrade.primeGradeSave();
-
 		await this._entity.save(this._makeUsageData());
 
 		await this.fetch();
@@ -233,7 +229,6 @@ decorate(ActivityUsage, {
 	competenciesHref: observable,
 	associatedCompetenciesCount: observable,
 	unevaluatedCompetenciesCount: observable,
-	canEditCompetencies: observable,
 	competenciesDialogUrl: observable,
 	specialAccess: observable,
 	// actions

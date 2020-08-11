@@ -32,7 +32,7 @@ class ActivityAssignmentAnonymousMarkingSummary
 			return html``;
 		}
 
-		const shouldRenderSummaryText = entity.isAnonymousMarkingAvailable && entity.isAnonymousMarkingEnabled;
+		const shouldRenderSummaryText = entity.isAnonymousMarkingEnabled;
 		if (!shouldRenderSummaryText) {
 			return html``;
 		}

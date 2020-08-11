@@ -46,17 +46,20 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 				d2l-dropdown-button-subtle {
 					margin-left: -0.6rem;
 				}
-				.d2l-rubric-heading-container {
-					align-items: center;
+				.rubric-heading-container {
 					display: flex;
+					align-items: center;
 					margin: 0 0 0.6rem 0;
 				}
-				.d2l-default-scoring-rubric-heading-container {
-					align-items: center;
+				.default-scoring-rubric-heading-container {
 					display: flex;
+					align-items: center;
 					margin: 0.6rem 0 0.6rem 0;
 				}
-				.d2l-rubric-heading-title {
+				.preview-rubrics {
+					flex-shrink: 0;
+				}
+				.rubric-heading-title {
 					flex-grow: 1;
 				}
 			`
@@ -184,8 +187,8 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 		}
 
 		return html`
-			<div class="d2l-rubric-heading-container">
-				<h3 class="d2l-heading-4 d2l-rubric-heading-title">
+			<div class="rubric-heading-container">
+				<h3 class="d2l-heading-4 rubric-heading-title">
 					${this.localize('rubrics.hdrRubrics')}
 				</h3>
 			</div>
@@ -203,12 +206,13 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 		const canCreatePotentialAssociation = entity.canCreatePotentialAssociation();
 		const canCreateAssociation = entity.canCreateAssociation();
 
-		const canEditRubricAssociation = canCreatePotentialAssociation || canCreateAssociation;
+		if (!canCreateAssociation && !canCreatePotentialAssociation) {
+			return html``;
+		}
 
 		return html`
 		<d2l-dropdown-button-subtle
 			text="${this.localize('rubrics.btnAddRubric')}"
-			?disabled="${!canEditRubricAssociation}"
 		>
 			<d2l-dropdown-menu align="start">
 				<d2l-menu label="${this.localize('rubrics.btnAddRubric')}">
@@ -256,7 +260,7 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 		}
 
 		return html`
-			<div class="d2l-default-scoring-rubric-heading-container">
+			<div class="default-scoring-rubric-heading-container">
 				<label class="d2l-label-text" for="assignment-default-scoring-rubric">
 					${this.localize('rubrics.defaultScoringRubric')}
 				</label>

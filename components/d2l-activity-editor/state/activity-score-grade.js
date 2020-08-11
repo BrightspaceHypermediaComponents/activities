@@ -10,7 +10,7 @@ export class ActivityScoreGrade {
 		this.scoreOutOfError = null;
 		this.token = token;
 		this.inGrades = entity.inGrades();
-		this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
+		this.gradeType = (entity.gradeType() || 'Points').toLowerCase();
 		this.isUngraded = !this.inGrades && !this.scoreOutOf;
 		this.canEditScoreOutOf = entity.canEditScoreOutOf();
 		this.canSeeGrades = entity.canSeeGrades();
@@ -124,12 +124,6 @@ export class ActivityScoreGrade {
 
 		return newGradeCandidateEntity.getSaveAction();
 	}
-
-	async primeGradeSave() {
-		if (this.inGrades && this.createNewGrade) {
-			await this.fetchNewGradeCandidates();
-		}
-	}
 }
 
 decorate(ActivityScoreGrade, {
@@ -159,6 +153,5 @@ decorate(ActivityScoreGrade, {
 	fetchGradeCandidates: action,
 	fetchNewGradeCandidates: action,
 	linkToNewGrade: action,
-	setNewGradeName: action,
-	primeGradeSave: action
+	setNewGradeName: action
 });

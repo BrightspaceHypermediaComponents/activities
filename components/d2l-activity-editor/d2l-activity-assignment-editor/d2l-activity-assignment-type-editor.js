@@ -25,10 +25,10 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 					display: none;
 				}
 
-				.d2l-help-text {
-					display: block;
-					max-width: 300px;
+				.block-select {
 					width: 100%;
+					max-width: 300px;
+					display: block;
 				}
 
 				.d2l-body-small {
@@ -39,16 +39,16 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 					margin: 0 0 0.3rem 0;
 				}
 
-				.d2l-group-info {
+				.group-info {
 					padding-left: 1.8rem;
 				}
 
-				.d2l-info-text {
-					margin: 0.1rem 0 0 0;
+				.info-text {
 					padding-left: 1.7rem;
+					margin: 0.1rem 0 0 0;
 				}
 
-				.d2l-individual-type {
+				.individual-type {
 					margin: 0 0 0.5rem 0;
 				}
 			`
@@ -90,13 +90,12 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		}
 
 		const isIndividualAssignmentType = assignment.isIndividualAssignmentType;
-		const hasSubmissions = assignment.assignmentHasSubmissions;
 
-		if (!hasSubmissions && isIndividualAssignmentType && assignment.groupCategories.length === 0) {
+		if (isIndividualAssignmentType && assignment.groupCategories.length === 0) {
 			return this.localize('folderTypeNoGroups');
 		}
 
-		if (!hasSubmissions && !isIndividualAssignmentType) {
+		if (!isIndividualAssignmentType) {
 			return this.localize('folderTypeCreateGroups');
 		}
 
@@ -112,7 +111,7 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 
 		const isIndividualType = assignment.isIndividualAssignmentType;
 		const infoText = this._getInformationText(assignment);
-		const canEditAssignmentType = assignment.canEditAssignmentType;
+		const isReadOnly = assignment.isReadOnly;
 		const groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled;
 		const folderTypeText =	isIndividualType ? this.localize('txtIndividual') : this.localize('txtGroup');
 		const groupTypeText = !isIndividualType && assignment.selectedGroupCategoryName
@@ -120,13 +119,14 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 			: '';
 
 		return html`
-			<div ?hidden=${canEditAssignmentType} id="read-only-assignment-type-container">
+			<div ?hidden=${!isReadOnly} id="read-only-assignment-type-container">
 				<div class="d2l-body-compact">${folderTypeText}</div>
 				<div class="d2l-body-compact">${groupTypeText}</div>
+				<p class="d2l-body-small">${infoText}</p>
 			</div>
 
-			<div ?hidden=${!canEditAssignmentType} id="editable-assignment-type-container">
-				<label class="d2l-individual-type d2l-input-radio-label">
+			<div ?hidden=${isReadOnly} id="editable-assignment-type-container">
+				<label class="individual-type d2l-input-radio-label">
 					<input
 						id="assignment-type-individual"
 						type="radio"
@@ -149,17 +149,17 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 					>
 					${this.localize('txtGroup')}
 				</label>
-				<div class="select-list d2l-group-info" ?hidden="${isIndividualType}">
+				<div class="select-list group-info" ?hidden="${isIndividualType}">
 					<label class="d2l-label-text">${this.localize('txtGroupCategory')}</label>
 					<select
-						class="d2l-input-select d2l-help-text"
+						class="d2l-input-select block-select"
 						id="assignemnt-group-categories"
 						@change="${this._changeGroupCategory}"
 						>
 						${this._getGroupCategoryOptions(assignment)}
 					</select>
 				</div>
-				<p class="d2l-info-text d2l-body-small">${infoText}</p>
+				<p class="info-text d2l-body-small">${infoText}</p>
 			</div>
 		`;
 	}

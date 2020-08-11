@@ -23,16 +23,16 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 			labelStyles,
 			css`
 				:host {
-					background: var(--d2l-color-gypsum);
 					display: block;
+					background: var(--d2l-color-gypsum);
 				}
 				:host([hidden]) {
 					display: none;
 				}
 				:host > * {
 					background: var(--d2l-color-white);
-					border-radius: 8px;
 					margin-bottom: 10px;
+					border-radius: 8px;
 					padding: 20px;
 					padding-top: 0;
 				}

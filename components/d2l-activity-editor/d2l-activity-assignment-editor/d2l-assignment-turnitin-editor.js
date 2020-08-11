@@ -20,7 +20,7 @@ class AssignmentTurnitinEditor
 				margin: 0 0 0.6rem 0;
 			}
 
-			.d2l-help-text {
+			.help-text {
 				margin: 0 0 0.3rem 0;
 			}
 
@@ -28,19 +28,19 @@ class AssignmentTurnitinEditor
 				margin-left: -0.6rem;
 			}
 
-			.d2l-feature-summary {
+			.feature-summary {
 				list-style: none;
 				margin: 0;
 				padding: 0;
 			}
 
-			.d2l-feature-summary-item {
+			.feature-summary-item {
 				display: inline-block;
-				font-size: 0.7rem;
 				margin-left: 0.5rem;
+				font-size: 0.7rem;
 			}
 
-			.d2l-feature-summary-item:first-child {
+			.feature-summary-item:first-child {
 				margin-left: 0;
 			}
 			`
@@ -120,6 +120,7 @@ class AssignmentTurnitinEditor
 		} = entity;
 
 		const isTurnitinEnabled = isOriginalityCheckEnabled || isGradeMarkEnabled;
+		const isEditorDisplayed = canEditTurnitin || isTurnitinEnabled;
 
 		let featureSummary;
 		if (isTurnitinEnabled) {
@@ -127,7 +128,7 @@ class AssignmentTurnitinEditor
 			let originalityCheckItem;
 			if (isOriginalityCheckEnabled) {
 				originalityCheckItem = html`
-					<li class="d2l-feature-summary-item">
+					<li class="feature-summary-item">
 						<d2l-icon icon="tier1:check"></d2l-icon>
 						${this.localize('txtOriginalityCheckOn')}
 					</li>
@@ -137,7 +138,7 @@ class AssignmentTurnitinEditor
 			let gradeMarkItem;
 			if (isGradeMarkEnabled) {
 				gradeMarkItem = html`
-					<li class="d2l-feature-summary-item">
+					<li class="feature-summary-item">
 						<d2l-icon icon="tier1:check"></d2l-icon>
 						${this.localize('txtGradeMarkOn')}
 					</li>
@@ -145,7 +146,7 @@ class AssignmentTurnitinEditor
 			}
 
 			featureSummary = html`
-				<ul class="d2l-feature-summary">
+				<ul class="feature-summary">
 					${originalityCheckItem}
 					${gradeMarkItem}
 				</ul>
@@ -153,13 +154,14 @@ class AssignmentTurnitinEditor
 		}
 
 		return html`
-			<div id="assignment-turnitin-container" ?hidden="${!canEditTurnitin}">
+			<div id="assignment-turnitin-container" ?hidden="${!isEditorDisplayed}">
 				<h4 class="d2l-heading-4">${this.localize('hdrTurnitin')}</h4>
-				<p class="d2l-help-text d2l-body-small">${this.localize('hlpTurnitin')}</p>
+				<p class="help-text d2l-body-small">${this.localize('hlpTurnitin')}</p>
 				${featureSummary}
 				<d2l-button-subtle
 					text="${this.localize('btnEditTurnitin')}"
-					@click="${this._onClickEdit}">
+					@click="${this._onClickEdit}"
+					?hidden="${!canEditTurnitin}">
 				</d2l-button-subtle>
 			</div>
 		`;

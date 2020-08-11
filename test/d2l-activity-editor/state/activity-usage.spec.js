@@ -5,7 +5,6 @@ import { AlignmentsCollectionEntity } from 'siren-sdk/src/alignments/AlignmentsC
 import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
 import { expect } from 'chai';
 import { fetchEntity } from '../../../components/d2l-activity-editor/state/fetch-entity.js';
-import { GradeCandidateCollectionEntity } from 'siren-sdk/src/activities/GradeCandidateCollectionEntity';
 import sinon from 'sinon';
 import { when } from 'mobx';
 
@@ -13,7 +12,6 @@ jest.mock('siren-sdk/src/activities/ActivitySpecialAccessEntity.js');
 jest.mock('siren-sdk/src/activities/ActivityUsageEntity.js');
 jest.mock('siren-sdk/src/alignments/AlignmentsCollectionEntity.js');
 jest.mock('siren-sdk/src/competencies/CompetenciesEntity.js');
-jest.mock('siren-sdk/src/activities/GradeCandidateCollectionEntity.js');
 jest.mock('../../../components/d2l-activity-editor/state/fetch-entity.js');
 
 describe('Activity Usage', function() {
@@ -59,7 +57,6 @@ describe('Activity Usage', function() {
 		ActivitySpecialAccessEntity.mockClear();
 		ActivityUsageEntity.mockClear();
 		AlignmentsCollectionEntity.mockClear();
-		GradeCandidateCollectionEntity.mockClear();
 		fetchEntity.mockClear();
 	});
 
@@ -113,7 +110,6 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.be.null;
 			expect(activity.unevaluatedCompetenciesCount).to.be.null;
 			expect(activity.competenciesDialogUrl).to.be.null;
-			expect(activity.canEditCompetencies).to.be.false;
 
 			expect(fetchEntity.mock.calls.length).to.equal(2);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -138,7 +134,6 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.equal(13);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
 			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
-			expect(activity.canEditCompetencies).to.be.true;
 
 			expect(fetchEntity.mock.calls.length).to.equal(2);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -161,7 +156,6 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.equal(13);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(10);
 			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href/');
-			expect(activity.canEditCompetencies).to.be.true;
 
 			// Override competencies with new values
 			CompetenciesEntity.mockImplementation(() => {
@@ -179,7 +173,6 @@ describe('Activity Usage', function() {
 			expect(activity.associatedCompetenciesCount).to.equal(22);
 			expect(activity.unevaluatedCompetenciesCount).to.equal(11);
 			expect(activity.competenciesDialogUrl).to.equal('http://competencies-dialog-href-2/');
-			expect(activity.canEditCompetencies).to.be.true;
 
 			expect(fetchEntity.mock.calls.length).to.equal(3);
 			expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -198,7 +191,6 @@ describe('Activity Usage', function() {
 				expect(activity.associatedCompetenciesCount).to.be.null;
 				expect(activity.unevaluatedCompetenciesCount).to.be.null;
 				expect(activity.competenciesDialogUrl).to.be.null;
-				expect(activity.canEditCompetencies).to.be.false;
 
 				expect(fetchEntity.mock.calls.length).to.equal(2);
 				expect(fetchEntity.mock.calls[0][0]).to.equal('http://1');
@@ -263,13 +255,6 @@ describe('Activity Usage', function() {
 			}));
 
 			fetchEntity.mockImplementation(() => sirenEntity);
-
-			const gradeCandidateCollectionEntityMock = {
-				href: () => 'http://grade-candidate-collection-href',
-				getGradeCandidates: () => [],
-				getAssociateNewGradeAction: () => {}
-			};
-			GradeCandidateCollectionEntity.mockImplementation(() => gradeCandidateCollectionEntityMock);
 		});
 
 		it('saves', async() => {

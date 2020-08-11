@@ -1,5 +1,4 @@
 import { ActivityEditorTelemetryMixin } from './d2l-activity-editor-telemetry-mixin';
-import { findComposedAncestor } from '@brightspace-ui/core/helpers/dom.js';
 import { getFirstFocusableDescendant } from '@brightspace-ui/core/helpers/focus.js';
 
 export const ActivityEditorContainerMixin = superclass => class extends ActivityEditorTelemetryMixin(superclass) {
@@ -58,12 +57,8 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		});
 	}
 
-	_hasSkipAlertAncestor(node) {
-		return null !== findComposedAncestor(node, elm => elm && elm.hasAttribute && elm.hasAttribute('skip-alert'));
-	}
-
 	_focusOnInvalid() {
-		const isAriaInvalid = node => node.getAttribute('aria-invalid') === 'true' && node.getClientRects().length > 0 && !this._hasSkipAlertAncestor(node);
+		const isAriaInvalid = node => node.getAttribute('aria-invalid') === 'true' && node.getClientRects().length > 0;
 		for (const editor of this._editors) {
 			const el = getFirstFocusableDescendant(editor, true, isAriaInvalid);
 			if (el) {
@@ -80,10 +75,8 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		this.isSaving = true;
 		this.markSaveStart(this.type, this.telemetryId);
 
-		const orderedEditors = Array.from(this._editors).sort((a, b) => a.saveOrder - b.saveOrder);
-
 		const validations = [];
-		for (const editor of orderedEditors) {
+		for (const editor of this._editors) {
 			validations.push(editor.validate());
 		}
 
@@ -100,7 +93,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 			return;
 		}
 
-		for (const editor of orderedEditors) {
+		for (const editor of this._editors) {
 			// TODO - Once we decide how we want to handle errors we may want to add error handling logic
 			// to the save
 			try {

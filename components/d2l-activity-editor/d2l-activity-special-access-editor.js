@@ -26,19 +26,19 @@ class ActivitySpecialAccessEditor extends ActivityEditorMixin(RtlMixin(LocalizeA
 			d2l-button-subtle {
 				margin-left: -0.6rem;
 			}
-			.d2l-special-access-user-count-icon {
+			.special-access-user-count-icon {
 				margin-right: 0.2rem;
 			}
-			:host([dir="rtl"]) .d2l-special-access-user-count-icon {
+			:host([dir="rtl"]) .special-access-user-count-icon {
 				margin-left: 0.2rem;
 				margin-right: 0;
 			}
-			.d2l-special-access-user-count-text {
+			.special-access-user-count-text {
 				display: inline-block;
 				font-size: 0.7rem;
 				line-height: 0.7rem;
 			}
-			.d2l-alert-icon {
+			.alert-icon {
 				color: red;
 			}
 			`
@@ -68,26 +68,23 @@ class ActivitySpecialAccessEditor extends ActivityEditorMixin(RtlMixin(LocalizeA
 
 		const userCountText = html`${this.localize('editor.specialAccessCount', { count: userCount })}`;
 		const icon = isRestricted && userCount === 0 ?
-			html`<d2l-icon class="d2l-special-access-user-count-icon d2l-alert-icon" icon="tier1:alert"></d2l-icon>` :
-			html`<d2l-icon class="d2l-special-access-user-count-icon" icon="tier1:access-special"></d2l-icon>`;
+			html`<d2l-icon class="special-access-user-count-icon alert-icon" icon="tier1:alert"></d2l-icon>` :
+			html`<d2l-icon class="special-access-user-count-icon" icon="tier1:access-special"></d2l-icon>`;
 
 		return html`
 			<label class="d2l-label-text">${specialAccessTypeDescription}</label>
 			<div class="special-access-user-count-container">
 				${icon}
-				<div class="d2l-special-access-user-count-text">${userCountText}</div>
+				<div class="special-access-user-count-text">${userCountText}</div>
 			</div>
 		`;
 	}
 
-	_renderManageButton(specialAccess) {
-		const hasDialogUrl = specialAccess && specialAccess.url;
-
+	_renderManageButton() {
 		return html`
 			<d2l-button-subtle
 				text="${this.localize('editor.btnManageSpecialAccess')}"
-				@click="${this._openSpecialAccessDialog}"
-				?disabled="${!hasDialogUrl}">
+				@click="${this._openSpecialAccessDialog}">
 			</d2l-button-subtle>
 		`;
 	}
@@ -119,13 +116,17 @@ class ActivitySpecialAccessEditor extends ActivityEditorMixin(RtlMixin(LocalizeA
 		];
 
 		// Launch into our "friend", the LMS, to do the thing.
-		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
+		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.Open(
+			/*               opener: */ document.body,
 			/*             location: */ location,
 			/*          srcCallback: */ 'SrcCallback',
+			/*       resizeCallback: */ '',
 			/*      responseDataKey: */ 'result',
+			/*                width: */ 1920,
+			/*               height: */ 1080,
+			/*            closeText: */ this.localize('editor.btnCloseDialog'),
 			/*              buttons: */ buttons,
-			/* forceTriggerOnCancel: */ false,
-			/*            titleText: */ ''
+			/* forceTriggerOnCancel: */ false
 		);
 
 		// "X" abort handler
@@ -145,7 +146,7 @@ class ActivitySpecialAccessEditor extends ActivityEditorMixin(RtlMixin(LocalizeA
 
 		return html`
 			${this._renderDescription(entity.specialAccess)}
-			${this._renderManageButton(entity.specialAccess)}
+			${this._renderManageButton()}
 		`;
 	}
 }

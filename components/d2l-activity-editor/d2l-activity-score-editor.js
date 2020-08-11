@@ -45,18 +45,13 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 				width: auto;
 			}
 			#ungraded {
+				cursor: pointer;
 				--d2l-input-padding: 0.4rem 1.65rem 0.4rem 0.75rem;
 				--d2l-input-padding-focus: calc(0.4rem - 1px) calc(1.65rem - 1px) calc(0.4rem - 1px) calc(0.75rem - 1px);
-				cursor: pointer;
 			}
 			:host([dir="rtl"]) #ungraded {
 				--d2l-input-padding: 0.4rem 0.75rem 0.4rem 1.65rem;
 				--d2l-input-padding-focus: calc(0.4rem - 1px) calc(0.75rem - 1px) calc(0.4rem - 1px) calc(1.65rem - 1px);
-			}
-			#ungraded:disabled,
-			.d2l-grade-info:disabled {
-				cursor: default;
-				opacity: 0.5;
 			}
 			#score-info-container,
 			#score-out-of-container,
@@ -64,9 +59,9 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 				display: flex;
 			}
 			#score-info-container {
+				flex-wrap: wrap;
 				-webkit-align-items: center;
 				align-items: center;
-				flex-wrap: wrap;
 			}
 			#score-out-of-container {
 				-webkit-align-items: baseline;
@@ -76,80 +71,70 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 				-webkit-align-items: center;
 				align-items: center;
 			}
-			.d2l-grade-type-text {
+			.grade-type-text {
 				margin: 0 0.75rem 0 0.6rem;
 			}
-			:host([dir="rtl"]) .d2l-grade-type-text {
+			:host([dir="rtl"]) .grade-type-text {
 				margin: 0 0.6rem 0 0.75rem;
 			}
 			#divider {
-				border-left: solid 1px var(--d2l-color-galena);
 				height: 30px;
+				border-left: solid 1px var(--d2l-color-galena);
 				margin-right: 0.3rem;
 			}
 			:host([dir="rtl"]) #divider {
-				margin-left: 0.3rem;
 				margin-right: 0;
+				margin-left: 0.3rem;
 			}
-			.d2l-grade-info,
-			.d2l-grade-info:disabled:hover,
-			.d2l-grade-info:disabled:focus {
-				background: none;
+			.grade-info {
+				height: 42px;
 				border: 2px solid transparent;
+				background: none;
+				outline: none;
 				border-radius: 0.3rem;
+				padding: .5rem .6rem .4rem;
+				cursor: pointer;
 				display: flex;
 				flex-wrap: nowrap;
-				height: 42px;
-				outline: none;
-				padding: 0.5rem 0.6rem 0.4rem;
 			}
-			.d2l-grade-info {
-				cursor: pointer;
-			}
-			.d2l-grade-info div {
+			.grade-info div {
 				flex-shrink: 1;
 			}
-			.d2l-grade-info d2l-icon {
+			.grade-info d2l-icon {
 				flex-shrink: 0;
 			}
-			.d2l-grade-info > * {
+			.grade-info > * {
 				margin-right: 0.3rem;
 			}
-			.d2l-grade-info > *:last-child {
+			.grade-info > *:last-child {
 				margin-right: 0;
 			}
-			:host([dir="rtl"]) .d2l-grade-info > * {
+			:host([dir="rtl"]) .grade-info > * {
+				margin-right: 0;
 				margin-left: 0.5rem;
-				margin-right: 0;
 			}
-			:host([dir="rtl"]) .d2l-grade-info > *:last-child {
+			:host([dir="rtl"]) .grade-info > *:last-child {
 				margin-left: 0;
 			}
-			.d2l-grade-info:hover,
-			.d2l-grade-info[active] {
+			.grade-info:hover,
+			.grade-info[active] {
 				border-color: var(--d2l-color-mica);
 				border-width: 1px;
-				padding: calc(0.5rem + 1px) calc(0.6rem + 1px); /* 1px is difference in border width */
+				padding: calc(.5rem + 1px) calc(.6rem + 1px); /* 1px is difference in border width */
 			}
-			.d2l-grade-info:focus {
+			.grade-info:focus {
 				border-color: var(--d2l-color-celestine);
 				border-width: 2px;
-				padding: 0.5rem 0.6rem 0.4rem;
+				padding: .5rem .6rem .4rem;
 			}
-			.d2l-grade-info:hover > *,
-			.d2l-grade-info:focus > * {
+			.grade-info:hover > *,
+			.grade-info:focus > * {
 				color: var(--d2l-color-celestine-minus-1);
-			}
-			.d2l-grade-info:disabled:hover,
-			.d2l-grade-info:disabled:focus,
-			.d2l-grade-info:disabled:hover > *,
-			.d2l-grade-info:disabled:focus > * {
-				color: var(--d2l-color-ferrite);
 			}
 			button {
 				/* needed otherwise user agent style overrides this */
-				color: inherit;
 				font-family: inherit;
+				color: inherit;
 			}
 			`
 		];
@@ -263,7 +248,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 				<button id="ungraded" class="d2l-input"
 					@click="${this._setGraded}"
 					aria-label="${this.localize('editor.addAGrade')}"
-					?disabled="${!canEditScoreOutOf}"
 				>
 					${this.localize('editor.ungraded')}
 				</button>
@@ -281,7 +265,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 						@blur="${this._onScoreOutOfChanged}"
 						aria-invalid="${scoreOutOfError ? 'true' : ''}"
 						?disabled="${!canEditScoreOutOf}"
-						novalidate
 					></d2l-input-text>
 					${scoreOutOfError ? html`
 						<d2l-tooltip
@@ -294,13 +277,13 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 							${scoreOutOfError ? html`<span>${this.localize(`editor.${scoreOutOfError}`)}</span>` : null}
 						</d2l-tooltip>
 					` : null}
-					<div class="d2l-body-compact d2l-grade-type-text">${gradeType}</div>
+					<div class="d2l-body-compact grade-type-text">${gradeType}</div>
 				</div>
 				${canSeeGrades ? html`
 					<div id="grade-info-container">
 						<div id="divider"></div>
-						<d2l-dropdown ?disabled="${!canEditScoreOutOf}">
-							<button class="d2l-label-text d2l-grade-info d2l-dropdown-opener" ?disabled="${!canEditScoreOutOf}">
+						<d2l-dropdown>
+							<button class="d2l-label-text grade-info d2l-dropdown-opener">
 								${inGrades ? html`<d2l-icon icon="tier1:grade"></d2l-icon>` : null}
 								<div>${inGrades ? this.localize('editor.inGrades') : this.localize('editor.notInGrades')}</div>
 								<d2l-icon icon="tier1:chevron-down"></d2l-icon>

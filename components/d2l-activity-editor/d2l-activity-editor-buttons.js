@@ -19,17 +19,17 @@ class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElem
 				margin-left: 0.75rem;
 				margin-right: 0;
 			}
-			.d2l-mobile {
+			.mobile {
 				display: none;
 			}
 			@media only screen and (max-width: 615px) {
-				.d2l-desktop {
+				.desktop {
 					display: none;
 				}
-				.d2l-mobile {
+				.mobile {
 					display: inline-block;
 				}
-				.d2l-footerBtn {
+				.footerBtn {
 					margin: 0;
 				}
 			}
@@ -56,9 +56,9 @@ class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElem
 
 	render() {
 		return html`
-			<d2l-button class="d2l-desktop" primary @click="${this._save}">${this.localize('editor.btnSave')}</d2l-button>
-			<d2l-button class="d2l-mobile d2l-footerBtn" primary @click="${this._save}">${this.localize('editor.btnSaveMobile')}</d2l-button>
-			<d2l-button class="d2l-footerBtn" @click="${this._cancel}">${this.localize('editor.btnCancel')}</d2l-button>
+			<d2l-button class="desktop" primary @click="${this._save}">${this.localize('editor.btnSave')}</d2l-button>
+			<d2l-button class="mobile footerBtn" primary @click="${this._save}">${this.localize('editor.btnSaveMobile')}</d2l-button>
+			<d2l-button class="footerBtn" @click="${this._cancel}">${this.localize('editor.btnCancel')}</d2l-button>
 		`;
 	}
 }

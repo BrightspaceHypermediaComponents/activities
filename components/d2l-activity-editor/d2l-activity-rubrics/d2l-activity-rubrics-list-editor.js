@@ -26,16 +26,16 @@ class ActivityRubricsListEditor extends ActivityEditorFeaturesMixin(ActivityEdit
 				.d2l-heading-4 {
 					margin: 0 0 0.6rem 0;
 				}
-				.d2l-association-container {
-					align-items: center;
-					display: flex;
+				.association-container {
 					margin: 0 0 1rem 0;
+					display: flex;
+					align-items: center;
 				}
-				.d2l-delete-association-button {
+				.delete-association-button {
 					flex-shrink: 0;
 					margin-left: 0.2rem;
 				}
-				.d2l-association-box {
+				.association-box{
 					flex-grow: 1;
 				}
 			`
@@ -84,16 +84,16 @@ class ActivityRubricsListEditor extends ActivityEditorFeaturesMixin(ActivityEdit
 			const canDeleteAssociation = association.entity.canDeleteAssociation() || association.isAssociating;
 
 			return html`
-			<div class="d2l-association-container">
+			<div class="association-container">
 				<d2l-rubric
-					class="d2l-association-box"
+					class="association-box"
 					force-compact
 					.href="${association.rubricHref}"
 					.token="${this.token}">
 				</d2l-rubric>
 				<d2l-button-icon
 					?hidden="${!canDeleteAssociation}"
-					class="d2l-delete-association-button"
+					class="delete-association-button"
 					icon="tier1:close-default"
 					data-id="${association.rubricHref}"
 					@click="${this._deleteAssociation}"

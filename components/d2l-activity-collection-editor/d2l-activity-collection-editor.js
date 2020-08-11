@@ -438,14 +438,18 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 
 			.d2l-activity-collection-reorder-spinner {
 				left: 50%;
-				margin: auto;
-				margin-left: -42.5px;
-				position: absolute;
-				top: 0;
+				margin: -42.5px auto auto -42.5px;
+				position: fixed;
+				top: 50%;
 			}
 
 			.d2l-activity-collection-grey-out {
 				pointer-events: none;
+			}
+
+			.d2l-activity-collection-grey-out d2l-list {
+				opacity: 0.6;
+				filter: grayscale(100%);
 			}
 
 			@media only screen and (max-width: 929px) {
@@ -606,12 +610,14 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 				<div class="d2l-activity-collection-body-content">
 					<div class=${classMap(listActionsClasses)}>
 						${addActivityButton}
-						${this._reorderLoading ? html`<d2l-loading-spinner class="d2l-activity-collection-reorder-spinner" size="85"></d2l-loading-spinner>` : null}
 						${activityCount}
 					</div>
 				</div>
 				<div class=${classMap(collectionActivitiesClasses)}>
 					${items}
+					${this._reorderLoading ? html`
+						<d2l-loading-spinner class="d2l-activity-collection-reorder-spinner" size="85"></d2l-loading-spinner>
+					` : null}
 				</div>
 				<d2l-alert-toast id="delete-succeeded-toast" type="default" announce-text=${this.localize('deleteSucceeded', 'activityName', this._currentDeleteItemName)}>
 					${this.localize('deleteSucceeded', 'activityName', this._currentDeleteItemName)}

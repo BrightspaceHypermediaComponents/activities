@@ -448,8 +448,8 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 			}
 
 			.d2l-activity-collection-grey-out d2l-list {
-				opacity: 0.6;
 				filter: grayscale(100%);
+				opacity: 0.6;
 			}
 
 			@media only screen and (max-width: 929px) {

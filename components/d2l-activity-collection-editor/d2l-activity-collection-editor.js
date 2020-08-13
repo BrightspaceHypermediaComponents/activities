@@ -447,11 +447,6 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 				pointer-events: none;
 			}
 
-			.d2l-activity-collection-grey-out d2l-list {
-				filter: grayscale(100%);
-				opacity: 0.6;
-			}
-
 			@media only screen and (max-width: 929px) {
 				.d2l-activity-collection-header {
 					padding-left: 1.2rem;

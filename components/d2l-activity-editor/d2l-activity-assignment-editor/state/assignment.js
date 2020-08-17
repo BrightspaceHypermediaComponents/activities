@@ -72,7 +72,7 @@ export class Assignment {
 
 	_isSubmissionTypeWithAnonMarking() {
 		// only file (0) and text (1) submissions can have anonymous marking, see https://docs.valence.desire2learn.com/res/dropbox.html#attributes
-		return ['0', '1'].includes(this.submissionType);
+		return ['0', '1'].includes(this.assignmentSubmissionProps.submissionType);
 	}
 
 	_getIsAnonymousMarkingAvailable() {
@@ -276,10 +276,10 @@ export class Assignment {
 	}
 
 	get showSubmissionsRule() {
-		const isFileSubmission = this.submissionTypeOptions
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
-		const isTextSubmission = this.submissionTypeOptions
-			.find(x => String(x.value) === '1' && `${x.value}` === `${this.submissionType}`);
+		const isFileSubmission = this.assignmentSubmissionProps.submissionTypeOptions
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.assignmentSubmissionProps.submissionType}`);
+		const isTextSubmission = this.assignmentSubmissionProps.submissionTypeOptions
+			.find(x => String(x.value) === '1' && `${x.value}` === `${this.assignmentSubmissionProps.submissionType}`);
 
 		return isFileSubmission || isTextSubmission;
 	}

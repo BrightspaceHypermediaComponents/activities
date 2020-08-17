@@ -147,7 +147,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 		const oneFilePerSubmissionText = this.localize('OneFilePerSubmission');
 
 		let submissionLimitContent;
-		if (assignment.canEditFilesSubmissionLimit) {
+		if (assignment.assignmentSubmissionProps.canEditFilesSubmissionLimit) {
 			submissionLimitContent = html`
 				<label class="d2l-input-radio-label files-submission-limit-unlimited">
 				<input
@@ -200,7 +200,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 		}
 
 		let submissionsRuleContent;
-		if (assignment.canEditSubmissionsRule) {
+		if (assignment.assignmentSubmissionProps.canEditSubmissionsRule) {
 			submissionsRuleContent = html`
 				${assignment.assignmentSubmissionProps.submissionsRuleOptions.map((x) => html`
 					<label class="d2l-input-radio-label">
@@ -304,12 +304,12 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	}
 
 	_renderAssignmentSubmissionType(assignment) {
-		if (!assignment) {
+		if (!assignment || !assignment.assignmentSubmissionProps) {
 			return html``;
 		}
 
 		let submissionTypeContent = html``;
-		if (assignment.canEditSubmissionType) {
+		if (assignment.assignmentSubmissionProps.canEditSubmissionType) {
 			submissionTypeContent = html`
 				<select
 					id="assignment-submission-type"

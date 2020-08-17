@@ -270,22 +270,8 @@ export class Assignment {
 		return this._entity.delete();
 	}
 
-	get showFilesSubmissionLimit() {
-		return this.submissionTypeOptions
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
-	}
-
-	get showSubmissionsRule() {
-		const isFileSubmission = this.assignmentSubmissionProps.submissionTypeOptions
-			.find(x => String(x.value) === '0' && `${x.value}` === `${this.assignmentSubmissionProps.submissionType}`);
-		const isTextSubmission = this.assignmentSubmissionProps.submissionTypeOptions
-			.find(x => String(x.value) === '1' && `${x.value}` === `${this.assignmentSubmissionProps.submissionType}`);
-
-		return isFileSubmission || isTextSubmission;
-	}
-
 	get showNotificationEmail() {
-		return typeof this.notificationEmail !== 'undefined' && this.showSubmissionsRule;
+		return typeof this.notificationEmail !== 'undefined' && this.assignmentSubmissionProps.showSubmissionsRule;
 	}
 
 	setNotificationEmail(value) {
@@ -323,8 +309,6 @@ decorate(Assignment, {
 	canEditDefaultScoringRubric: observable,
 	defaultScoringRubricId: observable,
 	selectedGroupCategoryName: observable,
-	showFilesSubmissionLimit: computed,
-	showSubmissionsRule: computed,
 	notificationEmail: observable,
 	canEditNotificationEmail: observable,
 	showNotificationEmail: computed,

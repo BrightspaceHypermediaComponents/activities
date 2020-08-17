@@ -139,7 +139,9 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	}
 
 	_renderAssignmentFilesSubmissionLimit(assignment) {
-		if (!assignment || !assignment.assignmentSubmissionProps) {
+		if (!assignment ||
+			!assignment.assignmentSubmissionProps ||
+			!assignment.assignmentSubmissionProps.showFilesSubmissionLimit) {
 			return html ``;
 		}
 

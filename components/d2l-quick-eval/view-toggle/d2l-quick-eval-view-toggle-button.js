@@ -7,21 +7,21 @@ class D2LQuickEvalViewToggleButton extends LitElement {
 		return css`
 		button.d2l-quick-eval-view-toggle-left,
 		:host([dir='rtl']) button.d2l-quick-eval-view-toggle-right {
-			border-top-left-radius: 0.3rem;
 			border-bottom-left-radius: 0.3rem;
-			border-right-color: transparent;
-			border-top-right-radius: 0rem;
 			border-bottom-right-radius: 0;
 			border-left-color: var(--d2l-color-mica);
+			border-right-color: transparent;
+			border-top-left-radius: 0.3rem;
+			border-top-right-radius: 0;
 		}
 		button.d2l-quick-eval-view-toggle-right,
 		:host([dir='rtl']) button.d2l-quick-eval-view-toggle-left {
-			border-top-right-radius: 0.3rem;
+			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0.3rem;
 			border-left-color: transparent;
-			border-top-left-radius: 0rem;
-			border-bottom-left-radius: 0rem;
 			border-right-color: var(--d2l-color-mica);
+			border-top-left-radius: 0;
+			border-top-right-radius: 0.3rem;
 		}
 		button {
 			background-color: var(--d2l-color-sylvite);
@@ -34,20 +34,20 @@ class D2LQuickEvalViewToggleButton extends LitElement {
 			display: inline;
 			flex: 1;
 			font-family: inherit;
-			font-size: .7rem;
+			font-size: 0.7rem;
 			font-weight: 700;
 			margin: 0;
 			min-height: calc(2rem + 2px);
 			outline: none;
 			padding: 0.5rem 1.5rem;
 			text-align: center;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
 			user-select: none;
 			vertical-align: middle;
 			white-space: nowrap;
 			width: auto;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
 		}
 		button:hover, button:focus {
 			border: 1px solid var(--d2l-color-celestine) !important;
@@ -64,7 +64,7 @@ class D2LQuickEvalViewToggleButton extends LitElement {
 	}
 
 	render() {
-		return html`<button 
+		return html`<button
 				class="d2l-quick-eval-view-toggle-${this.side}"
 				aria-pressed="${this.selected.toString()}"
 				?selected="${this.selected}"

@@ -7,7 +7,11 @@ export default {
 	"editor.btnAddExisting": "添加现有", // add existing button
 	"editor.btnRemoveCondition": "删除条件", // remove condition button
 	"editor.lblConditionsOperator": "若要访问此项目，用户必须满足以下条件", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} 个发布条件} other {{count} 个发布条件}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 位具有特殊访问权限的用户} other {{userCount} 位具有特殊访问权限的用户}}", // num users with special access text
 	"editor.btnCancel": "取消", // cancel button
 	"editor.btnSave": "保存并关闭", // save and close button
 	"editor.btnSaveMobile": "保存", // save and close button for mobile devices
@@ -58,6 +62,12 @@ export default {
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 个评估缺失} other {{count} 个评估缺失}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "关闭", //Label for Close button
 	"editor.btnCloseDialog": "关闭此对话框", // close dialog button
+	"editor.btnManageSpecialAccess": "管理特殊访问权限", // manage special access button
+	"editor.specialAccessRestrictedText": "仅具有特殊访问权限的用户才能查看此文件夹", // restricted special access description
+	"editor.specialAccessNotRestrictedText": "用户可以在正常可用日期之外提交", // not restricted special access description
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessDialogTitle": "管理特殊访问权限", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "添加量规", //text for add rubric button
 	"rubrics.btnCreateNew": "新建", //Text for create new dropdown
@@ -67,11 +77,13 @@ export default {
 	"rubrics.btnCancel": "取消", //Button for canceling out of the attach new rubric overlay
 	"rubrics.txtAddExisting": "添加现有", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "未添加量规", // rubric summary for no rubrics
-	"rubrics.txtRubricsAdded": "{count, plural, =1 {添加 1 个量规} other {添加 {count} 个量规}}", // count of asoociated rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {添加了 1 个量规} other {添加了 {count} 个量规}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "删除量规", // Text for deleting rubric icon
 	"rubrics.btnClose": "关闭", // X button for exiting the create new rubric overlay
-	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricAdded": "量规已添加", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "量规已移除", // Text for notifying screenreader rubric was removed
+	"rubrics.defaultScoringRubric": "默认评分量规", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.noDefaultScoringRubricSelected": "无已选择的默认值", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "分数：{points}", // Text label for displaying points of a grade
 	"grades.weight": "权重：{weight}", // Text label for displaying weight of a grade

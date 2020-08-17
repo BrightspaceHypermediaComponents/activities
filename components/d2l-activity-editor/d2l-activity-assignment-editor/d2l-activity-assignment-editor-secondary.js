@@ -23,16 +23,16 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 			labelStyles,
 			css`
 				:host {
-					display: block;
 					background: var(--d2l-color-gypsum);
+					display: block;
 				}
 				:host([hidden]) {
 					display: none;
 				}
 				:host > * {
 					background: var(--d2l-color-white);
-					margin-bottom: 10px;
 					border-radius: 8px;
+					margin-bottom: 10px;
 					padding: 20px;
 					padding-top: 0;
 				}
@@ -69,7 +69,7 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 
 		const availabilityAccordian = html`
 			<d2l-activity-assignment-availability-editor
-				href="${this._activityUsageHref}"
+				.href="${this._activityUsageHref}"
 				.token="${this.token}">
 			</d2l-activity-assignment-availability-editor>
 		`;

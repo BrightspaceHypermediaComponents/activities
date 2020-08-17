@@ -19,7 +19,7 @@ class ActivityRubricsSummaryWrapper
 
 		return html`
 			<d2l-activity-rubrics-summary
-				href="${entity.associationsHref}"
+				.href="${entity.associationsHref}"
 				.token="${this.token}">
 			</d2l-activity-rubrics-summary>
 		`;

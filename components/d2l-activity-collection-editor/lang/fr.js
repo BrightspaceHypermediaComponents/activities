@@ -12,12 +12,13 @@ export default {
 	editLearningPath: "Modifier le chemin d\'apprentissage", // Title of the page where the page is to edit a list of related learnings. On the page you can edit the title, description and what learning activities are in the list.
 	enterADescription: "Écrire une description", // Shows where the user should write a description for the learning path.
 	loadMore: "En voir plus", // When adding activities to the learning path, this is on a button that will load more potential activities that can be added that match the current search.
+	moveActivity: "{activityName} a été déplacé vers la position {newPosition} sur {totalNumberOfActivities}.", // When a activity is moved to a new position in the learning path this message is annouced.
 	noActivitiesInLearningPath: "Aucune activité ne figure dans ce chemin d\'apprentissage.", // Displayed when the learning path is loaded and contains no activities
-	noActivitiesFound: "Aucune activité n\'a été trouvée au moyen de vos termes à rechercher.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
+	noActivitiesFound: "Aucune activité n’a été trouvée au moyen de vos termes de recherche.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 activité} other {{count} activités}}", // The number of learning tasks currently in the list.
-	removeActivity: "Supprimer l\'activité {courseName} du chemin d\'apprentissage.", // An action to remove a learning task from a list of tasks that are related
+	removeActivity: "Supprimer", // An action to remove a learning task from a list of tasks that are related
 	search: "Rechercher", // When adding activities to the learning path, this is where you can search for potential activities to add.
-	searchPlaceholder: "Rechercher…", // Placeholder text for the search input to search the list of potential activities.
+	searchPlaceholder: "Recherche…", // Placeholder text for the search input to search the list of potential activities.
 	selected: "{count} sélectionné(s).", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.
 	untitledLearningPath: "Chemin d\'apprentissage sans titre", // Default name of a learning path before the user has changed it.
 };

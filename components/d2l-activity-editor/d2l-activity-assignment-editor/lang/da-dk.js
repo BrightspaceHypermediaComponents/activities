@@ -33,9 +33,9 @@ export default {
 	"txtGroupCategoryWithName": "Gruppekategori: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Gruppekategori", // Label for group category,
 	"txtGroupAssignmentSummary": "Gruppeopgave", // Summary message for accordion when assignment type is set to group
+	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Aflevering og færdiggørelse", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Din opgave blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
-	"folderTypeCannotChange": "Opgavetype kan ikke ændres, når opgaverne er afleveret", // Folder type cannot change
 	"folderTypeNoGroups": "Der eksisterer ingen grupper. Opret nye grupper i værktøjet Grupper.", // Folder type no groups
 	"folderTypeCreateGroups": "Opret nye grupper i værktøjet Grupper.", // Folder type create groups
 	"discardChangesTitle": "Slet ændringer?", // Discard Changes User Prompt
@@ -45,5 +45,10 @@ export default {
 	"filesSubmissionLimit": "Filer tilladt pr. aflevering",
 	"UnlimitedFilesPerSubmission": "Ubegrænset",
 	"OneFilePerSubmission": "En fil",
-	"submissionsRule": "Afleveringer"
+	"submissionsRule": "Afleveringer",
+	"hdrSpecialAccess": "Særlig adgang", // special access heading
+	"hlpSpecialAccess": "Særlig adgang gør, at opgaver kan være tilgængelige for kun en udvalgt gruppe brugere, og muliggør individualiserede forfaldsdatoer for visse brugere.", // special access help
+	"assignmentLocked": "Some settings are locked because submissions have been received.",
+	"hdrSubmissionNotificationEmail": "Notification Email",
+	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
 };

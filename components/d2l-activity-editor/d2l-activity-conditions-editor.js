@@ -34,19 +34,19 @@ class ActivityConditionsEditor
 			}
 
 			.d2l-input-select {
-				width: 100%;
-				max-width: 300px;
 				display: block;
+				max-width: 300px;
+				width: 100%;
 			}
 
 			d2l-dropdown-button-subtle {
 				margin-left: -0.6rem;
 			}
 
-			.conditions {
+			.d2l-conditions {
+				list-style: none;
 				margin: 0;
 				padding: 0;
-				list-style: none;
 			}
 			`,
 			...this.listItemStyles
@@ -59,34 +59,34 @@ class ActivityConditionsEditor
 			bodyCompactStyles,
 			css`
 			.d2l-list-item {
-				display: flex;
-				margin-top: 0.5rem;
-				margin-bottom: 0.5rem;
 				align-items: center;
+				display: flex;
+				margin-bottom: 0.5rem;
+				margin-top: 0.5rem;
 			}
 
-			.d2l-list-item-body{
-				flex-grow: 1;
+			.d2l-list-item-body {
 				border: 1px solid var(--d2l-color-chromite);
 				border-radius: 6px;
+				flex-grow: 1;
 				padding: 12px;
 			}
 
 			.d2l-list-item-decoration {
-				flex: 0 0 auto;
 				display: flex;
-				margin-right: 12px;
+				flex: 0 0 auto;
+				float: left;
 				margin-bottom: 2px;
-				float: left;	
+				margin-right: 12px;
 			}
 
 			.d2l-list-item-content {
-				flex: 1 1 auto;
 				align-self: center;
+				flex: 1 1 auto;
 				float: left;
-				max-width: 80%;
-				margin-top: -6px;
 				margin-bottom: -5px;
+				margin-top: -6px;
+				max-width: 80%;
 			}
 
 			.d2l-list-item-deleter {
@@ -183,7 +183,7 @@ class ActivityConditionsEditor
 		}
 
 		const key = event.target.dataset.key;
-		const conditions = this._conditions(entity).reduce((map, x) => {
+		const conditions = entity.conditions.reduce((map, x) => {
 			map[`${x.key}`] = x.title;
 			return map;
 		}, {});
@@ -196,10 +196,6 @@ class ActivityConditionsEditor
 			const title = condition.replace(/<strong>|<\/strong>/g, '');
 			announce(`${this.localize('editor.txtConditionRemoved', {title})}`);
 		}
-	}
-
-	_conditions({conditions}) {
-		return conditions;
 	}
 
 	_renderCondition({ key, title }) {
@@ -233,7 +229,7 @@ class ActivityConditionsEditor
 	_renderConditions({ conditions }) {
 
 		return html`
-			<ul class="conditions">
+			<ul class="d2l-conditions">
 				${conditions.map(this._renderCondition, this)}
 			</ul>
 		`;

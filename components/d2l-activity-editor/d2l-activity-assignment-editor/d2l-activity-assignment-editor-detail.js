@@ -53,14 +53,14 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					display: flex;
 					flex-wrap: wrap;
 					min-height: 90px;  /* Hack to force a consistent the height for the old */
-					padding-bottom: 0; /* datetime picker. Can hopefully be removed when the new picker is used.*/
+					padding-bottom: 0; /* datetime picker. Can hopefully be removed when the new picker is used. */
 				}
 				#score-container {
 					margin-right: 40px;
 				}
 				:host([dir="rtl"]) #score-container {
-					margin-right: 0;
 					margin-left: 40px;
+					margin-right: 0;
 				}
 			`
 		];
@@ -186,21 +186,28 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					aria-label="${this.localize('name')}"
 					?disabled="${!canEditName}"
 					aria-invalid="${this._nameError ? 'true' : ''}"
-					prevent-submit>
+					prevent-submit
+					novalidate>
 				</d2l-input-text>
 				${this._getNameTooltip()}
 			</div>
 
-			<d2l-activity-outcomes
-				href="${activityUsageHref}"
-				.token="${this.token}">
-			</d2l-activity-outcomes>
+			${canEditName ? /** This is a hack. US117892. Learning outcomes shouldn't show if the user lacks the Assignment Add/Edit Submission Folders permission.
+								We are using `canEditName` instead of relying on something in outcomes,
+								because the outcomes Manage Alignments permission is currently not truly pluggable,
+								and so it cannot be plugged into Dropbox to check Assignment permissions.
+				*/ html`
+					<d2l-activity-outcomes
+						href="${activityUsageHref}"
+						.token="${this.token}">
+					</d2l-activity-outcomes>
+				` : null }
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">
 					<label class="d2l-label-text">${this.localize('scoreOutOf')}</label>
 					<d2l-activity-score-editor
-						href="${activityUsageHref}"
+						.href="${activityUsageHref}"
 						.token="${this.token}"
 						.activityName="${name}">
 					</d2l-activity-score-editor>
@@ -208,7 +215,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 				<div id="duedate-container">
 					<d2l-activity-due-date-editor
-						href="${activityUsageHref}"
+						.href="${activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-due-date-editor>
 				</div>

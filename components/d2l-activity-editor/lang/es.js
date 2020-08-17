@@ -7,7 +7,11 @@ export default {
 	"editor.btnAddExisting": "Agregar existente", // add existing button
 	"editor.btnRemoveCondition": "Quitar condición", // remove condition button
 	"editor.lblConditionsOperator": "Para ver este elemento, los usuarios deben cumplir con los siguientes requisitos:", // conditions operator label
+	"editor.txtConditionAdded": "Added  condition: {title}",
+	"editor.txtConditionRemoved": "Removed condition: {title}",
+	"editor.txtConditionsAdded": "Added {count} conditions",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} condición de publicación} other {{count} condiciones de publicación}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 usuario con acceso especial} other {{userCount} usuarios con acceso especial}}", // num users with special access text
 	"editor.btnCancel": "Cancelar", // cancel button
 	"editor.btnSave": "Guardar y cerrar", // save and close button
 	"editor.btnSaveMobile": "Guardar", // save and close button for mobile devices
@@ -39,13 +43,13 @@ export default {
 	"editor.loading": "Cargando…", // Message displayed while page is loading
 	"editor.ok": "Aceptar", // Text of dialog button to commit action
 	"editor.cancel": "Cancelar", // Text of dialog button to cancel action
-	"editor.ariaToolbarShortcutInstructions": "Presione ALT-F10 para ver la barra de herramientas y presione ESC para salir de la barra de herramientas.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
+	"editor.ariaToolbarShortcutInstructions": "Presione ALT-F10 para ver la barra de herramientas y ESC para salir de la barra de herramientas.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Elegir desde Calificaciones", // Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rúbricas", //Header for the rubrics section
 	"editor.startBeforeEndDate": "La fecha de inicio debe ser una fecha anterior a la fecha final",
-	"editor.dueBetweenStartEndDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio y una fecha anterior o igual a la fecha final.",
-	"editor.dueAfterStartDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio.",
-	"editor.dueBeforeEndDate": "La fecha de vencimiento debe ser una fecha anterior o igual a la fecha final.",
+	"editor.dueBetweenStartEndDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio y una fecha anterior o igual a la fecha final",
+	"editor.dueAfterStartDate": "La fecha de vencimiento debe ser una fecha posterior a la fecha de inicio",
+	"editor.dueBeforeEndDate": "La fecha de vencimiento debe ser una fecha anterior o igual a la fecha final",
 	"editor.createAndLinkToNewGradeItem": "Crear y vincular a un nuevo elemento de calificación", //Radio button text
 	"editor.linkToExistingGradeItem": "Vincular un elemento de calificación existente", //Radio button text
 	"editor.points": "Puntos: {points}", // Text label for displaying points of a grade
@@ -58,6 +62,12 @@ export default {
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 evaluación faltante} other {{count} evaluaciones faltantes}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Cerrar", //Label for Close button
 	"editor.btnCloseDialog": "Cerrar este cuadro de diálogo", // close dialog button
+	"editor.btnManageSpecialAccess": "Administrar acceso especial", // manage special access button
+	"editor.specialAccessRestrictedText": "Solo los usuarios con acceso especial pueden ver esta carpeta", // restricted special access description
+	"editor.specialAccessNotRestrictedText": "Los usuarios pueden realizar envíos fuera de las fechas normales de disponibilidad", // not restricted special access description
+	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessDialogTitle": "Administrar acceso especial", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Agregar rúbrica", //text for add rubric button
 	"rubrics.btnCreateNew": "Crear nuevo", //Text for create new dropdown
@@ -67,11 +77,13 @@ export default {
 	"rubrics.btnCancel": "Cancelar", //Button for canceling out of the attach new rubric overlay
 	"rubrics.txtAddExisting": "Agregar existente", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "No se agregó ninguna rúbrica", // rubric summary for no rubrics
-	"rubrics.txtRubricsAdded": "{count, plural, =1 {Una rúbrica agregada} other {{count} rúbricas agregadas}}", // count of asoociated rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rúbrica agregada} other {{count} rúbricas agregadas}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Eliminar rúbrica", // Text for deleting rubric icon
 	"rubrics.btnClose": "Cerrar", // X button for exiting the create new rubric overlay
-	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
-	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed 
+	"rubrics.txtRubricAdded": "Rúbrica agregada", // Text for notifying screenreader rubric was added
+	"rubrics.txtRubricRemoved": "Rúbrica eliminada", // Text for notifying screenreader rubric was removed
+	"rubrics.defaultScoringRubric": "Rúbrica de puntuación predeterminada", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.noDefaultScoringRubricSelected": "Sin valores predeterminados", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "Puntos: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Ponderación: {weight}", // Text label for displaying weight of a grade
@@ -79,7 +91,7 @@ export default {
 	"grades.newGradeItemCategory": "Categoría de calificación", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Sin categoría", // Category dropdown text for not selecting a category
 
-	"attachments.addGoogleDriveLink": "Adjuntar desde Google Drive", // Tooltip for a button that adds a link to a Google Drive file
+	"attachments.addGoogleDriveLink": "Adjuntar desde Google Drive", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Carga de archivos", // Tooltip for a button that opens a file upload dialog
 	"attachments.addLink": "Adjuntar enlace web", // Tooltip for a button that adds a link to a URL
 	"attachments.addOneDriveLink": "Adjuntar desde OneDrive", // Tooltip for a button that adds a link to a OneDrive file

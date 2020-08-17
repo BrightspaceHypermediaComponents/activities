@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "You do not have permission to create a new grade item", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Learning Objectives", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Manage Learning Objectives", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "No learning objectives", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 learning objective} other {{count} learning objectives}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 missing assessment} other {{count} missing assessments}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Close", //Label for Close button
 	"editor.btnCloseDialog": "Close this Dialog", // close dialog button
@@ -66,7 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "Only users with special access can see this folder", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Users can submit outside normal availability dates", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "No users", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Manage Special Access", // Dialog title
+	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Add rubric", //text for add rubric button
 	"rubrics.btnCreateNew": "Create New", //Text for create new dropdown

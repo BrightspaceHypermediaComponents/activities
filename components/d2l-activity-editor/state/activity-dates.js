@@ -32,44 +32,44 @@ export class ActivityDates {
 
 	setErrorLangTerms(errorType) {
 		if (errorType && errorType.includes('end-due-start-date-error')) {
-			this.dueDateErrorTerm = 'dueBetweenStartEndDate';
-			this.startDateErrorTerm = 'dueBetweenStartEndDate';
-			this.endDateErrorTerm = 'dueBetweenStartEndDate';
+			this.dueDateErrorTerm = 'editor.dueBetweenStartEndDate';
+			this.startDateErrorTerm = 'editor.dueBetweenStartEndDate';
+			this.endDateErrorTerm = 'editor.dueBetweenStartEndDate';
 			return;
 		}
 
 		if (errorType && errorType.includes('start-after-due-end-date-error')) {
-			this.dueDateErrorTerm = 'dueAfterStartDate';
-			this.startDateErrorTerm = 'dueAfterStartDate';
-			this.endDateErrorTerm = 'startBeforeEndDate';
+			this.dueDateErrorTerm = 'editor.dueAfterStartDate';
+			this.startDateErrorTerm = 'editor.dueAfterStartDate';
+			this.endDateErrorTerm = 'editor.startBeforeEndDate';
 			return;
 		}
 
 		if (errorType && errorType.includes('start-after-due-date-error')) {
-			this.dueDateErrorTerm = 'dueAfterStartDate';
-			this.startDateErrorTerm = 'dueAfterStartDate';
+			this.dueDateErrorTerm = 'editor.dueAfterStartDate';
+			this.startDateErrorTerm = 'editor.dueAfterStartDate';
 			this.endDateErrorTerm = null;
 			return;
 		}
 
 		if (errorType && errorType.includes('end-before-start-due-date-error')) {
-			this.dueDateErrorTerm = 'dueBeforeEndDate';
-			this.startDateErrorTerm = 'startBeforeEndDate';
-			this.endDateErrorTerm = 'dueBeforeEndDate';
+			this.dueDateErrorTerm = 'editor.dueBeforeEndDate';
+			this.startDateErrorTerm = 'editor.startBeforeEndDate';
+			this.endDateErrorTerm = 'editor.dueBeforeEndDate';
 			return;
 		}
 
 		if (errorType && errorType.includes('end-before-due-date-error')) {
-			this.dueDateErrorTerm = 'dueBeforeEndDate';
+			this.dueDateErrorTerm = 'editor.dueBeforeEndDate';
 			this.startDateErrorTerm = null;
-			this.endDateErrorTerm = 'dueBeforeEndDate';
+			this.endDateErrorTerm = 'editor.dueBeforeEndDate';
 			return;
 		}
 
 		if (errorType && errorType.includes('end-before-start-date-error')) {
 			this.dueDateErrorTerm = null;
-			this.startDateErrorTerm = 'startBeforeEndDate';
-			this.endDateErrorTerm = 'startBeforeEndDate';
+			this.startDateErrorTerm = 'editor.startBeforeEndDate';
+			this.endDateErrorTerm = 'editor.startBeforeEndDate';
 			return;
 		}
 

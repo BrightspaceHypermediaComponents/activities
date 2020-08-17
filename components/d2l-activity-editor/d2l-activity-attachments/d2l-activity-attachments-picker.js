@@ -18,26 +18,26 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 	static get styles() {
 		return css`
 			:host {
+				align-items: center;
+				background: var(--d2l-color-regolith);
+				border: 1px solid var(--d2l-color-mica);
+				border-radius: 6px;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
-				align-items: center;
-				background: var(--d2l-color-regolith);
-				border-radius: 6px;
-				border: 1px solid var(--d2l-color-mica);
 				padding: 12px;
 			}
 
-			.button-container {
+			.d2l-button-container {
 				display: flex;
 				flex-direction: row;
 				width: 100%;
 			}
 
-			.button-container-right {
+			.d2l-button-container-right {
 				margin-left: auto;
 			}
-			:host([dir="rtl"]) .button-container-right {
+			:host([dir="rtl"]) .d2l-button-container-right {
 				margin-left: 0;
 				margin-right: auto;
 			}
@@ -47,8 +47,8 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 				display: inline-block;
 			}
 
-			.button-container-small {
-				display:none
+			.d2l-button-container-small {
+				display: none;
 			}
 
 			@media only screen and (max-width: 768px) {
@@ -56,10 +56,10 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 					padding: 2px;
 				}
 
-				.button-container {
+				.d2l-button-container {
 					display: none;
 				}
-				.button-container-small {
+				.d2l-button-container-small {
 					display: block;
 				}
 			}
@@ -256,11 +256,11 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 		} = collection;
 
 		return html`
-			<div class="button-container">
+			<div class="d2l-button-container">
 				<d2l-button-icon
 					id="add-file-button"
 					icon="d2l-tier1:upload"
-					text="${this.localize('attachments.addFile')}"
+					aria-label="${this.localize('attachments.addFile')}"
 					?hidden="${!canAddFile}"
 					@click="${this._launchAddFileDialog}">
 				</d2l-button-icon>
@@ -272,7 +272,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 				<d2l-button-icon
 					id="add-quicklink-button"
 					icon="d2l-tier1:quicklink"
-					text="${this.localize('attachments.addQuicklink')}"
+					aria-label="${this.localize('attachments.addQuicklink')}"
 					?hidden="${!canAddLink}"
 					@click="${this._launchAddQuicklinkDialog}">
 				</d2l-button-icon>
@@ -284,7 +284,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 				<d2l-button-icon
 					id="add-link-button"
 					icon="d2l-tier1:link"
-					text="${this.localize('attachments.addLink')}"
+					aria-label="${this.localize('attachments.addLink')}"
 					?hidden="${!canAddLink}"
 					@click="${this._launchAddLinkDialog}">
 				</d2l-button-icon>
@@ -296,7 +296,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 				<d2l-button-icon
 					id="add-google-drive-link-button"
 					icon="d2l-tier1:google-drive"
-					text="${this.localize('attachments.addGoogleDriveLink')}"
+					aria-label="${this.localize('attachments.addGoogleDriveLink')}"
 					?hidden="${!canAddGoogleDriveLink}"
 					@click="${this._launchAddGoogleDriveLinkDialog}">
 				</d2l-button-icon>
@@ -308,7 +308,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 				<d2l-button-icon
 					id="add-onedrive-link-button"
 					icon="d2l-tier1:one-drive"
-					text="${this.localize('attachments.addOneDriveLink')}"
+					aria-label="${this.localize('attachments.addOneDriveLink')}"
 					?hidden="${!canAddOneDriveLink}"
 					@click="${this._launchAddOneDriveLinkDialog}">
 				</d2l-button-icon>
@@ -317,7 +317,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 					aria-hidden="true"
 					disable-focus-lock>${this.localize('attachments.addOneDriveLink')}</d2l-tooltip>
 
-				<div class="button-container-right">
+				<div class="d2l-button-container-right">
 					<d2l-button-subtle
 						id="record-audio-button"
 						icon="tier1:mic"
@@ -334,7 +334,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 					</d2l-button-subtle>
 				</div>
 			</div>
-			<div class="button-container-small">
+			<div class="d2l-button-container-small">
 				<d2l-dropdown>
 					<d2l-button-icon
 						id="attach-dropdown"
@@ -375,7 +375,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 						</d2l-menu>
 					</d2l-dropdown-menu>
 				</d2l-dropdown>
-				<span class="button-container-right">
+				<span class="d2l-button-container-right">
 					<d2l-button-icon
 						id="record-audio-button-small"
 						icon="tier1:mic"

@@ -12,10 +12,11 @@ export default {
 	editLearningPath: "学習パスの編集", // Title of the page where the page is to edit a list of related learnings. On the page you can edit the title, description and what learning activities are in the list.
 	enterADescription: "説明の記入", // Shows where the user should write a description for the learning path.
 	loadMore: "さらに読み込む", // When adding activities to the learning path, this is on a button that will load more potential activities that can be added that match the current search.
+	moveActivity: "{activityName} を {totalNumberOfActivities} から位置 {newPosition} に移動しました。", // When a activity is moved to a new position in the learning path this message is annouced.
 	noActivitiesInLearningPath: "この学習パスにはアクティビティがありません。", // Displayed when the learning path is loaded and contains no activities
 	noActivitiesFound: "検索語句に一致するアクティビティがありませんでした。", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 件のアクティビティ} other {{count} 件のアクティビティ}}", // The number of learning tasks currently in the list.
-	removeActivity: "学習パスからアクティビティ、{courseName} を削除します。", // An action to remove a learning task from a list of tasks that are related
+	removeActivity: "削除", // An action to remove a learning task from a list of tasks that are related
 	search: "検索", // When adding activities to the learning path, this is where you can search for potential activities to add.
 	searchPlaceholder: "検索...", // Placeholder text for the search input to search the list of potential activities.
 	selected: "{count} 件を選択済み。", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.

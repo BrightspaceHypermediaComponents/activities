@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { AssignmentSubmissionProps } from './assignment-submission.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
@@ -70,6 +70,15 @@ export class Assignment {
 		}
 	}
 
+	_isSubmissionTypeWithAnonMarking() {
+		// only file (0) and text (1) submissions can have anonymous marking, see https://docs.valence.desire2learn.com/res/dropbox.html#attributes
+		return ['0', '1'].includes(this.submissionType);
+	}
+
+	_getIsAnonymousMarkingAvailable() {
+		return this._entity.isAnonymousMarkingAvailable() && this._isSubmissionTypeWithAnonMarking();
+	}
+
 	load(entity) {
 		this._entity = entity;
 		this.assignmentSubmissionProps = new AssignmentSubmissionProps({
@@ -86,14 +95,11 @@ export class Assignment {
 
 		this.name = entity.name();
 		this.canEditName = entity.canEditName();
-		this.instructions = entity.instructionsEditorHtml();
+		this.instructions = entity.canEditInstructions() ? entity.instructionsEditorHtml() : entity.instructionsHtml();
 		this.canEditInstructions = entity.canEditInstructions();
 		this.instructionsRichTextEditorConfig = entity.instructionsRichTextEditorConfig();
-		this.isAnonymousMarkingAvailable = entity.isAnonymousMarkingAvailable();
-		this.isAnonymousMarkingEnabled = entity.isAnonymousMarkingEnabled();
-		this.canEditAnonymousMarking = entity.canEditAnonymousMarking();
 		this.anonymousMarkingHelpText = entity.getAnonymousMarkingHelpText();
-		this.canSeeAnnotations = entity.canSeeAnnotations();
+		this.canEditAnnotations = entity.canEditAnnotations();
 		this.annotationToolsAvailable = entity.getAvailableAnnotationTools();
 		this.activityUsageHref = entity.activityUsageHref();
 		this.canEditTurnitin = entity.canEditTurnitin();
@@ -105,10 +111,27 @@ export class Assignment {
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions();
 		this.canEditCompletionType = entity.canEditCompletionType();
 		this.completionType = entity.completionTypeValue();
+
+		// set up anonymous marking _after_ submission type
+		this.isAnonymousMarkingEnabled = entity.isAnonymousMarkingEnabled();
+		this.canEditAnonymousMarking = entity.canEditAnonymousMarking();
+		this.isAnonymousMarkingAvailable = this._getIsAnonymousMarkingAvailable();
+
+		this.canEditSubmissionsRule = entity.canEditSubmissionsRule();
+		this.submissionsRule = entity.submissionsRule() || 'keepall';
+		this.submissionsRuleOptions = entity.getSubmissionsRuleOptions();
+
+		this.notificationEmail = entity.notificationEmail();
+		this.canEditNotificationEmail = entity.canEditNotificationEmail();
+
+		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
+		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
+
 		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled();
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
 		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
-		this.isReadOnly = entity.isAssignmentTypeReadOnly();
+		this.canEditAssignmentType = !entity.isAssignmentTypeReadOnly();
+		this.assignmentHasSubmissions = entity.assignmentHasSubmissions();
 		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
 
 		const validCompletionTypes = this._getValidCompletionTypes(this.assignmentSubmissionProps.submissionType);
@@ -132,6 +155,8 @@ export class Assignment {
 	setSubmissionType(value) {
 		this.assignmentSubmissionProps.setSubmissionType(value);
 		this._setValidCompletionTypeForSubmissionType();
+
+		this.isAnonymousMarkingAvailable = this._getIsAnonymousMarkingAvailable();
 	}
 
 	setFilesSubmissionLimit(value) {
@@ -203,14 +228,18 @@ export class Assignment {
 		*/
 		const data = {
 			name: this.name,
-			instructions: this.instructions,
-			isAnonymous: this.isAnonymousMarkingEnabled,
 			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.assignmentSubmissionProps.submissionType,
 			isIndividualAssignmentType: this.isIndividualAssignmentType,
 			groupTypeId: this.selectedGroupCategoryId,
 			defaultScoringRubricId: this.defaultScoringRubricId
 		};
+		if (this._isSubmissionTypeWithAnonMarking()) {
+			data.isAnonymous = this.isAnonymousMarkingEnabled;
+		}
+		if (this.canEditInstructions) {
+			data.instructions = this.instructions;
+		}
 		if (this.canEditCompletionType) {
 			data.completionType = this.completionType;
 		}
@@ -219,6 +248,9 @@ export class Assignment {
 		}
 		if (this.assignmentSubmissionProps.showSubmissionsRule) {
 			data.submissionsRule = this.assignmentSubmissionProps.submissionsRule;
+		}
+		if (this.showNotificationEmail) {
+			data.notificationEmail = this.notificationEmail;
 		}
 		return data;
 	}
@@ -237,6 +269,28 @@ export class Assignment {
 	delete() {
 		return this._entity.delete();
 	}
+
+	get showFilesSubmissionLimit() {
+		return this.submissionTypeOptions
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
+	}
+
+	get showSubmissionsRule() {
+		const isFileSubmission = this.submissionTypeOptions
+			.find(x => String(x.value) === '0' && `${x.value}` === `${this.submissionType}`);
+		const isTextSubmission = this.submissionTypeOptions
+			.find(x => String(x.value) === '1' && `${x.value}` === `${this.submissionType}`);
+
+		return isFileSubmission || isTextSubmission;
+	}
+
+	get showNotificationEmail() {
+		return typeof this.notificationEmail !== 'undefined' && this.showSubmissionsRule;
+	}
+
+	setNotificationEmail(value) {
+		this.notificationEmail = value;
+	}
 }
 
 decorate(Assignment, {
@@ -251,7 +305,7 @@ decorate(Assignment, {
 	isAnonymousMarkingEnabled: observable,
 	canEditAnonymousMarking: observable,
 	anonymousMarkingHelpText: observable,
-	canSeeAnnotations: observable,
+	canEditAnnotations: observable,
 	annotationToolsAvailable: observable,
 	activityUsageHref: observable,
 	completionTypeOptions: observable,
@@ -265,10 +319,15 @@ decorate(Assignment, {
 	groupCategories: observable,
 	selectedGroupCategoryId: observable,
 	isGroupAssignmentTypeDisabled: observable,
-	isReadOnly: observable,
+	canEditAssignmentType: observable,
 	canEditDefaultScoringRubric: observable,
 	defaultScoringRubricId: observable,
 	selectedGroupCategoryName: observable,
+	showFilesSubmissionLimit: computed,
+	showSubmissionsRule: computed,
+	notificationEmail: observable,
+	canEditNotificationEmail: observable,
+	showNotificationEmail: computed,
 	// actions
 	load: action,
 	setName: action,
@@ -284,5 +343,6 @@ decorate(Assignment, {
 	setAssignmentTypeGroupCategory: action,
 	setAssignmentSubmissionType: action,
 	setDefaultScoringRubric: action,
-	resetDefaultScoringRubricId: action
+	resetDefaultScoringRubricId: action,
+	setNotificationEmail: action
 });

@@ -22,7 +22,11 @@ class ActivityCompetenciesSummary
 			return html``;
 		}
 
-		return html`${this.localize('editor.competenciesCountSummary', { count })}`;
+		if (count === 0) {
+			return html`${this.localize('editor.noLearningObjectives')}`;
+		} else {
+			return html`${this.localize('editor.competenciesCountSummary', { count })}`;
+		}
 	}
 }
 

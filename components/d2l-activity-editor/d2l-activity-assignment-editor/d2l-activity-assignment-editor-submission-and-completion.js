@@ -135,7 +135,9 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	_setSubmisisonsRule(e) {
 		const assignment = store.getAssignment(this.href);
 		const data = e.target.value;
-		assignment && assignment.assignmentSubmissionProps.setSubmissionsRule(data);
+		assignment &&
+		assignment.assignmentSubmissionProps &&
+		assignment.assignmentSubmissionProps.setSubmissionsRule(data);
 	}
 
 	_renderAssignmentFilesSubmissionLimit(assignment) {

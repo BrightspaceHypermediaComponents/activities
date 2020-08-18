@@ -95,8 +95,8 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	}
 
 	_getCompletionTypeOptions(assignment) {
-		const completionTypeOptions = assignment ? assignment.completionTypeOptions : [];
-		const completionType = assignment ? assignment.completionType : '0';
+		const completionTypeOptions = assignment && assignment.submissionAndCompletionProps ? assignment.submissionAndCompletionProps.completionTypeOptions : [];
+		const completionType = assignment && assignment.submissionAndCompletionProps ? assignment.submissionAndCompletionProps.completionType : '0';
 
 		return html`
 			${completionTypeOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === completionType}>${option.title}</option>`)}
@@ -362,12 +362,15 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	}
 
 	_renderAssignmentCompletionType(assignment) {
-		if (!assignment || !assignment.completionTypeOptions || assignment.completionTypeOptions.length === 0) {
+		if (!assignment ||
+			!assignment.submissionAndCompletionProps ||
+			!assignment.submissionAndCompletionProps.completionTypeOptions ||
+			assignment.submissionAndCompletionProps.completionTypeOptions.length === 0) {
 			return html``;
 		}
 
 		let completionTypeContent = html``;
-		if (assignment.canEditCompletionType) {
+		if (assignment.submissionAndCompletionProps.canEditCompletionType) {
 			completionTypeContent = html`
 				<select
 					id="assignment-completion-type"
@@ -394,10 +397,14 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	}
 
 	_getSelectedCompletionType(assignment) {
-		if (!assignment || !assignment.completionTypeOptions) {
+		if (!assignment ||
+			!assignment.submissionAndCompletionProps ||
+			!assignment.submissionAndCompletionProps.completionTypeOptions) {
 			return html``;
 		}
-		return assignment.completionTypeOptions.find(opt => String(opt.value) === assignment.completionType);
+		return assignment.submissionAndCompletionProps.completionTypeOptions.find(
+			opt => String(opt.value) === assignment.submissionAndCompletionProps.completionType
+		);
 	}
 
 	_renderAssignmentCompletionTypeSummary() {

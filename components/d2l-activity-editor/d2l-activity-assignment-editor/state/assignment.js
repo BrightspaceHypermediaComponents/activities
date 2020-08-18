@@ -1,7 +1,7 @@
 import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
-import { SubmissionAndCompletionProps } from './assignment-submission.js';
+import { SubmissionAndCompletionProps } from './assignment-submission-and-completion.js';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -46,8 +46,7 @@ export class Assignment {
 			canEditCompletionType: entity.canEditCompletionType(),
 			completionType: entity.completionTypeValue()
 		});
-		
-		debugger; 
+
 		this.name = entity.name();
 		this.canEditName = entity.canEditName();
 		this.instructions = entity.canEditInstructions() ? entity.instructionsEditorHtml() : entity.instructionsHtml();
@@ -183,7 +182,7 @@ export class Assignment {
 		if (this.canEditInstructions) {
 			data.instructions = this.instructions;
 		}
-		if (this.canEditCompletionType) {
+		if (this.submissionAndCompletionProps.canEditCompletionType) {
 			data.completionType = this.submissionAndCompletionProps.completionType;
 		}
 		if (this.submissionAndCompletionProps.showFilesSubmissionLimit) {

@@ -170,15 +170,6 @@ export class Assignment {
 		return typeof this.notificationEmail !== 'undefined' && this.submissionAndCompletionProps.showSubmissionsRule;
 	}
 
-	_getIsAnonymousMarkingAvailable() {
-		return this._entity.isAnonymousMarkingAvailable() && this._isSubmissionTypeWithAnonMarking();
-	}
-
-	_isSubmissionTypeWithAnonMarking() {
-		// only file (0) and text (1) submissions can have anonymous marking, see https://docs.valence.desire2learn.com/res/dropbox.html#attributes
-		return ['0', '1'].includes(this.submissionAndCompletionProps.submissionType);
-	}
-
 	_makeAssignmentData() {
 		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
 		 		 The cancel workflow is making use of that to detect changes.

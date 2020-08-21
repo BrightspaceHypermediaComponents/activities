@@ -110,7 +110,7 @@ export class Assignment {
 		this.annotationToolsAvailable = value;
 	}
 	setAnonymousMarking(value) {
-		this.isAnonymousMarkingEnabled = value;
+		this.anonymousMarkingProps.setAnonymousMarking(value);
 	}
 	setAnonymousMarkingProps(anonymousMarkingProps) {
 		this.anonymousMarkingProps = new AnonymousMarkingProps(anonymousMarkingProps);

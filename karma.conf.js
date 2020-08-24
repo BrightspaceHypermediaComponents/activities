@@ -20,7 +20,6 @@ module.exports = config => {
 				// if you are using 'bare module imports' you will need this option
 				nodeResolve: true,
 			},
-			browsers: ['Chrome']
 		}),
 	);
 	return config;

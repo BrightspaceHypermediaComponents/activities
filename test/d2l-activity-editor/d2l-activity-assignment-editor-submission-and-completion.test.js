@@ -1,67 +1,128 @@
 import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
-import { aTimeout, expect, fixture, html, oneEvent } from '@open-wc/testing';
-import { Actions } from 'siren-sdk/src/hypermedia-constants';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { AnonymousMarkingProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-anonymous-marking.js';
 import { Assignment } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment.js';
-import { default as createHypermediaEntityStub } from './createHypermediaEntityStub.js';
+import { AssignmentTypeProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-type.js';
 import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
-import sinon from 'sinon';
 import { shared as store } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 import { SubmissionAndCompletionProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-submission-and-completion.js';
 
 describe('d2l-activity-assignment-editor-submission-and-completion', function() {
 
-	let href, entityStoreGet, entityStoreFetch;
+	let href, token, submissionAndCompletionProps, assignmentTypeProps, anonymousMarkingProps, assignmentStore;
 
 	async function loadComponent() {
-		const submissionAndCompletionProps = new SubmissionAndCompletionProps({
-			submissionTypeOptions: [
-				{ title: 'File submission', value: 0, completionTypes: null, selected: false },
-				{ title: 'Text submission', value: 1, completionTypes: null, selected: false },
-				{ title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true },
-				{ title: 'Observed in person', value: 3, completionTypes: [3], selected: false }
-			],
-			submissionType: { title: '1', value: 0 },
-			canEditSubmissionType: true,
-			canEditSubmissionsRule: true,
-			submissionsRule: [],
-			submissionsRuleOptions: [],
-			canEditFilesSubmissionLimit: true,
-			filesSubmissionLimit: '2',
-			assignmentHasSubmissions: false,
-			allCompletionTypeOptions: [],
-			canEditCompletionType: true,
-			completionType: { title: 'Completion Type', value: 0 }
-		});
-
-		const assignmentStore = new Assignment();
+		assignmentStore = new Assignment(href, token);
 		assignmentStore.setSubmissionAndCompletionProps(submissionAndCompletionProps);
+		assignmentStore.setAssignmentTypeProps(assignmentTypeProps);
+		assignmentStore.setAnonymousMarkingProps(anonymousMarkingProps);
 		store.put(href, assignmentStore);
 
 		return await fixture(
 			html`
-				<d2l-activity-assignment-editor-submission-and-completion-editor href=${href} token="token">
+				<d2l-activity-assignment-editor-submission-and-completion-editor href=${href} .token="${token}">
 				</d2l-activity-assignment-editor-submission-and-completion-editor>
 			`
 		);
 	}
 
 	beforeEach(async() => {
-		href = 'http://activity/1';
+		submissionAndCompletionProps = new SubmissionAndCompletionProps({
+			submissionTypeOptions: [
+				{ title: 'File submission', value: 0, completionTypes: null, selected: false },
+				{ title: 'Text submission', value: 1, completionTypes: null, selected: false },
+				{ title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true },
+				{ title: 'Observed in person', value: 3, completionTypes: [3], selected: false }
+			],
+			submissionType: 2,
+			canEditSubmissionType: true,
+			canEditSubmissionsRule: true,
+			submissionsRule: 'keepall',
+			submissionsRuleOptions: [
+				{
+					'type': 'radio',
+					'name': 'submissionsRule',
+					'value': [
+						{
+							'title': 'All submissions are kept',
+							'value': 'keepall',
+							'selected': true
+						},
+						{
+							'title': 'Only one submission allowed',
+							'value': 'onlyone',
+							'selected': false
+						},
+						{
+							'title': 'Only the most recent submission is kept',
+							'value': 'overwritesubmissions',
+							'selected': false
+						}
+					]
+				}
+			],
+			canEditFilesSubmissionLimit: true,
+			filesSubmissionLimit: '2',
+			assignmentHasSubmissions: false,
+			allCompletionTypeOptions: [
+				{
+					'title': 'Automatically on submission',
+					'value': 0,
+					'selected': false
+				},
+				{
+					'title': 'Manually by learners',
+					'value': 1,
+					'selected': false
+				},
+				{
+					'title': 'Automatically on evaluation',
+					'value': 2,
+					'selected': false
+				},
+				{
+					'title': 'Automatically on due date',
+					'value': 3,
+					'selected': true
+				}
+			],
+			canEditCompletionType: true,
+			completionType: { title: 'Manually by learners', value: 2 },
+			completionTypeValue: '2'
+		});
 
-		entityStoreGet = sinon.stub(window.D2L.Siren.EntityStore, 'get').returns(createHypermediaEntityStub());
-		entityStoreFetch = sinon.stub(window.D2L.Siren.EntityStore, 'fetch').returns(createHypermediaEntityStub());
+		assignmentTypeProps = new AssignmentTypeProps({
+			isGroupAssignmentTypeDisabled: false,
+			isIndividualAssignmentType: true,
+			groupCategories: [],
+			canEditAssignmentType: true,
+			selectedGroupCategoryName: 'group 1'
+		});
+
+		anonymousMarkingProps = new AnonymousMarkingProps({
+			isAnonymousMarkingEnabled: true,
+			canEditAnonymousMarking: true,
+			isAnonymousMarkingAvailable: true,
+			anonymousMarkingHelpText: 'Anonymous marking help text',
+			submissionType: submissionAndCompletionProps.submissionType
+		});
+
+		href = 'http://activity/1';
+		token = 'token';
 	});
 
 	afterEach(() => {
-		entityStoreGet.restore();
-		entityStoreFetch.restore();
+		assignmentStore = undefined;
+		submissionAndCompletionProps = undefined;
+		assignmentTypeProps = undefined;
+		anonymousMarkingProps = undefined;
 		store.clear();
 	});
 
 	describe('constructor', () => {
 
-		it.only('should construct', async() => {
+		it('should construct', async() => {
 			await loadComponent();
 			runConstructor('d2l-activity-assignment-editor-submission-and-completion-editor');
 		});
@@ -82,16 +143,16 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 
 		it('has a heading', async() => {
 			const el = await loadComponent();
-			const header = el.shadowRoot.querySelectorAll('.accordion > .activity-summarizer-header');
+			const header = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-header');
 			expect(header[0].slot).to.equal('header'); //TODO: probably remove this, impl detail
 			expect(header[0].innerText).to.equal(langTerms.submissionCompletionAndCategorization);
 		});
 
 		it('has a summary', async() => {
 			const el = await loadComponent();
-			const summary = el.shadowRoot.querySelectorAll('.accordion > .activity-summarizer-summary');
+			const summary = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-summary');
 			expect(summary[0].slot).to.equal('summary'); //TODO: probably remove this, impl detail
-			expect(summary[0].getElementsByTagName('li').length).to.equal(3);
+			expect(summary[0].getElementsByTagName('li').length).to.equal(4);
 		});
 
 		it('initializes as closed', async() => {
@@ -110,34 +171,35 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 
 	describe('submission-type-container', () => {
 		it('loads correctly', async() => {
-			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateSubmissionType).returns(true);
 			const el = await loadComponent();
 			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
 			expect(submissionSelect.getAttribute('disabled')).to.be.null;
-			expect(submissionSelect.getElementsByTagName('option').length).to.equal(2);
+			expect(submissionSelect.getElementsByTagName('option').length).to.equal(4);
 		});
 
-		it('handles change event', async() => {
+		it('handles click event', async() => {
+			submissionAndCompletionProps.canEditSubmissionType = true;
 			const el = await loadComponent();
 			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
 
-			setTimeout(() => submissionSelect.change());
-			const { target } = await oneEvent(submissionSelect, 'onchange');
-			await aTimeout(1);
+			const listener = oneEvent(submissionSelect, 'click');
+			submissionSelect.click();
+
+			const { detail } = await listener;
+			expect(detail).to.equal(0);
 
 		});
 
 		it('is disabled when missing updateSubmissionType action', async() => {
-			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateSubmissionType).returns(false);
+			submissionAndCompletionProps.canEditSubmissionType = false;
 			const el = await loadComponent();
-			const submissionSelect = el.shadowRoot.querySelector('#assignment-submission-type');
-			expect(submissionSelect.getAttribute('disabled')).to.not.be.null;
+			const submissionSelect = el.shadowRoot.querySelector('.d2l-body-compact');
+			expect(submissionSelect.innerText).to.equal('On paper submission');
 		});
 	});
 
 	describe('completion-type-container', () => {
 		it('completion type options loads correctly', async() => {
-			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateCompletionType).returns(true);
 			const el = await loadComponent();
 			const completionSelect = el.shadowRoot.querySelector('#assignment-completion-type');
 			expect(completionSelect.getAttribute('disabled')).to.be.null;
@@ -145,10 +207,25 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		});
 
 		it('is disabled when missing updateCompletionType action', async() => {
-			entityStoreGet().hasActionByName.withArgs(Actions.assignments.updateCompletionType).returns(false);
+			submissionAndCompletionProps.canEditCompletionType = false;
+			submissionAndCompletionProps.completionType = { title: 'Manually by learners', value: 2 };
+			submissionAndCompletionProps.completionTypeValue = '2';
+			const el = await loadComponent();
+			const completionSelect = el.shadowRoot.querySelector('.d2l-body-compact');
+			expect(completionSelect.innerText).to.equal(submissionAndCompletionProps.completionType.title);
+		});
+
+		it('handles click event', async() => {
+			submissionAndCompletionProps.canEditCompletionType = true;
 			const el = await loadComponent();
 			const completionSelect = el.shadowRoot.querySelector('#assignment-completion-type');
-			expect(completionSelect.getAttribute('disabled')).to.not.be.null;
+
+			const listener = oneEvent(completionSelect, 'click');
+			completionSelect.click();
+
+			const { detail } = await listener;
+			expect(detail).to.equal(0);
+
 		});
 	});
 });

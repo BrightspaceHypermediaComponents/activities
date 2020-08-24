@@ -136,12 +136,12 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 	}
 
 	_getInformationText(assignment) {
-		if (!assignment || !assignment.assignmentTypeProps) {
+		if (!assignment || !assignment.submissionAndCompletionProps || !assignment.assignmentTypeProps) {
 			return;
 		}
 
 		const isIndividualAssignmentType = assignment.assignmentTypeProps.isIndividualAssignmentType;
-		const hasSubmissions = assignment.submissionAndCompletionProps && assignment.submissionAndCompletionProps.assignmentHasSubmissions;
+		const hasSubmissions = assignment.submissionAndCompletionProps.assignmentHasSubmissions;
 
 		if (!hasSubmissions && isIndividualAssignmentType && assignment.assignmentTypeProps.groupCategories.length === 0) {
 			return this.localize('folderTypeNoGroups');

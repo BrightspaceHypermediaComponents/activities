@@ -20,7 +20,7 @@
     "test:polymer:sauce": "polymer test --skip-plugin local",
     "test:js": "jest",
     "test:js:watch": "jest --watch",
-    "test": "npm run lint && npm run test:polymer:local && test:local:karma  && npm run test:js",
+    "test": "npm run lint && npm run test:polymer:local && test:local:karma && npm run test:js",
     "serve": "polymer serve"
   },
   "author": "D2L Corporation",
@@ -69,7 +69,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.53.12",
+  "version": "3.53.14",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",

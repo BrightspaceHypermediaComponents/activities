@@ -116,11 +116,14 @@ decorate(SubmissionAndCompletionProps, {
 	submissionsRuleOptions: observable,
 	canEditFilesSubmissionLimit: observable,
 	filesSubmissionLimit: observable,
-	setCompletionType: observable,
+	completionType: observable,
+	completionTypeOptions: observable,
+	canEditCompletionType: observable,
 	// computed
 	showFilesSubmissionLimit: computed,
 	showSubmissionsRule: computed,
 	// actions
 	setSubmissionsRule: action,
 	setFilesSubmissionLimit: action,
+	setCompletionType: action,
 });

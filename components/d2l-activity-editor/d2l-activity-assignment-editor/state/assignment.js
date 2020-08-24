@@ -223,6 +223,8 @@ decorate(Assignment, {
 	defaultScoringRubricId: observable,
 	notificationEmail: observable,
 	canEditNotificationEmail: observable,
+	anonymousMarkingProps: observable,
+	assignmentTypeProps: observable,
 	showNotificationEmail: computed,
 	// actions
 	load: action,

@@ -113,6 +113,10 @@ export class Assignment {
 		this.assignmentTypeProps.setAssignmentTypeGroupCategory(value);
 	}
 
+	setAssignmentTypeProps(assignmentTypeProps) {
+		this.assignmentTypeProps = new AssignmentTypeProps(assignmentTypeProps);
+	}
+
 	setCompletionType(value) {
 		this.submissionAndCompletionProps.setCompletionType(value);
 	}

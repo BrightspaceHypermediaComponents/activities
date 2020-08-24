@@ -28,6 +28,10 @@ export class AssignmentStore {
 	getAssignment(href) {
 		return this._assignments.get(href);
 	}
+
+	put(href, object) {
+		this._assignments.put(href, object);
+	}
 }
 
 export const shared = new AssignmentStore();

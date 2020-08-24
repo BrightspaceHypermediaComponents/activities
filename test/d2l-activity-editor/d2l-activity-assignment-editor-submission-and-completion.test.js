@@ -1,18 +1,42 @@
 import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
-import { Actions, Classes, Rels } from 'siren-sdk/src/hypermedia-constants';
 import { aTimeout, expect, fixture, html, oneEvent } from '@open-wc/testing';
-import { default as createHypermediaEntityStub} from './createHypermediaEntityStub.js';
+import { Actions } from 'siren-sdk/src/hypermedia-constants';
+import { Assignment } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment.js';
+import { default as createHypermediaEntityStub } from './createHypermediaEntityStub.js';
 import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 import sinon from 'sinon';
 import { shared as store } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
+import { SubmissionAndCompletionProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-submission-and-completion.js';
 
 describe('d2l-activity-assignment-editor-submission-and-completion', function() {
 
 	let href, entityStoreGet, entityStoreFetch;
 
 	async function loadComponent() {
-		await store.fetchAssignment(href, 'token');
+		const submissionAndCompletionProps = new SubmissionAndCompletionProps({
+			submissionTypeOptions: [
+				{ title: 'File submission', value: 0, completionTypes: null, selected: false },
+				{ title: 'Text submission', value: 1, completionTypes: null, selected: false },
+				{ title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true },
+				{ title: 'Observed in person', value: 3, completionTypes: [3], selected: false }
+			],
+			submissionType: { title: '1', value: 0 },
+			canEditSubmissionType: true,
+			canEditSubmissionsRule: true,
+			submissionsRule: [],
+			submissionsRuleOptions: [],
+			canEditFilesSubmissionLimit: true,
+			filesSubmissionLimit: '2',
+			assignmentHasSubmissions: false,
+			allCompletionTypeOptions: [],
+			canEditCompletionType: true,
+			completionType: { title: 'Completion Type', value: 0 }
+		});
+
+		const assignmentStore = new Assignment();
+		assignmentStore.setSubmissionAndCompletionProps(submissionAndCompletionProps);
+		store.put(href, assignmentStore);
 
 		return await fixture(
 			html`
@@ -37,7 +61,7 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 
 	describe('constructor', () => {
 
-		it('should construct', async() => {
+		it.only('should construct', async() => {
 			await loadComponent();
 			runConstructor('d2l-activity-assignment-editor-submission-and-completion-editor');
 		});
@@ -100,7 +124,6 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 			setTimeout(() => submissionSelect.change());
 			const { target } = await oneEvent(submissionSelect, 'onchange');
 			await aTimeout(1);
-
 
 		});
 

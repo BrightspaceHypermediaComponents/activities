@@ -22,7 +22,7 @@ export class SubmissionAndCompletionProps {
 		if (this.canEditCompletionType) {
 			this.completionTypeOptions =  this._getCompletionTypeOptions(validCompletionTypes);
 		} else {
-			const completionType = entity.completionType();
+			const completionType = entity.completionType;
 			this.completionTypeOptions = completionType ? [completionType] : [];
 		}
 	}

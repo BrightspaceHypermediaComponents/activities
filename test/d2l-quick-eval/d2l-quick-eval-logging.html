@@ -76,7 +76,7 @@
 
 					assert.equal(testErrorMessage, message.errorMessage);
 					assert.isTrue(message.stackTrace !== null && message.stackTrace !== undefined);
-					assert.deepEqual({moreInfo: expectedInfo}, message.additionalContext);
+					assert.deepEqual({ moreInfo: expectedInfo }, message.additionalContext);
 
 					done();
 				});
@@ -102,7 +102,7 @@
 					assert.isTrue(Array.isArray(messageBody));
 
 					const message = messageBody[0];
-					assert.deepEqual({errorMessage: throwingMessage, additionalContext: {}}, message);
+					assert.deepEqual({ errorMessage: throwingMessage, additionalContext: {} }, message);
 
 					done();
 				});

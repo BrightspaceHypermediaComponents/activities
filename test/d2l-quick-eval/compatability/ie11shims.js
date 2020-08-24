@@ -40,11 +40,11 @@ suite('GetQueryStringParams', () => {
 		{ queryString: '', expectedResult: {} },
 		{ queryString: '?x', expectedResult: {} },
 		{ queryString: '?x=', expectedResult: { x: '' } },
-		{ queryString: '?x=1&x=2', expectedResult: {x: '1'} },
-		{ queryString: '?x=1&y=2', expectedResult: {x: '1', y: '2'} },
-		{ queryString: '?x=1&&y=2', expectedResult: {x: '1', y: '2'} },
-		{ queryString: '?x=%3Fencoded%3Dstring%25%26here&y=2', expectedResult: {x: '?encoded=string%&here', y: '2'} },
-		{ queryString: '?%3F%3F=1', expectedResult: {'??': '1'} }
+		{ queryString: '?x=1&x=2', expectedResult: { x: '1' } },
+		{ queryString: '?x=1&y=2', expectedResult: { x: '1', y: '2' } },
+		{ queryString: '?x=1&&y=2', expectedResult: { x: '1', y: '2' } },
+		{ queryString: '?x=%3Fencoded%3Dstring%25%26here&y=2', expectedResult: { x: '?encoded=string%&here', y: '2' } },
+		{ queryString: '?%3F%3F=1', expectedResult: { '??': '1' } }
 	];
 
 	testCases.forEach(function(testCase) {
@@ -87,13 +87,13 @@ suite('GetQueryStringParam', () => {
 suite('DictToQueryString', () => {
 	const testCases = [
 		{ params: {}, expectedStringParams: [] },
-		{ params: {'x': null }, expectedStringParams: ['x=null'] },
-		{ params: {'x': undefined }, expectedStringParams: ['x=undefined'] },
-		{ params: {'x': 1 }, expectedStringParams: ['x=1'] },
-		{ params: {'x': 1, 'y': 2 }, expectedStringParams: ['x=1', 'y=2'] },
-		{ params: {'y': 2, 'x': 1 }, expectedStringParams: ['x=1', 'y=2'] },
-		{ params: {'x': '??' }, expectedStringParams: ['x=%3F%3F'] },
-		{ params: {'??': 1 }, expectedStringParams: ['%3F%3F=1'] },
+		{ params: { 'x': null }, expectedStringParams: ['x=null'] },
+		{ params: { 'x': undefined }, expectedStringParams: ['x=undefined'] },
+		{ params: { 'x': 1 }, expectedStringParams: ['x=1'] },
+		{ params: { 'x': 1, 'y': 2 }, expectedStringParams: ['x=1', 'y=2'] },
+		{ params: { 'y': 2, 'x': 1 }, expectedStringParams: ['x=1', 'y=2'] },
+		{ params: { 'x': '??' }, expectedStringParams: ['x=%3F%3F'] },
+		{ params: { '??': 1 }, expectedStringParams: ['%3F%3F=1'] },
 	];
 
 	testCases.forEach(function(testCase) {

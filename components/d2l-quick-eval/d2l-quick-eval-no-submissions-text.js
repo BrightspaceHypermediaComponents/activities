@@ -1,6 +1,6 @@
-import {html, LitElement} from 'lit-element/lit-element.js';
-import {LitQuickEvalLocalize} from './LitQuickEvalLocalize.js';
-import {unsafeHTML} from 'lit-html/directives/unsafe-html.js';
+import { html, LitElement } from 'lit-element/lit-element.js';
+import { LitQuickEvalLocalize } from './LitQuickEvalLocalize.js';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import '@brightspace-ui/core/components/link/link.js';
 
@@ -35,7 +35,7 @@ class D2LQuickEvalNoSubmissionsText extends LitQuickEvalLocalize(LitElement) {
 	}
 	_computeCheckBackOftenText(courseLevel, multiCourseQuickEvalHref) {
 		if (courseLevel && multiCourseQuickEvalHref) {
-			return unsafeHTML(this.localize('checkBackOftenCourseLevel', {startTag: `<d2l-link href="${this.multiCourseQuickEvalHref}">`, endTag: '</d2l-link>'}));
+			return unsafeHTML(this.localize('checkBackOftenCourseLevel', { startTag: `<d2l-link href="${this.multiCourseQuickEvalHref}">`, endTag: '</d2l-link>' }));
 		}
 		return this.localize('checkBackOften');
 	}

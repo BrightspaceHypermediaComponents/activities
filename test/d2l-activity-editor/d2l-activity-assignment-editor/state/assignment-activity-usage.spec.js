@@ -1,4 +1,4 @@
-import { AssignmentActivityUsage} from '../../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-activity-usage.js';
+import { AssignmentActivityUsage } from '../../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-activity-usage.js';
 import { AssignmentActivityUsageEntity } from 'siren-sdk/src/activities/assignments/AssignmentActivityUsageEntity.js';
 import { expect } from 'chai';
 import { fetchEntity } from '../../../../components/d2l-activity-editor/state/fetch-entity.js';

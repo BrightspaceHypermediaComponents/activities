@@ -97,7 +97,7 @@ import SirenParse from 'siren-parser';
 		});
 
 		test('d2l-hm-search-error sets searchError correctly', () => {
-			const errorDetail = {error: true};
+			const errorDetail = { error: true };
 			searchBehavior.dispatchEvent(
 				new CustomEvent(
 					'd2l-hm-search-error',

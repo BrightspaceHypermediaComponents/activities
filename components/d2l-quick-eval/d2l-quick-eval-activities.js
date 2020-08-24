@@ -1,8 +1,8 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {QuickEvalLocalize} from './QuickEvalLocalize.js';
-import {QuickEvalLogging} from './QuickEvalLogging.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { QuickEvalLocalize } from './QuickEvalLocalize.js';
+import { QuickEvalLogging } from './QuickEvalLogging.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
-import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-alert/d2l-alert.js';
 import 'd2l-alert/d2l-alert-toast.js';
 import 'd2l-common/components/d2l-hm-filter/d2l-hm-filter.js';
@@ -128,7 +128,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				<d2l-hm-filter
 					href="[[filterHref]]"
 					token="[[token]]"
-					category-whitelist="[[filterIds]]"
+					category-include-list="[[filterIds]]"
 					lazy-load-options>
 				</d2l-hm-filter>
 				<d2l-hm-search
@@ -323,7 +323,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 			this.logAndDestroyPerformanceEvent('activities', 'qeViewLoadStart', 'activitiesLoadEnd');
 		} catch (e) {
 			this._handleLoadFailure();
-			this._logError(e, {developerMessage: 'activities-view: Unable to load activities from entity.'});
+			this._logError(e, { developerMessage: 'activities-view: Unable to load activities from entity.' });
 			throw e;
 		} finally {
 			this._loading = false;
@@ -361,7 +361,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 					dismissHref: dismissHref
 				};
 			} catch (e) {
-				this._logError(e, {developerMessage: `Error loading activity data for ${this._getHref(activity, 'self')}.`});
+				this._logError(e, { developerMessage: `Error loading activity data for ${this._getHref(activity, 'self')}.` });
 				return null;
 			}
 		}.bind(this)));
@@ -382,7 +382,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 	_groupByCourse(act) {
 		if (act) {
 			const grouped = act.reduce((acts, a) => {
-				acts[a.key] = acts[a.key] || { name: a.courseName, activities: []};
+				acts[a.key] = acts[a.key] || { name: a.courseName, activities: [] };
 				acts[a.key].activities.push(a);
 				return acts;
 			}, {});
@@ -480,7 +480,7 @@ class D2LQuickEvalActivities extends mixinBehaviors(
 				this.shadowRoot.querySelector('.d2l-quick-eval-activities-toast-dismiss-success').open = true;
 			}).catch((error) => {
 				this.shadowRoot.querySelector('.d2l-quick-eval-activities-toast-dismiss-critical').open = true;
-				this._logError(error, {developerMessage: `Error dismissing activity href ${evt.detail.dismissHref}`});
+				this._logError(error, { developerMessage: `Error dismissing activity href ${evt.detail.dismissHref}` });
 			});
 		});
 	}

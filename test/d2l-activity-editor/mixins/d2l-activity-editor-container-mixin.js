@@ -1,5 +1,5 @@
 import { defineCE, expect, fixture, nextFrame } from '@open-wc/testing';
-import { ActivityEditorContainerMixin} from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-container-mixin.js';
+import { ActivityEditorContainerMixin } from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-container-mixin.js';
 
 const container = defineCE(
 	class extends ActivityEditorContainerMixin(HTMLElement) {
@@ -8,6 +8,9 @@ const container = defineCE(
 
 const editor = defineCE(
 	class extends HTMLElement {
+		hasPendingChanges() {
+			this.hasPendingChangesCalled = true;
+		}
 		save() {
 			this.saveCalled = true;
 		}
@@ -16,9 +19,6 @@ const editor = defineCE(
 			this.validateCalled = true;
 		}
 
-		hasPendingChanges() {
-			this.hasPendingChangesCalled = true;
-		}
 	}
 );
 

@@ -1,6 +1,6 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {QuickEvalLocalize} from './QuickEvalLocalize.js';
-import {QuickEvalLogging} from './QuickEvalLogging.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { QuickEvalLocalize } from './QuickEvalLocalize.js';
+import { QuickEvalLogging } from './QuickEvalLogging.js';
 import 'd2l-alert/d2l-alert.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-table/d2l-table.js';

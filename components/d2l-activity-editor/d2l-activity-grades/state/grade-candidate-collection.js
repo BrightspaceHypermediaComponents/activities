@@ -30,10 +30,17 @@ export class GradeCandidateCollection {
 		return gradeCandidate;
 	}
 
+	hasNewGradeCandidateWithCategory() {
+		if (!this.gradeCandidates) {
+			return false;
+		}
+
+		return this.gradeCandidates.some(gc => gc.isNewGradeCandidateWithCategory());
+	}
 	async load(entity) {
 		this._entity = entity;
 		const gradeCandidatePromises = entity.getGradeCandidates().map(gc => {
-			const gradeCandidateEntity = new GradeCandidateEntity(gc, this.token, { remove: () => { }});
+			const gradeCandidateEntity = new GradeCandidateEntity(gc, this.token, { remove: () => { } });
 			return this.fetchGradeCandidate(gradeCandidateEntity);
 		});
 
@@ -47,29 +54,6 @@ export class GradeCandidateCollection {
 
 	setSelected(href) {
 		this.selected = this._findGradeCandidate(href, this.gradeCandidates);
-	}
-
-	hasNewGradeCandidateWithCategory() {
-		if (!this.gradeCandidates) {
-			return false;
-		}
-
-		return this.gradeCandidates.some(gc => gc.isNewGradeCandidateWithCategory());
-	}
-
-	_findGradeCandidate(href, gradeCandidates) {
-		if (!gradeCandidates) {
-			return;
-		}
-		for (const gc of gradeCandidates) {
-			if (href === gc.href || (!gc.href && href === 'undefined')) {
-				return gc;
-			}
-			const findGradeCandidate = this._findGradeCandidate(href, gc.gradeCandidates);
-			if (findGradeCandidate) {
-				return findGradeCandidate;
-			}
-		}
 	}
 
 	_findCurrentAssociation(gradeCandidates) {
@@ -86,7 +70,6 @@ export class GradeCandidateCollection {
 			}
 		}
 	}
-
 	_findFirstGradeItemFromCandidates(gradeCandidates) {
 		if (!gradeCandidates) {
 			return;
@@ -98,6 +81,21 @@ export class GradeCandidateCollection {
 			return this._findFirstGradeItemFromCandidates(gc.gradeCandidates);
 		}
 	}
+	_findGradeCandidate(href, gradeCandidates) {
+		if (!gradeCandidates) {
+			return;
+		}
+		for (const gc of gradeCandidates) {
+			if (href === gc.href || (!gc.href && href === 'undefined')) {
+				return gc;
+			}
+			const findGradeCandidate = this._findGradeCandidate(href, gc.gradeCandidates);
+			if (findGradeCandidate) {
+				return findGradeCandidate;
+			}
+		}
+	}
+
 }
 
 decorate(GradeCandidateCollection, {

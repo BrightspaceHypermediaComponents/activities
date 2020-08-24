@@ -8,25 +8,25 @@ export class AssignmentStore {
 		this._activities = new ObjectStore(AssignmentActivityUsage);
 	}
 
-	fetchAssignment(href, token) {
-		return this._assignments.fetch(href, token);
-	}
-
-	getAssignment(href) {
-		return this._assignments.get(href);
+	clear() {
+		this._assignments.clear();
+		this._activities.clear();
 	}
 
 	fetchActivity(href, token) {
 		return this._activities.fetch(href, token);
 	}
 
+	fetchAssignment(href, token) {
+		return this._assignments.fetch(href, token);
+	}
+
 	getActivity(href) {
 		return this._activities.get(href);
 	}
 
-	clear() {
-		this._assignments.clear();
-		this._activities.clear();
+	getAssignment(href) {
+		return this._assignments.get(href);
 	}
 }
 

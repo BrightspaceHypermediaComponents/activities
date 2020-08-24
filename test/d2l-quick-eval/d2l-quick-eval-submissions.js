@@ -22,10 +22,10 @@ suite('d2l-quick-eval-submissions', function() {
 
 	suite('Headers', () => {
 		[
-			{ masterTeacher: true, courseLevel: true, expected: [ 'displayName', 'activityName', 'localizedSubmissionDate', 'masterTeacher']},
-			{ masterTeacher: true, courseLevel: false, expected: [ 'displayName', 'activityName', 'courseName', 'localizedSubmissionDate', 'masterTeacher']},
-			{ masterTeacher: false, courseLevel: true, expected: [ 'displayName', 'activityName', 'localizedSubmissionDate']},
-			{ masterTeacher: false, courseLevel: false, expected: [ 'displayName', 'activityName', 'courseName', 'localizedSubmissionDate']}
+			{ masterTeacher: true, courseLevel: true, expected: [ 'displayName', 'activityName', 'localizedSubmissionDate', 'masterTeacher'] },
+			{ masterTeacher: true, courseLevel: false, expected: [ 'displayName', 'activityName', 'courseName', 'localizedSubmissionDate', 'masterTeacher'] },
+			{ masterTeacher: false, courseLevel: true, expected: [ 'displayName', 'activityName', 'localizedSubmissionDate'] },
+			{ masterTeacher: false, courseLevel: false, expected: [ 'displayName', 'activityName', 'courseName', 'localizedSubmissionDate'] }
 		].forEach(testCase => {
 			test('Headers are computed correctly', () => {
 				submissions.masterTeacher = testCase.masterTeacher;

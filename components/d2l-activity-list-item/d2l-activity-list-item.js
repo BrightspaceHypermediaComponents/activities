@@ -1,13 +1,13 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
-import {MutableData} from '@polymer/polymer/lib/mixins/mutable-data.js';
-import {beforeNextRender, afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
-import {IronResizableBehavior} from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { MutableData } from '@polymer/polymer/lib/mixins/mutable-data.js';
+import { beforeNextRender, afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import { IronResizableBehavior } from '@polymer/iron-resizable-behavior/iron-resizable-behavior.js';
 import 'fastdom/fastdom.min.js';
 import 'd2l-offscreen/d2l-offscreen-shared-styles.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
-import {Rels} from 'd2l-hypermedia-constants';
+import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-fetch/d2l-fetch.js';
 import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
 import 'd2l-organizations/components/d2l-organization-name/d2l-organization-name.js';
@@ -16,8 +16,8 @@ import 'd2l-polymer-behaviors/d2l-focusable-behavior.js';
 import 'd2l-button/d2l-button.js';
 import './d2l-activity-list-item-enroll.js';
 import SirenParse from 'siren-parser';
-import {ActivityListItemResponsiveConstants} from './ActivityListItemResponsiveConstants.js';
-import {ActivityListItemLocalize} from './ActivityListItemLocalize.js';
+import { ActivityListItemResponsiveConstants } from './ActivityListItemResponsiveConstants.js';
+import { ActivityListItemLocalize } from './ActivityListItemLocalize.js';
 import 'd2l-colors/d2l-colors.js';
 
 /**

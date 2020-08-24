@@ -10,7 +10,7 @@ export class ActivityScoreGrade {
 		this.scoreOutOfError = null;
 		this.token = token;
 		this.inGrades = entity.inGrades();
-		this.gradeType = (entity.gradeType() || 'Points').toLowerCase();
+		this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
 		this.isUngraded = !this.inGrades && !this.scoreOutOf;
 		this.canEditScoreOutOf = entity.canEditScoreOutOf();
 		this.canSeeGrades = entity.canSeeGrades();
@@ -22,6 +22,9 @@ export class ActivityScoreGrade {
 		this.newGradeCandidatesCollection = null;
 	}
 
+	addToGrades() {
+		this.inGrades = true;
+	}
 	async fetchGradeCandidates() {
 		if (this.gradeCandidateCollection) {
 			return;
@@ -40,6 +43,60 @@ export class ActivityScoreGrade {
 		await this.newGradeCandidatesCollection.fetch();
 	}
 
+	getAssociatedGradeEntity() {
+		if (this.gradeCandidateCollection && this.gradeCandidateCollection.selected) {
+			return this.gradeCandidateCollection.selected.gradeCandidateEntity;
+		}
+	}
+	getAssociateNewGradeAction() {
+		let newGradeCandidateEntity;
+		if (this.newGradeCandidatesCollection && this.newGradeCandidatesCollection.selected) {
+			newGradeCandidateEntity = this.newGradeCandidatesCollection.selected.gradeCandidateEntity;
+		}
+
+		if (!newGradeCandidateEntity) {
+			return;
+		}
+
+		return newGradeCandidateEntity.getSaveAction();
+	}
+	linkToExistingGrade() {
+		if (!this.gradeCandidateCollection) {
+			return;
+		}
+
+		this.createNewGrade = false;
+		this.setGraded();
+
+		const gradeCandidate = this.gradeCandidateCollection.selected;
+		if (gradeCandidate.maxPoints !== undefined) {
+			this.setScoreOutOf(gradeCandidate.maxPoints.toString());
+		}
+	}
+	linkToNewGrade() {
+		this.createNewGrade = true;
+		this.setGraded();
+	}
+	async primeGradeSave() {
+		if (this.inGrades && this.createNewGrade) {
+			await this.fetchNewGradeCandidates();
+		}
+	}
+	removeFromGrades() {
+		this.inGrades = false;
+		if (this.scoreOutOfError === 'emptyScoreOutOfError') {
+			this.scoreOutOfError = null;
+		}
+	}
+
+	setGraded() {
+		this.inGrades = true;
+		this.isUngraded = false;
+	}
+
+	setNewGradeName(name) {
+		this.newGradeName = name;
+	}
 	setScoreOutOf(value) {
 		this.scoreOutOf = value;
 		this.scoreOutOfError = null;
@@ -50,28 +107,6 @@ export class ActivityScoreGrade {
 		this.inGrades = false;
 		this.isUngraded = true;
 		this.setScoreOutOf('');
-	}
-
-	setGraded() {
-		this.inGrades = true;
-		this.isUngraded = false;
-	}
-
-	removeFromGrades() {
-		this.inGrades = false;
-		if (this.scoreOutOfError === 'emptyScoreOutOfError') {
-			this.scoreOutOfError = null;
-		}
-	}
-
-	addToGrades() {
-		this.inGrades = true;
-	}
-
-	getAssociatedGradeEntity() {
-		if (this.gradeCandidateCollection && this.gradeCandidateCollection.selected) {
-			return this.gradeCandidateCollection.selected.gradeCandidateEntity;
-		}
 	}
 
 	validate() {
@@ -89,41 +124,6 @@ export class ActivityScoreGrade {
 		return !this.scoreOutOfError;
 	}
 
-	linkToExistingGrade() {
-		if (!this.gradeCandidateCollection) {
-			return;
-		}
-
-		this.createNewGrade = false;
-		this.setGraded();
-
-		const gradeCandidate = this.gradeCandidateCollection.selected;
-		if (gradeCandidate.maxPoints !== undefined) {
-			this.setScoreOutOf(gradeCandidate.maxPoints.toString());
-		}
-	}
-
-	linkToNewGrade() {
-		this.createNewGrade = true;
-		this.setGraded();
-	}
-
-	setNewGradeName(name) {
-		this.newGradeName = name;
-	}
-
-	getAssociateNewGradeAction() {
-		let newGradeCandidateEntity;
-		if (this.newGradeCandidatesCollection && this.newGradeCandidatesCollection.selected) {
-			newGradeCandidateEntity = this.newGradeCandidatesCollection.selected.gradeCandidateEntity;
-		}
-
-		if (!newGradeCandidateEntity) {
-			return;
-		}
-
-		return newGradeCandidateEntity.getSaveAction();
-	}
 }
 
 decorate(ActivityScoreGrade, {
@@ -153,5 +153,6 @@ decorate(ActivityScoreGrade, {
 	fetchGradeCandidates: action,
 	fetchNewGradeCandidates: action,
 	linkToNewGrade: action,
-	setNewGradeName: action
+	setNewGradeName: action,
+	primeGradeSave: action
 });

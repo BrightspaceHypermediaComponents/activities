@@ -50,6 +50,10 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(MobxLitElement) {
 		`;
 	}
 
+	hasPendingChanges() {
+		const collection = store.get(this.href);
+		return collection && collection.dirty;
+	}
 	async save() {
 		const collection = store.get(this.href);
 		if (collection) {
@@ -57,9 +61,5 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(MobxLitElement) {
 		}
 	}
 
-	hasPendingChanges() {
-		const collection = store.get(this.href);
-		return collection && collection.dirty;
-	}
 }
 customElements.define('d2l-activity-attachments-editor', ActivityAttachmentsEditor);

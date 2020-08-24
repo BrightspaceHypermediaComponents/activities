@@ -24,8 +24,8 @@ describe('Grade Candidate Collection', function() {
 
 		const gradeCandidateCollectionEntityMock = {
 			getGradeCandidates: () => [
-				{'test': 1},
-				{'test': 2}
+				{ 'test': 1 },
+				{ 'test': 2 }
 			],
 			getAssociateNewGradeAction: () => {}
 		};
@@ -135,8 +135,8 @@ describe('New Grade Candidate Collection', function() {
 
 		const gradeCandidateCollectionEntityMock = {
 			getGradeCandidates: () => [
-				{'test': 1},
-				{'test': 2}
+				{ 'test': 1 },
+				{ 'test': 2 }
 			],
 			getAssociateNewGradeAction: () => {}
 		};

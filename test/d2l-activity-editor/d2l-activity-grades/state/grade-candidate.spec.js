@@ -80,7 +80,7 @@ describe('Grade Candidate', function() {
 				isCurrentAssociation: () => false,
 				href: () => 'http://grade-candidate-href-category',
 				getGradeCandidates: () => [
-					{'testgrade' : 1}
+					{ 'testgrade' : 1 }
 				],
 				newGradeCandidatesHref: () => undefined,
 				isNewGradeCandidate: () => false

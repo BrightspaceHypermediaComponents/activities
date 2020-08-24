@@ -1,5 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {QuickEvalLocalize} from './QuickEvalLocalize.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { QuickEvalLocalize } from './QuickEvalLocalize.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import './d2l-quick-eval-view-toggle.js';

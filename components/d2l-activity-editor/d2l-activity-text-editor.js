@@ -13,26 +13,6 @@ class ActivityTextEditor extends LitElement {
 		};
 	}
 
-	_onPlaintextChange() {
-		const content = this.shadowRoot.querySelector('d2l-input-textarea').value;
-		this._dispatchChangeEvent(content);
-	}
-
-	_onRichtextChange(e) {
-		const content = e.detail.content;
-		this._dispatchChangeEvent(content);
-	}
-
-	_dispatchChangeEvent(content) {
-		this.dispatchEvent(new CustomEvent('d2l-activity-text-editor-change', {
-			bubbles: true,
-			composed: true,
-			detail: {
-				content: content
-			}
-		}));
-	}
-
 	render() {
 		const event = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-editor-enabled' },
@@ -65,6 +45,24 @@ class ActivityTextEditor extends LitElement {
 				</d2l-input-textarea>
 			`;
 		}
+	}
+	_dispatchChangeEvent(content) {
+		this.dispatchEvent(new CustomEvent('d2l-activity-text-editor-change', {
+			bubbles: true,
+			composed: true,
+			detail: {
+				content: content
+			}
+		}));
+	}
+	_onPlaintextChange() {
+		const content = this.shadowRoot.querySelector('d2l-input-textarea').value;
+		this._dispatchChangeEvent(content);
+	}
+
+	_onRichtextChange(e) {
+		const content = e.detail.content;
+		this._dispatchChangeEvent(content);
 	}
 
 }

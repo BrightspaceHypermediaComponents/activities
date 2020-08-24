@@ -98,7 +98,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 				<d2l-hm-filter
 					href="[[filterHref]]"
 					token="[[token]]"
-					category-whitelist="[[filterIds]]"
+					category-include-list="[[filterIds]]"
 					result-size="[[_numberOfActivitiesToShow]]"
 					lazy-load-options>
 				</d2l-hm-filter>
@@ -296,7 +296,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			this.perfMark('submissionsLoadEnd');
 			this.logAndDestroyPerformanceEvent('submissions', 'qeViewLoadStart', 'submissionsLoadEnd');
 		} catch (e) {
-			this._logError(e, {developerMessage: 'Unable to load activities from entity.'});
+			this._logError(e, { developerMessage: 'Unable to load activities from entity.' });
 			this._handleFullLoadFailure();
 			return Promise.reject(e);
 		} finally {
@@ -340,7 +340,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			}.bind(this))
 			.then(this._clearAlerts.bind(this))
 			.catch(function(e) {
-				this._logError(e, {developerMessage: 'Unable to load more.'});
+				this._logError(e, { developerMessage: 'Unable to load more.' });
 				this._loadingMore = false;
 				this._handleLoadMoreFailure();
 			}.bind(this));

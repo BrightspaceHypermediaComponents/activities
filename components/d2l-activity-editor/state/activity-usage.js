@@ -1,6 +1,7 @@
 import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { ActivityDates } from './activity-dates.js';
 import { ActivityScoreGrade } from './activity-score-grade.js';
+import { ActivitySpecialAccess } from './activity-special-access.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsCollectionEntity } from 'siren-sdk/src/alignments/AlignmentsCollectionEntity.js';
 import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
@@ -15,6 +16,9 @@ export class ActivityUsage {
 		this.token = token;
 	}
 
+	async dirty() {
+		return !this._entity.equals(this._makeUsageData()) || await this._alignmentsDirty();
+	}
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -27,6 +31,7 @@ export class ActivityUsage {
 	async load(entity) {
 		this._entity = entity;
 		this.conditionsHref = entity.conditionsHref();
+		this.canEditReleaseConditions = entity.canEditReleaseConditions();
 		this.isDraft = entity.isDraft();
 		this.canEditDraft = entity.canEditDraft();
 		this.isError = false;
@@ -34,32 +39,10 @@ export class ActivityUsage {
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
 		this.associationsHref = entity.getDirectRubricAssociationsHref();
 
-		/**
-		 * Legacy Competencies
-		 * Href will be available if competencies tool is enabled and outcomes tool is disabled or there are no intents in the course.
-		*/
-		this.competenciesHref = entity.competenciesHref();
-		this.associatedCompetenciesCount = null;
-		this.unevaluatedCompetenciesCount = null;
-		this.competenciesDialogUrl = null;
-
-		/**
-		 * Learning Outcomes
-		 * Href will be available if outcomes tool is enabled.
-		 */
-		this.alignmentsHref = this.competenciesHref ? null : entity.alignmentsHref();
-		this.canUpdateAlignments = false;
-
-		if (this.competenciesHref) {
-			await this.loadCompetencies();
-		} else if (this.alignmentsHref) {
-			const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
-
-			runInAction(() => {
-				const alignmentsCollection = new AlignmentsCollectionEntity(alignmentsEntity);
-				this.canUpdateAlignments = alignmentsCollection.canUpdateAlignments();
-			});
-		}
+		await Promise.all([
+			this._loadSpecialAccess(entity),
+			this._loadCompetencyOutcomes(entity)
+		]);
 	}
 
 	async loadCompetencies(bypassCache) {
@@ -72,43 +55,54 @@ export class ActivityUsage {
 		runInAction(() => {
 			const entity = new CompetenciesEntity(sirenEntity);
 			this.competenciesDialogUrl = entity.dialogUrl();
+			this.canEditCompetencies = !!this.competenciesDialogUrl;
 			this.associatedCompetenciesCount = entity.associatedCount() || 0;
 			this.unevaluatedCompetenciesCount = entity.unevaluatedCount() || 0;
 		});
 	}
+	async save() {
+		if (!this._entity) {
+			return;
+		}
 
+		await this.saveAlignments();
+
+		await this.scoreAndGrade.primeGradeSave();
+
+		await this._entity.save(this._makeUsageData());
+
+		await this.fetch();
+	}
+	async saveAlignments() {
+		if (this.alignmentsHref && this.canUpdateAlignments) {
+			const alignmentsCollection = new AlignmentsCollectionEntity(await fetchEntity(this.alignmentsHref, this.token), this.token);
+			return alignmentsCollection.save();
+		}
+	}
 	setAlignmentsHref(value) {
 		this.alignmentsHref = value;
 	}
-
-	setCanUpdateAlignments(value) {
-		this.canUpdateAlignments = value;
-	}
-
-	setDraftStatus(isDraft) {
-		this.isDraft = isDraft;
-	}
-
 	setCanEditDraft(value) {
 		this.canEditDraft = value;
 	}
-
-	setIsError(value) {
-		this.isError = value;
+	setCanUpdateAlignments(value) {
+		this.canUpdateAlignments = value;
 	}
-
-	setErrorLangTerms(errorType) {
-		this.dates.setErrorLangTerms(errorType);
-	}
-
-	setScoreAndGrade(val) {
-		this.scoreAndGrade = val;
-	}
-
 	setDates(val) {
 		this.dates = val;
 	}
-
+	setDraftStatus(isDraft) {
+		this.isDraft = isDraft;
+	}
+	setErrorLangTerms(errorType) {
+		this.dates.setErrorLangTerms(errorType);
+	}
+	setIsError(value) {
+		this.isError = value;
+	}
+	setScoreAndGrade(val) {
+		this.scoreAndGrade = val;
+	}
 	async validate() {
 		if (!this._entity) {
 			return;
@@ -138,6 +132,59 @@ export class ActivityUsage {
 			throw new Error('Activity Usage validation failed');
 		}
 	}
+	async _alignmentsDirty() {
+		if (!this.alignmentsHref || !this.canUpdateAlignments) {
+			return false;
+		}
+
+		const alignmentsCollection = new AlignmentsCollectionEntity(await fetchEntity(this.alignmentsHref, this.token), this.token);
+		return alignmentsCollection.hasSubmitAction();
+	}
+	async _loadCompetencyOutcomes(entity) {
+		/**
+		 * Legacy Competencies
+		 * Href will be available if competencies tool is enabled and outcomes tool is disabled or there are no intents in the course.
+		*/
+		this.competenciesHref = entity.competenciesHref();
+		this.associatedCompetenciesCount = null;
+		this.unevaluatedCompetenciesCount = null;
+		this.competenciesDialogUrl = null;
+		this.canEditCompetencies = false;
+
+		/**
+		 * Learning Outcomes
+		 * Href will be available if outcomes tool is enabled.
+		*/
+		this.alignmentsHref = this.competenciesHref ? null : entity.alignmentsHref();
+		this.canUpdateAlignments = false;
+
+		if (this.competenciesHref) {
+			await this.loadCompetencies();
+		} else if (this.alignmentsHref) {
+			await this._loadOutcomes();
+		}
+	}
+
+	async _loadOutcomes() {
+		const alignmentsEntity = await fetchEntity(this.alignmentsHref, this.token);
+
+		runInAction(() => {
+			const alignmentsCollection = new AlignmentsCollectionEntity(alignmentsEntity);
+			this.canUpdateAlignments = alignmentsCollection.canUpdateAlignments();
+		});
+	}
+
+	async _loadSpecialAccess(entity) {
+		const specialAccessHref = entity.specialAccessHref();
+		let specialAccess = null;
+
+		if (specialAccessHref) {
+			specialAccess = new ActivitySpecialAccess(specialAccessHref, this.token);
+			await specialAccess.fetch();
+		}
+
+		runInAction(() => this.specialAccess = specialAccess);
+	}
 
 	_makeUsageData() {
 		return {
@@ -157,34 +204,13 @@ export class ActivityUsage {
 		};
 	}
 
-	async saveAlignments() {
-		if (this.alignmentsHref && this.canUpdateAlignments) {
-			const alignmentsCollection = new AlignmentsCollectionEntity(await fetchEntity(this.alignmentsHref, this.token), this.token);
-			return alignmentsCollection.save();
-		}
-	}
-
-	async save() {
-		if (!this._entity) {
-			return;
-		}
-
-		await this.saveAlignments();
-
-		await this._entity.save(this._makeUsageData());
-
-		await this.fetch();
-	}
-
-	get dirty() {
-		return !this._entity.equals(this._makeUsageData());
-	}
 }
 
 decorate(ActivityUsage, {
 	// props
 	dueDate: observable,
 	conditionsHref: observable,
+	canEditReleaseConditions: observable,
 	isDraft: observable,
 	canEditDraft: observable,
 	isError: observable,
@@ -196,7 +222,9 @@ decorate(ActivityUsage, {
 	competenciesHref: observable,
 	associatedCompetenciesCount: observable,
 	unevaluatedCompetenciesCount: observable,
+	canEditCompetencies: observable,
 	competenciesDialogUrl: observable,
+	specialAccess: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

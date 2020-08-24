@@ -48,13 +48,13 @@ D2L.PolymerBehaviors.Siren.D2LSirenHelperBehaviorImpl = {
 
 		Object.keys(searchParams).forEach(function(key) {
 			if (!action.fields.filter(x => x.name === key)[0]) {
-				action.fields.push({name: key, value: searchParams[key], type: 'hidden'});
+				action.fields.push({ name: key, value: searchParams[key], type: 'hidden' });
 			}
 		});
 
 		if (customParams) {
 			Object.keys(customParams).forEach(function(paramName) {
-				action.fields.push({name: paramName, value: customParams[paramName], type: 'hidden'});
+				action.fields.push({ name: paramName, value: customParams[paramName], type: 'hidden' });
 			});
 		}
 

@@ -3,14 +3,13 @@ import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { assignments as store } from './state/assignment-store.js';
 
 class ActivityAssignmentAnonymousMarkingEditor
-	extends ActivityEditorMixin(RtlMixin(LocalizeMixin(MobxLitElement))) {
+	extends ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))) {
 
 	static get styles() {
 
@@ -35,8 +34,8 @@ class ActivityAssignmentAnonymousMarkingEditor
 			}
 
 			:host([dir="rtl"]) d2l-input-checkbox {
-				padding-right: 0;
 				padding-left: 1rem;
+				padding-right: 0;
 			}
 
 			d2l-input-checkbox-spacer {
@@ -50,20 +49,9 @@ class ActivityAssignmentAnonymousMarkingEditor
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	constructor() {
 
 		super(store);
-	}
-
-	_saveAnonymousMarking(event) {
-
-		const entity = store.get(this.href);
-		entity.setAnonymousMarking(event.target.checked);
 	}
 
 	render() {
@@ -73,7 +61,7 @@ class ActivityAssignmentAnonymousMarkingEditor
 			return html``;
 		}
 
-		const shouldRenderEditor = entity.isAnonymousMarkingAvailable;
+		const shouldRenderEditor = entity.anonymousMarkingProps.isAnonymousMarkingAvailable;
 		if (!shouldRenderEditor) {
 			return html``;
 		}
@@ -84,8 +72,8 @@ class ActivityAssignmentAnonymousMarkingEditor
 			</label>
 			<d2l-input-checkbox
 				@change="${this._saveAnonymousMarking}"
-				?checked="${entity.isAnonymousMarkingEnabled}"
-				?disabled="${!entity.canEditAnonymousMarking}"
+				?checked="${entity.anonymousMarkingProps.isAnonymousMarkingEnabled}"
+				?disabled="${!entity.anonymousMarkingProps.canEditAnonymousMarking}"
 				ariaLabel="${this.localize('chkAnonymousMarking')}">
 				${this.localize('chkAnonymousMarking')}
 			</d2l-input-checkbox>
@@ -96,6 +84,12 @@ class ActivityAssignmentAnonymousMarkingEditor
 			</d2l-input-checkbox-spacer>
 		`;
 	}
+	_saveAnonymousMarking(event) {
+
+		const entity = store.get(this.href);
+		entity.setAnonymousMarking(event.target.checked);
+	}
+
 }
 customElements.define(
 	'd2l-activity-assignment-anonymous-marking-editor',

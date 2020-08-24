@@ -1,4 +1,4 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier3-icons.js';

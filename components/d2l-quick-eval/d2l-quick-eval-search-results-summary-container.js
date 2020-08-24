@@ -1,5 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {QuickEvalLocalize} from './QuickEvalLocalize.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { QuickEvalLocalize } from './QuickEvalLocalize.js';
 import 'd2l-link/d2l-link.js';
 
 class D2LQuickEvalSearchResultsSummaryContainer extends QuickEvalLocalize(PolymerElement) {

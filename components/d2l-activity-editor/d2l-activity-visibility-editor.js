@@ -17,13 +17,6 @@ class ActivityVisibilityEditor extends (ActivityEditorMixin(MobxLitElement)) {
 		this.disabled = false;
 	}
 
-	_updateVisibility() {
-		const activity = store.get(this.href);
-		if (activity) {
-			activity.setDraftStatus(!activity.isDraft);
-		}
-	}
-
 	render() {
 		const activity = store.get(this.href);
 
@@ -41,12 +34,11 @@ class ActivityVisibilityEditor extends (ActivityEditorMixin(MobxLitElement)) {
 				?disabled="${this.disabled}"
 				?is-draft="${isDraft}"
 				?can-edit-draft="${canEditDraft}"
-				@click="${this._updateVisibility}"
+				@d2l-activity-visibility-editor-toggle-change="${this._updateVisibility}"
 			>
 			</d2l-activity-visibility-editor-toggle>
 		`;
 	}
-
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
@@ -55,5 +47,12 @@ class ActivityVisibilityEditor extends (ActivityEditorMixin(MobxLitElement)) {
 			super._fetch(() => store.fetch(this.href, this.token, this.autoSave));
 		}
 	}
+	_updateVisibility() {
+		const activity = store.get(this.href);
+		if (activity) {
+			activity.setDraftStatus(!activity.isDraft);
+		}
+	}
+
 }
 customElements.define('d2l-activity-visibility-editor', ActivityVisibilityEditor);

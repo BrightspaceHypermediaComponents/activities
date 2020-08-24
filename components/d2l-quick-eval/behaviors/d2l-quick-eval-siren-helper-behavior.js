@@ -1,6 +1,6 @@
-import {Rels, Classes} from 'd2l-hypermedia-constants';
+import { Rels, Classes } from 'd2l-hypermedia-constants';
 import './d2l-siren-helper-behavior.js';
-import {DISMISS_TYPES} from '../dismiss/dismiss-types.js';
+import { DISMISS_TYPES } from '../dismiss/dismiss-types.js';
 
 window.D2L = window.D2L || {};
 window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};

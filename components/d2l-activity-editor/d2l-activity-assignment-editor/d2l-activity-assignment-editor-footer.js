@@ -3,12 +3,11 @@ import '../d2l-activity-visibility-editor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { getLocalizeResources } from '../localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
 
-class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(LocalizeMixin(LitElement)))) {
+class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(LocalizeActivityAssignmentEditorMixin(LitElement)))) {
 
 	static get properties() {
 		return {
@@ -28,8 +27,9 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 				display: inline-block;
 			}
 			.d2l-activity-assignment-editor-footer-left {
-				flex: 1;
+				align-items: baseline;
 				display: flex;
+				flex: 1;
 				flex-direction: row-reverse;
 				justify-content: flex-end;
 			}
@@ -39,13 +39,9 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 			@media only screen and (max-width: 615px) {
 				.d2l-activity-assignment-editor-footer-left {
 					justify-content: space-between;
-					}
+				}
 			}
 		`;
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
@@ -55,6 +51,20 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 		this._activityUsageHref = '';
 	}
 
+	render() {
+		return html`
+			<div class="d2l-activity-assignment-editor-footer-left">
+				<d2l-activity-visibility-editor
+					.href="${this._activityUsageHref}"
+					.token="${this.token}">
+				</d2l-activity-visibility-editor>
+				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>
+			</div>
+			<div class="d2l-activity-assignment-editor-footer-right">
+				<slot name="save-status"></slot>
+			</div>
+		`;
+	}
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
 			this._onAssignmentChange(entity);
@@ -70,19 +80,5 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 		this._activityUsageHref = assignment.activityUsageHref();
 	}
 
-	render() {
-		return html`
-			<div class="d2l-activity-assignment-editor-footer-left">
-				<d2l-activity-visibility-editor
-					href="${this._activityUsageHref}"
-					.token="${this.token}">
-				</d2l-activity-visibility-editor>
-				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>
-			</div>
-			<div class="d2l-activity-assignment-editor-footer-right">
-				<slot name="save-status"></slot>
-			</div>
-		`;
-	}
 }
 customElements.define('d2l-activity-assignment-editor-footer', AssignmentEditorFooter);

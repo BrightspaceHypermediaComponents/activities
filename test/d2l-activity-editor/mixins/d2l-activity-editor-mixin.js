@@ -1,6 +1,6 @@
 import { defineCE, expect, fixture, oneEvent } from '@open-wc/testing';
 import { ActivityEditorContainerMixin } from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-container-mixin.js';
-import { ActivityEditorMixin} from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-mixin.js';
+import { ActivityEditorMixin } from '../../../components/d2l-activity-editor/mixins/d2l-activity-editor-mixin.js';
 import { AsyncStateEvent } from '@brightspace-ui/core/helpers/asyncStateEvent.js';
 
 const container = defineCE(

@@ -1,9 +1,9 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {QuickEvalLocalize} from '../QuickEvalLocalize.js';
-import {QuickEvalLogging} from '../QuickEvalLogging.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { QuickEvalLocalize } from '../QuickEvalLocalize.js';
+import { QuickEvalLogging } from '../QuickEvalLogging.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-alert/d2l-alert-toast.js';
-import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import './d2l-quick-eval-ellipsis-dismiss-dialog.js';
 import '../behaviors/d2l-quick-eval-siren-helper-behavior.js';
 import '../behaviors/d2l-quick-eval-refresh-behavior.js';
@@ -119,7 +119,7 @@ class D2LQuickEvalDismissedActivities extends mixinBehaviors(
 					unDismiss: dismiss.unDismissAction
 				};
 			} catch (e) {
-				this._logError(e, {developerMessage: `Error loading activity data for ${this._getHref(activity, 'self')}.`});
+				this._logError(e, { developerMessage: `Error loading activity data for ${this._getHref(activity, 'self')}.` });
 				return null;
 			}
 		}.bind(this)));

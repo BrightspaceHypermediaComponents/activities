@@ -1,5 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {ActivityListItemLocalize} from './ActivityListItemLocalize.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { ActivityListItemLocalize } from './ActivityListItemLocalize.js';
 import 'd2l-typography/d2l-typography.js';
 import 'd2l-button/d2l-button.js';
 import SirenParse from 'siren-parser';

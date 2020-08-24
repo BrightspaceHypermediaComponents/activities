@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import {LitQuickEvalLocalize} from '../LitQuickEvalLocalize.js';
+import { LitQuickEvalLocalize } from '../LitQuickEvalLocalize.js';
 import 'd2l-dropdown/d2l-dropdown.js';
 import 'd2l-dropdown/d2l-dropdown-menu.js';
 import 'd2l-menu/d2l-menu.js';

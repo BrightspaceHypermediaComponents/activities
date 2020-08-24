@@ -18,10 +18,10 @@
 			import 'd2l-typography/d2l-typography.js';
 			import './update-direction.js';
 
-			import {formatPage } from './page-handler';
+			import { formatPage } from './page-handler';
 			import startMockServer from './interceptor';
 
-			const mappings = {'pages/0': formatPage(undefined, '', '')};
+			const mappings = { 'pages/0': formatPage(undefined, '', '') };
 			startMockServer(mappings, true);
 
 			// For IE11, we need to import the component after we've started the mock observer

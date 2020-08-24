@@ -21,6 +21,17 @@ class ActivityVisibilityAutoEditor extends SaveStatusMixin(EntityMixinLit(LitEle
 		this.disabled = false;
 	}
 
+	render() {
+
+		return html`
+			<d2l-activity-visibility-editor-toggle
+				?disabled="${this.disabled}"
+				?is-draft="${this._isDraft}"
+				?can-edit-draft="${this._canEditDraft}"
+				@d2l-activity-visibility-editor-toggle-change="${this._updateVisibility}">
+			</d2l-activity-visibility-editor-toggle>
+		`;
+	}
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
 			this._onActivityUsageChange(entity);
@@ -40,17 +51,5 @@ class ActivityVisibilityAutoEditor extends SaveStatusMixin(EntityMixinLit(LitEle
 		this.wrapSaveAction(super._entity.setDraftStatus(!this._isDraft));
 	}
 
-	render() {
-
-		return html`
-			<d2l-activity-visibility-editor-toggle
-				?disabled="${this.disabled}"
-				?is-draft="${this._isDraft}"
-				?can-edit-draft="${this._canEditDraft}"
-				@click="${this._updateVisibility}"
-			>
-			</d2l-activity-visibility-editor-toggle>
-		`;
-	}
 }
 customElements.define('d2l-activity-visibility-auto-editor', ActivityVisibilityAutoEditor);

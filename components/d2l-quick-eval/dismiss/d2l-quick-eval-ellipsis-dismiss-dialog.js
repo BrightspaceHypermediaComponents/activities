@@ -12,7 +12,7 @@ class D2LQuickEvalEllipsisDialog extends LitQuickEvalLocalize(LitElement) {
 			opened: { type: Boolean },
 			dismissedActivities: { type: Array },
 			loading: { type: Boolean },
-			restoreDisabled: {type: Boolean}
+			restoreDisabled: { type: Boolean }
 		};
 	}
 

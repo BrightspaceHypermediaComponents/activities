@@ -7,6 +7,10 @@ export class ObjectStore {
 		this._objects = new Map();
 	}
 
+	clear() {
+		this._objects.clear();
+		this._fetches.clear();
+	}
 	async fetch(href, token) {
 		let promise = this._fetches.get(href);
 		if (!promise) {
@@ -39,10 +43,6 @@ export class ObjectStore {
 		this._fetches.delete(href);
 	}
 
-	clear() {
-		this._objects.clear();
-		this._fetches.clear();
-	}
 }
 
 decorate(ObjectStore, {

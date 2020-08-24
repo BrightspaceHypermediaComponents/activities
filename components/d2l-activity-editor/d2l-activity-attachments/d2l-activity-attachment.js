@@ -18,18 +18,6 @@ class ActivityAttachment extends ActivityEditorMixin(MobxLitElement) {
 		super(store);
 	}
 
-	_onAttachmentUnfurled(e) {
-		const attachment = store.get(this.href);
-		if (!attachment.attachment.name) {
-			attachment.setName(e.detail.title);
-		}
-	}
-
-	_onToggleRemoved() {
-		const attachment = store.get(this.href);
-		attachment.markDeleted(!attachment.deleted);
-	}
-
 	render() {
 		const item = store.get(this.href);
 
@@ -59,6 +47,18 @@ class ActivityAttachment extends ActivityEditorMixin(MobxLitElement) {
 			</d2l-labs-attachment>
 		`;
 	}
+	_onAttachmentUnfurled(e) {
+		const attachment = store.get(this.href);
+		if (!attachment.attachment.name) {
+			attachment.setName(e.detail.title);
+		}
+	}
+
+	_onToggleRemoved() {
+		const attachment = store.get(this.href);
+		attachment.markDeleted(!attachment.deleted);
+	}
+
 }
 
 customElements.define('d2l-activity-attachment', ActivityAttachment);

@@ -206,8 +206,8 @@
 				});
 				[
 					{ hrefKey: 'href', child: 'd2l-quick-eval-submissions', expected: 'newValue' },
-					{ hrefKey: 'submissionsHref', child: 'd2l-quick-eval-submissions', expected: 'newValue'},
-					{ hrefKey: 'activitiesHref', child: 'd2l-quick-eval-activities', expected: 'newValue'}
+					{ hrefKey: 'submissionsHref', child: 'd2l-quick-eval-submissions', expected: 'newValue' },
+					{ hrefKey: 'activitiesHref', child: 'd2l-quick-eval-activities', expected: 'newValue' }
 				].forEach(function(testCase) {
 					test(`Setting ${testCase.hrefKey} gets passed to the href for ${testCase.child}`, function() {
 						quickEval.href = '';

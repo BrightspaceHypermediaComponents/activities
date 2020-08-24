@@ -4,14 +4,12 @@ import 'd2l-activity-alignments/d2l-select-outcomes.js';
 import { ActivityEditorFeaturesMixin, Milestones } from './mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
-import { getLocalizeResources } from './localization';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(LocalizeMixin(RtlMixin(MobxLitElement)))) {
+class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -36,10 +34,6 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 		`];
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
-	}
-
 	constructor() {
 		super(store);
 		this.deferredSave = true;
@@ -54,6 +48,48 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 		this._outcomesTerm = this._dispatchRequestProvider('d2l-provider-outcomes-term');
 	}
 
+	render() {
+		const activity = store.get(this.href);
+		if (!activity || !this._featureEnabled) {
+			this.hidden = true;
+			return html``;
+		}
+
+		const {
+			canUpdateAlignments
+		} = activity;
+
+		if (!canUpdateAlignments && !this._hasAlignments) {
+			this.hidden = true;
+		} else {
+			this.hidden = false;
+		}
+
+		return html`
+			${this._renderTags()}
+			${canUpdateAlignments && !this._hasAlignments ? html`${this._renderDialogOpener()}` : null}
+			${canUpdateAlignments ? html`
+			<d2l-dialog
+				title-text="${this._browseOutcomesText}"
+				?opened="${this._opened}"
+				@d2l-dialog-close="${this._closeDialog}">
+				<d2l-select-outcomes
+					href="${this.href}"
+					.token="${this.token}"
+					?deferred-save="${this.deferredSave}"
+					@d2l-alignment-list-added="${this._onDialogAdd}"
+					@d2l-alignment-list-cancelled="${this._onDialogCancel}">
+				</d2l-select-outcomes>
+			</d2l-dialog>` : null}
+		`;
+	}
+	_alignmentTagsEmptyChanged(e) {
+		this._hasAlignments = !e.detail.value;
+		this.requestUpdate();
+	}
+	_closeDialog() {
+		this._opened = false;
+	}
 	_dispatchRequestProvider(key) {
 		const event = new CustomEvent('d2l-request-provider', {
 			detail: { key: key },
@@ -85,10 +121,6 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 		this._opened = true;
 	}
 
-	_closeDialog() {
-		this._opened = false;
-	}
-
 	_renderDialogOpener() {
 		return html`<d2l-button-subtle
 			text="${this._outcomesTerm}"
@@ -112,37 +144,5 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(L
 			</d2l-activity-alignment-tags>`;
 	}
 
-	_alignmentTagsEmptyChanged(e) {
-		this._hasAlignments = !e.detail.value;
-		this.requestUpdate();
-	}
-
-	render() {
-		const activity = store.get(this.href);
-		if (!activity || !this._featureEnabled) {
-			this.hidden = true;
-			return html``;
-		}
-
-		this.hidden = false;
-
-		const {
-			canUpdateAlignments
-		} = activity;
-
-		return html`
-			${this._renderTags()}
-			${canUpdateAlignments && !this._hasAlignments ? html`${this._renderDialogOpener()}` : null}
-			${canUpdateAlignments ? html`<d2l-dialog title-text="${this._browseOutcomesText}" ?opened="${this._opened}">
-				<d2l-select-outcomes
-					href="${this.href}"
-					.token="${this.token}"
-					?deferred-save="${this.deferredSave}"
-					@d2l-alignment-list-added="${this._onDialogAdd}"
-					@d2l-alignment-list-cancelled="${this._onDialogCancel}">
-				</d2l-select-outcomes>
-			</d2l-dialog>` : null}
-		`;
-	}
 }
 customElements.define('d2l-activity-outcomes', ActivityOutcomes);

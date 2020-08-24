@@ -41,6 +41,9 @@ export class GradeCandidate {
 		return gradeCandidate;
 	}
 
+	isNewGradeCandidateWithCategory() {
+		return this.isNewGradeCandidate && this.href;
+	}
 	async load(entity) {
 		this.href = this.gradeCandidateEntity.href();
 		this.isNewGradeCandidate = this.gradeCandidateEntity.isNewGradeCandidate();
@@ -54,15 +57,12 @@ export class GradeCandidate {
 			this.maxPoints = entity.maxPoints();
 		}
 		const gradeCandidatePromises = this.gradeCandidateEntity.getGradeCandidates().map(gc => {
-			const gradeCandidateEntity = new GradeCandidateEntity(gc, this.token, { remove: () => { }});
+			const gradeCandidateEntity = new GradeCandidateEntity(gc, this.token, { remove: () => { } });
 			return this.fetchGradeCandidate(gradeCandidateEntity);
 		});
 		this.gradeCandidates = await Promise.all(gradeCandidatePromises);
 	}
 
-	isNewGradeCandidateWithCategory() {
-		return this.isNewGradeCandidate && this.href;
-	}
 }
 
 decorate(GradeCandidate, {

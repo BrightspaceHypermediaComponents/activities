@@ -2,26 +2,26 @@ import { css } from 'lit-element/lit-element.js';
 
 // !important is only needed for old Edge
 export const summarizerHeaderStyles = css`
-	.activity-summarizer-header {
-		margin-top: 20px !important;
+	.d2l-activity-summarizer-header {
 		margin-bottom: 12px !important;
+		margin-top: 20px !important;
 	}
 `;
 
 export const summarizerSummaryStyles = css`
-	.activity-summarizer-summary {
+	.d2l-activity-summarizer-summary {
+		color: var(--d2l-color-tungsten);
 		list-style: none;
-		padding: 0;
 		margin-top: 5px;
 		min-height: 20px;
-		color: var(--d2l-color-tungsten);
+		padding: 0;
 	}
 
-	ul.activity-summarizer-summary > li {
+	ul.d2l-activity-summarizer-summary > li {
 		margin-bottom: 8px;
 	}
 
-	ul.activity-summarizer-summary > li:last-child {
+	ul.d2l-activity-summarizer-summary > li:last-child {
 		margin-bottom: 0;
 	}
 `;

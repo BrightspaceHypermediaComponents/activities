@@ -379,12 +379,12 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		});
 		suite('_getWidthCssClass and _defaultColumnWidth', () => {
 			[
-				{ input: 15, output: 'd2l-quick-eval-15-column'},
-				{ input: 20, output: 'd2l-quick-eval-20-column'},
-				{ input: 25, output: 'd2l-quick-eval-25-column'},
-				{ input: 30, output: 'd2l-quick-eval-30-column'},
-				{ input: null, output: 'd2l-quick-eval-25-column'},
-				{ input: undefined, output: 'd2l-quick-eval-25-column'}
+				{ input: 15, output: 'd2l-quick-eval-15-column' },
+				{ input: 20, output: 'd2l-quick-eval-20-column' },
+				{ input: 25, output: 'd2l-quick-eval-25-column' },
+				{ input: 30, output: 'd2l-quick-eval-30-column' },
+				{ input: null, output: 'd2l-quick-eval-25-column' },
+				{ input: undefined, output: 'd2l-quick-eval-25-column' }
 			].forEach(testCase => {
 				test(`_getWidthCssClass returns ${testCase.output} when given ${testCase.input}`, () => {
 					list.headerColumns = [{}, {}, {}, {}];
@@ -414,7 +414,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 				{ input: null, match: 'none', expected: true }
 			].forEach((testCase) => {
 				test(`Calling _isColumn with ${testCase.input} and ${testCase.match} should ${testCase.expected ? '' : 'not '} match.`, () => {
-					assert.equal(list._isColumn({type: testCase.input}, testCase.match), testCase.expected);
+					assert.equal(list._isColumn({ type: testCase.input }, testCase.match), testCase.expected);
 				});
 			});
 		});

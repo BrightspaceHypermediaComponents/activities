@@ -1,4 +1,4 @@
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
 const ActivityListItemResponsiveConstantsImpl = (superClass) => class extends superClass {

@@ -1,4 +1,4 @@
-import { ActivityScoreGrade} from '../../../components/d2l-activity-editor/state/activity-score-grade.js';
+import { ActivityScoreGrade } from '../../../components/d2l-activity-editor/state/activity-score-grade.js';
 import { expect } from 'chai';
 import { fetchEntity } from '../../../components/d2l-activity-editor/state/fetch-entity.js';
 import { GradeCandidate } from '../../../components/d2l-activity-editor/d2l-activity-grades/state/grade-candidate.js';

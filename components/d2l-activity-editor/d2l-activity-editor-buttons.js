@@ -1,9 +1,8 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { getLocalizeResources } from './localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 
-class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
+class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElement)) {
 
 	static get styles() {
 		return css`
@@ -20,27 +19,38 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 				margin-left: 0.75rem;
 				margin-right: 0;
 			}
-			.mobile {
+			.d2l-mobile {
 				display: none;
 			}
 			@media only screen and (max-width: 615px) {
-				.desktop {
+				.d2l-desktop {
 					display: none;
 				}
-				.mobile {
+				.d2l-mobile {
 					display: inline-block;
 				}
-				.footerBtn {
+				.d2l-footerBtn {
 					margin: 0;
 				}
 			}
 		`;
 	}
 
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
+	render() {
+		return html`
+			<d2l-button class="d2l-desktop" primary @click="${this._save}">${this.localize('editor.btnSave')}</d2l-button>
+			<d2l-button class="d2l-mobile d2l-footerBtn" primary @click="${this._save}">${this.localize('editor.btnSaveMobile')}</d2l-button>
+			<d2l-button class="d2l-footerBtn" @click="${this._cancel}">${this.localize('editor.btnCancel')}</d2l-button>
+		`;
 	}
-
+	_cancel() {
+		const event = new CustomEvent('d2l-activity-editor-cancel', {
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		this.dispatchEvent(event);
+	}
 	_save() {
 		const event = new CustomEvent('d2l-activity-editor-save', {
 			bubbles: true,
@@ -50,22 +60,6 @@ class ActivityEditorButtons extends RtlMixin(LocalizeMixin(LitElement)) {
 		this.dispatchEvent(event);
 	}
 
-	_cancel() {
-		const event = new CustomEvent('d2l-activity-editor-cancel', {
-			bubbles: true,
-			composed: true,
-			cancelable: true
-		});
-		this.dispatchEvent(event);
-	}
-
-	render() {
-		return html`
-			<d2l-button class="desktop" primary @click="${this._save}">${this.localize('btnSave')}</d2l-button>
-			<d2l-button class="mobile footerBtn" primary @click="${this._save}">${this.localize('btnSaveMobile')}</d2l-button>
-			<d2l-button class="footerBtn" @click="${this._cancel}">${this.localize('btnCancel')}</d2l-button>
-		`;
-	}
 }
 
 customElements.define('d2l-activity-editor-buttons', ActivityEditorButtons);

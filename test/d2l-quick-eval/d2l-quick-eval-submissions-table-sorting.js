@@ -1,4 +1,4 @@
-import {Rels} from 'd2l-hypermedia-constants';
+import { Rels } from 'd2l-hypermedia-constants';
 import SirenParse from 'siren-parser';
 
 function resetSortHeaders(list) {
@@ -103,7 +103,7 @@ suite('d2l-quick-eval-activities-list-sorting', () => {
 		});
 
 		test('_handleSorts determines which headers are sortable', () => {
-			const enabledSortClasses = [{ className:'activity-name' }, {className: 'course-name' }];
+			const enabledSortClasses = [{ className:'activity-name' }, { className: 'course-name' }];
 			const entity = {};
 
 			stubLoadSorts(list, entity, enabledSortClasses);

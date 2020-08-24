@@ -14,6 +14,11 @@ export class Attachment {
 		this.attachment = null;
 	}
 
+	async delete() {
+		if (this._entity) {
+			await this._entity.deleteAttachment();
+		}
+	}
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -47,11 +52,6 @@ export class Attachment {
 		this.attachment.name = name;
 	}
 
-	async delete() {
-		if (this._entity) {
-			await this._entity.deleteAttachment();
-		}
-	}
 }
 
 decorate(Attachment, {

@@ -86,7 +86,7 @@ suite('d2l-quick-eval-activities', function() {
 		test('_getSelectedActivities returns correct result', () => {
 			act._data = expectedData();
 			testCase.toggles.forEach(tc => {
-				act._handleListItemSelected({detail:{key: tc, selected: !(act._data[tc].selected)}});
+				act._handleListItemSelected({ detail:{ key: tc, selected: !(act._data[tc].selected) } });
 			});
 			const selected = act._getSelectedActivities();
 			assert.equal(selected.length, testCase.expected.length);

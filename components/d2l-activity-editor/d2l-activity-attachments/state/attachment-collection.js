@@ -14,6 +14,23 @@ export class AttachmentCollection {
 		this.store = store;
 	}
 
+	addAttachment(attachment) {
+		this.attachments.push(attachment.href);
+	}
+	get dirty() {
+		const attachmentStore = this.store.getAttachmentStore();
+		if (!attachmentStore) {
+			return false;
+		}
+
+		for (const href of this.attachments) {
+			const attachment = attachmentStore.get(href);
+			if (attachment && this._hasChanged(attachment)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -21,31 +38,6 @@ export class AttachmentCollection {
 			this.load(entity);
 		}
 		return this;
-	}
-
-	load(entity) {
-		this._entity = entity;
-
-		this.canAddAttachments = entity.canAddAttachments();
-		this.canAddLink = entity.canAddLinkAttachment();
-		this.canAddFile = entity.canAddFileAttachment();
-		this.canAddGoogleDriveLink = entity.canAddGoogleDriveLinkAttachment();
-		this.canAddOneDriveLink = entity.canAddOneDriveLinkAttachment();
-		this.canRecordVideo = entity.canAddVideoNoteAttachment();
-		this.canRecordAudio = entity.canAddAudioNoteAttachment();
-		this._filesHref = entity.getFilesHref();
-
-		this.attachments = entity.getAttachmentEntityHrefs() || [];
-	}
-
-	async _getFilesEntity() {
-		if (!this._filesEntity) {
-			const sirenEntity = await fetchEntity(this._filesHref, this.token);
-			if (sirenEntity) {
-				this._filesEntity = new FilesHomeEntity(sirenEntity, this.token, { remove: () => { } });
-			}
-		}
-		return this._filesEntity;
 	}
 
 	async getPreviewUrl(fileSystemType, fileId) {
@@ -59,41 +51,19 @@ export class AttachmentCollection {
 			return filePreviewLocation.previewLocation();
 		}
 	}
+	load(entity) {
+		this._entity = entity;
 
-	setCanAddAttachments(value) {
-		this.canAddAttachments = value;
-	}
+		this.canAddAttachments = entity.canAddAttachments();
+		this.canAddLink = entity.canAddLinkAttachment();
+		this.canAddFile = entity.canAddFileAttachment();
+		this.canAddGoogleDriveLink = entity.canAddGoogleDriveLinkAttachment();
+		this.canAddOneDriveLink = entity.canAddOneDriveLinkAttachment();
+		this.canRecordVideo = entity.canAddVideoNoteAttachment();
+		this.canRecordAudio = entity.canAddAudioNoteAttachment();
+		this._filesHref = entity.getFilesHref();
 
-	setCanAddFile(value) {
-		this.canAddFile = value;
-	}
-
-	setCanAddLink(value) {
-		this.canAddLink = value;
-	}
-
-	setCanAddGoogleDriveLink(value) {
-		this.canAddGoogleDriveLink = value;
-	}
-
-	setCanAddOneDriveLink(value) {
-		this.canAddOneDriveLink = value;
-	}
-
-	setCanRecordVideo(value) {
-		this.canAddRecordVideo = value;
-	}
-
-	setCanRecordAudio(value) {
-		this.canRecordAudio = value;
-	}
-
-	setAttachments(attachments) {
-		this.attachments = attachments;
-	}
-
-	addAttachment(attachment) {
-		this.attachments.push(attachment.href);
+		this.attachments = entity.getAttachmentEntityHrefs() || [];
 	}
 
 	async save() {
@@ -115,6 +85,39 @@ export class AttachmentCollection {
 			}
 		}
 	}
+	setAttachments(attachments) {
+		this.attachments = attachments;
+	}
+	setCanAddAttachments(value) {
+		this.canAddAttachments = value;
+	}
+	setCanAddFile(value) {
+		this.canAddFile = value;
+	}
+	setCanAddGoogleDriveLink(value) {
+		this.canAddGoogleDriveLink = value;
+	}
+	setCanAddLink(value) {
+		this.canAddLink = value;
+	}
+	setCanAddOneDriveLink(value) {
+		this.canAddOneDriveLink = value;
+	}
+	setCanRecordAudio(value) {
+		this.canRecordAudio = value;
+	}
+	setCanRecordVideo(value) {
+		this.canAddRecordVideo = value;
+	}
+	async _getFilesEntity() {
+		if (!this._filesEntity) {
+			const sirenEntity = await fetchEntity(this._filesHref, this.token);
+			if (sirenEntity) {
+				this._filesEntity = new FilesHomeEntity(sirenEntity, this.token, { remove: () => { } });
+			}
+		}
+		return this._filesEntity;
+	}
 
 	_hasChanged(attachment) {
 		if (attachment.deleted && !attachment.creating) {
@@ -125,20 +128,6 @@ export class AttachmentCollection {
 		return false;
 	}
 
-	get dirty() {
-		const attachmentStore = this.store.getAttachmentStore();
-		if (!attachmentStore) {
-			return false;
-		}
-
-		for (const href of this.attachments) {
-			const attachment = attachmentStore.get(href);
-			if (attachment && this._hasChanged(attachment)) {
-				return true;
-			}
-		}
-		return false;
-	}
 }
 
 decorate(AttachmentCollection, {

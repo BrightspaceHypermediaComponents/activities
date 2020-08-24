@@ -15,17 +15,16 @@ import { shared as attachmentStore } from '../d2l-activity-attachments/state/att
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../error-handling-mixin.js';
-import { getLocalizeResources } from '../localization.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LinksInMessageProcessor } from '@d2l/d2l-attachment/helpers/links-in-message-processor.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeMixin(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
+class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeActivityAssignmentEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 		return {
@@ -54,21 +53,17 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					display: flex;
 					flex-wrap: wrap;
 					min-height: 90px;  /* Hack to force a consistent the height for the old */
-					padding-bottom: 0; /* datetime picker. Can hopefully be removed when the new picker is used.*/
+					padding-bottom: 0; /* datetime picker. Can hopefully be removed when the new picker is used. */
 				}
 				#score-container {
 					margin-right: 40px;
 				}
 				:host([dir="rtl"]) #score-container {
-					margin-right: 0;
 					margin-left: 40px;
+					margin-right: 0;
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
@@ -78,90 +73,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 		this._attachmentsHref = '';
 		this._linksProcessor = new LinksInMessageProcessor();
-	}
-
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
-	}
-
-	addLinks(links) {
-		const collection = attachmentCollectionStore.get(this._attachmentsHref);
-		links = links || [];
-		links.forEach(element => {
-			collection.addAttachment(attachmentStore.createLink(element.name, element.url));
-		});
-	}
-
-	_saveInstructions(value) {
-		store.getAssignment(this.href).setInstructions(value);
-		this._debounceJobs.value = Debouncer.debounce(
-			this._debounceJobs.value,
-			timeOut.after(2000),
-			() => this._linksProcessor.process(value, linkAttachments => this.addLinks(linkAttachments))
-		);
-	}
-
-	_onAssignmentChange(assignment) {
-		if (!assignment) {
-			return;
-		}
-
-		this._attachmentsHref = assignment.attachmentsCollectionHref();
-	}
-
-	_saveOnChange(jobName) {
-		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
-	}
-
-	_saveName(value) {
-		store.getAssignment(this.href).setName(value);
-	}
-
-	_saveNameOnInput(e) {
-		const name = e.target.value;
-		const isNameEmpty = (name || '').trim().length === 0;
-
-		const errorProperty = '_nameError';
-		const emptyNameErrorLangterm = 'emptyNameError';
-		const tooltipId = 'name-tooltip';
-
-		if (isNameEmpty) {
-			this.setError(errorProperty, emptyNameErrorLangterm, tooltipId);
-		} else {
-			this.clearError(errorProperty);
-			this._debounceJobs.name = Debouncer.debounce(
-				this._debounceJobs.name,
-				timeOut.after(500),
-				() => this._saveName(name)
-			);
-		}
-	}
-
-	_saveInstructionsOnChange(e) {
-		const instructions = e.detail.content;
-
-		this._debounceJobs.instructions = Debouncer.debounce(
-			this._debounceJobs.instructions,
-			timeOut.after(500),
-			() => this._saveInstructions(instructions)
-		);
-	}
-
-	_getNameTooltip() {
-		if (this._nameError) {
-			return html`
-				<d2l-tooltip
-					id="name-tooltip"
-					for="assignment-name"
-					position="bottom"
-					?showing="${this._nameError}">
-					${this._nameError}
-				</d2l-tooltip>
-			`;
-		}
 	}
 
 	render() {
@@ -191,21 +102,28 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 					aria-label="${this.localize('name')}"
 					?disabled="${!canEditName}"
 					aria-invalid="${this._nameError ? 'true' : ''}"
-					prevent-submit>
+					prevent-submit
+					novalidate>
 				</d2l-input-text>
 				${this._getNameTooltip()}
 			</div>
 
-			<d2l-activity-outcomes
-				href="${activityUsageHref}"
-				.token="${this.token}">
-			</d2l-activity-outcomes>
+			${canEditName ? /** This is a hack. US117892. Learning outcomes shouldn't show if the user lacks the Assignment Add/Edit Submission Folders permission.
+								We are using `canEditName` instead of relying on something in outcomes,
+								because the outcomes Manage Alignments permission is currently not truly pluggable,
+								and so it cannot be plugged into Dropbox to check Assignment permissions.
+				*/ html`
+					<d2l-activity-outcomes
+						href="${activityUsageHref}"
+						.token="${this.token}">
+					</d2l-activity-outcomes>
+				` : null }
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">
 					<label class="d2l-label-text">${this.localize('scoreOutOf')}</label>
 					<d2l-activity-score-editor
-						href="${activityUsageHref}"
+						.href="${activityUsageHref}"
 						.token="${this.token}"
 						.activityName="${name}">
 					</d2l-activity-score-editor>
@@ -213,7 +131,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 				<div id="duedate-container">
 					<d2l-activity-due-date-editor
-						href="${activityUsageHref}"
+						.href="${activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-due-date-editor>
 				</div>
@@ -238,7 +156,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			</div>
 		`;
 	}
-
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
@@ -247,5 +164,83 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			super._fetch(() => store.fetchAssignment(this.href, this.token));
 		}
 	}
+	addLinks(links) {
+		const collection = attachmentCollectionStore.get(this._attachmentsHref);
+		links = links || [];
+		links.forEach(element => {
+			collection.addAttachment(attachmentStore.createLink(element.name, element.url));
+		});
+	}
+	set _entity(entity) {
+		if (this._entityHasChanged(entity)) {
+			this._onAssignmentChange(entity);
+			super._entity = entity;
+		}
+	}
+
+	_getNameTooltip() {
+		if (this._nameError) {
+			return html`
+				<d2l-tooltip
+					id="name-tooltip"
+					for="assignment-name"
+					position="bottom"
+					?showing="${this._nameError}">
+					${this._nameError}
+				</d2l-tooltip>
+			`;
+		}
+	}
+	_onAssignmentChange(assignment) {
+		if (!assignment) {
+			return;
+		}
+
+		this._attachmentsHref = assignment.attachmentsCollectionHref();
+	}
+	_saveInstructions(value) {
+		store.getAssignment(this.href).setInstructions(value);
+		this._debounceJobs.value = Debouncer.debounce(
+			this._debounceJobs.value,
+			timeOut.after(2000),
+			() => this._linksProcessor.process(value, linkAttachments => this.addLinks(linkAttachments))
+		);
+	}
+
+	_saveInstructionsOnChange(e) {
+		const instructions = e.detail.content;
+
+		this._debounceJobs.instructions = Debouncer.debounce(
+			this._debounceJobs.instructions,
+			timeOut.after(500),
+			() => this._saveInstructions(instructions)
+		);
+	}
+	_saveName(value) {
+		store.getAssignment(this.href).setName(value);
+	}
+	_saveNameOnInput(e) {
+		const name = e.target.value;
+		const isNameEmpty = (name || '').trim().length === 0;
+
+		const errorProperty = '_nameError';
+		const emptyNameErrorLangterm = 'emptyNameError';
+		const tooltipId = 'name-tooltip';
+
+		if (isNameEmpty) {
+			this.setError(errorProperty, emptyNameErrorLangterm, tooltipId);
+		} else {
+			this.clearError(errorProperty);
+			this._debounceJobs.name = Debouncer.debounce(
+				this._debounceJobs.name,
+				timeOut.after(500),
+				() => this._saveName(name)
+			);
+		}
+	}
+	_saveOnChange(jobName) {
+		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
+	}
+
 }
 customElements.define('d2l-activity-assignment-editor-detail', AssignmentEditorDetail);

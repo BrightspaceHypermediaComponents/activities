@@ -1,5 +1,5 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import {QuickEvalLocalize} from '../QuickEvalLocalize.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { QuickEvalLocalize } from '../QuickEvalLocalize.js';
 import '../activity-card/d2l-quick-eval-activity-card.js';
 import 'd2l-colors/d2l-colors.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';

@@ -27,6 +27,9 @@ export const ActivityEditorTelemetryMixin = superclass => class extends supercla
 		performance.mark(saveStartMarkName);
 	}
 
+	_getSaveStartMarkName(type) {
+		return `d2l-activity-${type}-editor.page.save.start`;
+	}
 	async _logUserEvent(href, action, type, telemetryId, performanceMeasureName) {
 		if (!href || !action || !type || !telemetryId || !performanceMeasureName) return;
 
@@ -43,7 +46,4 @@ export const ActivityEditorTelemetryMixin = superclass => class extends supercla
 		client.logUserEvent(event);
 	}
 
-	_getSaveStartMarkName(type) {
-		return `d2l-activity-${type}-editor.page.save.start`;
-	}
 };

@@ -1,4 +1,4 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import 'd2l-colors/d2l-colors.js';
 
 class D2LQuickEvalActivityCardItems extends PolymerElement {

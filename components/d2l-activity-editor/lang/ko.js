@@ -58,7 +58,8 @@ export default {
 	"editor.competencies": "학습 목표", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "학습 목표 관리", //Button text to launch competencies tool dialog
 	"editor.competenciesCount": "{count, plural, =0 {학습 목표 없음} =1 {1개 첨부됨} other {{count}개 첨부됨}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {학습 목표 없음} =1 {1개 학습 목표} other {{count}개 학습 목표}}",
+	"editor.noLearningObjectives": "No learning objectives", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =0 {학습 목표 없음} =1 {1개 학습 목표} other {{count}개 학습 목표}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1개 평가 누락} other {{count}개 평가 누락}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "닫기", //Label for Close button
 	"editor.btnCloseDialog": "이 대화 상자 닫기", // close dialog button
@@ -66,6 +67,7 @@ export default {
 	"editor.specialAccessRestrictedText": "특별 접근 권한이 있는 사용자만이 이 폴더를 볼 수 있습니다.", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "사용자는 정상 사용 가능 날짜 이외의 날짜를 제출할 수 있습니다.", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "No users", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "특별 접근 관리", // Dialog title
 	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 

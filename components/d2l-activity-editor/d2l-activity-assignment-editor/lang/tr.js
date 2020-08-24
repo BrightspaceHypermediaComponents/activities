@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Grup Kategorisi: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Grup Kategorisi", // Label for group category,
 	"txtGroupAssignmentSummary": "Grup ödevi", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "E-posta ile gönderim bildirimi", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Gönderme ve Tamamlama", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Ödeviniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Hiç grup yok. Gruplar aracında yeni gruplar oluşturun.", // Folder type no groups
@@ -48,7 +48,8 @@ export default {
 	"submissionsRule": "Gönderim",
 	"hdrSpecialAccess": "Özel Erişim", // special access heading
 	"hlpSpecialAccess": "Özel Erişim, ödevlerin yalnızca belirli bir kullanıcı grubu tarafından veya belirli kullanıcılar için kişiselleştirilmiş sona erme tarihlerinde kullanılabilmesini sağlar.", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"assignmentLocked": "Gönderimler alındığı için bazı ayarlar kilitlendi.",
+	"hdrSubmissionNotificationEmail": "Bildirim E-postası",
+	"hlpSubmissionNotificationEmail": "Bir ödev gönderildiğinde bildirim almak için bir e-posta adresi veya virgülle ayırarak birden çok e-posta adresini girin.",
+	"invalidNotificationEmailError": "Lütfen geçerli bir e-posta adresi girin"
 };

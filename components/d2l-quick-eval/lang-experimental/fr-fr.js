@@ -80,3 +80,4 @@ export const LangEn = {
 			'viewBy': 'Vu par :',
 			'yes': 'Oui'
 		};
+

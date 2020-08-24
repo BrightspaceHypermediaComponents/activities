@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "Adicionar existente", // add existing button
 	"editor.btnRemoveCondition": "Remover condição", // remove condition button
 	"editor.lblConditionsOperator": "Para visualizar o item, os usuários devem atender a", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "Condição adicionada: {title}",
+	"editor.txtConditionRemoved": "Condição removida: {title}",
+	"editor.txtConditionsAdded": "{count} condições adicionadas",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} condição de liberação} other {{count} condições de liberação}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 usuário com acesso especial} other {{userCount} usuários com acesso especial}}", // num users with special access text
 	"editor.btnCancel": "Cancelar", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "Você não tem permissão para criar um novo item de nota", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Objetivos de aprendizagem", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Gerenciar objetivos de aprendizagem", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {Nenhum objetivo de aprendizagem} =1 {1 anexado} other {{count} anexados}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {Nenhum objetivo de aprendizagem} =1 {1 objetivo de aprendizagem} other {{count} objetivos de aprendizagem}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 anexo} other {{count} anexos}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "Nenhum objetivo de aprendizagem", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 objetivo de aprendizagem} other {{count} objetivos de aprendizagem}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 avaliação ausente} other {{count} avaliações ausentes}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Fechar", //Label for Close button
 	"editor.btnCloseDialog": "Fechar esta caixa de diálogo", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "Apenas usuários com acesso especial podem ver esta pasta", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Os usuários podem fazer envios fora das datas normais de disponibilidade", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "Nenhum usuário", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Gerenciar acesso especial", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "Oculta por acesso especial", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Adicionar rubrica", //text for add rubric button
 	"rubrics.btnCreateNew": "Criar novo", //Text for create new dropdown

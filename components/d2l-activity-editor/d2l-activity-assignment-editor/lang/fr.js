@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Catégorie de groupe : {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Catégorie de groupe", // Label for group category,
 	"txtGroupAssignmentSummary": "Travail de groupe", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "Notification de soumission par courriel", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Soumission et achèvement", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Votre travail n\'était pas enregistré. Veuillez corriger les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Aucun groupe n\'existe. Créez des groupes dans l\'outil Groupes.", // Folder type no groups
@@ -48,7 +48,8 @@ export default {
 	"submissionsRule": "Soumissions",
 	"hdrSpecialAccess": "Accès spécial", // special access heading
 	"hlpSpecialAccess": "L’accès spécial permet aux travaux de n’être accessibles qu’à un groupe d’utilisateurs en particulier ou permet de définir des dates d’échéance individualisées pour certains utilisateurs.", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"assignmentLocked": "Certains réglages sont verrouillés car des soumissions ont été reçues.",
+	"hdrSubmissionNotificationEmail": "Courriel de notification",
+	"hlpSubmissionNotificationEmail": "Saisissez une adresse courriel ou plusieurs adresses courriel séparées par une virgule pour recevoir des notifications à la soumission d\'un travail.",
+	"invalidNotificationEmailError": "Veuillez saisir une adresse courriel valide"
 };

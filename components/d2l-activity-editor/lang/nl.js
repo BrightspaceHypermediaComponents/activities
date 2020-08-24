@@ -58,7 +58,8 @@ export default {
 	"editor.competencies": "Leerdoelen", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Leerdoelen beheren", //Button text to launch competencies tool dialog
 	"editor.competenciesCount": "{count, plural, =0 {Geen leerdoelen} =1 {1 toegevoegd} other {{count} toegevoegd}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {Geen leerdoelen} =1 {1 leerdoel} other {{count} leerdoelen}}",
+	"editor.noLearningObjectives": "No learning objectives", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =0 {Geen leerdoelen} =1 {1 leerdoel} other {{count} leerdoelen}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Sluiten", //Label for Close button
 	"editor.btnCloseDialog": "Dit dialoogvenster sluiten", // close dialog button
@@ -66,6 +67,7 @@ export default {
 	"editor.specialAccessRestrictedText": "Alleen gebruikers met speciale toegang kunnen deze map zien", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gebruikers kunnen antwoorden buiten de normale beschikbaarheidsdatums indienen", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "No users", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Speciale toegang beheren", // Dialog title
 	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 

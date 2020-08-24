@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "Mevcut Olanı Ekle", // add existing button
 	"editor.btnRemoveCondition": "Koşulu Kaldır", // remove condition button
 	"editor.lblConditionsOperator": "Bu öğeyi görüntüleyebilmek için kullanıcı şunları karşılamalıdır", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "Eklenen koşul: {title}",
+	"editor.txtConditionRemoved": "Kaldırılan koşul: {title}",
+	"editor.txtConditionsAdded": "{count} koşul eklendi",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} sürüm koşulu} other {{count} sürüm koşulu}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {özel erişime sahip 1 kullanıcı} other {özel erişime sahip {userCount} kullanıcı}}", // num users with special access text
 	"editor.btnCancel": "İptal Et", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "Yeni bir not öğesi oluşturma izniniz yok", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Öğrenme Hedefleri", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Öğrenme Hedeflerini Yönet", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {Öğrenme hedefi yok} =1 {1 ekli} other {{count} ekli}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {Öğrenme hedefi yok} =1 {1 öğrenme hedefi} other {{count} öğrenme hedefi}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 ekli} other {{count} ekli}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "Öğrenme nesnesi yok", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 öğrenme nesnesi} other {{count} öğrenme nesnesi}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 eksik değerlendirme} other {{count} eksik değerlendirme}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Kapat", //Label for Close button
 	"editor.btnCloseDialog": "Bu Diyaloğu Kapat", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "Yalnızca özel erişime sahip kullanıcılar bu klasörü görebilir", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Kullanıcılar normal uygunluk tarihleri dışında gönderim yapabilir", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "Kullanıcı yok", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Özel Erişimi Yönet", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "Özel erişim ile gizlendi", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Rubrik ekle", //text for add rubric button
 	"rubrics.btnCreateNew": "Yeni Oluştur", //Text for create new dropdown

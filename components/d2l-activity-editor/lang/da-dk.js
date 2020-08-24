@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "Tilføj eksisterende", // add existing button
 	"editor.btnRemoveCondition": "Fjern betingelse", // remove condition button
 	"editor.lblConditionsOperator": "For at få vist dette element skal brugerne opfylde", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "Tilføjet betingelse: {title}",
+	"editor.txtConditionRemoved": "Fjernet betingelse, {title}",
+	"editor.txtConditionsAdded": "Tilføjede {count} betingelser",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} betingelse for offentliggørelse} other {{count} betingelser for offentliggørelse}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 bruger med særlig adgang} other {{userCount} brugere med særlig adgang}}", // num users with special access text
 	"editor.btnCancel": "Annuller", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "Du har ikke tilladelse til at oprette et nyt karakterelement", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Undervisningsformål", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Administrer undervisningsformål", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {Ingen undervisningsformål} =1 {1 vedhæftet} other {{count} vedhæftede}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {Ingen undervisningsformål} =1 {1 undervisningsformål} other {{count} undervisningsformål}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "Ingen undervisningsformål", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 learning objective} other {{count} learning objectives}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 manglende vurdering} other {{count} manglende vurderinger}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Luk", //Label for Close button
 	"editor.btnCloseDialog": "Luk denne dialogboks", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "Kun brugere med særlig adgang kan se denne mappe", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Brugere kan aflevere uden for datoer for normal tilgængelighed", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "Ingen brugere", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Administrer særlig adgang", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "Skjult af særlig adgang", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Tilføj rubrik", //text for add rubric button
 	"rubrics.btnCreateNew": "Opret ny", //Text for create new dropdown

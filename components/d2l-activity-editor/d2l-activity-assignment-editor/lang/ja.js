@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "グループカテゴリ: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "グループカテゴリ", // Label for group category,
 	"txtGroupAssignmentSummary": "グループでの課題", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "電子メールによる送信物通知", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "送信して完了", // Label for the availability and dates summarizer
 	"assignmentSaveError": "課題は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "グループが存在しません。グループツールで新規グループを作成します。", // Folder type no groups
@@ -48,7 +48,8 @@ export default {
 	"submissionsRule": "送信物",
 	"hdrSpecialAccess": "特殊なアクセス", // special access heading
 	"hlpSpecialAccess": "特殊なアクセスを使用すると、ユーザーの選択グループまたは特定のユーザーの個別の期限に対してのみ課題を使用可能にすることができます。", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"assignmentLocked": "送信物を受信したため、一部の設定がロックされています。",
+	"hdrSubmissionNotificationEmail": "通知電子メール",
+	"hlpSubmissionNotificationEmail": "課題が送信されたときに通知を受け取るには、1 つの電子メールを入力するか、複数の電子メールをカンマで区切って入力します。",
+	"invalidNotificationEmailError": "有効な電子メールアドレスを入力してください"
 };

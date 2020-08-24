@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Categoría de grupo: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Categoría de grupo", // Label for group category,
 	"txtGroupAssignmentSummary": "Asignación grupal", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "Notificación de envío por correo electrónico", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Envío y finalización", // Label for the availability and dates summarizer
 	"assignmentSaveError": "No se guardó la asignación. Corrija los campos marcados en color rojo.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "No existen grupos. Cree nuevos grupos en la herramienta Grupos.", // Folder type no groups
@@ -48,7 +48,8 @@ export default {
 	"submissionsRule": "Materiales enviados",
 	"hdrSpecialAccess": "Acceso especial", // special access heading
 	"hlpSpecialAccess": "El acceso especial permite que las asignaciones estén disponibles solo para un grupo selecto de usuarios o fechas de vencimiento personalizadas para ciertos usuarios.", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"assignmentLocked": "Algunas opciones de configuración están bloqueadas debido a que se recibieron los envíos.",
+	"hdrSubmissionNotificationEmail": "Correo electrónico de notificación",
+	"hlpSubmissionNotificationEmail": "Ingrese uno o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una asignación.",
+	"invalidNotificationEmailError": "Ingrese una dirección de correo electrónico válida"
 };

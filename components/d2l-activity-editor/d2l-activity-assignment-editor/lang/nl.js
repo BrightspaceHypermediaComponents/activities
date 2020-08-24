@@ -50,5 +50,6 @@ export default {
 	"hlpSpecialAccess": "Met Speciale toegang kunnen toewijzingen alleen beschikbaar zijn voor een geselecteerde groep gebruikers of voor individuele uiterste datums voor bepaalde gebruikers.", // special access help
 	"assignmentLocked": "Some settings are locked because submissions have been received.",
 	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
+	"invalidNotificationEmailError": "Please enter a valid email address"
 };

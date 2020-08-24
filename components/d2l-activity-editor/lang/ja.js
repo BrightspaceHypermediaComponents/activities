@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "既存の追加", // add existing button
 	"editor.btnRemoveCondition": "条件の削除", // remove condition button
 	"editor.lblConditionsOperator": "この項目を見るには、次の条件を満たしている必要があります", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "条件: {title} が追加されました",
+	"editor.txtConditionRemoved": "条件: {title} が削除されました",
+	"editor.txtConditionsAdded": "{count} 個の条件が追加されました",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} 個のリリース条件} other {{count} 個のリリース条件}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {特殊なアクセスを持つ 1 人のユーザー} other {特殊なアクセスを持つ {userCount} 人のユーザー}}", // num users with special access text
 	"editor.btnCancel": "キャンセル", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "新規成績項目を作成する権限がありません", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "学習目的", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "学習目的の管理", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {学習目的なし} =1 {1 個添付} other {{count} 個添付}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {学習目的なし} =1 {1 つの学習目的} other {{count} 個の学習目的}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 個添付} other {{count} 個添付}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "学習目的がありません", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 個の学習目的} other {{count} 個の学習目的}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 件評価なし} other {{count} 件評価なし}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "閉じる", //Label for Close button
 	"editor.btnCloseDialog": "このダイアログを閉じる", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "特殊なアクセスを持つユーザーのみがこのフォルダを表示することができます", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "ユーザーは、通常の利用可能日以外の日にも送信することができます", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "ユーザーはいません", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "特殊なアクセスの管理", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "特殊なアクセスで非表示", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
 	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown

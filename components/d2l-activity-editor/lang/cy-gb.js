@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "Ychwanegu Presennol", // add existing button
 	"editor.btnRemoveCondition": "Tynnu’r Amod", // remove condition button
 	"editor.lblConditionsOperator": "I weld yr eitem hon, rhaid i ddefnyddwyr fodloni", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "Amod a ychwanegwyd: {title}",
+	"editor.txtConditionRemoved": "Amod a dynnwyd: {condition}",
+	"editor.txtConditionsAdded": "Ychwanegwyd {count} amod",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} release condition} other {{count} release conditions}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text
 	"editor.btnCancel": "Canslo", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "Nid oes gennych ganiatâd i greu eitem gradd newydd", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Amcanion Dysgu", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Rheoli Amcanion Dysgu", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {No learning objectives} =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {No learning objectives} =1 {1 learning objective} other {{count} learning objectives}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 wedi’i atodi} other {{count} wedi’u hatodi}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "Dim amcanion dysgu", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 amcan dysgu} other {{count} amcan dysgu}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 missing assessment} other {{count} missing assessments}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Cau", //Label for Close button
 	"editor.btnCloseDialog": "Caewch y Ddeialog hon", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "Defnyddwyr â mynediad arbennig yn unig sy’n gallu gweld y ffolder hwn", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gall defnyddwyr gyflwyno y tu allan i’r dyddiadau argaeledd arferol", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "Dim Defnyddwyr", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Rheoli Mynediad Arbennig", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "Cudd gan fynediad arbennig", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Ychwanegu cyfeireb", //text for add rubric button
 	"rubrics.btnCreateNew": "Creu Un Newydd", //Text for create new dropdown

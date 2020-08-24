@@ -50,5 +50,6 @@ export default {
 	"hlpSpecialAccess": "특별 접근을 사용하면 특정 사용자 그룹 또는 특정 사용자의 개별 기한에만 과제를 사용할 수 있습니다.", // special access help
 	"assignmentLocked": "Some settings are locked because submissions have been received.",
 	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
+	"invalidNotificationEmailError": "Please enter a valid email address"
 };

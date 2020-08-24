@@ -43,7 +43,8 @@ export class Assignment {
 			assignmentHasSubmissions: entity.assignmentHasSubmissions(),
 			allCompletionTypeOptions: entity.allCompletionTypeOptions(),
 			canEditCompletionType: entity.canEditCompletionType(),
-			completionType: entity.completionTypeValue()
+			completionTypeValue: entity.completionTypeValue(),
+			completionType: entity.completionType()
 		});
 
 		this.name = entity.name();

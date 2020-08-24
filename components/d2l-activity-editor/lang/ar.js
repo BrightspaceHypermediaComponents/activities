@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "إضافة موجود", // add existing button
 	"editor.btnRemoveCondition": "إزالة شرط", // remove condition button
 	"editor.lblConditionsOperator": "لعرض هذه المادة، يجب على المستخدمين استيفاء", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "شرط مضاف: {title}",
+	"editor.txtConditionRemoved": "شرط تمت إزالته: {title}",
+	"editor.txtConditionsAdded": "تمت إضافة {count} من الشروط",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} شرط إصدار} other ‏{{count} من شروط الإصدار}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {مستخدم واحد يتمتع بإمكانية وصول خاص} other ‏{{userCount} من المستخدمين الذين يتمتعون بإمكانية وصول خاص}}", // num users with special access text
 	"editor.btnCancel": "إلغاء", // cancel button
@@ -57,9 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "أهداف التعلّم", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "إدارة أهداف التعلّم", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =1 {مرفق واحد} other {{count} من المرفقات}}", // num release condition text
+	"editor.competenciesCount": "{count, plural, =1 {مرفق واحد} other ‏{{count} من المرفقات}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "ما من أهداف تعلّم", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {هدف تعلّم واحد} other {{count} من أهداف التعلّم}}", // num release condition text
+	"editor.competenciesCountSummary": "{count, plural, =1 {هدف تعلّم واحد} other ‏{{count} من أهداف التعلّم}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other {{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "إغلاق", //Label for Close button
 	"editor.btnCloseDialog": "إغلاق مربع الحوار هذا", // close dialog button
@@ -67,9 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "يمكن فقط للمستخدمين الذين يتمتعون بإمكانية وصول خاص رؤية هذا المجلد", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "يمكن للمستخدمين إجراء عملية الإرسال خارج تواريخ التوفّر الاعتيادية", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
-	"editor.noUsersWithSpecialAccess": "No users", //text label when there are no users with special access
+	"editor.noUsersWithSpecialAccess": "ما من مستخدمين", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "إدارة الوصول الخاص", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "تم الإخفاء بواسطة الوصول الخاص", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "إضافة آلية تقييم", //text for add rubric button
 	"rubrics.btnCreateNew": "إنشاء جديد", //Text for create new dropdown

@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Gruppkategori: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Gruppkategori", // Label for group category,
 	"txtGroupAssignmentSummary": "Gruppuppgift", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "Avisering av inlämning via e-post", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Inlämning och slutförande", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Ditt uppdrag sparades inte. Korrigera de fält som är markerade med rött.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Det finns inga grupper. Skapa nya grupper i gruppverktyget.", // Folder type no groups
@@ -48,7 +48,8 @@ export default {
 	"submissionsRule": "inlämningar",
 	"hdrSpecialAccess": "Specialåtkomst", // special access heading
 	"hlpSpecialAccess": "Med specialåtkomst kan uppgifter endast vara tillgängliga för en utvald grupp användare eller ha individuella förfallodatum för vissa användare.", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
+	"assignmentLocked": "Vissa inställningar är låsta eftersom inlämningar har tagits emot.",
+	"hdrSubmissionNotificationEmail": "Notifikation via e-post",
+	"hlpSubmissionNotificationEmail": "Ange en e-postadress eller flera e-postadresser avgränsade med kommatecken för att få aviseringar när en uppgift skickas.",
+	"invalidNotificationEmailError": "Ange en giltig e-postadress"
 };

@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "Lägg till befintligt", // add existing button
 	"editor.btnRemoveCondition": "Ta bort villkor", // remove condition button
 	"editor.lblConditionsOperator": "Om användare vill få åtkomst till det här objektet måste de uppfylla", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "Lade till villkor: {title}",
+	"editor.txtConditionRemoved": "Tog bort villkor: {title}",
+	"editor.txtConditionsAdded": "Lade till {count} villkor",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} publiceringsvillkor} other {{count} publiceringsvillkor}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 användare med specialåtkomst} other {{userCount} användare med specialåtkomst}}", // num users with special access text
 	"editor.btnCancel": "Avbryt", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "Du har inte behörighet att skapa betygsobjekt", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Inlärningsmål", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Hantera utbildningsmål", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {Inga inlärningsmål} =1 {1 bifogat} other {{count} bifogade}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {Inga inlärningsmål} =1 {1 inlärningsmål} other {{count} inlärningsmål}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 bifogad} other {{count} bifogade}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "Inga läromål", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 inlärningsmål} other {{count} inlärningsmål}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 bedömning saknas} other {{count} bedömningar saknas}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Stäng", //Label for Close button
 	"editor.btnCloseDialog": "Stäng den här dialogrutan", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "Endast användare med specialåtkomst kan se den här mappen", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Användare kan lämna in utanför normala tillgänglighetsdatum", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "Inga användare", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Hantera särskild behörighet", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "Dold av särskild behörighet", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "Lägg till rubricering", //text for add rubric button
 	"rubrics.btnCreateNew": "Skapa ny", //Text for create new dropdown

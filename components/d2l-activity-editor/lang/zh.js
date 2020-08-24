@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "添加现有", // add existing button
 	"editor.btnRemoveCondition": "删除条件", // remove condition button
 	"editor.lblConditionsOperator": "若要访问此项目，用户必须满足以下条件", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "已添加条件：{title}",
+	"editor.txtConditionRemoved": "已移除条件：{title}",
+	"editor.txtConditionsAdded": "添加了 {count} 个条件",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} 个发布条件} other {{count} 个发布条件}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 位具有特殊访问权限的用户} other {{userCount} 位具有特殊访问权限的用户}}", // num users with special access text
 	"editor.btnCancel": "取消", // cancel button
@@ -57,8 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "您没有权限创建新的成绩项目", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "学习目标", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "管理学习目标", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {无学习目标} =1 {1 个已随附} other {{count} 个已随附}}", //Label for number of associated competencies
-	"editor.competenciesCountSummary": "{count, plural, =0 {无学习目标} =1 {1 个学习目标} other {{count} 个学习目标}}",
+	"editor.competenciesCount": "{count, plural, =1 {1 个附件} other {{count} 个附件}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "没有学习目标", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 个学习目标} other {{count} 个学习目标}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 个评估缺失} other {{count} 个评估缺失}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "关闭", //Label for Close button
 	"editor.btnCloseDialog": "关闭此对话框", // close dialog button
@@ -66,8 +67,9 @@ export default {
 	"editor.specialAccessRestrictedText": "仅具有特殊访问权限的用户才能查看此文件夹", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "用户可以在正常可用日期之外提交", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "没有用户", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "管理特殊访问权限", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "按特殊访问权限隐藏", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 
 	"rubrics.btnAddRubric": "添加量规", //text for add rubric button
 	"rubrics.btnCreateNew": "新建", //Text for create new dropdown

@@ -16,7 +16,7 @@ export class SubmissionAndCompletionProps {
 		this.assignmentHasSubmissions = entity.assignmentHasSubmissions;
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions;
 		this.canEditCompletionType = entity.canEditCompletionType;
-		this.completionType = entity.completionType;
+		this.completionType = entity.completionTypeValue;
 
 		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
 		if (this.canEditCompletionType) {

@@ -1,6 +1,7 @@
 import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
 import { AnonymousMarkingProps } from './assignment-anonymous-marking.js';
 import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { AssignmentTypeProps } from './assignment-type.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { SubmissionAndCompletionProps } from './assignment-submission-and-completion.js';
 
@@ -79,21 +80,13 @@ export class Assignment {
 		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
 		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
 
-		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled();
-		this.isIndividualAssignmentType = entity.isIndividualAssignmentType();
-		this.groupCategories = entity.getAssignmentTypeGroupCategoryOptions();
-		this.canEditAssignmentType = !entity.isAssignmentTypeReadOnly();
-		this.assignmentHasSubmissions = entity.assignmentHasSubmissions();
-		this.selectedGroupCategoryName = entity.getAssignmentTypeSelectedGroupCategoryName();
-
-		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {
-			this.selectedGroupCategoryId = String(this.groupCategories[0].value);
-			const category = this.groupCategories.find(category => category.selected === true);
-
-			if (category) {
-				this.selectedGroupCategoryId = String(category.value);
-			}
-		}
+		this.assignmentTypeProps = new AssignmentTypeProps({
+			isGroupAssignmentTypeDisabled: entity.isGroupAssignmentTypeDisabled(),
+			isIndividualAssignmentType: entity.isIndividualAssignmentType(),
+			groupCategories: entity.getAssignmentTypeGroupCategoryOptions(),
+			canEditAssignmentType: !entity.isAssignmentTypeReadOnly(),
+			selectedGroupCategoryName: entity.getAssignmentTypeSelectedGroupCategoryName()
+		});
 	}
 
 	resetDefaultScoringRubricId() {
@@ -117,8 +110,9 @@ export class Assignment {
 	}
 
 	setAssignmentTypeGroupCategory(value) {
-		this.selectedGroupCategoryId = value;
+		this.assignmentTypeProps.setAssignmentTypeGroupCategory(value);
 	}
+
 	setCompletionType(value) {
 		this.submissionAndCompletionProps.setCompletionType(value);
 	}
@@ -152,15 +146,11 @@ export class Assignment {
 		this.anonymousMarkingProps.setIsAnonymousMarkingAvailableForSubmissionType(this.submissionAndCompletionProps.submissionType);
 	}
 	setToGroupAssignmentType() {
-		this.isIndividualAssignmentType = false;
-		this.selectedGroupCategoryId =
-			this.selectedGroupCategoryId
-				? String(this.selectedGroupCategoryId)
-				: String(this.groupCategories[0].value);
+		this.assignmentTypeProps.setToGroupAssignmentType();
 	}
 
 	setToIndividualAssignmentType() {
-		this.isIndividualAssignmentType = true;
+		this.assignmentTypeProps.setToIndividualAssignmentType();
 	}
 	setTurnitin(isOriginalityCheckEnabled, isGradeMarkEnabled) {
 		this.isOriginalityCheckEnabled = isOriginalityCheckEnabled;
@@ -178,8 +168,8 @@ export class Assignment {
 			name: this.name,
 			annotationToolsAvailable: this.annotationToolsAvailable,
 			submissionType: this.submissionAndCompletionProps.submissionType,
-			isIndividualAssignmentType: this.isIndividualAssignmentType,
-			groupTypeId: this.selectedGroupCategoryId,
+			isIndividualAssignmentType: this.assignmentTypeProps.isIndividualAssignmentType,
+			groupTypeId: this.assignmentTypeProps.selectedGroupCategoryId,
 			defaultScoringRubricId: this.defaultScoringRubricId
 		};
 		if (this.anonymousMarkingProps.isSubmissionTypeWithAnonMarking(this.submissionAndCompletionProps.submissionType)) {
@@ -223,14 +213,9 @@ decorate(Assignment, {
 	isOriginalityCheckEnabled: observable,
 	isGradeMarkEnabled: observable,
 	completionType: observable,
-	isIndividualAssignmentType: observable,
-	groupCategories: observable,
 	selectedGroupCategoryId: observable,
-	isGroupAssignmentTypeDisabled: observable,
-	canEditAssignmentType: observable,
 	canEditDefaultScoringRubric: observable,
 	defaultScoringRubricId: observable,
-	selectedGroupCategoryName: observable,
 	notificationEmail: observable,
 	canEditNotificationEmail: observable,
 	showNotificationEmail: computed,

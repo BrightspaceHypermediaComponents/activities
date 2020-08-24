@@ -66,13 +66,13 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 			return html``;
 		}
 
-		const isIndividualType = assignment.isIndividualAssignmentType;
+		const isIndividualType = assignment.assignmentTypeProps.isIndividualAssignmentType;
 		const infoText = this._getInformationText(assignment);
-		const canEditAssignmentType = assignment.canEditAssignmentType;
-		const groupTypeDisabled = assignment.isGroupAssignmentTypeDisabled;
+		const canEditAssignmentType = assignment.assignmentTypeProps.canEditAssignmentType;
+		const groupTypeDisabled = assignment.assignmentTypeProps.isGroupAssignmentTypeDisabled;
 		const folderTypeText =	isIndividualType ? this.localize('txtIndividual') : this.localize('txtGroup');
-		const groupTypeText = !isIndividualType && assignment.selectedGroupCategoryName
-			? this.localize('txtGroupCategoryWithName', 'groupCategory', assignment.selectedGroupCategoryName)
+		const groupTypeText = !isIndividualType && assignment.assignmentTypeProps.selectedGroupCategoryName
+			? this.localize('txtGroupCategoryWithName', 'groupCategory', assignment.assignmentTypeProps.selectedGroupCategoryName)
 			: '';
 
 		return html`
@@ -123,10 +123,10 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		store.get(this.href).setAssignmentTypeGroupCategory(event.target.value);
 	}
 	_getGroupCategoryOptions(assignment) {
-		if (assignment) {
-			return html`${assignment.groupCategories.map(
+		if (assignment && assignment.assignmentTypeProps) {
+			return html`${assignment.assignmentTypeProps.groupCategories.map(
 				option => html`
-					<option value=${option.value} ?selected=${String(option.value) === assignment.selectedGroupCategoryId}>
+					<option value=${option.value} ?selected=${String(option.value) === assignment.assignmentTypeProps.selectedGroupCategoryId}>
 						${option.title}
 					</option>
 					`
@@ -136,14 +136,14 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 	}
 
 	_getInformationText(assignment) {
-		if (!assignment) {
+		if (!assignment || !assignment.assignmentTypeProps) {
 			return;
 		}
 
-		const isIndividualAssignmentType = assignment.isIndividualAssignmentType;
+		const isIndividualAssignmentType = assignment.assignmentTypeProps.isIndividualAssignmentType;
 		const hasSubmissions = assignment.submissionAndCompletionProps && assignment.submissionAndCompletionProps.assignmentHasSubmissions;
 
-		if (!hasSubmissions && isIndividualAssignmentType && assignment.groupCategories.length === 0) {
+		if (!hasSubmissions && isIndividualAssignmentType && assignment.assignmentTypeProps.groupCategories.length === 0) {
 			return this.localize('folderTypeNoGroups');
 		}
 

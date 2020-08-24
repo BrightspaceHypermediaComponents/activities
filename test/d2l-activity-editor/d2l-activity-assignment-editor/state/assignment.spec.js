@@ -135,7 +135,7 @@ describe('Assignment ', function() {
 		expect(assignment.submissionAndCompletionProps.canEditSubmissionType).to.equal(true);
 		expect(assignment.submissionAndCompletionProps.canEditCompletionType).to.equal(true);
 		expect(assignment.submissionAndCompletionProps.submissionType).to.equal('2');
-		expect(assignment.submissionAndCompletionProps.completionType).to.equal('2');
+		expect(assignment.submissionAndCompletionProps.completionTypeValue).to.equal('2');
 		expect(assignment.anonymousMarkingProps.isAnonymousMarkingAvailable).to.equal(false);
 
 		expect(fetchEntity.mock.calls.length).to.equal(1);
@@ -151,7 +151,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('3');
 
 		expect(assignment.submissionAndCompletionProps.submissionType).to.equal('3');
-		expect(assignment.submissionAndCompletionProps.completionType).to.equal('3');
+		expect(assignment.submissionAndCompletionProps.completionTypeValue).to.equal('3');
 		expect(assignment.submissionAndCompletionProps.canEditCompletionType).to.equal(true);
 		expect(assignment.anonymousMarkingProps.isAnonymousMarkingAvailable).to.equal(false);
 	});
@@ -164,7 +164,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('1');
 
 		expect(assignment.submissionAndCompletionProps.submissionType).to.equal('1');
-		expect(assignment.submissionAndCompletionProps.completionType).to.equal(null);
+		expect(assignment.submissionAndCompletionProps.completionTypeValue).to.equal(null);
 		expect(assignment.submissionAndCompletionProps.canEditCompletionType).to.equal(true);
 		expect(assignment.anonymousMarkingProps.isAnonymousMarkingAvailable).to.equal(true);
 	});
@@ -176,7 +176,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('3');
 
 		expect(assignment.submissionAndCompletionProps.submissionType).to.equal('3');
-		expect(assignment.submissionAndCompletionProps.completionType).to.equal('2');
+		expect(assignment.submissionAndCompletionProps.completionTypeValue).to.equal('2');
 		expect(assignment.submissionAndCompletionProps.canEditCompletionType).to.equal(true);
 	});
 
@@ -186,7 +186,7 @@ describe('Assignment ', function() {
 		assignment.setSubmissionType('0');
 
 		expect(assignment.submissionAndCompletionProps.submissionType).to.equal('0');
-		expect(assignment.submissionAndCompletionProps.completionType).to.equal(null);
+		expect(assignment.submissionAndCompletionProps.completionTypeValue).to.equal(null);
 		expect(assignment.submissionAndCompletionProps.canEditCompletionType).to.equal(true);
 	});
 

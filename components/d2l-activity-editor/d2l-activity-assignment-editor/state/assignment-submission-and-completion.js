@@ -16,7 +16,7 @@ export class SubmissionAndCompletionProps {
 		this.assignmentHasSubmissions = entity.assignmentHasSubmissions;
 		this.allCompletionTypeOptions = entity.allCompletionTypeOptions;
 		this.canEditCompletionType = entity.canEditCompletionType;
-		this.completionType = entity.completionType;
+		this.completionTypeValue = entity.completionTypeValue;
 
 		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
 		if (this.canEditCompletionType) {
@@ -94,12 +94,12 @@ export class SubmissionAndCompletionProps {
 		const validCompletionTypes = this._getValidCompletionTypes(this.submissionType);
 		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
 
-		if (this.completionType === null ||
-				!this._isCompletionTypeValid(this.completionType, validCompletionTypes)) {
+		if (this.completionTypeValue === null ||
+				!this._isCompletionTypeValid(this.completionTypeValue, validCompletionTypes)) {
 			if (validCompletionTypes && validCompletionTypes.length > 0) {
-				this.completionType = String(validCompletionTypes[0]);
+				this.completionTypeValue = String(validCompletionTypes[0]);
 			} else {
-				this.completionType = null;
+				this.completionTypeValue = null;
 			}
 		}
 	}

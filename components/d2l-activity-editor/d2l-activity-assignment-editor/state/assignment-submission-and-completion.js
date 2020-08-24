@@ -95,7 +95,7 @@ export class SubmissionAndCompletionProps {
 		this.completionTypeOptions = this._getCompletionTypeOptions(validCompletionTypes);
 
 		if (this.completionType === null ||
-				!this._isCompletionTypeValid(this.completionTypeValue, validCompletionTypes)) {
+				!this._isCompletionTypeValid(this.completionType, validCompletionTypes)) {
 			if (validCompletionTypes && validCompletionTypes.length > 0) {
 				this.completionType = String(validCompletionTypes[0]);
 			} else {

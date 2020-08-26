@@ -32,8 +32,8 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 			submissionTypeOptions: [
 				{ title: 'File submission', value: 0, completionTypes: null, selected: false },
 				{ title: 'Text submission', value: 1, completionTypes: null, selected: false },
-				{ title: 'On paper submission', value: 2, completionTypes: [1, 2], selected: true },
-				{ title: 'Observed in person', value: 3, completionTypes: [3], selected: false }
+				{ title: 'On paper submission', value: 2, completionTypes: [1, 2, 3], selected: true },
+				{ title: 'Observed in person', value: 3, completionTypes: [1, 2, 3], selected: false }
 			],
 			submissionType: 2,
 			canEditSubmissionType: true,
@@ -144,14 +144,14 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		it('has a heading', async() => {
 			const el = await loadComponent();
 			const header = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-header');
-			expect(header[0].slot).to.equal('header'); //TODO: probably remove this, impl detail
+			expect(header[0].slot).to.equal('header');
 			expect(header[0].innerText).to.equal(langTerms.submissionCompletionAndCategorization);
 		});
 
 		it('has a summary', async() => {
 			const el = await loadComponent();
 			const summary = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-summary');
-			expect(summary[0].slot).to.equal('summary'); //TODO: probably remove this, impl detail
+			expect(summary[0].slot).to.equal('summary');
 			expect(summary[0].getElementsByTagName('li').length).to.equal(4);
 		});
 
@@ -202,8 +202,7 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		it('completion type options loads correctly', async() => {
 			const el = await loadComponent();
 			const completionSelect = el.shadowRoot.querySelector('#assignment-completion-type');
-			expect(completionSelect.getAttribute('disabled')).to.be.null;
-			// expect(completionSelect.getElementsByTagName('option').length).to.equal(2);
+			expect(completionSelect.getElementsByTagName('option').length).to.equal(3);
 		});
 
 		it('is disabled when missing updateCompletionType action', async() => {

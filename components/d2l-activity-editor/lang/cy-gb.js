@@ -16,10 +16,10 @@ export default {
 	"editor.btnSave": "Cadw a Chau", // save and close button
 	"editor.btnSaveMobile": "Cadw", // save and close button for mobile devices
 	"editor.dueDate": "Dyddiad Cyflwyno", // ARIA label for the due date field when creating/editing an activity
-	"editor.endDate": "Dyddiad Dod i Ben", // ARIA label for the end date field when creating/editing an activity
+	"editor.endDate": "Dyddiad dod i ben", // ARIA label for the end date field when creating/editing an activity
 	"editor.startDate": "Dyddiad Dechrau", // ARIA label for the start date field when creating/editing an activity
 	"editor.dueTime": "Amser Cyflwyno", // ARIA label for the due time field when creating/editing an activity
-	"editor.endTime": "Amser Dod i Ben", // ARIA label for the end time field when creating/editing an activity
+	"editor.endTime": "Amser Gorffen", // ARIA label for the end time field when creating/editing an activity
 	"editor.startTime": "Amser Dechrau", // ARIA label for the start time field when creating/editing an activity
 	"editor.hidden": "Cudd", // Label displayed with the visibility switch when hidden
 	"editor.noDueDate": "Dim dyddiad cyflwyno", // Placeholder text for due date field when no due date is set
@@ -41,13 +41,13 @@ export default {
 	"editor.emptyScoreOutOfError": "Rhaid nodi gwerth pwyntiau ar gyfer gweithgareddau yn Graddau", // Error message to inform user that the score out of value is a required field when a grade item is associated
 	"editor.invalidScoreOutOfError": "Rhaid i’r Sgôr Allan O fod yn fwy na neu’n hafal i 0.01 ac yn llai na neu’n hafal i 9,999,999,999.", // Error message when an invalid score out of value is entered
 	"editor.loading": "Wrthi\'n llwytho...", // Message displayed while page is loading
-	"editor.ok": "IAWN", // Text of dialog button to commit action
+	"editor.ok": "Iawn", // Text of dialog button to commit action
 	"editor.cancel": "Canslo", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Pwyswch ALT-F10 i weld y bar offer, a phwyswch ESC i adael y bar offer pan fyddwch i mewn.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
-	"editor.chooseFromGrades": "Dewiswch o Graddau", // Link text and dialog title for the edit grades dialog,
+	"editor.chooseFromGrades": "Dewis o Graddau", // Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Cyfeirebau", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Rhaid i\'r Dyddiad Dechrau fod cyn y Dyddiad Dod i Ben.",
-	"editor.dueBetweenStartEndDate": "Rhaid i’r Dyddiad Cyflwyno fod ar ôl y Dyddiad Dechrau a chyn neu’r un peth â’r Dyddiad Dod i Ben",
+	"editor.dueBetweenStartEndDate": "Rhaid i’r Dyddiad Cyflwyno fod ar ôl y Dyddiad Dechrau a cyn neu’r un peth â’r Dyddiad Dod i Ben",
 	"editor.dueAfterStartDate": "Rhaid i’r Dyddiad Cyflwyno fod ar ôl y Dyddiad Dechrau",
 	"editor.dueBeforeEndDate": "Rhaid i’r Dyddiad Cyflwyno fod cyn neu’r un peth â’r Dyddiad Dod i Ben",
 	"editor.createAndLinkToNewGradeItem": "Creu a chysylltu ag eitem gradd newydd", //Radio button text
@@ -64,7 +64,7 @@ export default {
 	"editor.btnClose": "Cau", //Label for Close button
 	"editor.btnCloseDialog": "Caewch y Ddeialog hon", // close dialog button
 	"editor.btnManageSpecialAccess": "Rheoli Mynediad Arbennig", // manage special access button
-	"editor.specialAccessRestrictedText": "Defnyddwyr â mynediad arbennig yn unig sy’n gallu gweld y ffolder hwn", // restricted special access description
+	"editor.specialAccessRestrictedText": "Defnyddwyr â mynediad arbennig yn unig gall gweld y ffolder hwn", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gall defnyddwyr gyflwyno y tu allan i’r dyddiadau argaeledd arferol", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Dim Defnyddwyr", // text label when there are no users with special access
@@ -84,7 +84,7 @@ export default {
 	"rubrics.btnClose": "Cau", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Wedi ychwanegu cyfeireb", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Wedi tynnu cyfeireb", // Text for notifying screenreader rubric was removed
-	"rubrics.defaultScoringRubric": "Cyfeireb Sgorio Diofyn", // Sub heading for the default scoring rubric select dropdown
+	"rubrics.defaultScoringRubric": "Cyfeireb Sgorio Ddiofyn", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Ni ddewiswyd modd diofyn", // option in default scoring rubric when no default scoring rubric selected
 
 	"grades.points": "Pwyntiau: {points}", // Text label for displaying points of a grade
@@ -99,7 +99,7 @@ export default {
 	"attachments.addOneDriveLink": "Atodi o OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"attachments.addQuicklink": "Atodi Dolen i Weithgaredd sy’n Bodoli Eisoes", // Tooltip for a button that adds a link to an existing activity
 	"attachments.back": "Yn ôl", // Text for a back button
-	"attachments.closeDialog": "Cau’r Dialog", // ARIA text for button to close dialog
+	"attachments.closeDialog": "Cau’r Deialog", // ARIA text for button to close dialog
 	"attachments.recordAudio": "Recordio Sain", // Text for a button that opens a dialog to record audio
 	"attachments.recordVideo": "Recordio Fideo", // Text for a button that opens a dialog to record video
 	"attachments.save": "Cadw", // Text for a save button,

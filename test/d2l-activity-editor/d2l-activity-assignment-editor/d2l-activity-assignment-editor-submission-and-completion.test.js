@@ -1,12 +1,12 @@
-import '../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
+import '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/d2l-activity-assignment-editor-submission-and-completion.js';
 import { expect, fixture, html, oneEvent } from '@open-wc/testing';
-import { AnonymousMarkingProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-anonymous-marking.js';
-import { Assignment } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment.js';
-import { AssignmentTypeProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-type.js';
-import { default as langTerms } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
+import { AnonymousMarkingProps } from '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-anonymous-marking.js';
+import { Assignment } from '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment.js';
+import { AssignmentTypeProps } from '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-type.js';
+import { default as langTerms } from '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/lang/en.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
-import { shared as store } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
-import { SubmissionAndCompletionProps } from '../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-submission-and-completion.js';
+import { shared as store } from '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
+import { SubmissionAndCompletionProps } from '../../../components/d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-submission-and-completion.js';
 
 describe('d2l-activity-assignment-editor-submission-and-completion', function() {
 

@@ -72,7 +72,7 @@
   },
   "main": "d2l-activities.js",
   "dependencies": {
-    "@adobe/lit-mobx": "^0.0.x",
+    "@adobe/lit-mobx": "^1.0.x",
     "@brightspace-ui-labs/accordion": "^2.0.2",
     "@brightspace-ui-labs/edit-in-place": "^1.0.11",
     "@brightspace-ui-labs/list-item-accumulator": "^1",

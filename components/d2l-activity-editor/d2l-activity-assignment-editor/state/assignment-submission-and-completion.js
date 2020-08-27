@@ -125,5 +125,5 @@ decorate(SubmissionAndCompletionProps, {
 	// actions
 	setSubmissionsRule: action,
 	setFilesSubmissionLimit: action,
-	setCompletionType: action,
+	setCompletionType: action
 });

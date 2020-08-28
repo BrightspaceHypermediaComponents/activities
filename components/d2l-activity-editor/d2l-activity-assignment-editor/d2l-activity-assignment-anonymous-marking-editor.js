@@ -79,8 +79,8 @@ class ActivityAssignmentAnonymousMarkingEditor
 			</d2l-input-checkbox>
 			<d2l-input-checkbox-spacer
 				class="d2l-body-small"
-				?hidden="${!entity.anonymousMarkingHelpText}">
-				${entity.anonymousMarkingHelpText}
+				?hidden="${!entity.anonymousMarkingProps.anonymousMarkingHelpText}">
+				${entity.anonymousMarkingProps.anonymousMarkingHelpText}
 			</d2l-input-checkbox-spacer>
 		`;
 	}

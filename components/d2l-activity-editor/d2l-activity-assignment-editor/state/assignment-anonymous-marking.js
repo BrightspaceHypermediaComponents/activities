@@ -7,7 +7,7 @@ export class AnonymousMarkingProps {
 	constructor(entity) {
 		this.isAnonymousMarkingEnabled = entity.isAnonymousMarkingEnabled;
 		this.canEditAnonymousMarking = entity.canEditAnonymousMarking;
-		this.anonymousMarkingHelpText = entity.getAnonymousMarkingHelpText;
+		this.anonymousMarkingHelpText = entity.anonymousMarkingHelpText;
 		this.entityAnonymousMarkingAvailable = entity.isAnonymousMarkingAvailable;
 		this.isAnonymousMarkingAvailable = this.entityAnonymousMarkingAvailable;
 

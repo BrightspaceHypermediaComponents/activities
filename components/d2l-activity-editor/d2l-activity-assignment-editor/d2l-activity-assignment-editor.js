@@ -188,7 +188,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 		} = activity;
 
 		const assignment = store.getAssignment(activity.assignmentHref);
-		const hasSubmissions = assignment && assignment.assignmentHasSubmissions;
+		const hasSubmissions = assignment && assignment.submissionAndCompletionProps.assignmentHasSubmissions;
 
 		return html`
 			<d2l-template-primary-secondary slot="editor" width-type="${this.widthType}">

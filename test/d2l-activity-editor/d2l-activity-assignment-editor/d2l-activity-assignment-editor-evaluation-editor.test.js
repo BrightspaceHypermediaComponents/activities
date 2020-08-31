@@ -280,7 +280,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 			expect(button.text).to.equal(langTerms.btnEditTurnitin);
 		});
 
-		it('only shows isOriginalityCheckEnabled and isGradeMarkEnabled when they are enabled', async() => {
+		it('only shows Originality Check and Grade Mark when they are enabled', async() => {
 			assignment.canEditTurnitin = true;
 
 			const el = await loadComponent();

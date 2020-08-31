@@ -113,6 +113,7 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 		`;
 	}
 	_renderAnonymousMarkingEditor() {
+
 		return html`
 			<d2l-activity-assignment-anonymous-marking-editor
 				href="${this.href}"

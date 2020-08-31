@@ -140,7 +140,6 @@ export class Assignment {
 	setName(value) {
 		this.name = value;
 	}
-
 	setNotificationEmail(value) {
 		this.notificationEmail = value;
 	}

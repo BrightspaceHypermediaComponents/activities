@@ -25,7 +25,7 @@ class AssignmentTypeSummary extends ActivityEditorMixin(RtlMixin(LocalizeActivit
 	render() {
 		const assignment = store.get(this.href);
 		if (assignment &&
-			!assignment.assignmentTypeProps &&
+			assignment.assignmentTypeProps &&
 			!assignment.assignmentTypeProps.isIndividualAssignmentType) {
 			return html`${this.localize('txtGroupAssignmentSummary')}`;
 		}

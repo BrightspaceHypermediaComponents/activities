@@ -12,6 +12,7 @@ export class AnonymousMarkingProps {
 		this.isAnonymousMarkingAvailable = this.entityAnonymousMarkingAvailable;
 
 		this.setIsAnonymousMarkingAvailableForSubmissionType(entity.submissionType);
+
 	}
 
 	isSubmissionTypeWithAnonMarking(submissionType) {

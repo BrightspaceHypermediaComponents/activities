@@ -73,7 +73,7 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 		}
 
 		return html`
-			<d2l-labs-accordion-collapse flex header-border>
+			<d2l-labs-accordion-collapse class="accordion" flex header-border>
 				<h3 class="d2l-heading-3 d2l-activity-summarizer-header" slot="header">
 					${this.localize('evaluationAndFeedback')}
 				</h3>
@@ -113,7 +113,6 @@ class ActivityAssignmentEvaluationEditor extends ActivityEditorFeaturesMixin(Loc
 		`;
 	}
 	_renderAnonymousMarkingEditor() {
-
 		return html`
 			<d2l-activity-assignment-anonymous-marking-editor
 				href="${this.href}"

@@ -118,6 +118,10 @@ export class Assignment {
 		this.assignmentTypeProps = new AssignmentTypeProps(assignmentTypeProps);
 	}
 
+	setCanEditAnnotations(value) {
+		this.canEditAnnotations = value;
+	}
+
 	setCompletionType(value) {
 		this.submissionAndCompletionProps.setCompletionType(value);
 	}
@@ -136,6 +140,7 @@ export class Assignment {
 	setName(value) {
 		this.name = value;
 	}
+
 	setNotificationEmail(value) {
 		this.notificationEmail = value;
 	}

@@ -118,8 +118,8 @@ export class Assignment {
 		this.assignmentTypeProps = new AssignmentTypeProps(assignmentTypeProps);
 	}
 
-	setCanEditAnnotations(value) {
-		this.canEditAnnotations = value;
+	setCanEditAnnotations(canEditAnnotations) {
+		this.canEditAnnotations = canEditAnnotations;
 	}
 
 	setCompletionType(value) {

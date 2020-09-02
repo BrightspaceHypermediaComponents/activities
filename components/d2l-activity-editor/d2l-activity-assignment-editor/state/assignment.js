@@ -14,12 +14,18 @@ export class Assignment {
 		this.token = token;
 	}
 
+	cancelCreate() {
+		return this._entity.cancelCreate();
+	}
+
 	delete() {
 		return this._entity.delete();
 	}
+
 	get dirty() {
 		return !this._entity.equals(this._makeAssignmentData());
 	}
+
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -196,10 +202,6 @@ export class Assignment {
 			data.notificationEmail = this.notificationEmail;
 		}
 		return data;
-	}
-
-	cancelCreate() {
-		return this._entity.cancelCreate();
 	}
 }
 

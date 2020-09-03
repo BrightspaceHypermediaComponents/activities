@@ -57,6 +57,21 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 		`;
 	}
 
+	delete() {
+		// TODO
+		return true;
+	}
+
+	hasPendingChanges() {
+		// TODO
+		return false;
+	}
+
+	async save() {
+		// TODO
+		return;
+	}
+
 	get _editorTemplate() {
 		return html`
 			<d2l-template-primary-secondary slot="editor" width-type="${this.widthType}">

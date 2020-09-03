@@ -19,41 +19,81 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActiv
 		`];
 	}
 
+	constructor() {
+		super(store);
+	}
+
 	render() {
-		const entity = store.get(this.href);
-		if (!entity) {
+		const {
+			canEditDates,
+			startDate,
+			endDate,
+			startDateError,
+			endDateError
+		} = this._getDateValues();
+
+		if (!canEditDates) {
 			return html``;
 		}
-
-		const dates = entity.dates || {};
-		if (!dates.canEditDates) {
-			return html``;
-		}
-
-		const startDateErrorTerm = this.localize(dates.startDateErrorTerm);
-		const startDateErrorValue = startDateErrorTerm ? startDateErrorTerm : null;
-
-		const endDateErrorTerm = this.localize(dates.endDateErrorTerm);
-		const endDateErrorValue = endDateErrorTerm ? endDateErrorTerm : null;
 
 		return html`
 			<d2l-input-date-time
 				id="start-date-input"
 				label="${this.localize('editor.startDate')}"
-				value="${dates.startDate}"
-				.validationError="${startDateErrorValue}"
-				?invalid="${startDateErrorValue}"
+				value="${startDate}"
+				.validationError="${startDateError}"
+				?invalid="${startDateError}"
 				@change="${this._onStartDatetimeChanged}">
 			</d2l-input-date-time>
 			<d2l-input-date-time
 				id="end-date-input"
 				label="${this.localize('editor.endDate')}"
-				value="${dates.endDate}"
-				.validationError="${endDateErrorValue}"
-				?invalid="${endDateErrorValue}"
+				value="${endDate}"
+				.validationError="${endDateError}"
+				?invalid="${endDateError}"
 				@change="${this._onEndDatetimeChanged}">
 			</d2l-input-date-time>
 		`;
+	}
+
+	_getDateValues() {
+		const datesEntity = {
+			canEditDates: true,
+			startDate: null,
+			endDate: null,
+			startDateError: null,
+			endDateError: null
+		};
+
+		const entity = store.get(this.href);
+		if (!entity || !entity.dates) {
+			return datesEntity;
+		}
+
+		const dates = entity.dates;
+
+		if (!dates.canEditDates) {
+			datesEntity.canEditDates = false;
+			return datesEntity;
+		}
+
+		if (dates.startDateErrorTerm) {
+			datesEntity.startDateError = this.localize(dates.startDateErrorTerm);
+		}
+
+		if (dates.endDateErrorTerm) {
+			datesEntity.endDateError = this.localize(dates.endDateErrorTerm);
+		}
+
+		if (dates.startDate) {
+			datesEntity.startDate = dates.startDate;
+		}
+
+		if (dates.endDate) {
+			datesEntity.endDate = dates.endDate;
+		}
+
+		return datesEntity;
 	}
 
 	_onEndDatetimeChanged(e) {

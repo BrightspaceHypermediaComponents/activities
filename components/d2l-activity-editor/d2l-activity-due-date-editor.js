@@ -16,29 +16,60 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		`];
 	}
 
+	constructor() {
+		super(store);
+	}
+
 	render() {
-		const entity = store.get(this.href);
-		if (!entity) {
+		const {
+			canEditDates,
+			dueDate,
+			dueDateError
+		} = this._getDateValues();
+
+		if (!canEditDates) {
 			return html``;
 		}
-
-		const dates = entity.dates || {};
-		if (!dates.canEditDates) {
-			return html``;
-		}
-
-		const errorTerm = this.localize(dates.dueDateErrorTerm);
-		const errorValue = errorTerm ? errorTerm : null;
 
 		return html`
 			<d2l-input-date-time
 				label="${this.localize('editor.dueDate')}"
-				value="${dates.dueDate}"
-				.validationError="${errorValue}"
-				?invalid="${errorValue}"
+				value="${dueDate}"
+				.validationError="${dueDateError}"
+				?invalid="${dueDateError}"
 				@change="${this._onDatetimeChanged}">
 			</d2l-input-date-time>
 		`;
+	}
+
+	_getDateValues() {
+		const datesEntity = {
+			canEditDates: true,
+			dueDate: null,
+			dueDateError: null
+		};
+
+		const entity = store.get(this.href);
+		if (!entity || !entity.dates) {
+			return datesEntity;
+		}
+
+		const dates = entity.dates;
+
+		if (!dates.canEditDates) {
+			datesEntity.canEditDates = false;
+			return datesEntity;
+		}
+
+		if (dates.dueDateErrorTerm) {
+			datesEntity.dueDateError = this.localize(dates.dueDateErrorTerm);
+		}
+
+		if (dates.dueDate) {
+			datesEntity.dueDate = dates.dueDate;
+		}
+
+		return datesEntity;
 	}
 
 	_onDatetimeChanged(e) {

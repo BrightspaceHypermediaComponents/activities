@@ -5,6 +5,7 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 
 class ContentCreationHtml extends RtlMixin(LitElement) {
+	// TODO: Nuke this file and related items
 
 	static get styles() {
 		return css`

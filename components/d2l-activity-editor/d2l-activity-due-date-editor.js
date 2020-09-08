@@ -1,4 +1,5 @@
 import '@brightspace-ui/core/components/inputs/input-date-time.js';
+import '@brightspace-ui/core/components/validation/validation-custom.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -33,13 +34,26 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 		return html`
 			<d2l-input-date-time
+				id="due-date-input"
 				label="${this.localize('editor.dueDate')}"
 				value="${dueDate}"
-				.validationError="${dueDateError}"
-				?invalid="${dueDateError}"
 				@change="${this._onDatetimeChanged}">
 			</d2l-input-date-time>
+			<d2l-validation-custom
+				for="due-date-input"
+				@d2l-validation-custom-validate=${this._validateDueDate}
+				failure-text="${dueDateError}">
+			</d2l-validation-custom>
 		`;
+	}
+
+	updated(properties) {
+		super.updated(properties);
+
+		const dueDateInput = this.shadowRoot.querySelector('#due-date-input');
+		if (dueDateInput) {
+			dueDateInput.requestValidate();
+		}
 	}
 
 	_getDateValues() {
@@ -74,6 +88,13 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 	_onDatetimeChanged(e) {
 		store.get(this.href).dates.setDueDate(e.target.value);
+	}
+
+	_validateDueDate(e) {
+		const entity = store.get(this.href);
+		if (entity && entity.dates) {
+			e.detail.resolve(!entity.dates.dueDateErrorTerm);
+		}
 	}
 }
 customElements.define('d2l-activity-due-date-editor', ActivityDueDateEditor);

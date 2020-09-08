@@ -1,5 +1,5 @@
 import '../../components/d2l-activity-editor/d2l-activity-availability-dates-editor';
-import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
+import { elementUpdated, expect, fixture, html, nextFrame } from '@open-wc/testing';
 import { ActivityDates } from '../../components/d2l-activity-editor/state/activity-dates';
 import { ActivityUsage } from '../../components/d2l-activity-editor/state/activity-usage.js';
 import { shared as store } from '../../components/d2l-activity-editor/state/activity-store.js';
@@ -78,37 +78,37 @@ describe('d2l-activity-availability-dates-editor', function() {
 	describe('invalid state', function() {
 		it('sets start date to be invalid for given error', async() => {
 			dates.setErrorLangTerms('start-after-due-date-error');
-			await elementUpdated(el);
+			await nextFrame();
 
-			expect(startDateInput).to.have.attr('invalid');
-			expect(endDateInput).to.not.have.attr('invalid');
+			expect(startDateInput.invalid).to.be.true;
+			expect(endDateInput.invalid).to.be.false;
 		});
 		it('sets end date to be invalid for given error', async() => {
 			dates.setErrorLangTerms('end-before-due-date-error');
-			await elementUpdated(el);
+			await nextFrame();
 
-			expect(startDateInput).to.not.have.attr('invalid');
-			expect(endDateInput).to.have.attr('invalid');
+			expect(startDateInput.invalid).to.be.false;
+			expect(endDateInput.invalid).to.be.true;
 		});
 		it('sets start and end date to be invalid for given error', async() => {
 			dates.setErrorLangTerms('end-before-start-due-date-error');
-			await elementUpdated(el);
+			await nextFrame();
 
-			expect(startDateInput).to.have.attr('invalid');
-			expect(endDateInput).to.have.attr('invalid');
+			expect(startDateInput.invalid).to.be.true;
+			expect(endDateInput.invalid).to.be.true;
 		});
 		it('clears invalid state', async() => {
 			dates.setErrorLangTerms('end-before-start-due-date-error');
-			await elementUpdated(el);
+			await nextFrame();
 
-			expect(startDateInput).to.have.attr('invalid');
-			expect(endDateInput).to.have.attr('invalid');
+			expect(startDateInput.invalid).to.be.true;
+			expect(endDateInput.invalid).to.be.true;
 
 			dates.setErrorLangTerms();
-			await elementUpdated(el);
+			await nextFrame();
 
-			expect(startDateInput).to.not.have.attr('invalid');
-			expect(endDateInput).to.not.have.attr('invalid');
+			expect(startDateInput.invalid).to.be.false;
+			expect(endDateInput.invalid).to.be.false;
 		});
 	});
 });

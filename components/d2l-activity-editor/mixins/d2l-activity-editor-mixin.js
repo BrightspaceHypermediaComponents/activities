@@ -21,7 +21,10 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 			 */
 			href: {
 				type: String,
-				reflect: true
+				reflect: true,
+				converter: (value) => {
+					return (value === 'undefined') ?  '' : value;
+				}
 			},
 			/**
 			 * Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)
@@ -88,7 +91,7 @@ export const ActivityEditorMixin = superclass => class extends superclass {
 	async _fetch(fetcher) {
 		const promise = fetcher();
 		this._sendPendingEvent(promise);
-		return await promise;
+		return promise;
 	}
 
 	_sendPendingEvent(promise) {

@@ -27,6 +27,7 @@ describe('Assignment ', function() {
 				instructionsEditorHtml: () => 'These are your instructions',
 				canEditInstructions: () => true,
 				canEditTurnitin: () => undefined,
+				attachmentsCollectionHref: () => 'http://attachmentsCollectionHref/1',
 				editTurnitinUrl: () => undefined,
 				isOriginalityCheckEnabled: () => undefined,
 				isGradeMarkEnabled: () => undefined,

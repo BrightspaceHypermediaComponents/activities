@@ -1,22 +1,16 @@
 import '../d2l-activity-editor-buttons.js';
 import '../d2l-activity-visibility-editor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
+import { SkeletizeMixin } from '../mixins/d2l-skeletize-mixin';
 
-class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(LocalizeActivityAssignmentEditorMixin(LitElement)))) {
-
-	static get properties() {
-		return {
-			_activityUsageHref: { type: String }
-		};
-	}
+class AssignmentEditorFooter extends SkeletizeMixin(SaveStatusMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(LitElement))))) {
 
 	static get styles() {
-		return css`
+		return [super.styles, css`
 			:host {
 				display: flex;
 			}
@@ -41,21 +35,19 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 					justify-content: space-between;
 				}
 			}
-		`;
+		`];
 	}
 
 	constructor() {
 		super();
-		this._setEntityType(AssignmentEntity);
-
-		this._activityUsageHref = '';
+		this.skeleton = false;
 	}
 
 	render() {
 		return html`
-			<div class="d2l-activity-assignment-editor-footer-left">
+			<div class="d2l-skeletize d2l-activity-assignment-editor-footer-left">
 				<d2l-activity-visibility-editor
-					.href="${this._activityUsageHref}"
+					.href="${this.href}"
 					.token="${this.token}">
 				</d2l-activity-visibility-editor>
 				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>
@@ -65,20 +57,5 @@ class AssignmentEditorFooter extends SaveStatusMixin(EntityMixinLit(RtlMixin(Loc
 			</div>
 		`;
 	}
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
-	}
-
-	_onAssignmentChange(assignment) {
-		if (!assignment) {
-			return;
-		}
-
-		this._activityUsageHref = assignment.activityUsageHref();
-	}
-
 }
 customElements.define('d2l-activity-assignment-editor-footer', AssignmentEditorFooter);

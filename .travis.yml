@@ -19,6 +19,7 @@ jobs:
         npm run test:polymer:local || travis_terminate 1;
       fi
     - npm run test:js
+    - npm run test:karma
   - stage: Visual-difference-tests
     script:
     - |

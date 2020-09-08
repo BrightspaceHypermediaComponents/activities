@@ -9,11 +9,9 @@ import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
 import { css, html } from 'lit-element/lit-element.js';
 
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { shared as attachmentCollectionStore } from '../d2l-activity-attachments/state/attachment-collections-store.js';
 import { shared as attachmentStore } from '../d2l-activity-attachments/state/attachment-store.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LinksInMessageProcessor } from '@d2l/d2l-attachment/helpers/links-in-message-processor.js';
@@ -24,13 +22,13 @@ import { SaveStatusMixin } from '../save-status-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeActivityAssignmentEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
+class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(LocalizeActivityAssignmentEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))))) {
 
 	static get properties() {
 		return {
 			_nameError: { type: String },
-			_attachmentsHref: { type: String },
-			_linksProcessor: { type: Object }
+			_linksProcessor: { type: Object },
+			activityUsageHref: { type: String, attribute: 'activity-usage-href' },
 		};
 	}
 
@@ -72,10 +70,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 	constructor() {
 		super();
-		this._setEntityType(AssignmentEntity);
 		this._debounceJobs = {};
 
-		this._attachmentsHref = '';
 		this._linksProcessor = new LinksInMessageProcessor();
 	}
 
@@ -90,8 +86,8 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			canEditName,
 			instructions,
 			canEditInstructions,
+			attachmentsHref,
 			instructionsRichTextEditorConfig,
-			activityUsageHref
 		} = assignment;
 
 		return html`
@@ -118,16 +114,16 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 								and so it cannot be plugged into Dropbox to check Assignment permissions.
 				*/ html`
 					<d2l-activity-outcomes
-						href="${activityUsageHref}"
+						href="${this.activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-outcomes>
-				` : null }
+				` : null}
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">
 					<label class="d2l-label-text">${this.localize('scoreOutOf')}</label>
 					<d2l-activity-score-editor
-						.href="${activityUsageHref}"
+						.href="${this.activityUsageHref}"
 						.token="${this.token}"
 						.activityName="${name}">
 					</d2l-activity-score-editor>
@@ -135,7 +131,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 				<div id="duedate-container">
 					<d2l-activity-due-date-editor
-						.href="${activityUsageHref}"
+						.href="${this.activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-due-date-editor>
 				</div>
@@ -152,9 +148,9 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</d2l-activity-text-editor>
 			</div>
 
-			<div id="assignment-attachments-editor-container" ?hidden="${!this._attachmentsHref}">
+			<div id="assignment-attachments-editor-container" ?hidden="${!attachmentsHref}">
 				<d2l-activity-attachments-editor
-					href="${this._attachmentsHref}"
+					href="${attachmentsHref}"
 					.token="${this.token}">
 				</d2l-activity-attachments-editor>
 			</div>
@@ -169,17 +165,12 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 		}
 	}
 	addLinks(links) {
-		const collection = attachmentCollectionStore.get(this._attachmentsHref);
+		const attachmentsHref = store.getAssignment(this.href).attachmentsHref;
+		const collection = attachmentCollectionStore.get(attachmentsHref);
 		links = links || [];
 		links.forEach(element => {
 			collection.addAttachment(attachmentStore.createLink(element.name, element.url));
 		});
-	}
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
 	}
 
 	_getNameTooltip() {
@@ -194,13 +185,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</d2l-tooltip>
 			`;
 		}
-	}
-	_onAssignmentChange(assignment) {
-		if (!assignment) {
-			return;
-		}
-
-		this._attachmentsHref = assignment.attachmentsCollectionHref();
 	}
 	_saveInstructions(value) {
 		store.getAssignment(this.href).setInstructions(value);

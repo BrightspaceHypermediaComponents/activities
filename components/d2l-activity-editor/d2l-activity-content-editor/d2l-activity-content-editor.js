@@ -2,12 +2,14 @@ import '../d2l-activity-editor.js';
 import './d2l-activity-content-editor-detail.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import '@brightspace-ui/core/components/colors/colors.js';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { shared as store } from './state/content-store-store.js';
 
-class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditorMixin(LitElement))) {
+class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -39,7 +41,7 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 	}
 
 	constructor() {
-		super();
+		super(store);
 		// TODO: set up ContentStore to keep track of state
 		this.type = 'content';
 		this.telemetryId = 'content';
@@ -56,6 +58,15 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 				${this._editorTemplate}
 			</d2l-activity-editor>
 		`;
+	}
+
+	updated(changedProperties) {
+		super.updated(changedProperties);
+
+		if ((changedProperties.has('href') || changedProperties.has('token')) &&
+			this.href && this.token) {
+			super._fetch(() => store.fetchContent(this.href, this.token));
+		}
 	}
 
 	delete() {

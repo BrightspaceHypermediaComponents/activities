@@ -6,11 +6,11 @@ export class ContentStore {
 		this._contents = new ObjectStore(Content);
 	}
 
-	fetchContent(href, token) {
+	fetchContentActivity(href, token) {
 		return this._contents.fetch(href, token);
 	}
 
-	getContent(href) {
+	getContentActivity(href) {
 		return this._contents.get(href);
 	}
 

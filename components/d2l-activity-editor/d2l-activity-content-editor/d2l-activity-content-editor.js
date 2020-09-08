@@ -42,7 +42,6 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 
 	constructor() {
 		super(store);
-		// TODO: set up ContentStore to keep track of state
 		this.type = 'content';
 		this.telemetryId = 'content';
 	}
@@ -65,7 +64,7 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 
 		if ((changedProperties.has('href') || changedProperties.has('token')) &&
 			this.href && this.token) {
-			super._fetch(() => store.fetchContent(this.href, this.token));
+			super._fetch(() => store.fetchContentActivity(this.href, this.token));
 		}
 	}
 

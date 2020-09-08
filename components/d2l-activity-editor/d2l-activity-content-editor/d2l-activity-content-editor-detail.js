@@ -2,9 +2,12 @@ import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { shared as store } from './state/content-store.js';
 
-class ContentEditorDetail extends RtlMixin(LitElement) {
+class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
 
 	static get properties() {
 		return {
@@ -26,7 +29,20 @@ class ContentEditorDetail extends RtlMixin(LitElement) {
 		`;
 	}
 
+	constructor() {
+		super();
+		// TODO: set entity type ContentEntity
+		this._setEntityType(AssignmentEntity);
+	}
+
 	render() {
+		const contentEntity = store.getContentActivity(this.href);
+		if (!contentEntity) {
+			return html``;
+		}
+
+		const {	name } = contentEntity;
+
 		return html`
 			<div id="content-name-container">
 				<!-- TODO add localization -->
@@ -34,6 +50,7 @@ class ContentEditorDetail extends RtlMixin(LitElement) {
 				<d2l-input-text
 					id="content-name"
 					maxlength="128"
+					value="${name}"
 					aria-invalid="${this._nameError ? 'true' : ''}"
 					prevent-submit
 					novalidate>

@@ -9,7 +9,8 @@ export class Content {
 	constructor(href, token) {
 		this.href = href;
 		this.token = token;
-		this.name = null;
+		// TODO - confrim what we want default value to be (null? "Undefined"?)
+		this.name = 'default name value';
 	}
 
 	delete() {
@@ -20,7 +21,7 @@ export class Content {
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
-			// TODO - set up ContentEntity in https://github.com/BrightspaceHypermediaComponents/siren-sdk
+			// TODO - set to ContentEntity in https://github.com/BrightspaceHypermediaComponents/siren-sdk
 			const entity = new AssignmentEntity(sirenEntity, this.token, { remove: () => { } });
 			this.load(entity);
 		}

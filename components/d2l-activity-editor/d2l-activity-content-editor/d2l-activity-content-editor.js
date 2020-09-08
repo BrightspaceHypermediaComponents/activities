@@ -7,7 +7,7 @@ import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-cont
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { shared as store } from './state/content-store-store.js';
+import { shared as store } from './state/content-store.js';
 
 class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))) {
 

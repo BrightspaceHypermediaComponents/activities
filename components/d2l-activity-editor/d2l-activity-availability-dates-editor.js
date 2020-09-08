@@ -126,16 +126,20 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActiv
 
 	_validateEndDate(e) {
 		const entity = store.get(this.href);
-		if (entity && entity.dates) {
-			e.detail.resolve(!entity.dates.endDateErrorTerm);
+		if (!entity || !entity.dates || !entity.dates.canEditDates) {
+			e.detail.resolve(true);
+			return;
 		}
+		e.detail.resolve(!entity.dates.endDateErrorTerm);
 	}
 
 	_validateStartDate(e) {
 		const entity = store.get(this.href);
-		if (entity && entity.dates) {
-			e.detail.resolve(!entity.dates.startDateErrorTerm);
+		if (!entity || !entity.dates || !entity.dates.canEditDates) {
+			e.detail.resolve(true);
+			return;
 		}
+		e.detail.resolve(!entity.dates.startDateErrorTerm);
 	}
 }
 customElements.define('d2l-activity-availability-dates-editor', ActivityAvailabilityDatesEditor);

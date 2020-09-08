@@ -92,9 +92,11 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 	_validateDueDate(e) {
 		const entity = store.get(this.href);
-		if (entity && entity.dates) {
-			e.detail.resolve(!entity.dates.dueDateErrorTerm);
+		if (!entity || !entity.dates || !entity.dates.canEditDates) {
+			e.detail.resolve(true);
+			return;
 		}
+		e.detail.resolve(!entity.dates.dueDateErrorTerm);
 	}
 }
 customElements.define('d2l-activity-due-date-editor', ActivityDueDateEditor);

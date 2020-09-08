@@ -79,6 +79,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 		it('sets start date to be invalid for given error', async() => {
 			dates.setErrorLangTerms('start-after-due-date-error');
 			await nextFrame();
+			await elementUpdated(el);
 
 			expect(startDateInput.invalid).to.be.true;
 			expect(endDateInput.invalid).to.be.false;
@@ -86,6 +87,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 		it('sets end date to be invalid for given error', async() => {
 			dates.setErrorLangTerms('end-before-due-date-error');
 			await nextFrame();
+			await elementUpdated(el);
 
 			expect(startDateInput.invalid).to.be.false;
 			expect(endDateInput.invalid).to.be.true;
@@ -93,6 +95,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 		it('sets start and end date to be invalid for given error', async() => {
 			dates.setErrorLangTerms('end-before-start-due-date-error');
 			await nextFrame();
+			await elementUpdated(el);
 
 			expect(startDateInput.invalid).to.be.true;
 			expect(endDateInput.invalid).to.be.true;
@@ -100,12 +103,14 @@ describe('d2l-activity-availability-dates-editor', function() {
 		it('clears invalid state', async() => {
 			dates.setErrorLangTerms('end-before-start-due-date-error');
 			await nextFrame();
+			await elementUpdated(el);
 
 			expect(startDateInput.invalid).to.be.true;
 			expect(endDateInput.invalid).to.be.true;
 
 			dates.setErrorLangTerms();
 			await nextFrame();
+			await elementUpdated(el);
 
 			expect(startDateInput.invalid).to.be.false;
 			expect(endDateInput.invalid).to.be.false;

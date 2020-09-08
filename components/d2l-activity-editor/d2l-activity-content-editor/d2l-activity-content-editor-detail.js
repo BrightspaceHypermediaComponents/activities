@@ -31,7 +31,7 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
 
 	constructor() {
 		super();
-		// TODO: set entity type ContentEntity
+		// TODO: set entity type ContentEntity and confirm if this is necessary
 		this._setEntityType(AssignmentEntity);
 	}
 
@@ -45,7 +45,7 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
 
 		return html`
 			<div id="content-name-container">
-				<!-- TODO add localization -->
+				<!-- TODO - add localization -->
 				<label class="d2l-label-text" for="content-name">Name*</label>
 				<d2l-input-text
 					id="content-name"

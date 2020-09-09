@@ -2,7 +2,7 @@ import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
@@ -31,8 +31,8 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
 
 	constructor() {
 		super();
-		// TODO: set entity type ContentEntity and confirm if this is necessary
-		this._setEntityType(AssignmentEntity);
+		// TODO: confirm if this is necessary
+		this._setEntityType(ContentEntity);
 	}
 
 	render() {

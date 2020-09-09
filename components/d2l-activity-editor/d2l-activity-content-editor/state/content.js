@@ -1,5 +1,5 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
+import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });
@@ -10,7 +10,7 @@ export class Content {
 		this.href = href;
 		this.token = token;
 		// TODO - confrim what we want default value to be (null? "Undefined"?)
-		this.name = 'default name value';
+		this.title = 'default name value';
 	}
 
 	delete() {
@@ -21,8 +21,7 @@ export class Content {
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
-			// TODO - set to ContentEntity in https://github.com/BrightspaceHypermediaComponents/siren-sdk
-			const entity = new AssignmentEntity(sirenEntity, this.token, { remove: () => { } });
+			const entity = new ContentEntity(sirenEntity, this.token, { remove: () => { } });
 			this.load(entity);
 		}
 		return this;
@@ -30,7 +29,7 @@ export class Content {
 
 	load(entity) {
 		this._entity = entity;
-		this.name = entity.name();
+		this.title = entity.title();
 	}
 
 	async save() {
@@ -38,15 +37,15 @@ export class Content {
 		return;
 	}
 
-	setName(value) {
-		this.name = value;
+	setTitle(value) {
+		this.title = value;
 	}
 
 }
 
 decorate(Content, {
 	// props
-	name: observable,
+	title: observable,
 	// actions
 	load: action,
 	setName: action,

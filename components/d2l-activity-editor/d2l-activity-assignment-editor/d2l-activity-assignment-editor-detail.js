@@ -61,7 +61,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 				}
 				.d2l-label-text {
 					display: block;
-					padding-bottom: 7px;
+					margin-bottom: 7px;
 				}
 				:host([dir="rtl"]) #score-container {
 					margin-left: 40px;

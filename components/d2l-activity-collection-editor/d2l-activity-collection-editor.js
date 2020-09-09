@@ -658,7 +658,7 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 
 		const items = repeat(this._items, (item) => item.id, item => {
 			return html`
-				<d2l-labs-list-item-accumulator key="${item.id}" draggable>
+				<d2l-labs-list-item-accumulator key="${item.id}" drag-handle-text="${item.name()}" draggable>
 					<div slot="illustration" class="d2l-activitiy-collection-list-item-illustration">
 						${this._renderCourseImageSkeleton()}
 						<d2l-organization-image

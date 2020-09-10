@@ -1,13 +1,14 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
 
-class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
+class ContentEditorDetail extends EntityMixinLit(RtlMixin(MobxLitElement)) {
 
 	static get properties() {
 		return {
@@ -30,18 +31,18 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
 	}
 
 	constructor() {
-		super();
+		super(store);
 		// TODO: confirm if this is necessary
 		this._setEntityType(ContentEntity);
 	}
 
 	render() {
-		const contentEntity = store.getContentActivity(this.href);
-		if (!contentEntity) {
-			return html``;
-		}
-
-		const {	name } = contentEntity;
+		// TODO - add back once we load the entity into the store properly
+		// const contentEntity = store.getContentActivity(this.href);
+		// if (!contentEntity) {
+		// 	return html``;
+		// }
+		// const {	name } = contentEntity;
 
 		return html`
 			<div id="content-name-container">
@@ -50,7 +51,7 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(LitElement)) {
 				<d2l-input-text
 					id="content-name"
 					maxlength="128"
-					value="${name}"
+					value="TODO - set to default name value"
 					aria-invalid="${this._nameError ? 'true' : ''}"
 					prevent-submit
 					novalidate>

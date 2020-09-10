@@ -5,14 +5,23 @@ import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { SkeletizeMixin } from './mixins/d2l-skeletize-mixin';
+
 import { shared as store } from './state/activity-store.js';
 
-class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(MobxLitElement)) {
+class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
 
 	static get styles() {
-		return [labelStyles, css`
+		return [
+			super.styles,
+			labelStyles,
+			css`
 			:host([hidden]) {
 				display: none;
+			}
+			.d2l-label-container {
+				display: flex;
+				margin-bottom: 7px;
 			}
 		`];
 	}
@@ -33,9 +42,14 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		}
 
 		return html`
+		 	<div class="d2l-activity-label-container">
+				<label class="d2l-label-text d2l-skeletize">${this.localize('editor.dueDate')}</label>
+			</div>
 			<d2l-input-date-time
-				id="due-date-input"
+				class="d2l-skeletize"
 				label="${this.localize('editor.dueDate')}"
+				label-hidden
+				id="due-date-input"
 				value="${dueDate}"
 				@change="${this._onDatetimeChanged}">
 			</d2l-input-date-time>

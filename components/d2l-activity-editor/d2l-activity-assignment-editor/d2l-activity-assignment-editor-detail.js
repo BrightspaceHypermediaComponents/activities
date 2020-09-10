@@ -137,6 +137,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 
 				<div id="duedate-container">
 					<d2l-activity-due-date-editor
+						?skeleton="${this.skeleton}"
 						.href="${this.activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-due-date-editor>

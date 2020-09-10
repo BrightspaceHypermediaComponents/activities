@@ -43,6 +43,10 @@ class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeA
 		this._isFirstLoad = false;
 	}
 	render() {
+		if (this.skeleton) {
+			return html``;
+		}
+
 		const entity = store.get(this.href);
 		const dates = entity ? entity.dates : null;
 		let dueDate, canEditDates, errorTerm;

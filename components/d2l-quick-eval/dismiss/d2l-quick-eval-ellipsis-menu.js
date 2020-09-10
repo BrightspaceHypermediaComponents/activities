@@ -1,9 +1,9 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { LitQuickEvalLocalize } from '../LitQuickEvalLocalize.js';
-import 'd2l-dropdown/d2l-dropdown-more.js';
-import 'd2l-dropdown/d2l-dropdown-menu.js';
-import 'd2l-menu/d2l-menu.js';
-import 'd2l-menu/d2l-menu-item.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-more.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-menu.js';
+import '@brightspace-ui/core/components/menu/menu.js';
+import '@brightspace-ui/core/components/menu/menu-item.js';
 import './d2l-quick-eval-dismissed-activities.js';
 
 class D2LQuickEvalEllipsisMenu extends LitQuickEvalLocalize(LitElement) {

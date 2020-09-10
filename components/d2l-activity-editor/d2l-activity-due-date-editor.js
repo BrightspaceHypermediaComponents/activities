@@ -36,6 +36,7 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 			<d2l-input-date-time
 				id="due-date-input"
 				label="${this.localize('editor.dueDate')}"
+				time-default-value="endOfDay"
 				value="${dueDate}"
 				@change="${this._onDatetimeChanged}">
 			</d2l-input-date-time>

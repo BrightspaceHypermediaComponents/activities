@@ -1,7 +1,7 @@
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
-import 'd2l-dropdown/d2l-dropdown-button-subtle.js';
-import 'd2l-dropdown/d2l-dropdown-menu.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-button-subtle.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-menu.js';
 import '@brightspace-ui/core/components/menu/menu.js';
 import '@brightspace-ui/core/components/menu/menu-item.js';
 import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';

@@ -19,7 +19,7 @@ class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeA
 			:host([hidden]) {
 				display: none;
 			}
-			.d2l-label-container {
+			.d2l-activity-label-container {
 				display: flex;
 				margin-bottom: 7px;
 			}

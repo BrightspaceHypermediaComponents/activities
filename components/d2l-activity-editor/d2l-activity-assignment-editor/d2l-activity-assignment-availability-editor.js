@@ -12,9 +12,10 @@ import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summ
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { SkeletizeMixin } from '../mixins/d2l-skeletize-mixin';
 import { shared as store } from '../state/activity-store.js';
 
-class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement))) {
+class ActivityAssignmentAvailabilityEditor extends SkeletizeMixin(ActivityEditorFeaturesMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement)))) {
 
 	static get properties() {
 
@@ -30,6 +31,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 	static get styles() {
 
 		return [
+			super.styles,
 			bodySmallStyles,
 			heading3Styles,
 			heading4Styles,
@@ -55,7 +57,7 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 				}
 			`,
 			summarizerHeaderStyles,
-			summarizerSummaryStyles,
+			summarizerSummaryStyles
 		];
 	}
 
@@ -77,11 +79,13 @@ class ActivityAssignmentAvailabilityEditor extends ActivityEditorFeaturesMixin(L
 				flex
 				header-border
 				?opened=${this._isOpened()}
+				?disabled="${this.skeleton}"
+				?no-icons="${this.skeleton}"
 				@d2l-labs-accordion-collapse-state-changed=${this._onAccordionStateChange}>
-				<h3 class="d2l-heading-3 d2l-activity-summarizer-header" slot="header">
+				<h3 class="d2l-heading-3 d2l-activity-summarizer-header d2l-skeletize" slot="header">
 					${this.localize('hdrAvailability')}
 				</h3>
-				<ul class="d2l-body-small d2l-activity-summarizer-summary" slot="summary">
+				<ul class="d2l-body-small d2l-activity-summarizer-summary d2l-skeletize" slot="summary">
 					<li>${this._renderAvailabilityDatesSummary()}</li>
 					<li>${this._renderReleaseConditionSummary()}</li>
 					<li>${this._renderSpecialAccessSummary()}</li>

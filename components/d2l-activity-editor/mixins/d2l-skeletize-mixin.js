@@ -26,7 +26,7 @@ export const SkeletizeMixin = superclass => class extends superclass {
 			position: absolute;
 			right: 0;
 			top: 0;
-			z-index: 2000;
+			z-index: 1;
 		}
 		:host([skeleton]) .d2l-skeletize {
 			border: none;

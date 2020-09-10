@@ -6,6 +6,15 @@ export const summarizerHeaderStyles = css`
 		margin-bottom: 12px !important;
 		margin-top: 20px !important;
 	}
+
+	:host([skeleton]) .d2l-activity-summarizer-header.d2l-skeletize::before {
+		white-space: nowrap;
+		width: 70%;
+	}
+
+	:host([skeleton]) .d2l-activity-summarizer-header.d2l-skeletize {
+		height: 1.5rem;
+	}
 `;
 
 export const summarizerSummaryStyles = css`
@@ -23,5 +32,12 @@ export const summarizerSummaryStyles = css`
 
 	ul.d2l-activity-summarizer-summary > li:last-child {
 		margin-bottom: 0;
+	}
+
+	:host([skeleton]) .d2l-activity-summarizer-summary.d2l-skeletize::before {
+		width: 60%;
+	}
+	:host([skeleton]) .d2l-activity-summarizer-summary.d2l-skeletize {
+		height: 1rem;
 	}
 `;

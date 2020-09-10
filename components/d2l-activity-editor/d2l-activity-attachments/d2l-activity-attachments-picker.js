@@ -11,12 +11,13 @@ import { shared as attachmentStore } from './state/attachment-store.js';
 import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin';
+import { SkeletizeMixin } from '../mixins/d2l-skeletize-mixin';
 import { shared as store } from './state/attachment-collections-store.js';
 
-class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
+class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletizeMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
 	static get styles() {
-		return css`
+		return [super.styles, css`
 			:host {
 				align-items: center;
 				background: var(--d2l-color-regolith);
@@ -25,12 +26,12 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
-				padding: 12px;
 			}
 
 			.d2l-button-container {
 				display: flex;
 				flex-direction: row;
+				padding: 12px;
 				width: 100%;
 			}
 
@@ -63,7 +64,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 					display: block;
 				}
 			}
-		`;
+		`];
 	}
 
 	constructor() {
@@ -124,7 +125,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(LocalizeActivityEdit
 		} = collection;
 
 		return html`
-			<div class="d2l-button-container">
+			<div class="d2l-button-container d2l-skeletize">
 				<d2l-button-icon
 					id="add-file-button"
 					icon="d2l-tier1:upload"

@@ -1,5 +1,6 @@
 import '../d2l-activity-editor.js';
 import './d2l-activity-content-editor-detail.js';
+import './d2l-activity-content-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -95,7 +96,8 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 					<p>Secondary Slot</p>
 				</div>
 				<div slot="footer">
-					<p>Footer Slot</p>
+					<d2l-activity-content-editor-footer>
+					</d2l-activity-content-editor-footer>
 				</div>
 			</d2l-template-primary-secondary>
 		`;

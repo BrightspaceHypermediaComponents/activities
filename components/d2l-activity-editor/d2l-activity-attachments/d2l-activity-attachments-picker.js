@@ -1,9 +1,9 @@
 import '@brightspace-ui/core/components/button/button';
 import '@brightspace-ui/core/components/colors/colors';
-import '@brightspace-ui/core/components/dropdown/dropdown';
-import '@brightspace-ui/core/components/dropdown/dropdown-menu';
-import '@brightspace-ui/core/components/tooltip/tooltip';
-import '@brightspace-ui/core/components/menu/menu';
+import 'd2l-tooltip/d2l-tooltip';
+import 'd2l-menu/d2l-menu.js';
+import 'd2l-dropdown/d2l-dropdown.js';
+import 'd2l-dropdown/d2l-dropdown-menu.js';
 
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';

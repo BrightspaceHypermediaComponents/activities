@@ -59,7 +59,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 				#score-container {
 					margin-right: 40px;
 				}
-				.label-container {
+				.d2l-activity-label-container {
 					display: flex;
 					margin-bottom: 7px;
 				}
@@ -125,7 +125,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">
-					<div class="label-container">
+					<div class="d2l-activity-label-container">
 						<label class="d2l-label-text d2l-skeletize">${this.localize('scoreOutOf')}</label>
 					</div>
 					<d2l-activity-score-editor

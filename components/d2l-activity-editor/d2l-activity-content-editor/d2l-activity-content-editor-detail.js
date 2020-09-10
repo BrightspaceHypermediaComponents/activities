@@ -1,5 +1,6 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
+import '../d2l-activity-html-editor.js';
 
 import { css, html } from 'lit-element/lit-element.js';
 import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
@@ -44,6 +45,9 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(MobxLitElement)) {
 		// }
 		// const {	name } = contentEntity;
 
+		// TODO: do we need an editor config?
+		const editorConfig = {};
+
 		return html`
 			<div id="content-name-container">
 				<!-- TODO - add localization -->
@@ -57,6 +61,17 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(MobxLitElement)) {
 					novalidate>
 				</d2l-input-text>
 				${this._getNameTooltip()}
+			</div>
+			<div id="content-description-container">
+			<!-- TODO - add localization -->
+			<label class="d2l-label-text">Description</label>
+				<d2l-activity-html-editor
+					.value="TODO set description value property"
+					.richtextEditorConfig="${editorConfig}"
+					@d2l-activity-text-editor-change="${this._onRichtextChange}"
+					ariaLabel="Description"
+				>
+				</d2l-activity-html-editor>
 			</div>
 		`;
 	}
@@ -73,6 +88,18 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(MobxLitElement)) {
 				</d2l-tooltip>
 			`;
 		}
+	}
+
+	_onRichtextChange(e) {
+		const content = e.detail.content;
+		// TODO - handle description change event
+		this.dispatchEvent(new CustomEvent('d2l-activity-content-editor-description-change', {
+			bubbles: true,
+			composed: true,
+			detail: {
+				content: content
+			}
+		}));
 	}
 }
 customElements.define('d2l-activity-content-editor-detail', ContentEditorDetail);

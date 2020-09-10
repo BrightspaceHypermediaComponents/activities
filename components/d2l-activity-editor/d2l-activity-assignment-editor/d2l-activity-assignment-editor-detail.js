@@ -95,7 +95,9 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 
 		return html`
 			<div id="assignment-name-container">
-				<label class="d2l-label-text d2l-skeletize" for="assignment-name">${this.localize('name')}*</label>
+				<div class="d2l-activity-label-container">
+					<label class="d2l-label-text d2l-skeletize" for="assignment-name">${this.localize('name')}*</label>
+				</div>
 				<d2l-input-text
 					id="assignment-name"
 					class="d2l-skeletize"
@@ -146,7 +148,9 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 			</div>
 
 			<div id="assignment-instructions-container">
-				<label class="d2l-label-text d2l-skeletize">${this.localize('instructions')}</label>
+				<div class="d2l-activity-label-container">
+					<label class="d2l-label-text d2l-skeletize">${this.localize('instructions')}</label>
+				</div>
 				<div class="d2l-skeletize">
 					<d2l-activity-text-editor
 						.value="${instructions}"

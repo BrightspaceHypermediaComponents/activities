@@ -72,7 +72,9 @@ class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeA
 		}
 
 		return html`
-			<label class="d2l-label-text" ?hidden="${!canEditDates}">${this.localize('editor.dueDate')}</label>
+			<div class="d2l-activity-label-container">
+				<label class="d2l-label-text d2l-skeletize" ?hidden="${!canEditDates}">${this.localize('editor.dueDate')}</label>
+			</div>
 			${this.dateTemplate(dueDate, canEditDates, errorTerm)}
 		`;
 	}

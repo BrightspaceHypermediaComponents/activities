@@ -60,8 +60,10 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 					margin-right: 40px;
 				}
 				.d2l-activity-label-container {
-					display: flex;
-					margin-bottom: 7px;
+					margin-bottom: -1px; /* hacky: trying to be pixel perfect, we will replace it d2l-input-label soon */
+				}
+				.d2l-activity-label-container > label {
+					vertical-align: top;
 				}
 				:host([dir="rtl"]) #score-container {
 					margin-left: 40px;

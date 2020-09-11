@@ -33,16 +33,14 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(SkeletizeMixin(MobxL
 
 		const {
 			canAddAttachments,
-		} = collection || {
-			canAddAttachments: true
-		};
+		} = collection || {};
 
 		return html`<d2l-activity-attachments-list
 			?hidden="${this.skeleton}"
 			href="${this.href}"
 			.token="${this.token}">
 		</d2l-activity-attachments-list>
-			${canAddAttachments ? html`
+			${canAddAttachments || this.skeleton ? html`
 		<d2l-activity-attachments-picker
 			?skeleton="${this.skeleton}"
 			href="${this.href}"

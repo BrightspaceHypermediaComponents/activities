@@ -161,7 +161,7 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(Skel
 				</div>
 			</div>
 
-			<div id="assignment-attachments-editor-container" ?hidden="${!attachmentsHref}">
+			<div id="assignment-attachments-editor-container" ?hidden="${!attachmentsHref && !this.skeleton}">
 				<d2l-activity-attachments-editor
 					?skeleton="${this.skeleton}"
 					href="${attachmentsHref}"

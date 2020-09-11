@@ -122,9 +122,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletizeMixin(Local
 			canAddOneDriveLink,
 			canRecordVideo,
 			canRecordAudio
-		} = collection || {
-			canAddFile: true // fallback to ensure skeleton state displays with correct height
-		};
+		} = collection || {};
 
 		return html`
 		<div class="d2l-attachments-picker-container d2l-skeletize">
@@ -133,7 +131,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletizeMixin(Local
 					id="add-file-button"
 					icon="d2l-tier1:upload"
 					aria-label="${this.localize('attachments.addFile')}"
-					?hidden="${!canAddFile}"
+					?hidden="${!canAddFile && !this.skeleton}"
 					@click="${this._launchAddFileDialog}">
 				</d2l-button-icon>
 				<d2l-tooltip

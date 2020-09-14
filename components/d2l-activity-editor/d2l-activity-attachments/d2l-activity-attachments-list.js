@@ -16,6 +16,9 @@ class ActivityAttachmentsList extends ActivityEditorMixin(MobxLitElement) {
 			d2l-activity-attachment {
 				margin-bottom: 20px;
 			}
+			:host([hidden]) {
+				display: none;
+			}
 		`;
 	}
 

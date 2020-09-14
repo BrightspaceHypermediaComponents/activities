@@ -3,23 +3,24 @@ import './d2l-activity-assignment-evaluation-editor.js';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
+import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { SkeletizeMixin } from '../mixins/d2l-skeletize-mixin';
 
-class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(EntityMixinLit(LocalizeActivityAssignmentEditorMixin(LitElement)))) {
+class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContainerMixin(SkeletizeMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(LitElement))))) {
 
 	static get properties() {
 		return {
-			_activityUsageHref: { type: String }
+			activityUsageHref: { type: String, attribute: 'activity-usage-href' },
 		};
 	}
 
 	static get styles() {
 		return [
+			super.styles,
 			labelStyles,
 			css`
 				:host {
@@ -42,10 +43,8 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 
 	constructor() {
 		super();
-		this._setEntityType(AssignmentEntity);
 		this._debounceJobs = {};
-
-		this._activityUsageHref = '';
+		this.skeleton = true;
 	}
 
 	render() {
@@ -54,15 +53,17 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 
 		const availabilityAccordian = html`
 			<d2l-activity-assignment-availability-editor
-				.href="${this._activityUsageHref}"
-				.token="${this.token}">
+				.href="${this.activityUsageHref}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}">
 			</d2l-activity-assignment-availability-editor>
 		`;
 
 		const submissionCompletionCategorizationAccordian = showSubmissionCompletionAccordian ? html`
 			<d2l-activity-assignment-editor-submission-and-completion-editor
 				href="${this.href}"
-				.token="${this.token}">
+				.token="${this.token}"
+				?skeleton="${this.skeleton}">
 			</d2l-activity-assignment-editor-submission-and-completion-editor>
 		` : null;
 
@@ -70,7 +71,8 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
 				.token="${this.token}"
-				.activityUsageHref=${this._activityUsageHref}>
+				.activityUsageHref="${this.activityUsageHref}"
+				?skeleton="${this.skeleton}">
 			</d2l-activity-assignment-evaluation-editor>
 		` : null;
 
@@ -81,19 +83,13 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(RtlMixin(Ent
 		`;
 
 	}
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
-	}
 
-	_onAssignmentChange(assignment) {
-		if (!assignment) {
-			return;
-		}
+	updated(changedProperties) {
+		super.updated(changedProperties);
 
-		this._activityUsageHref = assignment.activityUsageHref();
+		if (changedProperties.has('asyncState')) {
+			this.skeleton = this.asyncState !== asyncStates.complete;
+		}
 	}
 
 }

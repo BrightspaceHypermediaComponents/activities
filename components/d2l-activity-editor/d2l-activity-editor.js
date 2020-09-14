@@ -38,8 +38,7 @@ class ActivityEditor extends ActivityEditorTelemetryMixin(AsyncContainerMixin(Ac
 
 	render() {
 		return html`
-			<div ?hidden="${this.asyncState === asyncStates.complete}" class="d2l-activity-editor-loading">${this.localize('editor.loading')}</div>
-			<div id="editor-container" ?hidden="${this.asyncState !== asyncStates.complete}">
+			<div id="editor-container">
 				<slot name="editor"></slot>
 			</div>
 			<d2l-backdrop

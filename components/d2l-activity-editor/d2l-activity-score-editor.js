@@ -6,8 +6,10 @@ import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/inputs/input-radio-spacer.js';
 import '@brightspace-ui/core/components/inputs/input-text.js';
-import 'd2l-dropdown/d2l-dropdown.js';
-import 'd2l-dropdown/d2l-dropdown-menu.js';
+import '@brightspace-ui/core/components/dropdown/dropdown.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-menu.js';
+import '@brightspace-ui/core/components/menu/menu.js';
+import '@brightspace-ui/core/components/menu/menu-item.js';
 import 'd2l-tooltip/d2l-tooltip';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
@@ -16,9 +18,11 @@ import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { SkeletizeMixin } from './mixins/d2l-skeletize-mixin';
+
 import { shared as store } from './state/activity-store.js';
 
-class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
+class ActivityScoreEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
 	static get properties() {
 		return {
@@ -29,6 +33,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 
 	static get styles() {
 		return [
+			super.styles,
 			bodyCompactStyles,
 			labelStyles,
 			inputStyles,
@@ -161,10 +166,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 
 	render() {
 		const activity = store.get(this.href);
-		if (!activity) {
-			return html``;
-		}
-
 		const {
 			scoreOutOf,
 			scoreOutOfError,
@@ -173,12 +174,12 @@ class ActivityScoreEditor extends ActivityEditorMixin(LocalizeActivityEditorMixi
 			inGrades,
 			isUngraded,
 			canSeeGrades
-		} = activity.scoreAndGrade;
+		} = activity && activity.scoreAndGrade || {};
 
 		this._focusUngraded = isUngraded;
 
-		return isUngraded ? html`
-			<div id="ungraded-button-container">
+		return isUngraded || this.skeleton ? html`
+			<div id="ungraded-button-container" class="d2l-skeletize">
 				<button id="ungraded" class="d2l-input"
 					@click="${this._setGraded}"
 					aria-label="${this.localize('editor.addAGrade')}"

@@ -39,7 +39,9 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 			cancelable: true
 		});
 	}
-	async delete() {}
+
+	async cancelCreate() {}
+
 	get saveCompleteEvent() {
 		return new CustomEvent('d2l-activity-editor-save-complete', {
 			bubbles: true,
@@ -65,7 +67,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		}
 
 		if (this.isNew) {
-			await this.delete();
+			await this.cancelCreate();
 		}
 
 		this.dispatchEvent(this.cancelCompleteEvent);

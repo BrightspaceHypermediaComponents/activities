@@ -6,6 +6,7 @@ import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
 
+import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -14,7 +15,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement)))) {
+class AssignmentEditor extends ActivityEditorContainerMixin(AsyncContainerMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement))))) {
 
 	static get properties() {
 		return {
@@ -115,6 +116,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 		this.type = 'assignment';
 		this.telemetryId = 'assignments';
 		this.saveOrder = 2000;
+		this.skeleton = true;
 	}
 
 	render() {
@@ -146,11 +148,17 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 			this.href && this.token) {
 			super._fetch(() => store.fetchActivity(this.href, this.token));
 		}
+		if (changedProperties.has('asyncState')) {
+			this.skeleton = this.asyncState !== asyncStates.complete;
+		}
 	}
-	delete() {
-		// the decision is not to delete assignment at this moment, keeping the structure here for future
-		return true;
+
+	cancelCreate() {
+		const activity = store.getActivity(this.href);
+		const assignment = activity && store.getAssignment(activity.assignmentHref);
+		return assignment && assignment.cancelCreate();
 	}
+
 	hasPendingChanges() {
 		const activity = store.getActivity(this.href);
 		if (!activity) {
@@ -179,15 +187,11 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 	}
 	get _editorTemplate() {
 		const activity = store.getActivity(this.href);
-		if (!activity) {
-			return html``;
-		}
-
 		const {
 			assignmentHref
-		} = activity;
+		} = activity || {};
 
-		const assignment = store.getAssignment(activity.assignmentHref);
+		const assignment = store.getAssignment(assignmentHref);
 		const hasSubmissions = assignment && assignment.submissionAndCompletionProps.assignmentHasSubmissions;
 
 		return html`
@@ -202,6 +206,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 						</div>
 					</d2l-alert>
 					<d2l-activity-assignment-editor-detail
+						activity-usage-href=${this.href}
 						.href="${assignmentHref}"
 						.token="${this.token}">
 					</d2l-activity-assignment-editor-detail>
@@ -210,11 +215,12 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 					<d2l-activity-assignment-editor-secondary
 						.href="${assignmentHref}"
 						.token="${this.token}"
+						activity-usage-href="${this.href}"
 						class="d2l-activity-assignment-editor-secondary-panel">
 					</d2l-activity-assignment-editor-secondary>
 				</div>
 				<d2l-activity-assignment-editor-footer
-					.href="${assignmentHref}"
+					.href="${this.href}"
 					.token="${this.token}"
 					slot="footer"
 					class="d2l-activity-assignment-editor-footer">
@@ -342,6 +348,5 @@ class AssignmentEditor extends ActivityEditorContainerMixin(RtlMixin(LocalizeAct
 			e.stopPropagation();
 		}
 	}
-
 }
 customElements.define('d2l-activity-assignment-editor', AssignmentEditor);

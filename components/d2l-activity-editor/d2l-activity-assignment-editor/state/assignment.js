@@ -14,12 +14,18 @@ export class Assignment {
 		this.token = token;
 	}
 
+	cancelCreate() {
+		return this._entity.cancelCreate();
+	}
+
 	delete() {
 		return this._entity.delete();
 	}
+
 	get dirty() {
 		return !this._entity.equals(this._makeAssignmentData());
 	}
+
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -52,6 +58,7 @@ export class Assignment {
 		this.instructions = entity.canEditInstructions() ? entity.instructionsEditorHtml() : entity.instructionsHtml();
 		this.canEditInstructions = entity.canEditInstructions();
 		this.instructionsRichTextEditorConfig = entity.instructionsRichTextEditorConfig();
+		this.attachmentsHref = entity.attachmentsCollectionHref();
 		this.canEditAnnotations = entity.canEditAnnotations();
 		this.annotationToolsAvailable = entity.getAvailableAnnotationTools();
 		this.activityUsageHref = entity.activityUsageHref();
@@ -201,7 +208,6 @@ export class Assignment {
 		}
 		return data;
 	}
-
 }
 
 decorate(Assignment, {
@@ -212,6 +218,7 @@ decorate(Assignment, {
 	instructions: observable,
 	canEditInstructions: observable,
 	instructionsRichTextEditorConfig: observable,
+	attachmentsHref: observable,
 	canEditAnnotations: observable,
 	annotationToolsAvailable: observable,
 	activityUsageHref: observable,
@@ -247,5 +254,7 @@ decorate(Assignment, {
 	setAnonymousMarkingProps: action,
 	setDefaultScoringRubric: action,
 	resetDefaultScoringRubricId: action,
-	setNotificationEmail: action
+	setNotificationEmail: action,
+	delete: action,
+	cancelCreate: action
 });

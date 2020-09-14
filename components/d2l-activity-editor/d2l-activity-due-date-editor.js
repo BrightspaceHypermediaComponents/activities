@@ -4,9 +4,11 @@ import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { SkeletizeMixin } from './mixins/d2l-skeletize-mixin';
+
 import { shared as store } from './state/activity-store.js';
 
-class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(MobxLitElement)) {
+class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -16,12 +18,18 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	}
 
 	static get styles() {
-		return [labelStyles, css`
-			:host {
-				display: block;
-			}
+		return [
+			super.styles,
+			labelStyles,
+			css`
 			:host([hidden]) {
 				display: none;
+			}
+			.d2l-activity-label-container {
+				margin-bottom: -1px; /* hacky: trying to be pixel perfect, we will replace it d2l-input-label soon */
+			}
+			.d2l-activity-label-container > label {
+				vertical-align: top;
 			}
 		`];
 	}
@@ -37,6 +45,10 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		this._isFirstLoad = false;
 	}
 	render() {
+		if (this.skeleton) {
+			return html``;
+		}
+
 		const entity = store.get(this.href);
 		const dates = entity ? entity.dates : null;
 		let dueDate, canEditDates, errorTerm;
@@ -60,7 +72,9 @@ class ActivityDueDateEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		}
 
 		return html`
-			<label class="d2l-label-text" ?hidden="${!canEditDates}">${this.localize('editor.dueDate')}</label>
+			<div class="d2l-activity-label-container">
+				<label class="d2l-label-text d2l-skeletize" ?hidden="${!canEditDates}">${this.localize('editor.dueDate')}</label>
+			</div>
 			${this.dateTemplate(dueDate, canEditDates, errorTerm)}
 		`;
 	}

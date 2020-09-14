@@ -6,14 +6,13 @@ import '../d2l-activity-score-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
 
+import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { AssignmentEntity } from 'siren-sdk/src/activities/assignments/AssignmentEntity.js';
 import { shared as attachmentCollectionStore } from '../d2l-activity-attachments/state/attachment-collections-store.js';
 import { shared as attachmentStore } from '../d2l-activity-attachments/state/attachment-store.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LinksInMessageProcessor } from '@d2l/d2l-attachment/helpers/links-in-message-processor.js';
@@ -21,21 +20,23 @@ import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-ass
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SaveStatusMixin } from '../save-status-mixin.js';
+import { SkeletizeMixin } from '../mixins/d2l-skeletize-mixin';
 import { shared as store } from './state/assignment-store.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMixinLit(LocalizeActivityAssignmentEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
+class AssignmentEditorDetail extends ErrorHandlingMixin(AsyncContainerMixin(SkeletizeMixin(SaveStatusMixin(LocalizeActivityAssignmentEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
 	static get properties() {
 		return {
 			_nameError: { type: String },
-			_attachmentsHref: { type: String },
-			_linksProcessor: { type: Object }
+			_linksProcessor: { type: Object },
+			activityUsageHref: { type: String, attribute: 'activity-usage-href' },
 		};
 	}
 
 	static get styles() {
 		return [
+			super.styles,
 			labelStyles,
 			css`
 				:host {
@@ -58,6 +59,12 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				#score-container {
 					margin-right: 40px;
 				}
+				.d2l-activity-label-container {
+					margin-bottom: -1px; /* hacky: trying to be pixel perfect, we will replace it d2l-input-label soon */
+				}
+				.d2l-activity-label-container > label {
+					vertical-align: top;
+				}
 				:host([dir="rtl"]) #score-container {
 					margin-left: 40px;
 					margin-right: 0;
@@ -68,33 +75,31 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 	constructor() {
 		super();
-		this._setEntityType(AssignmentEntity);
 		this._debounceJobs = {};
-
-		this._attachmentsHref = '';
 		this._linksProcessor = new LinksInMessageProcessor();
+		this.skeleton = true;
 	}
 
 	render() {
 		const assignment = store.getAssignment(this.href);
-		if (!assignment) {
-			return html``;
-		}
 
 		const {
 			name,
 			canEditName,
 			instructions,
 			canEditInstructions,
+			attachmentsHref,
 			instructionsRichTextEditorConfig,
-			activityUsageHref
-		} = assignment;
+		} = assignment || {};
 
 		return html`
 			<div id="assignment-name-container">
-				<label class="d2l-label-text" for="assignment-name">${this.localize('name')}*</label>
+				<div class="d2l-activity-label-container">
+					<label class="d2l-label-text d2l-skeletize" for="assignment-name">${this.localize('name')}*</label>
+				</div>
 				<d2l-input-text
 					id="assignment-name"
+					class="d2l-skeletize"
 					maxlength="128"
 					value="${name}"
 					@change="${this._saveOnChange('name')}"
@@ -114,16 +119,19 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 								and so it cannot be plugged into Dropbox to check Assignment permissions.
 				*/ html`
 					<d2l-activity-outcomes
-						href="${activityUsageHref}"
+						href="${this.activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-outcomes>
-				` : null }
+				` : null}
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">
-					<label class="d2l-label-text">${this.localize('scoreOutOf')}</label>
+					<div class="d2l-activity-label-container">
+						<label class="d2l-label-text d2l-skeletize">${this.localize('scoreOutOf')}</label>
+					</div>
 					<d2l-activity-score-editor
-						.href="${activityUsageHref}"
+						?skeleton="${this.skeleton}"
+						.href="${this.activityUsageHref}"
 						.token="${this.token}"
 						.activityName="${name}">
 					</d2l-activity-score-editor>
@@ -131,26 +139,32 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 
 				<div id="duedate-container">
 					<d2l-activity-due-date-editor
-						.href="${activityUsageHref}"
+						?skeleton="${this.skeleton}"
+						.href="${this.activityUsageHref}"
 						.token="${this.token}">
 					</d2l-activity-due-date-editor>
 				</div>
 			</div>
 
 			<div id="assignment-instructions-container">
-				<label class="d2l-label-text">${this.localize('instructions')}</label>
-				<d2l-activity-text-editor
-					.value="${instructions}"
-					.richtextEditorConfig="${instructionsRichTextEditorConfig}"
-					@d2l-activity-text-editor-change="${this._saveInstructionsOnChange}"
-					ariaLabel="${this.localize('instructions')}"
-					?disabled="${!canEditInstructions}">
-				</d2l-activity-text-editor>
+				<div class="d2l-activity-label-container">
+					<label class="d2l-label-text d2l-skeletize">${this.localize('instructions')}</label>
+				</div>
+				<div class="d2l-skeletize">
+					<d2l-activity-text-editor
+						.value="${instructions}"
+						.richtextEditorConfig="${instructionsRichTextEditorConfig}"
+						@d2l-activity-text-editor-change="${this._saveInstructionsOnChange}"
+						ariaLabel="${this.localize('instructions')}"
+						?disabled="${!canEditInstructions}">
+					</d2l-activity-text-editor>
+				</div>
 			</div>
 
-			<div id="assignment-attachments-editor-container" ?hidden="${!this._attachmentsHref}">
+			<div id="assignment-attachments-editor-container" ?hidden="${!attachmentsHref && !this.skeleton}">
 				<d2l-activity-attachments-editor
-					href="${this._attachmentsHref}"
+					?skeleton="${this.skeleton}"
+					href="${attachmentsHref}"
 					.token="${this.token}">
 				</d2l-activity-attachments-editor>
 			</div>
@@ -163,19 +177,17 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 			this.href && this.token) {
 			super._fetch(() => store.fetchAssignment(this.href, this.token));
 		}
+		if (changedProperties.has('asyncState')) {
+			this.skeleton = this.asyncState !== asyncStates.complete;
+		}
 	}
 	addLinks(links) {
-		const collection = attachmentCollectionStore.get(this._attachmentsHref);
+		const attachmentsHref = store.getAssignment(this.href).attachmentsHref;
+		const collection = attachmentCollectionStore.get(attachmentsHref);
 		links = links || [];
 		links.forEach(element => {
 			collection.addAttachment(attachmentStore.createLink(element.name, element.url));
 		});
-	}
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onAssignmentChange(entity);
-			super._entity = entity;
-		}
 	}
 
 	_getNameTooltip() {
@@ -190,13 +202,6 @@ class AssignmentEditorDetail extends ErrorHandlingMixin(SaveStatusMixin(EntityMi
 				</d2l-tooltip>
 			`;
 		}
-	}
-	_onAssignmentChange(assignment) {
-		if (!assignment) {
-			return;
-		}
-
-		this._attachmentsHref = assignment.attachmentsCollectionHref();
 	}
 	_saveInstructions(value) {
 		store.getAssignment(this.href).setInstructions(value);

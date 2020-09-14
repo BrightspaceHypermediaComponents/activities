@@ -15,9 +15,10 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
+import { SkeletizeMixin } from '../mixins/d2l-skeletize-mixin';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeaturesMixin(ActivityEditorMixin(ErrorHandlingMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletizeMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(ErrorHandlingMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 
@@ -31,6 +32,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 
 	static get styles() {
 		return [
+			super.styles,
 			bodyCompactStyles,
 			bodySmallStyles,
 			heading3Styles,
@@ -83,11 +85,16 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends ActivityEditorFeat
 	render() {
 		const assignment = store.getAssignment(this.href);
 		return html`
-			<d2l-labs-accordion-collapse class="accordion" flex header-border>
-				<h3 class="d2l-heading-3 d2l-activity-summarizer-header" slot="header">
+			<d2l-labs-accordion-collapse
+				class="accordion"
+				flex
+				header-border
+				?disabled="${this.skeleton}"
+				?no-icons="${this.skeleton}">
+				<h3 class="d2l-heading-3 d2l-activity-summarizer-header d2l-skeletize" slot="header">
 					${this.localize('submissionCompletionAndCategorization')}
 				</h3>
-				<ul class="d2l-body-small d2l-activity-summarizer-summary" slot="summary">
+				<ul class="d2l-body-small d2l-activity-summarizer-summary d2l-skeletize" slot="summary">
 					<li>${this._renderAssignmentTypeSummary()}</li>
 					<li>${this._renderAssignmentSubmissionTypeSummary(assignment)}</li>
 					<li>${this._renderAssignmentCompletionTypeSummary()}</li>

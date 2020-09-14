@@ -8,7 +8,7 @@ export class AssignmentTypeProps {
 		this.isGroupAssignmentTypeDisabled = entity.isGroupAssignmentTypeDisabled;
 		this.isIndividualAssignmentType = entity.isIndividualAssignmentType;
 		this.groupCategories = entity.groupCategories;
-		this.canEditAssignmentType = !entity.isAssignmentTypeReadOnly;
+		this.canEditAssignmentType = entity.canEditAssignmentType;
 		this.selectedGroupCategoryName = entity.selectedGroupCategoryName;
 
 		if (!this.isIndividualAssignmentType && this.groupCategories.length > 0) {

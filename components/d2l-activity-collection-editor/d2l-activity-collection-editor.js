@@ -658,7 +658,7 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 
 		const items = repeat(this._items, (item) => item.id, item => {
 			return html`
-				<d2l-labs-list-item-accumulator key="${item.id}" draggable>
+				<d2l-labs-list-item-accumulator key="${item.id}" drag-handle-text="${item.name()}" draggable>
 					<div slot="illustration" class="d2l-activitiy-collection-list-item-illustration">
 						${this._renderCourseImageSkeleton()}
 						<d2l-organization-image
@@ -674,6 +674,7 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 					<d2l-menu-item
 						slot="secondary-action"
 						text="${this.localize('removeActivity')}"
+						aria-label="${this.localize('removeActivityAria', 'activityName', item.name())}"
 						@keydown=${(e) => (e.keyCode === spaceKeyDown || e.keyCode === spaceKeyEnter) && item.removeItem()}
 						@click=${item.removeItem}>
 					</d2l-menu-item>

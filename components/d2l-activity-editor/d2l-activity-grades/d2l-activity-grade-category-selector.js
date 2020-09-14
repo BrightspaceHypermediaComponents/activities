@@ -25,7 +25,7 @@ class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivity
 			}
 			.d2l-label-text {
 				display: block;
-				padding-bottom: 8px;
+				margin-bottom: 8px;
 			}
 			#d2l-activity-grade-category-selector {
 				margin-bottom: 32px;

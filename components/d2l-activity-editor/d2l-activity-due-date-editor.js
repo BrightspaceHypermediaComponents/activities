@@ -45,10 +45,6 @@ class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeA
 		this._isFirstLoad = false;
 	}
 	render() {
-		if (this.skeleton) {
-			return html``;
-		}
-
 		const entity = store.get(this.href);
 		const dates = entity ? entity.dates : null;
 		let dueDate, canEditDates, errorTerm;
@@ -73,7 +69,7 @@ class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeA
 
 		return html`
 			<div class="d2l-activity-label-container">
-				<label class="d2l-label-text d2l-skeletize" ?hidden="${!canEditDates}">${this.localize('editor.dueDate')}</label>
+				<label class="d2l-label-text d2l-skeletize" ?hidden="${!canEditDates || this.skeleton}">${this.localize('editor.dueDate')}</label>
 			</div>
 			${this.dateTemplate(dueDate, canEditDates, errorTerm)}
 		`;
@@ -88,7 +84,7 @@ class ActivityDueDateEditor extends SkeletizeMixin(ActivityEditorMixin(LocalizeA
 	}
 	dateTemplate(date, canEdit, errorTerm) {
 		return html`
-			<div id="datetime-picker-container" ?hidden="${!canEdit}">
+			<div id="datetime-picker-container" ?hidden="${!canEdit || this.skeleton}">
 				<d2l-datetime-picker
 					hide-label
 					name="date"

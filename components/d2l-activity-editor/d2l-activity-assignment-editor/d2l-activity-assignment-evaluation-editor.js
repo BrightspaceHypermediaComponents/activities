@@ -70,6 +70,7 @@ class ActivityAssignmentEvaluationEditor extends SkeletizeMixin(ActivityEditorFe
 
 		return html`
 			<d2l-labs-accordion-collapse
+				class="accordion"
 				flex
 				header-border
 				?disabled="${this.skeleton}"

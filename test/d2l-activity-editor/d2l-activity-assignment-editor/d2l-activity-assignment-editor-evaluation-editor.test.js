@@ -157,12 +157,12 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 		await expect(el).to.be.accessible();
 	});
 
-	it('accordion is not hidden on load', async() => {
-		const el = await loadComponent();
-		expect(el.shadowRoot.querySelector('.accordion').getAttribute('hidden')).to.be.null;
-	});
-
 	describe('accordion', () => {
+
+		it('accordion is not hidden on load', async() => {
+			const el = await loadComponent();
+			expect(el.shadowRoot.querySelector('.accordion').getAttribute('hidden')).to.be.null;
+		});
 
 		it('has a heading', async() => {
 			const el = await loadComponent();

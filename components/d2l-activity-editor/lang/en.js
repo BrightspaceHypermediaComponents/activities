@@ -108,5 +108,8 @@ export default {
 	"attachments.addFileMenu": "File Upload", // Attach menu item text
 	"attachments.addLinkMenu": "Weblink", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Existing Activity" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Existing Activity", // Attach menu item text
+
+	"content.name": "Name", // Text label for name input field
+	"content.emptyNameField": "Name is required" // Error text that appears below name field when it is left empty
 };

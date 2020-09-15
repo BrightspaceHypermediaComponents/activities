@@ -97,7 +97,6 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 		const tooltipId = 'title-tooltip';
 
 		if (isTitleEmpty) {
-			// TODO - setup localization properly so this works
 			this.setError(errorProperty, emptyNameErrorLangterm, tooltipId);
 		} else {
 			this.clearError(errorProperty);

@@ -12,11 +12,6 @@ export class Content {
 		this.title = '';
 	}
 
-	delete() {
-		//  TODO
-		return;
-	}
-
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -29,11 +24,6 @@ export class Content {
 	load(entity) {
 		this._entity = entity;
 		this.title = entity.title();
-	}
-
-	async save() {
-		// TODO
-		return;
 	}
 
 	setTitle(value) {

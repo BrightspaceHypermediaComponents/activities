@@ -35,11 +35,6 @@ class ContentEditorFooter extends SaveStatusMixin(RtlMixin(LitElement)) {
 		`;
 	}
 
-	/* constructor() {
-		super();
-		this.skeleton = true;
-	} */
-
 	render() {
 		return html`
 			<div class="d2l-activity-content-editor-footer-left">
@@ -54,15 +49,5 @@ class ContentEditorFooter extends SaveStatusMixin(RtlMixin(LitElement)) {
 			</div>
 		`;
 	}
-
-	// TODO - add loading skeleton when asyncStates is working properly
-	// requires additional mixins, see assignment footer component
-	/* updated(changedProperties) {
-		super.updated(changedProperties);
-
-		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
-		}
-	} */
 }
 customElements.define('d2l-activity-content-editor-footer', ContentEditorFooter);

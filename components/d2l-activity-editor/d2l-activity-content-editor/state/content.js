@@ -9,8 +9,7 @@ export class Content {
 	constructor(href, token) {
 		this.href = href;
 		this.token = token;
-		// TODO - confrim what we want default value to be (null? "Undefined"?)
-		this.title = 'default name value';
+		this.title = '';
 	}
 
 	delete() {
@@ -48,7 +47,7 @@ decorate(Content, {
 	title: observable,
 	// actions
 	load: action,
-	setName: action,
+	setTitle: action,
 	save: action,
 	delete: action,
 });

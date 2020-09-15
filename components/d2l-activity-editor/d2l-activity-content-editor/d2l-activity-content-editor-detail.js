@@ -1,19 +1,21 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
-import '../d2l-activity-html-editor.js';
 
 import { css, html } from 'lit-element/lit-element.js';
 import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
+import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
+import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class ContentEditorDetail extends EntityMixinLit(RtlMixin(MobxLitElement)) {
+class ContentEditorDetail extends ErrorHandlingMixin(EntityMixinLit(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
-			_nameError: { type: String },
+			_titleError: { type: String },
 		};
 	}
 
@@ -33,73 +35,77 @@ class ContentEditorDetail extends EntityMixinLit(RtlMixin(MobxLitElement)) {
 
 	constructor() {
 		super(store);
-		// TODO: confirm if this is necessary
+		this._debounceJobs = {};
 		this._setEntityType(ContentEntity);
 	}
 
 	render() {
-		// TODO - add back once we load the entity into the store properly
-		// const contentEntity = store.getContentActivity(this.href);
-		// if (!contentEntity) {
-		// 	return html``;
-		// }
-		// const {	name } = contentEntity;
-
-		// TODO: do we need an editor config?
-		const editorConfig = {};
+		const contentEntity = store.getContentActivity(this.href);
+		if (!contentEntity) {
+			return html``;
+		}
+		const {	title } = contentEntity;
 
 		return html`
-			<div id="content-name-container">
+			<div id="content-title-container">
 				<!-- TODO - add localization -->
-				<label class="d2l-label-text" for="content-name">Name*</label>
+				<label class="d2l-label-text" for="content-title">Name*</label>
 				<d2l-input-text
-					id="content-name"
+					id="content-title"
 					maxlength="128"
-					value="TODO - set to default name value"
-					aria-invalid="${this._nameError ? 'true' : ''}"
+					value="${title}"
+					@change="${this._saveOnChange('title')}"
+					@input="${this._saveTitleOnInput}"
+					aria-invalid="${this._titleError ? 'true' : ''}"
 					prevent-submit
 					novalidate>
 				</d2l-input-text>
-				${this._getNameTooltip()}
-			</div>
-			<div id="content-description-container">
-			<!-- TODO - add localization -->
-			<label class="d2l-label-text">Description</label>
-				<d2l-activity-html-editor
-					.value="TODO set description value property"
-					.richtextEditorConfig="${editorConfig}"
-					@d2l-activity-text-editor-change="${this._onRichtextChange}"
-					ariaLabel="Description"
-				>
-				</d2l-activity-html-editor>
+				${this._getTitleTooltip()}
 			</div>
 		`;
 	}
 
-	_getNameTooltip() {
-		if (this._nameError) {
+	_getTitleTooltip() {
+		if (this._titleError) {
 			return html`
 				<d2l-tooltip
-					id="name-tooltip"
-					for="content-name"
+					id="title-tooltip"
+					for="content-title"
 					position="bottom"
-					?showing="${this._nameError}">
-					${this._nameError}
+					?showing="${this._titleError}">
+					${this._titleError}
 				</d2l-tooltip>
 			`;
 		}
 	}
 
-	_onRichtextChange(e) {
-		const content = e.detail.content;
-		// TODO - handle description change event
-		this.dispatchEvent(new CustomEvent('d2l-activity-content-editor-description-change', {
-			bubbles: true,
-			composed: true,
-			detail: {
-				content: content
-			}
-		}));
+	_saveOnChange(jobName) {
+		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
+	}
+
+	_saveTitle(value) {
+		store.getContentActivity(this.href).setTitle(value);
+	}
+
+	_saveTitleOnInput(e) {
+		const title = e.target.value;
+		const isTitleEmpty = (title || '').trim().length === 0;
+
+		const errorProperty = '_titleError';
+		const emptyNameErrorLangterm = 'emptyNameError';
+		const tooltipId = 'title-tooltip';
+
+		if (isTitleEmpty) {
+			// TODO - setup localization properly so this works
+			this.setError(errorProperty, emptyNameErrorLangterm, tooltipId);
+		} else {
+			this.clearError(errorProperty);
+			this._debounceJobs.title = Debouncer.debounce(
+				this._debounceJobs.title,
+				timeOut.after(500),
+				() => this._saveTitle(title)
+			);
+		}
 	}
 }
 customElements.define('d2l-activity-content-editor-detail', ContentEditorDetail);

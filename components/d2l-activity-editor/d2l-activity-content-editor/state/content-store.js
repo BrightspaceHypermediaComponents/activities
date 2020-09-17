@@ -20,4 +20,3 @@ export class ContentStore {
 }
 
 export const shared = new ContentStore();
-export const { _contents: contents } = shared;

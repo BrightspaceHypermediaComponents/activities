@@ -29,7 +29,7 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 			}
 			div[slot="secondary"] {
 				background: var(--d2l-color-gypsum);
-				height: calc(100% - 2*var(--d2l-secondary-padding));
+				height: calc(100% - 2 * var(--d2l-secondary-padding));
 				padding: var(--d2l-secondary-padding);
 			}
 			d2l-icon {

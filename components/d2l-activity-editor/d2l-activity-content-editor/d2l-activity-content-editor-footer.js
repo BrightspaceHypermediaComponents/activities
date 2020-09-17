@@ -21,7 +21,6 @@ class ContentEditorFooter extends SaveStatusMixin(RtlMixin(LitElement)) {
 				align-items: baseline;
 				display: flex;
 				flex: 1;
-				justify-content: flex-end;
 			}
 			.d2l-activity-content-editor-footer-right {
 				line-height: 2rem;

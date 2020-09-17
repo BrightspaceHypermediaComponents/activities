@@ -60,8 +60,6 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 	}
 
 	updated(changedProperties) {
-		super.updated(changedProperties);
-
 		if ((changedProperties.has('href') || changedProperties.has('token')) &&
 			this.href && this.token) {
 			super._fetch(() => store.fetchContentActivity(this.href, this.token));

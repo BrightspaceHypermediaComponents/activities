@@ -60,7 +60,7 @@
 			const expectedFiltersWithMasterTeacher = expectedFilters.concat('Primary Facilitator');
 
 			function waitForList(callback) {
-				var firstDataCell = list.shadowRoot.querySelector('d2l-tbody > d2l-tr > d2l-td.d2l-table-cell-first');
+				const firstDataCell = list.shadowRoot.querySelector('d2l-tbody > d2l-tr > d2l-td.d2l-table-cell-first');
 
 				if (firstDataCell) {
 					callback(firstDataCell);
@@ -72,8 +72,8 @@
 			}
 
 			function waitForFilter(callback) {
-				var filterTabsContainer = filterDropdown.shadowRoot.querySelector('d2l-tabs');
-				var filterTabs = filterTabsContainer.shadowRoot.querySelectorAll('d2l-tab');
+				const filterTabsContainer = filterDropdown.shadowRoot.querySelector('d2l-tabs');
+				const filterTabs = filterTabsContainer.shadowRoot.querySelectorAll('d2l-tab');
 
 				if (filterTabs.length > 0) {
 					callback(filterTabs);
@@ -104,11 +104,11 @@
 				}
 			}
 
-			var clickFilter = function(filterOptionName) {
-				var firstFilterTab = filterDropdown.shadowRoot.querySelectorAll('d2l-filter-dropdown-page')[0];
-				var filterOptions = firstFilterTab.shadowRoot.querySelectorAll('d2l-menu-item-checkbox');
+			const clickFilter = function(filterOptionName) {
+				const firstFilterTab = filterDropdown.shadowRoot.querySelectorAll('d2l-filter-dropdown-page')[0];
+				const filterOptions = firstFilterTab.shadowRoot.querySelectorAll('d2l-menu-item-checkbox');
 
-				for (var i = 0; i < filterOptions.length; i++) {
+				for (let i = 0; i < filterOptions.length; i++) {
 					if (filterOptions[i].text === filterOptionName) {
 						MockInteractions.click(filterOptions[i]);
 					}
@@ -125,8 +125,8 @@
 				}
 			}
 
-			var clearFilter = function() {
-				var clearButton = filterDropdown.shadowRoot.querySelector('d2l-button-subtle');
+			const clearFilter = function() {
+				const clearButton = filterDropdown.shadowRoot.querySelector('d2l-button-subtle');
 				MockInteractions.click(clearButton);
 			};
 
@@ -244,21 +244,21 @@
 					assert.isNotNull(list);
 				});
 				test('the list loads data', function(done) {
-					var verifyDataLoads = function(firstCell) {
+					const verifyDataLoads = function(firstCell) {
 						assert.include(firstCell.innerHTML, expectedFirstCellData);
 						done();
 					};
 					waitForList(verifyDataLoads);
 				});
 				test('only the filters we want are shown (in order)', function(done) {
-					var verifyFilter = function(filterTabs) {
+					const verifyFilter = function(filterTabs) {
 						assert.deepEqual(Array.from(filterTabs).map(tab => tab.text), expectedFilters);
 						done();
 					};
 					waitForFilter(verifyFilter);
 				});
 				test('when the filters are loaded an event is fired and criteria state of the list is updated', function(done) {
-					var filtersSelected = 0;
+					let filtersSelected = 0;
 					quickEval.addEventListener('d2l-hm-filter-filters-loaded', function(e) {
 						assert.equal(e.detail.totalSelectedFilters, filtersSelected);
 						assert.equal(list.filterApplied, filtersSelected > 0);
@@ -271,7 +271,7 @@
 					waitForFilter(function() { filter.href = 'data/filters-on.json'; });
 				});
 				test('when a filter is selected an updating event is fired and the table is set to loading', function(done) {
-					var alert = quickEval.shadowRoot.querySelector('.d2l-quick-eval-filter-error-alert');
+					const alert = quickEval.shadowRoot.querySelector('.d2l-quick-eval-filter-error-alert');
 					quickEval.addEventListener('d2l-hm-filter-filters-updating', function() {
 						assert.equal(list._loading, true);
 						assert.equal(list._fullListLoading, true);
@@ -289,8 +289,8 @@
 					});
 				});
 				test('if there is an error when the filter is updating, the table is set back to not loading', function(done) {
-					var alert = quickEval.shadowRoot.querySelector('.d2l-quick-eval-filter-error-alert');
-					var filtersSelected = 0;
+					const alert = quickEval.shadowRoot.querySelector('.d2l-quick-eval-filter-error-alert');
+					let filtersSelected = 0;
 					quickEval.addEventListener('d2l-hm-filter-filters-loaded', function() {
 						assert.equal(list._loading, false);
 						assert.equal(list._fullListLoading, false);
@@ -321,10 +321,10 @@
 					});
 				});
 				test('applying and removing filters causes the count to update and events to fire', function(done) {
-					var add = 1;
+					let add = 1;
 
 					quickEval.addEventListener('d2l-hm-filter-filters-updated', function(e) {
-						var dropdownButton = filterDropdown.shadowRoot.querySelector('d2l-dropdown-button-subtle').shadowRoot.querySelector('d2l-button-subtle');
+						const dropdownButton = filterDropdown.shadowRoot.querySelector('d2l-dropdown-button-subtle').shadowRoot.querySelector('d2l-button-subtle');
 						assert.deepEqual(e.detail.filteredActivities, submissions.entity);
 						if (add === 1) {
 							assert.equal(dropdownButton.text, 'Filter: 1 Filter');
@@ -341,10 +341,10 @@
 					waitForFilter(function() { clickFilter('Assignment Name'); });
 				});
 				test('clearing filters causes event to fire', function(done) {
-					var add = 2;
+					let add = 2;
 
 					quickEval.addEventListener('d2l-hm-filter-filters-updated', function(e) {
-						var dropdownButton = filterDropdown.shadowRoot.querySelector('d2l-dropdown-button-subtle').shadowRoot.querySelector('d2l-button-subtle');
+						const dropdownButton = filterDropdown.shadowRoot.querySelector('d2l-dropdown-button-subtle').shadowRoot.querySelector('d2l-button-subtle');
 						assert.deepEqual(e.detail.filteredActivities, submissions.entity);
 						if (add === 2) {
 							assert.equal(dropdownButton.text, 'Filter: 1 Filter');
@@ -365,8 +365,8 @@
 					waitForFilter(function() { clickFilter('Assignment Name'); });
 				});
 				test('if there is an error with the filter, we catch an event and display an alert, and clear that after a successful filter action', function(done) {
-					var alert = quickEval.shadowRoot.querySelector('.d2l-quick-eval-filter-error-alert');
-					var filtersSelected = 0;
+					const alert = quickEval.shadowRoot.querySelector('.d2l-quick-eval-filter-error-alert');
+					let filtersSelected = 0;
 					quickEval.addEventListener('d2l-hm-filter-filters-loaded', function() {
 						assert.isFalse(quickEval._showFilterError);
 						assert.isTrue(alert.hidden);
@@ -494,7 +494,7 @@
 					assert.isTrue(quickEval.masterTeacher);
 				});
 				test('only the filters we want are shown', function(done) {
-					var verifyFilter = function(filterTabs) {
+					const verifyFilter = function(filterTabs) {
 						assert.deepEqual(Array.from(filterTabs).map(tab => tab.text), expectedFiltersWithMasterTeacher);
 						done();
 					};

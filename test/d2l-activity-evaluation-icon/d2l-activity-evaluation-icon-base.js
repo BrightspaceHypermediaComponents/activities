@@ -15,7 +15,7 @@
 		test('activity evaluation without any attribute does not display an icon', function(done) {
 			flush(function() {
 
-				var icon = invalidEvaluation.shadowRoot.querySelector('d2l-icon');
+				const icon = invalidEvaluation.shadowRoot.querySelector('d2l-icon');
 				assert.equal(null, icon);
 
 				done();
@@ -25,11 +25,11 @@
 		test('activity evaluation with draft attribute displayed draft icon with tooltip', function(done) {
 			flush(function() {
 
-				var draftIcon = draftEvaluation.shadowRoot.querySelector('d2l-icon');
-				var draftIconName = draftIcon.getAttribute('icon');
+				const draftIcon = draftEvaluation.shadowRoot.querySelector('d2l-icon');
+				const draftIconName = draftIcon.getAttribute('icon');
 				assert.equal('d2l-tier1:draft', draftIconName);
 
-				var draftIconToolTip = draftEvaluation.shadowRoot.querySelector('d2l-tooltip');
+				const draftIconToolTip = draftEvaluation.shadowRoot.querySelector('d2l-tooltip');
 				assert.equal('bottom', draftIconToolTip.getAttribute('position'));
 				assert.equal('15', draftIconToolTip.getAttribute('offset'));
 

@@ -1,7 +1,7 @@
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 describe('d2l-activity-card', () => {
 
-	var component,
+	let component,
 		fetchStub,
 		sandbox,
 		activityEntity,

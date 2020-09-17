@@ -1,7 +1,6 @@
 import 'd2l-telemetry-browser-client/d2l-telemetry-browser-client.js';
 (function() {
-	var telemetryBehaviour;
-	let sandbox;
+	let sandbox, telemetryBehaviour;
 
 	suite('d2l-quick-eval-telemetry-behavior', function() {
 		setup(function() {

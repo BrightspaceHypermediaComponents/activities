@@ -157,7 +157,7 @@ suite('d2l-quick-eval-activities-list-sorting', () => {
 			];
 			testData.forEach(testCase => {
 				test(testCase.name, (done) => {
-					var stub = sinon.stub(list, '_applySortAndFetchData');
+					const stub = sinon.stub(list, '_applySortAndFetchData');
 					const e = {
 						detail: {
 							headerId: testCase.id

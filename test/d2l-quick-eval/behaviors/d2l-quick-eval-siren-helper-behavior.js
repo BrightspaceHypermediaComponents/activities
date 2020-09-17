@@ -1,7 +1,7 @@
 import SirenParse from 'siren-parser';
 
 (function() {
-	var component;
+	let component;
 
 	suite('d2l-quick-eval-siren-helper-behavior', function() {
 		setup(function() {

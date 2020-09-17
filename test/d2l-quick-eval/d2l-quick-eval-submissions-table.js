@@ -1,22 +1,22 @@
 import '@polymer/iron-test-helpers/mock-interactions.js';
 
 (function() {
-	var list;
+	let list;
 
 	async function loadPromise(url) {
-		var entity = await window.D2L.Siren.EntityStore.fetch(url, '');
+		const entity = await window.D2L.Siren.EntityStore.fetch(url, '');
 		await list._loadData(entity.entity);
 	}
 
 	function createExpectedData(expectedData, includeMasterTeacher) {
-		var expectedActivities = [];
+		const expectedActivities = [];
 
 		expectedData.forEach(function(item) {
-			var expectedActivity = {
+			const expectedActivity = {
 				isDraft: item.isDraft
 			};
 
-			var activityColumns = [];
+			const activityColumns = [];
 
 			activityColumns.push({ text: item.displayName.defaultDisplayName, href: item.activityLink });
 			activityColumns.push({ href: item.activityNameHref });
@@ -40,14 +40,14 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 	}
 
 	function verifyData(expectedActivities, done) {
-		var data = list.shadowRoot.querySelectorAll('d2l-td');
+		const data = list.shadowRoot.querySelectorAll('d2l-td');
 
-		var expectedActivityData = [].concat.apply(
+		const expectedActivityData = [].concat.apply(
 			[], expectedActivities.map(function(expectedActivity) {
 				return expectedActivity.data;
 			}));
 
-		for (var i = 0; i < expectedActivityData.length; i++) {
+		for (let i = 0; i < expectedActivityData.length; i++) {
 			const link = data[i].querySelector('d2l-link');
 			const span = data[i].querySelector('span');
 			const activityName = data[i].querySelector('d2l-activity-name');
@@ -65,7 +65,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		done();
 	}
 
-	var expectedData = [
+	const expectedData = [
 		{
 			displayName: { firstName: 'Special User', lastName: 'Name', defaultDisplayName: 'Special User Name' },
 			userHref: 'data/userUnique.json',
@@ -98,8 +98,8 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		}
 	];
 
-	var expectedDataWithMasterTeacher = expectedData.map(function(x) {
-		var updatedExpectedData = {};
+	const expectedDataWithMasterTeacher = expectedData.map(function(x) {
+		const updatedExpectedData = {};
 
 		Object.keys(x).forEach(function(key) {
 			updatedExpectedData[ key ] = x[ key ];
@@ -109,7 +109,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		return updatedExpectedData;
 	});
 
-	var expectedNextData = [
+	const expectedNextData = [
 		{
 			displayName: { firstName: 'User', lastName: 'Name', defaultDisplayName: 'User Name' },
 			userHref: 'data/user.json',
@@ -155,13 +155,13 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			assert.equal(true, alert.hasAttribute('hidden'));
 		});
 		test('showLoadingSkeleton is set to true, showLoadingSpinner is set to false before data is loaded, and loading-skeleton is present', () => {
-			var loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-submissions-skeleton');
+			const loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-submissions-skeleton');
 			assert.equal(loadingskeleton.hidden, false);
 			assert.isFalse(list.showLoadingSpinner);
 			assert.isTrue(list.showLoadingSkeleton);
 		});
 		test.skip('_fullListLoading and _loading is set to false after data is loaded and the loading skeleton is hidden', (done) => {
-			var loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-submissions-skeleton');
+			const loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-submissions-skeleton');
 
 			loadPromise('data/unassessedActivities.json').then(function() {
 				assert.equal(loadingskeleton.hidden, true);
@@ -171,7 +171,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 		});
 		test.skip('setLoadingState lets consumers control the table loading', (done) => {
-			var loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-submissions-skeleton');
+			const loadingskeleton = list.shadowRoot.querySelector('d2l-quick-eval-submissions-skeleton');
 
 			loadPromise('data/unassessedActivities.json').then(function() {
 				assert.equal(loadingskeleton.hidden, true);
@@ -189,7 +189,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		});
 		test.skip('if _loading is true, the Load More button is hidden', (done) => {
 			loadPromise('data/unassessedActivities.json').then(function() {
-				var loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more-container');
+				const loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more-container');
 				assert.notEqual(loadMore.style.display, 'none');
 				list._loading = true;
 				requestAnimationFrame(function() {
@@ -199,22 +199,22 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 		});
 		test('if _loading is true, d2l-quick-eval-no-submissions-image and d2l-quick-eval-no-submissions-image are not shown', () => {
-			var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
-			var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+			const noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
+			const noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 			assert.equal(noSubmissionComponent, null);
 			assert.equal(noCriteriaResultsComponent, null);
 			assert.isTrue(list.showLoadingSkeleton);
 		});
 		test.skip('if there is no data in the list, d2l-quick-eval-no-submissions-image is shown', (done) => {
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {
-				var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
+				let noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 				assert.notEqual(noSubmissionComponent.style.display, 'none');
-				var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+				const noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 				assert.equal(noCriteriaResultsComponent, null);
 				//This is here because of how dom-if works, we need to load activities once to ensure we actually
 				//render the d2l-quick-eval-no-submissions component and instantly hide it.
 				loadPromise('data/unassessedActivities.json').then(function() {
-					var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
+					noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 					assert.equal(noSubmissionComponent.style.display, 'none');
 					done();
 				});
@@ -224,14 +224,14 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			list.setAttribute('filter-applied', '');
 
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {
-				var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+				let noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 				assert.notEqual(noCriteriaResultsComponent.style.display, 'none');
-				var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
+				const noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 				assert.equal(noSubmissionComponent, null);
 				//This is here because of how dom-if works, we need to load activities once to ensure we actually
 				//render the d2l-quick-eval-no-criteria-results component and instantly hide it.
 				loadPromise('data/unassessedActivities.json').then(function() {
-					var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+					noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 					assert.equal(noCriteriaResultsComponent.style.display, 'none');
 					done();
 				});
@@ -241,14 +241,14 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			list.setAttribute('search-applied', '');
 
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {
-				var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+				let noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 				assert.notEqual(noCriteriaResultsComponent.style.display, 'none');
-				var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
+				const noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 				assert.equal(noSubmissionComponent, null);
 				//This is here because of how dom-if works, we need to load activities once to ensure we actually
 				//render the d2l-quick-eval-no-criteria-results component and instantly hide it.
 				loadPromise('data/unassessedActivities.json').then(function() {
-					var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+					noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 					assert.equal(noCriteriaResultsComponent.style.display, 'none');
 					done();
 				});
@@ -259,14 +259,14 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			list.setAttribute('search-applied', '');
 
 			loadPromise('data/emptyUnassessedActivities.json').then(function() {
-				var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+				let noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 				assert.notEqual(noCriteriaResultsComponent.style.display, 'none');
-				var noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
+				const noSubmissionComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-submissions');
 				assert.equal(noSubmissionComponent, null);
 				//This is here because of how dom-if works, we need to load activities once to ensure we actually
 				//render the d2l-quick-eval-no-criteria-results component and instantly hide it.
 				loadPromise('data/unassessedActivities.json').then(function() {
-					var noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
+					noCriteriaResultsComponent = list.shadowRoot.querySelector('.d2l-quick-eval-no-criteria-results');
 					assert.equal(noCriteriaResultsComponent.style.display, 'none');
 					done();
 				});
@@ -291,7 +291,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 		});
 		test.skip('data displays correctly', (done) => {
-			var expected = createExpectedData(expectedData);
+			const expected = createExpectedData(expectedData);
 
 			loadPromise('data/unassessedActivities.json').then(function() {
 				flush(function() {
@@ -300,7 +300,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 		});
 		test.skip('data displays correctly when master teacher toggled on', (done) => {
-			var expected = createExpectedDataWithMasterTeacher(expectedDataWithMasterTeacher);
+			const expected = createExpectedDataWithMasterTeacher(expectedDataWithMasterTeacher);
 
 			list.setAttribute('master-teacher', '');
 			flush(function() {
@@ -311,7 +311,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		});
 		test.skip('the Load More button appears when there is a next link', (done) => {
 			loadPromise('data/unassessedActivities.json').then(function() {
-				var loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more');
+				const loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more');
 				assert.equal(loadMore.tagName.toLowerCase(), 'd2l-button');
 				assert.notEqual(loadMore.style.display, 'none');
 				assert.notEqual(loadMore.disabled, 'true');
@@ -319,12 +319,12 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			});
 		});
 		test.skip('clicking Load More adds the proper data, and the button is hidden when there is no more next link', (done) => {
-			var expectedNext = createExpectedData(expectedData.concat(expectedNextData));
+			const expectedNext = createExpectedData(expectedData.concat(expectedNextData));
 
 			loadPromise('data/unassessedActivities.json').then(function() {
-				var loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more');
-				var loadMoreContainer = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more-container');
-				var verify = function() {
+				const loadMore = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more');
+				const loadMoreContainer = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-load-more-container');
+				const verify = function() {
 					if (!list._loading && loadMoreContainer.style.display === 'none') {
 						verifyData(expectedNext, done);
 					} else {
@@ -341,7 +341,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			list._health = { isHealthy: false, errorMessage: 'failedToLoadMore' };
 
 			flush(function() {
-				var alert = list.shadowRoot.querySelector('.list-alert');
+				const alert = list.shadowRoot.querySelector('.list-alert');
 				assert.equal(false, alert.hasAttribute('hidden'));
 
 				list._health = { isHealthy: true, errorMessage: '' };
@@ -356,7 +356,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 			list._health = { isHealthy: false, errorMessage: 'failedToLoadData' };
 
 			flush(function() {
-				var alert = list.shadowRoot.querySelector('.list-alert');
+				const alert = list.shadowRoot.querySelector('.list-alert');
 				assert.equal(false, alert.hasAttribute('hidden'));
 
 				list._health = { isHealthy: true, errorMessage: '' };
@@ -370,7 +370,7 @@ import '@polymer/iron-test-helpers/mock-interactions.js';
 		test('Ensure that focus is on the first name of the submissions table when returning to quick eval', (done) => {
 			list.returningToQuickEval = true;
 			flush(function() {
-				var firstName = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-name-link');
+				const firstName = list.shadowRoot.querySelector('.d2l-quick-eval-submissions-table-name-link');
 				if (firstName) {
 					assert.equal(true, firstName.hasAttribute('autofocus'));
 				}

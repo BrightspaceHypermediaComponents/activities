@@ -1,7 +1,7 @@
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 describe('d2l-activity-list-item', () => {
 
-	var component,
+	let component,
 		fetchStub,
 		sandbox,
 		activityEntity,
@@ -182,7 +182,7 @@ describe('d2l-activity-list-item', () => {
 			});
 			afterNextRender(component, () => {
 				expect(component._accessibilityData.organizationName).to.equal('Course name');
-				var accessibilityText = component.$$('.d2l-activity-list-item-link-text').innerHTML;
+				const accessibilityText = component.$$('.d2l-activity-list-item-link-text').innerHTML;
 				expect(accessibilityText).to.contain('Course name');
 				done();
 			});
@@ -194,7 +194,7 @@ describe('d2l-activity-list-item', () => {
 			component = fixture('d2l-activity-list-item-responsive-384-fixture');
 			afterNextRender(component, () => {
 				expect(component._showDescription).to.be.false;
-				var description = component.$$('#d2l-activity-list-item-description');
+				const description = component.$$('#d2l-activity-list-item-description');
 				expect(description.hasAttribute('hidden')).to.be.true;
 				done();
 			});
@@ -203,11 +203,11 @@ describe('d2l-activity-list-item', () => {
 		it('Description is not hidden at width 385', done => {
 			component = fixture('d2l-activity-list-item-responsive-385-fixture');
 			expect(component._showDescription).to.be.true;
-			var description = component.$$('#d2l-activity-list-item-description');
+			let description = component.$$('#d2l-activity-list-item-description');
 			expect(description.hasAttribute('hidden')).to.be.false;
 			afterNextRender(component, () => {
 				expect(component._showDescription).to.be.true;
-				var description = component.$$('#d2l-activity-list-item-description');
+				description = component.$$('#d2l-activity-list-item-description');
 				expect(description.hasAttribute('hidden')).to.be.false;
 				done();
 			});

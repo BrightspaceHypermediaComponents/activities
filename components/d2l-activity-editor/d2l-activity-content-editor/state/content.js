@@ -38,6 +38,4 @@ decorate(Content, {
 	// actions
 	load: action,
 	setTitle: action,
-	save: action,
-	delete: action,
 });

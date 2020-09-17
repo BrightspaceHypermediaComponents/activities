@@ -69,11 +69,6 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 		}
 	}
 
-	delete() {
-		// TODO
-		return true;
-	}
-
 	hasPendingChanges() {
 		// TODO
 		return false;

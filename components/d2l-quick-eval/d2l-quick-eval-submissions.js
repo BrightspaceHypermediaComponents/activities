@@ -326,7 +326,7 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 						this._updateSearchResultsCount(this._data.length);
 					}
 				} catch (e) {
-				// Unable to load more activities from entity.
+					console.error('Unable to load more activities from entity.');
 					throw e;
 				} finally {
 					this._loadingMore = false;

@@ -22,14 +22,15 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 		return css`
 			:host {
 				display: block;
+				--secondary-padding: 10px;
 			}
 			div[slot="primary"] {
 				padding: 20px;
 			}
 			div[slot="secondary"] {
 				background: var(--d2l-color-gypsum);
-				height: calc(100% - 20px);
-				padding: 10px;
+				height: calc(100% - 2*var(--secondary-padding));
+				padding: var(--secondary-padding);
 			}
 			d2l-icon {
 				padding-right: 1rem;

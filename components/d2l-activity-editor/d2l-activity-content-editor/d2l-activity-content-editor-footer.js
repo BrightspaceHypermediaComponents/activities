@@ -21,7 +21,6 @@ class ContentEditorFooter extends SaveStatusMixin(RtlMixin(LitElement)) {
 				align-items: baseline;
 				display: flex;
 				flex: 1;
-				flex-direction: row-reverse;
 				justify-content: flex-end;
 			}
 			.d2l-activity-content-editor-footer-right {
@@ -38,11 +37,12 @@ class ContentEditorFooter extends SaveStatusMixin(RtlMixin(LitElement)) {
 	render() {
 		return html`
 			<div class="d2l-activity-content-editor-footer-left">
+				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>
+				<!-- TODO: more work/investigation is needed to get visibility editor working -->
 				<d2l-activity-visibility-editor
 					.href="${this.href}"
 					.token="${this.token}">
 				</d2l-activity-visibility-editor>
-				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>
 			</div>
 			<div class="d2l-activity-content-editor-footer-right">
 				<slot name="save-status"></slot>

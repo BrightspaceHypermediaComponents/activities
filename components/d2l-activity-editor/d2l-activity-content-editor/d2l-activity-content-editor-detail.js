@@ -61,12 +61,12 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 					novalidate
 				>
 				</d2l-input-text>
-				${this._getTitleTooltip()}
+				${this._renderTitleTooltip()}
 			</div>
 		`;
 	}
 
-	_getTitleTooltip() {
+	_renderTitleTooltip() {
 		if (this._titleError) {
 			return html`
 				<d2l-tooltip
@@ -92,14 +92,10 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 		const title = e.target.value;
 		const isTitleEmpty = (title || '').trim().length === 0;
 
-		const errorProperty = '_titleError';
-		const emptyNameErrorLangterm = 'content.emptyNameField';
-		const tooltipId = 'title-tooltip';
-
 		if (isTitleEmpty) {
-			this.setError(errorProperty, emptyNameErrorLangterm, tooltipId);
+			this.setError('_titleError', 'content.emptyNameField', 'title-tooltip');
 		} else {
-			this.clearError(errorProperty);
+			this.clearError('_titleError');
 			this._debounceJobs.title = Debouncer.debounce(
 				this._debounceJobs.title,
 				timeOut.after(500),

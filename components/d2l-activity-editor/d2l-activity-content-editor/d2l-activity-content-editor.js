@@ -43,15 +43,13 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 
 	constructor() {
 		super(store);
-		this.type = 'content';
-		this.telemetryId = 'content';
 	}
 
 	render() {
 		return html`
 			<d2l-activity-editor
-				type="${this.type}"
-				telemetryId="${this.telemetryId}"
+				type="content"
+				telemetryId="content"
 				.href=${this.href}
 				.token=${this.token}
 			>
@@ -94,7 +92,10 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 					<p>Secondary Slot</p>
 				</div>
 				<div slot="footer">
-					<d2l-activity-content-editor-footer>
+					<d2l-activity-content-editor-footer
+						.href="${this.href}"
+						.token="${this.token}"
+					>
 					</d2l-activity-content-editor-footer>
 				</div>
 			</d2l-template-primary-secondary>

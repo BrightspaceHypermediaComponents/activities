@@ -21,11 +21,13 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 	static get styles() {
 		return css`
 			:host {
+				--d2l-primary-padding: 20px;
 				--d2l-secondary-padding: 10px;
 				display: block;
 			}
 			div[slot="primary"] {
-				padding: 20px;
+				height: calc(100% - 2 * var(--d2l-primary-padding));
+				padding: var(--d2l-primary-padding);
 			}
 			div[slot="secondary"] {
 				background: var(--d2l-color-gypsum);

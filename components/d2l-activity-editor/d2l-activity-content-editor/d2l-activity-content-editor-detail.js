@@ -1,5 +1,6 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
+import '../d2l-activity-html-editor';
 
 import { css, html } from 'lit-element/lit-element.js';
 import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
@@ -63,7 +64,24 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 				</d2l-input-text>
 				${this._renderTitleTooltip()}
 			</div>
+			<div id="content-description-container">
+				<label class="d2l-label-text" for="content-description">${this.localize('content.description')}</label>
+				<!-- TODO: insert existing description value should one exist -->
+				<d2l-activity-html-editor
+					id='content-description'
+					ariaLabel="content-description"
+					@d2l-activity-html-editor-change="${this._onRichtextChange}"
+					.richtextEditorConfig="${{}}"
+				>
+				</d2l-activity-html-editor>
+			</div>
 		`;
+	}
+
+	_onRichtextChange(e) {
+		// TODO - properly handle description content
+		// eslint-disable-next-line no-unused-vars
+		const content = e.detail.content;
 	}
 
 	_renderTitleTooltip() {

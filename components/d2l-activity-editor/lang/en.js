@@ -111,5 +111,6 @@ export default {
 	"attachments.addQuicklinkMenu": "Existing Activity", // Attach menu item text
 
 	"content.name": "Name", // Text label for name input field
-	"content.emptyNameField": "Name is required" // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Name is required", // Error text that appears below name field when it is left empty
+	"content.description": "Description" // Text label for description input field
 };

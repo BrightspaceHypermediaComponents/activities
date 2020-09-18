@@ -91,7 +91,7 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 					id="title-tooltip"
 					for="content-title"
 					position="bottom"
-					?showing="${this._titleError}">
+					?showing="${!!this._titleError}">
 					${this._titleError}
 				</d2l-tooltip>
 			`;

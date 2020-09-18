@@ -13,6 +13,8 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
+const TITLE_DEBOUNCE_TIMEOUT = 500;
+
 class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(MobxLitElement)))) {
 
 	static get properties() {
@@ -116,7 +118,7 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 			this.clearError('_titleError');
 			this._debounceJobs.title = Debouncer.debounce(
 				this._debounceJobs.title,
-				timeOut.after(500),
+				timeOut.after(TITLE_DEBOUNCE_TIMEOUT),
 				() => this._saveTitle(title)
 			);
 		}

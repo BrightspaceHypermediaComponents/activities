@@ -14,6 +14,7 @@ import { shared as store } from './state/content-store.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 const TITLE_DEBOUNCE_TIMEOUT = 500;
+const TITLE_MAX_LENGTH = 150;
 
 class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(MobxLitElement)))) {
 
@@ -55,7 +56,7 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 				<label class="d2l-label-text" for="content-title">${this.localize('content.name')}*</label>
 				<d2l-input-text
 					id="content-title"
-					maxlength="128"
+					maxlength="${TITLE_MAX_LENGTH}"
 					value="${title}"
 					@change="${this._saveOnChange('title')}"
 					@input="${this._saveTitleOnInput}"

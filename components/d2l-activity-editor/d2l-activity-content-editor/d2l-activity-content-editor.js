@@ -91,7 +91,7 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 					</d2l-activity-content-editor-detail>
 				</div>
 				<div slot="secondary">
-				<d2l-activity-content-editor-secondary
+					<d2l-activity-content-editor-secondary
 						.href="${this.href}"
 						.token="${this.token}"
 					>

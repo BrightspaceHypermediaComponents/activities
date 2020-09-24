@@ -37,7 +37,8 @@ class ContentEditorFooter extends SaveStatusMixin(RtlMixin(LitElement)) {
 		return html`
 			<div class="d2l-activity-content-editor-footer-left">
 				<d2l-activity-editor-buttons></d2l-activity-editor-buttons>
-				<!-- TODO: more work/investigation is needed to get visibility editor working -->
+				<!-- TODO: figure out how to set activity usage entity "canEditDraft" property to true -->
+				<!-- so that we can properly toggle the visibility of the entity -->
 				<d2l-activity-visibility-editor
 					.href="${this.href}"
 					.token="${this.token}">

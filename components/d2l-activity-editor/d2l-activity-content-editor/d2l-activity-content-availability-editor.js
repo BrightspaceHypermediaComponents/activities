@@ -1,3 +1,5 @@
+import '../d2l-activity-availability-dates-summary.js';
+import '../d2l-activity-availability-dates-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { bodySmallStyles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
@@ -81,8 +83,11 @@ class ContentAvailabilityEditor extends LocalizeActivityEditorMixin(RtlMixin(Lit
 	_renderAvailabilityDatesEditor() {
 
 		return html`
-			<div>
-				TODO - add availability dates editor
+			<div class="d2l-editor">
+				<d2l-activity-availability-dates-editor
+					href="${this.href}"
+					.token="${this.token}">
+				</d2l-activity-availability-dates-editor>
 			</div>
 		`;
 	}
@@ -90,9 +95,10 @@ class ContentAvailabilityEditor extends LocalizeActivityEditorMixin(RtlMixin(Lit
 	_renderAvailabilityDatesSummary() {
 
 		return html`
-			<div>
-				TODO - add availability dates summary
-			</div>
+			<d2l-activity-availability-dates-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-availability-dates-summary>
 		`;
 	}
 }

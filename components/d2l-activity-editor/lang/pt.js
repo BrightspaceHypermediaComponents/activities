@@ -108,5 +108,10 @@ export default {
 	"attachments.addFileMenu": "Carregamento de arquivo", // Attach menu item text
 	"attachments.addLinkMenu": "Link da Web", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Atividade existente" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Atividade existente", // Attach menu item text
+
+	"content.name": "Name", // Text label for name input field
+	"content.emptyNameField": "Name is required", // Error text that appears below name field when it is left empty
+	"content.description": "Descrição", // Text label for description input field
+	"content.availabilityHeader": "Datas de Disponibilidade e Condições", // availability header
 };

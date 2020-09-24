@@ -108,5 +108,10 @@ export default {
 	"attachments.addFileMenu": "Bestand uploaden", // Attach menu item text
 	"attachments.addLinkMenu": "Koppeling", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Bestaande activiteit" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Bestaande activiteit", // Attach menu item text
+
+	"content.name": "Naam", // Text label for name input field
+	"content.emptyNameField": "Name is required", // Error text that appears below name field when it is left empty
+	"content.description": "Beschrijving", // Text label for description input field
+	"content.availabilityHeader": "Data en voorwaarden beschikbaarheid", // availability header
 };

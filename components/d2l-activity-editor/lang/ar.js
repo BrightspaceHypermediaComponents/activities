@@ -108,5 +108,10 @@ export default {
 	"attachments.addFileMenu": "تحميل ملف", // Attach menu item text
 	"attachments.addLinkMenu": "ارتباط ويب", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "النشاط الحالي" // Attach menu item text
+	"attachments.addQuicklinkMenu": "النشاط الحالي", // Attach menu item text
+
+	"content.name": "الاسم", // Text label for name input field
+	"content.emptyNameField": "الاسم مطلوب", // Error text that appears below name field when it is left empty
+	"content.description": "Description", // Text label for description input field
+	"content.availabilityHeader": "تواريخ التوفر وشروطه", // availability header
 };

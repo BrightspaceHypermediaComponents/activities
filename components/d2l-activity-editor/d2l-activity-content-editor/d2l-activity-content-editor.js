@@ -7,6 +7,7 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { shared as activityStore } from '../state/activity-store.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
@@ -68,6 +69,7 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 		if ((changedProperties.has('href') || changedProperties.has('token')) &&
 			this.href && this.token) {
 			super._fetch(() => store.fetchContentActivity(this.href, this.token));
+			super._fetch(() => activityStore.fetch(this.href, this.token));
 		}
 	}
 

@@ -6,7 +6,7 @@ configureMobx({ enforceActions: 'observed' });
 export class ActivityScoreGrade {
 
 	constructor(entity, token) {
-		this.scoreOutOf = entity.scoreOutOf()?.toString();
+		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : undefined;
 		this.scoreOutOfError = null;
 		this.token = token;
 		this.inGrades = entity.inGrades();

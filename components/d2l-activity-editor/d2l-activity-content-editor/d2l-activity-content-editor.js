@@ -28,7 +28,6 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 				display: block;
 			}
 			div[slot="primary"] {
-				height: calc(100% - 2 * var(--d2l-primary-padding));
 				padding: var(--d2l-primary-padding);
 			}
 			div[slot="secondary"] {
@@ -48,8 +47,8 @@ class ContentEditor extends ActivityEditorContainerMixin(RtlMixin(ActivityEditor
 
 	constructor() {
 		super(store);
-		// Override the 'scroll' property set by the page to remove the unnecessary scrollbar
-		document.body.style.overflow = 'hidden';
+		// Only show the scrollbar when necessary
+		document.body.style.overflow = 'auto';
 	}
 
 	render() {

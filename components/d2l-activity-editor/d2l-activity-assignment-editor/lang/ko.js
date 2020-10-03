@@ -24,7 +24,6 @@ export default {
 	"submissionType": "제출 유형", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "주석 도구", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "주석 도구를 평가에 사용할 수 있게 함", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "기준 만점 점수", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "익명 표시", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "평가 및 피드백", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "과제 유형", // Label for assignment type

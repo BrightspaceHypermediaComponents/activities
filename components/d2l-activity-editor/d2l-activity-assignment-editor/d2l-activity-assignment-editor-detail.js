@@ -119,9 +119,6 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 
 			<div id="score-and-duedate-container">
 				<div id="score-container">
-					<div class="d2l-activity-label-container">
-						<label class="d2l-label-text d2l-skeletize">${this.localize('scoreOutOf')}</label>
-					</div>
 					<d2l-activity-score-editor
 						?skeleton="${this.skeleton}"
 						.href="${this.activityUsageHref}"

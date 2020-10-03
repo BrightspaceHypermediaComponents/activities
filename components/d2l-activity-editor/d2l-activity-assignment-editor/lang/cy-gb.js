@@ -24,7 +24,6 @@ export default {
 	"submissionType": "Math o Gyflwyniad", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Dulliau Gwneud Nodiadau", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Gwneud dulliau o wneud nodiadau’n hygyrch ar gyfer asesiad", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Sgôr Allan O", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Wrthi’n marcio’n ddienw", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Gwerthuso ac Adborth", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Math o Aseiniad", // Label for assignment type

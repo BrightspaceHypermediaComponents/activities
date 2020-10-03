@@ -24,7 +24,6 @@ export default {
 	"submissionType": "Type de soumission", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Outils d’annotation", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Rendre les outils d’annotation disponibles pour l’évaluation", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Note sur", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Attribution anonyme d\'état", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Évaluation et rétroaction", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Type de travail", // Label for assignment type

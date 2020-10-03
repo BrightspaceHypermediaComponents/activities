@@ -45,47 +45,31 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 			[hidden] {
 				display: none !important;
 			}
-			d2l-input-text,
-			#ungraded {
+			d2l-input-text {
 				width: auto;
 			}
-			#ungraded {
-				--d2l-input-padding: 0.4rem 1.65rem 0.4rem 0.75rem;
-				--d2l-input-padding-focus: calc(0.4rem - 1px) calc(1.65rem - 1px) calc(0.4rem - 1px) calc(0.75rem - 1px);
-				cursor: pointer;
-			}
-			:host([dir="rtl"]) #ungraded {
-				--d2l-input-padding: 0.4rem 0.75rem 0.4rem 1.65rem;
-				--d2l-input-padding-focus: calc(0.4rem - 1px) calc(0.75rem - 1px) calc(0.4rem - 1px) calc(1.65rem - 1px);
-			}
-			#ungraded:disabled,
 			.d2l-grade-info:disabled {
 				cursor: default;
 				opacity: 0.5;
 			}
 			#score-info-container,
-			#score-out-of-container,
 			#grade-info-container {
 				display: flex;
 			}
 			#score-info-container {
-				-webkit-align-items: center;
-				align-items: center;
+				-webkit-align-items: flex-end;
+				align-items: flex-end;
 				flex-wrap: wrap;
-			}
-			#score-out-of-container {
-				-webkit-align-items: baseline;
-				align-items: baseline;
 			}
 			#grade-info-container {
 				-webkit-align-items: center;
 				align-items: center;
 			}
 			.d2l-grade-type-text {
-				margin: 0 0.75rem 0 0.6rem;
+				margin: 0 0.75rem 0.5rem 0.6rem;
 			}
 			:host([dir="rtl"]) .d2l-grade-type-text {
-				margin: 0 0.6rem 0 0.75rem;
+				margin: 0 0.6rem 0.5rem 0.75rem;
 			}
 			#divider {
 				border-left: solid 1px var(--d2l-color-galena);
@@ -178,45 +162,34 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 
 		this._focusUngraded = isUngraded;
 
-		return isUngraded || this.skeleton ? html`
-			<div id="ungraded-button-container" class="d2l-skeletize">
-				<button id="ungraded" class="d2l-input"
-					@click="${this._setGraded}"
-					aria-label="${this.localize('editor.addAGrade')}"
-					?disabled="${!canEditScoreOutOf}"
-				>
-					${this.localize('editor.ungraded')}
-				</button>
-			</div>
-		` : html`
+		return html`
 			<div id="score-info-container">
-				<div id="score-out-of-container">
-					<d2l-input-text
-						id="score-out-of"
-						label="${this.localize('editor.scoreOutOf')}"
-						label-hidden
-						value="${scoreOutOf}"
-						size=4
-						@change="${this._onScoreOutOfChanged}"
-						@blur="${this._onScoreOutOfChanged}"
-						aria-invalid="${scoreOutOfError ? 'true' : ''}"
-						?disabled="${!canEditScoreOutOf}"
-						novalidate
-					></d2l-input-text>
-					${scoreOutOfError ? html`
-						<d2l-tooltip
-							id="score-tooltip"
-							for="score-out-of"
-							position="bottom"
-							showing
-							align="start"
-						>
-							${scoreOutOfError ? html`<span>${this.localize(`editor.${scoreOutOfError}`)}</span>` : null}
-						</d2l-tooltip>
-					` : null}
-					<div class="d2l-body-compact d2l-grade-type-text">${gradeType}</div>
-				</div>
-				${canSeeGrades ? html`
+				<d2l-input-text
+					?skeleton="${this.skeleton}"
+					id="score-out-of"
+					label="${this.localize('editor.scoreOutOf')}"
+					value="${isUngraded ? this.localize('editor.ungraded') : scoreOutOf}"
+					size=${isUngraded ? 10 : 4}
+					@change="${this._onScoreOutOfChanged}"
+					@blur="${this._onScoreOutOfChanged}"
+					@click="${isUngraded ? this._setGraded : null}"
+					aria-invalid="${scoreOutOfError ? 'true' : ''}"
+					?disabled="${!canEditScoreOutOf}"
+					novalidate
+				></d2l-input-text>
+				${scoreOutOfError ? html`
+					<d2l-tooltip
+						id="score-tooltip"
+						for="score-out-of"
+						position="bottom"
+						showing
+						align="start"
+					>
+						${scoreOutOfError ? html`<span>${this.localize(`editor.${scoreOutOfError}`)}</span>` : null}
+					</d2l-tooltip>
+				` : null}
+				${!isUngraded ? html`<div class="d2l-body-compact d2l-grade-type-text">${gradeType}</div>` : null}
+				${canSeeGrades && !isUngraded ? html`
 					<div id="grade-info-container">
 						<div id="divider"></div>
 						<d2l-dropdown ?disabled="${!canEditScoreOutOf}">
@@ -262,9 +235,7 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 
 		changedProperties.forEach((oldValue, propName) => {
 			if (propName === '_focusUngraded' && typeof oldValue !== 'undefined') {
-				const toFocus = this._focusUngraded ?
-					this.shadowRoot.querySelector('#ungraded') :
-					this.shadowRoot.querySelector('#score-out-of');
+				const toFocus = this.shadowRoot.querySelector('#score-out-of');
 				toFocus.focus();
 			} else if (propName === 'activityName') {
 				this._setNewGradeName(this.activityName);

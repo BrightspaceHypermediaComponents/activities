@@ -24,7 +24,6 @@ export default {
 	"submissionType": "Inlämningstyp", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Kommentarsverktyg", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Gör kommentarsverktygen tillgängliga för bedömning", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Resultat av totalt", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Anonym märkning", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Utvärdering och återkoppling", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Typ av uppgift", // Label for assignment type

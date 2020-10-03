@@ -24,7 +24,6 @@ export default {
 	"submissionType": "ドロップボックス送信のタイプ", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "注釈ツール", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "注釈ツールを評価に使用できるようにする", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "満点スコア", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "匿名マーキング", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "評価とフィードバック", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "課題タイプ", // Label for assignment type

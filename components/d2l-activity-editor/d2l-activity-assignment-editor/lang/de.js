@@ -24,7 +24,6 @@ export default {
 	"submissionType": "Abgabetyp", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Anmerkungstools", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Anmerkungstools für die Beurteilung zur Verfügung stellen", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Punktzahl von", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Anonyme Markierung", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Bewertung und Feedback", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Übungstyp", // Label for assignment type

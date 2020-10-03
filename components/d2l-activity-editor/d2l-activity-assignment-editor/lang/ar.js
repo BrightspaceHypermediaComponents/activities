@@ -24,7 +24,6 @@ export default {
 	"submissionType": "نوع الإرسال", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "أدوات التعليق التوضيحي", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "توفير أدوات التعليق التوضيحي للتقييم", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "مجموع الدرجات من أصل", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "وضع علامة كمجهول", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "التقييم والملاحظات", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "نوع الفرض", // Label for assignment type

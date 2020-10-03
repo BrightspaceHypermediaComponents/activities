@@ -24,7 +24,6 @@ export default {
 	"submissionType": "提交类型", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "批注工具", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "使批注工具可用于评估", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "总分", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "匿名标记", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "评估和反馈", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "作业类型", // Label for assignment type

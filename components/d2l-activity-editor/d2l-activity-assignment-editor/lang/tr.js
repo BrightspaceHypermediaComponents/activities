@@ -24,7 +24,6 @@ export default {
 	"submissionType": "Gönderim Türü", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Açıklama Araçları", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Açıklama araçlarını değerlendirme için etkinleştirin", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Maksimum Puan", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Anonim işaretleme", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Değerlendirme ve geri bildirim", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Ödev Türü", // Label for assignment type

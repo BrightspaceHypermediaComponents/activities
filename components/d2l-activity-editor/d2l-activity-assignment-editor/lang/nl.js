@@ -24,7 +24,6 @@ export default {
 	"submissionType": "Type indiening", // Label for the submission type field when creating/editing an assignment
 	"annotationTools": "Annotatiehulpmiddelen", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Annotatiehulpmiddelen beschikbaar maken voor beoordeling", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Score uit", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Anonieme beoordeling", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Evaluatie en feedback", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Type opdracht", // Label for assignment type

@@ -76,8 +76,10 @@ describe('d2l-activity-score-editor', function() {
 			await expect(el).to.be.accessible();
 		});
 
-		it('renders ungraded button', async() => {
-			expect(el.shadowRoot.querySelectorAll('#ungraded')).to.exist;
+		it('renders score out of input with Ungraded text', async() => {
+			expect(el.shadowRoot.querySelectorAll('#score-out-of')).to.exist;
+			const input = el.shadowRoot.querySelector('#score-out-of');
+			expect(input.value).to.equal('Ungraded');
 		});
 
 		it('does not render grade menu', async() => {

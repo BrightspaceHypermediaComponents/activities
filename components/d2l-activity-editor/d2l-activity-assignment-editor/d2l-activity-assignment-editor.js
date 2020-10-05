@@ -1,7 +1,7 @@
 import '../d2l-activity-editor.js';
 import './d2l-activity-assignment-editor-detail.js';
 import './d2l-activity-assignment-editor-secondary.js';
-import './d2l-activity-assignment-editor-footer.js';
+import '../d2l-activity-editor-footer.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
@@ -91,10 +91,6 @@ class AssignmentEditor extends ActivityEditorContainerMixin(AsyncContainerMixin(
 			}
 			.d2l-activity-assignment-editor-secondary-panel {
 				padding: 10px;
-			}
-			div[slot="secondary"] {
-				background: var(--d2l-color-gypsum);
-				height: 100%;
 			}
 			.d2l-locked-alert {
 				align-items: baseline;
@@ -195,7 +191,7 @@ class AssignmentEditor extends ActivityEditorContainerMixin(AsyncContainerMixin(
 		const hasSubmissions = assignment && assignment.submissionAndCompletionProps.assignmentHasSubmissions;
 
 		return html`
-			<d2l-template-primary-secondary slot="editor" width-type="${this.widthType}">
+			<d2l-template-primary-secondary background-shading="secondary" slot="editor" width-type="${this.widthType}">
 				<slot name="editor-nav" slot="header"></slot>
 				<div slot="primary" class="d2l-activity-assignment-editor-primary-panel">
 					<d2l-alert type="error" ?hidden=${!this.isError}>${this.localize('assignmentSaveError')}</d2l-alert>
@@ -219,12 +215,12 @@ class AssignmentEditor extends ActivityEditorContainerMixin(AsyncContainerMixin(
 						class="d2l-activity-assignment-editor-secondary-panel">
 					</d2l-activity-assignment-editor-secondary>
 				</div>
-				<d2l-activity-assignment-editor-footer
+				<d2l-activity-editor-footer
 					.href="${this.href}"
 					.token="${this.token}"
 					slot="footer"
-					class="d2l-activity-assignment-editor-footer">
-				</d2l-activity-assignment-editor-footer>
+					class="d2l-activity-editor-footer">
+				</d2l-activity-editor-footer>
 			</d2l-template-primary-secondary>
 		`;
 	}

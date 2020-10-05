@@ -60,6 +60,11 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 
 		if (editorsPendingChanges.some(Boolean)) {
 			const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
+
+			if (!dialog) {
+				return this.dispatchEvent(this.cancelCompleteEvent);
+			}
+
 			const action = await dialog.open();
 			if (action === 'cancel' || action === 'abort') {
 				return;

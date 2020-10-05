@@ -44,7 +44,7 @@ describe('d2l-activity-score-editor', function() {
 		store.clear();
 	});
 
-	describe('graded', () => {
+	describe.skip('graded', () => {
 		it('passes accessibility test', async() => {
 			await expect(el).to.be.accessible();
 		});
@@ -66,7 +66,7 @@ describe('d2l-activity-score-editor', function() {
 		});
 	});
 
-	describe.skip('ungraded', () => {
+	describe('ungraded', () => {
 		beforeEach(async() => {
 			score.setUngraded();
 			await elementUpdated(el);

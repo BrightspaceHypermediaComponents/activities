@@ -89,7 +89,7 @@ describe('d2l-activity-score-editor', function() {
 		});
 	});
 
-	describe.skip('errors', () => {
+	describe('errors', () => {
 		beforeEach(async() => {
 			score.setScoreOutOf('abc');
 			await elementUpdated(el);
@@ -104,7 +104,7 @@ describe('d2l-activity-score-editor', function() {
 		});
 	});
 
-	describe('events', () => {
+	describe.skip('events', () => {
 		it('updates score out of', async() => {
 			const input = el.shadowRoot.querySelector('#score-out-of');
 			input.value = '15';

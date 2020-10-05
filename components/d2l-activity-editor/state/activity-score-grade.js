@@ -1,12 +1,12 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { GradeCandidateCollection } from '../d2l-activity-grades/state/grade-candidate-collection.js';
-
+/* eslint no-console: 0 */
 configureMobx({ enforceActions: 'observed' });
 
 export class ActivityScoreGrade {
 
 	constructor(entity, token) {
-		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : undefined;
+		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
 		this.scoreOutOfError = null;
 		this.token = token;
 		this.inGrades = entity.inGrades();
@@ -107,6 +107,7 @@ export class ActivityScoreGrade {
 		this.inGrades = false;
 		this.isUngraded = true;
 		this.setScoreOutOf('');
+		console.log('set ungraded');
 	}
 
 	validate() {

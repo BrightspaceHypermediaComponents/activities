@@ -77,9 +77,11 @@ describe('d2l-activity-score-editor', function() {
 		});
 
 		it('renders score out of input with Ungraded text', async() => {
-			expect(el.shadowRoot.querySelectorAll('#score-out-of')).to.exist;
-			const input = el.shadowRoot.querySelector('#score-out-of');
-			expect(input.value).to.equal('Ungraded');
+			setTimeout(() => {
+				expect(el.shadowRoot.querySelectorAll('#score-out-of')).to.exist;
+				const input = el.shadowRoot.querySelector('#score-out-of');
+				expect(input.value).to.equal('Ungraded');
+			}, 30);
 		});
 
 		it('does not render grade menu', async() => {

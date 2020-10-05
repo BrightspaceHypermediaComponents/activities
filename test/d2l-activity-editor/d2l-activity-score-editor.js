@@ -44,7 +44,7 @@ describe('d2l-activity-score-editor', function() {
 		store.clear();
 	});
 
-	describe.skip('graded', () => {
+	describe('graded', () => {
 		it('passes accessibility test', async() => {
 			await expect(el).to.be.accessible();
 		});
@@ -89,7 +89,7 @@ describe('d2l-activity-score-editor', function() {
 		});
 	});
 
-	describe('errors', () => {
+	describe.skip('errors', () => {
 		beforeEach(async() => {
 			score.setScoreOutOf('abc');
 			await elementUpdated(el);

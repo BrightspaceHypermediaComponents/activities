@@ -3,7 +3,7 @@ import { elementUpdated, expect, fixture, html } from '@open-wc/testing';
 import { ActivityScoreGrade } from '../../components/d2l-activity-editor/state/activity-score-grade.js';
 import { ActivityUsage } from '../../components/d2l-activity-editor/state/activity-usage.js';
 import { shared as store } from '../../components/d2l-activity-editor/state/activity-store.js';
-/* eslint no-console: 0 */
+
 function dispatchEvent(elem, eventType, composed) {
 	const e = new Event(
 		eventType,
@@ -12,12 +12,11 @@ function dispatchEvent(elem, eventType, composed) {
 	elem.dispatchEvent(e);
 }
 
-describe.only('d2l-activity-score-editor', function() {
+describe('d2l-activity-score-editor', function() {
 
 	let el, href, activity, score;
 
 	beforeEach(async() => {
-		console.log('first beforeEach');
 		score = new ActivityScoreGrade({
 			scoreOutOf: () => 50,
 			inGrades: () => true,
@@ -67,19 +66,17 @@ describe.only('d2l-activity-score-editor', function() {
 		});
 	});
 
-	describe.only('ungraded', () => {
+	describe('ungraded', () => {
 		beforeEach(async() => {
-			console.log('second beforeEach');
 			score.setUngraded();
 			await elementUpdated(el);
-			console.log('end of second beforeEach');
 		});
 
 		it('passes accessibility test', async() => {
 			await expect(el).to.be.accessible();
 		});
 
-		it.only('renders score out of input with Ungraded text', async() => {
+		it('renders score out of input with Ungraded text', async() => {
 			expect(el.shadowRoot.querySelectorAll('#score-out-of')).to.exist;
 			const input = el.shadowRoot.querySelector('#score-out-of');
 			expect(input.value).to.equal('Ungraded');
@@ -92,7 +89,7 @@ describe.only('d2l-activity-score-editor', function() {
 
 	describe('errors', () => {
 		beforeEach(async() => {
-			await score.setScoreOutOf('abc');
+			score.setScoreOutOf('abc');
 			await elementUpdated(el);
 		});
 

@@ -1,6 +1,6 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { GradeCandidateCollection } from '../d2l-activity-grades/state/grade-candidate-collection.js';
-/* eslint no-console: 0 */
+
 configureMobx({ enforceActions: 'observed' });
 
 export class ActivityScoreGrade {
@@ -107,7 +107,6 @@ export class ActivityScoreGrade {
 		this.inGrades = false;
 		this.isUngraded = true;
 		this.setScoreOutOf('');
-		console.log('set ungraded');
 	}
 
 	validate() {

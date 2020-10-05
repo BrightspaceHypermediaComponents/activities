@@ -21,7 +21,7 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
 import { shared as store } from './state/activity-store.js';
-/* eslint no-console: 0 */
+
 class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
 	static get properties() {
@@ -160,8 +160,6 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 			canSeeGrades
 		} = activity && activity.scoreAndGrade || {};
 
-		console.log('scoreOutOf', scoreOutOf);
-
 		this._focusUngraded = isUngraded;
 
 		return html`
@@ -243,7 +241,6 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 				this._setNewGradeName(this.activityName);
 			}
 		});
-		console.log('updated');
 	}
 
 	_addOrRemoveMenuItem() {

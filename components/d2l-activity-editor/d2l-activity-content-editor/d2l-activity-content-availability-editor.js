@@ -2,15 +2,13 @@ import '../d2l-activity-availability-dates-summary.js';
 import '../d2l-activity-availability-dates-editor.js';
 import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import { bodySmallStyles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
-import { css, html } from 'lit-element/lit-element.js';
+import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { summarizerHeaderStyles, summarizerSummaryStyles } from '../d2l-activity-assignment-editor/activity-summarizer-styles.js';
 import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
-import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
-import { shared as store } from '../state/activity-store.js';
 
-class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
+class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(LitElement))) {
 
 	static get properties() {
 
@@ -78,18 +76,8 @@ class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixi
 		`;
 	}
 
-	// Returns true if any error states relevant to this accordion are set
-	_errorInAccordion() {
-		const activity = store.get(this.href);
-		if (!activity || !activity.dates) {
-			return false;
-		}
-
-		return !!(activity.dates.endDateErrorTerm || activity.dates.startDateErrorTerm);
-	}
-
 	_isOpened() {
-		return this._opened || this._errorInAccordion();
+		return this._opened;
 	}
 
 	_onAccordionStateChange(e) {

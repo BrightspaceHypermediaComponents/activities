@@ -9,7 +9,13 @@ import { shared as store } from './state/attachment-collections-store.js';
 class ActivityAttachmentsEditor extends ActivityEditorMixin(SkeletonMixin(MobxLitElement)) {
 	static get properties() {
 		return {
-			_canAddAttachments: { type: Boolean },
+			readOnly : {
+				attribute: "read-only", 
+				type: Boolean 
+			},
+			_canAddAttachments: { 
+				type: Boolean
+			}
 		};
 	}
 
@@ -23,6 +29,7 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(SkeletonMixin(MobxLi
 
 	constructor() {
 		super(store);
+		this.readOnly = false;
 	}
 
 	render() {
@@ -40,7 +47,7 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(SkeletonMixin(MobxLi
 			href="${this.href}"
 			.token="${this.token}">
 		</d2l-activity-attachments-list>
-			${canAddAttachments || this.skeleton ? html`
+			${(canAddAttachments || this.skeleton) && !this.readOnly ? html`
 		<d2l-activity-attachments-picker
 			?skeleton="${this.skeleton}"
 			href="${this.href}"

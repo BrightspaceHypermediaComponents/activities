@@ -267,7 +267,11 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 		}
 	}
 	_onScoreOutOfChanged() {
-		const scoreAndGrade = store.get(this.href).scoreAndGrade;
+		const activity = store.get(this.href);
+		if( activity == undefined) {
+			return;
+		}
+		const scoreAndGrade = activity.scoreAndGrade;
 		const scoreOutOf = this.shadowRoot.querySelector('#score-out-of').value;
 		if (scoreOutOf === scoreAndGrade.scoreOutOf) {
 			return;

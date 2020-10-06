@@ -112,20 +112,18 @@ describe('d2l-activity-score-editor', function() {
 			expect(score.scoreOutOf).to.equal('15');
 		});
 
-		it('sets ungraded', async(done) => {
+		it('sets ungraded', async() => {
 			const menu = el.shadowRoot.querySelectorAll('d2l-menu-item')[2];
 			dispatchEvent(menu, 'd2l-menu-item-select', true);
 
 			expect(score.isUngraded).to.be.true;
-			done();
 		});
 
-		it('removes from grades', async(done) => {
+		it('removes from grades', async() => {
 			const menu = el.shadowRoot.querySelectorAll('d2l-menu-item')[1];
 			dispatchEvent(menu, 'd2l-menu-item-select', true);
 
 			expect(score.inGrades).to.be.false;
-			done();
 		});
 
 		it('adds to grades', async() => {

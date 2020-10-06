@@ -12,7 +12,7 @@ function dispatchEvent(elem, eventType, composed) {
 	elem.dispatchEvent(e);
 }
 
-describe.skip('d2l-activity-score-editor', function() {
+describe('d2l-activity-score-editor', function() {
 
 	let el, href, activity, score;
 
@@ -102,7 +102,7 @@ describe.skip('d2l-activity-score-editor', function() {
 		});
 	});
 
-	describe('events', () => {
+	describe.only('events', () => {
 		it('updates score out of', async() => {
 			const input = el.shadowRoot.querySelector('#score-out-of');
 			input.value = '15';

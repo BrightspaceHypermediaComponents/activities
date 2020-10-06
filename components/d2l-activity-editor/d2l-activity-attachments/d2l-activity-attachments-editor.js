@@ -10,10 +10,10 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(SkeletonMixin(MobxLi
 	static get properties() {
 		return {
 			readOnly : {
-				attribute: "read-only", 
-				type: Boolean 
+				attribute: 'read-only',
+				type: Boolean
 			},
-			_canAddAttachments: { 
+			_canAddAttachments: {
 				type: Boolean
 			}
 		};

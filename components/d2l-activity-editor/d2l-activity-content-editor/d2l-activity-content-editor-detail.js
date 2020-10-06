@@ -3,6 +3,7 @@ import 'd2l-tooltip/d2l-tooltip';
 import '../d2l-activity-html-editor';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
@@ -17,7 +18,7 @@ import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 const TITLE_DEBOUNCE_TIMEOUT = 500;
 const TITLE_MAX_LENGTH = 150;
 
-class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(MobxLitElement)))))) {
+class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
 	static get properties() {
 		return {

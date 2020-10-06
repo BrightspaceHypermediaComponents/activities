@@ -1,7 +1,7 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '../d2l-activity-html-editor';
-
+import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
@@ -10,13 +10,14 @@ import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/content-store.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 const TITLE_DEBOUNCE_TIMEOUT = 500;
 const TITLE_MAX_LENGTH = 150;
 
-class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(MobxLitElement)))) {
+class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(MobxLitElement)))))) {
 
 	static get properties() {
 		return {
@@ -25,23 +26,27 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 	}
 
 	static get styles() {
-		return css`
-			:host {
-				display: block;
-			}
-			:host([hidden]) {
-				display: none;
-			}
-			:host > div {
-				padding-bottom: 20px;
-			}
-		`;
+		return  [
+			super.styles,
+			css`
+				:host {
+					display: block;
+				}
+				:host([hidden]) {
+					display: none;
+				}
+				:host > div {
+					padding-bottom: 20px;
+				}
+			`
+		];
 	}
 
 	constructor() {
 		super(store);
 		this._debounceJobs = {};
 		this._setEntityType(ContentEntity);
+		this.skeleton = true;
 	}
 
 	render() {
@@ -53,7 +58,7 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 
 		return html`
 			<div id="content-title-container">
-				<label class="d2l-label-text" for="content-title">${this.localize('content.name')}*</label>
+				<label class="d2l-label-text d2l-skeletize" for="content-title">${this.localize('content.name')}*</label>
 				<d2l-input-text
 					id="content-title"
 					maxlength="${TITLE_MAX_LENGTH}"
@@ -63,22 +68,31 @@ class ContentEditorDetail extends ErrorHandlingMixin(LocalizeActivityEditorMixin
 					aria-invalid="${this._titleError ? 'true' : ''}"
 					prevent-submit
 					novalidate
+					?skeleton="${this.skeleton}"
 				>
 				</d2l-input-text>
 				${this._renderTitleTooltip()}
 			</div>
 			<div id="content-description-container">
-				<label class="d2l-label-text" for="content-description">${this.localize('content.description')}</label>
+				<label class="d2l-label-text d2l-skeletize" for="content-description">${this.localize('content.description')}</label>
 				<!-- TODO: insert existing description value should one exist -->
-				<d2l-activity-html-editor
-					id='content-description'
-					ariaLabel="content-description"
-					@d2l-activity-html-editor-change="${this._onRichtextChange}"
-					.richtextEditorConfig="${{}}"
-				>
-				</d2l-activity-html-editor>
+				<div class="d2l-skeletize">
+					<d2l-activity-html-editor
+						id='content-description'
+						ariaLabel="content-description"
+						@d2l-activity-html-editor-change="${this._onRichtextChange}"
+						.richtextEditorConfig="${{}}"
+					>
+					</d2l-activity-html-editor>
+				</div>
 			</div>
 		`;
+	}
+
+	updated(changedProperties) {
+		if (changedProperties.has('asyncState')) {
+			this.skeleton = this.asyncState !== asyncStates.complete;
+		}
 	}
 
 	_onRichtextChange(e) {

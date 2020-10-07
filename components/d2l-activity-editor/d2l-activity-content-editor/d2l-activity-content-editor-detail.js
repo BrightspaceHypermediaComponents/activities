@@ -52,10 +52,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 
 	render() {
 		const contentEntity = store.getContentActivity(this.href);
-		if (!contentEntity) {
-			return html``;
-		}
-		const {	title } = contentEntity;
+		const title = contentEntity ? contentEntity.title : '';
 
 		return html`
 			<div id="content-title-container">

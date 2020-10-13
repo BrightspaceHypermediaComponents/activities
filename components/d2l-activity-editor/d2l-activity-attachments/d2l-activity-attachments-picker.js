@@ -98,7 +98,10 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletonMixin(Locali
 			this._addToCollection(attachmentStore.createVideo(fileName, fileSystemType, fileId, previewUrl));
 			this.dispatchEvent(new CustomEvent('d2l-activity-attachments-picker-video-uploaded', {
 				bubbles: true,
-				composed: true
+				composed: true,
+				detail: {
+					files: [file]
+				}
 			}));
 		};
 		// Referenced by the server-side ActivitiesView renderer
@@ -112,7 +115,10 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletonMixin(Locali
 			this._addToCollection(attachmentStore.createAudio(fileName, fileSystemType, fileId, previewUrl));
 			this.dispatchEvent(new CustomEvent('d2l-activity-attachments-picker-audio-uploaded', {
 				bubbles: true,
-				composed: true
+				composed: true,
+				detail: {
+					files: [file]
+				}
 			}));
 		};
 	}

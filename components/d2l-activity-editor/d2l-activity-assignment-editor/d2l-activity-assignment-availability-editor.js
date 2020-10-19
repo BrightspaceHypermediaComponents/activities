@@ -4,12 +4,11 @@ import '../d2l-activity-usage-conditions-editor.js';
 import '../d2l-activity-usage-conditions-summary.js';
 import '../d2l-activity-special-access-editor.js';
 import '../d2l-activity-special-access-summary.js';
-import '@brightspace-ui-labs/accordion/accordion-collapse.js';
+import '../d2l-activity-accordion-collapse.js';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
-import { bodySmallStyles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
@@ -22,7 +21,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_opened: { type: Boolean },
 			_m3ReleaseConditionsEnabled: { type: Boolean },
 			_m3SpecialAccessEnabled: { type: Boolean }
 		};
@@ -32,8 +30,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 
 		return [
 			super.styles,
-			bodySmallStyles,
-			heading3Styles,
 			heading4Styles,
 			css`
 				:host {
@@ -55,15 +51,8 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 				.d2l-heading-4 {
 					margin: 0 0 0.6rem 0;
 				}
-			`,
-			summarizerHeaderStyles,
-			summarizerSummaryStyles
+			`
 		];
-	}
-
-	constructor() {
-		super();
-		this._opened = false;
 	}
 
 	connectedCallback() {
@@ -75,25 +64,22 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 
 	render() {
 		return html`
-			<d2l-labs-accordion-collapse
-				flex
-				header-border
-				?opened=${this._isOpened()}
-				?disabled="${this.skeleton}"
-				?no-icons="${this.skeleton}"
-				@d2l-labs-accordion-collapse-state-changed=${this._onAccordionStateChange}>
-				<h3 class="d2l-heading-3 d2l-activity-summarizer-header d2l-skeletize" slot="header">
+			<d2l-activity-accordion-collapse
+				?has-errors=${this._errorInAccordion()}
+				?skeleton="${this.skeleton}">
+
+				<span slot="header">
 					${this.localize('hdrAvailability')}
-				</h3>
-				<ul class="d2l-body-small d2l-activity-summarizer-summary d2l-skeletize" slot="summary">
-					<li>${this._renderAvailabilityDatesSummary()}</li>
-					<li>${this._renderReleaseConditionSummary()}</li>
-					<li>${this._renderSpecialAccessSummary()}</li>
-				</ul>
-				${this._renderAvailabilityDatesEditor()}
-				${this._renderReleaseConditionEditor()}
-				${this._renderSpecialAccessEditor()}
-			</d2l-labs-accordion-collapse>
+				</span>
+				<li slot="summary-items">${this._renderAvailabilityDatesSummary()}</li>
+				<li slot="summary-items">${this._renderReleaseConditionSummary()}</li>
+				<li slot="summary-items">${this._renderSpecialAccessSummary()}</li>
+				<span slot="components">
+					${this._renderAvailabilityDatesEditor()}
+					${this._renderReleaseConditionEditor()}
+					${this._renderSpecialAccessEditor()}
+				</span>
+			</d2l-activity-accordion-collapse>
 		`;
 	}
 	// Returns true if any error states relevant to this accordion are set
@@ -104,12 +90,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 		}
 
 		return !!(activity.dates.endDateErrorTerm || activity.dates.startDateErrorTerm);
-	}
-	_isOpened() {
-		return this._opened || this._errorInAccordion();
-	}
-	_onAccordionStateChange(e) {
-		this._opened = e.detail.opened;
 	}
 
 	_renderAvailabilityDatesEditor() {

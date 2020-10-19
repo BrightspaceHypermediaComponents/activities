@@ -43,7 +43,6 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContain
 
 	constructor() {
 		super();
-		this._debounceJobs = {};
 		this.skeleton = true;
 	}
 

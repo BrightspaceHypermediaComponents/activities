@@ -8,10 +8,9 @@ import '../d2l-activity-rubrics/d2l-activity-rubrics-list-wrapper.js';
 import '../d2l-activity-rubrics/d2l-activity-rubrics-summary-wrapper.js';
 import './d2l-assignment-turnitin-editor.js';
 import './d2l-assignment-turnitin-summary.js';
+import '../d2l-activity-accordion-collapse.js';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
-import { bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { shared as activityStore } from '../state/activity-store.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
@@ -36,8 +35,6 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 
 		return [
 			super.styles,
-			bodySmallStyles,
-			heading3Styles,
 			css`
 				:host {
 					display: block;
@@ -51,9 +48,7 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 					display: block;
 					margin-top: 1rem;
 				}
-			`,
-			summarizerHeaderStyles,
-			summarizerSummaryStyles
+			`
 		];
 	}
 
@@ -69,30 +64,23 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 		const activity = activityStore.get(this.activityUsageHref) || {};
 
 		return html`
-			<d2l-labs-accordion-collapse
-				class="accordion"
-				flex
-				header-border
-				?disabled="${this.skeleton}"
-				?no-icons="${this.skeleton}">
-				<h3 class="d2l-heading-3 d2l-activity-summarizer-header d2l-skeletize" slot="header">
+			<d2l-activity-accordion-collapse ?skeleton="${this.skeleton}">
+				<span slot="header">
 					${this.localize('evaluationAndFeedback')}
-				</h3>
-				<ul class="d2l-body-small d2l-activity-summarizer-summary d2l-skeletize" slot="summary">
-					${this._m2Enabled ? html`<li>${this._renderRubricsSummary()}</li>` : null}
-					${this._m3CompetenciesEnabled && activity.canEditCompetencies ? html`<li>${this._renderCompetenciesSummary()}</li>` : null}
-					${this._m2Enabled ? html`<li>${this._renderAnnotationsSummary()}</li>` : null}
-					${this._m2Enabled ? html`<li>${this._renderAnonymousMarkingSummary()}</li>` : null}
-					${this._m2Enabled && assignment.canEditTurnitin ? html`<li>${this._renderTurnitinSummary()}</li>` : null}
-				</ul>
-				<div class="d2l-editors">
+				</span>
+				${this._m2Enabled ? html`<li slot="summary-items">${this._renderRubricsSummary()}</li>` : null}
+				${this._m3CompetenciesEnabled && activity.canEditCompetencies ? html`<li slot="summary-items">${this._renderCompetenciesSummary()}</li>` : null}
+				${this._m2Enabled ? html`<li slot="summary-items">${this._renderAnnotationsSummary()}</li>` : null}
+				${this._m2Enabled ? html`<li slot="summary-items">${this._renderAnonymousMarkingSummary()}</li>` : null}
+				${this._m2Enabled && assignment.canEditTurnitin ? html`<li slot="summary-items">${this._renderTurnitinSummary()}</li>` : null}
+				<div class="d2l-editors" slot="components">
 					${this._m2Enabled ? html`${this._renderRubricsCollectionEditor()}` : null}
 					${this._m3CompetenciesEnabled && activity.canEditCompetencies ? this._renderCompetenciesOpener() : null}
 					${this._m2Enabled ? html`${this._renderAnnotationsEditor()}` : null}
 					${this._m2Enabled ? html`${this._renderAnonymousMarkingEditor()}` : null}
 					${this._m2Enabled && assignment.canEditTurnitin ? html`${this._renderTurnitinEditor()}` : null}
 				</div>
-			</d2l-labs-accordion-collapse>
+			</d2l-activity-accordion-collapse>
 		`;
 	}
 	_renderAnnotationsEditor() {

@@ -21,7 +21,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 
 		return await fixture(
 			html`
-				<d2l-activity-assignment-evaluation-editor 
+				<d2l-activity-assignment-evaluation-editor
 					href=${href}
 					activityUsageHref=${href}
 					.token="${token}"
@@ -161,26 +161,24 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 
 		it('accordion is not hidden on load', async() => {
 			const el = await loadComponent();
-			expect(el.shadowRoot.querySelector('.accordion').getAttribute('hidden')).to.be.null;
+			expect(el.shadowRoot.querySelector('d2l-activity-accordion-collapse').getAttribute('hidden')).to.be.null;
 		});
 
 		it('has a heading', async() => {
 			const el = await loadComponent();
-			const header = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-header');
-			expect(header[0].slot).to.equal('header');
-			expect(header[0].innerText).to.equal(langTerms.evaluationAndFeedback);
+			const header = el.shadowRoot.querySelector('d2l-activity-accordion-collapse > span[slot="header"]');
+			expect(header.innerText).to.equal(langTerms.evaluationAndFeedback);
 		});
 
 		it('has a summary', async() => {
 			const el = await loadComponent();
-			const summary = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-summary');
-			expect(summary[0].slot).to.equal('summary');
-			expect(summary[0].getElementsByTagName('li').length).to.equal(4);
+			const summary = el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > li[slot="summary-items"]');
+			expect(summary.length).to.equal(4);
 		});
 
 		it('initializes as closed', async() => {
 			const el = await loadComponent();
-			expect(el.shadowRoot.querySelector('.accordion').getAttribute('_state')).to.equal('closed');
+			expect(el.shadowRoot.querySelector('d2l-activity-accordion-collapse')._opened).to.be.false;
 		});
 
 		it('handles click event', async() => {
@@ -196,7 +194,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 		it('loads properly and is visible when user can edit annotations', async() => {
 			const el = await loadComponent();
 			const annotationEditorComponent =
-				el.shadowRoot.querySelectorAll('.accordion > .d2l-editors > d2l-activity-assignment-annotations-editor');
+				el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > .d2l-editors > d2l-activity-assignment-annotations-editor');
 			const annotationEditor = await fixture(html`${annotationEditorComponent}`);
 
 			const label = annotationEditor.shadowRoot.querySelectorAll('.d2l-label-text')[0];
@@ -213,7 +211,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 		it('updates the annotations tools avaliable value when change event occurs', async() => {
 			const el = await loadComponent();
 			const annotationEditorComponent =
-				el.shadowRoot.querySelectorAll('.accordion > .d2l-editors > d2l-activity-assignment-annotations-editor');
+				el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > .d2l-editors > d2l-activity-assignment-annotations-editor');
 			const annotationEditor = await fixture(html`${annotationEditorComponent}`);
 
 			const checkbox = annotationEditor.shadowRoot.querySelectorAll('d2l-input-checkbox')[0];
@@ -228,7 +226,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 		it('loads properly and is visible when anonymous marking is avaliable', async() => {
 			const el = await loadComponent();
 			const anonMarkingEditorComponent =
-				el.shadowRoot.querySelectorAll('.accordion > .d2l-editors > d2l-activity-assignment-anonymous-marking-editor');
+				el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > .d2l-editors > d2l-activity-assignment-anonymous-marking-editor');
 			const anonMarkingEditor = await fixture(html`${anonMarkingEditorComponent}`);
 
 			const label = anonMarkingEditor.shadowRoot.querySelectorAll('.d2l-label-text')[0];
@@ -250,7 +248,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 			anonymousMarkingProps.isAnonymousMarkingEnabled = false;
 			const el = await loadComponent();
 			const anonMarkingEditorComponent =
-				el.shadowRoot.querySelectorAll('.accordion > .d2l-editors > d2l-activity-assignment-anonymous-marking-editor');
+				el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse> .d2l-editors > d2l-activity-assignment-anonymous-marking-editor');
 			const anonMarkingEditor = await fixture(html`${anonMarkingEditorComponent}`);
 
 			const checkbox = anonMarkingEditor.shadowRoot.querySelectorAll('d2l-input-checkbox')[0];
@@ -267,7 +265,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 
 			const el = await loadComponent();
 			const turnItInEditorComponent =
-				el.shadowRoot.querySelectorAll('.accordion > .d2l-editors > d2l-assignment-turnitin-editor');
+				el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > .d2l-editors > d2l-assignment-turnitin-editor');
 			const turnItInEditor = await fixture(html`${turnItInEditorComponent}`);
 
 			const turnItInContainer = turnItInEditor.shadowRoot.querySelectorAll('#assignment-turnitin-container');
@@ -285,7 +283,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 
 			const el = await loadComponent();
 			const turnItInEditorComponent =
-				el.shadowRoot.querySelectorAll('.accordion > .d2l-editors > d2l-assignment-turnitin-editor');
+				el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > .d2l-editors > d2l-assignment-turnitin-editor');
 			let turnItInEditor, featureSummary;
 
 			assignment.setTurnitin(false, false);

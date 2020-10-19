@@ -1,4 +1,5 @@
 import './d2l-activity-quiz-editor-detail.js';
+import './d2l-activity-quiz-editor-secondary.js';
 import '../d2l-activity-editor.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
@@ -25,7 +26,10 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 
 	constructor() {
 		super();
-		this.type = 'quiz';
+
+		const telemetrySourceId = 'quiz';
+
+		this.type = telemetrySourceId;
 		this.telemetryId = 'quiz';
 	}
 
@@ -39,6 +43,7 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				width-type="${this.widthType}"
 				error-term="${this.localize('quizSaveError')}"
 				?isnew="${this.isNew}">
+
 				${this._editorTemplate}
 
 			</d2l-activity-editor>
@@ -60,7 +65,13 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 					.token="${this.token}">
 				</d2l-activity-quiz-editor-detail>
 			</div>
-			<div slot="secondary"></div>
+			<div slot="secondary">
+				<d2l-activity-quiz-editor-secondary
+					.href="${specializationHref}"
+					.token="${this.token}"
+					activity-usage-href="${this.href}">
+				</d2l-activity-quiz-editor-secondary>
+			</div>
 		`;
 	}
 }

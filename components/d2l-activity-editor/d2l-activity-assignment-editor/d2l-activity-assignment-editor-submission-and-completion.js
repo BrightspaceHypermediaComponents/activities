@@ -1,13 +1,12 @@
-import '@brightspace-ui-labs/accordion/accordion-collapse.js';
 import 'd2l-inputs/d2l-input-text.js';
 
+import '../d2l-activity-accordion-collapse.js';
 import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-type-summary.js';
 import './d2l-activity-submission-email-notification-summary.js';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
-import { bodyCompactStyles, bodySmallStyles, heading3Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { summarizerHeaderStyles, summarizerSummaryStyles } from './activity-summarizer-styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
@@ -35,7 +34,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 			super.styles,
 			bodyCompactStyles,
 			bodySmallStyles,
-			heading3Styles,
 			labelStyles,
 			radioStyles,
 			selectStyles,
@@ -71,9 +69,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 				#notification-email-tooltip {
 					z-index: auto;
 				}
-			`,
-			summarizerHeaderStyles,
-			summarizerSummaryStyles
+			`
 		];
 	}
 
@@ -90,28 +86,23 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 	render() {
 		const assignment = store.get(this.href);
 		return html`
-			<d2l-labs-accordion-collapse
-				class="accordion"
-				flex
-				header-border
-				?disabled="${this.skeleton}"
-				?no-icons="${this.skeleton}">
-				<h3 class="d2l-heading-3 d2l-activity-summarizer-header d2l-skeletize" slot="header">
+			<d2l-activity-accordion-collapse ?skeleton="${this.skeleton}">
+				<span slot="header">
 					${this.localize('submissionCompletionAndCategorization')}
-				</h3>
-				<ul class="d2l-body-small d2l-activity-summarizer-summary d2l-skeletize" slot="summary">
-					<li>${this._renderAssignmentTypeSummary()}</li>
-					<li>${this._renderAssignmentSubmissionTypeSummary(assignment)}</li>
-					<li>${this._renderAssignmentCompletionTypeSummary()}</li>
-					<li>${this._renderSubmissionEmailNotificationSummary(assignment)}</li>
-				</ul>
-				${this._renderAssignmentType()}
-				${this._renderAssignmentSubmissionType(assignment)}
-				${this._renderAssignmentFilesSubmissionLimit(assignment)}
-				${this._renderAssignmentSubmissionsRule(assignment)}
-				${this._renderAssignmentCompletionType(assignment)}
-				${this._renderAssignmentSubmissionNotificationEmail(assignment)}
-			</d2l-labs-accordion-collapse>
+				</span>
+				<li slot="summary-items">${this._renderAssignmentTypeSummary()}</li>
+				<li slot="summary-items">${this._renderAssignmentSubmissionTypeSummary(assignment)}</li>
+				<li slot="summary-items">${this._renderAssignmentCompletionTypeSummary()}</li>
+				<li slot="summary-items">${this._renderSubmissionEmailNotificationSummary(assignment)}</li>
+				<span slot="components">
+					${this._renderAssignmentType()}
+					${this._renderAssignmentSubmissionType(assignment)}
+					${this._renderAssignmentFilesSubmissionLimit(assignment)}
+					${this._renderAssignmentSubmissionsRule(assignment)}
+					${this._renderAssignmentCompletionType(assignment)}
+					${this._renderAssignmentSubmissionNotificationEmail(assignment)}
+				</span>
+			</d2l-activity-accordion-collapse>
 		`;
 	}
 

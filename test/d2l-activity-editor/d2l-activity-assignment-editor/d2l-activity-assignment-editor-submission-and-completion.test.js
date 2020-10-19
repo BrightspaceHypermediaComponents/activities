@@ -136,28 +136,26 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 
 	it('accordion is not hidden on load', async() => {
 		const el = await loadComponent();
-		expect(el.shadowRoot.querySelector('.accordion').getAttribute('hidden')).to.be.null;
+		expect(el.shadowRoot.querySelector('d2l-activity-accordion-collapse').getAttribute('hidden')).to.be.null;
 	});
 
 	describe('accordion', () => {
 
 		it('has a heading', async() => {
 			const el = await loadComponent();
-			const header = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-header');
-			expect(header[0].slot).to.equal('header');
-			expect(header[0].innerText).to.equal(langTerms.submissionCompletionAndCategorization);
+			const header = el.shadowRoot.querySelector('d2l-activity-accordion-collapse > span[slot="header"]');
+			expect(header.innerText).to.equal(langTerms.submissionCompletionAndCategorization);
 		});
 
 		it('has a summary', async() => {
 			const el = await loadComponent();
-			const summary = el.shadowRoot.querySelectorAll('.accordion > .d2l-activity-summarizer-summary');
-			expect(summary[0].slot).to.equal('summary');
-			expect(summary[0].getElementsByTagName('li').length).to.equal(4);
+			const summary = el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > li[slot="summary-items"]');
+			expect(summary.length).to.equal(4);
 		});
 
 		it('initializes as closed', async() => {
 			const el = await loadComponent();
-			expect(el.shadowRoot.querySelector('.accordion').getAttribute('_state')).to.equal('closed');
+			expect(el.shadowRoot.querySelector('d2l-activity-accordion-collapse')._opened).to.be.false;
 		});
 
 		it('handles click event', async() => {

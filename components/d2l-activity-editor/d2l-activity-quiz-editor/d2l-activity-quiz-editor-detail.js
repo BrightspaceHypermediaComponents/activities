@@ -76,16 +76,6 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 					?disabled="${!canEditName}"
 					prevent-submit>
 			</d2l-input-text>
-			</div>
-
-			<div id="score-and-duedate-container">
-				<div id="duedate-container">
-					<d2l-activity-due-date-editor
-						?skeleton="${this.skeleton}"
-						.href="${this.href}"
-						.token="${this.token}">
-					</d2l-activity-due-date-editor>
-				</div>
 		`;
 	}
 

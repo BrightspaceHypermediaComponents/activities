@@ -3,8 +3,6 @@ node_js:
 - "12"
 addons:
   chrome: stable
-cache:
-  npm: false
 install:
 - npm install
 jobs:

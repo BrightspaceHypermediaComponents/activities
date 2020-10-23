@@ -12,7 +12,6 @@ export class Content {
 		this.token = token;
 		this.contentModuleHref = '';
 		this.moduleTitle = '';
-		this.moduleDescriptionText = '';
 		this.moduleDescriptionRichText = '';
 	}
 
@@ -45,7 +44,6 @@ export class Content {
 	loadContentModule(moduleEntity) {
 		this._contentModule = moduleEntity;
 		this.moduleTitle = moduleEntity.title();
-		this.moduleDescriptionText = moduleEntity.descriptionText();
 		this.moduleDescriptionRichText = moduleEntity.descriptionRichText();
 	}
 
@@ -72,7 +70,6 @@ export class Content {
 decorate(Content, {
 	// props
 	moduleTitle: observable,
-	moduleDescriptionText: observable,
 	moduleDescriptionRichText: observable,
 	// actions
 	load: action,

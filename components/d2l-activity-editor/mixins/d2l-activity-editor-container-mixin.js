@@ -131,8 +131,8 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		await this._saveEditors(orderedEditors);
 
 		this.isError = false;
+		this.isSaving = false;
 		this.dispatchEvent(this.saveCompleteEvent);
-
 		this.logSaveEvent(this.href, this.type, this.telemetryId);
 	}
 

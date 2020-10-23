@@ -48,11 +48,12 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		this._debounceJobs = {};
 		this._setEntityType(ContentEntity);
 		this.skeleton = true;
+		this.saveOrder = 2000;
 	}
 
 	render() {
 		const contentEntity = store.getContentActivity(this.href);
-		const title = contentEntity ? contentEntity.title : '';
+		const title = contentEntity ? contentEntity.moduleTitle : '';
 
 		return html`
 			<div id="content-title-container">
@@ -91,6 +92,15 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		if (changedProperties.has('asyncState')) {
 			this.skeleton = this.asyncState !== asyncStates.complete;
 		}
+	}
+
+	async save() {
+		const contentEntity = store.getContentActivity(this.href);
+		if (!contentEntity) {
+			return;
+		}
+
+		await contentEntity.save();
 	}
 
 	_onRichtextChange(e) {

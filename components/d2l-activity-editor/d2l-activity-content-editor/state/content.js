@@ -13,7 +13,7 @@ export class Content {
 		this.contentModuleHref = '';
 		this.moduleTitle = '';
 		this.moduleDescriptionText = '';
-		this.moduleDescriptionHtml = '';
+		this.moduleDescriptionRichText = '';
 	}
 
 	async fetch() {
@@ -46,32 +46,37 @@ export class Content {
 		this._contentModule = moduleEntity;
 		this.moduleTitle = moduleEntity.title();
 		this.moduleDescriptionText = moduleEntity.descriptionText();
-		this.moduleDescriptionHtml = moduleEntity.descriptionHtml();
+		this.moduleDescriptionRichText = moduleEntity.descriptionRichText();
 	}
 
-	async save() {
+	async saveContentModule() {
 		if (!this._contentModule) {
 			return;
 		}
 
 		await this._contentModule.setModuleTitle(this.moduleTitle);
+		await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
 
 		await this.fetch();
+	}
+
+	setDescription(richText) {
+		this.moduleDescriptionRichText = richText;
 	}
 
 	setTitle(value) {
 		this.moduleTitle = value;
 	}
-
 }
 
 decorate(Content, {
 	// props
 	moduleTitle: observable,
 	moduleDescriptionText: observable,
-	moduleDescriptionHtml: observable,
+	moduleDescriptionRichText: observable,
 	// actions
 	load: action,
 	loadContentModule: action,
 	setTitle: action,
+	setDescription: action,
 });

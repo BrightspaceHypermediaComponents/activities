@@ -17,7 +17,9 @@ export class Content {
 
 	cancelCreate() {
 		// This is the function that is called when cancelling the creation of a NEW content item
-		// TODO - add functionality to delete created activity and navigate back to lessons
+		// TODO - add functionality to delete created activity
+		// redirect happens for canceling/saving here (https://search.d2l.dev/xref/lms/le/activities/static/js/ActivityCreateEditNav.js?r=78fec851#56)
+		// and will need to be investigated
 		return;
 	}
 

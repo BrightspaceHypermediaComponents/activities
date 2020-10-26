@@ -36,7 +36,7 @@ export class Content {
 	load(contentEntity) {
 		this._entity = contentEntity;
 		this.contentModuleHref = contentEntity.getModuleHref();
-		if (this.contentModuleHref !== '') {
+		if (this.contentModuleHref) {
 			this.fetchContentModule();
 		}
 	}

@@ -15,6 +15,16 @@ export class Content {
 		this.moduleDescriptionRichText = '';
 	}
 
+	cancelCreate() {
+		// This is the function that is called when cancelling the creation of a NEW content item
+		// TODO - add functionality to delete created activity and navigate back to lessons
+		return;
+	}
+
+	get dirty() {
+		return !this._contentModule.equals(this._makeModuleData());
+	}
+
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -65,8 +75,17 @@ export class Content {
 	setTitle(value) {
 		this.moduleTitle = value;
 	}
-}
 
+	_makeModuleData() {
+		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
+			The cancel workflow is making use of that to detect changes.
+		*/
+		return {
+			title: this.moduleTitle,
+			descriptionRichText: this.moduleDescriptionRichText
+		};
+	}
+}
 decorate(Content, {
 	// props
 	moduleTitle: observable,

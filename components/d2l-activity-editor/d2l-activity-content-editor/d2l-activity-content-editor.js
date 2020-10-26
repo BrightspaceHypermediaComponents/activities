@@ -7,11 +7,12 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { shared as activityStore } from '../state/activity-store.js';
+import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
 
-class ContentEditor extends RtlMixin(ActivityEditorMixin(MobxLitElement)) {
+class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -52,7 +53,7 @@ class ContentEditor extends RtlMixin(ActivityEditorMixin(MobxLitElement)) {
 				.href=${this.href}
 				.token=${this.token}
 				width-type="${this.widthType}"
-				error-term=""
+				error-term="${this.localize('content.saveError')}"
 				?isnew="${this.isNew}"
 			>
 				${this._editorTemplate}
@@ -66,16 +67,6 @@ class ContentEditor extends RtlMixin(ActivityEditorMixin(MobxLitElement)) {
 			super._fetch(() => store.fetchContentActivity(this.href, this.token));
 			super._fetch(() => activityStore.fetch(this.href, this.token));
 		}
-	}
-
-	hasPendingChanges() {
-		// TODO
-		return false;
-	}
-
-	async save() {
-		// TODO
-		return;
 	}
 
 	get _editorTemplate() {

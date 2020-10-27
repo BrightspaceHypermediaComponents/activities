@@ -1,5 +1,5 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
+import { CONTENT_TYPES, ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { ContentModuleEntity } from 'siren-sdk/src/activities/content/ContentModuleEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
@@ -10,7 +10,7 @@ export class Content {
 	constructor(href, token) {
 		this.href = href;
 		this.token = token;
-		this.contentModuleHref = '';
+		this.entityType = null;
 		this.moduleTitle = '';
 		this.moduleDescriptionRichText = '';
 	}
@@ -24,7 +24,11 @@ export class Content {
 	}
 
 	get dirty() {
-		return !this._contentModule.equals(this._makeModuleData());
+		// TODO add more dirty checks as we add more content types
+		if (this.entityType === CONTENT_TYPES.module) {
+			return !this._contentModule.equals(this._makeModuleData());
+		}
+		return false;
 	}
 
 	async fetch() {
@@ -37,7 +41,7 @@ export class Content {
 	}
 
 	async fetchContentModule() {
-		const sirenEntity = await fetchEntity(this.contentModuleHref, this.token);
+		const sirenEntity = await fetchEntity(this._contentModuleHref, this.token);
 		if (sirenEntity) {
 			const entity = new ContentModuleEntity(sirenEntity, this.token, { remove: () => { } });
 			this.loadContentModule(entity);
@@ -47,8 +51,9 @@ export class Content {
 
 	load(contentEntity) {
 		this._entity = contentEntity;
-		this.contentModuleHref = contentEntity.getModuleHref();
-		if (this.contentModuleHref) {
+		this._contentModuleHref = contentEntity.getModuleHref();
+		this.entityType = contentEntity.getEntityType();
+		if (this._contentModuleHref && this.entityType === CONTENT_TYPES.module) {
 			this.fetchContentModule();
 		}
 	}
@@ -57,6 +62,13 @@ export class Content {
 		this._contentModule = moduleEntity;
 		this.moduleTitle = moduleEntity.title();
 		this.moduleDescriptionRichText = moduleEntity.descriptionRichText();
+	}
+
+	async save() {
+		// TODO add more save functions as we add more content types
+		if (this.entityType === CONTENT_TYPES.module) {
+			this.saveContentModule();
+		}
 	}
 
 	async saveContentModule() {
@@ -71,11 +83,15 @@ export class Content {
 	}
 
 	setDescription(richText) {
-		this.moduleDescriptionRichText = richText;
+		if (this.entityType === CONTENT_TYPES.module) {
+			this.moduleDescriptionRichText = richText;
+		}
 	}
 
 	setTitle(value) {
-		this.moduleTitle = value;
+		if (this.entityType === CONTENT_TYPES.module) {
+			this.moduleTitle = value;
+		}
 	}
 
 	_makeModuleData() {
@@ -90,6 +106,7 @@ export class Content {
 }
 decorate(Content, {
 	// props
+	entityType: observable,
 	moduleTitle: observable,
 	moduleDescriptionRichText: observable,
 	// actions

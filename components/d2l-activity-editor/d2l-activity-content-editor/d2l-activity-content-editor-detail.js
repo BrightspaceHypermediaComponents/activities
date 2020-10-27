@@ -2,9 +2,9 @@ import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '../d2l-activity-html-editor';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
+import { CONTENT_TYPES, ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../error-handling-mixin.js';
@@ -53,8 +53,8 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 
 	render() {
 		const contentEntity = store.getContentActivity(this.href);
-		const title = contentEntity ? contentEntity.moduleTitle : '';
-		const descriptionRichText = contentEntity ? contentEntity.moduleDescriptionRichText : '';
+		const title = contentEntity && contentEntity.entityType === CONTENT_TYPES.module ? contentEntity.moduleTitle : '';
+		const descriptionRichText = contentEntity && contentEntity.entityType === CONTENT_TYPES.module ? contentEntity.moduleDescriptionRichText : '';
 
 		return html`
 			<div id="content-title-container">
@@ -114,7 +114,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			return;
 		}
 
-		await contentEntity.saveContentModule();
+		await contentEntity.save();
 	}
 
 	_onRichtextChange(e) {

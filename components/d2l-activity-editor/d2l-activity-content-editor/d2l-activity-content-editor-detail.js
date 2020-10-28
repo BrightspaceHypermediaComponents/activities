@@ -141,7 +141,11 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 	}
 
 	_saveDescription(richText) {
-		store.getContentActivity(this.href).setDescription(richText);
+		const contentEntity = store.getContentActivity(this.href);
+		if (!contentEntity) {
+			return;
+		}
+		contentEntity.setDescription(richText);
 	}
 
 	_saveOnChange(jobName) {
@@ -149,7 +153,11 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 	}
 
 	_saveTitle(value) {
-		store.getContentActivity(this.href).setTitle(value);
+		const contentEntity = store.getContentActivity(this.href);
+		if (!contentEntity) {
+			return;
+		}
+		contentEntity.setTitle(value);
 	}
 
 	_saveTitleOnInput(e) {

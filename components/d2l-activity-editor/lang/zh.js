@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "文件上传", // Attach menu item text
 	"attachments.addLinkMenu": "网页链接", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "现有活动" // Attach menu item text
+	"attachments.addQuicklinkMenu": "现有活动", // Attach menu item text
+
+	"content.name": "名称", // Text label for name input field
+	"content.emptyNameField": "需要提供名称", // Error text that appears below name field when it is left empty
+	"content.description": "描述", // Text label for description input field
+	"content.availabilityHeader": "可用日期", // availability header
 };

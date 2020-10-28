@@ -17,6 +17,7 @@ export default {
 	noActivitiesFound: "使用您的搜尋詞彙找不到任何活動。", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 個活動} other {{count} 個活動}}", // The number of learning tasks currently in the list.
 	removeActivity: "移除", // An action to remove a learning task from a list of tasks that are related
+	removeActivityAria: "移除 {activityName}", // Remove action described for aria with course name
 	search: "搜尋", // When adding activities to the learning path, this is where you can search for potential activities to add.
 	searchPlaceholder: "搜尋...", // Placeholder text for the search input to search the list of potential activities.
 	selected: "已選取 {count} 個。", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.

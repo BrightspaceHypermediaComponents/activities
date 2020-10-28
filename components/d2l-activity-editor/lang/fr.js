@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "Téléversement de fichier", // Attach menu item text
 	"attachments.addLinkMenu": "Lien Web", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Activité existante" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Activité existante", // Attach menu item text
+
+	"content.name": "Nom", // Text label for name input field
+	"content.emptyNameField": "Le nom est obligatoire", // Error text that appears below name field when it is left empty
+	"content.description": "Description", // Text label for description input field
+	"content.availabilityHeader": "Dates de disponibilité", // availability header
 };

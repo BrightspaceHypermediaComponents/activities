@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "파일 업로드", // Attach menu item text
 	"attachments.addLinkMenu": "웹 링크", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "기존 활동" // Attach menu item text
+	"attachments.addQuicklinkMenu": "기존 활동", // Attach menu item text
+
+	"content.name": "이름", // Text label for name input field
+	"content.emptyNameField": "이름이 필요함", // Error text that appears below name field when it is left empty
+	"content.description": "설명", // Text label for description input field
+	"content.availabilityHeader": "사용 가능 날짜", // availability header
 };

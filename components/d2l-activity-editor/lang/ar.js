@@ -71,7 +71,7 @@ export default {
 	"editor.specialAccessDialogTitle": "إدارة الوصول الخاص", // Dialog title
 	"editor.specialAccessHidden": "تم الإخفاء بواسطة الوصول الخاص", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "هل تريد تجاهل التغييرات؟", // Discard Changes User Prompt
-	"editor.discardChangesQuestion": "هل تريد بالتأكيد تجاهل التغييرات التي أجريتها؟", // Discard Changes User Prompt
+	"editor.discardChangesQuestion": "هل أنت متأكد من أنك تريد تجاهل التغييرات التي أجريتها؟", // Discard Changes User Prompt
 	"editor.yesLabel": "نعم",
 	"editor.noLabel": "لا",
 
@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "تحميل ملف", // Attach menu item text
 	"attachments.addLinkMenu": "ارتباط ويب", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "النشاط الحالي" // Attach menu item text
+	"attachments.addQuicklinkMenu": "النشاط الحالي", // Attach menu item text
+
+	"content.name": "الاسم", // Text label for name input field
+	"content.emptyNameField": "الاسم مطلوب", // Error text that appears below name field when it is left empty
+	"content.description": "وصف", // Text label for description input field
+	"content.availabilityHeader": "تواريخ إمكانية التوفّر", // availability header
 };

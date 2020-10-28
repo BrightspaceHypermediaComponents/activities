@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "Upload af fil", // Attach menu item text
 	"attachments.addLinkMenu": "Weblink", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Eksisterende aktivitet" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Eksisterende aktivitet", // Attach menu item text
+
+	"content.name": "Navn", // Text label for name input field
+	"content.emptyNameField": "Navn påkrævet", // Error text that appears below name field when it is left empty
+	"content.description": "Beskrivelse", // Text label for description input field
+	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
 };

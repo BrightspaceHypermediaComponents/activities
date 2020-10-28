@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "Dosya Yükleme", // Attach menu item text
 	"attachments.addLinkMenu": "Web Bağlantısı", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Mevcut Etkinlik" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Mevcut Etkinlik", // Attach menu item text
+
+	"content.name": "Ad", // Text label for name input field
+	"content.emptyNameField": "Ad gerekli", // Error text that appears below name field when it is left empty
+	"content.description": "Açıklama", // Text label for description input field
+	"content.availabilityHeader": "Geçerlilik Tarihleri", // availability header
 };

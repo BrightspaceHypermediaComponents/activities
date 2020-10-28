@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "ファイルアップロード", // Attach menu item text
 	"attachments.addLinkMenu": "ウェブリンク", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "既存アクティビティ" // Attach menu item text
+	"attachments.addQuicklinkMenu": "既存アクティビティ", // Attach menu item text
+
+	"content.name": "名前", // Text label for name input field
+	"content.emptyNameField": "名前は必須です", // Error text that appears below name field when it is left empty
+	"content.description": "説明", // Text label for description input field
+	"content.availabilityHeader": "使用可能日", // availability header
 };

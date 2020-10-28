@@ -17,6 +17,7 @@ export default {
 	noActivitiesFound: "Er zijn geen activiteiten gevonden op basis van uw zoekterm.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 activiteit} other {{count} activiteiten}}", // The number of learning tasks currently in the list.
 	removeActivity: "Verwijderen", // An action to remove a learning task from a list of tasks that are related
+	removeActivityAria: "{activityName} verwijderen", // Remove action described for aria with course name
 	search: "Zoeken", // When adding activities to the learning path, this is where you can search for potential activities to add.
 	searchPlaceholder: "Zoeken...", // Placeholder text for the search input to search the list of potential activities.
 	selected: "{count} geselecteerd.", // When adding activities (bulk add) to a learning path this is the number of activities that will be added to the list.

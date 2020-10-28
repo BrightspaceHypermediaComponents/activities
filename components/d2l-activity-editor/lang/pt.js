@@ -71,7 +71,7 @@ export default {
 	"editor.specialAccessDialogTitle": "Gerenciar acesso especial", // Dialog title
 	"editor.specialAccessHidden": "Oculta por acesso especial", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "Descartar alterações?", // Discard Changes User Prompt
-	"editor.discardChangesQuestion": "Tem certeza de que deseja descartar suas alterações?", // Discard Changes User Prompt
+	"editor.discardChangesQuestion": "Tem certeza que deseja descartar suas alterações?", // Discard Changes User Prompt
 	"editor.yesLabel": "Sim",
 	"editor.noLabel": "Não",
 
@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "Carregamento de arquivo", // Attach menu item text
 	"attachments.addLinkMenu": "Link da Web", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Atividade existente" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Atividade existente", // Attach menu item text
+
+	"content.name": "Nome", // Text label for name input field
+	"content.emptyNameField": "O campo Nome é obrigatório", // Error text that appears below name field when it is left empty
+	"content.description": "Descrição", // Text label for description input field
+	"content.availabilityHeader": "Datas de disponibilidade", // availability header
 };

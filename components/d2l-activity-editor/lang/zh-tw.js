@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "檔案上傳", // Attach menu item text
 	"attachments.addLinkMenu": "網頁連結", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "現有活動" // Attach menu item text
+	"attachments.addQuicklinkMenu": "現有活動", // Attach menu item text
+
+	"content.name": "名稱", // Text label for name input field
+	"content.emptyNameField": "名稱為必填", // Error text that appears below name field when it is left empty
+	"content.description": "說明", // Text label for description input field
+	"content.availabilityHeader": "可用情況日期", // availability header
 };

@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "Datei-Upload", // Attach menu item text
 	"attachments.addLinkMenu": "Weblink", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Vorhandene Aktivität" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Vorhandene Aktivität", // Attach menu item text
+
+	"content.name": "Name", // Text label for name input field
+	"content.emptyNameField": "Name erforderlich", // Error text that appears below name field when it is left empty
+	"content.description": "Beschreibung", // Text label for description input field
+	"content.availabilityHeader": "Verfügbarkeitsdaten", // availability header
 };

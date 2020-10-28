@@ -112,5 +112,10 @@ export default {
 	"attachments.addFileMenu": "Filuppladdning", // Attach menu item text
 	"attachments.addLinkMenu": "Webblänk", // Attach menu item text
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
-	"attachments.addQuicklinkMenu": "Befintlig aktivitet" // Attach menu item text
+	"attachments.addQuicklinkMenu": "Befintlig aktivitet", // Attach menu item text
+
+	"content.name": "Namn", // Text label for name input field
+	"content.emptyNameField": "Ange ett namn", // Error text that appears below name field when it is left empty
+	"content.description": "Beskrivning", // Text label for description input field
+	"content.availabilityHeader": "Tillgänglighetsdatum", // availability header
 };

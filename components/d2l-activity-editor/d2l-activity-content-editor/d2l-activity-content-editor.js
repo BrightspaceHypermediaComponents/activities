@@ -50,8 +50,8 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		this.addEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
 	}
 	disconnectedCallback() {
-		this.removeEventListener('d2l-activity-editor-save-complete', this.redirect(true));
-		this.removeEventListener('d2l-activity-editor-cancel-complete', this.redirect(false));
+		this.removeEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
+		this.removeEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
 		super.disconnectedCallback();
 	}
 

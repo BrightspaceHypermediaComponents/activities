@@ -67,7 +67,7 @@ export class Content {
 	async save() {
 		// TODO add more save functions as we add more content types
 		if (this.entityType === CONTENT_TYPES.module) {
-			this.saveContentModule();
+			await this.saveContentModule();
 		}
 	}
 
@@ -75,11 +75,13 @@ export class Content {
 		if (!this._contentModule) {
 			return;
 		}
-
-		await this._contentModule.setModuleTitle(this.moduleTitle);
-		await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
-
-		await this.fetch();
+		try {
+			await this._contentModule.setModuleTitle(this.moduleTitle);
+			await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
+			await this.fetch();
+		} catch (err) {
+			// TODO - what do we want to do with the error?
+		}
 	}
 
 	setDescription(richText) {

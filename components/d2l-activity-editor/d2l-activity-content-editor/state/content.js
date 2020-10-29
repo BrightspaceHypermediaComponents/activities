@@ -73,13 +73,9 @@ export class Content {
 		if (!this._contentModule) {
 			return;
 		}
-		try {
-			await this._contentModule.setModuleTitle(this.moduleTitle);
-			await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
-			await this.fetch();
-		} catch (err) {
-			// TODO - what do we want to do with the error?
-		}
+		await this._contentModule.setModuleTitle(this.moduleTitle);
+		await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
+		await this.fetch();
 	}
 
 	setDescription(richText) {

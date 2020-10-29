@@ -17,10 +17,9 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 	static get properties() {
 		return {
 			widthType: { type: String, attribute: 'width-type' },
-			/**
-			 * Is Creating New
-			 */
-			isNew: { type: Boolean }
+			isNew: { type: Boolean },
+			cancelHref: { type: String },
+			saveHref: { type: String }
 		};
 	}
 
@@ -43,6 +42,17 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		super(store);
 		// Only show the scrollbar when necessary
 		document.body.style.overflow = 'auto';
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
+		this.addEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
+	}
+	disconnectedCallback() {
+		this.removeEventListener('d2l-activity-editor-save-complete', this.redirect(true));
+		this.removeEventListener('d2l-activity-editor-cancel-complete', this.redirect(false));
+		super.disconnectedCallback();
 	}
 
 	render() {
@@ -87,6 +97,18 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 				</d2l-activity-content-editor-secondary>
 			</div>
 		`;
+	}
+
+	_redirectOnCancelComplete() {
+		if (this.cancelHref) {
+			window.location.href = this.cancelHref;
+		}
+	}
+
+	_redirectOnSaveComplete() {
+		if (this.saveHref) {
+			window.location.href = this.saveHref;
+		}
 	}
 }
 customElements.define('d2l-activity-content-editor', ContentEditor);

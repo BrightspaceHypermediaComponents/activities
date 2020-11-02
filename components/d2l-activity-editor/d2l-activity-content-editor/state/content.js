@@ -75,7 +75,6 @@ export class Content {
 		}
 		await this._contentModule.setModuleTitle(this.moduleTitle);
 		await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
-		await this.fetch();
 	}
 
 	setDescription(richText) {

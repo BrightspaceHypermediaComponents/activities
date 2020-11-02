@@ -40,12 +40,4 @@ describe('d2l-activity-content-editor-detail', function() {
 		const el = await loadComponent();
 		await expect(el).to.be.accessible();
 	});
-
-	it('should set content title', async() => {
-		const testTitle = 'test title';
-		contentItem.setTitle(testTitle);
-		const el = await loadComponent();
-		const title = el.shadowRoot.querySelector('#content-title');
-		await expect(title.value).to.equal(testTitle);
-	});
 });

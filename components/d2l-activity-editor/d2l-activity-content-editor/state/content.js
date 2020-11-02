@@ -33,7 +33,7 @@ export class Content {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
 			const entity = new ContentEntity(sirenEntity, this.token, { remove: () => { } });
-			this.load(entity);
+			await this.load(entity);
 		}
 		return this;
 	}
@@ -47,12 +47,12 @@ export class Content {
 		return this;
 	}
 
-	load(contentEntity) {
+	async load(contentEntity) {
 		this._entity = contentEntity;
 		this._contentModuleHref = contentEntity.getModuleHref();
 		this.entityType = contentEntity.getEntityType();
 		if (this._contentModuleHref && this.entityType === CONTENT_TYPES.module) {
-			this.fetchContentModule();
+			await this.fetchContentModule();
 		}
 	}
 

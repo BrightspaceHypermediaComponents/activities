@@ -1,6 +1,7 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '../d2l-activity-html-editor';
+import '../d2l-activity-due-date-editor.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { CONTENT_TYPES, ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -72,6 +73,14 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				>
 				</d2l-input-text>
 				${this._renderTitleTooltip()}
+			</div>
+			<div id="duedate-container">
+				<d2l-activity-due-date-editor
+					.href="${this.href}"
+					.token="${this.token}"
+					?skeleton="${this.skeleton}"
+				>
+				</d2l-activity-due-date-editor>
 			</div>
 			<div id="content-description-container">
 				<label class="d2l-label-text d2l-skeletize" for="content-description">${this.localize('content.description')}</label>

@@ -38,10 +38,6 @@ export default {
 	"assignmentSaveError": "課題は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "グループが存在しません。グループツールで新規グループを作成します。", // Folder type no groups
 	"folderTypeCreateGroups": "グループツールで新規グループを作成します。", // Folder type create groups
-	"discardChangesTitle": "変更を破棄しますか？", // Discard Changes User Prompt
-	"discardChangesQuestion": "この変更を破棄してもよろしいですか？", // Discard Changes User Prompt
-	"yesLabel": "はい",
-	"noLabel": "いいえ",
 	"filesSubmissionLimit": "送信 1 回あたりの許容ファイル数",
 	"UnlimitedFilesPerSubmission": "無制限",
 	"OneFilePerSubmission": "1 つのファイル",

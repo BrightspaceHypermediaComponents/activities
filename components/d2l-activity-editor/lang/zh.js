@@ -117,5 +117,5 @@ export default {
 	"content.name": "名称", // Text label for name input field
 	"content.emptyNameField": "需要提供名称", // Error text that appears below name field when it is left empty
 	"content.description": "描述", // Text label for description input field
-	"content.availabilityHeader": "可用日期和条件", // availability header
+	"content.availabilityHeader": "可用日期", // availability header
 };

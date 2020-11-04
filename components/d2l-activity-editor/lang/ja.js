@@ -117,5 +117,5 @@ export default {
 	"content.name": "名前", // Text label for name input field
 	"content.emptyNameField": "名前は必須です", // Error text that appears below name field when it is left empty
 	"content.description": "説明", // Text label for description input field
-	"content.availabilityHeader": "可能な日と条件", // availability header
+	"content.availabilityHeader": "使用可能日", // availability header
 };

@@ -117,5 +117,5 @@ export default {
 	"content.name": "Ad", // Text label for name input field
 	"content.emptyNameField": "Ad gerekli", // Error text that appears below name field when it is left empty
 	"content.description": "Açıklama", // Text label for description input field
-	"content.availabilityHeader": "Uygunluk Tarihleri ve Koşulları", // availability header
+	"content.availabilityHeader": "Geçerlilik Tarihleri", // availability header
 };

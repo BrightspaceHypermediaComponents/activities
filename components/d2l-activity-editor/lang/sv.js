@@ -115,7 +115,7 @@ export default {
 	"attachments.addQuicklinkMenu": "Befintlig aktivitet", // Attach menu item text
 
 	"content.name": "Namn", // Text label for name input field
-	"content.emptyNameField": "Namn krävs", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Ange ett namn", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivning", // Text label for description input field
-	"content.availabilityHeader": "Tillgängliga datum och villkor", // availability header
+	"content.availabilityHeader": "Tillgänglighetsdatum", // availability header
 };

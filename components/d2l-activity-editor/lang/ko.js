@@ -117,5 +117,5 @@ export default {
 	"content.name": "이름", // Text label for name input field
 	"content.emptyNameField": "이름이 필요함", // Error text that appears below name field when it is left empty
 	"content.description": "설명", // Text label for description input field
-	"content.availabilityHeader": "사용 가능 날짜 및 조건", // availability header
+	"content.availabilityHeader": "사용 가능 날짜", // availability header
 };

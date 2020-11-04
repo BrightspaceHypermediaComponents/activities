@@ -114,8 +114,8 @@ export default {
 	"attachments.addOneDriveLinkMenu": "OneDrive", // Attach menu item text
 	"attachments.addQuicklinkMenu": "Actividad existente", // Attach menu item text
 
-	"content.name": "Name", // Text label for name input field
-	"content.emptyNameField": "Name is required", // Error text that appears below name field when it is left empty
-	"content.description": "Description", // Text label for description input field
-	"content.availabilityHeader": "Fechas y condiciones de disponibilidad", // availability header
+	"content.name": "Nombre", // Text label for name input field
+	"content.emptyNameField": "El nombre es obligatorio", // Error text that appears below name field when it is left empty
+	"content.description": "Descripción", // Text label for description input field
+	"content.availabilityHeader": "Fechas de disponibilidad", // availability header
 };

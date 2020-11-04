@@ -117,5 +117,5 @@ export default {
 	"content.name": "Nom", // Text label for name input field
 	"content.emptyNameField": "Le nom est obligatoire", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
-	"content.availabilityHeader": "Dates et conditions de disponibilité", // availability header
+	"content.availabilityHeader": "Dates de disponibilité", // availability header
 };

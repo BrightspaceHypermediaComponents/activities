@@ -115,7 +115,7 @@ export default {
 	"attachments.addQuicklinkMenu": "現有活動", // Attach menu item text
 
 	"content.name": "名稱", // Text label for name input field
-	"content.emptyNameField": "Name is required", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "名稱為必填", // Error text that appears below name field when it is left empty
 	"content.description": "說明", // Text label for description input field
-	"content.availabilityHeader": "可用情況日期與條件", // availability header
+	"content.availabilityHeader": "可用情況日期", // availability header
 };

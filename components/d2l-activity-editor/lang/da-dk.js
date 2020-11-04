@@ -116,6 +116,6 @@ export default {
 
 	"content.name": "Navn", // Text label for name input field
 	"content.emptyNameField": "Navn påkrævet", // Error text that appears below name field when it is left empty
-	"content.description": "Description", // Text label for description input field
-	"content.availabilityHeader": "Tilgængelighedsdatoer og betingelser", // availability header
+	"content.description": "Beskrivelse", // Text label for description input field
+	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
 };

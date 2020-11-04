@@ -45,9 +45,9 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 					padding-bottom: 20px;
 				}
 				.duedate-field {
-					transition: opacity 650ms ease-in;
-					opacity: 1;
 					height: auto;
+					opacity: 1;
+					transition: opacity 650ms ease-in;
 					width: auto;
 				}
 				:host([showAddDueDateBtn]) .duedate-field {

@@ -44,15 +44,15 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				:host > div {
 					padding-bottom: 20px;
 				}
-				.duedate-field {
+				.d2l-duedate-field {
 					height: auto;
 					opacity: 1;
 					transition: opacity 650ms ease-in;
 					width: auto;
 				}
-				:host([showAddDueDateBtn]) .duedate-field {
-					opacity: 0;
+				:host([showAddDueDateBtn]) .d2l-duedate-field {
 					height: 0;
+					opacity: 0;
 					width: 0;
 				}
 			`
@@ -170,7 +170,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						?hidden=${!this.showAddDueDateBtn}
 					>
 					</d2l-button-subtle>
-					<div class="duedate-field">
+					<div class="d2l-duedate-field">
 						<d2l-activity-due-date-editor
 							.href="${this.href}"
 							.token="${this.token}"

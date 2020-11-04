@@ -27,7 +27,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		return {
 			_titleError: { type: String },
 			_hasDatePermissions: { type: Boolean },
-			showAddDueDateBtn: { type: Boolean }
+			showAddDueDateBtn: { type: Boolean, reflect: true }
 		};
 	}
 
@@ -43,6 +43,17 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				}
 				:host > div {
 					padding-bottom: 20px;
+				}
+				.duedate-field {
+					transition: opacity 650ms ease-in;
+					opacity: 1;
+					height: auto;
+					width: auto;
+				}
+				:host([showAddDueDateBtn]) .duedate-field {
+					opacity: 0;
+					height: 0;
+					width: 0;
 				}
 			`
 		];
@@ -159,13 +170,14 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						?hidden=${!this.showAddDueDateBtn}
 					>
 					</d2l-button-subtle>
-					<d2l-activity-due-date-editor
-						.href="${this.href}"
-						.token="${this.token}"
-						?skeleton="${this.skeleton}"
-						?hidden=${this.showAddDueDateBtn}
-					>
-					</d2l-activity-due-date-editor>
+					<div class="duedate-field">
+						<d2l-activity-due-date-editor
+							.href="${this.href}"
+							.token="${this.token}"
+							?skeleton="${this.skeleton}"
+						>
+						</d2l-activity-due-date-editor>
+					</div>
 				</div>
 			`;
 		}

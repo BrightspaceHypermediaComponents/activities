@@ -27,7 +27,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		return {
 			_titleError: { type: String },
 			_hasDatePermissions: { type: Boolean },
-			showAddDueDateBtn: { type: Boolean, reflect: true }
+			_showAddDueDateBtn: { type: Boolean }
 		};
 	}
 
@@ -44,17 +44,6 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				:host > div {
 					padding-bottom: 20px;
 				}
-				.d2l-duedate-field {
-					height: auto;
-					opacity: 1;
-					transition: opacity 650ms ease-in;
-					width: auto;
-				}
-				:host([showAddDueDateBtn]) .d2l-duedate-field {
-					height: 0;
-					opacity: 0;
-					width: 0;
-				}
 			`
 		];
 	}
@@ -66,7 +55,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		this.skeleton = true;
 		this.saveOrder = 2000;
 		this._hasDatePermissions = false;
-		this.showAddDueDateBtn = true;
+		this._showAddDueDateBtn = true;
 	}
 
 	render() {
@@ -147,7 +136,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		const dueDate =  dates.dueDate ? dates.dueDate : null;
 		// if due date exists on the activity, show the field
 		if (dueDate) {
-			this.showAddDueDateBtn = false;
+			this._showAddDueDateBtn = false;
 		}
 	}
 
@@ -161,23 +150,23 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 	}
 
 	_renderDueDate() {
+		// TODO - replace with shared component when one is created
 		if (this._hasDatePermissions) {
 			return html `
 				<div id="duedate-container">
 					<d2l-button-subtle
 						text="${this.localize('content.addDueDate')}"
 						@click=${this._showDueDate}
-						?hidden=${!this.showAddDueDateBtn}
+						?hidden=${!this._showAddDueDateBtn}
 					>
 					</d2l-button-subtle>
-					<div class="d2l-duedate-field">
-						<d2l-activity-due-date-editor
-							.href="${this.href}"
-							.token="${this.token}"
-							?skeleton="${this.skeleton}"
-						>
-						</d2l-activity-due-date-editor>
-					</div>
+					<d2l-activity-due-date-editor
+						.href="${this.href}"
+						.token="${this.token}"
+						?skeleton="${this.skeleton}"
+						?hidden=${this._showAddDueDateBtn}
+					>
+					</d2l-activity-due-date-editor>
 				</div>
 			`;
 		}
@@ -234,7 +223,7 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 	}
 
 	_showDueDate() {
-		this.showAddDueDateBtn = false;
+		this._showAddDueDateBtn = false;
 	}
 }
 customElements.define('d2l-activity-content-editor-detail', ContentEditorDetail);

@@ -133,9 +133,8 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		}
 		const dates = entity.dates;
 		this._hasDatePermissions = dates.canEditDates;
-		const dueDate =  dates.dueDate ? dates.dueDate : null;
 		// if due date exists on the activity, show the field
-		if (dueDate) {
+		if (dates.dueDate) {
 			this._showAddDueDateBtn = false;
 		}
 	}
@@ -156,15 +155,15 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				<div id="duedate-container">
 					<d2l-button-subtle
 						text="${this.localize('content.addDueDate')}"
-						@click=${this._showDueDate}
-						?hidden=${!this._showAddDueDateBtn}
+						@click="${this._showDueDate}"
+						?hidden="${!this._showAddDueDateBtn}"
 					>
 					</d2l-button-subtle>
 					<d2l-activity-due-date-editor
 						.href="${this.href}"
 						.token="${this.token}"
 						?skeleton="${this.skeleton}"
-						?hidden=${this._showAddDueDateBtn}
+						?hidden="${this._showAddDueDateBtn}"
 					>
 					</d2l-activity-due-date-editor>
 				</div>

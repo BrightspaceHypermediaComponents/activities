@@ -168,6 +168,8 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 					</d2l-activity-due-date-editor>
 				</div>
 			`;
+		} else {
+			return html ``;
 		}
 	}
 
@@ -182,6 +184,8 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 					${this._titleError}
 				</d2l-tooltip>
 			`;
+		} else {
+			return html ``;
 		}
 	}
 

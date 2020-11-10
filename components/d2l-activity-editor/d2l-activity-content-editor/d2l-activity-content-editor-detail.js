@@ -86,8 +86,8 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				<label class="d2l-label-text d2l-skeletize" for="content-description">${this.localize('content.description')}</label>
 				<div class="d2l-skeletize">
 					<d2l-activity-html-editor
-						id='content-description'
-						ariaLabel="content-description"
+						.ariaLabel="content-description"
+						.key="content-description"
 						.value="${descriptionRichText}"
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"
 						.richtextEditorConfig="${{}}"
@@ -150,43 +150,43 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 
 	_renderDueDate() {
 		// TODO - replace with shared component when one is created
-		if (this._hasDatePermissions) {
-			return html `
-				<div id="duedate-container">
-					<d2l-button-subtle
-						text="${this.localize('content.addDueDate')}"
-						@click="${this._showDueDate}"
-						?hidden="${!this._showAddDueDateBtn}"
-					>
-					</d2l-button-subtle>
-					<d2l-activity-due-date-editor
-						.href="${this.href}"
-						.token="${this.token}"
-						?skeleton="${this.skeleton}"
-						?hidden="${this._showAddDueDateBtn}"
-					>
-					</d2l-activity-due-date-editor>
-				</div>
-			`;
-		} else {
+		if (!this._hasDatePermissions) {
 			return html ``;
 		}
+
+		return html `
+			<div id="duedate-container">
+				<d2l-button-subtle
+					text="${this.localize('content.addDueDate')}"
+					@click="${this._showDueDate}"
+					?hidden="${!this._showAddDueDateBtn}"
+				>
+				</d2l-button-subtle>
+				<d2l-activity-due-date-editor
+					.href="${this.href}"
+					.token="${this.token}"
+					?skeleton="${this.skeleton}"
+					?hidden="${this._showAddDueDateBtn}"
+				>
+				</d2l-activity-due-date-editor>
+			</div>
+		`;
 	}
 
 	_renderTitleTooltip() {
-		if (this._titleError) {
-			return html`
-				<d2l-tooltip
-					id="title-tooltip"
-					for="content-title"
-					position="bottom"
-					?showing="${!!this._titleError}">
-					${this._titleError}
-				</d2l-tooltip>
-			`;
-		} else {
+		if (!this._titleError) {
 			return html ``;
 		}
+
+		return html`
+			<d2l-tooltip
+				id="title-tooltip"
+				for="content-title"
+				position="bottom"
+				?showing="${!!this._titleError}">
+				${this._titleError}
+			</d2l-tooltip>
+		`;
 	}
 
 	_saveDescription(richText) {

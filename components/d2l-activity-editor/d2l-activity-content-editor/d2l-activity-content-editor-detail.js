@@ -60,8 +60,15 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 
 	render() {
 		const contentEntity = store.getContentActivity(this.href);
-		const title = contentEntity && contentEntity.entityType === CONTENT_TYPES.module ? contentEntity.moduleTitle : '';
-		const descriptionRichText = contentEntity && contentEntity.entityType === CONTENT_TYPES.module ? contentEntity.moduleDescriptionRichText : '';
+		let title = '';
+		let descriptionRichText = undefined;
+		this.skeleton = true;
+		if (contentEntity) {
+			// Show loading skeleton until we have the content entity loaded into state
+			this.skeleton = false;
+			title = contentEntity.entityType === CONTENT_TYPES.module ? contentEntity.moduleTitle : '';
+			descriptionRichText = contentEntity.entityType === CONTENT_TYPES.module ? contentEntity.moduleDescriptionRichText : undefined;
+		}
 		this._getDueDateAndPermission();
 
 		return html`

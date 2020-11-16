@@ -16,8 +16,9 @@ export class Content {
 	}
 
 	cancelCreate() {
-		// This is the function that is called when cancelling the creation of a NEW content item
-		// TODO - add functionality to delete created activity
+		if (this.entityType === CONTENT_TYPES.module) {
+			return this._contentModule.deleteModule();
+		}
 		return;
 	}
 

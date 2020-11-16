@@ -11,11 +11,10 @@ import { ActivityAllowList } from './env';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
-import { ListItemMixin } from '@brightspace-ui/core/components/list/list-item-mixin';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { nothing } from 'lit-html';
 
-class ActivityListItemBasic extends ListItemLinkMixin(ListItemMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
+class ActivityListItemBasic extends ListItemLinkMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
 
 	static get properties() {
 		return {

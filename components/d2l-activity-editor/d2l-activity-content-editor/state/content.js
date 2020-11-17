@@ -15,11 +15,10 @@ export class Content {
 		this.moduleDescriptionRichText = '';
 	}
 
-	cancelCreate() {
+	async cancelCreate() {
 		if (this.entityType === CONTENT_TYPES.module) {
-			return this._contentModule.deleteModule();
+			await this._contentModule.deleteModule();
 		}
-		return;
 	}
 
 	get dirty() {

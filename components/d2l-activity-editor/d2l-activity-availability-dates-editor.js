@@ -9,17 +9,6 @@ import { shared as store } from './state/activity-store.js';
 
 class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
 
-	static get properties() {
-		/*
-			Used to set the start time if something other than endOfDay is required. This is likely a temporary solution as eventually assignments will also adopt 12am as it's default start time and it will no longer need to be dynamic.
-		 */
-		return {
-			'startDateDefaultTime': {
-				type: String
-			}
-		};
-	}
-
 	static get styles() {
 		return [labelStyles, css`
 			:host([hidden]) {
@@ -56,7 +45,7 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActiv
 			<d2l-input-date-time
 				id="start-date-input"
 				label="${this.localize('editor.startDate')}"
-				time-default-value=${this.startDateDefaultTime || 'endOfDay'}
+				time-default-value="startOfDay"
 				value="${startDate}"
 				@change="${this._onStartDatetimeChanged}">
 			</d2l-input-date-time>

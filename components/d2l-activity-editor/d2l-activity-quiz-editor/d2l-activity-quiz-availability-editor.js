@@ -72,8 +72,7 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 			<div class="d2l-editor">
 				<d2l-activity-availability-dates-editor
 					href="${this.activityUsageHref}"
-					.token="${this.token}"
-					startDateDefaultTime="00:00:00">
+					.token="${this.token}">
 				</d2l-activity-availability-dates-editor>
 			</div>
 		`;

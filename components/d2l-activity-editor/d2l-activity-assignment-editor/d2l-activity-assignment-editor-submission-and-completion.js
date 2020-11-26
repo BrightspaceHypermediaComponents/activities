@@ -9,21 +9,20 @@ import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { NotificationEmailMixin } from '../notification-email-mixin.js';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(ErrorHandlingMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(NotificationEmailMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 
 		return {
-			_notificationEmailError: { type: String },
 			href: { type: String },
 			token: { type: Object },
 			_m4EmailNotificationEnabled: { type: Boolean }
@@ -117,21 +116,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		await assignment.save();
 	}
 
-	_checkNotificationEmail(e) {
-		const errorProperty = '_notificationEmailError';
-		const invalidNotificationEmailErrorLangterm = 'invalidNotificationEmailError';
-		const tooltipId = 'notification-email-tooltip';
-
-		const notificationEmail = e.target.value;
-		const isEmpty = (notificationEmail || '').length === 0;
-
-		const matches = /^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$/.exec(notificationEmail);
-		if (!isEmpty && matches === null) {
-			this.setError(errorProperty, invalidNotificationEmailErrorLangterm, tooltipId);
-		} else {
-			this.clearError(errorProperty);
-		}
-	}
 	_getCompletionTypeOptions(assignment) {
 		const completionTypeOptions = assignment && assignment.submissionAndCompletionProps ? assignment.submissionAndCompletionProps.completionTypeOptions : [];
 		const completionType = assignment && assignment.submissionAndCompletionProps ? assignment.submissionAndCompletionProps.completionType : '0';
@@ -140,15 +124,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 			${completionTypeOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === completionType}>${option.title}</option>`)}
 		`;
 	}
-	_getNotificationEmailTooltip() {
-		if (this._notificationEmailError) {
-			return html`
-				<d2l-tooltip id="notification-email-tooltip" for="notification-email" state="error" align="start" offset="10">
-					${this._notificationEmailError}
-				</d2l-tooltip>
-			`;
-		}
-	}
+
 	_getSelectedCompletionType(assignment) {
 		if (!assignment ||
 			!assignment.submissionAndCompletionProps ||
@@ -279,6 +255,8 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 			return html``;
 		}
 
+		const elemId = 'assignment-notification-email';
+
 		return html`
 		<div id="assignment-notification-email-container">
 			<div class="d2l-label-text">
@@ -289,19 +267,19 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 			</p>
 
 			<d2l-input-text
-				id="notification-email"
+				id="${elemId}"
 				label="${this.localize('hdrSubmissionNotificationEmail')}"
 				label-hidden
 				value="${assignment.notificationEmail}"
 				maxlength="1024"
 				?disabled="${!assignment.canEditNotificationEmail}"
 				@change="${this._onNotificationEmailChanged}"
-				@blur="${this._checkNotificationEmail}"
-				aria-invalid="${this._notificationEmailError ? 'true' : ''}"
+				@blur="${this.checkNotificationEmail}"
+				aria-invalid="${this.notificationEmailError ? 'true' : ''}"
 				skip-alert
 				novalidate
 			></d2l-input-text>
-			${this._getNotificationEmailTooltip()}
+			${this.getNotificationEmailTooltip(elemId)}
 		</div>
 	`;
 	}

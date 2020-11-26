@@ -17,5 +17,4 @@ export default {
 	"disablePagerAndAlertsSummary": "Alerts and communication blocked", // summary text when pager and alerts / communications are disabled
 	"emailNotificationDescription": "Email Notification", // description for email notification
 	"emailNotificationSummary": "Attempt notification by email", // summary for email notification
-	"invalidNotificationEmailError": "Please enter a valid email address", // error tooltip when email is invalid
 };

@@ -47,5 +47,4 @@ export default {
 	"assignmentLocked": "Some settings are locked because submissions have been received.",
 	"hdrSubmissionNotificationEmail": "Notification Email",
 	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
-	"invalidNotificationEmailError": "Please enter a valid email address"
 };

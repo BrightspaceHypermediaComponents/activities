@@ -15,6 +15,6 @@ export default {
 	"disableRightClickSummary": "Right clicks disabled", // summary text when right clicks are disabled
 	"disablePagerAndAlertsDescription": "Block alerts and communication during quiz attempts", // description for disable pager and alerts / block communications during a quiz
 	"disablePagerAndAlertsSummary": "Alerts and communication blocked", // summary text when pager and alerts / communications are disabled
-	"emailNotificationDescription": "Email Notification", // description for email notification
+	"emailNotificationDescription": "Notification Email", // description for notification email
 	"emailNotificationSummary": "Attempt notification by email", // summary for email notification
 };

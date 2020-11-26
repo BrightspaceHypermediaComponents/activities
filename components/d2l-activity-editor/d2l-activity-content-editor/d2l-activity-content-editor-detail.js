@@ -73,13 +73,13 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 
 		return html`
 			<div id="content-title-container">
-				<label class="d2l-label-text d2l-skeletize" for="content-title">${this.localize('content.name')}*</label>
 				<d2l-input-text
 					id="content-title"
 					maxlength="${TITLE_MAX_LENGTH}"
 					value="${title}"
 					@change="${this._saveOnChange('title')}"
 					@input="${this._saveTitleOnInput}"
+					label="${this.localize('content.name')} *"
 					aria-invalid="${this._titleError ? 'true' : ''}"
 					prevent-submit
 					novalidate

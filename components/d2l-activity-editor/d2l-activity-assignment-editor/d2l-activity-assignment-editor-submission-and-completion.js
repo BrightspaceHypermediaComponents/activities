@@ -11,14 +11,14 @@ import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
-import { NotificationEmailMixin } from '../notification-email-mixin.js';
+import { ActivityEditorNotificationEmailMixin } from '../mixins/d2l-activity-editor-notification-email-mixin.js';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(NotificationEmailMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(ActivityEditorNotificationEmailMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 

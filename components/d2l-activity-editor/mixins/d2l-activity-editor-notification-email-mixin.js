@@ -1,9 +1,9 @@
-import { ErrorHandlingMixin } from './error-handling-mixin.js';
+import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { html } from 'lit-element/lit-element.js';
-import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
+import { LocalizeActivityEditorMixin } from './d2l-activity-editor-lang-mixin.js';
 import 'd2l-tooltip/d2l-tooltip';
 
-export const NotificationEmailMixin = superclass => class extends ErrorHandlingMixin(LocalizeActivityEditorMixin(superclass)) {
+export const ActivityEditorNotificationEmailMixin = superclass => class extends ErrorHandlingMixin(LocalizeActivityEditorMixin(superclass)) {
 
     static get properties() {
 		return {

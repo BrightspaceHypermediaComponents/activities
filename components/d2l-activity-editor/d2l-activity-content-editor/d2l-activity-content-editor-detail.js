@@ -46,6 +46,9 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				:host > div {
 					padding-bottom: 20px;
 				}
+				.d2l-activity-label-container {
+					margin-bottom: 7px;
+				}
 			`
 		];
 	}
@@ -92,7 +95,9 @@ class ContentEditorDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			</div>
 			${this._renderDueDate()}
 			<div id="content-description-container">
-				<label class="d2l-label-text d2l-skeletize" for="content-description">${this.localize('content.description')}</label>
+				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
+					${this.localize('content.description')}
+				</div>
 				<div class="d2l-skeletize">
 					<d2l-activity-html-editor
 						.ariaLabel="content-description"

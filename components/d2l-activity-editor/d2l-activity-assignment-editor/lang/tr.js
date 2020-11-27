@@ -6,7 +6,7 @@ export default {
 	"completionType": "Tamamlandı olarak işaretlendi", // Label for the completion type field when creating/editing an assignment
 	"lblAnonymousMarking": "Anonim İşaretleme", // Label for anonymous marking
 	"chkAnonymousMarking": "Değerlendirme sırasında öğrenci adlarını gizle", // Checkbox for anonymous marking
-	"dueDate": "Teslim Tarihi", // ARIA label for the due date field when creating/editing an activity
+	"dueDate": "Sona Erme Tarihi", // ARIA label for the due date field when creating/editing an activity
 	"txtAnnotationsOff": "Açıklamalar kapalı", // annotations off text
 	"emptyNameError": "Ad gerekli", // Error message to inform user that the assignment name is a required field
 	"instructions": "Talimatlar", // Label for the instruction field when creating/editing an assignment

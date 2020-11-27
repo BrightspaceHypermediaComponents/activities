@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Gerenciar acesso especial", // manage special access button
 	"editor.specialAccessRestrictedText": "Apenas usuários com acesso especial podem ver esta pasta", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Os usuários podem fazer envios fora das datas normais de disponibilidade", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 usuário} other {{count} usuários}} com acesso especial", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Nenhum usuário", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Gerenciar acesso especial", // Dialog title
 	"editor.specialAccessHidden": "Oculta por acesso especial", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "O campo Nome é obrigatório", // Error text that appears below name field when it is left empty
 	"content.description": "Descrição", // Text label for description input field
 	"content.availabilityHeader": "Datas de disponibilidade", // availability header
+	"content.saveError": "Seu item de conteúdo não foi salvo. Corrija os campos destacados em vermelho.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Adicionar prazo" // Text label for name input field
 };

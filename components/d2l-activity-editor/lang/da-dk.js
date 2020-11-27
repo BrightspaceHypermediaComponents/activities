@@ -57,16 +57,16 @@ export default {
 	"editor.noGradeCreatePermission": "Du har ikke tilladelse til at oprette et nyt karakterelement", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Undervisningsformål", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Administrer undervisningsformål", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {Ingen undervisningsformål} =1 {1 vedhæftet} other {{count} vedhæftede}}", //Label for number of associated competencies
+	"editor.competenciesCount": "{count, plural, =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Ingen undervisningsformål", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {1 objetivo de aprendizaje} other {{count} objetivos de aprendizaje}}", // num release condition text
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 learning objective} other {{count} learning objectives}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 manglende vurdering} other {{count} manglende vurderinger}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Luk", //Label for Close button
 	"editor.btnCloseDialog": "Luk denne dialogboks", // close dialog button
 	"editor.btnManageSpecialAccess": "Administrer særlig adgang", // manage special access button
 	"editor.specialAccessRestrictedText": "Kun brugere med særlig adgang kan se denne mappe", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Brugere kan aflevere uden for datoer for normal tilgængelighed", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 bruger} other {{count} brugere}} med særlig adgang", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Ingen brugere", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Administrer særlig adgang", // Dialog title
 	"editor.specialAccessHidden": "Skjult af særlig adgang", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "Navn påkrævet", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivelse", // Text label for description input field
 	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
+	"content.saveError": "Dit indholdselement blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Tilføj forfaldsdato" // Text label for name input field
 };

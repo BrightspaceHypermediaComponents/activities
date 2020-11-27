@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Hantera särskild behörighet", // manage special access button
 	"editor.specialAccessRestrictedText": "Endast användare med specialåtkomst kan se den här mappen", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Användare kan lämna in utanför normala tillgänglighetsdatum", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 användare} other {{count} användare}} med specialåtkomst", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Inga användare", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Hantera särskild behörighet", // Dialog title
 	"editor.specialAccessHidden": "Dold av särskild behörighet", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "Ange ett namn", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivning", // Text label for description input field
 	"content.availabilityHeader": "Tillgänglighetsdatum", // availability header
+	"content.saveError": "Ditt innehållsobjekt sparades inte. Korrigera de fält som är markerade med rött.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Lägg till slutdatum" // Text label for name input field
 };

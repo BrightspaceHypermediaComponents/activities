@@ -41,7 +41,7 @@ export default {
 	"filesSubmissionLimit": "Archivos permitidos por envío",
 	"UnlimitedFilesPerSubmission": "Ilimitado",
 	"OneFilePerSubmission": "Un archivo",
-	"submissionsRule": "Materiales enviados",
+	"submissionsRule": "materiales enviados",
 	"hdrSpecialAccess": "Acceso especial", // special access heading
 	"hlpSpecialAccess": "El acceso especial permite que las asignaciones estén disponibles solo para un grupo selecto de usuarios o fechas de vencimiento personalizadas para ciertos usuarios.", // special access help
 	"assignmentLocked": "Algunas opciones de configuración están bloqueadas debido a que se recibieron los envíos.",

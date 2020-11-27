@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Administrar acceso especial", // manage special access button
 	"editor.specialAccessRestrictedText": "Solo los usuarios con acceso especial pueden ver esta carpeta", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Los usuarios pueden realizar envíos fuera de las fechas normales de disponibilidad", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 usuario} other {{count} usuarios}} con acceso especial", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "No hay usuarios", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Administrar acceso especial", // Dialog title
 	"editor.specialAccessHidden": "Oculto por acceso especial", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "El nombre es obligatorio", // Error text that appears below name field when it is left empty
 	"content.description": "Descripción", // Text label for description input field
 	"content.availabilityHeader": "Fechas de disponibilidad", // availability header
+	"content.saveError": "Su elemento de contenido no se guardó. Corrija los campos marcados en color rojo.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Agregar fecha de entrega" // Text label for name input field
 };

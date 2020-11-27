@@ -41,7 +41,7 @@ export default {
 	"filesSubmissionLimit": "送信 1 回あたりの許容ファイル数",
 	"UnlimitedFilesPerSubmission": "無制限",
 	"OneFilePerSubmission": "1 つのファイル",
-	"submissionsRule": "送信物",
+	"submissionsRule": "個の送信物",
 	"hdrSpecialAccess": "特殊なアクセス", // special access heading
 	"hlpSpecialAccess": "特殊なアクセスを使用すると、ユーザーの選択グループまたは特定のユーザーの個別の期限に対してのみ課題を使用可能にすることができます。", // special access help
 	"assignmentLocked": "送信物を受信したため、一部の設定がロックされています。",

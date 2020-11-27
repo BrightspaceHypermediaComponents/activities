@@ -11,10 +11,10 @@ export default {
 	"emptyNameError": "Le nom est obligatoire", // Error message to inform user that the assignment name is a required field
 	"instructions": "Instructions", // Label for the instruction field when creating/editing an assignment
 	"hdrTurnitin": "Intégration de Turnitin", // turnitin heading
-	"hlpTurnitin": "Turnitin® ajoute d\'autres fonctionnalités d\'évaluation.", // turnitin help
+	"hlpTurnitin": "Turnitin® ajoute d’autres fonctionnalités d’évaluation.", // turnitin help
 	"btnEditTurnitin": "Gérer Turnitin", // edit turnitin button
 	"btnCloseDialog": "Fermer ce dialogue", // close dialog button
-	"txtOriginalityCheckOn": "Vérification d\'authenticité activée", // originality check on text
+	"txtOriginalityCheckOn": "Vérification d’authenticité activée", // originality check on text
 	"txtGradeMarkOn": "Outil GradeMark activé", // grade mark on text
 	"txtTurnitinOn": "Turnitin activé", // turnitin on text
 	"btnCancel": "Annuler", // cancel button
@@ -25,7 +25,7 @@ export default {
 	"annotationTools": "Outils d’annotation", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
 	"annotationToolDescription": "Rendre les outils d’annotation disponibles pour l’évaluation", //Description next to the checkbox for annotation tools when creating/editing an assignment
 	"scoreOutOf": "Note sur", // Label for the score-out-of field when creating/editing an activity
-	"anonymousGradingEnabled": "Attribution anonyme d\'état", // Summary message for accordion when anonymous grading is enabled
+	"anonymousGradingEnabled": "Attribution anonyme d’état", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Évaluation et rétroaction", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Type de travail", // Label for assignment type
 	"txtIndividual": "Travail individuel", // Label for individual assignment type
@@ -36,8 +36,8 @@ export default {
 	"txtSubmissionEmailNotificationSummary": "Notification de soumission par courriel", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Soumission et achèvement", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Votre travail n\'était pas enregistré. Veuillez corriger les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
-	"folderTypeNoGroups": "Aucun groupe n\'existe. Créez des groupes dans l\'outil Groupes.", // Folder type no groups
-	"folderTypeCreateGroups": "Créez des groupes dans l\'outil Groupes.", // Folder type create groups
+	"folderTypeNoGroups": "Aucun groupe n’existe. Créez des groupes dans l’outil Groupes.", // Folder type no groups
+	"folderTypeCreateGroups": "Créez des groupes dans l’outil Groupes.", // Folder type create groups
 	"filesSubmissionLimit": "Fichiers autorisés par soumission",
 	"UnlimitedFilesPerSubmission": "Illimité",
 	"OneFilePerSubmission": "Un seul fichier",
@@ -46,6 +46,6 @@ export default {
 	"hlpSpecialAccess": "L’accès spécial permet aux travaux de n’être accessibles qu’à un groupe d’utilisateurs en particulier ou permet de définir des dates d’échéance individualisées pour certains utilisateurs.", // special access help
 	"assignmentLocked": "Certains réglages sont verrouillés car des soumissions ont été reçues.",
 	"hdrSubmissionNotificationEmail": "Courriel de notification",
-	"hlpSubmissionNotificationEmail": "Saisissez une adresse courriel ou plusieurs adresses courriel séparées par une virgule pour recevoir des notifications à la soumission d\'un travail.",
+	"hlpSubmissionNotificationEmail": "Saisissez une adresse courriel ou plusieurs adresses courriel séparées par une virgule pour recevoir des notifications à la soumission d’un travail.",
 	"invalidNotificationEmailError": "Veuillez saisir une adresse courriel valide"
 };

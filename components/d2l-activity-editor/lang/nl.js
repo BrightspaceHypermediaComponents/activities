@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "Bestaand toevoegen", // add existing button
 	"editor.btnRemoveCondition": "Voorwaarde verwijderen", // remove condition button
 	"editor.lblConditionsOperator": "Om dit item te bekijken, moeten gebruikers voldoen aan", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "Toegevoegde voorwaarde: {title}",
+	"editor.txtConditionRemoved": "Verwijderde voorwaarde: {condition}",
+	"editor.txtConditionsAdded": "Toegevoegde {count} voorwaarden",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} releasevoorwaarde} other {{count} releasevoorwaarden}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 gebruiker met speciale toegang} other {{userCount} gebruikers met speciale toegang}}", // num users with special access text
 	"editor.btnCancel": "Annuleren", // cancel button
@@ -57,19 +57,19 @@ export default {
 	"editor.noGradeCreatePermission": "U bent niet gemachtigd om een nieuw score-onderdeel te maken", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Leerdoelen", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Leerdoelen beheren", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {Geen leerdoelen} =1 {1 toegevoegd} other {{count} toegevoegd}}", //Label for number of associated competencies
-	"editor.noLearningObjectives": "No learning objectives", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =0 {Geen leerdoelen} =1 {1 leerdoel} other {{count} leerdoelen}}", // num release condition text
+	"editor.competenciesCount": "{count, plural, =1 {1 toegevoegd} andere {{count} toegevoegd}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "Geen leerdoelen", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 leerdoel} other {{count} leerdoelen}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Sluiten", //Label for Close button
 	"editor.btnCloseDialog": "Dit dialoogvenster sluiten", // close dialog button
 	"editor.btnManageSpecialAccess": "Speciale toegang beheren", // manage special access button
 	"editor.specialAccessRestrictedText": "Alleen gebruikers met speciale toegang kunnen deze map zien", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gebruikers kunnen antwoorden buiten de normale beschikbaarheidsdatums indienen", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
-	"editor.noUsersWithSpecialAccess": "No users", // text label when there are no users with special access
+	"editor.specialAccessCount": "{count, plural, =1 {1 gebruiker} other {{count} gebruikers}} met speciale toegang", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "Geen gebruikers", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Speciale toegang beheren", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "Verborgen door speciale toegang", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "Wijzigingen verwijderen?", // Discard Changes User Prompt
 	"editor.discardChangesQuestion": "Weet u zeker dat u uw wijzigingen wilt verwijderen?", // Discard Changes User Prompt
 	"editor.yesLabel": "Ja",
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "Naam is vereist", // Error text that appears below name field when it is left empty
 	"content.description": "Beschrijving", // Text label for description input field
 	"content.availabilityHeader": "Beschikbare data", // availability header
+	"content.saveError": "Uw inhoudsitem is niet opgeslagen. Corrigeer de rood omlijnde velden.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Uiterste datum toevoegen" // Text label for name input field
 };

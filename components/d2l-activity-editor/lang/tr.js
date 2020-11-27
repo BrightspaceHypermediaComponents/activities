@@ -12,7 +12,7 @@ export default {
 	"editor.txtConditionsAdded": "{count} koşul eklendi",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} sürüm koşulu} other {{count} sürüm koşulu}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {özel erişime sahip 1 kullanıcı} other {özel erişime sahip {userCount} kullanıcı}}", // num users with special access text
-	"editor.btnCancel": "İptal Et", // cancel button
+	"editor.btnCancel": "İptal", // cancel button
 	"editor.btnSave": "Kaydet ve Kapat", // save and close button
 	"editor.btnSaveMobile": "Kaydet", // save and close button for mobile devices
 	"editor.dueDate": "Sona Erme Tarihi", // ARIA label for the due date field when creating/editing an activity
@@ -42,7 +42,7 @@ export default {
 	"editor.invalidScoreOutOfError": "Maksimum Puan, 0,01 veya daha büyük ya da 9.999.999.999 veya daha küçük olmalıdır", // Error message when an invalid score out of value is entered
 	"editor.loading": "Yükleniyor...", // Message displayed while page is loading
 	"editor.ok": "Tamam", // Text of dialog button to commit action
-	"editor.cancel": "İptal Et", // Text of dialog button to cancel action
+	"editor.cancel": "İptal", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Araç çubuğuna giriş yapmak için ALT+F10 tuşlarına basın, araç çubuğundayken çıkış yapmak için ESC tuşuna basın.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Notlar Arasından Seç", // Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubrikler", //Header for the rubrics section
@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Özel Erişimi Yönet", // manage special access button
 	"editor.specialAccessRestrictedText": "Yalnızca özel erişime sahip kullanıcılar bu klasörü görebilir", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Kullanıcılar normal uygunluk tarihleri dışında gönderim yapabilir", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "Özel erişime sahip {count, plural, =1 {1 kullanıcı} other {{count} kullanıcı}}", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Kullanıcı yok", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Özel Erişimi Yönet", // Dialog title
 	"editor.specialAccessHidden": "Özel erişim ile gizlendi", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -80,7 +80,7 @@ export default {
 	"rubrics.btnAddExisting": "Mevcut Olanı Ekle", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrikler", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Rubrik Ekle", //Button for the attach new rubric overlay
-	"rubrics.btnCancel": "İptal Et", //Button for canceling out of the attach new rubric overlay
+	"rubrics.btnCancel": "İptal", //Button for canceling out of the attach new rubric overlay
 	"rubrics.txtAddExisting": "Mevcut Olanı Ekle", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "Rubrik eklenmedi", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubrik eklendi} other {{count} rubrik eklendi}}", // count of asoociated rubrics
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "Ad gerekli", // Error text that appears below name field when it is left empty
 	"content.description": "Açıklama", // Text label for description input field
 	"content.availabilityHeader": "Geçerlilik Tarihleri", // availability header
+	"content.saveError": "İçerik öğeniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Bitiş Tarihi Ekle" // Text label for name input field
 };

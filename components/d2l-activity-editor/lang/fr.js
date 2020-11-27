@@ -17,7 +17,7 @@ export default {
 	"editor.btnSaveMobile": "Enregistrer", // save and close button for mobile devices
 	"editor.dueDate": "Date d’échéance", // ARIA label for the due date field when creating/editing an activity
 	"editor.endDate": "Date de fin", // ARIA label for the end date field when creating/editing an activity
-	"editor.startDate": "Date de début", // ARIA label for the start date field when creating/editing an activity
+	"editor.startDate": "Date du début", // ARIA label for the start date field when creating/editing an activity
 	"editor.dueTime": "Heure d’échéance", // ARIA label for the due time field when creating/editing an activity
 	"editor.endTime": "Heure de fin", // ARIA label for the end time field when creating/editing an activity
 	"editor.startTime": "Heure de début", // ARIA label for the start time field when creating/editing an activity
@@ -58,15 +58,15 @@ export default {
 	"editor.competencies": "Objectifs d’apprentissage", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Gérer les objectifs d’apprentissage", //Button text to launch competencies tool dialog
 	"editor.competenciesCount": "{count, plural, =1 {1 pièce jointe} other {{count} pièces jointes}}", //Label for number of associated competencies
-	"editor.noLearningObjectives": "Aucun objectif d\'apprentissage", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {1 objectif d\'apprentissage} other {{count} objectifs d\'apprentissage}}", // num release condition text
+	"editor.noLearningObjectives": "Aucun objectif d’apprentissage", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 objectif d’apprentissage} other {{count} objectifs d’apprentissage}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 évaluation manquante} other {{count} évaluations manquantes}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Fermer", //Label for Close button
 	"editor.btnCloseDialog": "Fermer ce dialogue", // close dialog button
 	"editor.btnManageSpecialAccess": "Gérer l’accès spécial", // manage special access button
 	"editor.specialAccessRestrictedText": "Seuls les utilisateurs ayant l’accès spécial ont la possibilité de prendre connaissance de ce dossier", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Les utilisateurs peuvent effectuer la soumission en dehors des dates de disponibilité normales", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural,= 1 {1 utilisateur} other {{count} utilisateurs}} ayant l’accès spécial", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Aucun utilisateur", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Gérer l’accès spécial", // Dialog title
 	"editor.specialAccessHidden": "Masqué par accès spécial", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "Le nom est obligatoire", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
 	"content.availabilityHeader": "Dates de disponibilité", // availability header
+	"content.saveError": "Votre élément de contenu n’a pas été enregistré. Veuillez corriger les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Ajouter la date d’échéance" // Text label for name input field
 };

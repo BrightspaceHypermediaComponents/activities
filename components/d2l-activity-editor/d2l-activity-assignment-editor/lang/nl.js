@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "Groepscategorie: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Groepscategorie", // Label for group category,
 	"txtGroupAssignmentSummary": "Groepsopdracht", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "Melding inzending via e-mail", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Indiening & voltooiing", // Label for the availability and dates summarizer
 	"assignmentSaveError": "Uw opdracht is niet opgeslagen. Corrigeer de rood omlijnde velden.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Er bestaan geen groepen. Maak nieuwe groepen aan in de Groepen-tool.", // Folder type no groups
@@ -44,8 +44,8 @@ export default {
 	"submissionsRule": "Indienen",
 	"hdrSpecialAccess": "Speciale toegang", // special access heading
 	"hlpSpecialAccess": "Met Speciale toegang kunnen toewijzingen alleen beschikbaar zijn voor een geselecteerde groep gebruikers of voor individuele uiterste datums voor bepaalde gebruikers.", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
-	"invalidNotificationEmailError": "Please enter a valid email address"
+	"assignmentLocked": "Sommige instellingen zijn vergrendeld omdat er inzendingen zijn ontvangen.",
+	"hdrSubmissionNotificationEmail": "E-mailmelding",
+	"hlpSubmissionNotificationEmail": "Voer een e-mailadres of meerdere e-mailadressen in, gescheiden door een komma, om meldingen te ontvangen wanneer een opdracht is ingezonden.",
+	"invalidNotificationEmailError": "Voer een geldig e-mailadres in"
 };

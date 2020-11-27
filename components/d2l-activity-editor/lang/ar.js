@@ -16,7 +16,7 @@ export default {
 	"editor.btnSave": "حفظ وإغلاق", // save and close button
 	"editor.btnSaveMobile": "حفظ", // save and close button for mobile devices
 	"editor.dueDate": "تاريخ الاستحقاق", // ARIA label for the due date field when creating/editing an activity
-	"editor.endDate": "تاريخ النهاية", // ARIA label for the end date field when creating/editing an activity
+	"editor.endDate": "تاريخ الانتهاء", // ARIA label for the end date field when creating/editing an activity
 	"editor.startDate": "تاريخ البدء", // ARIA label for the start date field when creating/editing an activity
 	"editor.dueTime": "وقت الاستحقاق", // ARIA label for the due time field when creating/editing an activity
 	"editor.endTime": "وقت النهاية", // ARIA label for the end time field when creating/editing an activity
@@ -60,15 +60,15 @@ export default {
 	"editor.competenciesCount": "{count, plural, =1 {مرفق واحد} other ‏{{count} من المرفقات}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "ما من أهداف تعلّم", //text label when there are no associated learning objectives
 	"editor.competenciesCountSummary": "{count, plural, =1 {هدف تعلّم واحد} other ‏{{count} من أهداف التعلّم}}", // num release condition text
-	"editor.unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other {{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other ‏{{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "إغلاق", //Label for Close button
 	"editor.btnCloseDialog": "إغلاق مربع الحوار هذا", // close dialog button
-	"editor.btnManageSpecialAccess": "إدارة الوصول الخاص", // manage special access button
+	"editor.btnManageSpecialAccess": "إدارة إمكانية الوصول الخاص", // manage special access button
 	"editor.specialAccessRestrictedText": "يمكن فقط للمستخدمين الذين يتمتعون بإمكانية وصول خاص رؤية هذا المجلد", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "يمكن للمستخدمين إجراء عملية الإرسال خارج تواريخ التوفّر الاعتيادية", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "يتمتع {count, plural, =1 {مستخدم واحد} other ‏{{count} من المستخدمين}} بإمكانية وصول خاص", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "ما من مستخدمين", // text label when there are no users with special access
-	"editor.specialAccessDialogTitle": "إدارة الوصول الخاص", // Dialog title
+	"editor.specialAccessDialogTitle": "إدارة إمكانية الوصول الخاص", // Dialog title
 	"editor.specialAccessHidden": "تم الإخفاء بواسطة الوصول الخاص", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "هل تريد تجاهل التغييرات؟", // Discard Changes User Prompt
 	"editor.discardChangesQuestion": "هل أنت متأكد من أنك تريد تجاهل التغييرات التي أجريتها؟", // Discard Changes User Prompt
@@ -105,7 +105,7 @@ export default {
 	"attachments.back": "الخلف", // Text for a back button
 	"attachments.closeDialog": "إغلاق مربع الحوار", // ARIA text for button to close dialog
 	"attachments.recordAudio": "تسجيل الصوت", // Text for a button that opens a dialog to record audio
-	"attachments.recordVideo": "تسجيل فيديو", // Text for a button that opens a dialog to record video
+	"attachments.recordVideo": "تسجيل الفيديو", // Text for a button that opens a dialog to record video
 	"attachments.save": "حفظ", // Text for a save button,
 	"attachments.attach": "إرفاق", // Text for Attach button to open attachment row
 	"attachments.addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "الاسم مطلوب", // Error text that appears below name field when it is left empty
 	"content.description": "وصف", // Text label for description input field
 	"content.availabilityHeader": "تواريخ إمكانية التوفّر", // availability header
+	"content.saveError": "لم يتم حفظ مادة المحتوى الخاصة بك. يُرجى تصحيح الحقول الموضّحة باللون الأحمر.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "إضافة تاريخ الاستحقاق" // Text label for name input field
 };

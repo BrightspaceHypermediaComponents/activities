@@ -33,7 +33,7 @@ export default {
 	"txtGroupCategoryWithName": "그룹 범주: {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "그룹 범주", // Label for group category,
 	"txtGroupAssignmentSummary": "그룹 과제", // Summary message for accordion when assignment type is set to group
-	"txtSubmissionEmailNotificationSummary": "Submission notification by email", // Summary message when submission notification by email option is enabled
+	"txtSubmissionEmailNotificationSummary": "이메일로 제출 알림", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "제출 및 완료", // Label for the availability and dates summarizer
 	"assignmentSaveError": "과제가 저장되지 않았습니다. 빨간색으로 표시된 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "그룹이 없습니다. 그룹 도구에서 새 그룹을 만듭니다.", // Folder type no groups
@@ -44,8 +44,8 @@ export default {
 	"submissionsRule": "개 제출 항목",
 	"hdrSpecialAccess": "특별 접근", // special access heading
 	"hlpSpecialAccess": "특별 접근을 사용하면 특정 사용자 그룹 또는 특정 사용자의 개별 기한에만 과제를 사용할 수 있습니다.", // special access help
-	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
-	"invalidNotificationEmailError": "Please enter a valid email address"
+	"assignmentLocked": "제출 항목이 수신되어 일부 설정이 잠겼습니다.",
+	"hdrSubmissionNotificationEmail": "알림 이메일",
+	"hlpSubmissionNotificationEmail": "과제가 제출되었을 때 알림을 받으려면 이메일 또는 여러 이메일을 쉼표로 구분하여 입력하십시오.",
+	"invalidNotificationEmailError": "유효한 이메일 주소를 입력하십시오."
 };

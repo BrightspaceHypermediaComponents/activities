@@ -1,11 +1,11 @@
 /* eslint quotes: 0 */
 
 export default {
-	"hdrReleaseConditions": "Release Conditions", // release conditions heading
-	"hlpReleaseConditions": "Users are not able to access or view the assignment unless they meet the release conditions.", // release conditions help
-	"completionType": "Marked as completed", // Label for the completion type field when creating/editing an assignment
-	"lblAnonymousMarking": "Anonymous Marking", // Label for anonymous marking
-	"chkAnonymousMarking": "Hide student names during assessment", // Checkbox for anonymous marking
+	"hdrReleaseConditions": "Betingelser for offentliggørelse", // release conditions heading
+	"hlpReleaseConditions": "Brugere kan ikke få adgang til eller få vist opgaven, medmindre de opfylder betingelserne for offentliggørelse.", // release conditions help
+	"completionType": "Markeret som fuldført", // Label for the completion type field when creating/editing an assignment
+	"lblAnonymousMarking": "Anonym markering", // Label for anonymous marking
+	"chkAnonymousMarking": "Skjul navne på elever under vurderingen", // Checkbox for anonymous marking
 	"dueDate": "Forfaldsdato", // ARIA label for the due date field when creating/editing an activity
 	"txtAnnotationsOff": "Kommentarer slået fra", // annotations off text
 	"emptyNameError": "Navn påkrævet", // Error message to inform user that the assignment name is a required field
@@ -21,10 +21,10 @@ export default {
 	"btnSave": "Gem", // save button
 	"hdrAvailability": "Tilgængelighedsdatoer og betingelser", // availability header
 	"name": "Navn", // Label for the name field when creating/editing an activity
-	"submissionType": "Submission Type", // Label for the submission type field when creating/editing an assignment
-	"annotationTools": "Annotation Tools", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
-	"annotationToolDescription": "Make annotation tools available for assessment", //Description next to the checkbox for annotation tools when creating/editing an assignment
-	"scoreOutOf": "Score Out Of", // Label for the score-out-of field when creating/editing an activity
+	"submissionType": "Afleveringstype", // Label for the submission type field when creating/editing an assignment
+	"annotationTools": "Kommentarværktøjer", // Label for enabling/disabling Annotation Tools when creating/editing an assignment
+	"annotationToolDescription": "Gør kommentarværktøjer tilgængelige for vurdering", //Description next to the checkbox for annotation tools when creating/editing an assignment
+	"scoreOutOf": "Score ud af", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Anonym markering", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Evaluering og feedback", // Header text for the evaluation and feedback summarizer
 	"txtAssignmentType": "Opgavetype", // Label for assignment type
@@ -41,7 +41,7 @@ export default {
 	"filesSubmissionLimit": "Filer tilladt pr. aflevering",
 	"UnlimitedFilesPerSubmission": "Ubegrænset",
 	"OneFilePerSubmission": "En fil",
-	"submissionsRule": "Afleveringer",
+	"submissionsRule": "afleveringer",
 	"hdrSpecialAccess": "Særlig adgang", // special access heading
 	"hlpSpecialAccess": "Særlig adgang gør, at opgaver kan være tilgængelige for kun en udvalgt gruppe brugere, og muliggør individualiserede forfaldsdatoer for visse brugere.", // special access help
 	"assignmentLocked": "Nogle indstillinger er låst, fordi der er modtaget afleveringer.",

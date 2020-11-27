@@ -4,13 +4,13 @@ export default {
 	"editor.btnEditReleaseConditions": "Golygu Amodau Rhyddhau", // edit release conditions button
 	"editor.btnAddReleaseCondition": "Ychwanegu Amod Rhyddhau", // add release condition button
 	"editor.btnCreateNew": "Creu Un Newydd", // create new button
-	"editor.btnAddExisting": "Ychwanegu Presennol", // add existing button
+	"editor.btnAddExisting": "Ychwanegu’r Presennol", // add existing button
 	"editor.btnRemoveCondition": "Tynnu’r Amod", // remove condition button
 	"editor.lblConditionsOperator": "I weld yr eitem hon, rhaid i ddefnyddwyr fodloni", // conditions operator label
 	"editor.txtConditionAdded": "Amod a ychwanegwyd: {title}",
 	"editor.txtConditionRemoved": "Amod a dynnwyd: {condition}",
 	"editor.txtConditionsAdded": "Ychwanegwyd {count} amod",
-	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} release condition} other {{count} release conditions}}", // num release condition text
+	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} amod rhyddhau} other {{count} amod rhyddhau}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text
 	"editor.btnCancel": "Canslo", // cancel button
 	"editor.btnSave": "Cadw a Chau", // save and close button
@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Rheoli Mynediad Arbennig", // manage special access button
 	"editor.specialAccessRestrictedText": "Defnyddwyr â mynediad arbennig yn unig gall gweld y ffolder hwn", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gall defnyddwyr gyflwyno y tu allan i’r dyddiadau argaeledd arferol", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} â mynediad arbennig", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Dim Defnyddwyr", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Rheoli Mynediad Arbennig", // Dialog title
 	"editor.specialAccessHidden": "Cudd gan fynediad arbennig", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -77,13 +77,13 @@ export default {
 
 	"rubrics.btnAddRubric": "Ychwanegu cyfeireb", //text for add rubric button
 	"rubrics.btnCreateNew": "Creu Un Newydd", //Text for create new dropdown
-	"rubrics.btnAddExisting": "Ychwanegu Presennol", //Text for Add Existing dropdown
+	"rubrics.btnAddExisting": "Ychwanegu’r Presennol", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Cyfeirebau", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Atodi Cyfeireb", //Button for the attach new rubric overlay
 	"rubrics.btnCancel": "Canslo", //Button for canceling out of the attach new rubric overlay
-	"rubrics.txtAddExisting": "Ychwanegu Presennol", //Title for the attach rubrics dialog,
+	"rubrics.txtAddExisting": "Ychwanegu’r Presennol", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "Dim cyfeireb wedi’i hychwanegu", // rubric summary for no rubrics
-	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric added} other {{count} rubrics added}}", // count of asoociated rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric added} arall {{count} rubrics added}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Dileu Cyfeireb", // Text for deleting rubric icon
 	"rubrics.btnClose": "Cau", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Wedi ychwanegu cyfeireb", // Text for notifying screenreader rubric was added
@@ -103,7 +103,7 @@ export default {
 	"attachments.addOneDriveLink": "Atodi o OneDrive", // Tooltip for a button that adds a link to a OneDrive file
 	"attachments.addQuicklink": "Atodi Dolen i Weithgaredd sy’n Bodoli Eisoes", // Tooltip for a button that adds a link to an existing activity
 	"attachments.back": "Yn ôl", // Text for a back button
-	"attachments.closeDialog": "Cau’r Deialog", // ARIA text for button to close dialog
+	"attachments.closeDialog": "Cau’r Dialog", // ARIA text for button to close dialog
 	"attachments.recordAudio": "Recordio Sain", // Text for a button that opens a dialog to record audio
 	"attachments.recordVideo": "Recordio Fideo", // Text for a button that opens a dialog to record video
 	"attachments.save": "Cadw", // Text for a save button,
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "Mae angen enw", // Error text that appears below name field when it is left empty
 	"content.description": "Disgrifiad", // Text label for description input field
 	"content.availabilityHeader": "Dyddiadau Argaeledd", // availability header
+	"content.saveError": "Ni chadwyd eich eitem cynnwys. Cywirwch y meysydd a amlinellir mewn coch.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Ychwanegu Dyddiad Cyflwyno" // Text label for name input field
 };

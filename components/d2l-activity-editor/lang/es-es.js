@@ -4,7 +4,7 @@ export default {
 	"editor.btnEditReleaseConditions": "Editar condiciones de publicación", // edit release conditions button
 	"editor.btnAddReleaseCondition": "Añadir condiciones de publicación", // add release condition button
 	"editor.btnCreateNew": "Crear nuevo", // create new button
-	"editor.btnAddExisting": "Agregar existente", // add existing button
+	"editor.btnAddExisting": "Añadir existente", // add existing button
 	"editor.btnRemoveCondition": "Quitar condición", // remove condition button
 	"editor.lblConditionsOperator": "Para ver este elemento, los usuarios deben cumplir", // conditions operator label
 	"editor.txtConditionAdded": "Condición añadida: {title}",
@@ -21,7 +21,7 @@ export default {
 	"editor.dueTime": "Hora de entrega", // ARIA label for the due time field when creating/editing an activity
 	"editor.endTime": "Hora de finalización", // ARIA label for the end time field when creating/editing an activity
 	"editor.startTime": "Hora de inicio", // ARIA label for the start time field when creating/editing an activity
-	"editor.hidden": "Oculta", // Label displayed with the visibility switch when hidden
+	"editor.hidden": "Oculto", // Label displayed with the visibility switch when hidden
 	"editor.noDueDate": "No hay fecha de vencimiento", // Placeholder text for due date field when no due date is set
 	"editor.noEndDate": "No hay fecha final", // Placeholder text for due date field when no due date is set
 	"editor.noStartDate": "No hay fecha de inicio", // Placeholder text for due date field when no due date is set
@@ -33,7 +33,7 @@ export default {
 	"editor.ungraded": "Sin calificación", // State of score field when there is no score and no grade item, when creating/editing an activity
 	"editor.inGrades": "En calificaciones", // State of the grades field when there is a score, and an associated grade item
 	"editor.notInGrades": "No en calificaciones", // State of the grades field when there is a score, but no associated grade item
-	"editor.addToGrades": "Agregar a las calificaciones", // Menu item for adding grade association
+	"editor.addToGrades": "Añadir a las calificaciones", // Menu item for adding grade association
 	"editor.addAGrade": "Añadir una calificación", //ARIA label to add a grade to the activity
 	"editor.removeFromGrades": "Quitar de las calificaciones", // Menu item for removing grade association
 	"editor.setUngraded": "Restablecer a Sin calificación", // Menu item for setting the activity to ungraded
@@ -60,13 +60,13 @@ export default {
 	"editor.competenciesCount": "{count, plural, =1 {1 adjunto} other {{count} adjuntos}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "No hay objetivos de aprendizaje", //text label when there are no associated learning objectives
 	"editor.competenciesCountSummary": "{count, plural, =1 {1 objetivo de aprendizaje} other {{count} objetivos de aprendizaje}}", // num release condition text
-	"editor.unevaluatedCompetencies": "{count, plural, =1 {falta 1 tarea} other {faltan {count} tareas}}", //Label for number of unevalated associated competencies
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {falta 1 tarea} other {faltan {count} tareas}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Cerrar", //Label for Close button
 	"editor.btnCloseDialog": "Cerrar este cuadro de diálogo", // close dialog button
 	"editor.btnManageSpecialAccess": "Administrar acceso especial", // manage special access button
 	"editor.specialAccessRestrictedText": "Solo los usuarios con acceso especial pueden ver esta carpeta", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Los usuarios pueden entregar fuera de las fechas de disponibilidad normales", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 usuario} other {{count} usuarios}} con acceso especial", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "No hay usuarios", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Administrar acceso especial", // Dialog title
 	"editor.specialAccessHidden": "Oculto por acceso especial", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -77,13 +77,13 @@ export default {
 
 	"rubrics.btnAddRubric": "Agregar rúbrica", //text for add rubric button
 	"rubrics.btnCreateNew": "Crear nuevo", //Text for create new dropdown
-	"rubrics.btnAddExisting": "Agregar existente", //Text for Add Existing dropdown
+	"rubrics.btnAddExisting": "Añadir existente", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rúbricas", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Adjuntar rúbrica", //Button for the attach new rubric overlay
 	"rubrics.btnCancel": "Cancelar", //Button for canceling out of the attach new rubric overlay
-	"rubrics.txtAddExisting": "Agregar existente", //Title for the attach rubrics dialog,
+	"rubrics.txtAddExisting": "Añadir existente", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "No se ha añadido ninguna rúbrica", // rubric summary for no rubrics
-	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rúbrica añadida} other {{count} rúbricas añadidas}}", // count of asoociated rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rúbrica añadida} other {{count} rúbricas añadidas}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Eliminar rúbrica", // Text for deleting rubric icon
 	"rubrics.btnClose": "Cerrar", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rúbrica añadida", // Text for notifying screenreader rubric was added
@@ -105,7 +105,7 @@ export default {
 	"attachments.back": "Volver", // Text for a back button
 	"attachments.closeDialog": "Cerrar el cuadro de diálogo", // ARIA text for button to close dialog
 	"attachments.recordAudio": "Grabar audio", // Text for a button that opens a dialog to record audio
-	"attachments.recordVideo": "Grabación de vídeo", // Text for a button that opens a dialog to record video
+	"attachments.recordVideo": "Grabar vídeo", // Text for a button that opens a dialog to record video
 	"attachments.save": "Guardar", // Text for a save button,
 	"attachments.attach": "Adjuntar", // Text for Attach button to open attachment row
 	"attachments.addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "El nombre es obligatorio", // Error text that appears below name field when it is left empty
 	"content.description": "Descripción", // Text label for description input field
 	"content.availabilityHeader": "Fechas de disponibilidad", // availability header
+	"content.saveError": "El elemento de contenido no se ha guardado. Corrija los campos señalados en rojo.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Agregar fecha de vencimiento" // Text label for name input field
 };

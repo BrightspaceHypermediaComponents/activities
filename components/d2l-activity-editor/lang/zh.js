@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "管理特殊访问权限", // manage special access button
 	"editor.specialAccessRestrictedText": "仅具有特殊访问权限的用户才能查看此文件夹", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "用户可以在正常可用日期之外提交", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 位用户} other {{count} 位用户}} 具有特殊访问权限", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "没有用户", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "管理特殊访问权限", // Dialog title
 	"editor.specialAccessHidden": "按特殊访问权限隐藏", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "需要提供名称", // Error text that appears below name field when it is left empty
 	"content.description": "描述", // Text label for description input field
 	"content.availabilityHeader": "可用日期", // availability header
+	"content.saveError": "您的内容项目未保存。请更正以红色标出的字段。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "添加截止日期" // Text label for name input field
 };

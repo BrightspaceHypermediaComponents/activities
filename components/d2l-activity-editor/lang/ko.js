@@ -7,9 +7,9 @@ export default {
 	"editor.btnAddExisting": "기존 항목 추가", // add existing button
 	"editor.btnRemoveCondition": "조건 제거", // remove condition button
 	"editor.lblConditionsOperator": "이 항목을 보려면 사용자가 다음을 충족해야 합니다.", // conditions operator label
-	"editor.txtConditionAdded": "Added  condition: {title}",
-	"editor.txtConditionRemoved": "Removed condition: {title}",
-	"editor.txtConditionsAdded": "Added {count} conditions",
+	"editor.txtConditionAdded": "다음 조건 추가: {title}",
+	"editor.txtConditionRemoved": "다음 조건 제거: {title}",
+	"editor.txtConditionsAdded": "추가된 조건 {count}개",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count}개 릴리스 조건} other {{count}개 릴리스 조건}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {특별 접근 권한이 있는 1명 사용자} other {특별 접근 권한이 있는 {userCount}명 사용자}}", // num users with special access text
 	"editor.btnCancel": "취소", // cancel button
@@ -57,19 +57,19 @@ export default {
 	"editor.noGradeCreatePermission": "새 평점 항목을 생성할 권한이 없습니다.", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "학습 목표", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "학습 목표 관리", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =0 {학습 목표 없음} =1 {1개 첨부됨} other {{count}개 첨부됨}}", //Label for number of associated competencies
-	"editor.noLearningObjectives": "No learning objectives", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =0 {학습 목표 없음} =1 {1개 학습 목표} other {{count}개 학습 목표}}", // num release condition text
+	"editor.competenciesCount": "{count, plural, =1 {1개 첨부됨} other {{count}개 첨부됨}}", //Label for number of associated competencies
+	"editor.noLearningObjectives": "학습 목표 없음", //text label when there are no associated learning objectives
+	"editor.competenciesCountSummary": "{count, plural, =1 {1개 학습 목표} other {{count}개 학습 목표}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1개 평가 누락} other {{count}개 평가 누락}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "닫기", //Label for Close button
 	"editor.btnCloseDialog": "이 대화 상자 닫기", // close dialog button
 	"editor.btnManageSpecialAccess": "특별 접근 관리", // manage special access button
 	"editor.specialAccessRestrictedText": "특별 접근 권한이 있는 사용자만이 이 폴더를 볼 수 있습니다.", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "사용자는 정상 사용 가능 날짜 이외의 날짜를 제출할 수 있습니다.", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
-	"editor.noUsersWithSpecialAccess": "No users", // text label when there are no users with special access
+	"editor.specialAccessCount": "특별 접근 권한이 있는 {count, plural, =1 {1명 사용자} other {{count}명 사용자}}", // Label for number of special access users
+	"editor.noUsersWithSpecialAccess": "사용자 없음", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "특별 접근 관리", // Dialog title
-	"editor.specialAccessHidden": "Hidden by special access", // Warning label that the activity is restricted but is being hidden from all users by special access rules
+	"editor.specialAccessHidden": "특별한 접근으로 숨겨져 있습니다", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "변경 사항을 제거하시겠습니까?", // Discard Changes User Prompt
 	"editor.discardChangesQuestion": "이 변경 사항을 제거하시겠습니까?", // Discard Changes User Prompt
 	"editor.yesLabel": "예",
@@ -118,4 +118,6 @@ export default {
 	"content.emptyNameField": "이름이 필요함", // Error text that appears below name field when it is left empty
 	"content.description": "설명", // Text label for description input field
 	"content.availabilityHeader": "사용 가능 날짜", // availability header
+	"content.saveError": "콘텐츠 항목이 저장되지 않았습니다. 빨간색으로 표시된 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "기한 추가" // Text label for name input field
 };

@@ -3,7 +3,7 @@ on: pull_request
 jobs:
   test:
     name: Test
-    timeout-minutes: 10
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
       - uses: Brightspace/third-party-actions@actions/checkout

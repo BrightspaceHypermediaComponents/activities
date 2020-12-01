@@ -49,7 +49,6 @@
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-lit": "^1.2.0",
     "eslint-plugin-sort-class-members": "^1.6.0",
-    "frau-ci": "^1.40.0",
     "gulp": "^4.0.0",
     "gulp-cli": "^2.0.1",
     "gulp-ejs": "^5.1.0",

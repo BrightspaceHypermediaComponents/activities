@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "特殊なアクセスの管理", // manage special access button
 	"editor.specialAccessRestrictedText": "特殊なアクセスを持つユーザーのみがこのフォルダを表示することができます", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "ユーザーは、通常の利用可能日以外の日にも送信することができます", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "特殊なアクセスを持つ {count, plural, =1 {1 人のユーザー} other {count} 人のユーザー}", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "ユーザーはいません", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "特殊なアクセスの管理", // Dialog title
 	"editor.specialAccessHidden": "特殊なアクセスで非表示", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -74,6 +74,8 @@ export default {
 	"editor.discardChangesQuestion": "この変更を破棄してもよろしいですか？", // Discard Changes User Prompt
 	"editor.yesLabel": "はい",
 	"editor.noLabel": "いいえ",
+	"editor.notificationEmailLabel": "通知電子メール", // Label for notification email input field
+	"editor.invalidNotificationEmailError": "有効な電子メールアドレスを入力してください", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
 	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown
@@ -118,4 +120,6 @@ export default {
 	"content.emptyNameField": "名前は必須です", // Error text that appears below name field when it is left empty
 	"content.description": "説明", // Text label for description input field
 	"content.availabilityHeader": "使用可能日", // availability header
+	"content.saveError": "コンテンツ項目は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "期限の追加" // Text label for name input field
 };

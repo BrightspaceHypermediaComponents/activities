@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "管理特殊存取權限", // manage special access button
 	"editor.specialAccessRestrictedText": "僅具有特殊存取權限的使用者可檢視此資料夾", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "使用者可於正常可用情況日期之外提交", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 位使用者} other {{count} 位使用者}} 具有特殊存取權限", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "沒有使用者", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "管理特殊存取權限", // Dialog title
 	"editor.specialAccessHidden": "由特殊存取權限隱藏", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -74,6 +74,8 @@ export default {
 	"editor.discardChangesQuestion": "確定要捨棄您的變更？", // Discard Changes User Prompt
 	"editor.yesLabel": "是",
 	"editor.noLabel": "否",
+	"editor.notificationEmailLabel": "通知電子郵件", // Label for notification email input field
+	"editor.invalidNotificationEmailError": "請輸入有效的電子郵件地址", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "新增量規", //text for add rubric button
 	"rubrics.btnCreateNew": "建立新的", //Text for create new dropdown
@@ -118,4 +120,6 @@ export default {
 	"content.emptyNameField": "名稱為必填", // Error text that appears below name field when it is left empty
 	"content.description": "說明", // Text label for description input field
 	"content.availabilityHeader": "可用情況日期", // availability header
+	"content.saveError": "您的內容項目尚未儲存。請修正以紅色顯示的欄位。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "新增截止日期" // Text label for name input field
 };

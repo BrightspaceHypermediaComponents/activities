@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "الوصول الخاص", // special access heading
 	"hlpSpecialAccess": "يسمح الوصول الخاص بتوفير الفروض لمجموعة محددة من المستخدمين فقط أو تواريخ استحقاق فردية لمستخدمين معيّنين.", // special access help
 	"assignmentLocked": "تم تأمين بعض الإعدادات بسبب تلقي عمليات الإرسال.",
-	"hdrSubmissionNotificationEmail": "بريد إلكتروني للإعلام",
-	"hlpSubmissionNotificationEmail": "أدخل عنوان بريد إلكتروني أو عناوين بريد إلكتروني متعددة مفصولة بفاصلة لتلقي إعلامات عند إرسال فرض.",
-	"invalidNotificationEmailError": "يُرجى إدخال عنوان بريد الكتروني صالح"
+	"hlpSubmissionNotificationEmail": "أدخل عنوان بريد إلكتروني أو عناوين بريد إلكتروني متعددة مفصولة بفاصلة لتلقي إعلامات عند إرسال فرض."
 };

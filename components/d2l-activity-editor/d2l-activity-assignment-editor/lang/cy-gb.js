@@ -3,7 +3,7 @@
 export default {
 	"hdrReleaseConditions": "Amodau Rhyddhau", // release conditions heading
 	"hlpReleaseConditions": "Ni all defnyddwyr gyrchu na gweld yr aseiniad oni bai eu bod yn cwrdd â\'r amodau rhyddhau.", // release conditions help
-	"completionType": "Marcio wedi’i gwblhau", // Label for the completion type field when creating/editing an assignment
+	"completionType": "Marciwyd wedi’i gwblhau", // Label for the completion type field when creating/editing an assignment
 	"lblAnonymousMarking": "Marcio Dienw", // Label for anonymous marking
 	"chkAnonymousMarking": "Cuddio enwau myfyrwyr yn ystod asesiad", // Checkbox for anonymous marking
 	"dueDate": "Dyddiad Cyflwyno", // ARIA label for the due date field when creating/editing an activity
@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Mynediad Arbennig", // special access heading
 	"hlpSpecialAccess": "Mae Mynediad Arbennig yn caniatáu i aseiniadau fod ar gael i grŵp dethol o ddefnyddwyr yn unig neu ddyddiadau dyledus unigol ar gyfer defnyddwyr penodol.", // special access help
 	"assignmentLocked": "Mae rhai gosodiadau wedi\'u cloi oherwydd bod cyflwyniadau wedi\'u derbyn.",
-	"hdrSubmissionNotificationEmail": "E-bost Hysbysu",
-	"hlpSubmissionNotificationEmail": "Rhowch e-bost neu fwy nag un e-bost sydd wedi\'u gwahanu gan atalnodau, i dderbyn hysbysiadau pan gyflwynir aseiniad.",
-	"invalidNotificationEmailError": "Rhowch gyfeiriad e-bost dilys"
+	"hlpSubmissionNotificationEmail": "Rhowch e-bost neu fwy nag un e-bost sydd wedi\'u gwahanu gan atalnodau, i dderbyn hysbysiadau pan gyflwynir aseiniad."
 };

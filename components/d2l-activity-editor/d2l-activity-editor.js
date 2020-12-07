@@ -8,9 +8,10 @@ import { ActivityEditorContainerMixin } from './mixins/d2l-activity-editor-conta
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { ActivityEditorTelemetryMixin } from './mixins/d2l-activity-editor-telemetry-mixin';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetryMixin(AsyncContainerMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(LitElement))))) {
+class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetryMixin(AsyncContainerMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(LitElement)))))) {
 
 	static get properties() {
 		return {
@@ -35,7 +36,10 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 				padding: 20px;
 			}
 			.d2l-secondary-panel {
-				padding: 10px;
+				padding: 10px 2px 10px 10px;
+			}
+			:host([dir="rtl"]) .d2l-secondary-panel {
+				padding: 10px 10px 10px 2px;
 			}
 			d2l-alert {
 				margin-bottom: 10px;

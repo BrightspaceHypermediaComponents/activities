@@ -117,7 +117,7 @@
     "fastdom": "^1.0.8",
     "lit-element": "^2",
     "lit-html": "^1.1.2",
-    "merge-stream": "^1.0.1",
+    "merge-stream": "^2.0.0",
     "mobx": "^5.15.2",
     "require-dir": "^1.2.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1"

@@ -30,7 +30,7 @@
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.8.3",
     "@brightspace-ui/stylelint-config": "^0.0.3",
-    "@brightspace-ui/visual-diff": "^1.0.1",
+    "@brightspace-ui/visual-diff": "^2.0.0",
     "@open-wc/testing": "^2.5.1",
     "@open-wc/testing-karma": "^4.0.5",
     "@polymer/iron-component-page": "^3.0.0-pre.18",

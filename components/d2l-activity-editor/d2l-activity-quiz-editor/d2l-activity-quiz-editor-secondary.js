@@ -1,6 +1,7 @@
 import './d2l-activity-quiz-availability-editor.js';
 import './d2l-activity-quiz-timing-and-display-editor.js';
 import './d2l-activity-quiz-attempts-and-completion-editor.js';
+import './d2l-activity-quiz-evaluation-and-feedback-editor.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
@@ -70,12 +71,21 @@ class QuizEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContainerMixi
 				.token="${this.token}"
 				?skeleton="${this.skeleton}">
 			</d2l-activity-quiz-attempts-and-completion-editor>
-	`;
+		`;
+
+		const evaluationAndFeedbackAccordion = html`
+			<d2l-activity-quiz-evaluation-and-feedback-editor
+				.href="${this.href}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}">
+			</d2l-activity-quiz-evaluation-and-feedback-editor>
+		`;
 
 		return html`
 			${availabilityAccordian}
 			${timingAndDisplayAccordion}
 			${attemptsAndCompletionAccordion}
+			${evaluationAndFeedbackAccordion}
 		`;
 
 	}

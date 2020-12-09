@@ -25,6 +25,9 @@ export default {
 	"dividerHeader": "Questions", // The header that is displayed on the divider
 	"previewLabel": "Preview", // The label text for the preview button
 	"hdrReleaseConditions": "Release Conditions", // release conditions heading
-	"hlpReleaseConditions": "Users are not able to access or view the quiz unless they meet the release conditions." // release conditions help
-
+	"hlpReleaseConditions": "Users are not able to access or view the quiz unless they meet the release conditions.", // release conditions help
+	"hdrEvaluationAndFeedback": "Evaluation & Feedback", // evaluation/feedback accordion header
+	"subHdrAutomaticGrades": "Automatic Grade", // Title for automatic grade tool
+	"autoSetGradedDescription": "Allow attempt to be set as graded immediately upon completion", // description for automatic grade checkbox
+	"autoSetGradedSummary": "Automatically grade" // summary for auto set graded checkbox
 };

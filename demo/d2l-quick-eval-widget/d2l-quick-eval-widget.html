@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script type="module">
+			import '@brightspace-ui/core/components/demo/demo-page.js';
+			import '@brightspace-ui/core/components/typography/styles.js';
+			import '@brightspace-ui/core/components/typography/typography.js';
+			import '../../components/d2l-quick-eval-widget/d2l-quick-eval-widget.js';
+		</script>
+		<title>d2l-consistent-evaluation</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta charset="UTF-8">
+	</head>
+	<body class="d2l-typography">
+		<d2l-demo-page page-title="d2l-quick-eval-widget">
+			<h2>d2l-quick-eval-widget</h2>
+			<d2l-demo-snippet>
+				<d2l-quick-eval-widget
+
+				token=""
+				href=""
+				quick-eval-href=""
+				toggle-href=""
+				toggle-state="activities"
+				count="3">
+				</d2l-quick-eval-widget>
+			</d2l-demo-snippet>
+		</d2l-demo-page>
+	</body>
+</html>

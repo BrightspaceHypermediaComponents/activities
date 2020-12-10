@@ -34,6 +34,15 @@ class ActivityUsageConditionsEditor extends ActivityEditorMixin(MobxLitElement) 
 			</d2l-activity-conditions-editor>
 		`;
 	}
+
+	hasPendingChanges() {
+		const entity = store.get(this.href);
+		if (!entity) {
+			return false;
+		}
+
+		return entity.dirty;
+	}
 }
 
 customElements.define(

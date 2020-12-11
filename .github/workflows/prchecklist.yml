@@ -1,0 +1,27 @@
+name: PR Reminder Checklist
+on:
+  pull_request:
+    types: [opened]
+jobs:
+  fyi:
+    name: Posts a PR Reminder checklist
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: Brightspace/third-party-actions@actions/github-script
+        # Do this at the step level so that the job shows as passing in the PR
+        # UI (which is less distracting than cancelled)
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+            ## PR Checklist:
+            
+            **Did you use a semver keyword in a commit message?**
+            - [ ] Yes I used one in at least one of my commits
+            - [ ] No but I will use a semver keyword in the merge commit message when I merge and squash
+              `
+            })

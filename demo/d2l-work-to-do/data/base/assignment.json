@@ -1,0 +1,584 @@
+{
+  "class": [
+      "named-entity",
+      "assignment"
+  ],
+  "properties": {
+      "name": "Capacitor Design Lab Handout",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "instructions": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "instructionsText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "dueDate": "2019-09-03T13:30:00.000Z",
+      "outOf": 0.0,
+      "addToGrades": false,
+      "draft": false,
+      "submissionType": {
+          "title": "File submission",
+          "value": 0
+      },
+      "defaultScoringRubricId": null
+  },
+  "entities": [
+      {
+          "class": [
+              "date",
+              "due-date"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/date"
+          ],
+          "properties": {
+              "date": "2019-09-03T13:30:00.000Z"
+          }
+      },
+      {
+          "class": [
+              "submission-metrics"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/submission-metrics"
+          ],
+          "properties": {
+              "totalUsers": 20,
+              "totalUsersWithSubmissions": 0
+          }
+      },
+      {
+          "class": [
+              "attachments",
+              "collection"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/attachments"
+          ],
+          "actions": [
+              {
+                  "type": "multipart/form-data",
+                  "title": "Add file",
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387/attach-file",
+                  "name": "add-file",
+                  "method": "POST",
+                  "fields": [
+                      {
+                          "type": "file",
+                          "name": "file"
+                      },
+                      {
+                          "type": "text",
+                          "name": "fileSystemType"
+                      },
+                      {
+                          "type": "text",
+                          "name": "fileId"
+                      }
+                  ]
+              },
+              {
+                  "type": "application/x-www-form-urlencoded",
+                  "title": "Attach a link to the assignment folder",
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387/attach-link",
+                  "name": "add-link",
+                  "method": "POST",
+                  "fields": [
+                      {
+                          "type": "text",
+                          "name": "name"
+                      },
+                      {
+                          "type": "url",
+                          "name": "href"
+                      }
+                  ]
+              },
+              {
+                  "type": "application/x-www-form-urlencoded",
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387/attach-link",
+                  "name": "add-google-drive-link",
+                  "method": "POST",
+                  "fields": [
+                      {
+                          "type": "text",
+                          "name": "name"
+                      },
+                      {
+                          "type": "url",
+                          "name": "href"
+                      }
+                  ]
+              },
+              {
+                  "type": "application/x-www-form-urlencoded",
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387/attach-link",
+                  "name": "add-onedrive-link",
+                  "method": "POST",
+                  "fields": [
+                      {
+                          "type": "text",
+                          "name": "name"
+                      },
+                      {
+                          "type": "url",
+                          "name": "href"
+                      }
+                  ]
+              }
+          ],
+          "links": [
+              {
+                  "rel": [
+                      "self"
+                  ],
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387/attachments"
+              },
+              {
+                  "rel": [
+                      "https://files.api.brightspace.com/rels/files"
+                  ],
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.files.api.dev.brightspace.com/123069"
+              }
+          ]
+      },
+      {
+          "class": [
+              "annotations",
+              "enabled"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/annotations"
+          ],
+          "actions": [
+              {
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+                  "name": "update-annotation-tools-availability",
+                  "method": "PATCH",
+                  "fields": [
+                      {
+                          "type": "checkbox",
+                          "name": "annotationToolsAvailability"
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "class": [
+              "folder-type",
+              "individual",
+              "no-group-type"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/folder-type"
+          ],
+          "properties": {
+              "informationText": "No groups exist. Create new groups in the Groups tool."
+          },
+          "entities": [
+              {
+                  "class": [
+                      "groups-homepage"
+                  ],
+                  "rel": [
+                      "https://assignments.api.brightspace.com/rels/groups-homepage"
+                  ],
+                  "properties": {
+                      "url": "https://uxdtesla.devlms.brightspace.com/d2l/lms/group/group_list.d2l?ou=123069"
+                  }
+              }
+          ]
+      },
+      {
+          "class": [
+              "submissions-rule"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/submissions-rule"
+          ],
+          "properties": {
+              "rule": {
+                  "title": "All submissions are kept",
+                  "value": "keepall"
+              }
+          },
+          "actions": [
+              {
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+                  "name": "update-submissions-rule",
+                  "method": "PATCH",
+                  "fields": [
+                      {
+                          "type": "radio",
+                          "name": "submissionsRule",
+                          "value": [
+                              {
+                                  "title": "All submissions are kept",
+                                  "value": "keepall",
+                                  "selected": true
+                              },
+                              {
+                                  "title": "Only one submission allowed",
+                                  "value": "onlyone",
+                                  "selected": false
+                              },
+                              {
+                                  "title": "Only the most recent submission is kept",
+                                  "value": "overwritesubmissions",
+                                  "selected": false
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "class": [
+              "files-submission-limit"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/files-submission-limit"
+          ],
+          "properties": {
+              "limit": "unlimited"
+          },
+          "actions": [
+              {
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+                  "name": "update-files-submission-limit",
+                  "method": "PATCH",
+                  "fields": [
+                      {
+                          "type": "radio",
+                          "name": "filesSubmissionLimit",
+                          "value": [
+                              {
+                                  "title": "Unlimited",
+                                  "value": "unlimited",
+                                  "selected": true
+                              },
+                              {
+                                  "title": "OneFilePerSubmission",
+                                  "value": "onefilepersubmission",
+                                  "selected": false
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "class": [
+              "notification-email"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/notification-email"
+          ],
+          "properties": {
+              "email": ""
+          },
+          "actions": [
+              {
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+                  "name": "update-notification-email",
+                  "method": "PATCH",
+                  "fields": [
+                      {
+                          "type": "text",
+                          "name": "notificationEmail",
+                          "value": ""
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "class": [
+              "richtext",
+              "instructions",
+              "annotated"
+          ],
+          "rel": [
+              "item",
+              "https://assignments.api.brightspace.com/rels/instructions"
+          ],
+          "properties": {
+              "text": "Just some stuff for Ryan. It is nothing big.Iracundia suscipiantur at vim, eum delenit percipitur ex, has ei impedit ponderum. Id eum omittam quaerendum, sea vulputate definiebas intellegam ut, modo sumo sanctus ea eum. Unum diceret sed an, utinam everti saperet sea ea. Id inani fuisset fabellas est, hinc tollit aliquip sit cu, te sea laoreet expetendis. Sea blandit accumsan id. Melius legimus ut ius, ex molestiae sententiae vix, duo tantas facilisi id. ",
+              "html": "Just some stuff for Ryan. It is nothing big.Iracundia suscipiantur at vim, eum delenit percipitur ex, has ei impedit ponderum. Id eum omittam quaerendum, sea vulputate definiebas intellegam ut, modo sumo sanctus ea eum. Unum diceret sed an, utinam everti saperet sea ea. Id inani fuisset fabellas est, hinc tollit aliquip sit cu, te sea laoreet expetendis. Sea blandit accumsan id. Melius legimus ut ius, ex molestiae sententiae vix, duo tantas facilisi id. "
+          },
+          "entities": [
+              {
+                  "class": [
+                      "richtext-editor-config"
+                  ],
+                  "rel": [
+                      "https://api.brightspace.com/rels/richtext-editor-config"
+                  ],
+                  "properties": {
+                      "orgUnit": {
+                          "OrgId": "6606",
+                          "OrgUnitId": "123069"
+                      },
+                      "d2l_filter": {
+                          "endpoint": "/d2l/lp/htmleditor/converttoabsolute?ou=123069"
+                      },
+                      "d2l_isf": {
+                          "endpoint": "/d2l/common/dialogs/isf/selectItem.d2l?ou=123069&filterMode=Strict"
+                      }
+                  }
+              }
+          ],
+          "actions": [
+              {
+                  "type": "application/x-www-form-urlencoded",
+                  "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+                  "name": "update-instructions",
+                  "method": "PATCH",
+                  "fields": [
+                      {
+                          "type": "text",
+                          "name": "instructions",
+                          "value": "Just some stuff for Ryan. It is nothing big.Iracundia suscipiantur at vim, eum delenit percipitur ex, has ei impedit ponderum. Id eum omittam quaerendum, sea vulputate definiebas intellegam ut, modo sumo sanctus ea eum. Unum diceret sed an, utinam everti saperet sea ea. Id inani fuisset fabellas est, hinc tollit aliquip sit cu, te sea laoreet expetendis. Sea blandit accumsan id. Melius legimus ut ius, ex molestiae sententiae vix, duo tantas facilisi id. "
+                      }
+                  ]
+              }
+          ]
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "self"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387"
+      },
+      {
+          "rel": [
+              "service"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/internal-activity-id"
+          ],
+          "href": "https://ids.brightspace.com/activities/dropbox/4A721607-E353-4BAE-B7EE-3C7C2D4573F1-5"
+      },
+      {
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/attachments"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387/attachments"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/organization"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.organizations.api.dev.brightspace.com/123069"
+      },
+      {
+          "rel": [
+              "alternate"
+          ],
+          "type": "text/html",
+          "href": "https://uxdtesla.devlms.brightspace.com/d2l/lms/dropbox/admin/mark/folder_submissions_users.d2l?ou=123069&db=1387"
+      }
+  ],
+  "actions": [
+      {
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "update-name",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "class": [
+                      "required"
+                  ],
+                  "type": "text",
+                  "name": "name",
+                  "value": "Dropbox >> 2019-09-03T13:30:00.000Z"
+              }
+          ]
+      },
+      {
+          "class": [
+              "link-attachment"
+          ],
+          "type": "application/x-www-form-urlencoded",
+          "title": "Edit an assignment folder with defaults",
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "quick-create-folder",
+          "method": "PUT",
+          "fields": [
+              {
+                  "class": [
+                      "required"
+                  ],
+                  "type": "text",
+                  "title": "Folder name",
+                  "name": "name",
+                  "value": "Dropbox >> 2019-09-03T13:30:00.000Z"
+              },
+              {
+                  "type": "text",
+                  "title": "Instructions",
+                  "name": "instructions",
+                  "value": "Just some stuff for Ryan. It is nothing big.Iracundia suscipiantur at vim, eum delenit percipitur ex, has ei impedit ponderum. Id eum omittam quaerendum, sea vulputate definiebas intellegam ut, modo sumo sanctus ea eum. Unum diceret sed an, utinam everti saperet sea ea. Id inani fuisset fabellas est, hinc tollit aliquip sit cu, te sea laoreet expetendis. Sea blandit accumsan id. Melius legimus ut ius, ex molestiae sententiae vix, duo tantas facilisi id. "
+              },
+              {
+                  "type": "date",
+                  "title": "Due date",
+                  "name": "dueDate",
+                  "value": "2019-09-03T13:30:00.000Z"
+              },
+              {
+                  "type": "checkbox",
+                  "title": "Draft",
+                  "name": "draft",
+                  "value": false
+              },
+              {
+                  "type": "text",
+                  "title": "Default Scoring Rubric Id",
+                  "name": "defaultScoringRubricId"
+              },
+              {
+                  "type": "checkbox",
+                  "title": "Create a grade item for the folder",
+                  "name": "addToGrades",
+                  "value": false
+              },
+              {
+                  "type": "number",
+                  "title": "Specify how many points the assignment is worth",
+                  "name": "outOf",
+                  "value": 0.0
+              }
+          ]
+      },
+      {
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "update-submission-type",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "type": "radio",
+                  "title": "Submission Type",
+                  "name": "submissionType",
+                  "value": [
+                      {
+                          "title": "File submission",
+                          "value": 0,
+                          "completionTypes": null,
+                          "selected": true
+                      },
+                      {
+                          "title": "Text submission",
+                          "value": 1,
+                          "completionTypes": null,
+                          "selected": false
+                      },
+                      {
+                          "title": "On paper submission",
+                          "value": 2,
+                          "completionTypes": [
+                              1,
+                              2,
+                              3
+                          ],
+                          "selected": false
+                      },
+                      {
+                          "title": "Observed in person",
+                          "value": 3,
+                          "completionTypes": [
+                              1,
+                              2,
+                              3
+                          ],
+                          "selected": false
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "update-completion-type",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "type": "radio",
+                  "title": "Completion Type",
+                  "name": "completionType",
+                  "value": [
+                      {
+                          "title": "Automatically on submission",
+                          "value": 0,
+                          "selected": true
+                      },
+                      {
+                          "title": "Manually by learners",
+                          "value": 2,
+                          "selected": false
+                      },
+                      {
+                          "title": "Automatically on evaluation",
+                          "value": 3,
+                          "selected": false
+                      },
+                      {
+                          "title": "Automatically on due date",
+                          "value": 1,
+                          "selected": false
+                      }
+                  ]
+              }
+          ]
+      },
+      {
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "update-max-grade-point",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "type": "number",
+                  "name": "outOf",
+                  "value": 0.0
+              }
+          ]
+      },
+      {
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "update-default-scoring-rubric",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "type": "text",
+                  "name": "defaultScoringRubricId",
+                  "value": "-1"
+              }
+          ]
+      },
+      {
+          "title": "Delete an assignment folder",
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387",
+          "name": "delete-folder",
+          "method": "DELETE"
+      },
+      {
+          "title": "Cancel creating an assignment folder",
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.assignments.api.dev.brightspace.com/123069/folders/1387?isCancel=1",
+          "name": "cancel-folder",
+          "method": "DELETE"
+      }
+  ],
+  "rel": [
+      "https://assignments.api.brightspace.com/rels/assignment"
+  ]
+}

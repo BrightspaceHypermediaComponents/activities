@@ -11,6 +11,10 @@ export class Quiz {
 		this._saving = null;
 	}
 
+	delete() {
+		return this._entity.delete();
+	}
+
 	get dirty() {
 		return !this._entity.equals(this._makeQuizData());
 	}
@@ -31,6 +35,8 @@ export class Quiz {
 		this._entity = entity;
 		this.name = entity.name();
 		this.canEditName = entity.canEditName();
+		this.canEditShuffle = entity.canEditShuffle();
+		this.isShuffleEnabled = entity.isShuffleEnabled();
 		this.canEditHints = entity.canEditHints();
 		this.hintsToolEnabled = entity.getHintsToolEnabled();
 		this.password = entity.password();
@@ -39,8 +45,14 @@ export class Quiz {
 		this.isDisableRightClickEnabled = entity.isDisableRightClickEnabled();
 		this.canEditDisablePagerAndAlerts = entity.canEditDisablePagerAndAlerts();
 		this.isDisablePagerAndAlertsEnabled = entity.isDisablePagerAndAlertsEnabled();
+		this.isPreventMovingBackwardsEnabled = entity.isPreventMovingBackwardsEnabled();
+		this.canEditPreventMovingBackwards = entity.canEditPreventMovingBackwards();
 		this.canEditNotificationEmail = entity.canEditNotificationEmail();
 		this.notificationEmail = entity.notificationEmail();
+		this.previewHref = entity.previewHref();
+		this.canPreviewQuiz = entity.canPreviewQuiz();
+		this.isAutoSetGradedEnabled = entity.isAutoSetGradedEnabled();
+		this.canEditAutoSetGraded = entity.canEditAutoSetGraded();
 	}
 
 	async save() {
@@ -59,6 +71,11 @@ export class Quiz {
 
 		await this.fetch();
 	}
+
+	setAutoSetGraded(isEnabled) {
+		this.isAutoSetGradedEnabled = isEnabled;
+	}
+
 	setDisablePagerAndAlertsTool(isEnabled) {
 		this.isDisablePagerAndAlertsEnabled = isEnabled;
 	}
@@ -83,6 +100,14 @@ export class Quiz {
 		this.password = value;
 	}
 
+	setPreventMovingBackwards(value) {
+		this.isPreventMovingBackwardsEnabled = value;
+	}
+
+	setShuffle(isEnabled) {
+		this.isShuffleEnabled = isEnabled;
+	}
+
 	_makeQuizData() {
 		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
 					 The cancel workflow is making use of that to detect changes.
@@ -90,10 +115,13 @@ export class Quiz {
 		const data = {
 			name: this.name,
 			allowHints: this.hintsToolEnabled,
+			shuffle: this.isShuffleEnabled,
 			password: this.password,
 			disableRightClick: this.isDisableRightClickEnabled,
 			disablePagerAndAlerts: this.isDisablePagerAndAlertsEnabled,
-			notificationEmail: this.notificationEmail
+			preventMovingBackwards: this.isPreventMovingBackwardsEnabled,
+			notificationEmail: this.notificationEmail,
+			autoSetGraded: this.isAutoSetGradedEnabled
 		};
 
 		return data;
@@ -104,23 +132,35 @@ decorate(Quiz, {
 	// props
 	name: observable,
 	canEditName: observable,
+	canEditShuffle: observable,
 	canEditHints: observable,
 	canEditDisableRightClick: observable,
+	canEditPreventMovingBackwards: observable,
 	canEditDisablePagerAndAlerts: observable,
+	canEditAutoSetGraded: observable,
+	isShuffleEnabled: observable,
 	hintsToolEnabled: observable,
 	password: observable,
 	canEditPassword: observable,
 	isDisableRightClickEnabled: observable,
 	isDisablePagerAndAlertsEnabled: observable,
+	isPreventMovingBackwardsEnabled: observable,
 	canEditNotificationEmail: observable,
 	notificationEmail: observable,
+	previewHref: observable,
+	canPreviewQuiz: observable,
+	isAutoSetGradedEnabled: observable,
 	// actions
 	load: action,
 	setName: action,
+	setShuffle: action,
 	setHintsToolEnabled: action,
 	setPassword: action,
 	setDisableRightClick: action,
 	setDisablePagerAndAlertsTool: action,
+	setPreventMovingBackwards: action,
 	setNotificationEmail: action,
+	setAutoSetGraded: action,
 	save: action,
+	delete: action
 });

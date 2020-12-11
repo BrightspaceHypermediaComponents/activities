@@ -1,15 +1,13 @@
-import 'd2l-inputs/d2l-input-text.js';
-
 import '../d2l-activity-accordion-collapse.js';
 import './d2l-activity-assignment-submission-email-notification-summary.js';
 import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-type-summary.js';
+import '../d2l-activity-notification-email-editor';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { ErrorHandlingMixin } from '../error-handling-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
@@ -18,12 +16,11 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(ErrorHandlingMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))))) {
 
 	static get properties() {
 
 		return {
-			_notificationEmailError: { type: String },
 			href: { type: String },
 			token: { type: Object },
 			_m4EmailNotificationEnabled: { type: Boolean }
@@ -63,13 +60,8 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 					margin-bottom: 10px;
 				}
 
-				#notification-email {
-					margin-bottom: 2px;
+				#notification-email-editor-description {
 					margin-top: 10px;
-				}
-
-				#notification-email-tooltip {
-					z-index: auto;
 				}
 			`
 		];
@@ -117,21 +109,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		await assignment.save();
 	}
 
-	_checkNotificationEmail(e) {
-		const errorProperty = '_notificationEmailError';
-		const invalidNotificationEmailErrorLangterm = 'invalidNotificationEmailError';
-		const tooltipId = 'notification-email-tooltip';
-
-		const notificationEmail = e.target.value;
-		const isEmpty = (notificationEmail || '').length === 0;
-
-		const matches = /^(\s?[^\s,]+@[^\s,]+\.[^\s,]+\s?,)*(\s?[^\s,]+@[^\s,]+\.[^\s,]+)$/.exec(notificationEmail);
-		if (!isEmpty && matches === null) {
-			this.setError(errorProperty, invalidNotificationEmailErrorLangterm, tooltipId);
-		} else {
-			this.clearError(errorProperty);
-		}
-	}
 	_getCompletionTypeOptions(assignment) {
 		const completionTypeOptions = assignment && assignment.submissionAndCompletionProps ? assignment.submissionAndCompletionProps.completionTypeOptions : [];
 		const completionType = assignment && assignment.submissionAndCompletionProps ? assignment.submissionAndCompletionProps.completionType : '0';
@@ -140,15 +117,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 			${completionTypeOptions.map(option => html`<option value=${option.value} ?selected=${String(option.value) === completionType}>${option.title}</option>`)}
 		`;
 	}
-	_getNotificationEmailTooltip() {
-		if (this._notificationEmailError) {
-			return html`
-				<d2l-tooltip id="notification-email-tooltip" for="notification-email" state="error" align="start" offset="10">
-					${this._notificationEmailError}
-				</d2l-tooltip>
-			`;
-		}
-	}
+
 	_getSelectedCompletionType(assignment) {
 		if (!assignment ||
 			!assignment.submissionAndCompletionProps ||
@@ -179,9 +148,10 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 
 	_onNotificationEmailChanged(e) {
 		const assignment = store.get(this.href);
-		const data = e.target.value;
+		const data = e.detail.value;
 		assignment && assignment.setNotificationEmail(data);
 	}
+
 	_renderAssignmentCompletionType(assignment) {
 		if (!assignment ||
 			!assignment.submissionAndCompletionProps ||
@@ -280,30 +250,17 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		}
 
 		return html`
-		<div id="assignment-notification-email-container">
-			<div class="d2l-label-text">
-				${this.localize('hdrSubmissionNotificationEmail')}
+			<div id="assignment-notification-email-container">
+				<d2l-activity-notification-email-editor
+					value="${assignment.notificationEmail}"
+					?disabled="${!assignment.canEditNotificationEmail}"
+					@activity-notification-email-changed="${this._onNotificationEmailChanged}">
+					<p slot="description" id="notification-email-editor-description" class="d2l-body-small">
+						${this.localize('hlpSubmissionNotificationEmail')}
+					</p>
+				</d2l-activity-notification-email-editor>
 			</div>
-			<p class="d2l-body-small">
-				${this.localize('hlpSubmissionNotificationEmail')}
-			</p>
-
-			<d2l-input-text
-				id="notification-email"
-				label="${this.localize('hdrSubmissionNotificationEmail')}"
-				label-hidden
-				value="${assignment.notificationEmail}"
-				maxlength="1024"
-				?disabled="${!assignment.canEditNotificationEmail}"
-				@change="${this._onNotificationEmailChanged}"
-				@blur="${this._checkNotificationEmail}"
-				aria-invalid="${this._notificationEmailError ? 'true' : ''}"
-				skip-alert
-				novalidate
-			></d2l-input-text>
-			${this._getNotificationEmailTooltip()}
-		</div>
-	`;
+		`;
 	}
 	_renderAssignmentSubmissionsRule(assignment) {
 

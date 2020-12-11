@@ -108,8 +108,7 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 	}
 
 	_renderReleaseConditionEditor() {
-		const activity = store.get(this.href);
-		if (!this._m3ReleaseConditionsEnabled || !activity || !activity.canEditReleaseConditions) {
+		if (!this._m3ReleaseConditionsEnabled) {
 			return html``;
 		}
 

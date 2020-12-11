@@ -74,6 +74,8 @@ export default {
 	"editor.discardChangesQuestion": "Are you sure you want to discard your changes?", // Discard Changes User Prompt
 	"editor.yesLabel": "Yes",
 	"editor.noLabel": "No",
+	"editor.notificationEmailLabel": "Notification Email", // Label for notification email input field
+	"editor.invalidNotificationEmailError": "Please enter a valid email address", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "Add rubric", //text for add rubric button
 	"rubrics.btnCreateNew": "Create New", //Text for create new dropdown

@@ -1,0 +1,334 @@
+{
+  "class": [
+      "named-entity",
+      "describable-entity",
+      "draft-published-entity",
+      "published",
+      "active",
+      "course-offering"
+  ],
+  "properties": {
+      "name": "Actuators & Power Electronics",
+      "code": "MTE320",
+      "startDate": null,
+      "endDate": null,
+      "isActive": true,
+      "description": "Some generic information about transformers and field trips to transformer factories."
+  },
+  "entities": [
+      {
+          "class": [
+              "richtext",
+              "description"
+          ],
+          "rel": [
+              "item"
+          ],
+          "properties": {
+              "text": "",
+              "html": null
+          }
+      },
+      {
+          "class": [
+              "color"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/color"
+          ],
+          "properties": {
+              "hexString": "#00635e",
+              "description": ""
+          }
+      },
+      {
+          "class": [
+              "course-image"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/organization-image",
+              "nofollow"
+          ],
+          "href": "#"
+      },
+      {
+          "class": [
+              "relative-uri"
+          ],
+          "rel": [
+              "item",
+              "https://api.brightspace.com/rels/organization-homepage"
+          ],
+          "properties": {
+              "path": "/d2l/home/{{orgId}}"
+          }
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/my-organization-awards"
+          ],
+          "href": "https://{{tenantId}}.awards.api.dev.brightspace.com/organizations/{{orgId}}/users/{{userId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/folio-org"
+          ],
+          "href": "https://{{tenantId}}.folio.api.dev.brightspace.com/organizations/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://folio.api.brightspace.com/rels/manage"
+          ],
+          "href": "https://portfolio.api.dev.brightspace.com/api/{{tenantId}}/evidence?orgUnitId={{orgId}}"
+      },
+      {
+          "rel": [
+              "https://folio.api.brightspace.com/rels/filter-instructors"
+          ],
+          "href": "https://{{tenantId}}.enrollments.api.dev.brightspace.com/organizations/{{orgId}}?sort=eyJTb3J0cyI6W3siU29ydCI6eyJJZCI6Ijg1Y2RiY2UzLTAwNjctNDJjNC1hNDMwLWU5YjcxNjgxZDZmZiJ9LCJEaXJlY3Rpb24iOjB9LHsiU29ydCI6eyJJZCI6ImFmNjBhNzczLWY4N2YtNDkwZi04ZWVkLTVjZjQ5MTk0OGM4NiJ9LCJEaXJlY3Rpb24iOjB9XX0&filter=eyI4NzE1Y2Q4YS1jMWVhLTRkYjUtYTRlMy0yMjdlMDhhYTU3OTkiOlsiaW5zdHJ1Y3RvciJdfQ"
+      },
+      {
+          "rel": [
+              "https://folio.api.brightspace.com/rels/filter-students"
+          ],
+          "href": "https://{{tenantId}}.enrollments.api.dev.brightspace.com/organizations/{{orgId}}?sort=eyJTb3J0cyI6W3siU29ydCI6eyJJZCI6Ijg1Y2RiY2UzLTAwNjctNDJjNC1hNDMwLWU5YjcxNjgxZDZmZiJ9LCJEaXJlY3Rpb24iOjB9LHsiU29ydCI6eyJJZCI6ImFmNjBhNzczLWY4N2YtNDkwZi04ZWVkLTVjZjQ5MTk0OGM4NiJ9LCJEaXJlY3Rpb24iOjB9XX0&filter=eyI4NzE1Y2Q4YS1jMWVhLTRkYjUtYTRlMy0yMjdlMDhhYTU3OTkiOlsic3R1ZGVudCJdfQ"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/organization-activities"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activityusages/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/my-organization-activities"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activityusages/{{orgId}}/users/{{userId}}?start=2020-11-16T20%3a46%3a32.628Z&end=2020-11-23T20%3a46%3a32.628Z"
+      },
+      {
+          "rel": [
+              "https://checklists.api.brightspace.com/rels/checklists"
+          ],
+          "href": "https://{{tenantId}}.checklists.api.dev.brightspace.com/organizations/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_706000_{{orgId}}/usages/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/sequence"
+          ],
+          "href": "https://{{tenantId}}.sequences.api.dev.brightspace.com/{{orgId}}?deepEmbedEntities=1&embedDepth=1&filterOnDatesAndDepth=0"
+      },
+      {
+          "rel": [
+              "https://files.api.brightspace.com/rels/files"
+          ],
+          "href": "https://{{tenantId}}.files.api.dev.brightspace.com/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/discussions"
+          ],
+          "href": "https://{{tenantId}}.discussions.api.dev.brightspace.com/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/assignments"
+          ],
+          "href": "https://{{tenantId}}.assignments.api.dev.brightspace.com/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/my-organization-grades"
+          ],
+          "href": "https://{{tenantId}}.grades.api.dev.brightspace.com/organizations/{{orgId}}/users/{{userId}}"
+      },
+      {
+          "rel": [
+              "https://outcomes.api.brightspace.com/rels/intents"
+          ],
+          "href": "https://{{tenantId}}.outcomes.api.dev.brightspace.com/intents/66ebe6c5-d152-48ae-8284-41d802a4fa41"
+      },
+      {
+          "rel": [
+              "https://announcements.api.brightspace.com/rels/organization-announcements"
+          ],
+          "href": "https://{{tenantId}}.announcements.api.dev.brightspace.com/organizations/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://surveys.api.brightspace.com/rels/surveys"
+          ],
+          "href": "https://{{tenantId}}.surveys.api.dev.brightspace.com/organizations/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://notifications.api.brightspace.com/rels/organization-notifications"
+          ],
+          "href": "https://{{tenantId}}.notifications.api.dev.brightspace.com/my-notifications/organizations/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/enrollments"
+          ],
+          "href": "https://{{tenantId}}.enrollments.api.dev.brightspace.com/organizations/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/course-offering-info-page"
+          ],
+          "type": "text/html",
+          "href": "https://{{htmlAddress}}/d2l/lp/manageCourses/course_offering_info_viewedit.d2l?ou={{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/organization-homepage"
+          ],
+          "type": "text/html",
+          "href": "https://{{htmlAddress}}/d2l/home/{{orgId}}"
+      },
+      {
+          "rel": [
+              "self"
+          ],
+          "href": "./data/base/basic-organization"
+      },
+      {
+          "rel": [
+              "https://enrollments.api.brightspace.com/rels/primary-facilitators"
+          ],
+          "href": "https://{{tenantId}}.enrollments.api.dev.brightspace.com/organizations/{{orgId}}?filter=eyJkN2E5ZTM5Ny1lMDFiLTRjZjctODIxZS1mYWU3M2Q2MjgzMDUiOlsicHJpbWFyeUluc3RydWN0b3IiXX0"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/notification-alerts"
+          ],
+          "href": "https://{{tenantId}}.alerts.api.dev.brightspace.com/notification-alerts"
+      },
+      {
+          "rel": [
+              "https://notifications.api.brightspace.com/rels/my-alerts"
+          ],
+          "href": "https://{{tenantId}}.notifications.api.dev.brightspace.com/alerts/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/rubrics"
+          ],
+          "href": "https://{{tenantId}}.rubrics.api.dev.brightspace.com/organizations/{{orgId}}"
+      },
+      {
+          "class": [
+              "active",
+              "theme"
+          ],
+          "rel": [
+              "https://themes.api.brightspace.com/rels/theme"
+          ],
+          "href": "https://{{tenantId}}.themes.api.dev.brightspace.com/{{orgId}}/3"
+      }
+  ],
+  "actions": [
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}",
+          "name": "update-name",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "class": [
+                      "required"
+                  ],
+                  "type": "text",
+                  "name": "name",
+                  "value": "FolioCourse"
+              }
+          ]
+      },
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}",
+          "name": "update-description",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "class": [
+                      "required"
+                  ],
+                  "type": "text",
+                  "name": "description",
+                  "value": ""
+              }
+          ]
+      },
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}",
+          "name": "update-draft",
+          "method": "PATCH",
+          "fields": [
+              {
+                  "type": "checkbox",
+                  "name": "draft",
+                  "value": false
+              }
+          ]
+      },
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}/completion-tracking",
+          "name": "track-completion",
+          "method": "PUT",
+          "fields": [
+              {
+                  "type": "hidden",
+                  "name": "track",
+                  "value": true
+              }
+          ]
+      },
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}/completion-tracking/display-progress",
+          "name": "display-progress",
+          "method": "PUT",
+          "fields": [
+              {
+                  "type": "hidden",
+                  "name": "enable",
+                  "value": true
+              }
+          ]
+      },
+      {
+          "href": "https://{{htmlAddress}}/d2l/api/lp/1.9/courses/{{orgId}}/image",
+          "name": "set-catalog-image",
+          "method": "POST",
+          "fields": [
+              {
+                  "type": "text",
+                  "name": "imagePath",
+                  "value": ""
+              }
+          ]
+      },
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}",
+          "name": "add-homepage-banner",
+          "method": "PUT",
+          "fields": [
+              {
+                  "type": "hidden",
+                  "name": "showCourseBanner",
+                  "value": true
+              }
+          ]
+      },
+      {
+          "href": "https://{{tenantId}}.organizations.api.dev.brightspace.com/{{orgId}}",
+          "name": "delete",
+          "method": "DELETE"
+      }
+  ]
+}

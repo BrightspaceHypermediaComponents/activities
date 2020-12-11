@@ -3,6 +3,7 @@ import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -16,26 +17,10 @@ class ActivityAssignmentAnonymousMarkingEditor
 		return [
 			bodySmallStyles,
 			labelStyles,
+			checkboxStyles,
 			css`
-			:host {
-				display: block;
-			}
-
-			:host([hidden]) {
-				display: none;
-			}
-
 			.d2l-body-small {
 				margin: 0 0 0.3rem 0;
-			}
-
-			d2l-input-checkbox {
-				padding-right: 1rem;
-			}
-
-			:host([dir="rtl"]) d2l-input-checkbox {
-				padding-left: 1rem;
-				padding-right: 0;
 			}
 
 			d2l-input-checkbox-spacer {

@@ -1,15 +1,19 @@
 import '../d2l-activity-accordion-collapse.js';
 import './d2l-activity-quiz-disable-pager-and-alerts-editor.js';
+import './d2l-activity-quiz-prevent-moving-backwards-editor.js';
+import './d2l-activity-quiz-prevent-moving-backwards-summary.js';
 import './d2l-activity-quiz-disable-pager-and-alerts-summary.js';
 import './d2l-activity-quiz-disable-right-click-editor.js';
 import './d2l-activity-quiz-disable-right-click-summary.js';
 import './d2l-activity-quiz-hints-editor.js';
 import './d2l-activity-quiz-hints-summary.js';
+import './d2l-activity-quiz-shuffle-editor.js';
+import './d2l-activity-quiz-shuffle-summary.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
-import { html } from 'lit-element/lit-element.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -30,7 +34,12 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 		return [
 			super.styles,
 			accordionStyles,
-			labelStyles
+			labelStyles,
+			css`
+				.d2l-editors:not(:first-of-type) {
+					margin-top: 20px;
+				}
+			`,
 		];
 	}
 
@@ -48,13 +57,31 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 					${this.localize('hdrTimingAndDisplay')}
 				</span>
 
+				// the summary text order is specific and should only be changed if required in a story
+
+				<li slot="summary-items">${this._renderPreventMovingBackwardsSummary()}</li>
+				<li slot="summary-items">${this._renderShuffleSummary()}</li>
 				<li slot="summary-items">${this._renderAllowHintsSummary()}</li>
 				<li slot="summary-items">${this._renderDisableRightClickSummary()}</li>
 				<li slot="summary-items">${this._renderDisablePagerAndAlertsSummary()}</li>
 
 				<div class="d2l-editors" slot="components">
 					<label class="d2l-label-text">
-						${this.localize('displayTools')}
+						${this.localize('subHdrPagingTools')}
+					</label>
+					${this._renderPreventMovingBackwardsEditor()}
+				</div>
+
+				<div class="d2l-editors" slot="components">
+					<label class="d2l-label-text">
+						${this.localize('subHdrShuffleQuiz')}
+					</label>
+					${this._renderShuffleEditor()}
+				</div>
+
+				<div class="d2l-editors" slot="components">
+					<label class="d2l-label-text">
+						${this.localize('subHdrDisplayTools')}
 					</label>
 					${this._renderHintsEditor()}
 					${this._renderDisableRightClickEditor()}
@@ -80,10 +107,10 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 
 	_renderDisablePagerAndAlertsEditor() {
 		return html`
-			<d2l-activity-quiz-disable-pager-and-alerts
+			<d2l-activity-quiz-disable-pager-and-alerts-editor
 				href="${this.href}"
 				.token="${this.token}">
-			</d2l-activity-quiz-disable-pager-and-alerts>
+			</d2l-activity-quiz-disable-pager-and-alerts-editor>
 		`;
 	}
 
@@ -123,6 +150,41 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 		`;
 	}
 
+	_renderPreventMovingBackwardsEditor() {
+		return html`
+				<d2l-activity-quiz-prevent-moving-backwards-editor
+					href="${this.href}"
+					.token="${this.token}">
+				</d2l-activity-quiz-prevent-moving-backwards-editor>
+		`;
+	}
+
+	_renderPreventMovingBackwardsSummary() {
+		return html`
+			<d2l-activity-quiz-prevent-moving-backwards-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-quiz-prevent-moving-backwards-summary>
+		`;
+	}
+
+	_renderShuffleEditor() {
+		return html`
+			<d2l-activity-quiz-shuffle-editor
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-quiz-shuffle-editor>
+		`;
+	}
+
+	_renderShuffleSummary() {
+		return html`
+			<d2l-activity-quiz-shuffle-summary
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-quiz-shuffle-summary>
+		`;
+	}
 }
 
 customElements.define(

@@ -1,0 +1,145 @@
+{
+  "class": [
+      "user-assignment-activity",
+      "activity"
+  ],
+  "entities": [
+      {
+          "class": [
+              "assignment-submission-list"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/assignment-submission-list"
+          ]
+      },
+      {
+          "class": [
+              "relative-uri"
+          ],
+          "rel": [
+              "item",
+              "https://assessments.api.brightspace.com/rels/assessment-application"
+          ],
+          "properties": {
+              "path": "/d2l/lms/dropbox/admin/mark/folder_user_mark.d2l?ou=123069&db=1387&d2l_itemId=30260&d2l_iterId=0&etid=2"
+          }
+      },
+      {
+          "class": [
+              "evaluation"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/evaluation"
+          ],
+          "properties": {
+              "state": "Unevaluated"
+          }
+      },
+      {
+          "class": [
+              "due-date",
+              "date"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/date"
+          ],
+          "properties": {
+              "date": "2019-09-03T13:30:00.000Z",
+              "localizedDate": "2019-09-03T09:30:00.000"
+          }
+      },
+      {
+        "class": [
+            "start-date",
+            "date"
+        ],
+        "rel": [
+            "https://api.brightspace.com/rels/date"
+        ],
+        "properties": {
+            "date": "2019-08-03T13:30:00.000Z",
+            "localizedDate": "2019-08-03T09:30:00.000"
+        }
+    },
+      {
+          "class": [
+              "completion",
+              "incomplete"
+          ],
+          "rel": [
+              "item",
+              "https://activities.api.brightspace.com/rels/completion"
+          ]
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/user-activity-usage",
+              "self"
+          ],
+          "href": "./data/base/assignment-activity-usage.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "#"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/user"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.users.api.dev.brightspace.com/30260"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/organization"
+          ],
+          "href": "./data/base/basic-organization.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/evaluation"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/user_30260/evaluation"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/associations"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/30260/associations"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/assignment"
+          ],
+          "href": "./data/base/assignment.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/feedback"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/user_30260/feedback"
+      },
+      {
+          "rel": [
+              "https://alignments.api.brightspace.com/rels/alignments"
+          ],
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.alignments.api.dev.brightspace.com/user-activity-usage/6606_2000_1387/123069/30260"
+      }
+  ],
+  "actions": [
+      {
+          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/30260/associations",
+          "name": "query-associations",
+          "method": "GET",
+          "fields": [
+              {
+                  "type": "text",
+                  "name": "type"
+              }
+          ]
+      }
+  ]
+}

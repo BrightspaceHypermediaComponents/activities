@@ -2,16 +2,21 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { formatDate, formatTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityDateMixin } from './localization';
 import { nothing } from 'lit-html/lit-html';
 
-class D2LActivityDate extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class D2LActivityDate extends EntityMixinLit(LocalizeActivityDateMixin(LitElement)) {
 
 	static get properties() {
 		return {
+			/** Indicates if component should display pre-string (eg: 'Ends on') or just the date alone */
+			dateOnly: { type: Boolean, attribute: 'date-only' },
+			/** Indicates format of date to display - based on formatDate function from dateTime lib */
 			format: { type: String, attribute: 'format' },
+			/** Indicates if component should render time of due/end date */
 			includeTime: { type: Boolean, attribute: 'include-time' },
-			_date: { type: Object }
+			/** Usage entity associated with the activity for rendering */
+			_usage: { type: Object }
 		};
 	}
 
@@ -28,28 +33,9 @@ class D2LActivityDate extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
-	}
-
 	constructor() {
 		super();
+		this.dateOnly = false;
 		this.format = 'MMMM d';
 		this.includeTime = false;
 		this._setEntityType(ActivityUsageEntity);
@@ -57,40 +43,47 @@ class D2LActivityDate extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
-			this._onActivityUsageChange(entity);
+			this._usage = entity;
 			super._entity = entity;
 		}
 	}
 
-	_onActivityUsageChange(usage) {
-		this._date = this._getActivityDate(usage);
-	}
-
 	render() {
-		const stringFactory = (date, format, includeTime) => {
-			const type = includeTime ? `${date.type}Timed` : date.type;
-			return this.localize(
-				type,
-				'date', formatDate(date.date, { format: format }),
-				'time', includeTime && formatTime(date.date));
-		};
+		if (!this._date) {
+			return nothing;
+		}
 
-		return this._date
-			? html `${stringFactory(this._date, this.format, this.includeTime)}`
-			: nothing;
+		const template = this.dateOnly
+			? this.localize(
+				`onlyDate${this.includeTime ? 'Timed' : ''}`,
+				'date', formatDate(this._date, { format: this.format }),
+				'time', this.includeTime && formatTime(this._date)
+			)
+			: this.localize(
+				this._type,
+				'date', formatDate(this._date, { format: this.format }),
+				'time', this.includeTime && formatTime(this._date)
+			);
+
+		return html`${template}`;
 	}
 
-	_getActivityDate(usage) {
-		const date = {};
-		date.date = usage
-			&& usage.dueDate()
-			|| usage.endDate();
+	// TODO - Deal with other types of date sub-entities (start, issue) - Likely requires new attributes for user to pass in order to indicate desired type
+	get _date() {
+		const dateString = this._usage
+			&& (this._usage.dueDate() || this._usage.endDate());
 
-		if (!date.date) return;
+		return dateString ? new Date(dateString) : dateString;
+	}
 
-		date.type = usage.dueDate() ? 'dueDate' : 'endDate';
-		date.date = new Date(date.date);
-		return date;
+	get _type() {
+		return this._usage.dueDate()
+			? this.includeTime
+				? 'dueDateTimed'
+				: 'dueDate'
+			: this.includeTime
+				? 'endDateTimed'
+				: 'endDate';
 	}
 }
 customElements.define('d2l-activity-date', D2LActivityDate);

@@ -1,29 +1,32 @@
-import '@brightspace-ui/core/components/button/button-icon';
 import '@brightspace-ui/core/components/colors/colors';
 import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/list/list-item-content';
 import '../d2l-activity-date/d2l-activity-date';
-import 'd2l-organizations/components/d2l-organization-name/d2l-organization-name';
-import 'd2l-organizations/components/d2l-organization-info/d2l-organization-info';
 
-import { bodyCompactStyles, bodySmallStyles, heading3Styles } from '@brightspace-ui/core/components/typography/styles';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { bodyCompactStyles, bodySmallStyles, bodyStandardStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
+import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
 import { ActivityAllowList } from './env';
+import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
-import { ifDefined } from 'lit-html/directives/if-defined';
-import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { fetchEntity } from './state/fetch-entity';
+import { ListItemMixin } from '@brightspace-ui/core/components/list/list-item-mixin';
+import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
+import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
-class ActivityListItemDetailed extends ListItemLinkMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
+class ActivityListItemDetailed extends ListItemMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
 	static get properties() {
 		return {
-			_hasOrgCode: { type: Boolean },
-			_icon: { type: String },
-			_organizationHref: { type: String },
-			_type: { type: String },
+			/** Indicates whether the component should render the due/end date of the related activity */
+			includeDate: { type: Boolean, attribute: 'include-date' },
+			/** entity used for crawling instance properties (e.g. name) */
+			_activity: { type: Object },
+			/** List of component relevant information related to activityType */
+			_activityProperties: { type: Object },
+			/** entity associated with ActivityUsageEntity's organization */
+			_organization: { type: Object },
 		};
 	}
 
@@ -32,80 +35,107 @@ class ActivityListItemDetailed extends ListItemLinkMixin(EntityMixinLit(Localize
 			super.styles,
 			bodyCompactStyles,
 			bodySmallStyles,
-			heading3Styles,
+			bodyStandardStyles,
+			heading4Styles,
 			css`
 				:host {
 					display: block;
-					padding: 0 2.1rem 0 2.1rem;
 				}
 				:host([hidden]) {
 					display: none;
 				}
-				:hover #d2l-activity-icon,
-				:hover #content-top-container {
+				.d2l-activity-date-container {
+					margin: 1rem 0 0 0;
+					padding: 0 0 0.1rem 0;
+				}
+				:host([skeleton]) .d2l-activity-date-container {
+					height: 1.2rem;
+					margin: 1rem 0 0.3rem 0;
+					padding: 0;
+				}
+				.d2l-activity-icon-container {
+					padding: 0.8rem 0 0 0.25rem;
+				}
+				:host([dir="rtl"]) .d2l-activity-icon-container {
+					padding: 0.8rem 0.25rem 0 0;
+				}
+				.d2l-activity-name-container {
+					color: var(--d2l-color-ferrite);
+					margin: 0.6rem 0 0 0;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+				.d2l-activity-icon-container.d2l-hovering,
+				.d2l-activity-icon-container.d2l-focusing,
+				.d2l-activity-name-container.d2l-hovering,
+				.d2l-activity-name-container.d2l-focusing {
+					--d2l-list-item-content-text-decoration: underline;
 					color: var(--d2l-color-celestine);
 				}
-				#d2l-activity-icon {
-					margin-right: 2.1rem;
-					margin-top: 0.3rem;
-				}
-				:host([dir="rtl"]) #d2l-activity-icon {
-					margin-left: 2.1rem;
-					margin-right: 0;
-				}
-				#d2l-icon-bullet {
+				.d2l-icon-bullet {
 					color: var(--d2l-color-tungsten);
 					margin-left: -0.15rem;
 					margin-right: -0.15rem;
 				}
-				#content-top-container {
-					color: var(--d2l-color-ferrite);
-					margin-bottom: -0.1rem;
+				.d2l-secondary-content-container {
+					color: var(--d2l-color-tungsten);
+					margin-bottom: 0.3rem;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
-				#content-supporting-info-container {
+				.d2l-secondary-content-container-no-description {
+					margin-bottom: 0.6rem;
+				}
+				.d2l-supporting-info-content-container {
 					-webkit-box-orient: vertical;
 					color: var(--d2l-color-ferrite);
 					display: block;
 					display: -webkit-box;
 					-webkit-line-clamp: 2;
-					margin: 6px 0;
+					margin-bottom: 0.6rem;
 					max-width: inherit;
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
-				d2l-button-icon {
-					margin: auto 0;
+				[slot="content"] {
+					padding: 0;
+				}
+				d2l-list-item-generic-layout {
+					background: transparent;
+				}
+				#content {
+					width: 100%;
+				}
+				:host([skeleton]) .d2l-activity-icon-container.d2l-skeletize {
+					height: 1.5rem;
+					margin-top: 0.8rem;
+					padding-top: 0;
+					width: 1.2rem;
+				}
+				:host([skeleton]) .d2l-activity-name-container {
+					height: 1.4rem;
+				}
+				:host([skeleton]) .d2l-secondary-content-container {
+					bottom: 0.15rem;
+					height: 1rem;
+					top: 0.1rem;
+				}
+				:host([skeleton]) .d2l-supporting-info-content-container {
+					bottom: 0.1rem;
+					height: 2rem;
+					top: 0.1rem;
 				}
 			`
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
-	}
-
 	constructor() {
 		super();
-		this._hasDate = false;
-		this._hasOrgCode = false;
-		this._icon = ActivityAllowList.userAssignmentActivity.icon;
-		this._type = '';
+		this._activity = undefined;
+		this._activityProperties = undefined;
+		this._organization = undefined;
 		this._setEntityType(ActivityUsageEntity);
 	}
 
@@ -116,85 +146,222 @@ class ActivityListItemDetailed extends ListItemLinkMixin(EntityMixinLit(Localize
 		}
 	}
 
+	/**
+	 * Update component's data to match new entry point entity
+	 * @param {ActivityUsageEntity} usage Current target usage entity
+	 */
 	_onActivityUsageChange(usage) {
-		this.actionHref = usage.userActivityUsageHref();
-		this._organizationHref = usage.organizationHref();
-		this._getActivityType(usage._entity);
+		this._usage = usage;
+		this._loadActivity();
+		this._loadOrganization();
 	}
 
 	render() {
-		const secondaryTemplateFactory = (href, token, orgHref) => {
-			if (!href || !token || !orgHref) {
-				return nothing;
-			}
+		if (!this.href || !this.token) {
+			return nothing;
+		}
 
-			const orgCodeTemplate = html`
-				<d2l-organization-info
-					href="${orgHref}"
-					.token="${token}"
-					show-organization-code
-					@d2l-organization-accessible=${(e) => _handleOrgInfoChange(e)}>
-				</d2l-organization-info>`;
-
-			// TODO If you need to go deeper into the tree, just use siren-sdk to do so -> events can lead to race conditions
-			const _handleOrgInfoChange = (e) => {
-				this._hasOrgCode = !e || !e.detail || !e.detail.organization || !e.detail.organization.code
-					? false
-					: e.detail.organization.code && e.detail.organization.code.length > 0 ? true : false;
-
-				if (this._hasOrgCode) {
-					this.shadowRoot.querySelector('d2l-organization-info')
-						.shadowRoot.querySelector('.d2l-organization-code')
-						.style.textTransform = 'none';
-				}
-			};
-
-			const separatorTemplate = this._type && this._hasOrgCode
-				? html `<d2l-icon id="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
-				: nothing;
-
-			return html`
-				${orgCodeTemplate}
-				${separatorTemplate}
-				${this._type}`;
+		const dateClasses = {
+			'd2l-activity-date-container': true,
+			'd2l-skeletize': true,
+			'd2l-skeletize-20': true
 		};
 
-		const activityIconTemplate = this._icon
-			? html` <d2l-icon id="d2l-activity-icon" icon=${this._icon}></d2l-icon>`
+		const iconClasses = {
+			'd2l-activity-icon-container': true,
+			'd2l-focusing': this._focusingLink,
+			'd2l-hovering': this._hoveringLink,
+			'd2l-skeletize': true
+		};
+
+		const nameClasses = {
+			'd2l-body-standard': true,
+			'd2l-activity-name-container': true,
+			'd2l-focusing': this._focusingLink,
+			'd2l-hovering': this._hoveringLink,
+			'd2l-skeletize': true,
+			'd2l-skeletize-30': true
+		};
+
+		const secondaryClasses = {
+			'd2l-body-small': true,
+			'd2l-secondary-content-container': true,
+			'd2l-secondary-content-container-no-description': !this._description,
+			'd2l-skeletize': true,
+			'd2l-skeletize-35': true
+		};
+
+		const supportingClasses = {
+			'd2l-body-compact': true,
+			'd2l-supporting-info-content-container': true,
+			'd2l-skeletize-paragraph-2': true
+		};
+
+		const dateTemplate = this.includeDate
+			? html `
+				<div class=${classMap(dateClasses)}>
+					<d2l-activity-date
+						class="d2l-heading-4"
+						href=${this.href}
+						?hidden=${this.skeleton}
+						.token=${this.token}
+						format="dddd, MMMM d"
+						date-only>
+					</d2l-activity-date>
+				</div>`
 			: nothing;
 
-		return this._renderListItem({
-			illustration: activityIconTemplate,
+		const separatorTemplate = !this.skeleton && this._type && (this._orgName || this._orgCode)
+			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
+			: nothing;
+
+		const listItemTemplate = this._renderListItem({
+			illustration: html`
+				<d2l-icon
+					class=${classMap(iconClasses)}
+					?skeleton=${this.skeleton}
+					icon=${this._icon}>
+				</d2l-icon>`,
 			content: html`
 				<d2l-list-item-content id="content">
-					<div id="content-top-container">
-						<d2l-organization-name
-							class="d2l-heading-3"
-							href="${ifDefined(this._organizationHref)}"
-							.token="${ifDefined(this.token)}">
-						</d2l-organization-name>
+					<div class=${classMap(nameClasses)}>
+						${this._name}
 					</div>
-					<div id="content-secondary-container" slot="secondary" class="d2l-body-small">
-						${secondaryTemplateFactory(this.href, this.token, this._organizationHref)}
+					<div class=${classMap(secondaryClasses)} slot="secondary">
+						${this._type}
+						${separatorTemplate}
+						${this._orgName || this._orgCode}
 					</div>
-					<div id="content-supporting-info-container" slot="supporting-info" class="d2l-body-compact">
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+					<div id="content-supporting-info-container" slot="supporting-info" class=${classMap(supportingClasses)}>
+						${this._description}
 					</div>
 				</d2l-list-item-content>
-			`,
+			`
 		});
+
+		return html`
+			${dateTemplate}
+			${listItemTemplate}
+		`;
 	}
 
-	_getActivityType(entity) {
-		if (!entity || !entity.class) {
+	set actionHref(href) {  // Require setter function as list-mixin initializes value
+		const oldVal = this._actionHref;
+		this._actionHref = href;
+		this.requestUpdate('actionHref', oldVal);
+	}
+
+	/** Link to activity instance for user navigation to complete/work on activity */
+	get actionHref() {
+		if (!this._started || this.skeleton) {
+			return '';
+		}
+
+		return this._activity && this._activity.hasLinkByType('text/html')
+			? this._activity.getLinkByType('text/html').href
+			: '';
+	}
+
+	/** Due or end date of activity */
+	get _date() {
+		return this._usage && !this.skeleton
+			? this._usage.dueDate() || this._usage.endDate()
+			: '';
+	}
+
+	get _description() {
+		return this._activity && this._activity.hasProperty('description') && !this.skeleton
+			? this._activity.properties.description
+			: '';
+	}
+
+	/** String associated with icon catalogue for provided activity type */
+	get _icon() {
+		return this._activityProperties && !this.skeleton
+			? this._activityProperties.icon
+			: '';
+
+	}
+
+	/** Specific name of the activity */
+	get _name() {
+		return this._activity && this._activity.hasProperty('name') && !this.skeleton
+			? this._activity.properties.name
+			: this._activityProperties && !this.skeleton
+				? this.localize(this._activityProperties.type)
+				: '';
+	}
+
+	/** Organization code of the activity's associated organization */
+	get _orgCode() {
+		return this._organization && this._organization.hasProperty('code') && !this.skeleton
+			? this._organization.properties.code
+			: '';
+	}
+
+	/** Name of the activity's associated organization */
+	get _orgName() {
+		return this._organization && this._organization.hasProperty('name') && !this.skeleton
+			? this._organization.properties.name
+			: '';
+	}
+
+	/** Indicates if activity start date is in the past */
+	get _started() {
+		return this._usage && this._usage.startDate()
+			? new Date(this._usage.startDate()) < new Date()
+			: true;
+	}
+
+	get _type() {
+		return this._activityProperties && !this.skeleton
+			? this.localize(this._activityProperties.type)
+			: '';
+	}
+
+	/**
+	 * Load usage's associated activity entity.
+	 * @async
+	 */
+	async _loadActivity() {
+		if (!this._usage || !this._usage._entity || !this._usage._entity.class) {
 			return;
 		}
 
+		const entity = this._usage._entity;
+
 		for (const allowed in ActivityAllowList) {
 			if (entity.hasClass(ActivityAllowList[allowed].class)) {
-				this._icon = ActivityAllowList[allowed].icon;
-				this._type = ActivityAllowList[allowed].type;
+				this._activityProperties = ActivityAllowList[allowed];
+				const source = (
+					entity.hasLinkByRel(ActivityAllowList[allowed].rel)
+					&& entity.getLinkByRel(ActivityAllowList[allowed].rel)
+					|| {}).href;
+				if (source) {
+					await fetchEntity(source, this.token)
+						.then((sirenEntity) => {
+							if (sirenEntity) {
+								this._activity = sirenEntity;
+							}
+						});
+				}
 			}
+		}
+	}
+
+	/**
+	 * Load usage's organization entity.
+	 * @async
+	 */
+	async _loadOrganization() {
+		if (!this._usage) return;
+
+		const organizationHref = this._usage.organizationHref();
+		if (organizationHref) {
+			await fetchEntity(organizationHref, this.token)
+				.then((organization) => {
+					this._organization = organization;
+				});
 		}
 	}
 }

@@ -39,6 +39,8 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				}
 				d2l-td.d2l-username-column {
 					font-size: 0.8rem;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 				.d2l-user-badge-image {
 					display: inline-block;
@@ -168,6 +170,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 													aria-label$="[[_localizeSortText(header.key)]]"
 													aria-live="assertive"
 												>
+													<span hidden="true" aria-hidden="[[!header.nameColumn]]">[[_localizeSortText(header.key)]]</span>
 													<span aria-hidden="true">[[localize(header.key)]]</span>
 												</d2l-table-col-sort-button>
 												<template is="dom-if" if="[[header.suffix]]">

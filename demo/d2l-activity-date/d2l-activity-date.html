@@ -15,19 +15,62 @@
 	<body>
 		<d2l-demo-page page-title="d2l-activity-date demo">
 			<a href="../index.html">Back to Main</a></li>
-			<h2>d2l-activity-date</h2>
+			<d2l-demo-snippet>
+				<d2l-activity-date
+					href="./data/base/organization-activity-usage.json"
+					token="secret"
+					format="dddd, MMMM d"
+					date-only
+					include-time>
+				</d2l-activity-date>
+			</d2l-demo-snippet>
+			<h2>d2l-activity-date: default</h2>
 			<d2l-demo-snippet>
 				<d2l-activity-date
 					href="./data/base/organization-activity-usage.json"
 					token="secret">
 				</d2l-activity-date>
 			</d2l-demo-snippet>
+			<h2>d2l-activity-date: include time</h2>
 			<d2l-demo-snippet>
 				<d2l-activity-date
 					href="./data/base/organization-activity-usage.json"
 					token="secret"
 					include-time>
 				</d2l-activity-date>
+			</d2l-demo-snippet>
+			<h2>d2l-activity-date: custom format</h2>
+			<d2l-demo-snippet>
+				<div>
+					<d2l-activity-date
+						href="./data/base/organization-activity-usage.json"
+						token="secret"
+						format="MMM d">
+					</d2l-activity-date>
+				</div>
+				<div>
+					<d2l-activity-date
+						href="./data/base/organization-activity-usage.json"
+						token="secret"
+						format="M/d/yyyy">
+					</d2l-activity-date>
+				</div>
+				<div>
+					<d2l-activity-date
+						href="./data/base/organization-activity-usage.json"
+						token="secret"
+						format="M/d"
+						include-time>
+					</d2l-activity-date>
+				</div>
+				<div>
+					<d2l-activity-date
+						href="./data/base/organization-activity-usage.json"
+						token="secret"
+						format="MMM d"
+						include-time>
+					</d2l-activity-date>
+				</div>
 			</d2l-demo-snippet>
 		</d2l-demo-page>
 	</body>

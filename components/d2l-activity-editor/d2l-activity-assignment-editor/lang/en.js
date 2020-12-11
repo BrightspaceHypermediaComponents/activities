@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Special Access", // special access heading
 	"hlpSpecialAccess": "Special Access allows assignments to be available to only a select group of users or individualized due dates for certain users.", // special access help
 	"assignmentLocked": "Some settings are locked because submissions have been received.",
-	"hdrSubmissionNotificationEmail": "Notification Email",
-	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
-	"invalidNotificationEmailError": "Please enter a valid email address"
+	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted."
 };

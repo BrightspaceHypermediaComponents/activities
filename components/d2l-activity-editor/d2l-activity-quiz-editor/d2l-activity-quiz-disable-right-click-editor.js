@@ -1,5 +1,6 @@
-import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { checkboxStyles } from '../styles/checkbox-styles.js';
+import { html } from 'lit-element/lit-element.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -9,27 +10,7 @@ class ActivityQuizDisableRightClickEditor
 	extends ActivityEditorMixin(RtlMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
 
 	static get styles() {
-
-		return [
-			css`
-			:host {
-				display: block;
-			}
-
-			:host([hidden]) {
-				display: none;
-			}
-
-			d2l-input-checkbox {
-				padding-right: 1rem;
-			}
-
-			:host([dir="rtl"]) d2l-input-checkbox {
-				padding-left: 1rem;
-				padding-right: 0;
-			}
-			`
-		];
+		return checkboxStyles;
 	}
 
 	constructor() {

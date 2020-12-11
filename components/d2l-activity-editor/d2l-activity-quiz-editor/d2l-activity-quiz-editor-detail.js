@@ -5,6 +5,7 @@ import '../d2l-activity-outcomes.js';
 import '../d2l-activity-score-editor.js';
 import '../d2l-activity-text-editor.js';
 import '../d2l-activity-attachments/d2l-activity-attachments-editor.js';
+import '../d2l-activity-quiz-editor/d2l-activity-quiz-divider';
 
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -47,6 +48,18 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 					padding-left: 1rem;
 					padding-right: 0;
 				}
+				d2l-button-subtle {
+					/* to override the padding added by d2l-button-subtle */
+					left: 0.6rem;
+					position: relative;
+					right: 0;
+				}
+				:host([dir="rtl"]) d2l-button-subtle {
+					/* to override the padding added by d2l-button-subtle */
+					left: 0;
+					position: relative;
+					right: 0.6rem;
+				}
 			`
 		];
 	}
@@ -62,6 +75,7 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 		const {
 			name,
 			canEditName,
+			canPreviewQuiz
 		} = quiz || {};
 
 		return html`
@@ -88,6 +102,19 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 					</d2l-activity-due-date-editor>
 				</div>
 			</div>
+
+
+			<d2l-activity-quiz-divider
+				?skeleton="${this.skeleton}">
+				<h4 slot="header">${this.localize('dividerHeader')}</h4>
+				<d2l-button-subtle
+					text=${this.localize('previewLabel')}
+					slot="action"
+					@click="${this._openPreview}"
+					?disabled="${!canPreviewQuiz}"
+					icon="tier1:preview">
+				</d2l-button-subtle>
+			</d2l-activity-quiz-divider>
 		`;
 	}
 
@@ -97,6 +124,11 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 		if (changedProperties.has('asyncState')) {
 			this.skeleton = this.asyncState !== asyncStates.complete;
 		}
+	}
+
+	async cancelCreate() {
+		const quiz = store.get(this.href);
+		return quiz && quiz.delete();
 	}
 
 	hasPendingChanges() {
@@ -115,6 +147,15 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 		}
 
 		await quiz.save();
+	}
+
+	_openPreview() {
+		const quiz = store.get(this.href);
+		if (!quiz || !quiz.previewHref) {
+			return;
+		}
+
+		window.open(quiz.previewHref);
 	}
 
 	async _setName(e) {

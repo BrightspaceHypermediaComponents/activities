@@ -9,18 +9,24 @@
           "rel": [
               "self"
           ],
-          "href": "../data/base/empty-activities.json"
+          "href": "./data/base/empty-activities.json"
       },
       {
           "rel": [
               "https://activities.api.brightspace.com/rels/overdue"
           ],
-          "href": "../data/base/collection.json"
-      }
+          "href": "./data/base/activity-collection.json"
+      },
+      {
+        "rel": [
+            "faker"
+        ],
+        "href": "./data/base/activity-collection.json"
+    }
   ],
   "actions": [
       {
-          "href": "../data/base/empty-activities.json",
+          "href": "./data/base/empty-activities.json",
           "name": "select-custom-date-range",
           "method": "GET",
           "fields": [

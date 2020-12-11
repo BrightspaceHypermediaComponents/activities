@@ -1,0 +1,85 @@
+{
+  "class": [
+      "named-entity",
+      "discussion"
+  ],
+  "properties": {
+      "name": "Transformer Factory Discussion",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "instructions": "Just some noise for testing. It is nothing big.Iracundia suscipiantur at vim, eum delenit percipitur ex, has ei impedit ponderum. Id eum omittam quaerendum, sea vulputate definiebas intellegam ut, modo sumo sanctus ea eum. Unum diceret sed an, utinam everti saperet sea ea. Id inani fuisset fabellas est, hinc tollit aliquip sit cu, te sea laoreet expetendis. Sea blandit accumsan id. Melius legimus ut ius, ex molestiae sententiae vix, duo tantas facilisi id. ",
+      "instructionsText": "Just some noise for testing. It is nothing big.Iracundia suscipiantur at vim, eum delenit percipitur ex, has ei impedit ponderum. Id eum omittam quaerendum, sea vulputate definiebas intellegam ut, modo sumo sanctus ea eum. Unum diceret sed an, utinam everti saperet sea ea. Id inani fuisset fabellas est, hinc tollit aliquip sit cu, te sea laoreet expetendis. Sea blandit accumsan id. Melius legimus ut ius, ex molestiae sententiae vix, duo tantas facilisi id. ",
+      "dueDate": "2019-09-03T13:30:00.000Z",
+      "outOf": 0.0,
+      "addToGrades": false,
+      "draft": false,
+      "defaultScoringRubricId": null
+  },
+  "entities": [
+      {
+          "class": [
+              "date",
+              "due-date"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/date"
+          ],
+          "properties": {
+              "date": "2019-09-03T13:30:00.000Z"
+          }
+      },
+      {
+          "class": [
+              "submission-metrics"
+          ],
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/submission-metrics"
+          ],
+          "properties": {
+              "totalUsers": 20,
+              "totalUsersWithSubmissions": 0
+          }
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "self"
+          ],
+          "href": "./data/base/discussion-topic.json"
+      },
+      {
+          "rel": [
+              "service"
+          ],
+          "href": "https://{{tenantId}}.assignments.api.dev.brightspace.com/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://assignments.api.brightspace.com/rels/attachments"
+          ],
+          "href": "https://{{tenantId}}.assignments.api.dev.brightspace.com/{{orgId}}/folders/1387/attachments"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/organization"
+          ],
+          "href": "./data/base/basic-organization.json"
+      },
+      {
+          "rel": [
+              "alternate"
+          ],
+          "type": "text/html",
+          "href": "https://{{text/htmlAddress}}/d2l/lms/dropbox/admin/mark/folder_submissions_users.d2l?ou={{orgId}}&db=1387"
+      }
+  ],
+  "rel": [
+      "https://discussions.api.brightspace.com/rels/topic"
+  ]
+}

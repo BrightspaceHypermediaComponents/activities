@@ -1,5 +1,5 @@
 import '../d2l-activity-accordion-collapse.js';
-import './d2l-activity-quiz-notification-email-editor.js';
+import '../d2l-activity-notification-email-editor.js';
 import './d2l-activity-quiz-notification-email-summary.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
@@ -9,6 +9,7 @@ import { html } from 'lit-element/lit-element.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
+import { shared as store } from './state/quiz-store';
 
 class ActivityQuizAttemptsAndCompletionEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(MobxLitElement))))) {
 
@@ -56,12 +57,23 @@ class ActivityQuizAttemptsAndCompletionEditor extends AsyncContainerMixin(Locali
 		return false; // Todo: implement error handling
 	}
 
+	_onNotificationEmailChanged(event) {
+		const entity = store.get(this.href);
+		const data = event.detail.value;
+		entity.setNotificationEmail(data);
+	}
+
 	_renderNotificationEmailEditor() {
+		const entity = store.get(this.href);
+
+		if (!entity) return html``;
+
 		return html`
-			<d2l-activity-quiz-notification-email-editor
-				href="${this.href}"
-				.token="${this.token}">
-			</d2l-activity-quiz-notification-email-editor>
+			<d2l-activity-notification-email-editor
+				value="${entity.notificationEmail}"
+				?disabled="${!entity.canEditNotificationEmail}"
+				@activity-notification-email-changed="${this._onNotificationEmailChanged}">
+			</d2l-activity-notification-email-editor>
 		`;
 	}
 

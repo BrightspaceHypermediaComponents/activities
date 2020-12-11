@@ -1,0 +1,137 @@
+{
+  "class": [
+      "user-discussion-activity",
+      "activity"
+  ],
+  "entities": [
+      {
+          "class": [
+              "relative-uri"
+          ],
+          "rel": [
+              "item",
+              "https://assessments.api.brightspace.com/rels/assessment-application"
+          ],
+          "properties": {
+              "path": "#"
+          }
+      },
+      {
+          "class": [
+              "evaluation"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/evaluation"
+          ],
+          "properties": {
+              "state": "Unevaluated"
+          }
+      },
+      {
+          "class": [
+              "due-date",
+              "date"
+          ],
+          "rel": [
+              "https://api.brightspace.com/rels/date"
+          ],
+          "properties": {
+              "date": "2019-09-03T13:30:00.000Z",
+              "localizedDate": "2019-09-03T09:30:00.000"
+          }
+      },
+      {
+        "class": [
+            "start-date",
+            "date"
+        ],
+        "rel": [
+            "https://api.brightspace.com/rels/date"
+        ],
+        "properties": {
+            "date": "2019-08-03T13:30:00.000Z",
+            "localizedDate": "2019-08-03T09:30:00.000"
+        }
+    },
+      {
+          "class": [
+              "completion",
+              "incomplete"
+          ],
+          "rel": [
+              "item",
+              "https://activities.api.brightspace.com/rels/completion"
+          ]
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/user-activity-usage",
+              "self"
+          ],
+          "href": "./data/base/discussion-activity-usage.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/activity-usage"
+          ],
+          "href": "#"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/user"
+          ],
+          "href": "./data/base/whoami.json"
+      },
+      {
+          "rel": [
+              "https://api.brightspace.com/rels/organization"
+          ],
+          "href": "./data/base/basic-organization.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/evaluation"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/user_{{userId}}/evaluation"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/associations"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/{{userId}}/associations"
+      },
+      {
+          "rel": [
+              "https://discussions.api.brightspace.com/rels/topic"
+          ],
+          "href": "./data/base/discussion-topic.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/feedback"
+          ],
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/user_{{userId}}/feedback"
+      },
+      {
+          "rel": [
+              "https://alignments.api.brightspace.com/rels/alignments"
+          ],
+          "href": "https://{{tenantId}}.alignments.api.dev.brightspace.com/user-activity-usage/6606_2000_1387/{{orgId}}/{{userId}}"
+      }
+  ],
+  "actions": [
+      {
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/{{userId}}/associations",
+          "name": "query-associations",
+          "method": "GET",
+          "fields": [
+              {
+                  "type": "text",
+                  "name": "type"
+              }
+          ]
+      }
+  ]
+}

@@ -9,19 +9,8 @@ install:
 - npm install
 jobs:
   include:
-  - stage: Code-tests
-    script:
-    - npm run lint
-    - |
-      if [ $TRAVIS_PULL_REQUEST != false ] && [ $TRAVIS_SECURE_ENV_VARS == true ]; then
-        echo "Pull request with secure environment variables, running Sauce tests...";
-        npm run test:polymer:sauce || travis_terminate 1;
-      else
-        echo "Not a pull request and/or no secure environment variables, running headless tests...";
-        npm run test:polymer:local || travis_terminate 1;
-      fi
-    - npm run test:js
-    - npm run test:karma
+  - stage: Empty Stage (Temporary)
+    script: echo "Empty first stage because visual-diff needs to be 2nd"
   - stage: Visual-difference-tests
     script:
     - |
@@ -29,21 +18,8 @@ jobs:
         echo "Running visual difference tests...";
         npm run test:diff || travis_terminate 1;
       fi
-  - stage: Update-version
-    script: frauci-update-version && export TRAVIS_TAG=$(frauci-get-version)
-deploy:
-  provider: releases
-  api_key: "$GITHUB_RELEASE_TOKEN"
-  on:
-    tags: true
 env:
   global:
-  - OWNER_NAME: Brightspacehypermediacomponents
-  - REPO_NAME: activities
-  - DEFAULT_INCREMENT: patch
-  - SAUCE_USERNAME: Desire2Learn
-  # SAUCE_ACCESS_KEY
-  - secure: uI1bP8ViYhpBhMczmiqmDowwG5cqmqL1xr+RGRwbqxQiTbnDcGI77H/DEnbuKDYcSMZ/a4qqwN1DMoUWmD+n23oxUKSDr6dR0tP/6++Y0wykPU+79UX4SdTM2UvW4arcsU9Yy7MG7H+HsM8IaHqDUw+V/hIThK0/axE9qEUZyb2s3IQSbt6sJxDvFDlyeqMny9VABlV/PIG4IPJ4PsWPjSVFGAWUPE+64h2STxvRixd8DI6n53PqGZEXl5huWgKosfnmXS+S37gjGJXJmZj/kCLvvAoQi3L6k/Hlf/8QwCdnHkCjN8In8I278S+zBGQsBMhxUVuTbbUbNuf71oKaYutF0uYMCH+CPb7LcNbpC9sDFdxZXCLyMVQOAw38473SVXui2INxzq4lGI5Pf4PGhqh3gacg5PLg4QjDyRbI8Qx9axzn5vaFotgvW0t3ZSynNfhxOnPhUs7nQoJjhcJPRRBzGI33XSQzwZGOBLUiXrwGTyKTy6hHjGYV+EolH08mtCzXfGBdvTXbOf3e0AwNm7s00CO6ablwvtdSzfRDnKX0A+rMlbcJZp+4gTiqZV/jLMXTUoyteeZ6hn2C04z7xh0BiytpcW+Nx1VkCVr6JukgtzzA5HQAMub7ofklGvkACYn/IWATPlItMgRFg1Wydy6d4n3qSts50Qmyhq1W1NM=
   # GITHUB_RELEASE_TOKEN (859f......865e)
   - secure: QP5YZ7oT1NAyyLDhNG/kHii+SasV5zR/9XO5ePl2ThAevdpEgrLLk1A76NV0XZMMSRIdvgzMZIvPqHWfA81I2O7QCzXOJKQ+xj8hanGqUUNlGxgDMo8FGmqf7OWyxw+XHoM5E0P20yntmDQnCsYnuPvTwYyZ/6ujQgTbPli2ewvoZL+Doh+RnOHmc7R8HbdpU2Cv42PIZr/H/nW6tpuliP1fNrMvKwzjbRu+zh/ag62CkPOk0jbu6klXTwdwytb0jseY7Y/ybJ/0kOZGmgCguH3Lb2kj4Uncp78aQiAZFyCIurb6iXVZ5K7YtABbpWj2sRtMkJwQedTSCUY7PI8FTuvNowZ9URmJ5d4FAAbo03D6jgur4SHxakyV+iQj5z0vfmw5bJT/ykJzXFgyRTkjy/zznZE3arDeyRiLPKGmlKSYDS51eXUhJ2yqgFtsw3ArCqIoIm3xxe9Qy2DNsJllf/SGIhcGhPXIlG4Mj/59OiqNVJuXORJkwuj4SNK4ujkTGkHWYgwGEglhF9nCSPBOrITaFtyfECNvHc9HM/SeYyaDjMqrvXnGusoU6BKhxqiwhb2LhqrK9SRq6ibeP9ykjvi3PkrmbyVHKTAzXHxKJ5uS1orwQ7oOnC4p751pjZB570wIg4ENUsPML/EwbtfsqWjCYnzGZqOgP8mYDXDprr8=
   # VISUAL_DIFF_S3_ID

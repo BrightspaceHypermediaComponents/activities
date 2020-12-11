@@ -1,3 +1,5 @@
+import 'd2l-inputs/d2l-input-text.js';
+import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
@@ -17,11 +19,29 @@ class ActivityQuizPasswordEditor
 	}
 
 	static get styles() {
-		return css`
-			#quiz-password {
-				padding-top: 20px;
-			}
-		`;
+
+		return [
+			labelStyles,
+			bodySmallStyles,
+			css`
+				:host {
+					display: block;
+				}
+
+				:host([hidden]) {
+					display: none;
+				}
+
+				#password-input {
+					margin-bottom: 2px;
+					margin-top: 10px;
+				}
+
+				#password-editor-label {
+					margin-bottom: 10px;
+				}
+			`
+		];
 	}
 
 	constructor() {
@@ -36,13 +56,20 @@ class ActivityQuizPasswordEditor
 		}
 
 		return html`
+			<div id="password-editor-label" class="d2l-label-text">
+				${this.localize('passwordLabel')}
+			</div>
+			<p class="d2l-body-small">
+				${this.localize('passwordDescription')}
+			</p>
 			<d2l-input-text
+				id="password-input"
 				?skeleton="${this.skeleton}"
-				id="quiz-password"
 				maxlength="20"
 				value="${entity.password}"
 				@input="${this._setPassword}"
 				label="${this.localize('passwordLabel')}"
+				label-hidden
 				?disabled="${!entity.canEditPassword}"
 				prevent-submit>
 			</d2l-input-text>

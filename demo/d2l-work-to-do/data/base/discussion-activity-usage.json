@@ -1,17 +1,9 @@
 {
   "class": [
-      "user-assignment-activity",
+      "user-discussion-activity",
       "activity"
   ],
   "entities": [
-      {
-          "class": [
-              "assignment-submission-list"
-          ],
-          "rel": [
-              "https://assignments.api.brightspace.com/rels/assignment-submission-list"
-          ]
-      },
       {
           "class": [
               "relative-uri"
@@ -21,7 +13,7 @@
               "https://assessments.api.brightspace.com/rels/assessment-application"
           ],
           "properties": {
-              "path": "/d2l/lms/dropbox/admin/mark/folder_user_mark.d2l?ou=123069&db=1387&d2l_itemId=30260&d2l_iterId=0&etid=2"
+              "path": "#"
           }
       },
       {
@@ -78,7 +70,7 @@
               "https://activities.api.brightspace.com/rels/user-activity-usage",
               "self"
           ],
-          "href": "./data/base/assignment-activity-usage.json"
+          "href": "./data/base/discussion-activity-usage.json"
       },
       {
           "rel": [
@@ -90,7 +82,7 @@
           "rel": [
               "https://api.brightspace.com/rels/user"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.users.api.dev.brightspace.com/30260"
+          "href": "./data/base/whoami.json"
       },
       {
           "rel": [
@@ -102,36 +94,36 @@
           "rel": [
               "https://activities.api.brightspace.com/rels/evaluation"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/user_30260/evaluation"
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/user_{{userId}}/evaluation"
       },
       {
           "rel": [
               "https://activities.api.brightspace.com/rels/associations"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/30260/associations"
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/{{userId}}/associations"
       },
       {
           "rel": [
-              "https://api.brightspace.com/rels/assignment"
+              "https://discussions.api.brightspace.com/rels/topic"
           ],
-          "href": "./data/base/assignment.json"
+          "href": "./data/base/discussion-topic.json"
       },
       {
           "rel": [
               "https://activities.api.brightspace.com/rels/feedback"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/user_30260/feedback"
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/user_{{userId}}/feedback"
       },
       {
           "rel": [
               "https://alignments.api.brightspace.com/rels/alignments"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.alignments.api.dev.brightspace.com/user-activity-usage/6606_2000_1387/123069/30260"
+          "href": "https://{{tenantId}}.alignments.api.dev.brightspace.com/user-activity-usage/6606_2000_1387/{{orgId}}/{{userId}}"
       }
   ],
   "actions": [
       {
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/30260/associations",
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/{{orgId}}/users/{{userId}}/associations",
           "name": "query-associations",
           "method": "GET",
           "fields": [

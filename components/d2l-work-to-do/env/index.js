@@ -64,3 +64,19 @@ export const ActivityAllowList = {
 		type: 'Survey'
 	}
 };
+
+export function getUpcomingWeekLimit() {
+	if (window.D2L && window.D2L.workToDoOptions && window.D2L.workToDoOptions.upcomingWeekLimit) {
+		return window.D2L.workToDoOptions.upcomingWeekLimit;
+	} else {
+		return Config.UpcomingWeekLimit;
+	}
+}
+
+export function getOverdueWeekLimit() {
+	if (window.D2L && window.D2L.workToDoOptions && window.D2L.workToDoOptions.overdueWeekLimit) {
+		return window.D2L.workToDoOptions.overdueWeekLimit;
+	} else {
+		return Config.OverdueWeekLimit;
+	}
+}

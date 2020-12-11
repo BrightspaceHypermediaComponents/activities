@@ -1,15 +1,13 @@
 import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { ErrorHandlingMixin } from './error-handling-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
-import { shared as store } from './d2l-activity-quiz-editor/state/quiz-store';
 
 class ActivityNotificationEmailEditor
-	extends ActivityEditorMixin(RtlMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(LitElement)))) {
+	extends RtlMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(LitElement))) {
 
 	static get properties() {
 		return {
@@ -42,10 +40,6 @@ class ActivityNotificationEmailEditor
 				}
 			`
 		];
-	}
-
-	constructor() {
-		super(store);
 	}
 
 	render() {

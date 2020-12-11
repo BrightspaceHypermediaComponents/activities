@@ -45,7 +45,11 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 
 				.d2l-info-text {
 					margin: 0.1rem 0 0 0;
-					padding-left: 1.7rem;
+					padding-left: 1.8rem;
+				}
+
+				.d2l-info-text-flush-left {
+					margin: 0.5rem 0 0 0;
 				}
 
 				.d2l-individual-type {
@@ -66,11 +70,11 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 			return html``;
 		}
 
-		const isIndividualType = assignment.assignmentTypeProps.isIndividualAssignmentType;
 		const infoText = this._getInformationText(assignment);
+		const isIndividualType = assignment.assignmentTypeProps.isIndividualAssignmentType;
 		const canEditAssignmentType = assignment.assignmentTypeProps.canEditAssignmentType;
 		const groupTypeDisabled = assignment.assignmentTypeProps.isGroupAssignmentTypeDisabled;
-		const folderTypeText =	isIndividualType ? this.localize('txtIndividual') : this.localize('txtGroup');
+		const folderTypeText = isIndividualType ? this.localize('txtIndividual') : this.localize('txtGroup');
 		const groupTypeText = !isIndividualType && assignment.assignmentTypeProps.selectedGroupCategoryName
 			? this.localize('txtGroupCategoryWithName', 'groupCategory', assignment.assignmentTypeProps.selectedGroupCategoryName)
 			: '';
@@ -78,6 +82,7 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		return html`
 			<div ?hidden=${canEditAssignmentType} id="read-only-assignment-type-container">
 				<div class="d2l-body-compact">${folderTypeText}</div>
+				<p class="d2l-info-text-flush-left d2l-body-small">${infoText}</p>
 				<div class="d2l-body-compact">${groupTypeText}</div>
 			</div>
 
@@ -140,15 +145,19 @@ class AssignmentTypeEditor extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 			return;
 		}
 
+		const canEditAssignmentType = assignment.assignmentTypeProps.canEditAssignmentType;
 		const isIndividualAssignmentType = assignment.assignmentTypeProps.isIndividualAssignmentType;
 		const hasSubmissions = assignment.submissionAndCompletionProps.assignmentHasSubmissions;
+		const groupTypeDisabled = assignment.assignmentTypeProps.isGroupAssignmentTypeDisabled;
 
-		if (!hasSubmissions && isIndividualAssignmentType && assignment.assignmentTypeProps.groupCategories.length === 0) {
-			return this.localize('folderTypeNoGroups');
+		if (hasSubmissions) return; // don't display either of the information texts about groups
+
+		if (isIndividualAssignmentType && groupTypeDisabled && assignment.assignmentTypeProps.groupCategories.length === 0) {
+			return this.localize('folderTypeNoGroups'); // this only displays below the 'Individual Assignment' text
 		}
 
-		if (!hasSubmissions && !isIndividualAssignmentType) {
-			return this.localize('folderTypeCreateGroups');
+		if (!isIndividualAssignmentType && canEditAssignmentType) {
+			return this.localize('folderTypeCreateGroups'); // this only displays below the 'Group Assignment' text
 		}
 
 		return;

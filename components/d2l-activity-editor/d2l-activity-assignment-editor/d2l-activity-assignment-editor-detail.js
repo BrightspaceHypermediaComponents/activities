@@ -129,6 +129,7 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 								and so it cannot be plugged into Dropbox to check Assignment permissions.
 				*/ html`
 					<d2l-activity-outcomes
+						?hidden="${this.skeleton}"
 						class="d2l-editor-layout-section"
 						href="${this.activityUsageHref}"
 						.token="${this.token}"

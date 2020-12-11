@@ -1,0 +1,240 @@
+{
+  "class": [
+      "collection"
+  ],
+  "properties": {
+      "start": "2010-01-01T00:00:00.000Z",
+      "end": "2030-01-01T00:00:00.000Z"
+  },
+  "entities": [
+      {
+          "class": [
+              "user-discussion-activity",
+              "activity"
+          ],
+          "rel": [
+              "https://activities.api.brightspace.com/rels/user-activity-usage"
+          ],
+          "entities": [
+              {
+                  "class": [
+                      "end-date",
+                      "date"
+                  ],
+                  "rel": [
+                      "https://api.brightspace.com/rels/date"
+                  ],
+                  "properties": {
+                      "date": "2013-10-01T21:30:00.000Z",
+                      "localizedDate": "2013-10-01T17:30:00.000"
+                  }
+              },
+              {
+                  "class": [
+                      "completion",
+                      "incomplete"
+                  ],
+                  "rel": [
+                      "item",
+                      "https://activities.api.brightspace.com/rels/completion"
+                  ]
+              }
+          ],
+          "actions": [
+              {
+                  "href": "#",
+                  "name": "query-associations",
+                  "method": "GET",
+                  "fields": [
+                      {
+                          "type": "text",
+                          "name": "type"
+                      }
+                  ]
+              }
+          ],
+          "links": [
+              {
+                  "rel": [
+                      "https://activities.api.brightspace.com/rels/user-activity-usage",
+                      "self"
+                  ],
+                  "href": "./data/base/discussion-activity-usage.json"
+              },
+              {
+                  "rel": [
+                      "https://discussions.api.brightspace.com/rels/topic"
+                  ],
+                  "href": "./data/base/discussion-topic.json"
+              },
+              {
+                  "rel": [
+                      "https://activities.api.brightspace.com/rels/activity-usage"
+                  ],
+                  "href": "#"
+              },
+              {
+                  "rel": [
+                      "https://api.brightspace.com/rels/user"
+                  ],
+                  "href": "./data/base/whoami.json"
+              },
+              {
+                  "rel": [
+                      "https://api.brightspace.com/rels/organization"
+                  ],
+                  "href": "./data/base/basic-organization.json"
+              },
+              {
+                  "rel": [
+                      "https://activities.api.brightspace.com/rels/associations"
+                  ],
+                  "href": "#"
+              },
+              {
+                  "rel": [
+                      "https://alignments.api.brightspace.com/rels/alignments"
+                  ],
+                  "href": "#"
+              }
+          ]
+      },
+      {
+        "class": [
+            "user-discussion-activity",
+            "activity"
+        ],
+        "rel": [
+            "https://activities.api.brightspace.com/rels/user-activity-usage"
+        ],
+        "entities": [
+            {
+                "class": [
+                    "due-date",
+                    "date"
+                ],
+                "rel": [
+                    "https://api.brightspace.com/rels/date"
+                ],
+                "properties": {
+                  "date": "2013-10-01T21:30:00.000Z",
+                  "localizedDate": "2013-10-01T17:30:00.000"
+                }
+            },
+            {
+                "class": [
+                    "completion",
+                    "incomplete"
+                ],
+                "rel": [
+                    "item",
+                    "https://activities.api.brightspace.com/rels/completion"
+                ]
+            }
+        ],
+        "actions": [
+            {
+                "href": "#",
+                "name": "query-associations",
+                "method": "GET",
+                "fields": [
+                    {
+                        "type": "text",
+                        "name": "type"
+                    }
+                ]
+            }
+        ],
+        "links": [
+            {
+                "rel": [
+                    "https://activities.api.brightspace.com/rels/user-activity-usage",
+                    "self"
+                ],
+                "href": "./data/base/discussion-activity-usage.json"
+            },
+            {
+                "rel": [
+                    "https://discussions.api.brightspace.com/rels/topic"
+                ],
+                "href": "./data/base/discussion-topic.json"
+            },
+            {
+                "rel": [
+                    "https://activities.api.brightspace.com/rels/activity-usage"
+                ],
+                "href": "#"
+            },
+            {
+                "rel": [
+                    "https://api.brightspace.com/rels/user"
+                ],
+                "href": "./data/base/whoami.json"
+            },
+            {
+                "rel": [
+                    "https://api.brightspace.com/rels/organization"
+                ],
+                "href": "./data/base/basic-organization.json"
+            },
+            {
+                "rel": [
+                    "https://activities.api.brightspace.com/rels/associations"
+                ],
+                "href": "#"
+            },
+            {
+                "rel": [
+                    "https://alignments.api.brightspace.com/rels/alignments"
+                ],
+                "href": "#"
+            }
+        ]
+      }
+  ],
+  "links": [
+      {
+          "rel": [
+              "self"
+          ],
+          "href": "./data/base/activity-collection.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/next-period"
+          ],
+          "href": "./data/base/activity-collection.json"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/previous-period"
+          ],
+          "href": "#"
+      },
+      {
+          "rel": [
+              "https://activities.api.brightspace.com/rels/overdue"
+          ],
+          "href": "#"
+      }
+  ],
+  "actions": [
+      {
+          "href": "https://{{tenantId}}.activities.api.dev.brightspace.com/users/{{userId}}",
+          "name": "select-custom-date-range",
+          "method": "GET",
+          "fields": [
+              {
+                  "type": "text",
+                  "name": "start",
+                  "value": "2010-01-01T00:00:00.000Z"
+              },
+              {
+                  "type": "text",
+                  "name": "end",
+                  "value": "2030-01-01T00:00:00.000Z"
+              }
+          ]
+      }
+  ]
+}

@@ -562,8 +562,8 @@ class D2LQuickEvalSubmissions extends mixinBehaviors(
 			key: 'displayName',
 			meta: { firstThenLast: true },
 			headers: [
-				{ key: 'firstName', sortClass: 'first-name', suffix: ',', canSort: false, sorted: false, desc: false },
-				{ key: 'lastName', sortClass: 'last-name', canSort: false, sorted: false, desc: false }
+				{ key: 'firstName', sortClass: 'first-name', suffix: ',', canSort: false, sorted: false, desc: false, nameColumn: true },
+				{ key: 'lastName', sortClass: 'last-name', canSort: false, sorted: false, desc: false, nameColumn: true }
 			],
 			type: 'user',
 			widthOverride: masterTeacher ? 25 : 30

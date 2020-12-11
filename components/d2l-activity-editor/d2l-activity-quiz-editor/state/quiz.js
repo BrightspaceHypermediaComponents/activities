@@ -11,6 +11,10 @@ export class Quiz {
 		this._saving = null;
 	}
 
+	delete() {
+		return this._entity.delete();
+	}
+
 	get dirty() {
 		return !this._entity.equals(this._makeQuizData());
 	}
@@ -31,7 +35,7 @@ export class Quiz {
 		this._entity = entity;
 		this.name = entity.name();
 		this.canEditName = entity.canEditName();
-		this.canEditShuffle =  entity.canEditShuffle();
+		this.canEditShuffle = entity.canEditShuffle();
 		this.isShuffleEnabled = entity.isShuffleEnabled();
 		this.canEditHints = entity.canEditHints();
 		this.hintsToolEnabled = entity.getHintsToolEnabled();
@@ -45,6 +49,10 @@ export class Quiz {
 		this.canEditPreventMovingBackwards = entity.canEditPreventMovingBackwards();
 		this.canEditNotificationEmail = entity.canEditNotificationEmail();
 		this.notificationEmail = entity.notificationEmail();
+		this.previewHref = entity.previewHref();
+		this.canPreviewQuiz = entity.canPreviewQuiz();
+		this.isAutoSetGradedEnabled = entity.isAutoSetGradedEnabled();
+		this.canEditAutoSetGraded = entity.canEditAutoSetGraded();
 	}
 
 	async save() {
@@ -62,6 +70,10 @@ export class Quiz {
 		this._saving = null;
 
 		await this.fetch();
+	}
+
+	setAutoSetGraded(isEnabled) {
+		this.isAutoSetGradedEnabled = isEnabled;
 	}
 
 	setDisablePagerAndAlertsTool(isEnabled) {
@@ -108,7 +120,8 @@ export class Quiz {
 			disableRightClick: this.isDisableRightClickEnabled,
 			disablePagerAndAlerts: this.isDisablePagerAndAlertsEnabled,
 			preventMovingBackwards: this.isPreventMovingBackwardsEnabled,
-			notificationEmail: this.notificationEmail
+			notificationEmail: this.notificationEmail,
+			autoSetGraded: this.isAutoSetGradedEnabled
 		};
 
 		return data;
@@ -124,6 +137,7 @@ decorate(Quiz, {
 	canEditDisableRightClick: observable,
 	canEditPreventMovingBackwards: observable,
 	canEditDisablePagerAndAlerts: observable,
+	canEditAutoSetGraded: observable,
 	isShuffleEnabled: observable,
 	hintsToolEnabled: observable,
 	password: observable,
@@ -133,6 +147,9 @@ decorate(Quiz, {
 	isPreventMovingBackwardsEnabled: observable,
 	canEditNotificationEmail: observable,
 	notificationEmail: observable,
+	previewHref: observable,
+	canPreviewQuiz: observable,
+	isAutoSetGradedEnabled: observable,
 	// actions
 	load: action,
 	setName: action,
@@ -143,5 +160,7 @@ decorate(Quiz, {
 	setDisablePagerAndAlertsTool: action,
 	setPreventMovingBackwards: action,
 	setNotificationEmail: action,
+	setAutoSetGraded: action,
 	save: action,
+	delete: action
 });

@@ -64,6 +64,7 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 				</span>
 
 				<li slot="summary-items">${this._renderAvailabilityDatesSummary()}</li>
+				<li slot="summary-items">${this._renderReleaseConditionSummary()}</li>
 				<li slot="summary-items">${this._renderPasswordSummary()}</li>
 
 				<span slot="components">
@@ -109,10 +110,12 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 	_renderPasswordEditor() {
 
 		return html`
-			<d2l-activity-quiz-password-editor
-				.href="${this.href}"
-				.token="${this.token}">
-			</d2l-activity-quiz-password-editor>
+			<div class="d2l-editor">
+				<d2l-activity-quiz-password-editor
+					.href="${this.href}"
+					.token="${this.token}">
+				</d2l-activity-quiz-password-editor>
+			</div>
 		`;
 	}
 
@@ -126,10 +129,6 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 	}
 
 	_renderReleaseConditionEditor() {
-		const activity = store.get(this.activityUsageHref);
-		if (!activity || !activity.canEditReleaseConditions) {
-			return html``;
-		}
 
 		return html`
 			<div class="d2l-editor">
@@ -142,6 +141,15 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 					.token="${this.token}">
 				</d2l-activity-usage-conditions-editor>
 			</div>
+		`;
+	}
+
+	_renderReleaseConditionSummary() {
+		return html`
+			<d2l-activity-usage-conditions-summary
+				href="${this.activityUsageHref}"
+				.token="${this.token}">
+			</d2l-activity-usage-conditions-summary>
 		`;
 	}
 

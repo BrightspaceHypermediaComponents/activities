@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
 	<head>
 		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
 		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 		<script type="module">
 			import '@brightspace-ui/core/components/demo/demo-page.js';
-			import '../../components/d2l-work-to-do/d2l-work-to-do.js';
+			import '@brightspace-ui/core/components/typography/styles.js';
+			import '@brightspace-ui/core/components/typography/typography.js';
+			import '../../components/d2l-quick-eval-widget/d2l-quick-eval-widget.js';
 		</script>
-		<title>work-to-do</title>
+		<title>d2l-consistent-evaluation</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<meta charset="UTF-8">
-		<style>
-			d2l-demo-snippet {
-				max-width: 100%;
-			}
-		</style>
 	</head>
-	<body>
-		<d2l-demo-page page-title="d2l-work-to-do demo">
-			<a href="../index.html">Back to Main</a></li>
-			<h2>d2l-work-to-do</h2>
+	<body class="d2l-typography">
+		<d2l-demo-page page-title="d2l-quick-eval-widget">
+			<h2>d2l-quick-eval-widget</h2>
 			<d2l-demo-snippet>
-				<d2l-work-to-do
-					href=''
-					token=''>
-				</d2l-work-to-do>
+				<d2l-quick-eval-widget
+
+				token=""
+				href=""
+				quick-eval-href=""
+				toggle-href=""
+				toggle-state="activities"
+				count="3">
+				</d2l-quick-eval-widget>
 			</d2l-demo-snippet>
 		</d2l-demo-page>
 	</body>

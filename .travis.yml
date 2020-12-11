@@ -9,6 +9,8 @@ install:
 - npm install
 jobs:
   include:
+  - stage: Empty Stage (Temporary)
+    script: echo "Empty first stage because visual-diff needs to be 2nd"
   - stage: Visual-difference-tests
     script:
     - |

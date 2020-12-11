@@ -20,8 +20,8 @@ jobs:
               body: `
             ## PR Checklist:
             
-            **Did you use a semver keyword in a commit message?**
-            - [ ] Yes I used one in at least one of my commits
+            **Did you use a semver keyword in a the PR title when creating it?**
+            - [ ] Yes
             - [ ] No but I will use a semver keyword in the merge commit message when I merge and squash
               `
             })

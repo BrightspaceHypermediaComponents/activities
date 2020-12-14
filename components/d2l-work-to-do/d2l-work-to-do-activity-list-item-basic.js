@@ -12,6 +12,7 @@ import { fetchEntity } from './state/fetch-entity';
 import { ListItemMixin } from '@brightspace-ui/core/components/list/list-item-mixin';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
 import { nothing } from 'lit-html';
+import { QuickEvalActivityAllowList } from '../d2l-quick-eval-widget/env';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
 class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
@@ -24,6 +25,14 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 			_activityProperties: { type: Object },
 			/** entity associated with ActivityUsageEntity's organization */
 			_organization: { type: Object },
+			submissionCount: {
+				attribute: 'submission-count',
+				type: Number
+			},
+			evaluateAllHref: {
+				attribute: 'evaluate-all-href',
+				type: String
+			}
 		};
 	}
 
@@ -202,9 +211,15 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 			return '';
 		}
 
-		return this._activity && this._activity.hasLinkByType('text/html')
-			? this._activity.getLinkByType('text/html').href
-			: '';
+		if (this._activity && this._activity.hasLinkByType('text/html')) {
+			return this._activity.getLinkByType('text/html').href;
+		}
+		else if (this.evaluateAllHref) {
+			return this.evaluateAllHref;
+		}
+		else {
+			return '';
+		}
 	}
 
 	/** Due or end date of activity */
@@ -262,13 +277,14 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 		}
 
 		const entity = this._usage._entity;
+		const allowList =  this.evaluateAllHref ? QuickEvalActivityAllowList : ActivityAllowList;
 
-		for (const allowed in ActivityAllowList) {
-			if (entity.hasClass(ActivityAllowList[allowed].class)) {
-				this._activityProperties = ActivityAllowList[allowed];
+		for (const allowed in allowList) {
+			if (entity.hasClass(allowList[allowed].class)) {
+				this._activityProperties = allowList[allowed];
 				const source = (
-					entity.hasLinkByRel(ActivityAllowList[allowed].rel)
-					&& entity.getLinkByRel(ActivityAllowList[allowed].rel)
+					entity.hasLinkByRel(allowList[allowed].rel)
+					&& entity.getLinkByRel(allowList[allowed].rel)
 					|| {}).href;
 				if (source) {
 					await fetchEntity(source, this.token)

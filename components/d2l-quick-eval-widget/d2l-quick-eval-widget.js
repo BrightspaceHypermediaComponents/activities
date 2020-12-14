@@ -2,17 +2,28 @@ import { css, html, LitElement } from 'lit-element';
 import { linkStyles } from '@brightspace-ui/core/components/link/link.js';
 import '@brightspace-ui/core/components/list/list.js';
 import { heading2Styles, bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { fetchActivities, fetchActivityName, fetchCourseName, getDueDate, fetchSubmissionCount, determineIcon, fetchEvaluateAllHref, setToggleState } from './d2l-quick-eval-widget-controller.js';
-import './d2l-quick-eval-widget-activity-list-item';
-import { formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
+import { fetchActivities, fetchSubmissionCount, fetchEvaluateAllHref, setToggleState } from './d2l-quick-eval-widget-controller.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
+import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 
 export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	static get properties() {
 		return {
 			href: { type: String },
-			token: { type: Object },
+			token: {
+				type: Object,
+				converter: {
+					formatAttribute(value) {
+						const retVal = String(value);
+						return retVal;
+					},
+					toAttribute(value) {
+						const retVal = Object(value);
+						return retVal;
+					}
+				}
+			},
 			quickEvalHref: {
 				attribute: 'quick-eval-href',
 				type: String
@@ -66,31 +77,26 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 	async getActivities(href, token) {
 		const unassessedActivityCollection = await fetchActivities(href, token);
-		const activityUsages = unassessedActivityCollection.entities.slice(0, this.count);
+		return Promise.all(
+			unassessedActivityCollection.entities
+				.slice(0, this.count)
+				.map(async activityUsage => {
+					let submissionCount = await fetchSubmissionCount(activityUsage, token);
 
-		return Promise.all(activityUsages.map(async au => {
-			const activityName = await fetchActivityName(au, token);
-			const courseName = await fetchCourseName(au, token);
-			const rawDueDate = getDueDate(au);
-			const dueDate = rawDueDate ? 'Due: ' + formatDateTime(new Date(rawDueDate), { format: 'medium' }) : 'No due date';
+					// don't display submissionCounts of zero
+					if (submissionCount === 0) {
+						submissionCount = undefined;
+					}
 
-			let submissionCount = await fetchSubmissionCount(au, token);
-			// don't display submissionCounts of zero
-			if (submissionCount === 0) {
-				submissionCount = undefined;
-			}
-			const icon = determineIcon(au);
-			const evaluateAllHref = await fetchEvaluateAllHref(au, token);
+					const href = activityUsage.getLinkByRel('self').href;
+					const evaluateAllHref = await fetchEvaluateAllHref(activityUsage, token);
 
-			return {
-				activityName,
-				courseName,
-				dueDate,
-				submissionCount,
-				icon,
-				evaluateAllHref
-			};
-		}));
+					return {
+						submissionCount,
+						href,
+						evaluateAllHref
+					};
+				}));
 	}
 
 	async handleViewAll() {
@@ -102,15 +108,12 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	}
 
 	render() {
-		const listItems = this.activities.map(a => {
-			return html`<d2l-quick-eval-widget-activity-list-item
-					activityName="${a.activityName}"
-					courseName="${a.courseName}"
-					dueDate="${a.dueDate}"
-					submissionCount="${ifDefined(a.submissionCount)}"
-					icon="${a.icon}"
-					evaluateAllHref="${a.evaluateAllHref}"
-				></d2l-quick-eval-widget-activity-list-item>`;
+		const listItems = this.activities.map(activity => {
+			return html`<d2l-work-to-do-activity-list-item-basic
+					evaluate-all-href="${activity.evaluateAllHref}"
+					href="${activity.href}"
+					submission-count=${activity.submissionCount}
+					.token=${ifDefined(this.token)}></d2l-work-to-do-activity-list-item-basic>`;
 		});
 
 		const loaded = html`<d2l-list class="d2l-quick-eval-widget-list" separators="none">${listItems}</d2l-list>`;

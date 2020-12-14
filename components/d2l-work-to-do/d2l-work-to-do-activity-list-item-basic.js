@@ -10,12 +10,12 @@ import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ListItemMixin } from '@brightspace-ui/core/components/list/list-item-mixin';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
+import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
 import { QuickEvalActivityAllowList } from '../d2l-quick-eval-widget/env';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
-class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(LocalizeMixin(LitElement)))) {
+class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
 	static get properties() {
 		return {
@@ -98,26 +98,6 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
 	}
 
 	constructor() {

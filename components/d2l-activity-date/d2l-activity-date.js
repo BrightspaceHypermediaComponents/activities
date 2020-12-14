@@ -2,10 +2,10 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { formatDate, formatTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeActivityDateMixin } from './localization';
 import { nothing } from 'lit-html/lit-html';
 
-class D2LActivityDate extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class D2LActivityDate extends EntityMixinLit(LocalizeActivityDateMixin(LitElement)) {
 
 	static get properties() {
 		return {
@@ -31,26 +31,6 @@ class D2LActivityDate extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
 	}
 
 	constructor() {
@@ -88,6 +68,7 @@ class D2LActivityDate extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		return html`${template}`;
 	}
 
+	// TODO - Deal with other types of date sub-entities (start, issue) - Likely requires new attributes for user to pass in order to indicate desired type
 	get _date() {
 		const dateString = this._usage
 			&& (this._usage.dueDate() || this._usage.endDate());

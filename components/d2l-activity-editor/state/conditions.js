@@ -118,6 +118,29 @@ export class Conditions {
 
 		return this._entity ? this._entity.createNewPositiveButtonText() : null;
 	}
+
+	get dirty() {
+
+		if (this._conditionsToCreate.size > 0) {
+			return true;
+		}
+
+		if (this._conditionsToRemove.size > 0) {
+			return true;
+		}
+
+		if (this._conditionsToAdd.size > 0) {
+			return true;
+		}
+
+		const operator = this._getSelectedOperator(this._operators);
+		if (operator !== this._operator) {
+			return true;
+		}
+
+		return false;
+	}
+
 	async fetch() {
 
 		const sirenEntity = await fetchEntity(this.href, this.token);
@@ -172,7 +195,7 @@ export class Conditions {
 			return;
 		}
 
-		if (!this._shouldSave) {
+		if (!this.dirty) {
 			return;
 		}
 
@@ -218,28 +241,6 @@ export class Conditions {
 
 		const item = operators.find(x => x.selected);
 		return item ? item.value : DefaultOperator;
-	}
-
-	get _shouldSave() {
-
-		if (this._conditionsToCreate.size > 0) {
-			return true;
-		}
-
-		if (this._conditionsToRemove.size > 0) {
-			return true;
-		}
-
-		if (this._conditionsToAdd.size > 0) {
-			return true;
-		}
-
-		const operator = this._getSelectedOperator(this._operators);
-		if (operator !== this._operator) {
-			return true;
-		}
-
-		return false;
 	}
 
 }

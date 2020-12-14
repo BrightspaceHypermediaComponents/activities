@@ -12,7 +12,7 @@ import { Config, Constants } from './env';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
+import { LocalizeWorkToDoMixin } from './localization';
 import { performSirenAction } from 'siren-sdk/src/es6/SirenAction';
 import { UserEntity } from 'siren-sdk/src/users/UserEntity';
 import { repeat } from 'lit-html/directives/repeat';
@@ -21,7 +21,7 @@ import { nothing } from 'lit-html';
 /**
  * @classdesc Class representation of Work to Do widget component
  */
-class WorkToDoWidget extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 	static get properties() {
 		return {
@@ -103,26 +103,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
 	}
 
 	constructor() {

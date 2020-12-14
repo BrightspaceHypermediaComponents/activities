@@ -6,13 +6,13 @@ import { css, html, LitElement } from 'lit-element/lit-element';
 import { Constants, getUpcomingWeekLimit } from './env';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
+import { LocalizeWorkToDoMixin } from './localization';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
 /**
  * Provides Title and Count for associated activity usage list
  */
-class ActivityListHeader extends SkeletonMixin(LocalizeMixin(LitElement)) {
+class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)) {
 
 	static get properties() {
 		return {
@@ -86,26 +86,6 @@ class ActivityListHeader extends SkeletonMixin(LocalizeMixin(LitElement)) {
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
-	}
-
 	constructor() {
 		super();
 		this.count = 0;
@@ -162,11 +142,9 @@ class ActivityListHeader extends SkeletonMixin(LocalizeMixin(LitElement)) {
 		if (this.skeleton) {
 			return '';
 		}
-		return this.fullscreen
-			? `${this.count}`
-			: this.count > Constants.MaxActivityCount
-				? `${Constants.MaxActivityCount}+`
-				: `${this.count}`;
+		return this.count > Constants.MaxActivityCount
+			? `${Constants.MaxActivityCount}+`
+			: `${this.count}`;
 	}
 
 	get _message() {

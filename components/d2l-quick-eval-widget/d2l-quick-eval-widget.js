@@ -1,16 +1,34 @@
-import { css, html, LitElement } from 'lit-element';
-import { linkStyles } from '@brightspace-ui/core/components/link/link.js';
 import '@brightspace-ui/core/components/list/list.js';
-import { heading2Styles, bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { fetchActivities, fetchSubmissionCount, fetchEvaluateAllHref, setToggleState } from './d2l-quick-eval-widget-controller.js';
-import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
 import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
+
+import { css, html, LitElement } from 'lit-element';
+import { bodyCompactStyles, heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
+import { linkStyles } from '@brightspace-ui/core/components/link/link.js';
+import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
 export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	static get properties() {
 		return {
-			href: { type: String },
+			_activities: { type: Array },
+			_count: { type: Number },
+			quickEvalHref: {
+				attribute: 'quick-eval-href',
+				type: String
+			},
+			activitiesHref: {
+				attribute: 'activities-href',
+				type: String
+			},
+			toggleHref: {
+				attribute: 'toggle-href',
+				type: String
+			},
+			toggleState: {
+				attribute: 'toggle-state',
+				type: String
+			},
 			token: {
 				type: Object,
 				converter: {
@@ -23,20 +41,6 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 						return retVal;
 					}
 				}
-			},
-			quickEvalHref: {
-				attribute: 'quick-eval-href',
-				type: String
-			},
-			activities: { type: Array },
-			count: { type: Number },
-			toggleHref: {
-				attribute: 'toggle-href',
-				type: String
-			},
-			toggleState: {
-				attribute: 'toggle-state',
-				type: String
 			},
 		};
 	}
@@ -58,8 +62,8 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 	constructor() {
 		super();
-		this.activities = [];
-		this.count = 3;
+		this._activities = [];
+		this._count = 3;
 	}
 
 	async updated(changedProperties) {
@@ -68,7 +72,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		if ((changedProperties.has('href') || changedProperties.has('token')) && this.href && this.token) {
 			this.skeleton = true;
 			try {
-				this.activities = await this.getActivities(this.href, this.token);
+				this._activities = await this.getActivities(this.href, this.token);
 			} finally {
 				this.skeleton = false;
 			}
@@ -79,7 +83,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		const unassessedActivityCollection = await fetchActivities(href, token);
 		return Promise.all(
 			unassessedActivityCollection.entities
-				.slice(0, this.count)
+				.slice(0, this._count)
 				.map(async activityUsage => {
 					let submissionCount = await fetchSubmissionCount(activityUsage, token);
 
@@ -108,7 +112,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	}
 
 	render() {
-		const listItems = this.activities.map(activity => {
+		const listItems = this._activities.map(activity => {
 			return html`<d2l-work-to-do-activity-list-item-basic
 					evaluate-all-href="${activity.evaluateAllHref}"
 					href="${activity.href}"
@@ -120,7 +124,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 		// delete when d2l-list supports SkeletonMixin
 		const loading = [];
-		for (let i = 0; i < this.count ; i++) {
+		for (let i = 0; i < this._count ; i++) {
 			loading.push(html`<ol class="d2l-skeletize"><li></li><li></li></ol>`);
 		}
 

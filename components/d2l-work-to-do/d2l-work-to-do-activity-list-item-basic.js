@@ -25,13 +25,15 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 			_activityProperties: { type: Object },
 			/** entity associated with ActivityUsageEntity's organization */
 			_organization: { type: Object },
-			submissionCount: {
-				attribute: 'submission-count',
-				type: Number
-			},
+			/** href to evaluate all submissions for assignment (for quick-eval widget) */
 			evaluateAllHref: {
 				attribute: 'evaluate-all-href',
 				type: String
+			},
+			/** number of submissions to evaluate (for quick-eval widget) */
+			submissionCount: {
+				attribute: 'submission-count',
+				type: Number
 			}
 		};
 	}

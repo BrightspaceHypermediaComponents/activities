@@ -1,5 +1,5 @@
-import 'd2l-polymer-siren-behaviors/store/entity-store.js';
 import 'd2l-fetch/d2l-fetch.js';
+import 'd2l-polymer-siren-behaviors/store/entity-store.js';
 
 async function fetch(href, token) {
 	return (await window.D2L.Siren.EntityStore.fetch(href, token)).entity;

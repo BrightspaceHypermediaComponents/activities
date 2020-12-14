@@ -40,13 +40,6 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		});
 	}
 
-	get saveCompleteEvent() {
-		return new CustomEvent('d2l-activity-editor-save-complete', {
-			bubbles: true,
-			composed: true,
-			cancelable: true
-		});
-	}
 	unregisterEditor(editor) {
 		this._editors.delete(editor);
 	}
@@ -116,7 +109,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		e.stopPropagation();
 	}
 
-	async _save() {
+	async _save(e) {
 		this.isSaving = true;
 		this.markSaveStart(this.type, this.telemetryId);
 
@@ -131,8 +124,25 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		await this._saveEditors(orderedEditors);
 
 		this.isError = false;
-		this.dispatchEvent(this.saveCompleteEvent);
+
+		const closeOnSave = e && e.detail && e.detail.close;
+		this.dispatchEvent(this._saveCompleteEvent(closeOnSave));
+		if (!closeOnSave) {
+			this.isSaving = false;
+		}
+
 		this.logSaveEvent(this.href, this.type, this.telemetryId);
+	}
+
+	_saveCompleteEvent(closeOnSave) {
+		return new CustomEvent('d2l-activity-editor-save-complete', {
+			detail: {
+				close: closeOnSave
+			},
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
 	}
 
 	async _saveEditors(orderedEditors) {

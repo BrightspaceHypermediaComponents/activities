@@ -1,6 +1,7 @@
 import '@brightspace-ui/core/components/backdrop/backdrop.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
+import 'd2l-alert/d2l-alert-toast.js';
 
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
@@ -16,7 +17,8 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		return {
 			widthType: { type: String, attribute: 'width-type' },
 			errorTerm: { type: String, attribute: 'error-term' },
-			_backdropShown: { type: Boolean }
+			_backdropShown: { type: Boolean },
+			_saveToastVisible: { type: Boolean }
 		};
 	}
 
@@ -48,6 +50,17 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		super();
 
 		this._backdropShown = false;
+		this._saveToastVisible = null;
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.removeEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
 	}
 
 	render() {
@@ -81,6 +94,15 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 				<d2l-button slot="footer" primary dialog-action="confirm">${this.localize('editor.yesLabel')}</d2l-button>
 				<d2l-button slot="footer" dialog-action="cancel">${this.localize('editor.noLabel')}</d2l-button>
 			</d2l-dialog-confirm>
+
+			<d2l-alert-toast
+				id="save-succeeded-toast"
+				?open="${this._saveToastVisible}"
+				type="default"
+				announce-text=${this.localize('editor.saveSuccessful')}
+				@d2l-alert-toast-close=${this._onToastClose}>
+				${this.localize('editor.saveSuccessful')}
+			</d2l-alert-toast>
 		`;
 	}
 	update(changedProperties) {
@@ -116,9 +138,21 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		}
 	}
 
+	_onSaveComplete(e) {
+		if (e.detail.close) {
+			return;
+		}
+
+		this._saveToastVisible = true;
+		e.stopPropagation();
+	}
+
+	_onToastClose() {
+		this._saveToastVisible = false;
+	}
+
 	_toggleBackdrop(show) {
 		this._backdropShown = show;
 	}
-
 }
 customElements.define('d2l-activity-editor', ActivityEditor);

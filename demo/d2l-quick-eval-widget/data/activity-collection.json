@@ -22,8 +22,8 @@
             "https://api.brightspace.com/rels/date"
           ],
           "properties": {
-            "date": "2020-12-21T23:30:00.000Z",
-            "localizedDate": "2020-12-21T18:30:00.000"
+            "date": "2020-12-02T23:30:00.000Z",
+            "localizedDate": "2020-12-02T18:30:00.000"
           }
         }
       ],
@@ -33,13 +33,13 @@
             "https://activities.api.brightspace.com/rels/activity-usage",
             "self"
           ],
-          "href": "./data/activity-usage1.json"
+          "href": "./data/activity-usage-assignment.json"
         },
         {
           "rel": [
             "https://activities.api.brightspace.com/rels/evaluation-status"
           ],
-          "href": "./data/evaluation-status.json"
+          "href": "./data/evaluation-status-assignment.json"
         },
         {
           "rel": [
@@ -53,6 +53,95 @@
             "https://api.brightspace.com/rels/specialization"
           ],
           "href": "./data/assignment.json"
+        }
+      ]
+    },
+    {
+      "class": [
+        "discussion-activity"
+      ],
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage"
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage",
+            "self"
+          ],
+          "href": "./data/activity-usage-discussion.json"
+        },
+        {
+          "rel": [
+            "https://api.brightspace.com/rels/specialization",
+            "https://discussions.api.brightspace.com/rels/topic"
+          ],
+          "href": "./data/discussion-topic.json"
+        },
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/evaluation-status"
+          ],
+          "href": "./data/evaluation-status-discussion.json"
+        },
+        {
+          "rel": [
+            "https://api.brightspace.com/rels/organization"
+          ],
+          "href": "./data/organization1.json"
+        }
+      ]
+    },
+    {
+      "class": [
+        "quiz-activity",
+        "draft-published-entity",
+        "published"
+      ],
+      "entities": [
+        {
+          "class": [
+            "due-date",
+            "date"
+          ],
+          "rel": [
+            "https://api.brightspace.com/rels/date"
+          ],
+          "properties": {
+            "date": "2020-12-21T23:30:00.000Z",
+            "localizedDate": "2020-12-21T18:30:00.000"
+          }
+        }
+      ],
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage"
+      ],
+      "links": [
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/activity-usage",
+            "self"
+          ],
+          "href": "./data/activity-usage-quiz.json"
+        },
+        {
+          "rel": [
+            "https://activities.api.brightspace.com/rels/evaluation-status"
+          ],
+          "href": "./data/evaluation-status-quiz.json"
+        },
+        {
+          "rel": [
+            "https://api.brightspace.com/rels/organization"
+          ],
+          "href": "./data/organization.json"
+        },
+        {
+          "rel": [
+            "https://api.brightspace.com/rels/quiz",
+            "https://api.brightspace.com/rels/specialization"
+          ],
+          "href": "./data/quiz.json"
         }
       ]
     }

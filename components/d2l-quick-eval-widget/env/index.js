@@ -1,20 +1,20 @@
-import { Classes, Rels } from 'siren-sdk/src/hypermedia-constants';
+import { Rels } from 'siren-sdk/src/hypermedia-constants';
 
 export const QuickEvalActivityAllowList = {
-	userAssignmentActivity: {
-		class: Classes.activities.assignmentActivity,
+	assignmentActivity: {
+		class: 'assignment-activity',
 		icon: 'tier2:assignments',
 		rel: Rels.assignment,
 		type: 'Assignment'
 	},
-	userDiscussionActivity: {
-		class: Classes.activities.discussionActivity,
+	discussionActivity: {
+		class: 'discussion-activity',
 		icon: 'tier2:discussions',
 		rel: Rels.Discussions.topic,
 		type: 'Discussion'
 	},
-	userQuizActivity: {
-		class: Classes.activities.quizActivity,
+	quizActivity: {
+		class: 'quiz-activity',
 		icon: 'tier2:quizzing',
 		rel: Rels.quiz,
 		type: 'Quiz'

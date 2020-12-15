@@ -4,7 +4,7 @@
         "assignment"
     ],
     "properties": {
-        "name": "Math - Geometry - File Adding extra text so this assignment has a very long name for testing how the UI response to this"
+        "name": "Geometry Assignment 4 - this assignment has a very long name for testing how the UI response to this"
     },
     "rel": [
         "https://assignments.api.brightspace.com/rels/assignment"

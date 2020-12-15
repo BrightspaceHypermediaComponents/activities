@@ -1,0 +1,20 @@
+{
+  "class": [
+    "discussion-activity"
+  ],
+  "links": [
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage",
+        "self"
+      ],
+      "href": "./data/activity-usage-discussion.json"
+    },
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/evaluation-status"
+      ],
+      "href": "./data/evaluation-status-discussion.json"
+    }
+  ]
+}

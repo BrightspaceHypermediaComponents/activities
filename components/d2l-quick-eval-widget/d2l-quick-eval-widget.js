@@ -69,10 +69,10 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	async updated(changedProperties) {
 		super.updated();
 
-		if ((changedProperties.has('href') || changedProperties.has('token')) && this.href && this.token) {
+		if ((changedProperties.has('href') || changedProperties.has('token')) && this.activitiesHref && this.token) {
 			this.skeleton = true;
 			try {
-				this._activities = await this.getActivities(this.href, this.token);
+				this._activities = await this.getActivities(this.activitiesHref, this.token);
 			} finally {
 				this.skeleton = false;
 			}

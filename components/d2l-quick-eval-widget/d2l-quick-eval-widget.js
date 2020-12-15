@@ -1,11 +1,11 @@
 import '@brightspace-ui/core/components/list/list.js';
+import '@brightspace-ui/core/components/link/link.js';
 import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 
 import { css, html, LitElement } from 'lit-element';
-import { bodyCompactStyles, heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
-import { linkStyles } from '@brightspace-ui/core/components/link/link.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
 export class QuickEvalWidget extends SkeletonMixin(LitElement) {
@@ -13,12 +13,12 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		return {
 			_activities: { type: Array },
 			_count: { type: Number },
-			quickEvalHref: {
-				attribute: 'quick-eval-href',
-				type: String
-			},
 			activitiesHref: {
 				attribute: 'activities-href',
+				type: String
+			},
+			quickEvalHref: {
+				attribute: 'quick-eval-href',
 				type: String
 			},
 			toggleHref: {
@@ -46,14 +46,8 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	}
 
 	static get styles() {
-		return [ super.styles, linkStyles, bodyCompactStyles, heading2Styles, css`
-			hr {
-				margin: 0;
-			}
-			.d2l-quick-eval-widget-heading {
-				margin-bottom: 0.5rem;
-				margin-top: 0.5rem;
-			}
+		return [ super.styles,
+			bodyCompactStyles, css`
 			.d2l-quick-eval-widget-list {
 				margin-top: 0.5rem;
 			}
@@ -129,10 +123,8 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		}
 
 		return html`
-			<div class="d2l-heading-2 d2l-quick-eval-widget-heading">Evaluations To Do</div>
-			<hr>
 			${ this.skeleton ? loading : loaded }
-			<div @click="${this.handleViewAll}" class="d2l-link d2l-body-compact" href="${this.quickEvalHref}">View All</div>
+			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">View all activities</d2l-link>
 		`;
 	}
 }

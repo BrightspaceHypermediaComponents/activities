@@ -5,6 +5,11 @@ import './d2l-work-to-do-activity-list-header';
 import './d2l-work-to-do-activity-list-item-basic';
 import './d2l-work-to-do-activity-list-item-detailed';
 
+import '@webcomponents/webcomponentsjs/webcomponents-loader';
+import 'd2l-navigation/d2l-navigation-immersive';
+import 'd2l-navigation/d2l-navigation-button';
+import 'd2l-navigation/d2l-navigation-button-close';
+
 import { Actions, Rels } from 'siren-sdk/src/hypermedia-constants';
 import { bodyStandardStyles, heading1Styles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
@@ -117,6 +122,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
+		this._backLinkHref = window.D2L.workToDoOptions ? window.D2L.workToDoOptions.href : '';
 		this._setEntityType(UserEntity);
 	}
 
@@ -295,7 +301,19 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				`;
 			});
 
+			const immersiveNav = (isFullscreen) => {
+				return isFullscreen
+					? html`
+						<d2l-navigation-immersive back-link-href="${this._backLinkHref}" back-link-text="Back to D2L">
+							<div class="d2l-typography d2l-body-standard" slot="middle">
+								<p>${this.localize('myWorkToDo')}</p>
+							</div>
+						</d2l-navigation-immersive>`
+					: nothing;
+			};
+
 			return html`
+				${immersiveNav(this.fullscreen)}
 				<div class="d2l-activity-collection-container-fullscreen">
 					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>

@@ -102,6 +102,7 @@
     "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
+    "d2l-navigation": "BrightspaceUI/navigation#semver:^4",
     "d2l-organizations": "BrightspaceHypermediaComponents/organizations#semver:^5",
     "d2l-polymer-behaviors": "Brightspace/d2l-polymer-behaviors-ui#semver:^2",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",

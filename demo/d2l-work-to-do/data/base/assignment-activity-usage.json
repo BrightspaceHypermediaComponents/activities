@@ -78,13 +78,13 @@
               "https://activities.api.brightspace.com/rels/user-activity-usage",
               "self"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069/users/30260"
+          "href": "./data/base/assignment-activity-usage.json"
       },
       {
           "rel": [
               "https://activities.api.brightspace.com/rels/activity-usage"
           ],
-          "href": "https://a348ca91-5a4c-4198-ba83-4b85883e24a9.activities.api.dev.brightspace.com/activities/6606_2000_1387/usages/123069"
+          "href": "#"
       },
       {
           "rel": [
@@ -96,7 +96,7 @@
           "rel": [
               "https://api.brightspace.com/rels/organization"
           ],
-          "href": "./data/base/assignment-organization.json"
+          "href": "./data/base/basic-organization.json"
       },
       {
           "rel": [

@@ -11,6 +11,10 @@ export class Quiz {
 		this._saving = null;
 	}
 
+	delete() {
+		return this._entity.delete();
+	}
+
 	get dirty() {
 		return !this._entity.equals(this._makeQuizData());
 	}
@@ -158,4 +162,5 @@ decorate(Quiz, {
 	setNotificationEmail: action,
 	setAutoSetGraded: action,
 	save: action,
+	delete: action
 });

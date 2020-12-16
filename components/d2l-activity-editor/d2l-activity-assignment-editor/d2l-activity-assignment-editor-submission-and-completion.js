@@ -4,7 +4,7 @@ import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-type-summary.js';
 import '../d2l-activity-notification-email-editor';
 import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
-import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -31,7 +31,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		return [
 			super.styles,
 			bodyCompactStyles,
-			bodySmallStyles,
 			labelStyles,
 			radioStyles,
 			selectStyles,
@@ -251,7 +250,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 					value="${assignment.notificationEmail}"
 					?disabled="${!assignment.canEditNotificationEmail}"
 					@activity-notification-email-changed="${this._onNotificationEmailChanged}">
-					<p slot="description" class="d2l-body-small">
+					<p slot="description">
 						${this.localize('hlpSubmissionNotificationEmail')}
 					</p>
 				</d2l-activity-notification-email-editor>

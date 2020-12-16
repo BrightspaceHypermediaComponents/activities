@@ -79,7 +79,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletonMixin(Locali
 	}
 
 	async _handlerAudioUploaded(e) {
-		const file = e.detail.file;
+		const file = e.detail.files[0];
 
 		const fileId = file.GetId();
 		const fileName = file.GetName();
@@ -121,7 +121,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletonMixin(Locali
 	}
 
 	async _handlerVideoUploaded(e) {
-		const file = e.detail.file;
+		const file = e.detail.files[0];
 
 		const fileId = file.GetId();
 		const fileName = file.GetName();

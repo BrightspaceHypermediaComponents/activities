@@ -57,6 +57,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	constructor() {
 		super();
 		this._activities = [];
+		this.count = 6;
 	}
 
 	async updated(changedProperties) {

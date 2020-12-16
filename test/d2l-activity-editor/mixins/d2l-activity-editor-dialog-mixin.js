@@ -32,9 +32,11 @@ describe('d2l-activity-editor-dialog-mixin', function() {
 
 	it('handles opening a dialog', async() => {
 		const el = await fixture(`<${editor}></${editor}>`);
+		const event = { preventDefault: () => {} };
+
 		el.opened = false;
 
-		el.open();
+		el.open(event);
 
 		expect(el.opened).to.be.true;
 	});

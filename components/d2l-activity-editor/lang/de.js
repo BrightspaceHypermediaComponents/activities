@@ -59,8 +59,8 @@ export default {
 	"editor.manageCompetencies": "Lernziele verwalten", //Button text to launch competencies tool dialog
 	"editor.competenciesCount": "{count, plural, =1 {1 Anhang} other {{Anzahl} Anhänge}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Keine Lernziele", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {1 Lernziel} andere {{count} Lernziele}}", // num release condition text
-	"editor.unevaluatedCompetencies": "{count, Plural, =1 {1 fehlende Bewertung} andere {{count} fehlende Bewertungen}}", //Label for number of unevalated associated competencies
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 Lernziel} other {{count} Lernziele}}", // num release condition text
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 fehlende Bewertung} other {{count} fehlende Bewertungen}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Schließen", //Label for Close button
 	"editor.btnCloseDialog": "Dieses Dialogfeld schließen", // close dialog button
 	"editor.btnManageSpecialAccess": "Beschränkten Zugriff verwalten", // manage special access button

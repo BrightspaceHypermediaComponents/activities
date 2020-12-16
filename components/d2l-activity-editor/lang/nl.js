@@ -8,7 +8,7 @@ export default {
 	"editor.btnRemoveCondition": "Voorwaarde verwijderen", // remove condition button
 	"editor.lblConditionsOperator": "Om dit item te bekijken, moeten gebruikers voldoen aan", // conditions operator label
 	"editor.txtConditionAdded": "Toegevoegde voorwaarde: {title}",
-	"editor.txtConditionRemoved": "Verwijderde voorwaarde: {condition}",
+	"editor.txtConditionRemoved": "Verwijderde voorwaarde: {title}",
 	"editor.txtConditionsAdded": "Toegevoegde {count} voorwaarden",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} releasevoorwaarde} other {{count} releasevoorwaarden}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 gebruiker met speciale toegang} other {{userCount} gebruikers met speciale toegang}}", // num users with special access text
@@ -57,7 +57,7 @@ export default {
 	"editor.noGradeCreatePermission": "U bent niet gemachtigd om een nieuw score-onderdeel te maken", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Leerdoelen", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Leerdoelen beheren", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =1 {1 toegevoegd} andere {{count} toegevoegd}}", //Label for number of associated competencies
+	"editor.competenciesCount": "{count, plural, =1 {1 toegevoegd} other {{count} toegevoegd}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Geen leerdoelen", //text label when there are no associated learning objectives
 	"editor.competenciesCountSummary": "{count, plural, =1 {1 leerdoel} other {{count} leerdoelen}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}}", //Label for number of unevalated associated competencies

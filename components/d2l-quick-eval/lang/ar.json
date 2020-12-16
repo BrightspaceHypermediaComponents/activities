@@ -2,7 +2,7 @@
    "activities" : "الأنشطة",
    "activityDismissed" : "تم رفض النشاط",
    "activityName" : "اسم النشاط",
-   "activityRestored" : "تمت استعادة {count, plural, =1 {نشاط واحد other {{count} من الأنشطة}}",
+   "activityRestored" : "تمت استعادة {count, plural, =1 {نشاط واحد} other {{count} من الأنشطة}}",
    "assignment" : "الفرض",
    "cancel" : "إلغاء",
    "caughtUp" : "لقد انتهيت من مهامك!",

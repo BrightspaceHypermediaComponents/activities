@@ -85,7 +85,7 @@ export default {
 	"rubrics.btnCancel": "Canslo", //Button for canceling out of the attach new rubric overlay
 	"rubrics.txtAddExisting": "Ychwanegu’r Presennol", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "Dim cyfeireb wedi’i hychwanegu", // rubric summary for no rubrics
-	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric added} arall {{count} rubrics added}}", // count of asoociated rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric added} other {{count} rubrics added}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Dileu Cyfeireb", // Text for deleting rubric icon
 	"rubrics.btnClose": "Cau", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Wedi ychwanegu cyfeireb", // Text for notifying screenreader rubric was added

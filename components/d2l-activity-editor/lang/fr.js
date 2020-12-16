@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Gérer l’accès spécial", // manage special access button
 	"editor.specialAccessRestrictedText": "Seuls les utilisateurs ayant l’accès spécial ont la possibilité de prendre connaissance de ce dossier", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Les utilisateurs peuvent effectuer la soumission en dehors des dates de disponibilité normales", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural,= 1 {1 utilisateur} other {{count} utilisateurs}} ayant l’accès spécial", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 utilisateur} other {{count} utilisateurs}} ayant l’accès spécial", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Aucun utilisateur", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Gérer l’accès spécial", // Dialog title
 	"editor.specialAccessHidden": "Masqué par accès spécial", // Warning label that the activity is restricted but is being hidden from all users by special access rules

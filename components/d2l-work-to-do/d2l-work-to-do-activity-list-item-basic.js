@@ -182,7 +182,7 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 	}
 
 	set actionHref(href) {  // This is a hack - Garbage setter function since list-mixin initializes value
-		this.requestUpdate('actionHref', this.evaluateAllHref ? this.evaluateAllHref : href );
+		this.requestUpdate('actionHref', this.evaluateAllHref ? this.evaluateAllHref : href);
 	}
 
 	/** Link to activity instance for user navigation to complete/work on activity */

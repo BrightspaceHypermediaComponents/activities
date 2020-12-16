@@ -14,7 +14,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 			_activities: { type: Array },
 			_count: { type: Number },
 			activitiesHref: {
-				attribute: 'activities-href',
+				attribute: 'href',
 				type: String
 			},
 			quickEvalHref: {

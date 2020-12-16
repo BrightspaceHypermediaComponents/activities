@@ -12,11 +12,11 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	static get properties() {
 		return {
 			_activities: { type: Array },
-			_count: { type: Number },
 			activitiesHref: {
 				attribute: 'href',
 				type: String
 			},
+			count: { type: Number },
 			quickEvalHref: {
 				attribute: 'quick-eval-href',
 				type: String
@@ -57,7 +57,6 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	constructor() {
 		super();
 		this._activities = [];
-		this._count = 3;
 	}
 
 	async updated(changedProperties) {
@@ -77,7 +76,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		const unassessedActivityCollection = await fetchActivities(href, token);
 		return Promise.all(
 			unassessedActivityCollection.entities
-				.slice(0, this._count)
+				.slice(0, this.count)
 				.map(async activityUsage => {
 					let submissionCount = await fetchSubmissionCount(activityUsage, token);
 
@@ -118,7 +117,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 		// delete when d2l-list supports SkeletonMixin
 		const loading = [];
-		for (let i = 0; i < this._count ; i++) {
+		for (let i = 0; i < this.count ; i++) {
 			loading.push(html`<ol class="d2l-skeletize"><li></li><li></li></ol>`);
 		}
 

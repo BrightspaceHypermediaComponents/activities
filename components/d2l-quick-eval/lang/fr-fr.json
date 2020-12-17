@@ -2,7 +2,7 @@
    "activities" : "Activités",
    "activityDismissed" : "Activité rejetée",
    "activityName" : "Nom de l’activité",
-   "activityRestored" : "{count, plural, =1 {1 activité} autre(s) {{count} activité(s)}} restaurée(s)",
+   "activityRestored" : "{count, plural, =1 {1 activité} other {{count} activité(s)}} restaurée(s)",
    "assignment" : "Devoir",
    "cancel" : "Annuler",
    "caughtUp" : "Vous êtes à jour !",

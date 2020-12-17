@@ -43,7 +43,7 @@
    "moreActions" : "Plus d’actions",
    "multiCourseQuickEval" : "Évaluation rapide de plusieurs cours",
    "newAttempts" : "Nouvelles tentatives",
-   "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 nouvelle tentative} other {{reAttemptNum} nouvelles tentatives}}} other {{reAttemptNum, plural, =0 {{newNum} nouvelle} =1{{newNum} nouvelle, 1 nouvelle tentative} other {{newNum} new, {reAttemptNum} nouvelles tentatives}}}}",
+   "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 nouvelle tentative} other {{reAttemptNum} nouvelles tentatives}}} other {{reAttemptNum, plural, =0 {{newNum} nouvelle} =1{{newNum} nouvelle, 1 nouvelle tentative} other {{newNum} nouvelle, {reAttemptNum} nouvelles tentatives}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {1 fil ou réponse} other {{numInteractions} fils ou réponses}}",
    "newPosts" : "Nouvelles publications",
    "newSubmissionDetails" : "{newNum, plural, =0 {{resub, plural, =1 {1 resoumission} other {{resub} resoumissions}}} other {{resub, plural, =0 {{newNum} nouvelle} =1{{newNum} nouvelle, 1 resoumission} other {{newNum} nouvelles, {resub} resoumissions}}}}",

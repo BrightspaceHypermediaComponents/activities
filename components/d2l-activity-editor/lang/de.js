@@ -57,7 +57,7 @@ export default {
 	"editor.noGradeCreatePermission": "Sie haben keine Berechtigung, einen neuen Benotungsgegenstand zu erstellen.", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Lernziele", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Lernziele verwalten", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =1 {1 Anhang} other {{Anzahl} Anhänge}}", //Label for number of associated competencies
+	"editor.competenciesCount": "{count, plural, =1 {1 Anhang} other {{count} Anhänge}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Keine Lernziele", //text label when there are no associated learning objectives
 	"editor.competenciesCountSummary": "{count, plural, =1 {1 Lernziel} other {{count} Lernziele}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 fehlende Bewertung} other {{count} fehlende Bewertungen}}", //Label for number of unevalated associated competencies

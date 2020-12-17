@@ -57,9 +57,9 @@ export default {
 	"editor.noGradeCreatePermission": "Du har ikke tilladelse til at oprette et nyt karakterelement", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Undervisningsformål", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Administrer undervisningsformål", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =1 {1 attached} other {{count} attached}}", //Label for number of associated competencies
+	"editor.competenciesCount": "{count, plural, =0 {Ingen undervisningsformål} =1 {1 vedhæftet} other {{count} vedhæftede}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Ingen undervisningsformål", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {1 learning objective} other {{count} learning objectives}}", // num release condition text
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 objetivo de aprendizaje} other {{count} objetivos de aprendizaje}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 manglende vurdering} other {{count} manglende vurderinger}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Luk", //Label for Close button
 	"editor.btnCloseDialog": "Luk denne dialogboks", // close dialog button

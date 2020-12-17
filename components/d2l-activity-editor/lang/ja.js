@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "特殊なアクセスの管理", // manage special access button
 	"editor.specialAccessRestrictedText": "特殊なアクセスを持つユーザーのみがこのフォルダを表示することができます", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "ユーザーは、通常の利用可能日以外の日にも送信することができます", // not restricted special access description
-	"editor.specialAccessCount": "特殊なアクセスを持つ {count, plural, =1 {1 人のユーザー} other {count} 人のユーザー}", // Label for number of special access users
+	"editor.specialAccessCount": "特殊なアクセスを持つ {count, plural, =1 {1 人のユーザー} other {{count} 人のユーザー}}", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "ユーザーはいません", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "特殊なアクセスの管理", // Dialog title
 	"editor.specialAccessHidden": "特殊なアクセスで非表示", // Warning label that the activity is restricted but is being hidden from all users by special access rules

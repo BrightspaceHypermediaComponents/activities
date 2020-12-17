@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Rheoli Mynediad Arbennig", // manage special access button
 	"editor.specialAccessRestrictedText": "Defnyddwyr â mynediad arbennig yn unig gall gweld y ffolder hwn", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gall defnyddwyr gyflwyno y tu allan i’r dyddiadau argaeledd arferol", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} â mynediad arbennig", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} â mynediad arbennig", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Dim Defnyddwyr", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Rheoli Mynediad Arbennig", // Dialog title
 	"editor.specialAccessHidden": "Cudd gan fynediad arbennig", // Warning label that the activity is restricted but is being hidden from all users by special access rules

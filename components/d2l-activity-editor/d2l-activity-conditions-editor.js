@@ -119,6 +119,16 @@ class ActivityConditionsEditor
 			${this._renderAddCondition(entity)}
 		`;
 	}
+
+	hasPendingChanges() {
+		const entity = store.get(this.href);
+		if (!entity) {
+			return false;
+		}
+
+		return entity.dirty;
+	}
+
 	async save() {
 
 		const entity = store.get(this.href);

@@ -10,7 +10,7 @@ describe('d2l-quick-eval-activity-card', function() {
 	before(async() => {
 		browser = await puppeteer.launch();
 		page = await browser.newPage();
-		await page.setViewport({ width: 900, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 900, height: 1900, deviceScaleFactor: 2 });
 		await page.goto(`${visualDiff.getBaseUrl()}/test/d2l-quick-eval/perceptual/d2l-quick-eval-activity-card.visual-diff.html`, { waitUntil: ['networkidle0', 'load'] });
 		await page.bringToFront();
 	});
@@ -48,31 +48,31 @@ describe('d2l-quick-eval-activity-card', function() {
 	});
 
 	it('tablet-viewport', async function() {
-		await page.setViewport({ width: 899, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 899, height: 3100, deviceScaleFactor: 2 });
 		const rect = await visualDiff.getRect(page, '#tablet-viewport');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
 
 	it('dismiss-tablet-viewport', async function() {
-		await page.setViewport({ width: 899, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 899, height: 3100, deviceScaleFactor: 2 });
 		const rect = await visualDiff.getRect(page, '#dismiss');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
 
 	it('mobile-viewport', async function() {
-		await page.setViewport({ width: 524, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 524, height: 3500, deviceScaleFactor: 2 });
 		const rect = await visualDiff.getRect(page, '#mobile-viewport');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
 
 	it('dismiss-mobile-viewport', async function() {
-		await page.setViewport({ width: 524, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 524, height: 3500, deviceScaleFactor: 2 });
 		const rect = await visualDiff.getRect(page, '#dismiss');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
 
 	it('dismiss-dropdown-publish-disabled', async function() {
-		await page.setViewport({ width: 900, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 900, height: 1900, deviceScaleFactor: 2 });
 		page.hover('#dismiss d2l-quick-eval-activity-card');
 		await page.waitFor(2000);
 		await page.evaluate(() => {
@@ -89,7 +89,7 @@ describe('d2l-quick-eval-activity-card', function() {
 	});
 
 	it('dismiss-dropdown-publish-enabled', async function() {
-		await page.setViewport({ width: 900, height: 800, deviceScaleFactor: 2 });
+		await page.setViewport({ width: 900, height: 1900, deviceScaleFactor: 2 });
 		page.hover('#dismiss-with-publish d2l-quick-eval-activity-card');
 		await page.waitFor(2000);
 		await page.evaluate(() => {

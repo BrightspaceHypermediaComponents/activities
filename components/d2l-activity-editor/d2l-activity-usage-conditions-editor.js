@@ -41,7 +41,7 @@ class ActivityUsageConditionsEditor extends ActivityEditorMixin(MobxLitElement) 
 			return false;
 		}
 
-		return entity.dirty;
+		return entity.dirty();
 	}
 }
 

@@ -9,12 +9,12 @@ import { ActivityAllowList } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
-import { ListItemMixin } from '@brightspace-ui/core/components/list/list-item-mixin';
+import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
 import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
-class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
+class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
 	static get properties() {
 		return {

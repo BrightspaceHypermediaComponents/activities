@@ -142,11 +142,9 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 		if (this.skeleton) {
 			return '';
 		}
-		return this.fullscreen
-			? `${this.count}`
-			: this.count > Constants.MaxActivityCount
-				? `${Constants.MaxActivityCount}+`
-				: `${this.count}`;
+		return this.count > Constants.MaxActivityCount
+			? `${Constants.MaxActivityCount}+`
+			: `${this.count}`;
 	}
 
 	get _message() {

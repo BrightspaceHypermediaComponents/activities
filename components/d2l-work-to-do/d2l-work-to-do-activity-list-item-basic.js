@@ -1,5 +1,5 @@
+import '@brightspace-ui/core/components/card/card-footer-link';
 import '@brightspace-ui/core/components/colors/colors';
-import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/list/list-item-content';
 import '../d2l-activity-date/d2l-activity-date';
 
@@ -161,11 +161,13 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		return this._renderListItem({
 			illustration: html`
-				<d2l-icon
+				<d2l-card-footer-link
 					class=${classMap(iconClasses)}
 					?skeleton=${this.skeleton}
+					?secondary-text=${this.submissionCount}
+					secondary-text-type=${this.submissionCount ? 'notification' : ''}
 					icon=${this._icon}>
-				</d2l-icon>`,
+				</d2l-card-footer-link>`,
 			content: html`
 				<d2l-list-item-content id="content">
 					<div class=${classMap(nameClasses)}>

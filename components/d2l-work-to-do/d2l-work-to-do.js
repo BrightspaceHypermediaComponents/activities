@@ -304,7 +304,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			const immersiveNav = (isFullscreen) => {
 				return isFullscreen
 					? html`
-						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="Back to D2L">
+						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
 							<div class="d2l-typography d2l-body-standard" slot="middle">
 								<p>${this.localize('myWorkToDo')}</p>
 							</div>

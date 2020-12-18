@@ -1,7 +1,7 @@
 export const val = {
 	activitiesAvailable: "Activities that are due or ending in two weeks are complete! Check View All Work to see what's coming later.", // 'Empty View' - When widget has no activities to display within the next two weeks, but there are more activities further into the future that can be shown on the full screen view
 	Assignment : "Assignment",  // Meta-data descriptor that informs which type of activity is being displayed on a line item
-	backToD2L : "Back to D2L", // Displayed in the immersive navbar to escape out of fullescreen view
+	backToD2L : "Back to D2L", // Displayed in the immersive navbar to escape out of fullscreen view
 	Checklist : "Checklist", // Meta-data descriptor that informs which type of activity is being displayed on a line item
 	Content : "Content", // Meta-data descriptor that informs which type of activity is being displayed on a line item
 	Course : "Course", // Meta-data descriptor that informs which type of activity is being displayed on a line item

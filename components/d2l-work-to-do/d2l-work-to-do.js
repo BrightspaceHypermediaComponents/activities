@@ -122,7 +122,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
-		this._backLinkHref = window.D2L.workToDoOptions ? window.D2L.workToDoOptions.href : '';
 		this._setEntityType(UserEntity);
 	}
 
@@ -165,6 +164,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			return;
 		}
 		this._getCollections(user._entity);
+		this._getHomeHref();
 	}
 
 	render() {
@@ -304,7 +304,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			const immersiveNav = (isFullscreen) => {
 				return isFullscreen
 					? html`
-						<d2l-navigation-immersive back-link-href="${this._backLinkHref}" back-link-text="Back to D2L">
+						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="Back to D2L">
 							<div class="d2l-typography d2l-body-standard" slot="middle">
 								<p>${this.localize('myWorkToDo')}</p>
 							</div>
@@ -519,6 +519,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					this._maxCollection = sirenEntity;
 				}
 			});
+	}
+
+	async _getHomeHref() {
+		// TODO: this is a default (and kind of a hacky way to get to it),
+		// ideally we want to get the user's homepage from their profile
+		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
 	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

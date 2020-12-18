@@ -44,7 +44,7 @@
    "multiCourseQuickEval" : "Kurzbewertung für mehrere Kurse",
    "newAttempts" : "Neue Versuche",
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 neuer Versuch} other {{reAttemptNum} neue Versuche}}} other {{reAttemptNum, plural, =0 {{newNum} neu} =1{{newNum} neu, 1 neuer Versuch} other {{newNum} neu, {reAttemptNum} neue Versuche}}}}",
-   "newPostDetails" : "{numInteractions, plural, =1 {1 Unterhaltung oder Antwort} other {{AnzInterakt} Unterhaltungen oder Antworten}}",
+   "newPostDetails" : "{numInteractions, plural, =1 {1 Unterhaltung oder Antwort} other {{numInteractions} Unterhaltungen oder Antworten}}",
    "newPosts" : "Neue Beiträge",
    "newSubmissionDetails" : "{newNum, plural, =0 {{resub, plural, =1 {1 erneute Abgabe} other {{resub} erneute Abgaben}}} other {{resub, plural, =0 {{newNum} neu} =1{{newNum} neu, 1 erneute Abgabe} other {{newNum} neu, {resub} erneute Abgaben}}}}",
    "newSubmissions" : "Neue Abgaben",

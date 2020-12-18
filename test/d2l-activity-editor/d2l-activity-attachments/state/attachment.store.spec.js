@@ -19,12 +19,23 @@ describe('Attachment Store', function() {
 	});
 
 	describe('Links', () => {
-		it('creates new', () => {
+		it('creates new without a urn', () => {
 			const link = store.createLink('Google Canada', 'http://google.ca');
 
 			expect(link).to.be.an.instanceof(LinkAttachment);
 			expect(link.attachment.name).to.equal('Google Canada');
 			expect(link.attachment.url).to.equal('http://google.ca');
+			expect(link.attachment.urn).to.equal(undefined);
+			expect(store.get(link.href)).to.equal(link);
+		});
+
+		it('creates new with a urn', () => {
+			const link = store.createLink('Google Canada', 'http://google.ca', 'd2l:brightspace:foo:::bar:car');
+
+			expect(link).to.be.an.instanceof(LinkAttachment);
+			expect(link.attachment.name).to.equal('Google Canada');
+			expect(link.attachment.url).to.equal('http://google.ca');
+			expect(link.attachment.urn).to.equal('d2l:brightspace:foo:::bar:car');
 			expect(store.get(link.href)).to.equal(link);
 		});
 	});

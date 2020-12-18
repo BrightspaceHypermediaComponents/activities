@@ -15,7 +15,7 @@ export default {
 	moveActivity: "{activityName}을(를) {totalNumberOfActivities}의 {newPosition} 위치로 이동했습니다.", // When a activity is moved to a new position in the learning path this message is annouced.
 	noActivitiesInLearningPath: "이 학습 경로에는 활동이 없습니다.", // Displayed when the learning path is loaded and contains no activities
 	noActivitiesFound: "검색어로 찾은 활동이 없습니다.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
-	numberOfActivities: "{count,plural,=1{1개 활동} other {{count}개 활동}}", // The number of learning tasks currently in the list.
+	numberOfActivities: "{count, plural, =1 {1개 활동} other {{count}개 활동}}", // The number of learning tasks currently in the list.
 	removeActivity: "제거", // An action to remove a learning task from a list of tasks that are related
 	removeActivityAria: "{activityName} 제거", // Remove action described for aria with course name
 	search: "검색", // When adding activities to the learning path, this is where you can search for potential activities to add.

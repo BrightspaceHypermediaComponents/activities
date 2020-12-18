@@ -37,7 +37,7 @@ class ActivityQuizDisablePagerAndAlertsEditor
 				ariaLabel="${this.localize('disablePagerAndAlertsDescription')}"
 				?disabled="${!entity.canEditDisablePagerAndAlerts}">
 
-				<label class="d2l-input-checkbox-text">${this.localize('disablePagerAndAlertsDescription')}</label>
+				<label>${this.localize('disablePagerAndAlertsDescription')}</label>
 
 				<d2l-button-icon
 					text="${this.localize('disableAlertsAccessibleHelpText')}"

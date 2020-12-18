@@ -1,0 +1,27 @@
+{
+  "class": [
+    "assignment",
+    "evaluation-status"
+  ],
+  "properties": {
+    "newsubmissions": 32,
+    "resubmissions": 7
+  },
+  "entities": [
+    {
+      "class": [
+        "relative-uri"
+      ],
+      "rel": [
+        "item",
+        "https://assessments.api.brightspace.com/rels/assess-all-application"
+      ],
+      "properties": {
+        "path": "#evaluateAllAssignment"
+      }
+    }
+  ],
+  "rel": [
+    "https://assignments.api.brightspace.com/rels/evaluation-status"
+  ]
+}

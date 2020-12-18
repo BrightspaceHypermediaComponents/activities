@@ -9,12 +9,13 @@ import { ActivityAllowList } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
-import { ListItemMixin } from '@brightspace-ui/core/components/list/list-item-mixin';
+import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
 import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
+import { QuickEvalActivityAllowList } from '../d2l-quick-eval-widget/env';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
-class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
+class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
 	static get properties() {
 		return {
@@ -24,6 +25,16 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 			_activityProperties: { type: Object },
 			/** entity associated with ActivityUsageEntity's organization */
 			_organization: { type: Object },
+			/** href to evaluate all submissions for assignment (for quick-eval widget) */
+			evaluateAllHref: {
+				attribute: 'evaluate-all-href',
+				type: String
+			},
+			/** number of submissions to evaluate (for quick-eval widget) */
+			submissionCount: {
+				attribute: 'submission-count',
+				type: Number
+			}
 		};
 	}
 
@@ -171,9 +182,7 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 	}
 
 	set actionHref(href) {  // This is a hack - Garbage setter function since list-mixin initializes value
-		const oldVal = this._actionHref;
-		this._actionHref = href;
-		this.requestUpdate('actionHref', oldVal);
+		this.requestUpdate('actionHref', this.evaluateAllHref ? this.evaluateAllHref : href);
 	}
 
 	/** Link to activity instance for user navigation to complete/work on activity */
@@ -182,9 +191,15 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 			return '';
 		}
 
-		return this._activity && this._activity.hasLinkByType('text/html')
-			? this._activity.getLinkByType('text/html').href
-			: '';
+		if (this._activity && this._activity.hasLinkByType('text/html')) {
+			return this._activity.getLinkByType('text/html').href;
+		}
+		else if (this.evaluateAllHref) {
+			return this.evaluateAllHref;
+		}
+		else {
+			return '';
+		}
 	}
 
 	/** Due or end date of activity */
@@ -242,13 +257,14 @@ class ActivityListItemBasic extends ListItemMixin(SkeletonMixin(EntityMixinLit(L
 		}
 
 		const entity = this._usage._entity;
+		const allowList =  this.evaluateAllHref ? QuickEvalActivityAllowList : ActivityAllowList;
 
-		for (const allowed in ActivityAllowList) {
-			if (entity.hasClass(ActivityAllowList[allowed].class)) {
-				this._activityProperties = ActivityAllowList[allowed];
+		for (const allowed in allowList) {
+			if (entity.hasClass(allowList[allowed].class)) {
+				this._activityProperties = allowList[allowed];
 				const source = (
-					entity.hasLinkByRel(ActivityAllowList[allowed].rel)
-					&& entity.getLinkByRel(ActivityAllowList[allowed].rel)
+					entity.hasLinkByRel(allowList[allowed].rel)
+					&& entity.getLinkByRel(allowList[allowed].rel)
 					|| {}).href;
 				if (source) {
 					await fetchEntity(source, this.token)

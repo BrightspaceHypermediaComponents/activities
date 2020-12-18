@@ -1,0 +1,27 @@
+{
+  "class": [
+    "quiz",
+    "evaluation-status"
+  ],
+  "properties": {
+    "newsubmissions": 8,
+    "resubmissions": 4
+  },
+  "entities": [
+    {
+      "class": [
+        "relative-uri"
+      ],
+      "rel": [
+        "item",
+        "https://assessments.api.brightspace.com/rels/assess-all-application"
+      ],
+      "properties": {
+        "path": "#evaluateAllQuiz"
+      }
+    }
+  ],
+  "rel": [
+    "https://discussions.api.brightspace.com/rels/evaluation-status"
+  ]
+}

@@ -21,8 +21,8 @@ export class AttachmentStore extends ObjectStore {
 	createGoogleDriveLink(name, url) {
 		return this._createLink(GoogleDriveAttachment, name, url);
 	}
-	createLink(name, url) {
-		return this._createLink(LinkAttachment, name, url);
+	createLink(name, url, urn) {
+		return this._createLink(LinkAttachment, name, url, urn);
 	}
 	createOneDriveLink(name, url) {
 		return this._createLink(OneDriveAttachment, name, url);
@@ -37,10 +37,10 @@ export class AttachmentStore extends ObjectStore {
 		this.put(tempId, file);
 		return file;
 	}
-	_createLink(Type, name, url) {
+	_createLink(Type, name, url, urn) {
 		const tempId = nextTempId();
 		const link = new Type(tempId);
-		link.initLink(name, url);
+		link.initLink(name, url, urn);
 		this.put(tempId, link);
 		return link;
 	}

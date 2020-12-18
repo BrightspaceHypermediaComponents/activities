@@ -67,19 +67,20 @@ decorate(Attachment, {
 });
 
 export class LinkAttachment extends Attachment {
-	initLink(name, url) {
+	initLink(name, url, urn) {
 		this.editing = true;
 		this.creating = true;
 
 		this.attachment = {
 			id: this.href,
 			name: name,
-			url: url
+			url,
+			urn,
 		};
 	}
 
 	async save(entity) {
-		await entity.addLinkAttachment(this.attachment.name, this.attachment.url);
+		await entity.addLinkAttachment(this.attachment.name, this.attachment.urn || this.attachment.url);
 	}
 }
 

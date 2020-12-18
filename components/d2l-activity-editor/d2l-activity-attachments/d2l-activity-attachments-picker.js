@@ -79,15 +79,25 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletonMixin(Locali
 	}
 
 	async _handlerAudioUploaded(e) {
-		const file = e.detail.files[0];
+		this._handlerAudioVideoUploaded(e, { storeCreateFileMethod: 'createAudio' });
+	}
 
-		const fileId = file.GetId();
-		const fileName = file.GetName();
-		const fileSystemType = file.GetFileSystemType();
+	async _handlerAudioVideoUploaded(e, { storeCreateFileMethod }) {
+		const attachment = e.detail.files[0];
 
-		const collection = store.get(this.href);
-		const previewUrl = await collection.getPreviewUrl(fileSystemType, fileId);
-		this._addToCollection(attachmentStore.createAudio(fileName, fileSystemType, fileId, previewUrl));
+		if (attachment.GetFileSystemType) {
+			const file = attachment;
+			const fileId = file.GetId();
+			const fileName = file.GetName();
+			const fileSystemType = file.GetFileSystemType();
+
+			const collection = store.get(this.href);
+			const previewUrl = await collection.getPreviewUrl(fileSystemType, fileId);
+			this._addToCollection(attachmentStore[storeCreateFileMethod](fileName, fileSystemType, fileId, previewUrl));
+		} else if (attachment.GetLocation) {
+			const link = attachment;
+			this._addToCollection(attachmentStore.createLink(link.GetName(), link.GetLocation(), link.GetUrn()));
+		}
 	}
 
 	async _handlerFilesUploaded(e) {
@@ -121,15 +131,7 @@ class ActivityAttachmentsPicker extends ActivityEditorMixin(SkeletonMixin(Locali
 	}
 
 	async _handlerVideoUploaded(e) {
-		const file = e.detail.files[0];
-
-		const fileId = file.GetId();
-		const fileName = file.GetName();
-		const fileSystemType = file.GetFileSystemType();
-
-		const collection = store.get(this.href);
-		const previewUrl = await collection.getPreviewUrl(fileSystemType, fileId);
-		this._addToCollection(attachmentStore.createVideo(fileName, fileSystemType, fileId, previewUrl));
+		this._handlerAudioVideoUploaded(e, { storeCreateFileMethod: 'createVideo' });
 	}
 
 	get _orgUnitId() {

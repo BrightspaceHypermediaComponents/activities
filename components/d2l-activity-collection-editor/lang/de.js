@@ -16,7 +16,7 @@ export default {
 	noActivitiesInLearningPath: "Es sind keine Aktivitäten in diesem Lernpfad vorhanden.", // Displayed when the learning path is loaded and contains no activities
 	noActivitiesFound: "Es wurden keine Aktivitäten mit Ihrem Suchbegriff gefunden.", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 Aktivität} other {{count} Aktivitäten}}", // The number of learning tasks currently in the list.
-	removeActivity: "Entfernen", // An action to remove a learning task from a list of tasks that are related
+	removeActivity: "entfernen", // An action to remove a learning task from a list of tasks that are related
 	removeActivityAria: "{activityName} entfernen", // Remove action described for aria with course name
 	search: "Suchen", // When adding activities to the learning path, this is where you can search for potential activities to add.
 	searchPlaceholder: "Suchen...", // Placeholder text for the search input to search the list of potential activities.

@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Acceso especial", // special access heading
 	"hlpSpecialAccess": "El acceso especial permite que las tareas estén disponibles solo para un grupo de usuarios seleccionado o fechas de vencimiento individualizadas para determinados usuarios.", // special access help
 	"assignmentLocked": "Algunas configuraciones están bloqueadas porque se han recibido entregas.",
-	"hdrSubmissionNotificationEmail": "Correo electrónico de notificación",
-	"hlpSubmissionNotificationEmail": "Introduzca un correo electrónico o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una tarea.",
-	"invalidNotificationEmailError": "Introduzca una dirección de correo electrónico válida"
+	"hlpSubmissionNotificationEmail": "Introduzca un correo electrónico o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una tarea."
 };

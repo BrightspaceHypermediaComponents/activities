@@ -521,7 +521,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			});
 	}
 
-	async _getHomeHref() {
+	_getHomeHref() {
 		// TODO: this is a default (and kind of a hacky way to get to it),
 		// ideally we want to get the user's homepage from their profile
 		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';

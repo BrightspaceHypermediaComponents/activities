@@ -27,6 +27,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		return {
 			/** Represents current session's discovery tool access */
 			_discoverActive: { type: Boolean },
+			/** Represents path to full page view */
+			_fullPagePath: { type: String, attribute: 'data-full-page-path' },
 			/** Represents current session's render mode */
 			_fullscreen: { type: Boolean, attribute: 'data-fullscreen' },
 			/** ActivityUsageCollection with time: 0 -> 52[weeks] */
@@ -116,7 +118,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._upcomingCollection = undefined;
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
-		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
+		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
 	}
 
@@ -144,6 +146,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			case 'data-upcoming-week-limit':
 				this._upcomingWeekLimit = (parseInt(newval) < 0) ? Config.UpcomingWeekLimit : parseInt(newval);
 				window.D2L.workToDoOptions.upcomingWeekLimit = this._upcomingWeekLimit;
+				break;
+			case 'data-full-page-path':
+				this._viewAllSource = newval;
 				break;
 		}
 

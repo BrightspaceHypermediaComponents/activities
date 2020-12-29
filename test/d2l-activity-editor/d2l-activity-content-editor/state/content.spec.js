@@ -23,29 +23,23 @@ describe('Content', function() {
 	beforeEach(() => {
 		sirenEntity = sinon.stub();
 
+		fetchEntity.mockImplementation(() => sirenEntity);
+	});
+
+	it('fetches module content', async() => {
 		ContentEntity.mockImplementation(() => {
 			return {
-				getModuleHref: () => 'http://test-href.com',
+				getModuleHref: () => 'http://test-module-href.com',
+				getWebLinkHref: () => '',
 				getEntityType: () => 'module'
 			};
 		});
 
-		ContentModuleEntity.mockImplementation(() => {
-			return {
-				title: () => 'Test Module Title',
-				descriptionRichText: () => '<p>test module description</p>'
-			};
-		});
-
-		fetchEntity.mockImplementation(() => sirenEntity);
-	});
-
-	it('fetches content module', async() => {
 		const content = new Content('http://content/1', 'token');
 		await content.fetch();
 
-		expect(content.moduleTitle).to.equal('Test Module Title');
-		expect(content.moduleDescriptionRichText).to.equal('<p>test module description</p>');
+		expect(content.entityType).to.equal('module');
+		expect(content.contentActivityHref).to.equal('http://test-module-href.com');
 
 		expect(fetchEntity.mock.calls.length).to.equal(2);
 		expect(ContentEntity.mock.calls[0][0]).to.equal(sirenEntity);

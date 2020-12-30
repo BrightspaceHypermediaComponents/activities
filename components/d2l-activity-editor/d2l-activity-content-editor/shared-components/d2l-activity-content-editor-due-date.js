@@ -4,7 +4,7 @@ import { shared as activityStore } from '../../state/activity-store.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 
-class ContentDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
+class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 
 	static get properties() {
 		return {
@@ -79,4 +79,4 @@ class ContentDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 		this._showAddDueDateBtn = false;
 	}
 }
-customElements.define('d2l-activity-content-editor-due-date', ContentDueDate);
+customElements.define('d2l-activity-content-editor-due-date', ContentEditorDueDate);

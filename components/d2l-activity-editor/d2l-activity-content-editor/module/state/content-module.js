@@ -9,8 +9,8 @@ export class ContentModule {
 	constructor(href, token) {
 		this.href = href;
 		this.token = token;
-		this.moduleTitle = '';
-		this.moduleDescriptionRichText = '';
+		this.title = '';
+		this.descriptionRichText = '';
 	}
 
 	async cancelCreate() {
@@ -32,24 +32,24 @@ export class ContentModule {
 
 	load(moduleEntity) {
 		this._contentModule = moduleEntity;
-		this.moduleTitle = moduleEntity.title();
-		this.moduleDescriptionRichText = moduleEntity.descriptionRichText();
+		this.title = moduleEntity.title();
+		this.descriptionRichText = moduleEntity.descriptionRichText();
 	}
 
 	async save() {
 		if (!this._contentModule) {
 			return;
 		}
-		await this._contentModule.setModuleTitle(this.moduleTitle);
-		await this._contentModule.setModuleDescription(this.moduleDescriptionRichText);
+		await this._contentModule.setModuleTitle(this.title);
+		await this._contentModule.setModuleDescription(this.descriptionRichText);
 	}
 
 	setDescription(richText) {
-		this.moduleDescriptionRichText = richText;
+		this.descriptionRichText = richText;
 	}
 
 	setTitle(value) {
-		this.moduleTitle = value;
+		this.title = value;
 	}
 
 	_makeModuleData() {
@@ -57,15 +57,15 @@ export class ContentModule {
 			The cancel workflow is making use of that to detect changes.
 		*/
 		return {
-			title: this.moduleTitle,
-			descriptionRichText: this.moduleDescriptionRichText
+			title: this.title,
+			descriptionRichText: this.descriptionRichText
 		};
 	}
 }
 decorate(ContentModule, {
 	// props
-	moduleTitle: observable,
-	moduleDescriptionRichText: observable,
+	title: observable,
+	descriptionRichText: observable,
 	// actions
 	load: action,
 	setTitle: action,

@@ -34,8 +34,8 @@ describe('Content Module', function() {
 		const contentModule = new ContentModule('http://test-module-href.com', 'token');
 		await contentModule.fetch();
 
-		expect(contentModule.moduleTitle).to.equal('Test Module Title');
-		expect(contentModule.moduleDescriptionRichText).to.equal('<p>test module description</p>');
+		expect(contentModule.title).to.equal('Test Module Title');
+		expect(contentModule.descriptionRichText).to.equal('<p>test module description</p>');
 
 		expect(fetchEntity.mock.calls.length).to.equal(1);
 		expect(ContentModuleEntity.mock.calls[0][0]).to.equal(sirenEntity);

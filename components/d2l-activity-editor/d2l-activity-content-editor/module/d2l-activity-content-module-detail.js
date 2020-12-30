@@ -63,8 +63,8 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		if (moduleEntity) {
 			// Show loading skeleton until we have the module entity loaded into state
 			this.skeleton = false;
-			title = moduleEntity.moduleTitle;
-			descriptionRichText = moduleEntity.moduleDescriptionRichText;
+			title = moduleEntity.title;
+			descriptionRichText = moduleEntity.descriptionRichText;
 		}
 
 		return html`

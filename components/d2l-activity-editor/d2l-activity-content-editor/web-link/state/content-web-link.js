@@ -64,7 +64,7 @@ export class ContentWebLink {
 			The cancel workflow is making use of that to detect changes.
 		*/
 		return {
-			title: this.moduleTitle,
+			title: this.title,
 			url: this.link,
 			isExternalResource: this.isExternalResource
 		};

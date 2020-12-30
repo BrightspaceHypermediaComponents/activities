@@ -2,6 +2,7 @@ import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { CONTENT_TYPES, ContentEntity } from 'siren-sdk/src/activities/content/ContentEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { shared as moduleStore } from '../module/state/content-module-store.js';
+import { shared as webLinkStore } from '../web-link/state/content-web-link-store.js';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -32,7 +33,7 @@ export class Content {
 			moduleStore.fetchContentModuleActivity(this.contentActivityHref, this.token);
 		} else if (this.entityType === CONTENT_TYPES.weblink) {
 			this.contentActivityHref = contentEntity.getWebLinkHref();
-			// TODO initialize weblink store
+			webLinkStore.fetchContentWebLinkActivity(this.contentActivityHref, this.token);
 		}
 	}
 }

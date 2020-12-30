@@ -1,4 +1,5 @@
 import './module/d2l-activity-content-module-detail.js';
+import './web-link/d2l-activity-content-web-link-detail.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import '../d2l-activity-due-date-editor.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -72,14 +73,16 @@ class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
 
 		if (entityType === CONTENT_TYPES.weblink) {
 			return html`
-				<p>TODO: create weblink detail component</p>
+				<d2l-activity-content-web-link-detail
+					.href="${activityHref}"
+					.token="${this.token}"
+				>
+				<div slot="dueDate" class="d2l-due-date-slot">${this._renderDueDate()}</div>
+				</d2l-activity-content-web-link-detail>
 			`;
 		}
 
-		// TODO: make the default an official warning or get rid of this
-		return html`
-			<p>WARNING: unsupported entityType</p>
-		`;
+		return html``;
 	}
 
 	_getDueDateAndPermission() {

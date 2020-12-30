@@ -7,7 +7,7 @@ import sinon from 'sinon';
 jest.mock('siren-sdk/src/activities/content/ContentModuleEntity.js');
 jest.mock('../../../../components/d2l-activity-editor/state/fetch-entity.js');
 
-describe('Content', function() {
+describe('Content Module', function() {
 
 	afterEach(() => {
 		sinon.restore();

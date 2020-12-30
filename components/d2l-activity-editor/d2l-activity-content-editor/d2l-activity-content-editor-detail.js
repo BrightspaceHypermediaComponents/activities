@@ -1,25 +1,16 @@
 import './module/d2l-activity-content-module-detail.js';
+import './shared-components/d2l-activity-content-editor-due-date.js';
 import './web-link/d2l-activity-content-web-link-detail.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
-import '../d2l-activity-due-date-editor.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { shared as activityStore } from '../state/activity-store.js';
 import { CONTENT_TYPES } from 'siren-sdk/src/activities/content/ContentEntity.js';
-import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as store } from './state/content-store.js';
 
 export const DEBOUNCE_TIMEOUT = 500;
 export const TITLE_MAX_LENGTH = 150;
 
-class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
-
-	static get properties() {
-		return {
-			_hasDatePermissions: { type: Boolean },
-			_showAddDueDateBtn: { type: Boolean }
-		};
-	}
+class ContentEditorDetail extends MobxLitElement {
 
 	static get styles() {
 		return  [
@@ -33,17 +24,12 @@ class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
 				d2l-loading-spinner {
 					width: 100%;
 				}
-				.d2l-due-date-slot {
-					padding-bottom: 20px;
-				}
 			`
 		];
 	}
 
 	constructor() {
 		super(store);
-		this._hasDatePermissions = false;
-		this._showAddDueDateBtn = true;
 	}
 
 	render() {
@@ -55,8 +41,6 @@ class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
 			`;
 		}
 
-		this._getDueDateAndPermission();
-
 		const entityType = contentEntity.entityType;
 		const activityHref = contentEntity.contentActivityHref;
 
@@ -66,7 +50,7 @@ class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
 					.href="${activityHref}"
 					.token="${this.token}"
 				>
-				<div slot="dueDate" class="d2l-due-date-slot">${this._renderDueDate()}</div>
+				${this._renderDueDate()}
 				</d2l-activity-content-module-detail>
 			`;
 		}
@@ -77,7 +61,7 @@ class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
 					.href="${activityHref}"
 					.token="${this.token}"
 				>
-				<div slot="dueDate" class="d2l-due-date-slot">${this._renderDueDate()}</div>
+				${this._renderDueDate()}
 				</d2l-activity-content-web-link-detail>
 			`;
 		}
@@ -85,46 +69,16 @@ class ContentEditorDetail extends LocalizeActivityEditorMixin(MobxLitElement) {
 		return html``;
 	}
 
-	_getDueDateAndPermission() {
-		const entity = activityStore.get(this.href);
-		if (!entity || !entity.dates) {
-			return;
-		}
-		const dates = entity.dates;
-		this._hasDatePermissions = dates.canEditDates;
-		// if due date exists on the activity, show the field
-		if (dates.dueDate) {
-			this._showAddDueDateBtn = false;
-		}
-	}
-
 	_renderDueDate() {
-		// TODO - replace with shared component when one is created
-		if (!this._hasDatePermissions) {
-			return html ``;
-		}
-
-		return html `
-			<div id="duedate-container">
-				<d2l-button-subtle
-					text="${this.localize('content.addDueDate')}"
-					@click="${this._showDueDate}"
-					?hidden="${!this._showAddDueDateBtn}"
-				>
-				</d2l-button-subtle>
-				<d2l-activity-due-date-editor
+		return html`
+			<div slot="dueDate">
+				<d2l-activity-content-editor-due-date
 					.href="${this.href}"
 					.token="${this.token}"
-					?skeleton="${this.skeleton}"
-					?hidden="${this._showAddDueDateBtn}"
 				>
-				</d2l-activity-due-date-editor>
+				</d2l-activity-content-editor-due-date>
 			</div>
 		`;
-	}
-
-	_showDueDate() {
-		this._showAddDueDateBtn = false;
 	}
 }
 customElements.define('d2l-activity-content-editor-detail', ContentEditorDetail);

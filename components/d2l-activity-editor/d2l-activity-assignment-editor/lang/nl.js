@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Groepsopdracht", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Melding inzending via e-mail", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Indiening & voltooiing", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Uw opdracht is niet opgeslagen. Corrigeer de rood omlijnde velden.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Uw opdracht is niet opgeslagen. Corrigeer de omlijnde velden.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Er bestaan geen groepen. Maak nieuwe groepen aan in de Groepen-tool.", // Folder type no groups
 	"folderTypeCreateGroups": "Maak nieuwe groepen aan in de Groepen-tool.", // Folder type create groups
 	"filesSubmissionLimit": "Bestanden toegestaan per indiening",

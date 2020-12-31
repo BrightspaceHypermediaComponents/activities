@@ -19,7 +19,7 @@ export const LangEn = {
 			'dismissedActivities': 'Çıkarılan etkinlikler',
 			'dismissedActivitiesList': 'Çıkarılan Etkinliklerin Listesi',
 			'dismissedOn': '{date} tarihinde çıkarıldı',
-			'dismissingAnActivityHides': 'Bir etkinliğin çıkarılması, etkinliği Quick Eval\'den gizler ancak etkinliği etkilemez',
+			'dismissingAnActivityHides': 'Bir etkinliğin çıkarılması, etkinliği Quick Eval'den gizler ancak etkinliği etkilemez',
 			'displayName': 'Ad, Soyad',
 			'due': 'Teslim Tarihi:{date}',
 			'editActivity': 'Etkinliği Düzenle',

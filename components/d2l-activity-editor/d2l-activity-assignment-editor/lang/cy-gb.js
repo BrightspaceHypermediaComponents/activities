@@ -2,7 +2,7 @@
 
 export default {
 	"hdrReleaseConditions": "Amodau Rhyddhau", // release conditions heading
-	"hlpReleaseConditions": "Ni all defnyddwyr gyrchu na gweld yr aseiniad oni bai eu bod yn cwrdd â\'r amodau rhyddhau.", // release conditions help
+	"hlpReleaseConditions": "Ni all defnyddwyr gyrchu na gweld yr aseiniad oni bai eu bod yn cwrdd â'r amodau rhyddhau.", // release conditions help
 	"completionType": "Marciwyd wedi’i gwblhau", // Label for the completion type field when creating/editing an assignment
 	"lblAnonymousMarking": "Marcio Dienw", // Label for anonymous marking
 	"chkAnonymousMarking": "Cuddio enwau myfyrwyr yn ystod asesiad", // Checkbox for anonymous marking
@@ -16,7 +16,7 @@ export default {
 	"btnCloseDialog": "Caewch y Ddeialog hon", // close dialog button
 	"txtOriginalityCheckOn": "Gwiriad Gwreiddioldeb Ymlaen", // originality check on text
 	"txtGradeMarkOn": "GradeMark Ymlaen", // grade mark on text
-	"txtTurnitinOn": "Turnitin wedi\'i alluogi", // turnitin on text
+	"txtTurnitinOn": "Turnitin wedi'i alluogi", // turnitin on text
 	"btnCancel": "Canslo", // cancel button
 	"btnSave": "Cadw", // save button
 	"hdrAvailability": "Dyddiadau Argaeledd ac Amodau", // availability header
@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Aseiniad grŵp", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Hysbysiad cyflwyno drwy e-bost", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Cyflwyno a Chwblhau", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Ni chadwyd eich aseiniad. Cywirwch y meysydd a amlinellir mewn coch.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Ni chadwyd eich aseiniad. Cywirwch y meysydd a amlinellir.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Nid oes unrhyw grwpiau’n bodoli. Creu grwpiau newydd yn yr offeryn Grwpiau.", // Folder type no groups
 	"folderTypeCreateGroups": "Creu grwpiau newydd yn yr offeryn Grwpiau.", // Folder type create groups
 	"filesSubmissionLimit": "Ffeiliau a Ganiateir Fesul Cyflwyniad",
@@ -44,6 +44,6 @@ export default {
 	"submissionsRule": "Cyflwyniadau",
 	"hdrSpecialAccess": "Mynediad Arbennig", // special access heading
 	"hlpSpecialAccess": "Mae Mynediad Arbennig yn caniatáu i aseiniadau fod ar gael i grŵp dethol o ddefnyddwyr yn unig neu ddyddiadau dyledus unigol ar gyfer defnyddwyr penodol.", // special access help
-	"assignmentLocked": "Mae rhai gosodiadau wedi\'u cloi oherwydd bod cyflwyniadau wedi\'u derbyn.",
-	"hlpSubmissionNotificationEmail": "Rhowch e-bost neu fwy nag un e-bost sydd wedi\'u gwahanu gan atalnodau, i dderbyn hysbysiadau pan gyflwynir aseiniad."
+	"assignmentLocked": "Mae rhai gosodiadau wedi'u cloi oherwydd bod cyflwyniadau wedi'u derbyn.",
+	"hlpSubmissionNotificationEmail": "Rhowch e-bost neu fwy nag un e-bost sydd wedi'u gwahanu gan atalnodau, i dderbyn hysbysiadau pan gyflwynir aseiniad."
 };

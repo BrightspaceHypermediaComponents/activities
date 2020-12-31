@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "グループでの課題", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "電子メールによる送信物通知", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "送信して完了", // Label for the availability and dates summarizer
-	"assignmentSaveError": "課題は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "課題は保存されませんでした。囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "グループが存在しません。グループツールで新規グループを作成します。", // Folder type no groups
 	"folderTypeCreateGroups": "グループツールで新規グループを作成します。", // Folder type create groups
 	"filesSubmissionLimit": "送信 1 回あたりの許容ファイル数",

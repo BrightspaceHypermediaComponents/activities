@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "群組作業", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "以電子郵件傳送交件匣提交通知", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "提交與完成", // Label for the availability and dates summarizer
-	"assignmentSaveError": "您的作業未儲存。請修正以紅色顯示的欄位。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "您的作業未儲存。請修正框示的欄位。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "尚無群組。在「群組」工具中建立新群組。", // Folder type no groups
 	"folderTypeCreateGroups": "在「群組」工具中建立新群組。", // Folder type create groups
 	"filesSubmissionLimit": "每個交件匣提交允許的檔案數",

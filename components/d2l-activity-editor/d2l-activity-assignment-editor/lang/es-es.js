@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Tarea grupal", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Notificación de entrega por correo electrónico", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Envío y finalización", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Su tarea no se ha guardado. Corrija los campos señalados en rojo.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Su tarea no se ha guardado. Corrija los campos señalados.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "No existe ningún grupo. Cree nuevos grupos en la herramienta Grupos.", // Folder type no groups
 	"folderTypeCreateGroups": "Cree nuevos grupos en la herramienta Grupos.", // Folder type create groups
 	"filesSubmissionLimit": "Archivos permitidos por envío",

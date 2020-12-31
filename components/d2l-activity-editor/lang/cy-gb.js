@@ -40,13 +40,13 @@ export default {
 	"editor.scoreOutOf": "Sgôr Allan O", // ARIA label for the score out of field, when creating/editing an activity
 	"editor.emptyScoreOutOfError": "Rhaid nodi gwerth pwyntiau ar gyfer gweithgareddau yn Graddau", // Error message to inform user that the score out of value is a required field when a grade item is associated
 	"editor.invalidScoreOutOfError": "Rhaid i’r Sgôr Allan O fod yn fwy na neu’n hafal i 0.01 ac yn llai na neu’n hafal i 9,999,999,999.", // Error message when an invalid score out of value is entered
-	"editor.loading": "Wrthi\'n llwytho...", // Message displayed while page is loading
+	"editor.loading": "Wrthi'n llwytho...", // Message displayed while page is loading
 	"editor.ok": "Iawn", // Text of dialog button to commit action
 	"editor.cancel": "Canslo", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Pwyswch ALT-F10 i weld y bar offer, a phwyswch ESC i adael y bar offer pan fyddwch i mewn.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Dewis o Graddau", // Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Cyfeirebau", //Header for the rubrics section
-	"editor.startBeforeEndDate": "Rhaid i\'r Dyddiad Dechrau fod cyn y Dyddiad Dod i Ben.",
+	"editor.startBeforeEndDate": "Rhaid i'r Dyddiad Dechrau fod cyn y Dyddiad Dod i Ben.",
 	"editor.dueBetweenStartEndDate": "Rhaid i’r Dyddiad Cyflwyno fod ar ôl y Dyddiad Dechrau a cyn neu’r un peth â’r Dyddiad Dod i Ben",
 	"editor.dueAfterStartDate": "Rhaid i’r Dyddiad Cyflwyno fod ar ôl y Dyddiad Dechrau",
 	"editor.dueBeforeEndDate": "Rhaid i’r Dyddiad Cyflwyno fod cyn neu’r un peth â’r Dyddiad Dod i Ben",
@@ -71,7 +71,7 @@ export default {
 	"editor.specialAccessDialogTitle": "Rheoli Mynediad Arbennig", // Dialog title
 	"editor.specialAccessHidden": "Cudd gan fynediad arbennig", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "Dileu newidiadau?", // Discard Changes User Prompt
-	"editor.discardChangesQuestion": "Ydych chi\'n siŵr eich bod chi eisiau dileu\'ch newidiadau?", // Discard Changes User Prompt
+	"editor.discardChangesQuestion": "Ydych chi'n siŵr eich bod chi eisiau dileu'ch newidiadau?", // Discard Changes User Prompt
 	"editor.yesLabel": "Ie",
 	"editor.noLabel": "Na",
 	"editor.notificationEmailLabel": "E-bost Hysbysu", // Label for notification email input field

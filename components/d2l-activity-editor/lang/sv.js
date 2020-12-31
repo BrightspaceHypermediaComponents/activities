@@ -74,7 +74,7 @@ export default {
 	"editor.discardChangesQuestion": "Är du säker på att du vill ignorera dina ändringar?", // Discard Changes User Prompt
 	"editor.yesLabel": "Ja",
 	"editor.noLabel": "Nej",
-	"editor.notificationEmailLabel": "Notifikation via e-post", // Label for notification email input field
+	"editor.notificationEmailLabel": "E-postmeddelande", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Ange en giltig e-postadress", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "Lägg till rubricering", //text for add rubric button

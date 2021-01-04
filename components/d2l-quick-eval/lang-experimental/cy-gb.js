@@ -22,7 +22,7 @@ export const LangEn = {
 			'dismissingAnActivityHides': 'Bydd diystyru gweithgaredd yn ei guddio rhag Gwerthuso Cyflym ond ni fydd yn effeithio ar y gweithgaredd',
 			'displayName': 'Enw Cyntaf, Cyfenw',
 			'due': 'Dyddiad cyflwyno: {date}',
-			'editActivity': 'Golygu'r Gweithgaredd',
+			"editActivity": "Golygu'r Gweithgaredd",
 			'evaluate': 'Gwerthuso {enwArddangos}',
 			'evaluateAll': 'Gwerthuso’r Cyfan',
 			'evaluated': 'Wedi gwerthuso',
@@ -80,4 +80,3 @@ export const LangEn = {
 			'viewBy': 'Gwelwyd gan:',
 			'yes': 'Ie'
 		};
-

@@ -19,7 +19,7 @@ export const LangEn = {
 			'dismissedActivities': 'Dismissed activities',
 			'dismissedActivitiesList': 'Dismissed Activities List',
 			'dismissedOn': 'Dismissed on {date}',
-			'dismissingAnActivityHides': 'Dismissing an activity hides it from Quick Eval, but won't affect the activity',
+			"dismissingAnActivityHides": "Dismissing an activity hides it from Quick Eval, but won't affect the activity",
 			'displayName': 'Fornavn, Efternavn',
 			'due': 'Due: {date}',
 			'editActivity': 'Rediger aktivitet',
@@ -80,4 +80,3 @@ export const LangEn = {
 			'viewBy': 'Vis efter:',
 			'yes': 'Yes'
 		};
-

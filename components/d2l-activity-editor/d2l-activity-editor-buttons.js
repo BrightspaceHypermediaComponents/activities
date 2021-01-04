@@ -55,7 +55,7 @@ class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElem
 	_save() {
 		const event = new CustomEvent('d2l-activity-editor-save', {
 			detail: {
-				close: false
+				saveInPlace: true
 			},
 			bubbles: true,
 			composed: true,
@@ -66,7 +66,7 @@ class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElem
 	_saveAndClose() {
 		const event = new CustomEvent('d2l-activity-editor-save', {
 			detail: {
-				close: true
+				saveInPlace: false
 			},
 			bubbles: true,
 			composed: true,

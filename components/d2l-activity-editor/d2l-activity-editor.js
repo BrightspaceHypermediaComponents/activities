@@ -155,12 +155,10 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 	}
 
 	_onSaveComplete(e) {
-		if (e.detail.close) {
-			return;
+		if (e.detail.saveInPlace) {
+			this._saveToastVisible = true;
+			e.stopPropagation();
 		}
-
-		this._saveToastVisible = true;
-		e.stopPropagation();
 	}
 
 	_onToastClose() {

@@ -1,4 +1,4 @@
-import { action, computed, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, computed, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { AttachmentCollectionEntity } from 'siren-sdk/src/activities/AttachmentCollectionEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { FilePreviewLocationEntity } from 'siren-sdk/src/files/FilePreviewLocationEntity.js';
@@ -66,11 +66,13 @@ export class AttachmentCollection {
 		this.attachments = entity.getAttachmentEntityHrefs() || [];
 	}
 
-	async save() {
+	async save(saveInPlace) {
 		const attachmentStore = this.store.getAttachmentStore();
 		if (!attachmentStore) {
 			throw new Error('No attachment store configured. Cannot save');
 		}
+
+		const remainingAttachments = [];
 
 		for (const href of this.attachments) {
 			// TODO - Should we run these concurrently using an array of promises?
@@ -79,11 +81,20 @@ export class AttachmentCollection {
 			const attachment = attachmentStore.get(href);
 			if (attachment.deleted && !attachment.creating) {
 				await attachment.delete();
+			} else if (saveInPlace) {
+				remainingAttachments.push(href);
 			}
+
 			if (attachment.creating && !attachment.deleted) {
 				await attachment.save(this._entity);
 			}
 		}
+
+		runInAction(() => {
+			if (saveInPlace) {
+				this.attachments = remainingAttachments;
+			}
+		});
 	}
 	setAttachments(attachments) {
 		this.attachments = attachments;

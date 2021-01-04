@@ -121,23 +121,23 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 			return;
 		}
 
-		await this._saveEditors(orderedEditors);
+		const saveInPlace = e && e.detail && e.detail.saveInPlace;
+		await this._saveEditors(orderedEditors, saveInPlace);
 
 		this.isError = false;
 
-		const closeOnSave = e && e.detail && e.detail.close;
-		this.dispatchEvent(this._saveCompleteEvent(closeOnSave));
-		if (!closeOnSave) {
+		this.dispatchEvent(this._saveCompleteEvent(saveInPlace));
+		if (saveInPlace) {
 			this.isSaving = false;
 		}
 
 		this.logSaveEvent(this.href, this.type, this.telemetryId);
 	}
 
-	_saveCompleteEvent(closeOnSave) {
+	_saveCompleteEvent(saveInPlace) {
 		return new CustomEvent('d2l-activity-editor-save-complete', {
 			detail: {
-				close: closeOnSave
+				saveInPlace: saveInPlace
 			},
 			bubbles: true,
 			composed: true,
@@ -145,14 +145,14 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		});
 	}
 
-	async _saveEditors(orderedEditors) {
+	async _saveEditors(orderedEditors, saveInPlace) {
 		for (const editorGroup of orderedEditors) {
 			// TODO - Once we decide how we want to handle errors we may want to add error handling logic
 			// to the save
 
 			const saves = [];
 			for (const editor of editorGroup) {
-				saves.push(editor.save());
+				saves.push(editor.save(saveInPlace));
 			}
 
 			try {

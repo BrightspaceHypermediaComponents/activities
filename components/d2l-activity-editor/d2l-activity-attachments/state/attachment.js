@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { AttachmentEntity } from 'siren-sdk/src/activities/AttachmentEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
@@ -19,6 +19,7 @@ export class Attachment {
 			await this._entity.deleteAttachment();
 		}
 	}
+
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -48,10 +49,11 @@ export class Attachment {
 		this.deleted = deleted;
 	}
 
+	save() {}
+
 	setName(name) {
 		this.attachment.name = name;
 	}
-
 }
 
 decorate(Attachment, {
@@ -63,7 +65,9 @@ decorate(Attachment, {
 	// actions
 	load: action,
 	markDeleted: action,
-	setName: action
+	setName: action,
+	save: action,
+	delete: action
 });
 
 export class LinkAttachment extends Attachment {
@@ -81,6 +85,7 @@ export class LinkAttachment extends Attachment {
 
 	async save(entity) {
 		await entity.addLinkAttachment(this.attachment.name, this.attachment.urn || this.attachment.url);
+		runInAction(() => this.creating = false);
 	}
 }
 
@@ -92,12 +97,14 @@ decorate(LinkAttachment, {
 export class GoogleDriveAttachment extends LinkAttachment {
 	async save(entity) {
 		await entity.addGoogleDriveLinkAttachment(this.attachment.name, this.attachment.url);
+		runInAction(() => this.creating = false);
 	}
 }
 
 export class OneDriveAttachment extends LinkAttachment {
 	async save(entity) {
 		await entity.addOneDriveLinkAttachment(this.attachment.name, this.attachment.url);
+		runInAction(() => this.creating = false);
 	}
 }
 
@@ -120,6 +127,7 @@ export class FileAttachment extends Attachment {
 
 	async save(entity) {
 		await entity.addFileAttachment(this.fileSystemType, this.fileId);
+		runInAction(() => this.creating = false);
 	}
 }
 
@@ -131,12 +139,14 @@ decorate(FileAttachment, {
 export class VideoAttachment extends FileAttachment {
 	async save(entity) {
 		await entity.addVideoNoteAttachment(this.fileSystemType, this.fileId);
+		runInAction(() => this.creating = false);
 	}
 }
 
 export class AudioAttachment extends FileAttachment {
 	async save(entity) {
 		await entity.addAudioNoteAttachment(this.fileSystemType, this.fileId);
+		runInAction(() => this.creating = false);
 	}
 }
 

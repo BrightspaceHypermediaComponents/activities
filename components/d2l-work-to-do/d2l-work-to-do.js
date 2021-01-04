@@ -208,7 +208,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				<div class="d2l-upcoming-list">
 					${collectionTemplate(this._upcomingCollection, this._upcomingDisplayLimit, false)}
 				</div>
-				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small>${this.localize('fullViewLink')}</d2l-link>
+				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource}>${this.localize('fullViewLink')}</d2l-link>
 			`;
 		};
 

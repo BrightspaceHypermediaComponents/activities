@@ -44,23 +44,32 @@ Quick Eval should be pulled directly from `my-unassessed-activities`:
 <d2l-quick-eval href="https://activities.[[apiUrl]]/my-unassessed-activities" token="token"></d2l-quick-eval>
 ```
 
-### Visual Difference Testing
+### Visual Diff Testing
 
-In order to do visual difference testing, you must generate the "golden" images first, as the baseline to compare to.
+This repo uses the [@brightspace-ui/visual-diff utility](https://github.com/BrightspaceUI/visual-diff/) to compare current snapshots against a set of golden snapshots stored in source control.
+
+The golden snapshots in source control must be updated by Github Actions.  If your PR's code changes result in visual differences, a PR with the new goldens will be automatically opened for you against your branch.
+
+If you'd like to run the tests locally to help troubleshoot or develop new tests, you can use these commands:
+
+```shell
+# Install dependencies locally
+npm i mocha -g
+npm i @brightspace-ui/visual-diff puppeteer --no-save
+# run visual-diff tests
+mocha './test/**/*.visual-diff.js' -t 10000
+# subset of visual-diff tests:
+mocha './test/**/*.visual-diff.js' -t 10000 -g some-pattern
+# update visual-diff goldens
+mocha './test/**/*.visual-diff.js' -t 10000 --golden
+```
 
 #### Procedure for testing on a local developer machine:
 
 1. Checkout the master branch: `git checkout master`.
-2. Generate the golden (baseline) images: `npm run test:diff:golden`.
+2. Generate the golden (baseline) images: `mocha './test/**/*.visual-diff.js' -t 10000 --golden`.
 3. Checkout your branch to test: `git checkout <desired branch>`.
-4. Running the visual difference tests: `npm run test:diff`.
-
-#### Procedure for testing on the Travis CI pipeline:
-
-When a pull-request is made, you should consider if your changes will alter the UI and break the visual difference tests.
-If the visuals are being changed/modified, it is necessary for the stored Goldens in the repository to be updated (made easier with the bot).
-
-* The visual difference tests will be automatically run based off of the Goldens stored in the repository, the bot will assist you with re-generation of the Goldens and will mark the check on your PR as failed when/if a visual difference test fails.
+4. Running the visual difference tests: `mocha './test/**/*.visual-diff.js' -t 10000`.
 
 #### Other information
 
@@ -71,7 +80,8 @@ On a test failure, the difference between the goldens and the current images wil
 
 ## Versioning & Releasing
 
-> TL;DR: Commits prefixed with `fix:` and `feat:` will trigger patch and minor releases when merged to `master`. Read on for more details...
+> TL;DR: Commits prefixed with `fix: ` and `feat: ` will trigger patch and minor releases when merged to `master`. Read on for more details...
+Don't forget the ` ` after `:`
 
 The [sematic-release GitHub Action](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) is called from the `release.yml` GitHub Action workflow to handle version changes and releasing.
 

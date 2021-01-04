@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Accès spécial", // special access heading
 	"hlpSpecialAccess": "L’accès spécial permet d’attribuer des devoirs uniquement à un groupe d’utilisateurs sélectionné ou à des dates d’échéance personnalisées pour certains utilisateurs.", // special access help
 	"assignmentLocked": "Certains paramètres sont verrouillés, car des soumissions ont été reçues.",
-	"hdrSubmissionNotificationEmail": "E-mail de notification",
-	"hlpSubmissionNotificationEmail": "Saisissez une ou plusieurs adresses e-mails séparées par une virgule pour recevoir des notifications lors de la soumission d’un devoir.",
-	"invalidNotificationEmailError": "Veuillez saisir une adresse e-mail valide."
+	"hlpSubmissionNotificationEmail": "Saisissez une ou plusieurs adresses e-mails séparées par une virgule pour recevoir des notifications lors de la soumission d’un devoir."
 };

@@ -8,7 +8,7 @@ export default {
 	"chkAnonymousMarking": "Dölj elevens namn vid bedömningen", // Checkbox for anonymous marking
 	"dueDate": "Förfallodatum", // ARIA label for the due date field when creating/editing an activity
 	"txtAnnotationsOff": "Kommentarer avstängda", // annotations off text
-	"emptyNameError": "Namn krävs", // Error message to inform user that the assignment name is a required field
+	"emptyNameError": "Ange ett namn", // Error message to inform user that the assignment name is a required field
 	"instructions": "Instruktioner", // Label for the instruction field when creating/editing an assignment
 	"hdrTurnitin": "Turnitin-integrering", // turnitin heading
 	"hlpTurnitin": "TurnItIn® används till att lägga till ytterligare funktioner till utvärderingar.", // turnitin help
@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Specialåtkomst", // special access heading
 	"hlpSpecialAccess": "Med specialåtkomst kan uppgifter endast vara tillgängliga för en utvald grupp användare eller ha individuella förfallodatum för vissa användare.", // special access help
 	"assignmentLocked": "Vissa inställningar är låsta eftersom inlämningar har tagits emot.",
-	"hdrSubmissionNotificationEmail": "Notifikation via e-post",
-	"hlpSubmissionNotificationEmail": "Ange en e-postadress eller flera e-postadresser avgränsade med kommatecken för att få aviseringar när en uppgift skickas.",
-	"invalidNotificationEmailError": "Ange en giltig e-postadress"
+	"hlpSubmissionNotificationEmail": "Ange en e-postadress eller flera e-postadresser avgränsade med kommatecken för att få aviseringar när en uppgift skickas."
 };

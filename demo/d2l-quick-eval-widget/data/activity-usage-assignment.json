@@ -1,0 +1,23 @@
+{
+  "class": [
+    "assignment-activity",
+    "draft-published-entity",
+    "published"
+  ],
+  "links": [
+    {
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage",
+        "self"
+      ],
+      "href": "./data/activity-usage-assignment.json"
+    },
+    {
+      "rel": [
+        "https://api.brightspace.com/rels/assignment",
+        "https://api.brightspace.com/rels/specialization"
+      ],
+      "href": "./data/assignment.json"
+    }
+  ]
+}

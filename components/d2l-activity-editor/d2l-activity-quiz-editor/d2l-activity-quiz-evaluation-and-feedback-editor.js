@@ -5,6 +5,7 @@ import '@brightspace-ui/core/components/button/button-icon.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
+import { ActivityEditorDialogMixin } from '../mixins/d2l-activity-editor-dialog-mixin';
 import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
@@ -13,14 +14,13 @@ import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(MobxLitElement))))) {
+class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(ActivityEditorDialogMixin(MobxLitElement)))))) {
 
 	static get properties() {
 
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_opened: { type: Boolean }
 		};
 	}
 
@@ -36,11 +36,6 @@ class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(Locali
 				}
 			`
 		];
-	}
-
-	constructor() {
-		super();
-		this._opened = false;
 	}
 
 	render() {
@@ -72,14 +67,6 @@ class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(Locali
 		return false; // Todo: implement error handling
 	}
 
-	_handleClose() {
-		this._opened = false;
-	}
-
-	_open() {
-		this._opened = true;
-	}
-
 	_renderAutomaticGradesEditor() {
 		return html`
 			<d2l-activity-quiz-auto-set-graded-editor
@@ -101,7 +88,7 @@ class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(Locali
 					<d2l-button-icon
 						text="${this.localize('autoSetGradedAccessibleHelpText')}"
 						icon="tier1:help"
-						@click="${this._open}">
+						@click="${this.open}">
 					</d2l-button-icon>
 				</span>
 			</div>
@@ -118,8 +105,8 @@ class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(Locali
 	_renderDialog() {
 		return html`
 			<d2l-dialog
-				?opened="${this._opened}"
-				@d2l-dialog-close="${this._handleClose}"
+				?opened="${this.opened}"
+				@d2l-dialog-close="${this.handleClose}"
 				title-text="${this.localize('autoSetGradedHelpDialogTitle')}">
 					<div>
 						<p>${this.localize('autoSetGradedHelpDialogParagraph1')}</p>

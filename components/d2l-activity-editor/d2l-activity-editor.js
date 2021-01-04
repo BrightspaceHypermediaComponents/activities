@@ -8,10 +8,14 @@ import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from './mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { ActivityEditorTelemetryMixin } from './mixins/d2l-activity-editor-telemetry-mixin';
+import { classMap } from 'lit-html/directives/class-map.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetryMixin(AsyncContainerMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(LitElement))))) {
+const isWindows = window.navigator.userAgent.indexOf('Windows') > -1;
+
+class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetryMixin(AsyncContainerMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(LitElement)))))) {
 
 	static get properties() {
 		return {
@@ -39,6 +43,13 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 			.d2l-secondary-panel {
 				padding: 10px;
 			}
+			.d2l-secondary-scroll {
+				padding-right: 2px;
+			}
+			:host([dir="rtl"]) .d2l-secondary-scroll {
+				padding-left: 2px;
+				padding-right: 10px;
+			}
 			d2l-alert {
 				margin-bottom: 10px;
 				max-width: 100%;
@@ -64,6 +75,11 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 	}
 
 	render() {
+		const secondaryPanelClasses = {
+			'd2l-secondary-panel': true,
+			'd2l-secondary-scroll': isWindows
+		};
+
 		return html`
 			<div id="editor-container">
 				<d2l-template-primary-secondary background-shading="secondary" width-type="${this.widthType}">
@@ -72,7 +88,7 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 						<d2l-alert type="error" ?hidden=${!this.isError}>${this.errorTerm}</d2l-alert>
 						<slot name="primary"></slot>
 					</div>
-					<div slot="secondary" class="d2l-secondary-panel">
+					<div slot="secondary" class="${classMap(secondaryPanelClasses)}">
 						<slot name="secondary"></slot>
 					</div>
 					<d2l-activity-editor-footer

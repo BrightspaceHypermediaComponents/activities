@@ -10,13 +10,13 @@ export default {
 	"editor.txtConditionAdded": "شرط مضاف: {title}",
 	"editor.txtConditionRemoved": "شرط تمت إزالته: {title}",
 	"editor.txtConditionsAdded": "تمت إضافة {count} من الشروط",
-	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} شرط إصدار} other ‏{{count} من شروط الإصدار}}", // num release condition text
-	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {مستخدم واحد يتمتع بإمكانية وصول خاص} other ‏{{userCount} من المستخدمين الذين يتمتعون بإمكانية وصول خاص}}", // num users with special access text
+	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} شرط إصدار} other {{count} من شروط الإصدار}}", // num release condition text
+	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {مستخدم واحد يتمتع بإمكانية وصول خاص} other {{userCount} من المستخدمين الذين يتمتعون بإمكانية وصول خاص}}", // num users with special access text
 	"editor.btnCancel": "إلغاء", // cancel button
 	"editor.btnSave": "حفظ وإغلاق", // save and close button
 	"editor.btnSaveMobile": "حفظ", // save and close button for mobile devices
 	"editor.dueDate": "تاريخ الاستحقاق", // ARIA label for the due date field when creating/editing an activity
-	"editor.endDate": "تاريخ النهاية", // ARIA label for the end date field when creating/editing an activity
+	"editor.endDate": "تاريخ الانتهاء", // ARIA label for the end date field when creating/editing an activity
 	"editor.startDate": "تاريخ البدء", // ARIA label for the start date field when creating/editing an activity
 	"editor.dueTime": "وقت الاستحقاق", // ARIA label for the due time field when creating/editing an activity
 	"editor.endTime": "وقت النهاية", // ARIA label for the end time field when creating/editing an activity
@@ -57,23 +57,25 @@ export default {
 	"editor.noGradeCreatePermission": "ليس لديك الإذن لإنشاء مادة جديدة سيتم وضع علامة عليها", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "أهداف التعلّم", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "إدارة أهداف التعلّم", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =1 {مرفق واحد} other ‏{{count} من المرفقات}}", //Label for number of associated competencies
+	"editor.competenciesCount": "{count, plural, =1 {مرفق واحد} other {{count} من المرفقات}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "ما من أهداف تعلّم", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {هدف تعلّم واحد} other ‏{{count} من أهداف التعلّم}}", // num release condition text
+	"editor.competenciesCountSummary": "{count, plural, =1 {هدف تعلّم واحد} other {{count} من أهداف التعلّم}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {تقييم واحد مفقود} other {{count} من التقييمات المفقودة}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "إغلاق", //Label for Close button
 	"editor.btnCloseDialog": "إغلاق مربع الحوار هذا", // close dialog button
-	"editor.btnManageSpecialAccess": "إدارة الوصول الخاص", // manage special access button
+	"editor.btnManageSpecialAccess": "إدارة إمكانية الوصول الخاص", // manage special access button
 	"editor.specialAccessRestrictedText": "يمكن فقط للمستخدمين الذين يتمتعون بإمكانية وصول خاص رؤية هذا المجلد", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "يمكن للمستخدمين إجراء عملية الإرسال خارج تواريخ التوفّر الاعتيادية", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "يتمتع {count, plural, =1 {مستخدم واحد} other ‏{{count} من المستخدمين}} بإمكانية وصول خاص", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "ما من مستخدمين", // text label when there are no users with special access
-	"editor.specialAccessDialogTitle": "إدارة الوصول الخاص", // Dialog title
+	"editor.specialAccessDialogTitle": "إدارة إمكانية الوصول الخاص", // Dialog title
 	"editor.specialAccessHidden": "تم الإخفاء بواسطة الوصول الخاص", // Warning label that the activity is restricted but is being hidden from all users by special access rules
 	"editor.discardChangesTitle": "هل تريد تجاهل التغييرات؟", // Discard Changes User Prompt
 	"editor.discardChangesQuestion": "هل أنت متأكد من أنك تريد تجاهل التغييرات التي أجريتها؟", // Discard Changes User Prompt
 	"editor.yesLabel": "نعم",
 	"editor.noLabel": "لا",
+	"editor.notificationEmailLabel": "بريد إلكتروني للإعلام", // Label for notification email input field
+	"editor.invalidNotificationEmailError": "يُرجى إدخال عنوان بريد الكتروني صالح", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "إضافة آلية تقييم", //text for add rubric button
 	"rubrics.btnCreateNew": "إنشاء جديد", //Text for create new dropdown
@@ -83,7 +85,7 @@ export default {
 	"rubrics.btnCancel": "إلغاء", //Button for canceling out of the attach new rubric overlay
 	"rubrics.txtAddExisting": "إضافة موجود", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "لم تتم إضافة آلية تقييم", // rubric summary for no rubrics
-	"rubrics.txtRubricsAdded": "{count, plural, =1 {آلية تقييم واحدة مضافة} other ‏{{count} من آليات التقييم المضافة}}", // count of asoociated rubrics
+	"rubrics.txtRubricsAdded": "{count, plural, =1 {آلية تقييم واحدة مضافة} other {{count} من آليات التقييم المضافة}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "حذف آلية التقييم", // Text for deleting rubric icon
 	"rubrics.btnClose": "إغلاق", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "تمت إضافة آلية تقييم", // Text for notifying screenreader rubric was added
@@ -105,7 +107,7 @@ export default {
 	"attachments.back": "الخلف", // Text for a back button
 	"attachments.closeDialog": "إغلاق مربع الحوار", // ARIA text for button to close dialog
 	"attachments.recordAudio": "تسجيل الصوت", // Text for a button that opens a dialog to record audio
-	"attachments.recordVideo": "تسجيل فيديو", // Text for a button that opens a dialog to record video
+	"attachments.recordVideo": "تسجيل الفيديو", // Text for a button that opens a dialog to record video
 	"attachments.save": "حفظ", // Text for a save button,
 	"attachments.attach": "إرفاق", // Text for Attach button to open attachment row
 	"attachments.addGoogleDriveLinkMenu": "Google Drive", // Attach menu item text
@@ -118,4 +120,6 @@ export default {
 	"content.emptyNameField": "الاسم مطلوب", // Error text that appears below name field when it is left empty
 	"content.description": "وصف", // Text label for description input field
 	"content.availabilityHeader": "تواريخ إمكانية التوفّر", // availability header
+	"content.saveError": "لم يتم حفظ مادة المحتوى الخاصة بك. يُرجى تصحيح الحقول الموضّحة باللون الأحمر.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "إضافة تاريخ الاستحقاق" // Text label for name input field
 };

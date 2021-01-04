@@ -13,7 +13,7 @@ export default {
 	"hdrTurnitin": "Integração do Turnitin", // turnitin heading
 	"hlpTurnitin": "O Turnitin® adiciona mais funcionalidade à avaliação.", // turnitin help
 	"btnEditTurnitin": "Gerenciar o Turnitin", // edit turnitin button
-	"btnCloseDialog": "Fechar esta Caixa de Diálogo", // close dialog button
+	"btnCloseDialog": "Fechar esta caixa de diálogo", // close dialog button
 	"txtOriginalityCheckOn": "Verificação de originalidade ativada", // originality check on text
 	"txtGradeMarkOn": "GradeMark em", // grade mark on text
 	"txtTurnitinOn": "TurnItIn habilitado", // turnitin on text
@@ -41,11 +41,9 @@ export default {
 	"filesSubmissionLimit": "Arquivos permitidos por envio",
 	"UnlimitedFilesPerSubmission": "Ilimitado",
 	"OneFilePerSubmission": "Um arquivo",
-	"submissionsRule": "Envios",
+	"submissionsRule": "envios",
 	"hdrSpecialAccess": "Acesso especial", // special access heading
 	"hlpSpecialAccess": "O acesso especial permite que a ferramenta de envio de atividades esteja disponível apenas para um grupo selecionado de usuários ou em datas de entrega personalizadas para determinados usuários.", // special access help
 	"assignmentLocked": "Algumas configurações estão bloqueadas porque atividades foram recebidas.",
-	"hdrSubmissionNotificationEmail": "E-mail de notificação",
-	"hlpSubmissionNotificationEmail": "Informe um e-mail ou digite vários e-mails separados por vírgula para receber notificações quando uma atividade for enviada.",
-	"invalidNotificationEmailError": "Informe um endereço de e-mail válido"
+	"hlpSubmissionNotificationEmail": "Informe um e-mail ou digite vários e-mails separados por vírgula para receber notificações quando uma atividade for enviada."
 };

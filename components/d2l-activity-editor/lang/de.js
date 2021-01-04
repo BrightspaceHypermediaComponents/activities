@@ -57,16 +57,16 @@ export default {
 	"editor.noGradeCreatePermission": "Sie haben keine Berechtigung, einen neuen Benotungsgegenstand zu erstellen.", // Reason why a new grade items cannot be created in the choose grades dialog
 	"editor.competencies": "Lernziele", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Lernziele verwalten", //Button text to launch competencies tool dialog
-	"editor.competenciesCount": "{count, plural, =1 {1 Anhang} other {{Anzahl} Anhänge}}", //Label for number of associated competencies
+	"editor.competenciesCount": "{count, plural, =1 {1 Anhang} other {{count} Anhänge}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Keine Lernziele", //text label when there are no associated learning objectives
-	"editor.competenciesCountSummary": "{count, plural, =1 {1 Lernziel} andere {{count} Lernziele}}", // num release condition text
+	"editor.competenciesCountSummary": "{count, plural, =1 {1 Lernziel} other {{count} Lernziele}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 fehlende Bewertung} other {{count} fehlende Bewertungen}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Schließen", //Label for Close button
 	"editor.btnCloseDialog": "Dieses Dialogfeld schließen", // close dialog button
 	"editor.btnManageSpecialAccess": "Beschränkten Zugriff verwalten", // manage special access button
 	"editor.specialAccessRestrictedText": "Nur Benutzer mit beschränktem Zugriff können diesen Ordner sehen", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Benutzer können außerhalb normaler Verfügbarkeitszeiträume einreichen", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 Benutzer} other {{count} Benutzer}} mit beschränktem Zugriff", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Keine Benutzer", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Beschränkten Zugriff verwalten", // Dialog title
 	"editor.specialAccessHidden": "Durch beschränkten Zugriff ausgeblendet", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -74,6 +74,8 @@ export default {
 	"editor.discardChangesQuestion": "Möchten Sie Ihre Änderungen wirklich verwerfen?", // Discard Changes User Prompt
 	"editor.yesLabel": "Ja",
 	"editor.noLabel": "Nein",
+	"editor.notificationEmailLabel": "E-Mail-Benachrichtigung", // Label for notification email input field
+	"editor.invalidNotificationEmailError": "Geben Sie eine gültige E-Mail-Adresse ein", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "Bewertungsschema hinzufügen", //text for add rubric button
 	"rubrics.btnCreateNew": "Neu erstellen", //Text for create new dropdown
@@ -118,4 +120,6 @@ export default {
 	"content.emptyNameField": "Name erforderlich", // Error text that appears below name field when it is left empty
 	"content.description": "Beschreibung", // Text label for description input field
 	"content.availabilityHeader": "Verfügbarkeitsdaten", // availability header
+	"content.saveError": "Ihr Inhaltselement wurde nicht gespeichert. Korrigieren Sie die rot umrandeten Felder.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Abgabetermin hinzufügen" // Text label for name input field
 };

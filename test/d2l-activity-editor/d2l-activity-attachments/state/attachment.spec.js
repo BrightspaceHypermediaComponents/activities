@@ -67,17 +67,50 @@ describe('Attachment', function() {
 	});
 
 	describe('LinkAttachment', () => {
-		it('initializes', () => {
+		it('initializes without urn', () => {
 			const link = new LinkAttachment('http://attachment/1', 'token');
 			link.initLink('Google Canada', 'http://google.ca');
 
 			expect(link.attachment.name).to.equal('Google Canada');
 			expect(link.attachment.id).to.equal('http://attachment/1');
 			expect(link.attachment.url).to.equal('http://google.ca');
+			expect(link.attachment.urn).to.equal(undefined);
 
 			expect(link.creating).to.be.true;
 			expect(link.editing).to.be.true;
 			expect(link.deleted).to.be.false;
+		});
+
+		it('initializes with d2lrn', () => {
+			const link = new LinkAttachment('http://attachment/1', 'token');
+			link.initLink('Google Canada', 'http://google.ca', 'd2l:brightspace:foo:::bar:car');
+
+			expect(link.attachment.name).to.equal('Google Canada');
+			expect(link.attachment.id).to.equal('http://attachment/1');
+			expect(link.attachment.url).to.equal('http://google.ca');
+			expect(link.attachment.urn).to.equal('d2l:brightspace:foo:::bar:car');
+
+			expect(link.creating).to.be.true;
+			expect(link.editing).to.be.true;
+			expect(link.deleted).to.be.false;
+		});
+
+		it('saves the url when a urn is not provided', async() => {
+			const link = new LinkAttachment('http://attachment/1', 'token');
+			link.initLink('Google Canada', 'http://google.ca');
+
+			const entity = { addLinkAttachment: sinon.spy() };
+			await link.save(entity);
+			expect(entity.addLinkAttachment.args[0][1]).to.equal('http://google.ca');
+		});
+
+		it('saves the urn when it is provided', async() => {
+			const link = new LinkAttachment('http://attachment/1', 'token');
+			link.initLink('Google Canada', 'http://google.ca', 'd2l:brightspace:foo:::bar:car');
+
+			const entity = { addLinkAttachment: sinon.spy() };
+			await link.save(entity);
+			expect(entity.addLinkAttachment.args[0][1]).to.equal('d2l:brightspace:foo:::bar:car');
 		});
 	});
 

@@ -12,7 +12,7 @@ import { Config, Constants } from './env';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin';
+import { LocalizeWorkToDoMixin } from './localization';
 import { performSirenAction } from 'siren-sdk/src/es6/SirenAction';
 import { UserEntity } from 'siren-sdk/src/users/UserEntity';
 import { repeat } from 'lit-html/directives/repeat';
@@ -21,18 +21,24 @@ import { nothing } from 'lit-html';
 /**
  * @classdesc Class representation of Work to Do widget component
  */
-class WorkToDoWidget extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 	static get properties() {
 		return {
 			/** Represents current session's discovery tool access */
 			_discoverActive: { type: Boolean },
+			/** Represents current session's render mode */
+			_fullscreen: { type: Boolean, attribute: 'data-fullscreen' },
 			/** ActivityUsageCollection with time: 0 -> 52[weeks] */
 			_maxCollection: { type: Object },
 			/** ActivityUsageCollection with time: (OverdueWeekLimit) -> 0 */
 			_overdueCollection: { type: Object },
+			/** Represents current session's OverdueWeekLimit */
+			_overdueWeekLimit: { type: Number, attribute: 'data-overdue-week-limit' },
 			/** ActivityUsageCollection with time: 0 -> UpcomingWeekLimit */
 			_upcomingCollection: { type: Object },
+			/** Represents current session's UpcomingWeekLimit */
+			_upcomingWeekLimit: { type: Number, attribute: 'data-upcoming-week-limit' }
 		};
 	}
 
@@ -99,26 +105,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		];
 	}
 
-	static async getLocalizeResources(langs) {
-		for await (const lang of langs) {
-			let translations;
-			switch (lang) {
-				case 'en':
-					translations = await import('./lang/en');
-					break;
-			}
-
-			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
-			}
-		}
-
-		return null;
-	}
-
 	constructor() {
 		super();
 		this.fullscreen = false;
@@ -128,6 +114,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		this._overdueCollection = undefined;
 		this._overdueDisplayLimit = Constants.MaxWidgetDisplay;
 		this._upcomingCollection = undefined;
+		this._overdueWeekLimit = Config.OverdueWeekLimit;
+		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
 		this._setEntityType(UserEntity);
 	}
@@ -137,6 +125,29 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			this._onEntityChanged(entity);
 			super._entity = entity;
 		}
+	}
+
+	attributeChangedCallback(name, oldval, newval) {
+		if (!window.D2L.workToDoOptions) {
+			window.D2L.workToDoOptions = {};
+		}
+
+		switch (name) {
+			case 'data-fullscreen':
+				this.fullscreen = (newval.toLowerCase() === 'true');
+				window.D2L.workToDoOptions.fullscreen = this.fullscreen;
+				break;
+			case 'data-overdue-week-limit':
+				this._overdueWeekLimit = (parseInt(newval) < 0) ? Config.OverdueWeekLimit : parseInt(newval);
+				window.D2L.workToDoOptions.overdueWeekLimit = this._overdueWeekLimit;
+				break;
+			case 'data-upcoming-week-limit':
+				this._upcomingWeekLimit = (parseInt(newval) < 0) ? Config.UpcomingWeekLimit : parseInt(newval);
+				window.D2L.workToDoOptions.upcomingWeekLimit = this._upcomingWeekLimit;
+				break;
+		}
+
+		super.attributeChangedCallback(name, oldval, newval);
 	}
 
 	/**

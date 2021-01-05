@@ -3,8 +3,8 @@ import '../../d2l-activity-html-editor';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
+import { ContentEditorConstants } from '../constants';
 import { ContentModuleEntity } from 'siren-sdk/src/activities/content/ContentModuleEntity.js';
-import { DEBOUNCE_TIMEOUT } from '../d2l-activity-content-editor-detail.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
@@ -67,7 +67,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				.entity=${moduleEntity}
 				.saveFn=${this.saveTitle}
 			></d2l-activity-content-editor-title>
-			<slot name="dueDate"></slot>
+			<slot name="due-date"></slot>
 			<div id="content-description-container">
 				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
 					${this.localize('content.description')}
@@ -130,7 +130,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		const descriptionRichText = e.detail.content;
 		this._debounceJobs.description = Debouncer.debounce(
 			this._debounceJobs.description,
-			timeOut.after(DEBOUNCE_TIMEOUT),
+			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this._saveDescription(descriptionRichText)
 		);
 	}

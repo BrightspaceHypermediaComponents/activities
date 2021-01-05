@@ -2,7 +2,7 @@ import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { DEBOUNCE_TIMEOUT, TITLE_MAX_LENGTH } from '../d2l-activity-content-editor-detail.js';
+import { ContentEditorConstants } from '../constants';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -61,7 +61,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 			<div id="content-title-container">
 				<d2l-input-text
 					id="content-title"
-					maxlength="${TITLE_MAX_LENGTH}"
+					maxlength="${ContentEditorConstants.TITLE_MAX_LENGTH}"
 					value="${title}"
 					@change="${this._saveOnChange('title')}"
 					@input="${this._saveTitleOnInput}"
@@ -74,7 +74,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 				</d2l-input-text>
 				${this._renderTitleTooltip()}
 			</div>
-			<slot name="dueDate"></slot>
+			<slot name="due-date"></slot>
 		`;
 	}
 
@@ -108,7 +108,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 			this.clearError('_titleError');
 			this._debounceJobs.title = Debouncer.debounce(
 				this._debounceJobs.title,
-				timeOut.after(DEBOUNCE_TIMEOUT),
+				timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 				() => this.saveFn(title)
 			);
 		}

@@ -62,7 +62,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 				.saveFn=${this.saveTitle}
 			>
 			</d2l-activity-content-editor-title>
-			<slot name="dueDate"></slot>
+			<slot name="due-date"></slot>
 		`;
 	}
 

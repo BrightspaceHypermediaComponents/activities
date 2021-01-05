@@ -7,9 +7,6 @@ import { CONTENT_TYPES } from 'siren-sdk/src/activities/content/ContentEntity.js
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as store } from './state/content-store.js';
 
-export const DEBOUNCE_TIMEOUT = 500;
-export const TITLE_MAX_LENGTH = 150;
-
 class ContentEditorDetail extends MobxLitElement {
 
 	static get styles() {
@@ -71,7 +68,7 @@ class ContentEditorDetail extends MobxLitElement {
 
 	_renderDueDate() {
 		return html`
-			<div slot="dueDate">
+			<div slot="due-date">
 				<d2l-activity-content-editor-due-date
 					.href="${this.href}"
 					.token="${this.token}"

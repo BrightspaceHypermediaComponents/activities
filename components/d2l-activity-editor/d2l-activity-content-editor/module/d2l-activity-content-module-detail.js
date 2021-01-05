@@ -55,9 +55,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 	render() {
 		const moduleEntity = moduleStore.getContentModuleActivity(this.href);
 		let descriptionRichText = undefined;
-		this.skeleton = true;
 		if (moduleEntity) {
-			// Show loading skeleton until we have the module entity loaded into state
 			this.skeleton = false;
 			descriptionRichText = moduleEntity.descriptionRichText;
 		}
@@ -65,7 +63,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		return html`
 			<d2l-activity-content-editor-title
 				.entity=${moduleEntity}
-				.saveFn=${this.saveTitle}
+				.onSave=${this.saveTitle}
 			></d2l-activity-content-editor-title>
 			<slot name="due-date"></slot>
 			<div id="content-description-container">

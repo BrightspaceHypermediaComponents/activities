@@ -32,22 +32,20 @@ class ContentEditorDetail extends MobxLitElement {
 	render() {
 		const contentEntity = store.getContentActivity(this.href);
 		if (!contentEntity) {
-			// show loading spinner if contentEnitity doesn't exist yet
 			return html`
 				<d2l-loading-spinner size="80"></d2l-loading-spinner>
 			`;
 		}
 
-		const entityType = contentEntity.entityType;
-		const activityHref = contentEntity.contentActivityHref;
+		const { entityType, contentActivityHref } = contentEntity;
 
 		if (entityType === CONTENT_TYPES.module) {
 			return html`
 				<d2l-activity-content-module-detail
-					.href="${activityHref}"
+					.href="${contentActivityHref}"
 					.token="${this.token}"
 				>
-				${this._renderDueDate()}
+					${this._renderDueDate()}
 				</d2l-activity-content-module-detail>
 			`;
 		}
@@ -55,10 +53,10 @@ class ContentEditorDetail extends MobxLitElement {
 		if (entityType === CONTENT_TYPES.weblink) {
 			return html`
 				<d2l-activity-content-web-link-detail
-					.href="${activityHref}"
+					.href="${contentActivityHref}"
 					.token="${this.token}"
 				>
-				${this._renderDueDate()}
+					${this._renderDueDate()}
 				</d2l-activity-content-web-link-detail>
 			`;
 		}

@@ -50,16 +50,14 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	render() {
 		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
-		this.skeleton = true;
 		if (webLinkEntity) {
-			// Show loading skeleton until we have the module entity loaded into state
 			this.skeleton = false;
 		}
 
 		return html`
 			<d2l-activity-content-editor-title
 				.entity=${webLinkEntity}
-				.saveFn=${this.saveTitle}
+				.onSave=${this.saveTitle}
 			>
 			</d2l-activity-content-editor-title>
 			<slot name="due-date"></slot>

@@ -17,7 +17,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 	static get properties() {
 		return {
 			entity: { type: Object },
-			saveFn: { type: Function },
+			onSave: { type: Function },
 			_titleError: { type: String }
 		};
 	}
@@ -52,7 +52,6 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 	render() {
 		let title = '';
 		if (this.entity) {
-			// Show loading skeleton until we have the entity
 			this.skeleton = false;
 			title = this.entity.title;
 		}
@@ -109,7 +108,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 			this._debounceJobs.title = Debouncer.debounce(
 				this._debounceJobs.title,
 				timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-				() => this.saveFn(title)
+				() => this.onSave(title)
 			);
 		}
 	}

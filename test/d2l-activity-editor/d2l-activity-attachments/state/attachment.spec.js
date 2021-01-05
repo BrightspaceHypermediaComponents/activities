@@ -113,7 +113,7 @@ describe('Attachment', function() {
 			await link.save(entity);
 			expect(entity.addLinkAttachment.args[0][1]).to.equal('http://google.ca');
 
-			expect(link.creating).to.be.false;
+			expect(link.creating).to.be.true;
 			expect(link.editing).to.be.true;
 			expect(link.deleted).to.be.false;
 		});
@@ -126,7 +126,7 @@ describe('Attachment', function() {
 			await link.save(entity);
 			expect(entity.addLinkAttachment.args[0][1]).to.equal('d2l:brightspace:foo:::bar:car');
 
-			expect(link.creating).to.be.false;
+			expect(link.creating).to.be.true;
 			expect(link.editing).to.be.true;
 			expect(link.deleted).to.be.false;
 		});
@@ -159,7 +159,7 @@ describe('Attachment', function() {
 			};
 			await file.save(mockAttachmentCollectionEntity);
 
-			expect(file.creating).to.be.false;
+			expect(file.creating).to.be.true;
 			expect(file.editing).to.be.true;
 			expect(file.deleted).to.be.false;
 		});

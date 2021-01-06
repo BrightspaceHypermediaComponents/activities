@@ -1,5 +1,7 @@
+import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/link/link.js';
+import '../d2l-quick-eval/d2l-quick-eval-no-submissions-image.js';
 import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 
 import { css, html, LitElement } from 'lit-element';
@@ -8,10 +10,16 @@ import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleS
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
+const skeletonState = 'skeleton';
+const errorState = 'error';
+const loadedState = 'loaded';
+const noSubmissionState = 'noSubmission';
+
 export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	static get properties() {
 		return {
 			_activities: { type: Array },
+			_state: { type: String },
 			activitiesHref: {
 				attribute: 'href',
 				type: String
@@ -51,12 +59,29 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 			.d2l-quick-eval-widget-list {
 				margin-top: 0.5rem;
 			}
+			d2l-quick-eval-no-submissions-image {
+				padding-top: 30px;
+				width: 100%;
+			}
+			d2l-quick-eval-widget-no-submissions {
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+				flex-wrap: wrap;
+			}
+			d2l-quick-eval-widget-no-submissions-text {
+				text-align: center;
+			}
+			d2l-quick-eval-widget-no-submissions-text h4 {
+				margin-block-end: 0;
+			}
 		` ];
 	}
 
 	constructor() {
 		super();
 		this._activities = [];
+		this._state = skeletonState;
 		this.count = 6;
 	}
 
@@ -65,8 +90,13 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 		if ((changedProperties.has('activitiesHref') || changedProperties.has('token')) && this.activitiesHref && this.token) {
 			this.skeleton = true;
+			this.state = skeletonState;
 			try {
 				this._activities = await this.getActivities(this.activitiesHref, this.token);
+				this._state = this._activities.length > 0 ? loadedState : noSubmissionState;
+			} catch (e) {
+				console.error('quick-eval-widget: Unable to load activities from entity.');
+				this._state = errorState;
 			} finally {
 				this.skeleton = false;
 			}
@@ -75,6 +105,9 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 	async getActivities(href, token) {
 		const unassessedActivityCollection = await fetchActivities(href, token);
+		if (unassessedActivityCollection.entities === null) {
+			return [];
+		}
 		return Promise.all(
 			unassessedActivityCollection.entities
 				.slice(0, this.count)
@@ -105,7 +138,23 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		}
 	}
 
-	render() {
+	get errorTemplate() {
+		return html`<p>Error Template Placeholder</p>`;
+	}
+
+	get noSubmissionTemplate() {
+		return html`
+			<d2l-quick-eval-widget-no-submissions>
+				<d2l-quick-eval-no-submissions-image></d2l-quick-eval-no-submissions-image>
+				<d2l-quick-eval-widget-no-submissions-text>
+					<h4 class="d2l-heading-4">You're all caught up!</h4>
+					<p>You have no submissions that need evaluation. Check back later for new submissions.</p>
+				</d2l-quick-eval-widget-no-submissions-text>
+				<d2l-button primary>View All Activities</d2l-button>
+			<d2l-quick-eval-widget-no-submissions>`;
+	}
+
+	get loadedTemplate() {
 		const listItems = this._activities.map(activity => {
 			return html`<d2l-work-to-do-activity-list-item-basic
 					evaluate-all-href="${activity.evaluateAllHref}"
@@ -113,19 +162,39 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 					submission-count=${activity.submissionCount}
 					.token=${ifDefined(this.token)}></d2l-work-to-do-activity-list-item-basic>`;
 		});
+		return html`
+			<d2l-list class="d2l-quick-eval-widget-list" separators="none">${listItems}</d2l-list>
+			${this.viewAllLinkTemplate}`;
+	}
 
-		const loaded = html`<d2l-list class="d2l-quick-eval-widget-list" separators="none">${listItems}</d2l-list>`;
+	get viewAllLinkTemplate() {
+		return html`
+			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">View all activities</d2l-link>`;
+	}
 
+	get skeletonTemplate() {
 		// delete when d2l-list supports SkeletonMixin
 		const loading = [];
 		for (let i = 0; i < this.count ; i++) {
 			loading.push(html`<ol class="d2l-skeletize"><li></li><li></li></ol>`);
 		}
-
 		return html`
-			${ this.skeleton ? loading : loaded }
-			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">View all activities</d2l-link>
-		`;
+			${loading }
+			${this.viewAllLinkTemplate}`;
+	}
+
+	render() {
+		/** Main render function logic */
+		switch (this._state) {
+			case skeletonState:
+				return this.skeletonTemplate;
+			case noSubmissionState:
+				return this.noSubmissionTemplate;
+			case errorState:
+				return this.errorTemplate;
+			default:
+				return this.loadedTemplate;
+		}
 	}
 }
 

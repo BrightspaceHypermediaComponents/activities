@@ -10,7 +10,6 @@ import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleS
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-const skeletonState = 'skeleton';
 const errorState = 'error';
 const loadedState = 'loaded';
 const noSubmissionState = 'noSubmission';
@@ -59,21 +58,29 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 			.d2l-quick-eval-widget-list {
 				margin-top: 0.5rem;
 			}
-			d2l-quick-eval-no-submissions-image {
-				padding-top: 30px;
-				width: 100%;
-			}
-			d2l-quick-eval-widget-no-submissions {
+			.d2l-quick-eval-widget-no-submissions {
 				align-items: center;
 				display: flex;
 				flex-direction: column;
 				flex-wrap: wrap;
 			}
-			d2l-quick-eval-widget-no-submissions-text {
+			d2l-quick-eval-no-submissions-image {
+				padding-top: 30px;
+				width: 100%;
+			}
+			.d2l-quick-eval-widget-no-submissions-text-container {
 				text-align: center;
 			}
-			d2l-quick-eval-widget-no-submissions-text h4 {
+			.d2l-quick-eval-widget-no-submissions-text-container h4 {
 				margin-block-end: 0;
+			}
+			.d2l-quick-eval-widget-error {
+				background: var(--d2l-color-regolith);
+				border: 1px solid var(--d2l-color-mica);
+				border-radius: 0.3rem;
+				box-sizing: border-box;
+				padding: 0 1rem;
+				width: 100%;
 			}
 		` ];
 	}
@@ -81,7 +88,6 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	constructor() {
 		super();
 		this._activities = [];
-		this._state = skeletonState;
 		this.count = 6;
 	}
 
@@ -90,7 +96,6 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 		if ((changedProperties.has('activitiesHref') || changedProperties.has('token')) && this.activitiesHref && this.token) {
 			this.skeleton = true;
-			this.state = skeletonState;
 			try {
 				this._activities = await this.getActivities(this.activitiesHref, this.token);
 				this._state = this._activities.length > 0 ? loadedState : noSubmissionState;
@@ -105,7 +110,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 	async getActivities(href, token) {
 		const unassessedActivityCollection = await fetchActivities(href, token);
-		if (unassessedActivityCollection.entities === null) {
+		if (unassessedActivityCollection.entities === undefined) {
 			return [];
 		}
 		return Promise.all(
@@ -139,19 +144,22 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	}
 
 	get errorTemplate() {
-		return html`<p>Error Template Placeholder</p>`;
+		return html`
+		<div class="d2l-quick-eval-widget-error">
+			<p class="d2l-body-compact">Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.</p>
+		</div>`;
 	}
 
 	get noSubmissionTemplate() {
 		return html`
-			<d2l-quick-eval-widget-no-submissions>
+			<div class="d2l-quick-eval-widget-no-submissions">
 				<d2l-quick-eval-no-submissions-image></d2l-quick-eval-no-submissions-image>
-				<d2l-quick-eval-widget-no-submissions-text>
+				<div class="d2l-quick-eval-widget-no-submissions-text-container">
 					<h4 class="d2l-heading-4">You're all caught up!</h4>
-					<p>You have no submissions that need evaluation. Check back later for new submissions.</p>
-				</d2l-quick-eval-widget-no-submissions-text>
+					<p class="d2l-body-compact">You have no submissions that need evaluation. Check back later for new submissions.</p>
+				</div>
 				<d2l-button primary>View All Activities</d2l-button>
-			<d2l-quick-eval-widget-no-submissions>`;
+			</div>`;
 	}
 
 	get loadedTemplate() {
@@ -172,28 +180,26 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">View all activities</d2l-link>`;
 	}
 
-	get skeletonTemplate() {
-		// delete when d2l-list supports SkeletonMixin
-		const loading = [];
-		for (let i = 0; i < this.count ; i++) {
-			loading.push(html`<ol class="d2l-skeletize"><li></li><li></li></ol>`);
-		}
-		return html`
-			${loading }
-			${this.viewAllLinkTemplate}`;
-	}
-
 	render() {
-		/** Main render function logic */
+		// delete when d2l-list supports SkeletonMixin
+		if (this.skeleton) {
+			const loading = [];
+			for (let i = 0; i < this.count ; i++) {
+				loading.push(html`<ol class="d2l-skeletize"><li></li><li></li></ol>`);
+			}
+			return html`
+				${loading }
+				${this.viewAllLinkTemplate}`;
+		}
+
 		switch (this._state) {
-			case skeletonState:
-				return this.skeletonTemplate;
+			case loadedState:
+				return this.loadedTemplate;
 			case noSubmissionState:
 				return this.noSubmissionTemplate;
 			case errorState:
-				return this.errorTemplate;
 			default:
-				return this.loadedTemplate;
+				return this.errorTemplate;
 		}
 	}
 }

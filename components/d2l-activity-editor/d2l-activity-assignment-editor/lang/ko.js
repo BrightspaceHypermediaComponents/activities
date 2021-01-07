@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "그룹 과제", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "이메일로 제출 알림", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "제출 및 완료", // Label for the availability and dates summarizer
-	"assignmentSaveError": "과제가 저장되지 않았습니다. 빨간색으로 표시된 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "과제가 저장되지 않았습니다. 개요 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "그룹이 없습니다. 그룹 도구에서 새 그룹을 만듭니다.", // Folder type no groups
 	"folderTypeCreateGroups": "그룹 도구에서 새 그룹을 만듭니다.", // Folder type create groups
 	"filesSubmissionLimit": "제출당 허용되는 파일 수",

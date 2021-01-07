@@ -12,7 +12,7 @@ export default {
 	"instructions": "Talimatlar", // Label for the instruction field when creating/editing an assignment
 	"hdrTurnitin": "Turnitin Entegrasyonu", // turnitin heading
 	"hlpTurnitin": "Turnitin® değerlendirmeye ek işlevler ekler.", // turnitin help
-	"btnEditTurnitin": "Turnitin\'i Yönet", // edit turnitin button
+	"btnEditTurnitin": "Turnitin'i Yönet", // edit turnitin button
 	"btnCloseDialog": "Bu Diyaloğu Kapat", // close dialog button
 	"txtOriginalityCheckOn": "Originality Check Açık", // originality check on text
 	"txtGradeMarkOn": "GradeMark Açık", // grade mark on text
@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Grup ödevi", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "E-posta ile gönderim bildirimi", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Gönderme ve Tamamlama", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Ödeviniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Ödeviniz kaydedilmedi. Lütfen işaretlenmiş alanları düzeltin.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Hiç grup yok. Gruplar aracında yeni gruplar oluşturun.", // Folder type no groups
 	"folderTypeCreateGroups": "Gruplar aracında yeni gruplar oluşturun.", // Folder type create groups
 	"filesSubmissionLimit": "Gönderim Başına İzin Verilen Dosya Sayısı",

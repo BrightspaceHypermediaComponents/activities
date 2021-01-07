@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Atividade em grupo", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Notificação de envio por e-mail", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Envio e Conclusão", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Sua atividade não foi salva. Corrija os campos destacados em vermelho.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Sua atividade não foi salva. Corrija os campos destacados.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Nenhum grupo. Crie grupos na ferramenta Grupos.", // Folder type no groups
 	"folderTypeCreateGroups": "Crie grupos na ferramenta Grupos.", // Folder type create groups
 	"filesSubmissionLimit": "Arquivos permitidos por envio",

@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Gruppeopgave", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Meddelelse om aflevering via e-mail.", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Aflevering og færdiggørelse", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Din opgave blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Din opgave blev ikke gemt. Ret de markerede felter.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Der eksisterer ingen grupper. Opret nye grupper i værktøjet Grupper.", // Folder type no groups
 	"folderTypeCreateGroups": "Opret nye grupper i værktøjet Grupper.", // Folder type create groups
 	"filesSubmissionLimit": "Filer tilladt pr. aflevering",

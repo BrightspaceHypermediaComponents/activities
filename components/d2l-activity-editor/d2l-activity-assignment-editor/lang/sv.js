@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Gruppuppgift", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Avisering av inlämning via e-post", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Inlämning och slutförande", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Ditt uppdrag sparades inte. Korrigera de fält som är markerade med rött.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Ditt uppdrag sparades inte. Korrigera de markerade fälten.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Det finns inga grupper. Skapa nya grupper i gruppverktyget.", // Folder type no groups
 	"folderTypeCreateGroups": "Skapa nya grupper i gruppverktyget.", // Folder type create groups
 	"filesSubmissionLimit": "Tillåtna filer per inlämning",

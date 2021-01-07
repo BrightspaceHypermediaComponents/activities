@@ -58,7 +58,7 @@ export default {
 	"editor.competencies": "Objectifs d’apprentissage", //Text label for the competencies tool integration
 	"editor.manageCompetencies": "Gérer les objectifs d’apprentissage", //Button text to launch competencies tool dialog
 	"editor.competenciesCount": "{count, plural, =1 {1 associé} other {{count} associés}}", //Label for number of associated competencies
-	"editor.noLearningObjectives": "Aucun objet d\'apprentissage", //text label when there are no associated learning objectives
+	"editor.noLearningObjectives": "Aucun objet d'apprentissage", //text label when there are no associated learning objectives
 	"editor.competenciesCountSummary": "{count, plural, =1 {1 objet d’apprentissage} other {{count} objets d’apprentissage}}", // num release condition text
 	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 évaluation manquante} other {{count} évaluations manquantes}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Fermer", //Label for Close button

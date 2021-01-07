@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "小组作业", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "通过电子邮件提交通知", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "提交和完成", // Label for the availability and dates summarizer
-	"assignmentSaveError": "您的作业未保存。请更正以红色标出的字段。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "您的作业未保存。请更正所列出的字段。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "没有任何组。在组工具中创建新组。", // Folder type no groups
 	"folderTypeCreateGroups": "在组工具中创建新组。", // Folder type create groups
 	"filesSubmissionLimit": "每次提交允许的文件",

@@ -183,6 +183,22 @@ describe('Attachment Collection', function() {
 				expect(fetchEntity.mock.calls.length).to.equal(1);
 			});
 
+			it('deletes existing attachments which were removed with save-in-place', async() => {
+				const mockDelete = sinon.stub();
+				const attachment = {
+					href: 'http://attachment/1',
+					deleted: true,
+					creating: false,
+					delete: mockDelete
+				};
+				addToCollection(attachment);
+				await collection.save(true);
+
+				expect(mockDelete).to.have.been.calledOnce;
+				expect(fetchEntity.mock.calls.length).to.equal(2);
+				expect(attachmentStore.get('http://attachment/1')).to.be.undefined;
+			});
+
 			it('ignores new attachments that were immediately removed', async() => {
 				const mockDelete = sinon.stub();
 				const attachment = {
@@ -196,6 +212,22 @@ describe('Attachment Collection', function() {
 				await collection.save();
 
 				expect(mockDelete.callCount).to.equal(0);
+			});
+
+			it('ignores new attachments that were immediately removed with save-in-place', async() => {
+				const mockDelete = sinon.stub();
+				const attachment = {
+					href: 'http://attachment/1',
+					deleted: true,
+					creating: true,
+					delete: mockDelete
+				};
+
+				addToCollection(attachment);
+				await collection.save(true);
+
+				expect(attachmentStore.get('http://attachment/1')).to.be.undefined;
+				expect(collection.attachments).to.be.empty;
 			});
 
 			it('saves new attachments', async() => {
@@ -212,6 +244,22 @@ describe('Attachment Collection', function() {
 
 				expect(mockSave).to.have.been.calledWithExactly(AttachmentCollectionEntity.mock.results[0].value);
 				expect(fetchEntity.mock.calls.length).to.equal(1);
+			});
+
+			it('saves new attachments with save-in-place', async() => {
+				const mockSave = sinon.stub();
+				const attachment = {
+					href: 'http://attachment/1',
+					deleted: false,
+					creating: true,
+					save: mockSave
+				};
+				addToCollection(attachment);
+				await collection.save(true);
+
+				expect(mockSave).to.have.been.calledWithExactly(AttachmentCollectionEntity.mock.results[0].value);
+				expect(fetchEntity.mock.calls.length).to.equal(2);
+				expect(attachmentStore.get('http://attachment/1')).to.be.undefined;
 			});
 		});
 	});

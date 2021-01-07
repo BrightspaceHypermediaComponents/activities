@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "فرض المجموعات", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "إعلام الإرسال بالبريد الإلكتروني", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "الإرسال والإكمال", // Label for the availability and dates summarizer
-	"assignmentSaveError": "لم يتم حفظ الفرض. يُرجى تصحيح الحقول الموضّحة باللون الأحمر.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "لم يتم حفظ الفرض. يُرجى تصحيح الحقول الموضّحة.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "لا تتوفر أي مجموعة. أنشئ مجموعات جديدة باستخدام أداة المجموعات.", // Folder type no groups
 	"folderTypeCreateGroups": "أنشئ مجموعات جديدة باستخدام أداة المجموعات.", // Folder type create groups
 	"filesSubmissionLimit": "الملفات المسموح بها لكل إرسال",

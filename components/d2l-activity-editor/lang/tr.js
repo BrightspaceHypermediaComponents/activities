@@ -99,10 +99,10 @@ export default {
 	"grades.newGradeItemCategory": "Not Kategorisi", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Kategori Yok", // Category dropdown text for not selecting a category
 
-	"attachments.addGoogleDriveLink": "Google Drive\'dan Ekle", // Tooltip for a button that adds a link to a Google Drive file
+	"attachments.addGoogleDriveLink": "Google Drive'dan Ekle", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Dosya Yükleme", // Tooltip for a button that opens a file upload dialog
 	"attachments.addLink": "Web Bağlantısı Ekle", // Tooltip for a button that adds a link to a URL
-	"attachments.addOneDriveLink": "OneDrive\'dan Ekle", // Tooltip for a button that adds a link to a OneDrive file
+	"attachments.addOneDriveLink": "OneDrive'dan Ekle", // Tooltip for a button that adds a link to a OneDrive file
 	"attachments.addQuicklink": "Mevcut Etkinliğe Bağlantı Ekle", // Tooltip for a button that adds a link to an existing activity
 	"attachments.back": "Geri", // Text for a back button
 	"attachments.closeDialog": "Diyaloğu Kapat", // ARIA text for button to close dialog

@@ -118,6 +118,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
 		this._setEntityType(UserEntity);
+
+		const nextPageRel = 'https://activities.api.brightspace.com/rels/next-page'; // this should be somewhere in Hypermedia Constants
 	}
 
 	set _entity(entity) {
@@ -278,6 +280,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			let prevDate = new Date(0, 0, 0, 0);
 
 			const groupedByDate = activities.slice(0, displayLimit).map((activity) => {
+			// const groupedByDate = activities.map((activity) => {
 				const activityDate = activity.hasSubEntityByClass('due-date')
 					? new Date(activity.getSubEntityByClass('due-date').properties.date)
 					: new Date(activity.getSubEntityByClass('end-date').properties.date);
@@ -314,7 +317,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			: nothing;
 
 		const fullscreenTemplate = () => {
-			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
+			if (!this._overdueCollection || (!this._upcomingCollection && !this._maxCollection)) {
 				return nothing;
 			}
 			return html`
@@ -444,10 +447,16 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * Add to display limit so next page of activities renders for user
 	 * Load next page of activities into memory in anticipation for next request
 	 */
-	_handleLoadMoreClicked() {
+	async _handleLoadMoreClicked() {
 		// Nothing here right now - blocked on US120246
 		// eslint-disable-next-line no-console
 		console.log('I am an empty block of code, please complete me.');
+
+		// console.log('I can work with: ', this._upcomingCollection.getLinkByRel(Rels.Activities.nextPeriod));
+		const source = this._upcomingCollection.getLinkByRel('https://activities.api.brightspace.com/rels/next-page').href;
+		console.log('next page source:', source);
+		const nextPageSource = await fetchEntity(source, this.token, true);
+		// need to then merge the two entities somehow?
 	}
 
 	/**
@@ -476,7 +485,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * @param {SimpleEntity} entity - 'Empty' Activities domain endpoint response
 	 * @param {Number} [forwardLimit] - [Default: Config.UpcomingWeekLimit * 7] Number of days into future to look for activities
 	 */
-	async _loadUpcoming(entity, forwardLimit) {
+	async _loadUpcoming(entity, forwardLimit, pageSize) {
+		if (!pageSize) pageSize = Constants.MaxWidgetDisplay;
+
 		if (!entity || !entity.hasActionByName(Actions.activities.selectCustomDateRange)) {
 			return;
 		}
@@ -491,13 +502,16 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const action = entity.getActionByName(Actions.activities.selectCustomDateRange);
 		const fields = [
 			{ name: 'start', value: start },
-			{ name: 'end', value: end }
+			{ name: 'end', value: end },
+			{ name: 'pageSize', value: pageSize }
 		];
 		performSirenAction(this.token, action, fields, true)
 			.then((sirenEntity) => {
 				if (!isMax) {
+					console.log('upcoming collection: ', sirenEntity);
 					this._upcomingCollection = sirenEntity;
 				} else {
+					console.log('max collection: ');
 					this._maxCollection = sirenEntity;
 				}
 			});

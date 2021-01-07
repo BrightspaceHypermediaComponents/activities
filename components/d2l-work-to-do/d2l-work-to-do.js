@@ -94,7 +94,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				}
 				.d2l-work-to-do-fullscreen-container {
 					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
-					padding: 0 2rem;
+					padding: 67px 2rem 0;
 				}
 				d2l-button {
 					padding: 1.8rem 0;

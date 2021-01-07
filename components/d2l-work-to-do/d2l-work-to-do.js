@@ -117,9 +117,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
+		this._upcomingActivities = [];
 		this._setEntityType(UserEntity);
 
-		const nextPageRel = 'https://activities.api.brightspace.com/rels/next-page'; // this should be somewhere in Hypermedia Constants
+		this.nextPageRel = 'https://activities.api.brightspace.com/rels/next-page'; // this should be somewhere in Hypermedia Constants
 	}
 
 	set _entity(entity) {
@@ -267,12 +268,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const errorTemplate = nothing;
 
 		/** Fullscreen state templates */
-		const fullscreenCollectionTemplate = (collection, displayLimit, isOverdue) => {
-			if (!collection || displayLimit === 0) {
+		const fullscreenCollectionTemplate = (activities, displayLimit, isOverdue) => {
+			if (!activities || activities.length === 0 || displayLimit === 0) {
 				return nothing;
 			}
 
-			const activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+			// const activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			if (activities.length === 0) {
 				return nothing;
 			}
@@ -317,17 +318,19 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			: nothing;
 
 		const fullscreenTemplate = () => {
-			if (!this._overdueCollection || (!this._upcomingCollection && !this._maxCollection)) {
+			if (!this._overdueCollection && !this._upcomingCollection && !this._maxCollection) {
 				return nothing;
 			}
+			const overdueActivities = this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage); // can merge with subsequent pages
+			// const upcomingActivities = this._upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage); // can merge with subsequent pages
 			return html`
 				<div class="d2l-work-to-do-fullscreen-container">
 					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
 					<div class="d2l-overdue-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._overdueCollection, this._overdueDisplayLimit, true)}
+						${fullscreenCollectionTemplate(overdueActivities, this._overdueDisplayLimit, true)}
 					</div>
 					<div class="d2l-upcoming-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._upcomingCollection, this._upcomingDisplayLimit, false)}
+						${fullscreenCollectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, false)}
 					</div>
 					${loadButtonTemplate}
 				</div>
@@ -453,9 +456,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		console.log('I am an empty block of code, please complete me.');
 
 		// console.log('I can work with: ', this._upcomingCollection.getLinkByRel(Rels.Activities.nextPeriod));
-		const source = this._upcomingCollection.getLinkByRel('https://activities.api.brightspace.com/rels/next-page').href;
+		const source = this._upcomingCollection.getLinkByRel(this.nextPageRel).href;
 		console.log('next page source:', source);
-		const nextPageSource = await fetchEntity(source, this.token, true);
+		const nextPage = await fetchEntity(source, this.token, true);
+		// this._pages.push(nextPageSource);
+		// console.log(nextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+		// this._pages.push(nextPage);
+		this._upcomingActivities = this._upcomingActivities.concat(nextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+		console.log('upcoming Activities is now: ', this._upcomingActivities);
+
 		// need to then merge the two entities somehow?
 	}
 
@@ -510,6 +519,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				if (!isMax) {
 					console.log('upcoming collection: ', sirenEntity);
 					this._upcomingCollection = sirenEntity;
+					this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+					console.log('on first load, upcoming activities: ', this._upcomingActivities);
 				} else {
 					console.log('max collection: ');
 					this._maxCollection = sirenEntity;

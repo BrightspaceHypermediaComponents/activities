@@ -68,12 +68,6 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 				padding-top: 30px;
 				width: 100%;
 			}
-			.d2l-quick-eval-widget-no-submissions-text-container {
-				text-align: center;
-			}
-			.d2l-quick-eval-widget-no-submissions-text-container h4 {
-				margin-block-end: 0;
-			}
 			.d2l-quick-eval-widget-error {
 				background: var(--d2l-color-regolith);
 				border: 1px solid var(--d2l-color-mica);
@@ -81,6 +75,12 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 				box-sizing: border-box;
 				padding: 0 1rem;
 				width: 100%;
+			}
+			.d2l-quick-eval-widget-no-submissions-text-container {
+				text-align: center;
+			}
+			.d2l-quick-eval-widget-no-submissions-text-container h4 {
+				margin-block-end: 0;
 			}
 		` ];
 	}
@@ -147,7 +147,8 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 		return html`
 		<div class="d2l-quick-eval-widget-error">
 			<p class="d2l-body-compact">Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.</p>
-		</div>`;
+		</div>
+		${this.viewAllLinkTemplate}`;
 	}
 
 	get noSubmissionTemplate() {
@@ -158,7 +159,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 					<h4 class="d2l-heading-4">You're all caught up!</h4>
 					<p class="d2l-body-compact">You have no submissions that need evaluation. Check back later for new submissions.</p>
 				</div>
-				<d2l-button primary>View All Activities</d2l-button>
+				<d2l-button primary >View All Activities</d2l-button>
 			</div>`;
 	}
 
@@ -177,7 +178,10 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 	get viewAllLinkTemplate() {
 		return html`
-			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">View all activities</d2l-link>`;
+			<d2l-link small
+				class="d2l-quick-eval-widget-view-all-link"
+				@click="${this.handleViewAll}"
+				href="${this.quickEvalHref}">View all activities</d2l-link>`;
 	}
 
 	render() {

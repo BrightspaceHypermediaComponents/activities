@@ -13,7 +13,7 @@ import 'd2l-navigation/d2l-navigation-button-close';
 import { Actions, Rels } from 'siren-sdk/src/hypermedia-constants';
 import { bodyStandardStyles, heading1Styles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
-import { Config, Constants } from './env';
+import { Config, Constants, getOverdueWeekLimit, getUpcomingWeekLimit } from './env';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ifDefined } from 'lit-html/directives/if-defined';
@@ -180,9 +180,23 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				return nothing;
 			}
 
-			const activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+			let activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			if (activities.length === 0) {
 				return nothing;
+			}
+
+			if(isOverdue) {
+				// Filter overdue activities based on config
+				const cutOffDate = new Date();
+				cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));
+
+				activities = activities.filter((activity) => {
+					const activityDate = activity.hasSubEntityByClass('due-date')
+						? new Date(activity.getSubEntityByClass('due-date').properties.date)
+						: new Date(activity.getSubEntityByClass('end-date').properties.date);
+
+					return activityDate.getTime() >= cutOffDate.getTime();
+				});
 			}
 
 			const items = repeat(
@@ -505,7 +519,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		}
 
 		const isMax = !!forwardLimit;
-		forwardLimit = forwardLimit ? forwardLimit : (Config.UpcomingWeekLimit * 7);
+		forwardLimit = forwardLimit ? forwardLimit : (getUpcomingWeekLimit() * 7);
 
 		const now = new Date();
 		const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + forwardLimit, 23, 59, 59, 999).toISOString();

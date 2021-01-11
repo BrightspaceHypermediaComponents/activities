@@ -38,7 +38,8 @@ class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElem
 
 	render() {
 		return html`
-			<d2l-button class="d2l-desktop" primary @click="${this._save}">${this.localize('editor.btnSave')}</d2l-button>
+			<d2l-button class="d2l-desktop" primary @click="${this._saveAndClose}">${this.localize('editor.btnSave')}</d2l-button>
+			<d2l-button class="d2l-desktop" @click="${this._save}">${this.localize('editor.btnSaveMobile')}</d2l-button>
 			<d2l-button class="d2l-mobile d2l-footerBtn" primary @click="${this._save}">${this.localize('editor.btnSaveMobile')}</d2l-button>
 			<d2l-button class="d2l-footerBtn" @click="${this._cancel}">${this.localize('editor.btnCancel')}</d2l-button>
 		`;
@@ -53,6 +54,20 @@ class ActivityEditorButtons extends RtlMixin(LocalizeActivityEditorMixin(LitElem
 	}
 	_save() {
 		const event = new CustomEvent('d2l-activity-editor-save', {
+			detail: {
+				saveInPlace: true
+			},
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		this.dispatchEvent(event);
+	}
+	_saveAndClose() {
+		const event = new CustomEvent('d2l-activity-editor-save', {
+			detail: {
+				saveInPlace: false
+			},
 			bubbles: true,
 			composed: true,
 			cancelable: true

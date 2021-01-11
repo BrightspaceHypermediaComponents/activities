@@ -64,6 +64,16 @@ describe('Attachment', function() {
 
 			attachment.markDeleted(true);
 		});
+
+		it('deletes', async() => {
+			const attachment = new Attachment('http://attachment/1', 'token');
+
+			attachment.markDeleted(true);
+			await attachment.delete();
+
+			expect(attachment.creating).to.be.false;
+			expect(attachment.deleted).to.be.true;
+		});
 	});
 
 	describe('LinkAttachment', () => {
@@ -102,6 +112,10 @@ describe('Attachment', function() {
 			const entity = { addLinkAttachment: sinon.spy() };
 			await link.save(entity);
 			expect(entity.addLinkAttachment.args[0][1]).to.equal('http://google.ca');
+
+			expect(link.creating).to.be.true;
+			expect(link.editing).to.be.true;
+			expect(link.deleted).to.be.false;
 		});
 
 		it('saves the urn when it is provided', async() => {
@@ -111,6 +125,10 @@ describe('Attachment', function() {
 			const entity = { addLinkAttachment: sinon.spy() };
 			await link.save(entity);
 			expect(entity.addLinkAttachment.args[0][1]).to.equal('d2l:brightspace:foo:::bar:car');
+
+			expect(link.creating).to.be.true;
+			expect(link.editing).to.be.true;
+			expect(link.deleted).to.be.false;
 		});
 	});
 
@@ -126,6 +144,20 @@ describe('Attachment', function() {
 			expect(file.fileId).to.equal('12345');
 
 			expect(file.attachment.url).to.equal('https://fake.com/MyDocument.pdf/view');
+
+			expect(file.creating).to.be.true;
+			expect(file.editing).to.be.true;
+			expect(file.deleted).to.be.false;
+		});
+
+		it('saves', async() => {
+			const file = new FileAttachment('http://attachment/1', 'token');
+			file.initFile('MyDocument.pdf', 'Temp', '12345', 'https://fake.com/MyDocument.pdf/view');
+
+			const mockAttachmentCollectionEntity = {
+				addFileAttachment: () => true
+			};
+			await file.save(mockAttachmentCollectionEntity);
 
 			expect(file.creating).to.be.true;
 			expect(file.editing).to.be.true;

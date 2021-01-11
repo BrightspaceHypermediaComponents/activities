@@ -55,10 +55,10 @@ class ActivityAttachmentsEditor extends ActivityEditorMixin(SkeletonMixin(MobxLi
 		const collection = store.get(this.href);
 		return collection && collection.dirty;
 	}
-	async save() {
+	async save(saveInPlace) {
 		const collection = store.get(this.href);
 		if (collection) {
-			await collection.save();
+			await collection.save(saveInPlace);
 		}
 	}
 

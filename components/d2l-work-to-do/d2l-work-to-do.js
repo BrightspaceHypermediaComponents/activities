@@ -5,6 +5,11 @@ import './d2l-work-to-do-activity-list-header';
 import './d2l-work-to-do-activity-list-item-basic';
 import './d2l-work-to-do-activity-list-item-detailed';
 
+import '@webcomponents/webcomponentsjs/webcomponents-loader';
+import 'd2l-navigation/d2l-navigation-immersive';
+import 'd2l-navigation/d2l-navigation-button';
+import 'd2l-navigation/d2l-navigation-button-close';
+
 import { Actions, Rels } from 'siren-sdk/src/hypermedia-constants';
 import { bodyStandardStyles, heading1Styles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
@@ -27,6 +32,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		return {
 			/** Represents current session's discovery tool access */
 			_discoverActive: { type: Boolean },
+			/** Represents path to full page view */
+			_fullPagePath: { type: String, attribute: 'data-full-page-path' },
 			/** Represents current session's render mode */
 			_fullscreen: { type: Boolean, attribute: 'data-fullscreen' },
 			/** ActivityUsageCollection with time: 0 -> 52[weeks] */
@@ -89,7 +96,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				}
 				.d2l-work-to-do-fullscreen-container {
 					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
-					padding: 0 2rem;
+					padding: 3.35rem 2rem 0 2rem;
 				}
 				d2l-button {
 					padding: 1.8rem 0;
@@ -118,10 +125,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._upcomingCollection = undefined;
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
-		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
 		this._upcomingActivities = [];
 		this._overdueActivities = [];
 		this._ignoreViewLimit = false;
+		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
 
 		this.nextPageRel = 'https://activities.api.brightspace.com/rels/next-page'; // this should be somewhere in Hypermedia Constants
@@ -152,6 +159,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				this._upcomingWeekLimit = (parseInt(newval) < 0) ? Config.UpcomingWeekLimit : parseInt(newval);
 				window.D2L.workToDoOptions.upcomingWeekLimit = this._upcomingWeekLimit;
 				break;
+			case 'data-full-page-path':
+				this._viewAllSource = newval;
+				break;
 		}
 
 		super.attributeChangedCallback(name, oldval, newval);
@@ -166,6 +176,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			return;
 		}
 		this._getCollections(user._entity);
+		this._getHomeHref();
 	}
 
 	render() {
@@ -210,7 +221,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				<div class="d2l-upcoming-list">
 					${collectionTemplate(this._upcomingCollection, this._upcomingDisplayLimit, false)}
 				</div>
-				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small>${this.localize('fullViewLink')}</d2l-link>
+				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource}>${this.localize('fullViewLink')}</d2l-link>
 			`;
 		};
 
@@ -301,7 +312,19 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				`;
 			});
 
+			const immersiveNav = (isFullscreen) => {
+				return isFullscreen
+					? html`
+						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+							<div class="d2l-typography d2l-body-standard" slot="middle">
+								<p>${this.localize('myWorkToDo')}</p>
+							</div>
+						</d2l-navigation-immersive>`
+					: nothing;
+			};
+
 			return html`
+				${immersiveNav(this.fullscreen)}
 				<div class="d2l-activity-collection-container-fullscreen">
 					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>
@@ -516,6 +539,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					this._maxCollection = sirenEntity;
 				}
 			});
+	}
+
+	_getHomeHref() {
+		// TODO: this is a default (and kind of a hacky way to get to it),
+		// ideally we want to get the user's homepage from their profile
+		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
 	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

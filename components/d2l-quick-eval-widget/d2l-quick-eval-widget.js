@@ -5,10 +5,11 @@ import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 import { css, html, LitElement } from 'lit-element';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
+import { LocalizeQuickEvalWidget } from './lang/localize-quick-eval-widget.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-export class QuickEvalWidget extends SkeletonMixin(LitElement) {
+export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitElement)) {
 	static get properties() {
 		return {
 			_activities: { type: Array },
@@ -124,7 +125,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 
 		return html`
 			${ this.skeleton ? loading : loaded }
-			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">View all activities</d2l-link>
+			<d2l-link small @click="${this.handleViewAll}" href="${this.quickEvalHref}">${this.localize('ViewAllActivities')}</d2l-link>
 		`;
 	}
 }

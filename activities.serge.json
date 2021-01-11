@@ -145,18 +145,18 @@
       "zh-tw zh-tw"
     ]
   },{
-    "name": "assignmentActivityEditor",
+    "name": "quickEvalWidget",
     "parser_plugin": {
       "plugin": "parse_js"
     },
     "source_match": "en\\.js$",
-    "source_dir": "components/d2l-activity-editor/d2l-activity-assignment-editor/lang",
-    "output_file_path": "components/d2l-activity-editor/d2l-activity-assignment-editor/lang/%LANG%.js",
+    "source_dir": "components/d2l-quick-eval-widget/lang",
+    "output_file_path": "components/d2l-quick-eval-widget/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",

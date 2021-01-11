@@ -120,6 +120,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._viewAllSource = 'http://www.d2l.com';  // TODO: Update to actual tool location
 		this._upcomingActivities = [];
+		this._overdueActivities = [];
+		this._ignoreViewLimit = false;
 		this._setEntityType(UserEntity);
 
 		this.nextPageRel = 'https://activities.api.brightspace.com/rels/next-page'; // this should be somewhere in Hypermedia Constants
@@ -270,20 +272,18 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const errorTemplate = nothing;
 
 		/** Fullscreen state templates */
-		const fullscreenCollectionTemplate = (activities, displayLimit, isOverdue) => {
-			if (!activities || activities.length === 0 || displayLimit === 0) {
+		const fullscreenCollectionTemplate = (activities, displayLimit, ignoreLimit, isOverdue) => {
+			if (!activities || activities.length === 0 || (displayLimit === 0 && !ignoreLimit)) {
 				return nothing;
 			}
 
-			// const activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			if (activities.length === 0) {
 				return nothing;
 			}
 
 			let prevDate = new Date(0, 0, 0, 0);
 
-			// const groupedByDate = activities.slice(0, displayLimit).map((activity) => {
-			const groupedByDate = activities.map((activity) => {
+			const groupedByDate = (ignoreLimit ? activities : activities.slice(0, displayLimit)).map((activity) => {
 				const activityDate = activity.hasSubEntityByClass('due-date')
 					? new Date(activity.getSubEntityByClass('due-date').properties.date)
 					: new Date(activity.getSubEntityByClass('end-date').properties.date);
@@ -323,16 +323,14 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			if (!this._overdueCollection && !this._upcomingCollection && !this._maxCollection) {
 				return nothing;
 			}
-			const overdueActivities = this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage); // can merge with subsequent pages
-			// const upcomingActivities = this._upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage); // can merge with subsequent pages
 			return html`
 				<div class="d2l-work-to-do-fullscreen-container">
 					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
 					<div class="d2l-overdue-collection-fullscreen">
-						${fullscreenCollectionTemplate(overdueActivities, this._overdueDisplayLimit, true)}
+						${fullscreenCollectionTemplate(this._overdueActivities, this._overdueDisplayLimit, this._ignoreViewLimit, true)}
 					</div>
 					<div class="d2l-upcoming-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, false)}
+						${fullscreenCollectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, this._ignoreViewLimit, false)}
 					</div>
 					${loadButtonTemplate}
 				</div>
@@ -453,21 +451,13 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * Load next page of activities into memory in anticipation for next request
 	 */
 	async _handleLoadMoreClicked() {
-		// Nothing here right now - blocked on US120246
-		// eslint-disable-next-line no-console
-		console.log('I am an empty block of code, please complete me.');
+		if (!this._upcomingCollection.hasLinkByRel(this.nextPageRel)) return;
 
-		// console.log('I can work with: ', this._upcomingCollection.getLinkByRel(Rels.Activities.nextPeriod));
-		const source = this._upcomingCollection.getLinkByRel(this.nextPageRel).href;
-		console.log('next page source:', source);
-		const nextPage = await fetchEntity(source, this.token, true);
-		// this._pages.push(nextPageSource);
-		// console.log(nextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
-		// this._pages.push(nextPage);
-		this._upcomingActivities = this._upcomingActivities.concat(nextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
-		console.log('upcoming Activities is now: ', this._upcomingActivities);
-
-		// need to then merge the two entities somehow?
+		const upcomingSource = this._upcomingCollection.getLinkByRel(this.nextPageRel).href;
+		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
+		this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+		this._ignoreViewLimit = true;
+		this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
 	}
 
 	/**
@@ -485,6 +475,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
 				this._overdueCollection = sirenEntity;
+				this._overdueActivities = this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			});
 	}
 
@@ -519,12 +510,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		performSirenAction(this.token, action, fields, true)
 			.then((sirenEntity) => {
 				if (!isMax) {
-					console.log('upcoming collection: ', sirenEntity);
 					this._upcomingCollection = sirenEntity;
 					this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-					console.log('on first load, upcoming activities: ', this._upcomingActivities);
 				} else {
-					console.log('max collection: ');
 					this._maxCollection = sirenEntity;
 				}
 			});

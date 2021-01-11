@@ -12,13 +12,13 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class ContentEditorUrl extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
+class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
 	static get properties() {
 		return {
 			entity: { type: Object },
 			onSave: { type: Function },
-			_urlError: { type: String }
+			//_urlError: { type: String }
 		};
 	}
 
@@ -55,11 +55,23 @@ class ContentEditorUrl extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivity
 			this.skeleton = false;
 			link = this.entity.link;
 		}
-
+		
+		//TODO: add proper translated label
+		//label="${this.localize('content.link')}
 		return html`
-            <d2l-input-text
-            >
-            </d2l-input-text>
+			<div id="content-link-container">
+				<d2l-input-text
+					id="content-link"
+					value="${link}"
+					@change="${this._saveOnChange('link')}"
+					@input="${this._saveLinkOnInput}"
+					label="Link *"
+					prevent-submit
+					novalidate
+					?skeleton="${this.skeleton}"
+					>
+				</d2l-input-text>
+			</div>
 		`;
 	}
 
@@ -79,24 +91,20 @@ class ContentEditorUrl extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivity
 	// 	`;
 	// }
 
-	// _saveOnChange(jobName) {
-	// 	this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
-	// }
+	_saveOnChange(jobName) {
+	 	this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
+	}
 
-	// _saveTitleOnInput(e) {
-	// 	const title = e.target.value;
-	// 	const isTitleEmpty = (title || '').trim().length === 0;
+	//TODO Add validation here
+	//note: is seems a bit weird to add validation in both this method and the tooltip one. Can we control the tooltop from here?
+	_saveLinkOnInput(e) {
+		const link = e.target.value;
 
-	// 	if (isTitleEmpty) {
-	// 		this.setError('_titleError', 'content.emptyNameField', 'title-tooltip');
-	// 	} else {
-	// 		this.clearError('_titleError');
-	// 		this._debounceJobs.title = Debouncer.debounce(
-	// 			this._debounceJobs.title,
-	// 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-	// 			() => this.onSave(title)
-	// 		);
-	// 	}
-	// }
+		this._debounceJobs.link = Debouncer.debounce(
+			this._debounceJobs.link,
+			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
+			() => this.onSave(link)
+		);
+	}
 }
-customElements.define('d2l-activity-content-editor-url', ContentEditorUrl);
+customElements.define('d2l-activity-content-editor-link', ContentEditorLink);

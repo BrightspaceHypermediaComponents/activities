@@ -52,7 +52,9 @@ class ActivityNotificationEmailEditor
 			<div id="notification-email-editor-label" class="d2l-label-text">
 				${this.localize('editor.notificationEmailLabel')}
 			</div>
-			<slot name="description" class="d2l-body-small"></slot>
+			<div class="d2l-body-small">
+				<slot name="description"></slot>
+			</div>
 
 			<d2l-input-text
 				id="notification-email"

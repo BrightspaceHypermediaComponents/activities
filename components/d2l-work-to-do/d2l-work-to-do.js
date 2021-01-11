@@ -327,7 +327,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				<div class="d2l-work-to-do-fullscreen-container">
 					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
 					<div class="d2l-overdue-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._overdueActivities, this._overdueDisplayLimit, this._ignoreViewLimit, true)}
+						${fullscreenCollectionTemplate(this._overdueActivities, this._overdueDisplayLimit, true, true)}
 					</div>
 					<div class="d2l-upcoming-collection-fullscreen">
 						${fullscreenCollectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, this._ignoreViewLimit, false)}

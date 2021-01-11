@@ -185,7 +185,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				return nothing;
 			}
 
-			if(isOverdue) {
+			if (isOverdue) {
 				// Filter overdue activities based on config
 				const cutOffDate = new Date();
 				cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));

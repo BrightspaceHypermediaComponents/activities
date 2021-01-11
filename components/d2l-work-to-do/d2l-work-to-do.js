@@ -38,7 +38,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			/** ActivityUsageCollection with time: 0 -> UpcomingWeekLimit */
 			_upcomingCollection: { type: Object },
 			/** Represents current session's UpcomingWeekLimit */
-			_upcomingWeekLimit: { type: Number, attribute: 'data-upcoming-week-limit' }
+			_upcomingWeekLimit: { type: Number, attribute: 'data-upcoming-week-limit' },
+			/** individual items within upcomingCollection + subsequent pages once the UI has them */
+			_upcomingActivities: { type: Array }
 		};
 	}
 
@@ -280,8 +282,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 			let prevDate = new Date(0, 0, 0, 0);
 
-			const groupedByDate = activities.slice(0, displayLimit).map((activity) => {
-			// const groupedByDate = activities.map((activity) => {
+			// const groupedByDate = activities.slice(0, displayLimit).map((activity) => {
+			const groupedByDate = activities.map((activity) => {
 				const activityDate = activity.hasSubEntityByClass('due-date')
 					? new Date(activity.getSubEntityByClass('due-date').properties.date)
 					: new Date(activity.getSubEntityByClass('end-date').properties.date);

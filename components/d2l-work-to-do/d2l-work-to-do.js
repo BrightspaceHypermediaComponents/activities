@@ -94,7 +94,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				}
 				.d2l-work-to-do-fullscreen-container {
 					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
-					padding: 3.35rem 2rem 0 2rem;
+					padding: 0 2rem;
 				}
 				d2l-button {
 					padding: 1.8rem 0;
@@ -306,19 +306,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				`;
 			});
 
-			const immersiveNav = (isFullscreen) => {
-				return isFullscreen
-					? html`
-						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
-							<div class="d2l-typography d2l-body-standard" slot="middle">
-								<p>${this.localize('myWorkToDo')}</p>
-							</div>
-						</d2l-navigation-immersive>`
-					: nothing;
-			};
-
 			return html`
-				${immersiveNav(this.fullscreen)}
 				<div class="d2l-activity-collection-container-fullscreen">
 					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>
@@ -340,7 +328,20 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
 				return nothing;
 			}
+
+			const immersiveNav = (isFullscreen) => {
+				return isFullscreen
+					? html`
+						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+							<div class="d2l-typography d2l-body-standard" slot="middle">
+								<p>${this.localize('myWorkToDo')}</p>
+							</div>
+						</d2l-navigation-immersive>`
+					: nothing;
+			};
+
 			return html`
+				${immersiveNav(this.fullscreen)}
 				<div class="d2l-work-to-do-fullscreen-container">
 					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
 					<div class="d2l-overdue-collection-fullscreen">

@@ -19,8 +19,7 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 			/**
 			 * Submission count to display as a superscript on the icon
 			 */
-			submissionCount: { type: String, attribute: 'submission-count', reflect: true },
-			_submissionCountHidden: { type: Boolean }
+			submissionCount: { type: String, attribute: 'submission-count', reflect: true }
 		};
 	}
 

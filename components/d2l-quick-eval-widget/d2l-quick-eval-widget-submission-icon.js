@@ -83,10 +83,6 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 		`];
 	}
 
-	constructor() {
-		super();
-	}
-
 	render() {
 		return html`
 			<div class="d2l-quick-eval-widget-submission-icon-content">
@@ -102,12 +98,6 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 		super.updated(changedProperties);
 		if (!changedProperties.has('submissionCount')) return;
 		this._submissionCountHidden = !(this.submissionCount && this.submissionCount.length > 0);
-	}
-
-	focus() {
-		const elem = this.shadowRoot.querySelector('a');
-		if (!elem) return;
-		elem.focus();
 	}
 
 }

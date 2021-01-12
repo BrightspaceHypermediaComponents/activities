@@ -42,6 +42,7 @@ export class ContentWebLink {
 		if (!this._contentWebLink) {
 			return;
 		}
+
 		await this._contentWebLink.setWebLinkTitle(this.title);
 		await this._contentWebLink.setWebLinkUrl(this.link);
 		await this._contentWebLink.setWebLinkExternalResource(this.isExternalResource);

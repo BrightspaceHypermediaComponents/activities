@@ -11,6 +11,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
+import { getInvalidWeblinkKey } from './helpers/url-validation-helper.js'
 
 class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
@@ -54,6 +55,11 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		if (this.entity) {
 			this.skeleton = false;
 			link = this.entity.link;
+
+			// TODO: this is a little awkward, cleanup
+			// if (link === defaultPlaceholderLink) {
+			// 	link = '';
+			// }
 		}
 
 		return html`
@@ -68,7 +74,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 					prevent-submit
 					novalidate
 					?skeleton="${this.skeleton}"
-					>
+				>
 				</d2l-input-text>
 				${this._renderLinkTooltip()}
 			</div>
@@ -86,7 +92,8 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				for="content-link"
 				position="bottom"
 				tabIndex="0"
-				?showing="${!!this._linkError}">
+				?showing="${!!this._linkError}"
+			>
 				${this._linkError}
 			</d2l-tooltip>
 		`;
@@ -99,7 +106,10 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	_saveLinkOnInput(e) {
 		const link = e.target.value.trim();
 
-		if(!this._isLinkValid(link)) {
+		const invalidWeblinkError = getInvalidWeblinkKey(link, this.entity.isExternalResource);
+
+		if (invalidWeblinkError) {
+			this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
 			return;
 		}
 
@@ -110,31 +120,6 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			() => this.onSave(link)
 		);
 	}
-
-	_isLinkValid(link) {
-		if ( link.length === 0 ) {
-			this.setError('_linkError', 'content.emptyLinkField', 'link-tooltip');
-			return false;
-		}
-
-		//max length?
-
-		//this can absolutely move
-		const urlRegex = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9\-]*\.)+[a-zA-Z0-9][a-zA-Z0-9\-]*(?::\d+)?(?:$|[\/\?#].*$)/;
-		if ( !urlRegex.test( link ) ) {
-			this.setError('_linkError', 'content.invalidLink', 'link-tooltip');
-			return false;
-		}
-
-		if ( !this.entity.isExternalResource && url.substr( 0, 7 ) === 'http://' ) {
-			this.setError('_linkError', 'content.notHttps', 'link-tooltip');
-			return false;
-		}
-
-		//there is some more url processing here (see WebLinkView.jsx in smart-curriculum)...
-		
-		return true;
-
-	}
 }
+
 customElements.define('d2l-activity-content-editor-link', ContentEditorLink);

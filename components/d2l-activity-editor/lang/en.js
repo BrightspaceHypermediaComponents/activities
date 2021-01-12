@@ -128,5 +128,6 @@ export default {
 	"content.link": "Link", //Text label for link input field
 	"content.emptyLinkField": "Link is required.",
 	"content.invalidLink": "Please enter a valid URL.",
-	"content.notHttps": "Only links using \"https\" can be embedded."
+	"content.notHttps": "Only links using \"https\" can be embedded.",
+	"content.noEmbed": "That site cannot be embedded."
 };

@@ -75,7 +75,6 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 				.onSave=${this.saveLinkOption}
 			>
 			</d2l-activity-content-editor-link-options>
-
 		`;
 	}
 
@@ -124,6 +123,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		if (!webLinkEntity) {
 			return;
 		}
+
 		webLinkEntity.setLink(value);
 	}
 
@@ -140,6 +140,10 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 		let isExternal = currentTarget.value === 'newTab' ? true : false;
 		webLinkEntity.setExternalResource(isExternal);
+
+		// TODO: testing setting an error here
+		this.setError('_linkError', 'content.emptyLinkField', 'link-tooltip');
 	}
 }
+
 customElements.define('d2l-activity-content-web-link-detail', ContentWebLinkDetail);

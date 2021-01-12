@@ -14,6 +14,10 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 	static get properties() {
 		return {
 			/**
+			 * True if the user's settings allow for rendering the WYSIWYG HTML editor
+			 */
+			htmlEditorEnabled: { type: Boolean },
+			/**
 			* Set the WidthType on the template to constrain page width if necessary
 			*/
 			widthType: { type: String, attribute: 'width-type' },
@@ -42,6 +46,7 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				.token=${this.token}
 				width-type="${this.widthType}"
 				error-term="${this.localize('quizSaveError')}"
+				@d2l-request-provider="${this._onRequestProvider}"
 				?isnew="${this.isNew}">
 
 				${this._editorTemplate}
@@ -74,5 +79,14 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 			</div>
 		`;
 	}
+
+	_onRequestProvider(e) {
+		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
+			e.detail.provider = this.htmlEditorEnabled;
+			e.stopPropagation();
+			return;
+		}
+	}
+
 }
 customElements.define('d2l-activity-quiz-editor', QuizEditor);

@@ -475,8 +475,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 		const upcomingSource = this._upcomingCollection.getLinkByRel(Rels.Activities.nextPage).href;
 		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
-		this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
-		this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
+		if (upcomingNextPage && upcomingNextPage.hasSubEntityByRel(Rels.Activities.userActivityUsage)) {
+			this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+			this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
+		}
 	}
 
 	/**

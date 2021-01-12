@@ -1,22 +1,28 @@
 import '@brightspace-ui/core/components/backdrop/backdrop.js';
 import '@brightspace-ui/core/templates/primary-secondary/primary-secondary.js';
 import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
+import 'd2l-alert/d2l-alert-toast.js';
 
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { ActivityEditorContainerMixin } from './mixins/d2l-activity-editor-container-mixin.js';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { ActivityEditorTelemetryMixin } from './mixins/d2l-activity-editor-telemetry-mixin';
+import { classMap } from 'lit-html/directives/class-map.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetryMixin(AsyncContainerMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(LitElement))))) {
+const isWindows = window.navigator.userAgent.indexOf('Windows') > -1;
+
+class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetryMixin(AsyncContainerMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(LitElement)))))) {
 
 	static get properties() {
 		return {
 			widthType: { type: String, attribute: 'width-type' },
 			errorTerm: { type: String, attribute: 'error-term' },
-			_backdropShown: { type: Boolean }
+			_backdropShown: { type: Boolean },
+			_saveToastVisible: { type: Boolean }
 		};
 	}
 
@@ -37,6 +43,13 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 			.d2l-secondary-panel {
 				padding: 10px;
 			}
+			.d2l-secondary-scroll {
+				padding-right: 2px;
+			}
+			:host([dir="rtl"]) .d2l-secondary-scroll {
+				padding-left: 2px;
+				padding-right: 10px;
+			}
 			d2l-alert {
 				margin-bottom: 10px;
 				max-width: 100%;
@@ -48,9 +61,25 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		super();
 
 		this._backdropShown = false;
+		this._saveToastVisible = null;
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.removeEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
 	}
 
 	render() {
+		const secondaryPanelClasses = {
+			'd2l-secondary-panel': true,
+			'd2l-secondary-scroll': isWindows
+		};
+
 		return html`
 			<div id="editor-container">
 				<d2l-template-primary-secondary background-shading="secondary" width-type="${this.widthType}">
@@ -59,7 +88,7 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 						<d2l-alert type="error" ?hidden=${!this.isError}>${this.errorTerm}</d2l-alert>
 						<slot name="primary"></slot>
 					</div>
-					<div slot="secondary" class="d2l-secondary-panel">
+					<div slot="secondary" class="${classMap(secondaryPanelClasses)}">
 						<slot name="secondary"></slot>
 					</div>
 					<d2l-activity-editor-footer
@@ -81,6 +110,15 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 				<d2l-button slot="footer" primary dialog-action="confirm">${this.localize('editor.yesLabel')}</d2l-button>
 				<d2l-button slot="footer" dialog-action="cancel">${this.localize('editor.noLabel')}</d2l-button>
 			</d2l-dialog-confirm>
+
+			<d2l-alert-toast
+				id="save-succeeded-toast"
+				?open="${this._saveToastVisible}"
+				type="default"
+				announce-text=${this.localize('editor.saveSuccessful')}
+				@d2l-alert-toast-close=${this._onToastClose}>
+				${this.localize('editor.saveSuccessful')}
+			</d2l-alert-toast>
 		`;
 	}
 	update(changedProperties) {
@@ -116,9 +154,19 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		}
 	}
 
+	_onSaveComplete(e) {
+		if (e.detail.saveInPlace) {
+			this._saveToastVisible = true;
+			e.stopPropagation();
+		}
+	}
+
+	_onToastClose() {
+		this._saveToastVisible = false;
+	}
+
 	_toggleBackdrop(show) {
 		this._backdropShown = show;
 	}
-
 }
 customElements.define('d2l-activity-editor', ActivityEditor);

@@ -66,7 +66,7 @@ export default {
 	"editor.btnManageSpecialAccess": "Administrer særlig adgang", // manage special access button
 	"editor.specialAccessRestrictedText": "Kun brugere med særlig adgang kan se denne mappe", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Brugere kan aflevere uden for datoer for normal tilgængelighed", // not restricted special access description
-	"editor.specialAccessCount": "{count, plural, =0 {No users} =1 {1 user} other {{count} users}} with special access", // Label for number of special access users
+	"editor.specialAccessCount": "{count, plural, =1 {1 bruger} other {{count} brugere}} med særlig adgang", // Label for number of special access users
 	"editor.noUsersWithSpecialAccess": "Ingen brugere", // text label when there are no users with special access
 	"editor.specialAccessDialogTitle": "Administrer særlig adgang", // Dialog title
 	"editor.specialAccessHidden": "Skjult af særlig adgang", // Warning label that the activity is restricted but is being hidden from all users by special access rules
@@ -74,6 +74,8 @@ export default {
 	"editor.discardChangesQuestion": "Er du sikker på, at du vil slette dine ændringer?", // Discard Changes User Prompt
 	"editor.yesLabel": "Ja",
 	"editor.noLabel": "Nej",
+	"editor.notificationEmailLabel": "Meddelelses-e-mail", // Label for notification email input field
+	"editor.invalidNotificationEmailError": "Angiv en gyldig e-mailadresse", // error shown on tooltip when notification email is invalid
 
 	"rubrics.btnAddRubric": "Tilføj rubrik", //text for add rubric button
 	"rubrics.btnCreateNew": "Opret ny", //Text for create new dropdown
@@ -118,4 +120,6 @@ export default {
 	"content.emptyNameField": "Navn påkrævet", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivelse", // Text label for description input field
 	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
+	"content.saveError": "Dit indholdselement blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.addDueDate": "Tilføj forfaldsdato" // Text label for name input field
 };

@@ -151,6 +151,7 @@ class ActivityAttachmentsPickerPresentational extends SkeletonMixin(LocalizeActi
 				</d2l-button-icon>
 				<d2l-tooltip
 					for="add-file-button"
+					align="start"
 					aria-hidden="true"
 					disable-focus-lock>${this.localize('attachments.addFile')}</d2l-tooltip>
 					<!-- Important: keep tooltip content inline, otherwise screenreader gets confused -->

@@ -35,17 +35,15 @@ export default {
 	"txtGroupAssignmentSummary": "Asignación grupal", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Notificación de envío por correo electrónico", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Envío y finalización", // Label for the availability and dates summarizer
-	"assignmentSaveError": "No se guardó la asignación. Corrija los campos marcados en color rojo.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "No se guardó la asignación. Corrija los campos indicados.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "No existen grupos. Cree nuevos grupos en la herramienta Grupos.", // Folder type no groups
 	"folderTypeCreateGroups": "Cree nuevos grupos en la herramienta Grupos.", // Folder type create groups
 	"filesSubmissionLimit": "Archivos permitidos por envío",
 	"UnlimitedFilesPerSubmission": "Ilimitado",
 	"OneFilePerSubmission": "Un archivo",
-	"submissionsRule": "Materiales enviados",
+	"submissionsRule": "materiales enviados",
 	"hdrSpecialAccess": "Acceso especial", // special access heading
 	"hlpSpecialAccess": "El acceso especial permite que las asignaciones estén disponibles solo para un grupo selecto de usuarios o fechas de vencimiento personalizadas para ciertos usuarios.", // special access help
 	"assignmentLocked": "Algunas opciones de configuración están bloqueadas debido a que se recibieron los envíos.",
-	"hdrSubmissionNotificationEmail": "Correo electrónico de notificación",
-	"hlpSubmissionNotificationEmail": "Ingrese uno o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una asignación.",
-	"invalidNotificationEmailError": "Ingrese una dirección de correo electrónico válida"
+	"hlpSubmissionNotificationEmail": "Ingrese uno o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una asignación."
 };

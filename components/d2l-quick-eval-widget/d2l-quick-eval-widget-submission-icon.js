@@ -10,21 +10,21 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
  */
 class SubmissionIcon extends RtlMixin(LitElement) {
 
-	static get properties() {
-		return {
-			/**
-			 * REQUIRED: Preset icon key (e.g. "tier1:gear")
-			 */
-			icon: { type: String, reflect: true },
-			/**
-			 * Submission count to display as a superscript on the icon
-			 */
-			submissionCount: { type: String, attribute: 'submission-count', reflect: true },
-			_submissionCountHidden: { type: Boolean }
-		};
-	}
+  static get properties() {
+    return {
+      /**
+       * REQUIRED: Preset icon key (e.g. "tier1:gear")
+       */
+      icon: { type: String, reflect: true },
+      /**
+       * Submission count to display as a superscript on the icon
+       */
+      submissionCount: { type: String, attribute: 'submission-count', reflect: true },
+      _submissionCountHidden: { type: Boolean }
+    };
+  }
 
-	static get styles() {
+  static get styles() {
     return [
       offscreenStyles,
       css`
@@ -81,14 +81,14 @@ class SubmissionIcon extends RtlMixin(LitElement) {
           width: 1.3rem;
         }
 		`];
-	}
+  }
 
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 
-	render() {
-		return html`
+  render() {
+    return html`
 			<div class="d2l-quick-eval-widget-submission-icon-content">
 				<d2l-icon icon="${this.icon}"></d2l-icon>
 				<div class="d2l-quick-eval-widget-submission-icon-submission-count-container">
@@ -96,19 +96,19 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 				</div>
 			</div>
 		`;
-	}
+  }
 
-	updated(changedProperties) {
-		super.updated(changedProperties);
-		if (!changedProperties.has('submissionCount')) return;
-		this._submissionCountHidden = !(this.submissionCount && this.submissionCount.length > 0);
-	}
+  updated(changedProperties) {
+    super.updated(changedProperties);
+    if (!changedProperties.has('submissionCount')) return;
+    this._submissionCountHidden = !(this.submissionCount && this.submissionCount.length > 0);
+  }
 
-	focus() {
-		const elem = this.shadowRoot.querySelector('a');
-		if (!elem) return;
-		elem.focus();
-	}
+  focus() {
+    const elem = this.shadowRoot.querySelector('a');
+    if (!elem) return;
+    elem.focus();
+  }
 
 }
 

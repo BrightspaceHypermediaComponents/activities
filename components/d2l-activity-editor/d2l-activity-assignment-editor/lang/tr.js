@@ -6,13 +6,13 @@ export default {
 	"completionType": "Tamamlandı olarak işaretlendi", // Label for the completion type field when creating/editing an assignment
 	"lblAnonymousMarking": "Anonim İşaretleme", // Label for anonymous marking
 	"chkAnonymousMarking": "Değerlendirme sırasında öğrenci adlarını gizle", // Checkbox for anonymous marking
-	"dueDate": "Teslim Tarihi", // ARIA label for the due date field when creating/editing an activity
+	"dueDate": "Sona Erme Tarihi", // ARIA label for the due date field when creating/editing an activity
 	"txtAnnotationsOff": "Açıklamalar kapalı", // annotations off text
 	"emptyNameError": "Ad gerekli", // Error message to inform user that the assignment name is a required field
 	"instructions": "Talimatlar", // Label for the instruction field when creating/editing an assignment
 	"hdrTurnitin": "Turnitin Entegrasyonu", // turnitin heading
 	"hlpTurnitin": "Turnitin® değerlendirmeye ek işlevler ekler.", // turnitin help
-	"btnEditTurnitin": "Turnitin\'i Yönet", // edit turnitin button
+	"btnEditTurnitin": "Turnitin'i Yönet", // edit turnitin button
 	"btnCloseDialog": "Bu Diyaloğu Kapat", // close dialog button
 	"txtOriginalityCheckOn": "Originality Check Açık", // originality check on text
 	"txtGradeMarkOn": "GradeMark Açık", // grade mark on text
@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Grup ödevi", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "E-posta ile gönderim bildirimi", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Gönderme ve Tamamlama", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Ödeviniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Ödeviniz kaydedilmedi. Lütfen işaretlenmiş alanları düzeltin.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Hiç grup yok. Gruplar aracında yeni gruplar oluşturun.", // Folder type no groups
 	"folderTypeCreateGroups": "Gruplar aracında yeni gruplar oluşturun.", // Folder type create groups
 	"filesSubmissionLimit": "Gönderim Başına İzin Verilen Dosya Sayısı",
@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Özel Erişim", // special access heading
 	"hlpSpecialAccess": "Özel Erişim, ödevlerin yalnızca belirli bir kullanıcı grubu tarafından veya belirli kullanıcılar için kişiselleştirilmiş sona erme tarihlerinde kullanılabilmesini sağlar.", // special access help
 	"assignmentLocked": "Gönderimler alındığı için bazı ayarlar kilitlendi.",
-	"hdrSubmissionNotificationEmail": "Bildirim E-postası",
-	"hlpSubmissionNotificationEmail": "Bir ödev gönderildiğinde bildirim almak için bir e-posta adresi veya virgülle ayırarak birden çok e-posta adresini girin.",
-	"invalidNotificationEmailError": "Lütfen geçerli bir e-posta adresi girin"
+	"hlpSubmissionNotificationEmail": "Bir ödev gönderildiğinde bildirim almak için bir e-posta adresi veya virgülle ayırarak birden çok e-posta adresini girin."
 };

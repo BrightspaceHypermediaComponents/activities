@@ -16,7 +16,7 @@ export default {
 	noActivitiesInLearningPath: "この学習パスにはアクティビティがありません。", // Displayed when the learning path is loaded and contains no activities
 	noActivitiesFound: "検索語句に一致するアクティビティがありませんでした。", // Displayed when the learning path has no activities while in the screen that allows you to add them.
 	numberOfActivities: "{count, plural, =1 {1 件のアクティビティ} other {{count} 件のアクティビティ}}", // The number of learning tasks currently in the list.
-	removeActivity: "削除", // An action to remove a learning task from a list of tasks that are related
+	removeActivity: "の削除", // An action to remove a learning task from a list of tasks that are related
 	removeActivityAria: "{activityName} の削除", // Remove action described for aria with course name
 	search: "検索", // When adding activities to the learning path, this is where you can search for potential activities to add.
 	searchPlaceholder: "検索...", // Placeholder text for the search input to search the list of potential activities.

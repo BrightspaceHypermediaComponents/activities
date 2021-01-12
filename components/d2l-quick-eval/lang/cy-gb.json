@@ -10,7 +10,7 @@
    "checkBackOftenCourseLevel" : "Gwiriwch y {startTag}Gwerthusiad Cyflym Aml-Gwrs{endTag} i weld a oes cyflwyniadau newydd yn eich cyrsiau eraill.",
    "clearSearch" : "Clirio’r Chwilio",
    "close" : "Cau",
-   "completed" : "Wedi cwblhau",
+   "completed" : "Wedi Cwblhau",
    "confirmation" : "Cadarnhad",
    "courseName" : "Cwrs",
    "discussion" : "Trafodaeth",
@@ -71,12 +71,12 @@
    "sortBy" : "Trefnu yn ôl {columnName}",
    "specificDate" : "Dyddiad penodol",
    "submissionDate" : "Dyddiad Cyflwyno",
-   "submissionList" : "Rhestr Gyflwyno",
+   "submissionList" : "Rhestr Gyflwyniadau",
    "submissions" : "Cyflwyniadau",
    "tableTitle" : "Rhestr o gyflwyniadau Dysgwyr heb eu gwerthuso o bob cwrs ac offer",
    "toggleIndicatorLabelActions" : "Cyflawni Gweithredoedd ar {target}",
    "toggleIndicatorLabelInfo" : "Gweld gwybodaeth am {target}",
    "tryAgain" : "Rhowch gynnig arall arni",
-   "viewBy" : "Gwelwyd gan:",
+   "viewBy" : "Gweld yn ôl:",
    "yes" : "Ie"
 }

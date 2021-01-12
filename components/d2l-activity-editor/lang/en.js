@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Close", //Label for Close button
 	"editor.btnCloseDialog": "Close this Dialog", // close dialog button
 	"editor.btnManageSpecialAccess": "Manage Special Access", // manage special access button
+	"editor.saveSuccessful": "Saved successfully", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Only users with special access can see this folder", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Users can submit outside normal availability dates", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} with special access", // Label for number of special access users

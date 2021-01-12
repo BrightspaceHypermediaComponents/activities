@@ -66,11 +66,14 @@ export class AttachmentCollection {
 		this.attachments = entity.getAttachmentEntityHrefs() || [];
 	}
 
-	async save() {
+	async save(saveInPlace) {
 		const attachmentStore = this.store.getAttachmentStore();
 		if (!attachmentStore) {
 			throw new Error('No attachment store configured. Cannot save');
 		}
+
+		const discarded = [];
+		let hasChanged = false;
 
 		for (const href of this.attachments) {
 			// TODO - Should we run these concurrently using an array of promises?
@@ -79,9 +82,34 @@ export class AttachmentCollection {
 			const attachment = attachmentStore.get(href);
 			if (attachment.deleted && !attachment.creating) {
 				await attachment.delete();
+				hasChanged = true;
 			}
+
 			if (attachment.creating && !attachment.deleted) {
 				await attachment.save(this._entity);
+				hasChanged = true;
+			}
+
+			if (saveInPlace) {
+				if (attachment.creating && attachment.deleted) {
+					discarded.push(href);
+				}
+
+				// Clean up store reference to temporary or deleted attachments
+				if (attachment.creating || attachment.deleted) {
+					attachmentStore.remove(href);
+				}
+			}
+		}
+
+		if (!saveInPlace) return;
+
+		if (hasChanged) {
+			await this.fetch();
+		} else if (discarded.length > 0) {
+			// Clean up new attachments that were removed before save
+			for (const href of discarded) {
+				this.attachments.remove(href);
 			}
 		}
 	}

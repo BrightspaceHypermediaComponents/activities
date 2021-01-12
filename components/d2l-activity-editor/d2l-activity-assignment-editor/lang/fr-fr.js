@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Devoir de groupe", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Notification de soumission par e-mail", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Soumission et achèvement", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Votre devoir n’a pas été enregistré. Corrigez les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Votre devoir n’a pas été enregistré. Corrigez les champs indiqués.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Aucun groupe n’existe. Créer des groupes dans l’outil Groupes.", // Folder type no groups
 	"folderTypeCreateGroups": "Créer des groupes dans l’outil Groupes.", // Folder type create groups
 	"filesSubmissionLimit": "Nombre de fichiers autorisé par soumission",
@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Accès spécial", // special access heading
 	"hlpSpecialAccess": "L’accès spécial permet d’attribuer des devoirs uniquement à un groupe d’utilisateurs sélectionné ou à des dates d’échéance personnalisées pour certains utilisateurs.", // special access help
 	"assignmentLocked": "Certains paramètres sont verrouillés, car des soumissions ont été reçues.",
-	"hdrSubmissionNotificationEmail": "E-mail de notification",
-	"hlpSubmissionNotificationEmail": "Saisissez une ou plusieurs adresses e-mails séparées par une virgule pour recevoir des notifications lors de la soumission d’un devoir.",
-	"invalidNotificationEmailError": "Veuillez saisir une adresse e-mail valide."
+	"hlpSubmissionNotificationEmail": "Saisissez une ou plusieurs adresses e-mails séparées par une virgule pour recevoir des notifications lors de la soumission d’un devoir."
 };

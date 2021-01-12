@@ -80,7 +80,8 @@ On a test failure, the difference between the goldens and the current images wil
 
 ## Versioning & Releasing
 
-> TL;DR: Commits prefixed with `fix:` and `feat:` will trigger patch and minor releases when merged to `master`. Read on for more details...
+> TL;DR: Commits prefixed with `fix: ` and `feat: ` will trigger patch and minor releases when merged to `master`. Read on for more details...
+Don't forget the ` ` after `:`
 
 The [sematic-release GitHub Action](https://github.com/BrightspaceUI/actions/tree/master/semantic-release) is called from the `release.yml` GitHub Action workflow to handle version changes and releasing.
 

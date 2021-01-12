@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "Gruppenübung", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Benachrichtigung per E-Mail bei Abgabe", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Abgabe und Abschluss", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Ihre Übung wurde nicht gespeichert. Korrigieren Sie die rot umrandeten Felder.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Ihre Übung wurde nicht gespeichert. Korrigieren Sie die umrandeten Felder.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Es sind keine Gruppen vorhanden. Erstellen Sie neue Gruppen im Gruppen-Tool.", // Folder type no groups
 	"folderTypeCreateGroups": "Erstellen Sie neue Gruppen im Gruppen-Tool.", // Folder type create groups
 	"filesSubmissionLimit": "Zulässige Dateien pro Abgabe",
@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "Beschränkter Zugriff", // special access heading
 	"hlpSpecialAccess": "Mit beschränktem Zugriff können Übungen nur für eine ausgewählte Benutzergruppe oder individuelle Abgabetermine für bestimmte Benutzer verfügbar gemacht werden.", // special access help
 	"assignmentLocked": "Einige Einstellungen sind gesperrt, da Abgaben eingetroffen sind.",
-	"hdrSubmissionNotificationEmail": "E-Mail-Benachrichtigung",
-	"hlpSubmissionNotificationEmail": "Geben Sie eine oder mehrere E-Mail-Adresse(n) durch Kommas getrennt ein, um Benachrichtigungen zu erhalten, sobald eine Übung abgegeben wurde.",
-	"invalidNotificationEmailError": "Geben Sie eine gültige E-Mail-Adresse ein"
+	"hlpSubmissionNotificationEmail": "Geben Sie eine oder mehrere E-Mail-Adresse(n) durch Kommas getrennt ein, um Benachrichtigungen zu erhalten, sobald eine Übung abgegeben wurde."
 };

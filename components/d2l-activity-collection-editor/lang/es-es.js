@@ -1,13 +1,13 @@
 /* eslint quotes: 0 */
 
 export default {
-	add: "Agregar", // When adding activities to the learning path, this will bulk add the selected potential activites to the learning path.
+	add: "Añadir", // When adding activities to the learning path, this will bulk add the selected potential activites to the learning path.
 	addActivity: "Agregar actividad", // Add a learning task to a list that are similar.
 	alreadyAdded: "Ya se ha agregado", // When seeing a list of activities that can be added to the learning path, these activities have already in the list.
 	browseActivityLibrary: "Examinar la biblioteca de actividades", // The title of the dialog box that allows you to browse potential activities to add to the learning path.
 	cancel: "Cancelar", // When adding activities to the learning path, this will cancel the currently selected potential activities and close the dialog box.
 	clearSelected: "Borrar selección", // When adding activities (bulk add) to the learning path this allows you to clear the ones currently selected.
-	course: "curso", // A set of material or a plan of study on a particular subject, usually leading learning a new skill.
+	course: "Curso", // A set of material or a plan of study on a particular subject, usually leading learning a new skill.
 	deleteSucceeded: "Se ha eliminado {activityName}.", //alert popup for delete activitie
 	editLearningPath: "Editar ruta de aprendizaje", // Title of the page where the page is to edit a list of related learnings. On the page you can edit the title, description and what learning activities are in the list.
 	enterADescription: "Escriba una descripción", // Shows where the user should write a description for the learning path.

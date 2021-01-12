@@ -35,7 +35,7 @@ export default {
 	"txtGroupAssignmentSummary": "小组作业", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "通过电子邮件提交通知", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "提交和完成", // Label for the availability and dates summarizer
-	"assignmentSaveError": "您的作业未保存。请更正以红色标出的字段。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "您的作业未保存。请更正所列出的字段。", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "没有任何组。在组工具中创建新组。", // Folder type no groups
 	"folderTypeCreateGroups": "在组工具中创建新组。", // Folder type create groups
 	"filesSubmissionLimit": "每次提交允许的文件",
@@ -45,7 +45,5 @@ export default {
 	"hdrSpecialAccess": "特殊访问权限", // special access heading
 	"hlpSpecialAccess": "特殊访问权限可使作业仅供选定用户组或根据特定用户的个性化截止日期进行使用。", // special access help
 	"assignmentLocked": "由于已收到提交的内容，部分设置已锁定。",
-	"hdrSubmissionNotificationEmail": "通知电子邮件",
-	"hlpSubmissionNotificationEmail": "输入一个或多个电子邮件地址（用逗号分隔），以在提交作业时接收通知。",
-	"invalidNotificationEmailError": "请输入一个有效的电子邮件地址"
+	"hlpSubmissionNotificationEmail": "输入一个或多个电子邮件地址（用逗号分隔），以在提交作业时接收通知。"
 };

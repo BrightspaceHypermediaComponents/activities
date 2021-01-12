@@ -62,8 +62,8 @@ class ContentEditorLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Localize
                 name="link-display-group"
                 value="embed"
                 ?checked="${!isExternalResource}"
-                @change="${this.onSave}">
-                Embed on the page (iframe)
+				@change="${this.onSave}">
+				${this.localize('content.embedOnPage')}
             </label>
             <label class="d2l-input-radio-label">
                 <input
@@ -73,7 +73,7 @@ class ContentEditorLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Localize
                     value="newTab"
                     ?checked="${isExternalResource}"
                     @change="${this.onSave}">
-                    Open in a new tab
+                    ${this.localize('content.openNewTab')}
             </label>
         </div>
 		`;

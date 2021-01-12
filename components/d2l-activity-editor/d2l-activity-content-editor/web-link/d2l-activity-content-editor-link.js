@@ -18,7 +18,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		return {
 			entity: { type: Object },
 			onSave: { type: Function },
-			//_urlError: { type: String }
+			_linkError: { type: String }
 		};
 	}
 
@@ -55,9 +55,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			this.skeleton = false;
 			link = this.entity.link;
 		}
-		
-		//TODO: add proper translated label
-		//label="${this.localize('content.link')}
+
 		return html`
 			<div id="content-link-container">
 				<d2l-input-text
@@ -65,46 +63,78 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 					value="${link}"
 					@change="${this._saveOnChange('link')}"
 					@input="${this._saveLinkOnInput}"
-					label="Link *"
+					label="${this.localize('content.link')} *"
+					aria-invalid="${this._linkError ? 'true' : ''}"
 					prevent-submit
 					novalidate
 					?skeleton="${this.skeleton}"
 					>
 				</d2l-input-text>
+				${this._renderLinkTooltip()}
 			</div>
 		`;
 	}
 
-	// _renderTitleTooltip() {
-	// 	if (!this._titleError) {
-	// 		return html ``;
-	// 	}
+	_renderLinkTooltip() {
+		if (!this._linkError) {
+			return html ``;
+		}
 
-	// 	return html`
-	// 		<d2l-tooltip
-	// 			id="title-tooltip"
-	// 			for="content-title"
-	// 			position="bottom"
-	// 			?showing="${!!this._titleError}">
-	// 			${this._titleError}
-	// 		</d2l-tooltip>
-	// 	`;
-	// }
+		return html`
+			<d2l-tooltip
+				id="link-tooltip"
+				for="content-link"
+				position="bottom"
+				tabIndex="0"
+				?showing="${!!this._linkError}">
+				${this._linkError}
+			</d2l-tooltip>
+		`;
+	}
 
 	_saveOnChange(jobName) {
 	 	this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 
-	//TODO Add validation here
-	//note: is seems a bit weird to add validation in both this method and the tooltip one. Can we control the tooltop from here?
 	_saveLinkOnInput(e) {
-		const link = e.target.value;
+		const link = e.target.value.trim();
 
+		if(!this._isLinkValid(link)) {
+			return;
+		}
+
+		this.clearError('_linkError');
 		this._debounceJobs.link = Debouncer.debounce(
 			this._debounceJobs.link,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this.onSave(link)
 		);
+	}
+
+	_isLinkValid(link) {
+		if ( link.length === 0 ) {
+			this.setError('_linkError', 'content.emptyLinkField', 'link-tooltip');
+			return false;
+		}
+
+		//max length?
+
+		//this can absolutely move
+		const urlRegex = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9\-]*\.)+[a-zA-Z0-9][a-zA-Z0-9\-]*(?::\d+)?(?:$|[\/\?#].*$)/;
+		if ( !urlRegex.test( link ) ) {
+			this.setError('_linkError', 'content.invalidLink', 'link-tooltip');
+			return false;
+		}
+
+		if ( !this.entity.isExternalResource && url.substr( 0, 7 ) === 'http://' ) {
+			this.setError('_linkError', 'content.notHttps', 'link-tooltip');
+			return false;
+		}
+
+		//there is some more url processing here (see WebLinkView.jsx in smart-curriculum)...
+		
+		return true;
+
 	}
 }
 customElements.define('d2l-activity-content-editor-link', ContentEditorLink);

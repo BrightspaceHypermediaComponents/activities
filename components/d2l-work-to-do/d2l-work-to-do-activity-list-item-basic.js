@@ -1,7 +1,7 @@
-import '@brightspace-ui/core/components/card/card-footer-link';
 import '@brightspace-ui/core/components/colors/colors';
 import '@brightspace-ui/core/components/list/list-item-content';
 import '../d2l-activity-date/d2l-activity-date';
+import '../d2l-quick-eval-widget/d2l-quick-eval-widget-submission-icon';
 
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
@@ -160,14 +160,18 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			: nothing;
 
 		return this._renderListItem({
-			illustration: html`
-				<d2l-card-footer-link
-					class=${classMap(iconClasses)}
-					?skeleton=${this.skeleton}
-					?secondary-text=${this.submissionCount}
-					secondary-text-type=${this.submissionCount ? 'notification' : ''}
-					icon=${this._icon}>
-				</d2l-card-footer-link>`,
+			illustration: this.submissionCount ? html`
+					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
+						class="class=${classMap(iconClasses)}"
+						icon=${this._icon}
+						submission-count=${this.submissionCount > 99 ? '99+' : this.submissionCount}>
+					</d2l-quick-eval-widget-submission-icon>`:
+				html`
+					<d2l-icon
+						class=${classMap(iconClasses)}
+						?skeleton=${this.skeleton}
+						icon=${this._icon}>
+					</d2l-icon>`,
 			content: html`
 				<d2l-list-item-content id="content">
 					<div class=${classMap(nameClasses)}>

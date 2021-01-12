@@ -181,13 +181,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	render() {
 
 		/** Activity state templates */
-		const collectionTemplate = (collection, displayLimit, isOverdue) => {
-			if (!collection || displayLimit === 0) {
-				return nothing;
-			}
-
-			const activities = this._getFilteredActivities(collection, isOverdue);
-			if (activities.length === 0) {
+		const collectionTemplate = (activities, displayLimit, isOverdue) => {
+			if (!activities || activities.length === 0 || displayLimit === 0) {
 				return nothing;
 			}
 
@@ -215,10 +210,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 			return html`
 				<div class="d2l-overdue-list">
-					${collectionTemplate(this._overdueCollection, this._overdueDisplayLimit, true)}
+					${collectionTemplate(this._overdueActivities, this._overdueDisplayLimit, true)}
 				</div>
 				<div class="d2l-upcoming-list">
-					${collectionTemplate(this._upcomingCollection, this._upcomingDisplayLimit, false)}
+					${collectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, false)}
 				</div>
 				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource}>${this.localize('fullViewLink')}</d2l-link>
 			`;
@@ -443,20 +438,19 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		return 'loading';
 	}
 
-	_getFilteredActivities(collection, isOverdue) {
+	_getFilteredOverdueActivities(collection) {
 		let activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-		if (isOverdue) {
-			const cutOffDate = new Date();
-			cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));
 
-			activities = activities.filter((activity) => {
-				const activityDate = activity.hasSubEntityByClass('due-date')
-					? new Date(activity.getSubEntityByClass('due-date').properties.date)
-					: new Date(activity.getSubEntityByClass('end-date').properties.date);
+		const cutOffDate = new Date();
+		cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));
 
-				return activityDate.getTime() >= cutOffDate.getTime();
-			});
-		}
+		activities = activities.filter((activity) => {
+			const activityDate = activity.hasSubEntityByClass('due-date')
+				? new Date(activity.getSubEntityByClass('due-date').properties.date)
+				: new Date(activity.getSubEntityByClass('end-date').properties.date);
+
+			return activityDate.getTime() >= cutOffDate.getTime();
+		});
 
 		return activities;
 	}
@@ -513,6 +507,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const source = entity.getLinkByRel(Rels.Activities.overdue).href;
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
+				this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
 				this._overdueCollection = sirenEntity;
 				this._overdueActivities = this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			});
@@ -548,11 +543,13 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		];
 		performSirenAction(this.token, action, fields, true)
 			.then((sirenEntity) => {
-				if (!isMax) {
-					this._upcomingCollection = sirenEntity;
-					this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-				} else {
-					this._maxCollection = sirenEntity;
+				if(sirenEntity) {
+					if (!isMax) {
+						this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+						this._upcomingCollection = sirenEntity;
+					} else {
+						this._maxCollection = sirenEntity;
+					}
 				}
 			});
 	}

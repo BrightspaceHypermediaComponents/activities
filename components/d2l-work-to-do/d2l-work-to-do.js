@@ -127,11 +127,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._upcomingActivities = [];
 		this._overdueActivities = [];
-		this._ignoreViewLimit = false;
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
 
-		this.nextPageRel = 'https://activities.api.brightspace.com/rels/next-page'; // this should be somewhere in Hypermedia Constants
+		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
 	}
 
 	set _entity(entity) {
@@ -283,8 +282,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const errorTemplate = nothing;
 
 		/** Fullscreen state templates */
-		const fullscreenCollectionTemplate = (activities, displayLimit, ignoreLimit, isOverdue) => {
-			if (!activities || activities.length === 0 || (displayLimit === 0 && !ignoreLimit)) {
+		const fullscreenCollectionTemplate = (activities, isOverdue) => {
+			if (!activities || activities.length === 0) {
 				return nothing;
 			}
 
@@ -294,7 +293,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 			let prevDate = new Date(0, 0, 0, 0);
 
-			const groupedByDate = (ignoreLimit ? activities : activities.slice(0, displayLimit)).map((activity) => {
+			const groupedByDate = activities.map((activity) => {
 				const activityDate = activity.hasSubEntityByClass('due-date')
 					? new Date(activity.getSubEntityByClass('due-date').properties.date)
 					: new Date(activity.getSubEntityByClass('end-date').properties.date);
@@ -343,17 +342,17 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			: nothing;
 
 		const fullscreenTemplate = () => {
-			if (!this._overdueCollection && !this._upcomingCollection && !this._maxCollection) {
+			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
 				return nothing;
 			}
 			return html`
 				<div class="d2l-work-to-do-fullscreen-container">
 					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
 					<div class="d2l-overdue-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._overdueActivities, this._overdueDisplayLimit, true, true)}
+						${fullscreenCollectionTemplate(this._overdueActivities, true)}
 					</div>
 					<div class="d2l-upcoming-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, this._ignoreViewLimit, false)}
+						${fullscreenCollectionTemplate(this._upcomingActivities, false)}
 					</div>
 					${loadButtonTemplate}
 				</div>
@@ -404,9 +403,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	get _moreAvail() {
-		// Logic is waiting on paging capability from activities service
-		// For now just forcing on so we can see the button
-		return true;
+		return this._upcomingCollection && this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage);
 	}
 
 	get _maxCount() {
@@ -474,12 +471,11 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * Load next page of activities into memory in anticipation for next request
 	 */
 	async _handleLoadMoreClicked() {
-		if (!this._upcomingCollection.hasLinkByRel(this.nextPageRel)) return;
+		if (!this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage)) return;
 
-		const upcomingSource = this._upcomingCollection.getLinkByRel(this.nextPageRel).href;
+		const upcomingSource = this._upcomingCollection.getLinkByRel(Rels.Activities.nextPage).href;
 		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
 		this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
-		this._ignoreViewLimit = true;
 		this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
 	}
 

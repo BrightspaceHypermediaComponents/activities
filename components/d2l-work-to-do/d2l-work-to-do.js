@@ -543,7 +543,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		];
 		performSirenAction(this.token, action, fields, true)
 			.then((sirenEntity) => {
-				if(sirenEntity) {
+				if (sirenEntity) {
 					if (!isMax) {
 						this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 						this._upcomingCollection = sirenEntity;

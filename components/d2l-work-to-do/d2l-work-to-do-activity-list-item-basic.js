@@ -1,4 +1,5 @@
 import '@brightspace-ui/core/components/colors/colors';
+import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/list/list-item-content';
 import '../d2l-activity-date/d2l-activity-date';
 import '../d2l-quick-eval-widget/d2l-quick-eval-widget-submission-icon';

@@ -166,7 +166,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 						class="class=${classMap(iconClasses)}"
 						icon=${this._icon}
 						submission-count=${this.submissionCount > 99 ? '99+' : this.submissionCount}>
-					</d2l-quick-eval-widget-submission-icon>`:
+					</d2l-quick-eval-widget-submission-icon>` :
 				html`
 					<d2l-icon
 						class=${classMap(iconClasses)}

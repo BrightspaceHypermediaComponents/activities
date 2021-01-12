@@ -180,23 +180,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				return nothing;
 			}
 
-			let activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+			const activities = this._getFilteredActivities(collection, isOverdue);
 			if (activities.length === 0) {
 				return nothing;
-			}
-
-			if (isOverdue) {
-				// Filter overdue activities based on config
-				const cutOffDate = new Date();
-				cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));
-
-				activities = activities.filter((activity) => {
-					const activityDate = activity.hasSubEntityByClass('due-date')
-						? new Date(activity.getSubEntityByClass('due-date').properties.date)
-						: new Date(activity.getSubEntityByClass('end-date').properties.date);
-
-					return activityDate.getTime() >= cutOffDate.getTime();
-				});
 			}
 
 			const items = repeat(
@@ -452,6 +438,24 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 		}
 		return 'loading';
+	}
+
+	_getFilteredActivities(collection, isOverdue) {
+		let activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+		if (isOverdue) {
+			const cutOffDate = new Date();
+			cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));
+
+			activities = activities.filter((activity) => {
+				const activityDate = activity.hasSubEntityByClass('due-date')
+					? new Date(activity.getSubEntityByClass('due-date').properties.date)
+					: new Date(activity.getSubEntityByClass('end-date').properties.date);
+
+				return activityDate.getTime() >= cutOffDate.getTime();
+			});
+		}
+
+		return activities;
 	}
 
 	/**

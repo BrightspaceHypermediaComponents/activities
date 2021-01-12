@@ -94,12 +94,6 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 		`;
 	}
 
-	updated(changedProperties) {
-		super.updated(changedProperties);
-		if (!changedProperties.has('submissionCount')) return;
-		this._submissionCountHidden = !(this.submissionCount && this.submissionCount.length > 0);
-	}
-
 }
 
 customElements.define('d2l-quick-eval-widget-submission-icon', SubmissionIcon);

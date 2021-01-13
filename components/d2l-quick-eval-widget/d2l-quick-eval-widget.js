@@ -147,7 +147,7 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 	get errorTemplate() {
 		return html`
 		<div class="d2l-quick-eval-widget-error">
-			<p class="d2l-body-compact">Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.</p>
+			<p class="d2l-body-compact">${this.localize('Error')}</p>
 		</div>
 		${this.viewAllLinkTemplate}`;
 	}
@@ -157,10 +157,12 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 			<div class="d2l-quick-eval-widget-no-submissions">
 				<d2l-quick-eval-widget-no-submissions-image></d2l-quick-eval-widget-no-submissions-image>
 				<div class="d2l-quick-eval-widget-no-submissions-text-container">
-					<h4 class="d2l-heading-4">You're all caught up!</h4>
-					<p class="d2l-body-compact">You have no submissions that need evaluation. Check back later for new submissions.</p>
+					<h4 class="d2l-heading-4">${this.localize('CaughtUp')}</h4>
+					<p class="d2l-body-compact">${this.localize('NoSubmissions')}</p>
 				</div>
-				<d2l-button primary >${this.localize('ViewAllActivities')}</d2l-button>
+				<d2l-button primary @click="${this.handleViewAll}" href="${this.quickEvalHref}">
+					${this.localize('ViewAllActivities')}
+				</d2l-button>
 			</div>`;
 	}
 

@@ -1,7 +1,7 @@
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/link/link.js';
-import '../d2l-quick-eval/d2l-quick-eval-no-submissions-image.js';
+import './d2l-quick-eval-widget-no-submissions-image.js';
 import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 
 import { css, html, LitElement } from 'lit-element';
@@ -64,7 +64,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 				flex-direction: column;
 				flex-wrap: wrap;
 			}
-			d2l-quick-eval-no-submissions-image {
+			d2l-quick-eval-widget-no-submissions-image {
 				padding-top: 30px;
 				width: 100%;
 			}
@@ -154,7 +154,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 	get noSubmissionTemplate() {
 		return html`
 			<div class="d2l-quick-eval-widget-no-submissions">
-				<d2l-quick-eval-no-submissions-image></d2l-quick-eval-no-submissions-image>
+				<d2l-quick-eval-widget-no-submissions-image></d2l-quick-eval-widget-no-submissions-image>
 				<div class="d2l-quick-eval-widget-no-submissions-text-container">
 					<h4 class="d2l-heading-4">You're all caught up!</h4>
 					<p class="d2l-body-compact">You have no submissions that need evaluation. Check back later for new submissions.</p>

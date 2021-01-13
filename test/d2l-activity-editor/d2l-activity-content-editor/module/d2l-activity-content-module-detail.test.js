@@ -1,7 +1,7 @@
-import '../../../components/d2l-activity-editor/d2l-activity-content-editor/module/d2l-activity-content-module-detail.js';
+import '../../../../components/d2l-activity-editor/d2l-activity-content-editor/module/d2l-activity-content-module-detail.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import { ContentModule } from '../../../components/d2l-activity-editor/d2l-activity-content-editor/module/state/content-module.js';
-import { shared as moduleStore } from '../../../components/d2l-activity-editor/d2l-activity-content-editor/module/state/content-module-store.js';
+import { ContentModule } from '../../../../components/d2l-activity-editor/d2l-activity-content-editor/module/state/content-module.js';
+import { shared as moduleStore } from '../../../../components/d2l-activity-editor/d2l-activity-content-editor/module/state/content-module-store.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 describe('d2l-activity-content-module-detail', function() {

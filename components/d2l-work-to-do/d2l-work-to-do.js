@@ -509,7 +509,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			.then((sirenEntity) => {
 				this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
 				this._overdueCollection = sirenEntity;
-				this._overdueActivities = this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			});
 	}
 

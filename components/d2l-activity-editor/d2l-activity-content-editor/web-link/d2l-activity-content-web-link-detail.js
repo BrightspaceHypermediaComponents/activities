@@ -1,6 +1,5 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-editor-link.js';
-import './d2l-activity-content-editor-link-options.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';

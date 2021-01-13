@@ -10,8 +10,6 @@ export const getInvalidWeblinkKey = (link, isExternalResource) => {
         return 'content.emptyLinkField';
     }
 
-    //max length?
-
     //this can absolutely move
     const expression = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9\-]*\.)+[a-zA-Z0-9][a-zA-Z0-9\-]*(?::\d+)?(?:$|[\/\?#].*$)/;
     const urlRegExp = new RegExp(expression);

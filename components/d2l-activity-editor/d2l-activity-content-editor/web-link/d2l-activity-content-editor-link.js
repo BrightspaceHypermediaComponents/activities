@@ -71,6 +71,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 					@input="${this._saveLink}"
 					label="${this.localize('content.link')} *"
 					aria-invalid="${this._linkError ? 'true' : ''}"
+					maxlength="${ContentEditorConstants.LINK_MAX_LENGTH}"
 					prevent-submit
 					novalidate
 					?skeleton="${this.skeleton}"

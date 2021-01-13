@@ -7,6 +7,7 @@ import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 import { css, html, LitElement } from 'lit-element';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
+import { LocalizeQuickEvalWidget } from './lang/localize-quick-eval-widget.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
@@ -14,7 +15,7 @@ const errorState = 'error';
 const loadedState = 'loaded';
 const noSubmissionState = 'noSubmission';
 
-export class QuickEvalWidget extends SkeletonMixin(LitElement) {
+export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitElement)) {
 	static get properties() {
 		return {
 			_activities: { type: Array },
@@ -159,7 +160,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 					<h4 class="d2l-heading-4">You're all caught up!</h4>
 					<p class="d2l-body-compact">You have no submissions that need evaluation. Check back later for new submissions.</p>
 				</div>
-				<d2l-button primary >View All Activities</d2l-button>
+				<d2l-button primary >${this.localize('ViewAllActivities')}</d2l-button>
 			</div>`;
 	}
 
@@ -181,7 +182,7 @@ export class QuickEvalWidget extends SkeletonMixin(LitElement) {
 			<d2l-link small
 				class="d2l-quick-eval-widget-view-all-link"
 				@click="${this.handleViewAll}"
-				href="${this.quickEvalHref}">View all activities</d2l-link>`;
+				href="${this.quickEvalHref}">${this.localize('ViewAllActivities')}</d2l-link>`;
 	}
 
 	render() {

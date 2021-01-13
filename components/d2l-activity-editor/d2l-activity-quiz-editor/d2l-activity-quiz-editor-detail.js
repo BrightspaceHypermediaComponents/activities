@@ -60,6 +60,9 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 					position: relative;
 					right: 0.6rem;
 				}
+				#score-and-duedate-container {
+					padding-bottom: 0;
+				}
 			`
 		];
 	}
@@ -75,7 +78,10 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 		const {
 			name,
 			canEditName,
-			canPreviewQuiz
+			canPreviewQuiz,
+			description,
+			canEditDescription,
+			descriptionRichTextEditorConfig
 		} = quiz || {};
 
 		return html`
@@ -103,6 +109,20 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 				</div>
 			</div>
 
+			<div id="quiz-description-container">
+				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
+					${this.localize('description')}
+				</div>
+				<div class="d2l-skeletize">
+					<d2l-activity-text-editor
+						.value="${description}"
+						.richtextEditorConfig="${descriptionRichTextEditorConfig}"
+						@d2l-activity-text-editor-change="${this._saveDescriptionOnChange}"
+						ariaLabel="${this.localize('description')}"
+						?disabled="${!canEditDescription}">
+					</d2l-activity-text-editor>
+				</div>
+			</div>
 
 			<d2l-activity-quiz-divider
 				?skeleton="${this.skeleton}">
@@ -156,6 +176,10 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 		}
 
 		window.open(quiz.previewHref);
+	}
+
+	_saveDescriptionOnChange(e) {
+		store.get(this.href).setDescription(e.detail.content);
 	}
 
 	async _setName(e) {

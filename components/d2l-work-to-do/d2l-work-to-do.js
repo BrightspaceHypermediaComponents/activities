@@ -324,19 +324,19 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				</d2l-button>`
 			: nothing;
 
+		const immersiveNav = () => {
+			return html`
+				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+					<div class="d2l-typography d2l-body-standard" slot="middle">
+						<p>${this.localize('myWorkToDo')}</p>
+					</div>
+				</d2l-navigation-immersive>`;
+		};
+
 		const fullscreenTemplate = () => {
 			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
 				return nothing;
 			}
-
-			const immersiveNav = () => {
-				return html`
-						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
-							<div class="d2l-typography d2l-body-standard" slot="middle">
-								<p>${this.localize('myWorkToDo')}</p>
-							</div>
-						</d2l-navigation-immersive>`
-			};
 
 			return html`
 				${immersiveNav()}
@@ -364,6 +364,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		`;
 
 		const detailedSkeleton = html`
+			${immersiveNav()}
 			<d2l-work-to-do-activity-list-header skeleton fullscreen></d2l-work-to-do-activity-list-header>
 			<d2l-list separators="none">
 				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>

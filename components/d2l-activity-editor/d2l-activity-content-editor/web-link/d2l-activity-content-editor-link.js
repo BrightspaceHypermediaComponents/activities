@@ -12,6 +12,7 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { getInvalidWeblinkKey } from './helpers/url-validation-helper.js'
+import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 
 class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
@@ -27,6 +28,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		return  [
 			super.styles,
 			labelStyles,
+			radioStyles,
 			css`
 				:host {
 					display: block;
@@ -52,14 +54,12 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 
 	render() {
 		let link = '';
+		let isExternalResource = false;
+
 		if (this.entity) {
 			this.skeleton = false;
 			link = this.entity.link;
-
-			// TODO: this is a little awkward, cleanup
-			// if (link === defaultPlaceholderLink) {
-			// 	link = '';
-			// }
+			isExternalResource = this.entity.isExternalResource;
 		}
 
 		return html`
@@ -68,7 +68,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 					id="content-link"
 					value="${link}"
 					@change="${this._saveOnChange('link')}"
-					@input="${this._saveLinkOnInput}"
+					@input="${this._saveLink}"
 					label="${this.localize('content.link')} *"
 					aria-invalid="${this._linkError ? 'true' : ''}"
 					prevent-submit
@@ -77,6 +77,28 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				>
 				</d2l-input-text>
 				${this._renderLinkTooltip()}
+			</div>
+			<div id="content-link-options-container" class="d2l-skeletize">
+				<label class="d2l-input-radio-label">
+					<input
+						id="embed-on-page"
+						type="radio"
+						name="link-display-group"
+						value="embed"
+						?checked="${!isExternalResource}"
+						@change="${this._saveLink}">
+						${this.localize('content.embedOnPage')}
+				</label>
+				<label class="d2l-input-radio-label">
+					<input
+						id="open-new-tab"
+						type="radio"
+						name="link-display-group"
+						value="newTab"
+						?checked="${isExternalResource}"
+						@change="${this._saveLink}">
+						${this.localize('content.openNewTab')}
+				</label>
 			</div>
 		`;
 	}
@@ -103,10 +125,10 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	 	this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 
-	_saveLinkOnInput(e) {
-		const link = e.target.value.trim();
-
-		const invalidWeblinkError = getInvalidWeblinkKey(link, this.entity.isExternalResource);
+	_saveLink(e) {
+		const link = this.shadowRoot.getElementById('content-link').value;
+		const isExternalResource = this.shadowRoot.getElementById('open-new-tab').checked;
+		const invalidWeblinkError = getInvalidWeblinkKey(link, isExternalResource);
 
 		if (invalidWeblinkError) {
 			this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
@@ -117,7 +139,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		this._debounceJobs.link = Debouncer.debounce(
 			this._debounceJobs.link,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-			() => this.onSave(link)
+			() => this.onSave(link, isExternalResource)
 		);
 	}
 }

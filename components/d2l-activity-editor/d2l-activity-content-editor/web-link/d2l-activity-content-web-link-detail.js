@@ -49,7 +49,6 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		super.connectedCallback();
 		this.saveTitle = this.saveTitle.bind(this);
 		this.saveLink = this.saveLink.bind(this);
-		this.saveLinkOption = this.saveLinkOption.bind(this);
 	}
 
 	render() {
@@ -70,11 +69,6 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 				.onSave=${this.saveLink}
 			>
 			</d2l-activity-content-editor-link>
-			<d2l-activity-content-editor-link-options
-				.entity=${webLinkEntity}
-				.onSave=${this.saveLinkOption}
-			>
-			</d2l-activity-content-editor-link-options>
 		`;
 	}
 
@@ -110,39 +104,22 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		await webLinkEntity.save();
 	}
 
-	saveTitle(value) {
+	saveTitle(title) {
 		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
 		if (!webLinkEntity) {
 			return;
 		}
-		webLinkEntity.setTitle(value);
+		webLinkEntity.setTitle(title);
 	}
 
-	saveLink(value) {
+	saveLink(link, isExternal) {
 		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
 		if (!webLinkEntity) {
 			return;
 		}
 
-		webLinkEntity.setLink(value);
-	}
-
-	saveLinkOption(e) {
-		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
-		if (!webLinkEntity) {
-			return;
-		}
-
-		const currentTarget = e.currentTarget;
-		if(!currentTarget) {
-			return;
-		}
-
-		let isExternal = currentTarget.value === 'newTab' ? true : false;
+		webLinkEntity.setLink(link);
 		webLinkEntity.setExternalResource(isExternal);
-
-		// TODO: testing setting an error here
-		this.setError('_linkError', 'content.emptyLinkField', 'link-tooltip');
 	}
 }
 

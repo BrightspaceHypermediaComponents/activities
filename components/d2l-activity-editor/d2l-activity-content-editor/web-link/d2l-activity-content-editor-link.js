@@ -2,18 +2,18 @@ import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentEditorConstants } from '../constants';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
+import { getInvalidWeblinkKey } from './helpers/url-validation-helper.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
-import { getInvalidWeblinkKey } from './helpers/url-validation-helper.js'
-import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 
 class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))))) {
 

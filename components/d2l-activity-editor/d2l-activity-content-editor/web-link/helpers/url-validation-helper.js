@@ -3,7 +3,7 @@ export const getInvalidWeblinkKey = (link, isExternalResource) => {
 		return 'content.emptyLinkField';
 	}
 
-	const expression = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9\-]*\.)+[a-zA-Z0-9][a-zA-Z0-9\-]*(?::\d+)?(?:$|[\/\?#].*$)/;
+	const expression = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9][a-zA-Z0-9-]*(?::\d+)?(?:$|[/?#].*$)/;
 	const urlRegExp = new RegExp(expression);
 
 	if (!urlRegExp.test(link)) {
@@ -16,7 +16,8 @@ export const getInvalidWeblinkKey = (link, isExternalResource) => {
 
 	//there is some more url processing here (see WebLinkView.jsx in smart-curriculum)...
 
-	// TODO: How exactly is this determined?
+	// TODO: Need access to the site valence host to determine if url is an LMS Link
+	// eg: AppContext.getValenceHost().toLowerCase() + '/d2l/'
 	const isLMSLink = false;
 	if (!isExternalResource && isLMSLink) {
 		return 'content.noEmbed';

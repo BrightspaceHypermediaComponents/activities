@@ -6,6 +6,7 @@ import { ContentEditorConstants } from '../constants';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -14,7 +15,7 @@ import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 import { getInvalidWeblinkKey } from './helpers/url-validation-helper.js'
 import { radioStyles } from '@brightspace-ui/core/components/inputs/input-radio-styles.js';
 
-class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
+class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))))) {
 
 	static get properties() {
 		return {
@@ -104,6 +105,11 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		`;
 	}
 
+	validate() {
+		this.clearError('_linkError');
+		this._saveLink();
+	}
+
 	_renderLinkTooltip() {
 		if (!this._linkError) {
 			return html ``;
@@ -123,10 +129,10 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	}
 
 	_saveOnChange(jobName) {
-	 	this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
+		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 
-	_saveLink(e) {
+	_saveLink() {
 		const link = this.shadowRoot.getElementById('content-link').value;
 		const isExternalResource = this.shadowRoot.getElementById('open-new-tab').checked;
 		const invalidWeblinkError = getInvalidWeblinkKey(link, isExternalResource);
@@ -144,5 +150,4 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		);
 	}
 }
-
 customElements.define('d2l-activity-content-editor-link', ContentEditorLink);

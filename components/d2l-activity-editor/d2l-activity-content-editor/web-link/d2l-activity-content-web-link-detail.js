@@ -104,14 +104,6 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		await webLinkEntity.save();
 	}
 
-	saveTitle(title) {
-		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
-		if (!webLinkEntity) {
-			return;
-		}
-		webLinkEntity.setTitle(title);
-	}
-
 	saveLink(link, isExternal) {
 		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
 		if (!webLinkEntity) {
@@ -120,6 +112,14 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 		webLinkEntity.setLink(link);
 		webLinkEntity.setExternalResource(isExternal);
+	}
+
+	saveTitle(title) {
+		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
+		if (!webLinkEntity) {
+			return;
+		}
+		webLinkEntity.setTitle(title);
 	}
 }
 

@@ -1,6 +1,7 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { ContentWebLinkEntity } from 'siren-sdk/src/activities/content/ContentWebLinkEntity.js';
 import { fetchEntity } from '../../../state/fetch-entity.js';
+import { defaultPlaceholderLink } from '../../constants';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -34,7 +35,14 @@ export class ContentWebLink {
 	load(webLinkEntity) {
 		this._contentWebLink = webLinkEntity;
 		this.title = webLinkEntity.title();
-		this.link = webLinkEntity.url();
+
+		const entityUrlValue = webLinkEntity.url();
+		// in order to create a new weblink entity, we need to assign it a
+		// default 'garbage' url, however we want to display an empty url on first load.
+		this.link = entityUrlValue === defaultPlaceholderLink
+			? ''
+			: entityUrlValue;
+
 		this.isExternalResource = webLinkEntity.isExternalResource();
 	}
 

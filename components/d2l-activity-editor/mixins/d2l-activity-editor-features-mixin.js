@@ -1,5 +1,4 @@
 export const Milestones = Object.freeze({
-	M2: 'd2l-milestone-two',
 	M3Competencies: 'd2l-milestone-three-competencies',
 	M3DefaultScoringRubric: 'd2l-milestone-three-default-scoring-rubric',
 	M3Outcomes: 'd2l-milestone-three-outcomes',

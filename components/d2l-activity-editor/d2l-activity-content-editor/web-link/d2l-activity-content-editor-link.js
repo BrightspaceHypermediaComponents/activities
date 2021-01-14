@@ -6,7 +6,7 @@ import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentEditorConstants } from '../constants';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
-import { getInvalidWebLinkKey } from './helpers/url-validation-helper.js';
+import { getWeblinkError } from './helpers/url-validation-helper.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -128,7 +128,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	_saveLink() {
 		const link = this.shadowRoot.getElementById('content-link').value;
 		const isExternalResource = this.shadowRoot.getElementById('open-new-tab').checked;
-		const invalidWeblinkError = getInvalidWebLinkKey(link, isExternalResource);
+		const invalidWeblinkError = getWeblinkError(link, isExternalResource);
 
 		if (invalidWeblinkError) {
 			this.setError('_linkError', invalidWeblinkError, 'link-tooltip');

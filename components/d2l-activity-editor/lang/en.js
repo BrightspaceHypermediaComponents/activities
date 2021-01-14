@@ -126,8 +126,8 @@ export default {
 	"content.embedOnPage": "Embed on the page (iframe)", // Text label for link radio button
 	"content.openNewTab": "Open in a new tab", // Text label for link radio button
 	"content.link": "Link", //Text label for link input field
-	"content.emptyLinkField": "Link is required.",
-	"content.invalidLink": "Please enter a valid URL.",
-	"content.notHttps": "Only links using \"https\" can be embedded.",
-	"content.noEmbed": "That site cannot be embedded."
+	"content.emptyLinkField": "Link is required.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Please enter a valid URL.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Only links using \"https\" can be embedded.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "That site cannot be embedded." //Error message shown on link tooltip when the link cannot be embedded
 };

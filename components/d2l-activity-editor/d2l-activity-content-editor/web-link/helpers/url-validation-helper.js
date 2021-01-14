@@ -1,4 +1,4 @@
-export const getInvalidWebLinkKey = (link, isExternalResource) => {
+export const getWeblinkError = (link, isExternalResource) => {
 	if (link.length === 0) {
 		return 'content.emptyLinkField';
 	}

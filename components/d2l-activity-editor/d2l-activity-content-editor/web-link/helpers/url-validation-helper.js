@@ -1,4 +1,4 @@
-export const getInvalidWeblinkKey = (link, isExternalResource) => {
+export const getInvalidWebLinkKey = (link, isExternalResource) => {
 	if (link.length === 0) {
 		return 'content.emptyLinkField';
 	}
@@ -14,8 +14,7 @@ export const getInvalidWeblinkKey = (link, isExternalResource) => {
 		return 'content.notHttps';
 	}
 
-	//there is some more url processing here (see WebLinkView.jsx in smart-curriculum)...
-
+	// TODO: there is some more url processing here (see WebLinkView.jsx in smart-curriculum)...
 	// TODO: Need access to the site valence host to determine if url is an LMS Link
 	// eg: AppContext.getValenceHost().toLowerCase() + '/d2l/'
 	const isLMSLink = false;

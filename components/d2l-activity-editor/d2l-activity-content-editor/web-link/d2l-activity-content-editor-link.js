@@ -6,7 +6,7 @@ import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentEditorConstants } from '../constants';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
-import { getInvalidWeblinkKey } from './helpers/url-validation-helper.js';
+import { getInvalidWebLinkKey } from './helpers/url-validation-helper.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -39,9 +39,6 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				}
 				:host > div {
 					padding-bottom: 20px;
-				}
-				.d2l-activity-label-container {
-					margin-bottom: 7px;
 				}
 			`
 		];
@@ -128,14 +125,10 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		`;
 	}
 
-	_saveOnChange(jobName) {
-		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
-	}
-
 	_saveLink() {
 		const link = this.shadowRoot.getElementById('content-link').value;
 		const isExternalResource = this.shadowRoot.getElementById('open-new-tab').checked;
-		const invalidWeblinkError = getInvalidWeblinkKey(link, isExternalResource);
+		const invalidWeblinkError = getInvalidWebLinkKey(link, isExternalResource);
 
 		if (invalidWeblinkError) {
 			this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
@@ -148,6 +141,10 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this.onSave(link, isExternalResource)
 		);
+	}
+
+	_saveOnChange(jobName) {
+		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 }
 customElements.define('d2l-activity-content-editor-link', ContentEditorLink);

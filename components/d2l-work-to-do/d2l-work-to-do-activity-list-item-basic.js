@@ -199,11 +199,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			return '';
 		}
 
-		if (this._activity && this._activity.hasLinkByType('text/html')) {
-			return this._activity.getLinkByType('text/html').href;
-		}
-		else if (this.evaluateAllHref) {
+		if (this.evaluateAllHref) {
 			return this.evaluateAllHref;
+		}
+		else if (this._activity && this._activity.hasLinkByType('text/html')) {
+			return this._activity.getLinkByType('text/html').href;
 		}
 		else {
 			return '';

@@ -31,10 +31,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			 */
 			trustedSitesEndpoint: { type: String },
 			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-competencies
-			*/
-			milestoneThreeCompetenciesEnabled: { type: Boolean },
-			/**
 			* based on the LaunchDarkly flag face-assignments-milestone-3-default-scoring-rubric
 			*/
 			milestoneThreeDefaultScoringRubricEnabled: { type: Boolean },
@@ -147,12 +143,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 	_onRequestProvider(e) {
 		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
 			e.detail.provider = this.htmlEditorEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-competencies') {
-			e.detail.provider = this.milestoneThreeCompetenciesEnabled;
 			e.stopPropagation();
 			return;
 		}

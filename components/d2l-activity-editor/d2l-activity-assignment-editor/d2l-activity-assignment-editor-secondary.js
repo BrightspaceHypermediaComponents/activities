@@ -47,8 +47,6 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContain
 	}
 
 	render() {
-		const showEvaluationAccordian =  this._isMilestoneEnabled(Milestones.M3Competencies);
-
 		const availabilityAccordian = html`
 			<d2l-activity-assignment-availability-editor
 				.href="${this.activityUsageHref}"
@@ -65,14 +63,14 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContain
 			</d2l-activity-assignment-editor-submission-and-completion-editor>
 		` ;
 
-		const evaluationAccordian = showEvaluationAccordian ? html`
+		const evaluationAccordian =  html`
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
 				.token="${this.token}"
 				.activityUsageHref="${this.activityUsageHref}"
 				?skeleton="${this.skeleton}">
 			</d2l-activity-assignment-evaluation-editor>
-		` : null;
+		`;
 
 		return html`
 			${availabilityAccordian}

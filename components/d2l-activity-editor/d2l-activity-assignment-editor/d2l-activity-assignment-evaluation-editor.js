@@ -27,7 +27,6 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 			href: { type: String },
 			token: { type: Object },
 			activityUsageHref: { type: String },
-			_m3CompetenciesEnabled: { type: Boolean }
 		};
 	}
 
@@ -47,8 +46,6 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 
 	connectedCallback() {
 		super.connectedCallback();
-
-		this._m3CompetenciesEnabled = this._isMilestoneEnabled(Milestones.M3Competencies);
 	}
 
 	render() {
@@ -61,13 +58,13 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 					${this.localize('evaluationAndFeedback')}
 				</span>
 				${html`<li slot="summary-items">${this._renderRubricsSummary()}</li>`}
-				${this._m3CompetenciesEnabled && activity.canEditCompetencies ? html`<li slot="summary-items">${this._renderCompetenciesSummary()}</li>` : null}
+				${activity.canEditCompetencies ? html`<li slot="summary-items">${this._renderCompetenciesSummary()}</li>` : null}
 				${html`<li slot="summary-items">${this._renderAnnotationsSummary()}</li>`}
 				${html`<li slot="summary-items">${this._renderAnonymousMarkingSummary()}</li>`}
 				${assignment.canEditTurnitin ? html`<li slot="summary-items">${this._renderTurnitinSummary()}</li>` : null}
 				<div class="d2l-editors" slot="components">
 					${ html`${this._renderRubricsCollectionEditor()}`}
-					${this._m3CompetenciesEnabled && activity.canEditCompetencies ? this._renderCompetenciesOpener() : null}
+					${activity.canEditCompetencies ? this._renderCompetenciesOpener() : null}
 					${html`${this._renderAnnotationsEditor()}`}
 					${html`${this._renderAnonymousMarkingEditor()}`}
 					${assignment.canEditTurnitin ? html`${this._renderTurnitinEditor()}` : null}

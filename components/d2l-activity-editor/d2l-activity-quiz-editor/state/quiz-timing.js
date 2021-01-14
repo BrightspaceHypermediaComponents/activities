@@ -37,7 +37,6 @@ export class QuizTiming {
 		this.enforcedGraceLimit = entity.enforcedGraceLimit();
 		this.extendedDeadlineOptions = entity.extendedDeadlineOptions();
 		this.showClock = entity.showClock();
-		this.showClockTitle = entity.showClockTitle();
 		this.recommendedTimeLimit = entity.recommendedTimeLimit();
 	}
 
@@ -66,7 +65,6 @@ decorate(QuizTiming, {
 	enforcedGraceLimit: observable,
 	extendedDeadlineOptions: observable,
 	showClock: observable,
-	showClockTitle: observable,
 	recommendedTimeLimit: observable,
 	// actions
 	load: action,

@@ -109,7 +109,6 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 
 		const {
 			showClock,
-			showClockTitle,
 			recommendedTimeLimit
 		} = entity || {};
 		// TODO: remove constant min/max
@@ -129,7 +128,7 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 					</div>
 					<div>
 						<label class="d2l-italic-label">${this.localize('showClockLabel')}</label>
-						<d2l-input-checkbox ?checked=${showClock}>${showClockTitle}</d2l-input-checkbox>
+						<d2l-input-checkbox ?checked=${showClock}>${this.localize('showClockTitle')}</d2l-input-checkbox>
 					</div>
 				</div>
 			</div>

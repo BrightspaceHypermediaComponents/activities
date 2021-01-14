@@ -59,4 +59,5 @@ export default {
 	"exceededTimeLimitBehaviourPrefix": "After the grace period, flag the quiz attempt as exceeded time limit and,", // label for submission label type options
 	"showClockLabel": "Will be displayed before the quiz starts", // Label for show clock checkbox
 	"description": "Description", // Description label for the Description text input box
+	"showClockTitle": "Show clock" // Title for show clock
 };

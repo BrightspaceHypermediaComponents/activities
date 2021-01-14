@@ -53,6 +53,9 @@ export class Quiz {
 		this.canPreviewQuiz = entity.canPreviewQuiz();
 		this.isAutoSetGradedEnabled = entity.isAutoSetGradedEnabled();
 		this.canEditAutoSetGraded = entity.canEditAutoSetGraded();
+		this.description = entity.canEditDescription() ? entity.descriptionEditorHtml() : entity.descriptionHtml();
+		this.canEditDescription = entity.canEditDescription();
+		this.descriptionRichTextEditorConfig = entity.descriptionRichTextEditorConfig();
 	}
 
 	async save() {
@@ -74,6 +77,10 @@ export class Quiz {
 
 	setAutoSetGraded(isEnabled) {
 		this.isAutoSetGradedEnabled = isEnabled;
+	}
+
+	setDescription(value) {
+		this.description = value;
 	}
 
 	setDisablePagerAndAlertsTool(isEnabled) {
@@ -121,7 +128,8 @@ export class Quiz {
 			disablePagerAndAlerts: this.isDisablePagerAndAlertsEnabled,
 			preventMovingBackwards: this.isPreventMovingBackwardsEnabled,
 			notificationEmail: this.notificationEmail,
-			autoSetGraded: this.isAutoSetGradedEnabled
+			autoSetGraded: this.isAutoSetGradedEnabled,
+			description: this.description
 		};
 
 		return data;
@@ -150,6 +158,9 @@ decorate(Quiz, {
 	previewHref: observable,
 	canPreviewQuiz: observable,
 	isAutoSetGradedEnabled: observable,
+	description: observable,
+	canEditDescription: observable,
+	descriptionRichTextEditorConfig: observable,
 	// actions
 	load: action,
 	setName: action,
@@ -161,6 +172,7 @@ decorate(Quiz, {
 	setPreventMovingBackwards: action,
 	setNotificationEmail: action,
 	setAutoSetGraded: action,
+	setDescription: action,
 	save: action,
 	delete: action
 });

@@ -62,6 +62,10 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 			alignmentsHref
 		} = activity;
 
+		if (!this._hasAlignments && !canUpdateAlignments) {
+			this.hidden = true;
+		}
+
 		return html`
 			${this._renderTags()}
 			${canUpdateAlignments && !this._hasAlignments ? html`${this._renderDialogOpener()}` : null}

@@ -2,6 +2,7 @@ import '@brightspace-ui/core/components/colors/colors';
 import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/list/list-item-content';
 import '../d2l-activity-date/d2l-activity-date';
+import '../d2l-quick-eval-widget/d2l-quick-eval-widget-submission-icon';
 
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
@@ -61,11 +62,10 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					text-overflow: ellipsis;
 					white-space: nowrap;
 				}
-				.d2l-activity-icon-container.d2l-hovering,
-				.d2l-activity-icon-container.d2l-focusing,
-				.d2l-activity-name-container.d2l-hovering,
-				.d2l-activity-name-container.d2l-focusing {
-					--d2l-list-item-content-text-decoration: underline;
+				.d2l-hovering .d2l-activity-icon-container.d2l-has-action,
+				.d2l-focusing .d2l-activity-icon-container.d2l-has-action,
+				.d2l-hovering .d2l-activity-name-container.d2l-has-action,
+				.d2l-focusing .d2l-activity-name-container.d2l-has-action {
 					color: var(--d2l-color-celestine);
 				}
 				.d2l-icon-bullet {
@@ -83,7 +83,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					padding: 0.1rem 0;
 				}
 				d2l-list-item-generic-layout {
-					background: transparent;
+					background: transparent !important; /* !important is temporary until the actionHref attribute reflection is fixed */
 				}
 				#content {
 					width: 100%;
@@ -137,6 +137,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			'd2l-focusing': this._focusingLink,
 			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
+			'd2l-has-action': this.actionHref,
 		};
 
 		const nameClasses = {
@@ -144,7 +145,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			'd2l-focusing': this._focusingLink,
 			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
-			'd2l-skeletize-60': true
+			'd2l-skeletize-60': true,
+			'd2l-has-action': this.actionHref,
 		};
 
 		const secondaryClasses = {
@@ -160,18 +162,24 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			: nothing;
 
 		return this._renderListItem({
-			illustration: html`
-				<d2l-icon
-					class=${classMap(iconClasses)}
-					?skeleton=${this.skeleton}
-					icon=${this._icon}>
-				</d2l-icon>`,
+			illustration: this.submissionCount ? html`
+					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
+						class="class=${classMap(iconClasses)}"
+						icon=${this._icon}
+						submission-count=${this.submissionCount > 99 ? '99+' : this.submissionCount}>
+					</d2l-quick-eval-widget-submission-icon>` :
+				html`
+					<d2l-icon
+						class=${classMap(iconClasses)}
+						?skeleton=${this.skeleton}
+						icon=${this._icon}>
+					</d2l-icon>`,
 			content: html`
 				<d2l-list-item-content id="content">
 					<div class=${classMap(nameClasses)}>
 						${this._name}
 					</div>
-					<div class=${classMap(secondaryClasses)} slot="secondary">
+					<div class=${classMap(secondaryClasses)} slot="supporting-info">
 						${dateTemplate}
 						${separatorTemplate}
 						${this._orgName || this._orgCode}

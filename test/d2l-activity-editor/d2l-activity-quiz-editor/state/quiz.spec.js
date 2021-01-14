@@ -41,7 +41,10 @@ describe('Quiz', function() {
 				previewHref: () => 'http://test.desire2learn.d2l/d2l/lms/quizzing/user/quiz_summary.d2l?ou=6606&qi=46&isprv=1&fromQB=1&bp=1',
 				canEditPassword: () => true,
 				password: () => 'hello',
-				canPreviewQuiz: () => true
+				canPreviewQuiz: () => true,
+				descriptionEditorHtml: () => 'This is a description',
+				canEditDescription: () => true,
+				descriptionRichTextEditorConfig: () => {}
 			};
 		});
 
@@ -72,6 +75,7 @@ describe('Quiz', function() {
 		expect(fetchEntity.mock.calls.length).to.equal(1);
 		expect(quiz.previewHref).to.equal('http://test.desire2learn.d2l/d2l/lms/quizzing/user/quiz_summary.d2l?ou=6606&qi=46&isprv=1&fromQB=1&bp=1');
 		expect(quiz.canPreviewQuiz).to.equal(true);
+		expect(quiz.description).to.equal('This is a description');
 	});
 
 	it('setName', async() => {
@@ -149,5 +153,14 @@ describe('Quiz', function() {
 		quiz.setAutoSetGraded(true);
 
 		expect(quiz.isAutoSetGradedEnabled).to.equal(true);
+	});
+
+	it('setDescription', async() => {
+		const quiz = new Quiz('http://quiz/1', 'token');
+		await quiz.fetch();
+
+		quiz.setDescription('New description');
+
+		expect(quiz.description).to.equal('New description');
 	});
 });

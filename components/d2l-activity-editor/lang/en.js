@@ -118,9 +118,16 @@ export default {
 	"attachments.addQuicklinkMenu": "Existing Activity", // Attach menu item text
 
 	"content.name": "Name", // Text label for name input field
-	"content.emptyNameField": "Name is required", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Name is required.", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
 	"content.availabilityHeader": "Availability Dates", // availability header
 	"content.saveError": "Your content item wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Add Due Date" // Text label for name input field
+	"content.addDueDate": "Add Due Date", // Text label for name input field
+	"content.embedOnPage": "Embed on the page (iframe)", // Text label for link radio button
+	"content.openNewTab": "Open in a new tab", // Text label for link radio button
+	"content.link": "Link", //Text label for link input field
+	"content.emptyLinkField": "Link is required.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Please enter a valid URL.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Only links using \"https\" can be embedded.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "That site cannot be embedded." //Error message shown on link tooltip when the link cannot be embedded
 };

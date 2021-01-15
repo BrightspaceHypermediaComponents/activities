@@ -521,7 +521,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * @param {Number} [forwardLimit] - [Default: Config.UpcomingWeekLimit * 7] Number of days into future to look for activities
 	 */
 	async _loadUpcoming(entity, forwardLimit, pageSize) {
-		if (!pageSize) pageSize = Constants.MaxWidgetDisplay;
+		if (!pageSize) pageSize = Constants.PageSize;
 
 		if (!entity || !entity.hasActionByName(Actions.activities.selectCustomDateRange)) {
 			return;

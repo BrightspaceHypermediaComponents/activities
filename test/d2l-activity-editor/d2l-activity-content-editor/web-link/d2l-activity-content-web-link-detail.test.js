@@ -1,10 +1,10 @@
-import '../../../components/d2l-activity-editor/d2l-activity-content-editor/web-link/d2l-activity-content-web-link-detail.js';
+import '../../../../components/d2l-activity-editor/d2l-activity-content-editor/web-link/d2l-activity-content-web-link-detail.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import { ContentWebLink } from '../../../components/d2l-activity-editor/d2l-activity-content-editor/web-link/state/content-web-link.js';
+import { ContentWebLink } from '../../../../components/d2l-activity-editor/d2l-activity-content-editor/web-link/state/content-web-link.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
-import { shared as webLinkStore } from '../../../components/d2l-activity-editor/d2l-activity-content-editor/web-link/state/content-web-link-store.js';
+import { shared as webLinkStore } from '../../../../components/d2l-activity-editor/d2l-activity-content-editor/web-link/state/content-web-link-store.js';
 
-describe('d2l-activity-content-module-detail', function() {
+describe('d2l-activity-content-web-link-detail', function() {
 
 	let href, token, contentItem;
 

@@ -39,30 +39,7 @@ export class AssociationCollection {
 		}
 
 	}
-	addAssociations_DoNotUse(associationsToAdd) {
 
-		for (const ata of associationsToAdd) {
-			const entity = new Association(ata, this.token);
-
-			const rubricHref = entity.getRubricLink();
-
-			if (this.associationsMap.has(rubricHref)) {
-				const association = this.associationsMap.get(rubricHref);
-
-				if (association.isDeleting) {
-					association.isDeleting = false;
-				} else {
-					if (association.isAssociated) {
-						continue;
-					}
-					association.isAssociating = true;
-				}
-
-			}
-
-		}
-
-	}
 	async addDefaultScoringRubricOption(rubricHref) {
 		if (rubricHref) {
 			const rubricEntity = await fetchEntity(rubricHref, this.token);
@@ -256,5 +233,4 @@ decorate(AssociationCollection, {
 	addDefaultScoringRubricOption: action,
 	removeDefaultScoringRubricOption: action,
 	deleteAssociation_DoNotUse: action,
-	addAssociations_DoNotUse: action
 });

@@ -1,7 +1,3 @@
-export const Milestones = Object.freeze({
-	M3DefaultScoringRubric: 'd2l-milestone-three-default-scoring-rubric',
-});
-
 export const ActivityEditorFeaturesMixin = superclass => class extends superclass {
 
 	_isMilestoneEnabled(milestoneToCheck) {

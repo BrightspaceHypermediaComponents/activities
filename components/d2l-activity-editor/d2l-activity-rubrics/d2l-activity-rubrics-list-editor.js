@@ -1,8 +1,8 @@
 import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
@@ -76,26 +76,14 @@ class ActivityRubricsListEditor extends ActivityEditorFeaturesMixin(ActivityEdit
 		await entity.save();
 	}
 	_deleteAssociation(e) {
-		const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+		const entity = store.get(this.href);
+		const assignment = assignmentStore.get(this.assignmentHref);
 
-		if (m3FeatureFlagEnabled) {
-			const entity = store.get(this.href);
-			const assignment = assignmentStore.get(this.assignmentHref);
-
-			if (!entity || !assignment) {
-				return;
-			}
-			entity.deleteAssociation(e.target.dataset.id, assignment);
-			announce(this.localize('rubrics.txtRubricRemoved'));
-		} else {
-			// pre-M3: this does not track default scoring rubric
-			const entity = store.get(this.href);
-			if (!entity) {
-				return;
-			}
-			entity.deleteAssociation_DoNotUse(e.target.dataset.id);
-			announce(this.localize('rubrics.txtRubricRemoved'));
+		if (!entity || !assignment) {
+			return;
 		}
+		entity.deleteAssociation(e.target.dataset.id, assignment);
+		announce(this.localize('rubrics.txtRubricRemoved'));
 	}
 
 	_renderAssociation(association) {

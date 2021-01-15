@@ -76,26 +76,14 @@ class ActivityRubricsListEditor extends ActivityEditorFeaturesMixin(ActivityEdit
 		await entity.save();
 	}
 	_deleteAssociation(e) {
-		const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+		const entity = store.get(this.href);
+		const assignment = assignmentStore.get(this.assignmentHref);
 
-		if (m3FeatureFlagEnabled) {
-			const entity = store.get(this.href);
-			const assignment = assignmentStore.get(this.assignmentHref);
-
-			if (!entity || !assignment) {
-				return;
-			}
-			entity.deleteAssociation(e.target.dataset.id, assignment);
-			announce(this.localize('rubrics.txtRubricRemoved'));
-		} else {
-			// pre-M3: this does not track default scoring rubric
-			const entity = store.get(this.href);
-			if (!entity) {
-				return;
-			}
-			entity.deleteAssociation_DoNotUse(e.target.dataset.id);
-			announce(this.localize('rubrics.txtRubricRemoved'));
+		if (!entity || !assignment) {
+			return;
 		}
+		entity.deleteAssociation(e.target.dataset.id, assignment);
+		announce(this.localize('rubrics.txtRubricRemoved'));
 	}
 
 	_renderAssociation(association) {

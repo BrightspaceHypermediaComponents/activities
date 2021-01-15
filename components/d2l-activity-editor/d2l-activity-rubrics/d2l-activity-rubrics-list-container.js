@@ -140,13 +140,8 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 			return;
 		}
 
-		const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
 
-		if (m3FeatureFlagEnabled) {
-			entity.addAssociations([this._newlyCreatedPotentialAssociation]);
-		} else {
-			entity.addAssociations_DoNotUse([this._newlyCreatedPotentialAssociation]);
-		}
 		this._closeEditNewAssociationOverlay();
 		announce(this.localize('rubrics.txtRubricAdded'));
 	}
@@ -156,13 +151,8 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 	_closeAttachRubricDialog(e) {
 		const entity = associationStore.get(this.href);
 		if (e && e.detail && e.detail.associations) {
-			const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+			entity.addAssociations(e.detail.associations);
 
-			if (m3FeatureFlagEnabled) {
-				entity.addAssociations(e.detail.associations);
-			} else {
-				entity.addAssociations_DoNotUse(e.detail.associations);
-			}
 			announce(this.localize('rubrics.txtRubricAdded'));
 		}
 		this._toggleDialog(false);
@@ -239,9 +229,8 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 	_renderDefaultScoringRubric(entity) {
 
 		const assignment = assignmentStore.get(this.assignmentHref);
-		const shouldRender = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
 
-		if (!entity || !assignment || !shouldRender) {
+		if (!entity || !assignment) {
 			return html``;
 		}
 

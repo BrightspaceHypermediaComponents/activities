@@ -35,10 +35,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			*/
 			milestoneThreeDefaultScoringRubricEnabled: { type: Boolean },
 			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-4-email-submission
-			*/
-			milestoneFourEmailSubmissionEnabled: { type: Boolean },
-			/**
 			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
 			*/
 			outcomesTerm: { type: String },
@@ -137,12 +133,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 
 		if (e.detail.key === 'd2l-milestone-three-default-scoring-rubric') {
 			e.detail.provider = this.milestoneThreeDefaultScoringRubricEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-four-email-submission') {
-			e.detail.provider = this.milestoneFourEmailSubmissionEnabled;
 			e.stopPropagation();
 			return;
 		}

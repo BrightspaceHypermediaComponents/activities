@@ -3,10 +3,10 @@ import './d2l-activity-assignment-submission-email-notification-summary.js';
 import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-type-summary.js';
 import '../d2l-activity-notification-email-editor';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
+import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -23,7 +23,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_m4EmailNotificationEnabled: { type: Boolean }
 		};
 	}
 
@@ -69,7 +68,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 
 	connectedCallback() {
 		super.connectedCallback();
-		this._m4EmailNotificationEnabled = this._isMilestoneEnabled(Milestones.M4EmailSubmission);
 	}
 
 	render() {
@@ -240,7 +238,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 	}
 
 	_renderAssignmentSubmissionNotificationEmail(assignment) {
-		if (!this._m4EmailNotificationEnabled || !assignment || !assignment.showNotificationEmail) {
+		if (!assignment || !assignment.showNotificationEmail) {
 			return html``;
 		}
 
@@ -361,7 +359,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		`;
 	}
 	_renderSubmissionEmailNotificationSummary(assignment) {
-		if (!this._m4EmailNotificationEnabled || !assignment || !assignment.showNotificationEmail) {
+		if (!assignment || !assignment.showNotificationEmail) {
 			return html``;
 		}
 		return html`

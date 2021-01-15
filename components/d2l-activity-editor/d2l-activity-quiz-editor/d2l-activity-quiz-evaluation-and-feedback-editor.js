@@ -6,7 +6,6 @@ import '@brightspace-ui/core/components/dialog/dialog.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorDialogMixin } from '../mixins/d2l-activity-editor-dialog-mixin';
-import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -14,7 +13,7 @@ import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(ActivityEditorDialogMixin(MobxLitElement)))))) {
+class ActivityQuizEvaluationAndFeedbackEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorMixin(ActivityEditorDialogMixin(MobxLitElement))))) {
 
 	static get properties() {
 

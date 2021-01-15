@@ -6,7 +6,6 @@ import '../d2l-activity-notification-email-editor';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
-import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -16,7 +15,7 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))) {
 
 	static get properties() {
 
@@ -64,10 +63,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 	constructor() {
 		super(store);
 		this.saveOrder = 2000;
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
 	}
 
 	render() {

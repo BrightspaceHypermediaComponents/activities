@@ -22,7 +22,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_m3ReleaseConditionsEnabled: { type: Boolean },
 			_m3SpecialAccessEnabled: { type: Boolean }
 		};
 	}
@@ -52,7 +51,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 	connectedCallback() {
 		super.connectedCallback();
 
-		this._m3ReleaseConditionsEnabled = this._isMilestoneEnabled(Milestones.M3ReleaseConditions);
 		this._m3SpecialAccessEnabled = this._isMilestoneEnabled(Milestones.M3SpecialAccess);
 	}
 
@@ -108,10 +106,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 	}
 
 	_renderReleaseConditionEditor() {
-		if (!this._m3ReleaseConditionsEnabled) {
-			return html``;
-		}
-
 		return html`
 			<div class="d2l-editor">
 				<h3 class="d2l-heading-4">
@@ -126,10 +120,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 		`;
 	}
 	_renderReleaseConditionSummary() {
-		if (!this._m3ReleaseConditionsEnabled) {
-			return html``;
-		}
-
 		return html`
 			<d2l-activity-usage-conditions-summary
 				href="${this.href}"

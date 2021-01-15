@@ -32,7 +32,7 @@ describe('d2l-activity-attachments-picker', function() {
 			await expect(el).to.be.accessible();
 		});
 
-		it('renders buttons', async() => {
+		it('renders buttons', () => {
 			expect(el.shadowRoot.querySelector('d2l-activity-attachments-picker-presentational').shadowRoot.querySelectorAll('d2l-button-icon').length).to.equal(8);
 			expect(el.shadowRoot.querySelector('d2l-activity-attachments-picker-presentational').shadowRoot.querySelectorAll('d2l-button-subtle').length).to.equal(2);
 		});
@@ -48,7 +48,7 @@ describe('d2l-activity-attachments-picker', function() {
 			await expect(el).to.be.accessible();
 		});
 
-		it('hides file button', async() => {
+		it('hides file button', () => {
 			expect(el.shadowRoot.querySelector('d2l-activity-attachments-picker-presentational').shadowRoot.querySelector('d2l-button-icon#add-file-button')).to.have.attr('hidden');
 		});
 	});

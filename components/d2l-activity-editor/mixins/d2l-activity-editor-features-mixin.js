@@ -1,6 +1,5 @@
 export const Milestones = Object.freeze({
 	M3DefaultScoringRubric: 'd2l-milestone-three-default-scoring-rubric',
-	M3SpecialAccess: 'd2l-milestone-three-special-access',
 	M4EmailSubmission: 'd2l-milestone-four-email-submission',
 });
 

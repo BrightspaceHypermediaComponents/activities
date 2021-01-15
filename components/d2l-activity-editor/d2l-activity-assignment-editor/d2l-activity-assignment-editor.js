@@ -35,10 +35,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			*/
 			milestoneThreeDefaultScoringRubricEnabled: { type: Boolean },
 			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-special-access
-			*/
-			milestoneThreeSpecialAccessEnabled: { type: Boolean },
-			/**
 			* based on the LaunchDarkly flag face-assignments-milestone-4-email-submission
 			*/
 			milestoneFourEmailSubmissionEnabled: { type: Boolean },
@@ -141,12 +137,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 
 		if (e.detail.key === 'd2l-milestone-three-default-scoring-rubric') {
 			e.detail.provider = this.milestoneThreeDefaultScoringRubricEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-special-access') {
-			e.detail.provider = this.milestoneThreeSpecialAccessEnabled;
 			e.stopPropagation();
 			return;
 		}

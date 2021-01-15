@@ -4,7 +4,6 @@ import 'd2l-activity-alignments/d2l-select-outcomes-hierarchical.js';
 import { ActivityEditorFeaturesMixin, Milestones } from './mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
-import { AsyncStateEvent } from '@brightspace-ui/core/helpers/asyncStateEvent';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -48,12 +47,12 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 		this._featureEnabled = this._isMilestoneEnabled(Milestones.M3Outcomes);
 		this._browseOutcomesText = this._dispatchRequestProvider('d2l-provider-browse-outcomes-text');
 		this._outcomesTerm = this._dispatchRequestProvider('d2l-provider-outcomes-term');
-		this._loadingAlignments = this._dispatchLoadingAlignments();
 	}
 
 	render() {
 		const activity = store.get(this.href);
 		if (!activity || !this._featureEnabled) {
+			this.hidden = true;
 			return html``;
 		}
 
@@ -61,6 +60,12 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 			canUpdateAlignments,
 			alignmentsHref
 		} = activity;
+
+		if (!canUpdateAlignments && !this._hasAlignments || this._hasAlignments === undefined) {
+			this.hidden = true;
+		} else {
+			this.hidden = false;
+		}
 
 		return html`
 			${this._renderTags()}
@@ -81,26 +86,11 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 		`;
 	}
 	_alignmentTagsEmptyChanged(e) {
-		this._loadingAlignments.resolve();
 		this._hasAlignments = !!(e.detail.entities && e.detail.entities.length);
 		this.requestUpdate();
 	}
 	_closeDialog() {
 		this._opened = false;
-	}
-
-	_dispatchLoadingAlignments() {
-		let res;
-
-		const promise = new Promise(resolve => res = resolve);
-		promise.resolve = res;
-
-		const event = new AsyncStateEvent(promise);
-		this.dispatchEvent(event);
-
-		return promise;
-
-		// dispatches an async event which can be resolved when alignments have finished loading
 	}
 
 	_dispatchRequestProvider(key) {

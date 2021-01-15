@@ -47,4 +47,5 @@ export default {
 	"disableRightClickHelpDialogParagraph1": "This feature prohibits learners from printing quiz questions by right-clicking on a question while an attempt is in progress. But learners will still be able to screen capture the quiz through other technologies outside of the browser.", // content for paragraph 1 of disable right click help dialog
 	"disableRightClickHelpDialogParagraph2": "Certain accessibility workflows will be blocked because the learner cannot copy and paste the question text.", // content for paragraph 2 of disable right click help dialog
 	"disableRightClickHelpDialogConfirmationText": "OK", // copy that appears on the disable right click help dialog confirmation button
+	"description": "Description", // Description label for the Description text input box
 };

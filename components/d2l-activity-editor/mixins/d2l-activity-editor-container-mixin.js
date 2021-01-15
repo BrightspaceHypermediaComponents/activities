@@ -129,6 +129,7 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		this.dispatchEvent(this._saveCompleteEvent(saveInPlace));
 		if (saveInPlace) {
 			this.isSaving = false;
+			this.isNew = false;
 		}
 
 		this.logSaveEvent(this.href, this.type, this.telemetryId);

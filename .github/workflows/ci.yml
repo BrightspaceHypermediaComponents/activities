@@ -11,13 +11,10 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Lint
-        run: npm run lint
+        run: |
+          export NODE_OPTIONS=--max_old_space_size=8192
+          npm run lint
       - name: Unit Tests (Jest)
         run: npm run test:js
       - name: Unit Tests (Karma)
         run: npm run test:karma
-      - name: Unit Tests (SauceLabs)
-        run: npm run test:polymer:sauce
-        env:
-          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY_DESIRE2LEARN }}
-          SAUCE_USERNAME: Desire2Learn

@@ -2,7 +2,6 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import 'd2l-activity-alignments/d2l-select-outcomes-hierarchical.js';
 import { css, html } from 'lit-element/lit-element';
-import { ActivityEditorFeaturesMixin } from './mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { AsyncStateEvent } from '@brightspace-ui/core/helpers/asyncStateEvent';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -10,7 +9,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(MobxLitElement))) {
+class ActivityOutcomes extends ActivityEditorMixin(RtlMixin(MobxLitElement)) {
 
 	static get properties() {
 		return {

@@ -1,8 +1,8 @@
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import 'd2l-activity-alignments/d2l-select-outcomes-hierarchical.js';
-import { ActivityEditorFeaturesMixin, Milestones } from './mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element';
+import { ActivityEditorFeaturesMixin } from './mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { AsyncStateEvent } from '@brightspace-ui/core/helpers/asyncStateEvent';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -18,7 +18,6 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 			deferredSave: { type: Boolean, attribute: 'deferred-save' },
 			hideIndirectAlignments: { type: Boolean, attribute: 'hide-indirect-alignments' },
 			alignButtonText: { type: String, attribute: 'align-button-text' },
-			_featureEnabled: { type: Boolean },
 			_opened: { type: Boolean },
 			_outcomesTerm: { type: String },
 			_browseOutcomesText: { type: String }
@@ -45,7 +44,6 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 	connectedCallback() {
 		super.connectedCallback();
 
-		this._featureEnabled = this._isMilestoneEnabled(Milestones.M3Outcomes);
 		this._browseOutcomesText = this._dispatchRequestProvider('d2l-provider-browse-outcomes-text');
 		this._outcomesTerm = this._dispatchRequestProvider('d2l-provider-outcomes-term');
 		this._loadingAlignments = this._dispatchLoadingAlignments();
@@ -53,7 +51,7 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 
 	render() {
 		const activity = store.get(this.href);
-		if (!activity || !this._featureEnabled) {
+		if (!activity) {
 			return html``;
 		}
 

@@ -16,8 +16,3 @@ jobs:
         run: npm run test:js
       - name: Unit Tests (Karma)
         run: npm run test:karma
-      - name: Unit Tests (SauceLabs)
-        run: npm run test:polymer:sauce
-        env:
-          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY_DESIRE2LEARN }}
-          SAUCE_USERNAME: Desire2Learn

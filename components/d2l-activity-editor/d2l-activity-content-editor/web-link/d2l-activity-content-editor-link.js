@@ -136,10 +136,11 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			() => {
 				if (invalidWeblinkError) {
 					this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
-					return;
 				}
-				this.clearError('_linkError');
-				this.onSave(link, isExternalResource);
+				else {
+					this.clearError('_linkError');
+					this.onSave(link, isExternalResource);
+				}
 			})
 	}
 

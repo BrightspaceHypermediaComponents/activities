@@ -107,10 +107,11 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 			() => {
 				if (isTitleEmpty) {
 					this.setError('_titleError', 'content.emptyNameField', 'title-tooltip');
-					return
 				}
-				this.clearError('_titleError');
-				this.onSave(title);
+				else {
+					this.clearError('_titleError');
+					this.onSave(title);
+				}
 			}
 		);
 	}

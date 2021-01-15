@@ -130,17 +130,17 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		const isExternalResource = this.shadowRoot.getElementById('open-new-tab').checked;
 		const invalidWeblinkError = getWeblinkError(link, isExternalResource);
 
-		if (invalidWeblinkError) {
-			this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
-			return;
-		}
-
-		this.clearError('_linkError');
 		this._debounceJobs.link = Debouncer.debounce(
 			this._debounceJobs.link,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-			() => this.onSave(link, isExternalResource)
-		);
+			() => {
+				if (invalidWeblinkError) {
+					this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
+					return;
+				}
+				this.clearError('_linkError');
+				this.onSave(link, isExternalResource);
+			})
 	}
 
 	_saveOnChange(jobName) {

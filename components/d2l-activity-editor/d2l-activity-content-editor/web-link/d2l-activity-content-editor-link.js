@@ -141,7 +141,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 					this.clearError('_linkError');
 					this.onSave(link, isExternalResource);
 				}
-			})
+			});
 	}
 
 	_saveOnChange(jobName) {

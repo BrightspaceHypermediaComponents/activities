@@ -2,7 +2,6 @@ import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
 import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import { css, html } from 'lit-element/lit-element.js';
-import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
@@ -11,7 +10,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import store from './state/association-collection-store';
 
-class ActivityRubricsListEditor extends ActivityEditorFeaturesMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin((MobxLitElement))))) {
+class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin((MobxLitElement)))) {
 
 	static get properties() {
 		return {

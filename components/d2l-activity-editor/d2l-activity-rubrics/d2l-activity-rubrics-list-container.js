@@ -12,7 +12,6 @@ import '@brightspace-ui/core/components/button/floating-buttons.js';
 import '@brightspace-ui/core/components/button/button.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
@@ -23,7 +22,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
-class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement)))) {
+class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {

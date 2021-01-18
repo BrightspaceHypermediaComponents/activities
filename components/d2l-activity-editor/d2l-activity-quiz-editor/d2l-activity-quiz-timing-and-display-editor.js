@@ -9,6 +9,7 @@ import './d2l-activity-quiz-hints-editor.js';
 import './d2l-activity-quiz-hints-summary.js';
 import './d2l-activity-quiz-shuffle-editor.js';
 import './d2l-activity-quiz-shuffle-summary.js';
+import './d2l-activity-quiz-manage-timing-container';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -66,6 +67,19 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 
 				<div class="d2l-editors" slot="components">
 					<label class="d2l-label-text">
+						${this.localize('subHdrTimingTools')}
+					</label>
+					<div class="placeholder-for-summarizer"></div> 
+					<d2l-button-subtle 
+						text=${this.localize('manageTiming')}
+						@click="${this._openDialog}"
+						>
+					</d2l-button-subtle>
+					${this._renderManageTimingContainer()}
+				</div>
+
+				<div class="d2l-editors" slot="components">
+					<label class="d2l-label-text">
 						${this.localize('subHdrPagingTools')}
 					</label>
 					${this._renderPreventMovingBackwardsEditor()}
@@ -93,6 +107,13 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 	// Returns true if any error states relevant to this accordion are set
 	_errorInAccordion() {
 		return false; // Todo: implement error handling
+	}
+
+	_openDialog() {
+		const dialog = this.shadowRoot.querySelector('d2l-activity-quiz-manage-timing-container').shadowRoot.querySelector('#quiz-manage-timing-dialog');
+		if (dialog) {
+			dialog.opened = true;
+		}
 	}
 
 	_renderAllowHintsSummary() {
@@ -148,6 +169,13 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 			</d2l-activity-quiz-hints-editor>
 		`;
 	}
+	_renderManageTimingContainer() {
+		return html`
+			<d2l-activity-quiz-manage-timing-container 
+				href="${this.href}"
+				.token="${this.token}">
+		</d2l-activity-quiz-manage-timing-container>`;
+	}
 
 	_renderPreventMovingBackwardsEditor() {
 		return html`
@@ -184,6 +212,7 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 			</d2l-activity-quiz-shuffle-summary>
 		`;
 	}
+
 }
 
 customElements.define(

@@ -257,8 +257,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			return '';
 		}
 
-		return this._activity && this._activity.hasLinkByType('text/html')
-			? this._activity.getLinkByType('text/html').href
+		return this._activity && this._activity.hasLinkByRel('alternate')
+			? this._activity.getLinkByRel('alternate').href
 			: '';
 	}
 

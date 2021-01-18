@@ -5,6 +5,8 @@ export default {
 	"quizSaveError": "Your quiz wasn't saved. Please correct the outlined fields.", // Error message to inform the user that there was a problem saving the quiz, instructing them to correct invalid fields
 	"hdrAvailability": "Availability Dates & Conditions", // availability header
 	"hdrTimingAndDisplay": "Timing & Display", // timing/display accordion header
+	"subHdrTimingTools": "Timing", // Title for timing tools
+	"manageTiming": "Manage Timing", // Label for button to launch timing dialog
 	"hdrAttemptsAndCompletion": "Attempts & Completion", //attempts/completion accordion header
 	"subHdrPagingTools": "Paging", // Title for paging tools
 	"subHdrShuffleQuiz": "Shuffle Quiz",// Title for shuffle quiz tool(s)
@@ -47,5 +49,7 @@ export default {
 	"disableRightClickHelpDialogParagraph1": "This feature prohibits learners from printing quiz questions by right-clicking on a question while an attempt is in progress. But learners will still be able to screen capture the quiz through other technologies outside of the browser.", // content for paragraph 1 of disable right click help dialog
 	"disableRightClickHelpDialogParagraph2": "Certain accessibility workflows will be blocked because the learner cannot copy and paste the question text.", // content for paragraph 2 of disable right click help dialog
 	"disableRightClickHelpDialogConfirmationText": "OK", // copy that appears on the disable right click help dialog confirmation button
+	"manageTimingDialogConfirmationText": "OK", // copy that appears on the Timing dialog confirmation button
+	"manageTimingDialogCancelText": "Cancel", // copy that appears on the Timing dialog cancel button
 	"description": "Description", // Description label for the Description text input box
 };

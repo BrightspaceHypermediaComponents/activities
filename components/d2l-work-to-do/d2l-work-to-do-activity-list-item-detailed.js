@@ -270,8 +270,11 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	}
 
 	get _description() {
-		return this._activity && this._activity.hasProperty('description') && !this.skeleton
-			? this._activity.properties.description
+		// return this._activity && this._activity.hasProperty('description') && !this.skeleton
+		// 	? this._activity.properties.description
+		// 	: '';
+		return this._activity && this._activity.hasEntityByClass('description') && !this.skeleton
+			? this._activity.getSubEntityByClass('description').properties.text
 			: '';
 	}
 
@@ -285,11 +288,17 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 	/** Specific name of the activity */
 	get _name() {
-		return this._activity && this._activity.hasProperty('name') && !this.skeleton
-			? this._activity.properties.name
-			: this._activityProperties && !this.skeleton
-				? this.localize(this._activityProperties.type)
-				: '';
+		if (this._activity && !this.skeleton) {
+			if (this._activity.hasProperty('name')) {
+				return this._activity.properties.name;
+			} else if (this._activity.hasProperty('title')) {
+				return this._activity.properties.title;
+			}
+		}
+		if (this._activityProperties && !this.skeleton) {
+			return this.localize(this._activityProperties.type);
+		}
+		return '';
 	}
 
 	/** Organization code of the activity's associated organization */
@@ -342,6 +351,10 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						.then((sirenEntity) => {
 							if (sirenEntity) {
 								this._activity = sirenEntity;
+								console.log('got an activity: ', this._activity);
+								if (this._activity.hasEntityByClass('description')) {
+									console.log('description: ', this._activity.getSubEntityByClass('description'));
+								}
 							}
 						});
 				}

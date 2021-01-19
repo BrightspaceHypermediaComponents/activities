@@ -37,7 +37,7 @@ export class ContentWebLink {
 		this.title = webLinkEntity.title();
 
 		const entityUrlValue = webLinkEntity.url();
-		if(entityUrlValue === defaultPlaceholderLink) {
+		if (entityUrlValue === defaultPlaceholderLink) {
 			// in order to create a new weblink entity, we need to assign it a
 			// default 'garbage' url, however we want to display an empty url on first load.
 			this.link = '';

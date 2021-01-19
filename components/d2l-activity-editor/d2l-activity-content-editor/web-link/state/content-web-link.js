@@ -37,12 +37,17 @@ export class ContentWebLink {
 		this.title = webLinkEntity.title();
 
 		const entityUrlValue = webLinkEntity.url();
-		// in order to create a new weblink entity, we need to assign it a
-		// default 'garbage' url, however we want to display an empty url on first load.
-		// This does not change the actual entity.
-		this.link = entityUrlValue === defaultPlaceholderLink
-			? ''
-			: entityUrlValue;
+		if(entityUrlValue === defaultPlaceholderLink) {
+			// in order to create a new weblink entity, we need to assign it a
+			// default 'garbage' url, however we want to display an empty url on first load.
+			this.link = '';
+			// we also need to modify the entity to have no url which is needed for
+			// the dirty() method. this does not save the entity.
+			this._contentWebLink._entity.properties.url = '';
+		}
+		else {
+			this.link = entityUrlValue;
+		}
 
 		this.isExternalResource = webLinkEntity.isExternalResource();
 	}

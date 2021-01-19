@@ -76,7 +76,7 @@
     "@brightspace-ui-labs/edit-in-place": "^1.0.11",
     "@brightspace-ui-labs/list-item-accumulator": "^1",
     "@brightspace-ui/core": "^1.102.2",
-    "@brightspace-ui/htmleditor": "^0.8.2",
+    "@brightspace-ui/htmleditor": "^0.10.0",
     "@brightspace-ui/intl": "^3.0.1",
     "@d2l/d2l-attachment": "Brightspace/attachment#semver:^1",
     "@polymer/iron-resizable-behavior": "^3.0.0",

@@ -132,6 +132,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._setEntityType(UserEntity);
 
 		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
+		Rels.Activities.myOrganizationActivitiesEmpty = 'https://activities.api.brightspace.com/rels/my-organization-activities#empty';
 	}
 
 	set _entity(entity) {
@@ -482,6 +483,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const emptySource = (
 			entity.hasLinkByRel(Rels.Activities.myActivitiesEmpty)
 			&& entity.getLinkByRel(Rels.Activities.myActivitiesEmpty)
+			|| entity.hasLinkByRel(Rels.Activities.myOrganizationActivitiesEmpty)
+			&& entity.getLinkByRel(Rels.Activities.myOrganizationActivitiesEmpty)
 			|| {}).href;
 
 		if (emptySource) {

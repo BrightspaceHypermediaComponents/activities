@@ -24,7 +24,7 @@ export const ActivityAllowList = {
 	userChecklistActivity: {
 		class: Classes.activities.userChecklistActivity,
 		icon: 'tier2:checklist',
-		rel: Rels.Checklists.checklist,
+		rel: Rels.Checklists.checklistItem,
 		type: 'Checklist'
 	},
 	userContentActivity: {

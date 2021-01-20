@@ -111,7 +111,6 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 	}
 
 	set _entity(entity) {
-		console.log('setting entity: ', entity);
 		if (this._entityHasChanged(entity)) {
 			this._onActivityUsageChange(entity);
 			super._entity = entity;
@@ -277,28 +276,22 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		}
 
 		const entity = this._usage._entity;
-		// console.log('loading activity from this entity: ', entity);
 		const allowList =  this.evaluateAllHref ? QuickEvalActivityAllowList : ActivityAllowList;
 
 		for (const allowed in allowList) {
 			if (entity.hasClass(allowList[allowed].class)) {
 				this._activityProperties = allowList[allowed];
-				console.log('there should be a rel like this: ', allowList[allowed].rel, 'in this entity: ', entity);
 				const source = (
 					entity.hasLinkByRel(allowList[allowed].rel)
 					&& entity.getLinkByRel(allowList[allowed].rel)
 					|| {}).href;
 				if (source) {
-					console.log('rel found from: ', allowList[allowed].class);
 					await fetchEntity(source, this.token)
 						.then((sirenEntity) => {
 							if (sirenEntity) {
 								this._activity = sirenEntity;
-								console.log('got an activity: ', this._activity);
 							}
 						});
-				} else {
-					console.log('no rel for: ', allowList[allowed].class);
 				}
 			}
 		}

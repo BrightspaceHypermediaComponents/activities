@@ -270,6 +270,10 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 				this._setNewGradeName(this.activityName);
 			}
 		});
+
+		if (changedProperties.size === 0) {
+			this._setNewGradeName(this.activityName);
+		}
 	}
 
 	_addOrRemoveMenuItem() {

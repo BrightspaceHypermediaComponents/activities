@@ -18,6 +18,10 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 			 */
 			htmlEditorEnabled: { type: Boolean },
 			/**
+			 * True if the new html editor config is on
+			 */
+			htmlNewEditorEnabled: { type: Boolean },
+			/**
 			* Set the WidthType on the template to constrain page width if necessary
 			*/
 			widthType: { type: String, attribute: 'width-type' },
@@ -83,6 +87,12 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 	_onRequestProvider(e) {
 		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
 			e.detail.provider = this.htmlEditorEnabled;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-provider-html-new-editor-enabled') {
+			e.detail.provider = this.htmlNewEditorEnabled;
 			e.stopPropagation();
 			return;
 		}

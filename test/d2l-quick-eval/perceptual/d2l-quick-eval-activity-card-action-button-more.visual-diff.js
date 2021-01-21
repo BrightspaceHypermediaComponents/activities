@@ -17,6 +17,13 @@ describe.skip('d2l-quick-eval-activity-card-action-button-more', function() {
 
 	after(() => browser.close());
 
+	const focus = (page, selector) => {
+		return page.evaluate((selector) => {
+			const button = document.querySelector(selector).shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button');
+			button.focus();
+		}, selector);
+	};
+
 	describe('basic', () => {
 		const name = 'basic';
 		[ 'normal', 'hover', 'focus', 'click' ].forEach((state) => {
@@ -38,11 +45,4 @@ describe.skip('d2l-quick-eval-activity-card-action-button-more', function() {
 			});
 		});
 	});
-
-	const focus = (page, selector) => {
-		return page.evaluate((selector) => {
-			const button = document.querySelector(selector).shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button');
-			button.focus();
-		}, selector);
-	};
 });

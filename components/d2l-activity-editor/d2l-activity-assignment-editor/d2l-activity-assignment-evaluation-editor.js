@@ -9,7 +9,6 @@ import '../d2l-activity-rubrics/d2l-activity-rubrics-summary-wrapper.js';
 import './d2l-assignment-turnitin-editor.js';
 import './d2l-assignment-turnitin-summary.js';
 import '../d2l-activity-accordion-collapse.js';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -19,7 +18,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement)))) {
+class ActivityAssignmentEvaluationEditor extends SkeletonMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 
@@ -27,8 +26,6 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 			href: { type: String },
 			token: { type: Object },
 			activityUsageHref: { type: String },
-			_m2Enabled: { type: Boolean },
-			_m3CompetenciesEnabled: { type: Boolean }
 		};
 	}
 
@@ -46,13 +43,6 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 		];
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-
-		this._m2Enabled = this._isMilestoneEnabled(Milestones.M2);
-		this._m3CompetenciesEnabled = this._isMilestoneEnabled(Milestones.M3Competencies);
-	}
-
 	render() {
 		const assignment = store.get(this.href) || {};
 		const activity = activityStore.get(this.activityUsageHref) || {};
@@ -62,17 +52,17 @@ class ActivityAssignmentEvaluationEditor extends SkeletonMixin(ActivityEditorFea
 				<span slot="header">
 					${this.localize('evaluationAndFeedback')}
 				</span>
-				${this._m2Enabled ? html`<li slot="summary-items">${this._renderRubricsSummary()}</li>` : null}
-				${this._m3CompetenciesEnabled && activity.canEditCompetencies ? html`<li slot="summary-items">${this._renderCompetenciesSummary()}</li>` : null}
-				${this._m2Enabled ? html`<li slot="summary-items">${this._renderAnnotationsSummary()}</li>` : null}
-				${this._m2Enabled ? html`<li slot="summary-items">${this._renderAnonymousMarkingSummary()}</li>` : null}
-				${this._m2Enabled && assignment.canEditTurnitin ? html`<li slot="summary-items">${this._renderTurnitinSummary()}</li>` : null}
+				${html`<li slot="summary-items">${this._renderRubricsSummary()}</li>`}
+				${activity.canEditCompetencies ? html`<li slot="summary-items">${this._renderCompetenciesSummary()}</li>` : null}
+				${html`<li slot="summary-items">${this._renderAnnotationsSummary()}</li>`}
+				${html`<li slot="summary-items">${this._renderAnonymousMarkingSummary()}</li>`}
+				${assignment.canEditTurnitin ? html`<li slot="summary-items">${this._renderTurnitinSummary()}</li>` : null}
 				<div class="d2l-editors" slot="components">
-					${this._m2Enabled ? html`${this._renderRubricsCollectionEditor()}` : null}
-					${this._m3CompetenciesEnabled && activity.canEditCompetencies ? this._renderCompetenciesOpener() : null}
-					${this._m2Enabled ? html`${this._renderAnnotationsEditor()}` : null}
-					${this._m2Enabled ? html`${this._renderAnonymousMarkingEditor()}` : null}
-					${this._m2Enabled && assignment.canEditTurnitin ? html`${this._renderTurnitinEditor()}` : null}
+					${ html`${this._renderRubricsCollectionEditor()}`}
+					${activity.canEditCompetencies ? this._renderCompetenciesOpener() : null}
+					${html`${this._renderAnnotationsEditor()}`}
+					${html`${this._renderAnonymousMarkingEditor()}`}
+					${assignment.canEditTurnitin ? html`${this._renderTurnitinEditor()}` : null}
 				</div>
 			</d2l-activity-accordion-collapse>
 		`;

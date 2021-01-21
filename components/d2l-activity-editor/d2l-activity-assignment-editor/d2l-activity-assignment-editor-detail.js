@@ -45,6 +45,9 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 				:host([hidden]) {
 					display: none;
 				}
+				:host([skeleton]) .d2l-skeletize::before {
+					z-index: 2;
+				}
 				#score-and-duedate-container {
 					display: flex;
 					flex-wrap: wrap;
@@ -168,7 +171,7 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 						.richtextEditorConfig="${instructionsRichTextEditorConfig}"
 						@d2l-activity-text-editor-change="${this._saveInstructionsOnChange}"
 						ariaLabel="${this.localize('instructions')}"
-						?disabled="${!canEditInstructions}">
+						?disabled="${canEditInstructions === undefined ? false : !canEditInstructions}">
 					</d2l-activity-text-editor>
 				</div>
 			</div>
@@ -218,7 +221,7 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 		if (!assignment) {
 			return;
 		}
-
+		this._saveOnChange('instructions');
 		await assignment.save();
 	}
 

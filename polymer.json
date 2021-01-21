@@ -5,7 +5,8 @@
     "ignoreWarnings": [
       "not-loadable",
       "could-not-resolve-reference",
-      "non-literal-import"
+      "non-literal-import",
+      "could-not-load"
     ]
   }
 }

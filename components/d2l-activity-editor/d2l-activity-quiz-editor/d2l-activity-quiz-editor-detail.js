@@ -38,6 +38,9 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 				:host([hidden]) {
 					display: none;
 				}
+				:host([skeleton]) .d2l-skeletize::before {
+					z-index: 2;
+				}
 				.d2l-activity-label-container {
 					margin-bottom: 8px;
 				}
@@ -119,7 +122,7 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 						.richtextEditorConfig="${descriptionRichTextEditorConfig}"
 						@d2l-activity-text-editor-change="${this._saveDescriptionOnChange}"
 						ariaLabel="${this.localize('description')}"
-						?disabled="${!canEditDescription}">
+						?disabled="${canEditDescription === undefined ? false : !canEditDescription}">
 					</d2l-activity-text-editor>
 				</div>
 			</div>

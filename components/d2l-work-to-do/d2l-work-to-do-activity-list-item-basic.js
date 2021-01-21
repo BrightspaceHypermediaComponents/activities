@@ -198,9 +198,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		if (!this._started || this.skeleton) {
 			return '';
 		}
-
-		if (this._activity && this._activity.hasLinkByType('text/html')) {
-			return this._activity.getLinkByType('text/html').href;
+		if (this._activity && this._activity.hasLinkByRel('alternate')) {
+			return this._activity.getLinkByRel('alternate').href;
 		}
 		else if (this.evaluateAllHref) {
 			return this.evaluateAllHref;
@@ -245,11 +244,6 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			return this.localize(this._activityProperties.type);
 		}
 		return '';
-		// return this._activity && this._activity.hasProperty('name') && !this.skeleton
-		// 	? this._activity.properties.name
-		// 	: this._activityProperties && !this.skeleton
-		// 		? this.localize(this._activityProperties.type)
-		// 		: '';
 	}
 
 	/** Organization code of the activity's associated organization */

@@ -59,6 +59,8 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 
 	constructor() {
 		super();
+		// Only show the scrollbar when necessary
+		document.body.style.overflow = 'auto';
 
 		this._backdropShown = false;
 		this._saveToastVisible = null;

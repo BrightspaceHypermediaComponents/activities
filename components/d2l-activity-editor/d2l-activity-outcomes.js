@@ -1,7 +1,6 @@
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import 'd2l-activity-alignments/d2l-select-outcomes-hierarchical.js';
-import { ActivityEditorFeaturesMixin, Milestones } from './mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -9,7 +8,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/activity-store.js';
 
-class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(MobxLitElement))) {
+class ActivityOutcomes extends ActivityEditorMixin(RtlMixin(MobxLitElement)) {
 
 	static get properties() {
 		return {
@@ -17,7 +16,6 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 			deferredSave: { type: Boolean, attribute: 'deferred-save' },
 			hideIndirectAlignments: { type: Boolean, attribute: 'hide-indirect-alignments' },
 			alignButtonText: { type: String, attribute: 'align-button-text' },
-			_featureEnabled: { type: Boolean },
 			_opened: { type: Boolean },
 			_outcomesTerm: { type: String },
 			_browseOutcomesText: { type: String }
@@ -44,15 +42,13 @@ class ActivityOutcomes extends ActivityEditorFeaturesMixin(ActivityEditorMixin(R
 	connectedCallback() {
 		super.connectedCallback();
 
-		this._featureEnabled = this._isMilestoneEnabled(Milestones.M3Outcomes);
 		this._browseOutcomesText = this._dispatchRequestProvider('d2l-provider-browse-outcomes-text');
 		this._outcomesTerm = this._dispatchRequestProvider('d2l-provider-outcomes-term');
 	}
 
 	render() {
 		const activity = store.get(this.href);
-		if (!activity || !this._featureEnabled) {
-			this.hidden = true;
+		if (!activity) {
 			return html``;
 		}
 

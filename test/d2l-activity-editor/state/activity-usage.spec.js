@@ -193,6 +193,8 @@ describe('Activity Usage', function() {
 				return defaultEntityMock();
 			});
 
+			const activity = new ActivityUsage('http://1', 'token');
+
 			const assertExpectations = () => {
 				expect(activity.competenciesHref).to.be.null;
 				expect(activity.associatedCompetenciesCount).to.be.null;
@@ -205,7 +207,6 @@ describe('Activity Usage', function() {
 				expect(fetchEntity.mock.calls[1][0]).to.equal('http://alignments-href/');
 			};
 
-			const activity = new ActivityUsage('http://1', 'token');
 			await activity.fetch();
 			assertExpectations();
 

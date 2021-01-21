@@ -42,6 +42,7 @@ export class ContentModule {
 		}
 		await this._contentModule.setModuleTitle(this.title);
 		await this._contentModule.setModuleDescription(this.descriptionRichText);
+		await this.fetch();
 	}
 
 	setDescription(richText) {

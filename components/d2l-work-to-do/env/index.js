@@ -12,6 +12,7 @@ export const Constants = {
 	MaxDays: 365,
 	MaxActivityCount: 99,
 	MaxWidgetDisplay: 6,
+	PageSize: 20,
 };
 
 export const ActivityAllowList = {

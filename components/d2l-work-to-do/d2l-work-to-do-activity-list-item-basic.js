@@ -1,6 +1,7 @@
 import '@brightspace-ui/core/components/colors/colors';
 import '@brightspace-ui/core/components/icons/icon';
 import '@brightspace-ui/core/components/list/list-item-content';
+import '@brightspace-ui/core/components/status-indicator/status-indicator.js';
 import '../d2l-activity-date/d2l-activity-date';
 import '../d2l-quick-eval-widget/d2l-quick-eval-widget-submission-icon';
 
@@ -78,6 +79,12 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
+				}
+				.d2l-status-container {
+					clear: both;
+					margin-top: -0.1rem;
+					margin-left: 2.1rem;
+					margin-bottom: 0.5rem;
 				}
 				[slot="content"] {
 					padding: 0.1rem 0;
@@ -161,7 +168,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
 			: nothing;
 
-		return this._renderListItem({
+		return html `${this._renderListItem({
 			illustration: this.submissionCount ? html`
 					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
 						class="class=${classMap(iconClasses)}"
@@ -186,7 +193,10 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					</div>
 				</d2l-list-item-content>
 			`
-		});
+		})}
+		<div class="d2l-status-container">
+			<d2l-status-indicator state="none" text="Starts Aug. 15"></d2l-status-indicator>
+		</div>`;
 	}
 
 	set actionHref(href) {  // This is a hack - Garbage setter function since list-mixin initializes value

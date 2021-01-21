@@ -61,6 +61,7 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		super();
 		// Only show the scrollbar when necessary
 		document.body.style.overflow = 'auto';
+		document.documentElement.style.overflow = 'auto'; // needed for FF bug
 
 		this._backdropShown = false;
 		this._saveToastVisible = null;

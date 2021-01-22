@@ -22,6 +22,6 @@ jobs:
             
             **Did you use a semver keyword in a commit?**
             - [ ] Yes (and this PR will not be squashed)
-            - [ ] I will use a semver keyword in the merge commit message
+            - [ ] I will use a semver keyword in the merge commit's title 
               `
             })

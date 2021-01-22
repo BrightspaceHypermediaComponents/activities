@@ -5,7 +5,6 @@ import '../d2l-activity-usage-conditions-summary.js';
 import '../d2l-activity-special-access-editor.js';
 import '../d2l-activity-special-access-summary.js';
 import '../d2l-activity-accordion-collapse.js';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -15,15 +14,13 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from '../state/activity-store.js';
 
-class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement)))) {
+class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_m3ReleaseConditionsEnabled: { type: Boolean },
-			_m3SpecialAccessEnabled: { type: Boolean }
 		};
 	}
 
@@ -51,9 +48,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 
 	connectedCallback() {
 		super.connectedCallback();
-
-		this._m3ReleaseConditionsEnabled = this._isMilestoneEnabled(Milestones.M3ReleaseConditions);
-		this._m3SpecialAccessEnabled = this._isMilestoneEnabled(Milestones.M3SpecialAccess);
 	}
 
 	render() {
@@ -108,10 +102,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 	}
 
 	_renderReleaseConditionEditor() {
-		if (!this._m3ReleaseConditionsEnabled) {
-			return html``;
-		}
-
 		return html`
 			<div class="d2l-editor">
 				<h3 class="d2l-heading-4">
@@ -126,10 +116,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 		`;
 	}
 	_renderReleaseConditionSummary() {
-		if (!this._m3ReleaseConditionsEnabled) {
-			return html``;
-		}
-
 		return html`
 			<d2l-activity-usage-conditions-summary
 				href="${this.href}"
@@ -141,7 +127,7 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 	_renderSpecialAccessEditor() {
 		const activity = store.get(this.href);
 
-		if (!this._m3SpecialAccessEnabled || !activity || !activity.specialAccess) {
+		if (!activity || !activity.specialAccess) {
 			return html``;
 		}
 
@@ -159,10 +145,6 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(ActivityEditorF
 		`;
 	}
 	_renderSpecialAccessSummary() {
-		if (!this._m3SpecialAccessEnabled) {
-			return html``;
-		}
-
 		return html`
 			<d2l-activity-special-access-summary
 				href="${this.href}"

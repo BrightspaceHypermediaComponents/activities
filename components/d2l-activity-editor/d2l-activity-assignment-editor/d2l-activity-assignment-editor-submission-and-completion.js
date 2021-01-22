@@ -3,7 +3,6 @@ import './d2l-activity-assignment-submission-email-notification-summary.js';
 import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-type-summary.js';
 import '../d2l-activity-notification-email-editor';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
@@ -16,14 +15,13 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as store } from './state/assignment-store.js';
 
-class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement))))) {
+class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))) {
 
 	static get properties() {
 
 		return {
 			href: { type: String },
 			token: { type: Object },
-			_m4EmailNotificationEnabled: { type: Boolean }
 		};
 	}
 
@@ -65,11 +63,6 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 	constructor() {
 		super(store);
 		this.saveOrder = 2000;
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
-		this._m4EmailNotificationEnabled = this._isMilestoneEnabled(Milestones.M4EmailSubmission);
 	}
 
 	render() {
@@ -240,7 +233,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 	}
 
 	_renderAssignmentSubmissionNotificationEmail(assignment) {
-		if (!this._m4EmailNotificationEnabled || !assignment || !assignment.showNotificationEmail) {
+		if (!assignment || !assignment.showNotificationEmail) {
 			return html``;
 		}
 
@@ -361,7 +354,7 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		`;
 	}
 	_renderSubmissionEmailNotificationSummary(assignment) {
-		if (!this._m4EmailNotificationEnabled || !assignment || !assignment.showNotificationEmail) {
+		if (!assignment || !assignment.showNotificationEmail) {
 			return html``;
 		}
 		return html`

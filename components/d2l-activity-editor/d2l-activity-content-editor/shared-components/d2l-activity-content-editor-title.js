@@ -101,16 +101,19 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 		const title = e.target.value;
 		const isTitleEmpty = (title || '').trim().length === 0;
 
-		if (isTitleEmpty) {
-			this.setError('_titleError', 'content.emptyNameField', 'title-tooltip');
-		} else {
-			this.clearError('_titleError');
-			this._debounceJobs.title = Debouncer.debounce(
-				this._debounceJobs.title,
-				timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-				() => this.onSave(title)
-			);
-		}
+		this._debounceJobs.title = Debouncer.debounce(
+			this._debounceJobs.title,
+			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
+			() => {
+				if (isTitleEmpty) {
+					this.setError('_titleError', 'content.emptyNameField', 'title-tooltip');
+				}
+				else {
+					this.clearError('_titleError');
+					this.onSave(title);
+				}
+			}
+		);
 	}
 }
 customElements.define('d2l-activity-content-editor-title', ContentEditorTitle);

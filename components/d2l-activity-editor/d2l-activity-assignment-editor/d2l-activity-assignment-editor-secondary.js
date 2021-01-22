@@ -2,7 +2,6 @@ import './d2l-activity-assignment-availability-editor.js';
 import './d2l-activity-assignment-evaluation-editor.js';
 import './d2l-activity-assignment-editor-submission-and-completion.js';
 import '@brightspace-ui/core/components/colors/colors.js';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -10,7 +9,7 @@ import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-ass
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContainerMixin(SkeletonMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(LitElement))))) {
+class AssignmentEditorSecondary extends AsyncContainerMixin(SkeletonMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(LitElement)))) {
 
 	static get properties() {
 		return {
@@ -47,9 +46,6 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContain
 	}
 
 	render() {
-		const showSubmissionCompletionAccordian = this._isMilestoneEnabled(Milestones.M2);
-		const showEvaluationAccordian = this._isMilestoneEnabled(Milestones.M2) || this._isMilestoneEnabled(Milestones.M3Competencies);
-
 		const availabilityAccordian = html`
 			<d2l-activity-assignment-availability-editor
 				.href="${this.activityUsageHref}"
@@ -58,22 +54,22 @@ class AssignmentEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContain
 			</d2l-activity-assignment-availability-editor>
 		`;
 
-		const submissionCompletionCategorizationAccordian = showSubmissionCompletionAccordian ? html`
+		const submissionCompletionCategorizationAccordian = html`
 			<d2l-activity-assignment-editor-submission-and-completion-editor
 				href="${this.href}"
 				.token="${this.token}"
 				?skeleton="${this.skeleton}">
 			</d2l-activity-assignment-editor-submission-and-completion-editor>
-		` : null;
+		` ;
 
-		const evaluationAccordian = showEvaluationAccordian ? html`
+		const evaluationAccordian =  html`
 			<d2l-activity-assignment-evaluation-editor
 				href="${this.href}"
 				.token="${this.token}"
 				.activityUsageHref="${this.activityUsageHref}"
 				?skeleton="${this.skeleton}">
 			</d2l-activity-assignment-evaluation-editor>
-		` : null;
+		`;
 
 		return html`
 			${availabilityAccordian}

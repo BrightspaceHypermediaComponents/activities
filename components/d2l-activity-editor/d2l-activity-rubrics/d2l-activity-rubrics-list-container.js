@@ -10,7 +10,6 @@ import '@brightspace-ui/core/components/menu/menu.js';
 import '@brightspace-ui/core/components/menu/menu-item.js';
 import '@brightspace-ui/core/components/button/floating-buttons.js';
 import '@brightspace-ui/core/components/button/button.js';
-import { ActivityEditorFeaturesMixin, Milestones } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -23,7 +22,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 
-class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement)))) {
+class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(LocalizeActivityEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -140,13 +139,8 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 			return;
 		}
 
-		const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
+		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
 
-		if (m3FeatureFlagEnabled) {
-			entity.addAssociations([this._newlyCreatedPotentialAssociation]);
-		} else {
-			entity.addAssociations_DoNotUse([this._newlyCreatedPotentialAssociation]);
-		}
 		this._closeEditNewAssociationOverlay();
 		announce(this.localize('rubrics.txtRubricAdded'));
 	}
@@ -156,13 +150,9 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 	_closeAttachRubricDialog(e) {
 		const entity = associationStore.get(this.href);
 		if (e && e.detail && e.detail.associations) {
-			const m3FeatureFlagEnabled = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
 
-			if (m3FeatureFlagEnabled) {
-				entity.addAssociations(e.detail.associations);
-			} else {
-				entity.addAssociations_DoNotUse(e.detail.associations);
-			}
+			entity.addAssociations(e.detail.associations);
+
 			announce(this.localize('rubrics.txtRubricAdded'));
 		}
 		this._toggleDialog(false);
@@ -239,9 +229,7 @@ class ActivityRubricsListContainer extends ActivityEditorFeaturesMixin(ActivityE
 	_renderDefaultScoringRubric(entity) {
 
 		const assignment = assignmentStore.get(this.assignmentHref);
-		const shouldRender = this._isMilestoneEnabled(Milestones.M3DefaultScoringRubric);
-
-		if (!entity || !assignment || !shouldRender) {
+		if (!entity || !assignment) {
 			return html``;
 		}
 

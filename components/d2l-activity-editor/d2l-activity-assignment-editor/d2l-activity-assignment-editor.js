@@ -13,6 +13,7 @@ import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-ass
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from '../state/activity-store.js';
+import { trustedSitesProviderFn } from '../shared/trusted-site-provider.js';
 
 class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(ActivityEditorMixin(MobxLitElement)))) {
 
@@ -23,6 +24,10 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			 */
 			htmlEditorEnabled: { type: Boolean },
 			/**
+			 * True if the new html editor config is on
+			 */
+			htmlNewEditorEnabled: { type: Boolean },
+			/**
 			 * API endpoint for attachment unfurling service
 			 */
 			unfurlEndpoint: { type: String },
@@ -30,34 +35,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			 * API endpoint for determining whether a domain is trusted
 			 */
 			trustedSitesEndpoint: { type: String },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-2
-			*/
-			milestoneTwoEnabled: { type: Boolean },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-competencies
-			*/
-			milestoneThreeCompetenciesEnabled: { type: Boolean },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-default-scoring-rubric
-			*/
-			milestoneThreeDefaultScoringRubricEnabled: { type: Boolean },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-outcomes
-			*/
-			milestoneThreeOutcomesEnabled: { type: Boolean },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-release-conditions
-			*/
-			milestoneThreeReleaseConditionsEnabled: { type: Boolean },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-3-special-access
-			*/
-			milestoneThreeSpecialAccessEnabled: { type: Boolean },
-			/**
-			* based on the LaunchDarkly flag face-assignments-milestone-4-email-submission
-			*/
-			milestoneFourEmailSubmissionEnabled: { type: Boolean },
 			/**
 			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
 			*/
@@ -155,44 +132,8 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			return;
 		}
 
-		if (e.detail.key === 'd2l-milestone-two') {
-			e.detail.provider = this.milestoneTwoEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-competencies') {
-			e.detail.provider = this.milestoneThreeCompetenciesEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-default-scoring-rubric') {
-			e.detail.provider = this.milestoneThreeDefaultScoringRubricEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-outcomes') {
-			e.detail.provider = this.milestoneThreeOutcomesEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-release-conditions') {
-			e.detail.provider = this.milestoneThreeReleaseConditionsEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-three-special-access') {
-			e.detail.provider = this.milestoneThreeSpecialAccessEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-milestone-four-email-submission') {
-			e.detail.provider = this.milestoneFourEmailSubmissionEnabled;
+		if (e.detail.key === 'd2l-provider-html-new-editor-enabled') {
+			e.detail.provider = this.htmlNewEditorEnabled;
 			e.stopPropagation();
 			return;
 		}
@@ -220,39 +161,7 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 		// Provides function to validate if a URL is trusted for d2l-labs-attachment
 		// https://github.com/Brightspace/attachment/blob/e44cab1f0cecc55dd93acf59212fabc6872c0bd3/components/attachment.js#L115
 		if (e.detail.key === 'd2l-provider-trusted-site-fn') {
-			e.detail.provider = () => url => {
-				const origin = new URL(url).origin;
-				const unfilteredContent = `<iframe src="${origin}"></iframe>`;
-
-				return new Promise((resolve, reject) => {
-					const params = {
-						filterMode: 1, // strict mode for html filtering. Refer to D2L.LP.TextProcessing.FilterModes
-						html: unfilteredContent
-					};
-					const options = {
-						success: resolve,
-						failure: reject
-					};
-					D2L.LP.Web.UI.Rpc.Connect(
-						D2L.LP.Web.UI.Rpc.Verbs.POST,
-						new D2L.LP.Web.Http.UrlLocation(this.trustedSitesEndpoint),
-						params,
-						options
-					);
-				}).then(filteredContent => {
-					const matchSrc = function(str) {
-						// excludes matching query string as filterHtml may modify the query string
-						return str.match(/src=["']([^?"']+)/i);
-					};
-					const unfilteredMatch = matchSrc(unfilteredContent);
-					const unfilteredSrc = unfilteredMatch && unfilteredMatch.length === 2 && unfilteredMatch[1];
-
-					const filteredMatch = matchSrc(filteredContent);
-					const filteredSrc = filteredMatch && filteredMatch.length === 2 && filteredMatch[1];
-
-					return unfilteredSrc === filteredSrc;
-				});
-			};
+			e.detail.provider = trustedSitesProviderFn(this.trustedSitesEndpoint);
 			e.stopPropagation();
 		}
 	}

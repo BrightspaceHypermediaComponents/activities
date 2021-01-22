@@ -521,9 +521,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * @param {Number} [forwardLimit] - [Default: Config.UpcomingWeekLimit * 7] Number of days into future to look for activities
 	 */
 	async _loadUpcoming(entity, forwardLimit, pageSize) {
-		if (!pageSize) pageSize = Constants.MaxWidgetDisplay;
+		if (!pageSize) pageSize = Constants.PageSize;
 
-		if (!entity || !entity.hasActionByName(Actions.activities.selectCustomDateRange)) {
+		if (!entity || (!entity.hasActionByName(Actions.activities.filterWorkToDo) && !entity.hasActionByName(Actions.activities.selectCustomDateRange))) {
 			return;
 		}
 
@@ -534,12 +534,21 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + forwardLimit, 23, 59, 59, 999).toISOString();
 		const start = new Date(now.getTime()).toISOString();
 
-		const action = entity.getActionByName(Actions.activities.selectCustomDateRange);
-		const fields = [
-			{ name: 'start', value: start },
-			{ name: 'end', value: end },
-			{ name: 'pageSize', value: pageSize }
-		];
+		const action = entity.hasActionByName(Actions.activities.filterWorkToDo)
+			? entity.getActionByName(Actions.activities.filterWorkToDo)
+			: entity.getActionByName(Actions.activities.selectCustomDateRange);
+		const fields = [].concat(action.fields).reduce((acc, field) => {
+			switch (field.name) {
+				case 'start': acc.push({ ...field, value: start }); break;
+				case 'end': acc.push({ ...field, value: end }); break;
+				case 'pageSize': acc.push({ ...field, value: pageSize }); break;
+				default:
+					if (field.value)
+						acc.push(field);
+					break;
+			}
+			return acc;
+		}, []);
 		performSirenAction(this.token, action, fields, true)
 			.then((sirenEntity) => {
 				if (sirenEntity) {

@@ -225,8 +225,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
 			: nothing;
 
-		//display: -webkit-box;
-
 		const startDateTemplate = !this.skeleton && !this._started
 			? html `
 			<div class="d2l-status-container">

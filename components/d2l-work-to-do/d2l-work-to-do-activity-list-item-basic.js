@@ -82,10 +82,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					white-space: nowrap;
 				}
 				.d2l-status-container {
-					clear: both;
-					margin-top: -0.1rem;
-					margin-left: 2.1rem;
-					margin-bottom: 0.5rem;
+					margin-top: 0.1rem;
+					margin-bottom: 0.1rem;
 				}
 				[slot="content"] {
 					padding: 0.1rem 0;
@@ -176,7 +174,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			</div>`
 			: nothing;
 
-		return html `${this._renderListItem({
+		return this._renderListItem({
 			illustration: this.submissionCount ? html`
 					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
 						class="class=${classMap(iconClasses)}"
@@ -198,12 +196,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 						${dateTemplate}
 						${separatorTemplate}
 						${this._orgName || this._orgCode}
+						${startDateTemplate}
 					</div>
 				</d2l-list-item-content>
 			`
-		})}
-		${startDateTemplate}
-		`;
+		});
 	}
 
 	set actionHref(href) {  // This is a hack - Garbage setter function since list-mixin initializes value

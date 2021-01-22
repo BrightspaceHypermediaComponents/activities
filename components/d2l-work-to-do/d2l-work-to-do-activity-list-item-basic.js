@@ -82,8 +82,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					white-space: nowrap;
 				}
 				.d2l-status-container {
-					margin-top: 0.1rem;
 					margin-bottom: 0.1rem;
+					margin-top: 0.1rem;
 				}
 				[slot="content"] {
 					padding: 0.1rem 0;

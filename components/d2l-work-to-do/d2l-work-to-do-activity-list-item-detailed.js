@@ -105,8 +105,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 					flex-direction: column;
 				}
 				.d2l-status-container {
-					margin-top: -0.5rem;
 					margin-bottom: 0.5rem;
+					margin-top: -0.5rem;
 				}
 				[slot="content"] {
 					padding: 0;

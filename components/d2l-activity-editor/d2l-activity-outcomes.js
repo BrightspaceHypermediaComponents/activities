@@ -58,7 +58,7 @@ class ActivityOutcomes extends ActivityEditorMixin(RtlMixin(MobxLitElement)) {
 			alignmentsHref
 		} = activity;
 
-		if (!canUpdateAlignments && !this._hasAlignments) {
+		if (!canUpdateAlignments && !this._hasAlignments || this._hasAlignments === undefined) {
 			this.hidden = true;
 		} else {
 			this.hidden = false;

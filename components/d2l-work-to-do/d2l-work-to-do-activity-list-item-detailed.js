@@ -14,6 +14,7 @@ import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-ite
 import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 
 class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
@@ -98,6 +99,14 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 					max-width: inherit;
 					overflow: hidden;
 					text-overflow: ellipsis;
+				}
+				.d2l-supporting-info-show-start-date {
+					display: flex;
+					flex-direction: column;
+				}
+				.d2l-status-container {
+					margin-top: -0.5rem;
+					margin-bottom: 0.5rem;
 				}
 				[slot="content"] {
 					padding: 0;
@@ -193,8 +202,9 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 		const supportingClasses = {
 			'd2l-body-compact': true,
-			'd2l-supporting-info-content-container': true,
-			'd2l-skeletize-paragraph-2': true
+			/* 'd2l-supporting-info-content-container': true, */
+			'd2l-skeletize-paragraph-2': true,
+			'd2l-supporting-info-show-start-date': !this._started
 		};
 
 		const dateTemplate = this.includeDate
@@ -215,6 +225,15 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
 			: nothing;
 
+		//display: -webkit-box;
+
+		const startDateTemplate = !this.skeleton && !this._started
+			? html `
+			<div class="d2l-status-container">
+				<d2l-status-indicator state="none" text="${this._startDateFormatted}"></d2l-status-indicator>
+			</div>`
+			: nothing;
+
 		const listItemTemplate = this._renderListItem({
 			illustration: html`
 				<d2l-icon
@@ -233,9 +252,12 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						${this._orgName || this._orgCode}
 					</div>
 					<div id="content-supporting-info-container" slot="supporting-info" class=${classMap(supportingClasses)}>
-						${this._description}
+						<div class="d2l-supporting-info-content-container">
+							${this._description}
+						</div>
+						${startDateTemplate}
 					</div>
-				</d2l-list-item-content>
+					</d2l-list-item-content>
 			`
 		});
 
@@ -270,9 +292,10 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	}
 
 	get _description() {
-		return this._activity && this._activity.hasProperty('description') && !this.skeleton
-			? this._activity.properties.description
-			: '';
+		return 'A long description that should take up multiple lines. This probably isn\'t long enough yet. It should take a few more words. Are we there yet? This should actually be more than two lines to be totally accurate. This would be much easier if I just gave the item itself a description, but it\'s hard-coded now.';
+		// return this._activity && this._activity.hasProperty('description') && !this.skeleton
+		// 	? this._activity.properties.description
+		// 	: '';
 	}
 
 	/** String associated with icon catalogue for provided activity type */
@@ -317,6 +340,13 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		return this._usage && this._usage.startDate()
 			? new Date(this._usage.startDate()) < new Date()
 			: true;
+	}
+
+	/** Start Date formatted like (Short month) (Day) e.g. "Aug 15" */
+	get _startDateFormatted() {
+		return `Starts ${this._usage && this._usage.startDate()
+			? formatDate(new Date(this._usage.startDate()), { format: 'shortMonthDay' })
+			: undefined}`;
 	}
 
 	get _type() {

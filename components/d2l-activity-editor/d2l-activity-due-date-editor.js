@@ -76,7 +76,6 @@ class ActivityDueDateEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeAc
 
 		if (!dates.canEditDates) {
 			datesEntity.canEditDates = false;
-			return datesEntity;
 		}
 
 		if (dates.dueDateErrorTerm) {

@@ -98,7 +98,6 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActiv
 
 		if (!dates.canEditDates) {
 			datesEntity.canEditDates = false;
-			return datesEntity;
 		}
 
 		if (dates.startDateErrorTerm) {

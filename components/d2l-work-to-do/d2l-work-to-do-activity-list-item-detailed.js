@@ -202,7 +202,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 		const supportingClasses = {
 			'd2l-body-compact': true,
-			/* 'd2l-supporting-info-content-container': true, */
 			'd2l-skeletize-paragraph-2': true,
 			'd2l-supporting-info-show-start-date': !this._started
 		};
@@ -255,7 +254,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						</div>
 						${startDateTemplate}
 					</div>
-					</d2l-list-item-content>
+				</d2l-list-item-content>
 			`
 		});
 
@@ -290,10 +289,9 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	}
 
 	get _description() {
-		return 'A long description that should take up multiple lines. This probably isn\'t long enough yet. It should take a few more words. Are we there yet? This should actually be more than two lines to be totally accurate. This would be much easier if I just gave the item itself a description, but it\'s hard-coded now.';
-		// return this._activity && this._activity.hasProperty('description') && !this.skeleton
-		// 	? this._activity.properties.description
-		// 	: '';
+		return this._activity && this._activity.hasProperty('description') && !this.skeleton
+			? this._activity.properties.description
+			: '';
 	}
 
 	/** String associated with icon catalogue for provided activity type */

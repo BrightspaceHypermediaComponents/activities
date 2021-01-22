@@ -37,17 +37,14 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActiv
 			endDateError
 		} = this._getDateValues();
 
-		if (!canEditDates) {
-			return html``;
-		}
-
 		return html`
 			<d2l-input-date-time
 				id="start-date-input"
 				label="${this.localize('editor.startDate')}"
 				time-default-value="startOfDay"
 				value="${startDate}"
-				@change="${this._onStartDatetimeChanged}">
+				@change="${this._onStartDatetimeChanged}"
+				?disabled="${!canEditDates}">
 			</d2l-input-date-time>
 			<d2l-validation-custom
 				for="start-date-input"
@@ -59,7 +56,8 @@ class ActivityAvailabilityDatesEditor extends (ActivityEditorMixin(LocalizeActiv
 				label="${this.localize('editor.endDate')}"
 				time-default-value="endOfDay"
 				value="${endDate}"
-				@change="${this._onEndDatetimeChanged}">
+				@change="${this._onEndDatetimeChanged}"
+				?disabled="${!canEditDates}">
 			</d2l-input-date-time>
 			<d2l-validation-custom
 				for="end-date-input"

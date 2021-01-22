@@ -16,6 +16,7 @@ import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
 import { QuickEvalActivityAllowList } from '../d2l-quick-eval-widget/env';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 
 class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
@@ -164,8 +165,15 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		const dateTemplate = html `<d2l-activity-date href="${this.href}" .token="${this.token}" format="MMM d" ?hidden=${this.skeleton}></d2l-activity-date>`;
 
-		const separatorTemplate = !this.skeletize && this._date && (this._orgName || this._orgCode)
+		const separatorTemplate = !this.skeleton && this._date && (this._orgName || this._orgCode)
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
+			: nothing;
+
+		const startDateTemplate = !this.skeleton && !this._started
+			? html `
+			<div class="d2l-status-container">
+				<d2l-status-indicator state="none" text="${this._startDateFormatted}"></d2l-status-indicator>
+			</div>`
 			: nothing;
 
 		return html `${this._renderListItem({
@@ -194,9 +202,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				</d2l-list-item-content>
 			`
 		})}
-		<div class="d2l-status-container">
-			<d2l-status-indicator state="none" text="Starts Aug. 15"></d2l-status-indicator>
-		</div>`;
+		${startDateTemplate}
+		`;
 	}
 
 	set actionHref(href) {  // This is a hack - Garbage setter function since list-mixin initializes value
@@ -231,6 +238,13 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		return this._usage && this._usage.startDate()
 			? new Date(this._usage.startDate()) < new Date()
 			: true;
+	}
+
+	/** Start Date formatted like (Short month) (Day) e.g. "Aug 15" */
+	get _startDateFormatted() {
+		return `Starts ${this._usage && this._usage.startDate()
+			? formatDate(new Date(this._usage.startDate()), { format: 'shortMonthDay' })
+			: undefined}`;
 	}
 
 	/** String associated with icon catalogue for provided activity type */

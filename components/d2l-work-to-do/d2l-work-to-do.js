@@ -95,6 +95,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					max-width: 18rem;
 					width: 100%;
 				}
+				.d2l-load-more-button {
+					padding: 1.8rem 0;
+				}
 				.d2l-work-to-do-fullscreen-container {
 					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
 					padding: 0 2rem;
@@ -276,7 +279,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 
 			return html`
-				${this.fullscreen ? immersiveNav() : ''}
+				${immersiveNav()}
 				<div class="d2l-empty-template">
 					<div class="d2l-empty-icon-container">
 						<d2l-work-to-do-empty-state-image id="empty-icon"></d2l-work-to-do-empty-state-image>
@@ -340,12 +343,16 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			: nothing;
 
 		const immersiveNav = () => {
-			return html`
-				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
-					<div class="d2l-typography d2l-body-standard" slot="middle">
-						<p>${this.localize('myWorkToDo')}</p>
-					</div>
-				</d2l-navigation-immersive>`;
+			if (this.fullscreen) {
+				return html`
+					<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+						<div class="d2l-typography d2l-body-standard" slot="middle">
+							<p>${this.localize('myWorkToDo')}</p>
+						</div>
+					</d2l-navigation-immersive>`;
+			}
+
+			return nothing;
 		};
 
 		const fullscreenTemplate = () => {

@@ -15,8 +15,6 @@ export const val = {
 	loadMoreDescription : "Display more assigned activities", // Additional description text to accompany the load more button for additional clarity for the user
 	myWorkToDo: "My Work To Do", // Widget title
 	noActivities : "You have no incomplete activities with due or end dates available.", // 'Empty state' - When widget has no activities in full page view
-	noActivitiesDiscoverActive : "You have no activities due or ending in the next two weeks. Check out Discover to find more learning.", // 'Empty View' - When widget has no activities to display within the next two weeks, but discover is active and can be navigated to by interacting with the provided element
-	noActivitiesDiscoverInactive : "You have no activities with due or end dates available.", // 'Empty View' - When widget has no activities to display within the next two weeks & there are no more activities in the future & discover is not active for this user
 	noActivitiesFutureActivities: "You have no incomplete activities due or ending soon. Come back later or View All Work to see what's coming next.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
 	noActivitiesNoFutureActivities: "You have no incomplete activities with due or end dates available. Come back later to see if you have work to do.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future
 	nothingHere : "There\'s nothing here...", // Displayed as header line in widget text when there are no activities within the provided time period

@@ -100,12 +100,10 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
-				.d2l-supporting-info-show-start-date {
-					display: flex;
-					flex-direction: column;
-				}
 				.d2l-status-container {
+					display: inline;
 					margin-bottom: 0.5rem;
+					margin-right: 0.2rem;
 					margin-top: -0.5rem;
 				}
 				[slot="content"] {
@@ -202,8 +200,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 		const supportingClasses = {
 			'd2l-body-compact': true,
+			'd2l-supporting-info-content-container': true,
 			'd2l-skeletize-paragraph-2': true,
-			'd2l-supporting-info-show-start-date': !this._started
 		};
 
 		const dateTemplate = this.includeDate
@@ -244,15 +242,13 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						${this._name}
 					</div>
 					<div class=${classMap(secondaryClasses)} slot="secondary">
+						${startDateTemplate}
 						${this._type}
 						${separatorTemplate}
 						${this._orgName || this._orgCode}
 					</div>
 					<div id="content-supporting-info-container" slot="supporting-info" class=${classMap(supportingClasses)}>
-						<div class="d2l-supporting-info-content-container">
-							${this._description}
-						</div>
-						${startDateTemplate}
+					${this._description}
 					</div>
 				</d2l-list-item-content>
 			`

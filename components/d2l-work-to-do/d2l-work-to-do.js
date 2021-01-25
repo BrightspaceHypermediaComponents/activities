@@ -4,6 +4,7 @@ import '@brightspace-ui/core/components/link/link';
 import './d2l-work-to-do-activity-list-header';
 import './d2l-work-to-do-activity-list-item-basic';
 import './d2l-work-to-do-activity-list-item-detailed';
+import './d2l-work-to-do-empty-state-image';
 
 import '@webcomponents/webcomponentsjs/webcomponents-loader';
 import 'd2l-navigation/d2l-navigation-immersive';
@@ -77,7 +78,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				.d2l-empty-body-text-container {
 					display: block;
 					text-align: center;
-					width: 16.5rem;
+					width: 100%;
 				}
 				.d2l-empty-header-text-container {
 					margin: 1.2rem auto 0.3rem auto;
@@ -91,15 +92,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					width: 100%;
 				}
 				#empty-icon {
-					height: 100px;
-					width: 100px;
+					max-width: 18rem;
+					width: 100%;
 				}
 				.d2l-work-to-do-fullscreen-container {
 					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
 					padding: 0 2rem;
-				}
-				d2l-button {
-					padding: 1.8rem 0;
 				}
 				.d2l-activity-collection d2l-list d2l-work-to-do-activity-list-item-basic:first-of-type {
 					margin-top: 0.3rem;
@@ -220,34 +218,56 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		};
 
 		/** Empty state templates */
-		const emptyViewTextTemplate = (discoverActive, hasActivities) => {
-			if (hasActivities) {
-				return html`${this.localize('activitiesAvailable')}`;
-			}
+		const emptyViewHeaderTemplate = (hasActivities) => {
+			const emptyViewHeader = hasActivities ?
+				this.localize('xWeeksClear', 'count', getUpcomingWeekLimit()) :
+				this.localize('allClear');
 
-			return discoverActive
-				? html`${this.localize('noActivitiesDiscoverActive')}`
-				: html`${this.localize('noActivitiesDiscoverInactive')}`;
+			return html`
+				<div class="d2l-heading-3 d2l-empty-header-text-container">
+					${emptyViewHeader}
+				</div>
+			`;
 		};
 
-		const emptyViewButtonTemplate = (discoverActive, hasActivities) => {
-			if (hasActivities) {
-				return html `
-					<d2l-button
-						primary
-						@click=${() => window.location.href = this._viewAllSource}>
-						${this.localize('viewAllWork')}
-					</d2l-button>`;
+		/** Empty state templates */
+		const emptyViewTextTemplate = (hasActivities) => {
+			if (this.fullscreen) {
+				return html`
+					<div class="d2l-body-standard d2l-empty-body-text-container">
+						${this.localize('noActivities')}
+					</div>
+					<div class="d2l-body-standard d2l-empty-body-text-container">
+						${this.localize('comeBackNoFutureActivities')}
+					</div>
+				`;
 			}
 
-			return discoverActive
-				? html`
-					<d2l-button
-						primary
-						@click=${() => window.location.href = this._discoverHref}>
-						${this.localize('goToDiscover')}
-					</d2l-button>`
-				: nothing;
+			const emptyViewText = hasActivities ?
+				this.localize('noActivitiesFutureActivities') :
+				this.localize('noActivitiesNoFutureActivities');
+
+			return html`
+				<div class="d2l-body-standard d2l-empty-body-text-container">
+					${emptyViewText}
+				</div>
+			`;
+		};
+
+		const emptyViewButtonTemplate = (hasActivities) => {
+			if (hasActivities && !this.fullscreen) {
+				return html `
+					<div class="d2l-empty-button-container">
+						<d2l-button
+							primary
+							@click=${() => window.location.href = this._viewAllSource}>
+							${this.localize('viewAllWork')}
+						</d2l-button>
+					</div>
+				`;
+			}
+
+			return nothing;
 		};
 
 		const emptyViewTemplate = () => {
@@ -256,19 +276,14 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 
 			return html`
+				${this.fullscreen ? immersiveNav() : ''}
 				<div class="d2l-empty-template">
 					<div class="d2l-empty-icon-container">
-						<d2l-icon id="empty-icon" icon="tier3:search"></d2l-icon>
+						<d2l-work-to-do-empty-state-image id="empty-icon"></d2l-work-to-do-empty-state-image>
 					</div>
-					<div class="d2l-heading-3 d2l-empty-header-text-container">
-						${this.localize('nothingHere')}
-					</div>
-					<div class="d2l-body-standard d2l-empty-body-text-container">
-						${emptyViewTextTemplate(this._discoverActive, this._maxCount)}
-					</div>
-					<div class="d2l-empty-button-container">
-						${emptyViewButtonTemplate(this._discoverActive, this._maxCount)}
-					</div>
+					${emptyViewHeaderTemplate(this._maxCount)}
+					${emptyViewTextTemplate(this._maxCount)}
+					${emptyViewButtonTemplate(this._maxCount)}
 				</div>
 			`;
 		};

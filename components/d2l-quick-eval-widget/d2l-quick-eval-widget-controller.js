@@ -27,7 +27,9 @@ export async function fetchEvaluateAllHref(activityUsageEntity, token) {
 
 	const evaluationStatusEntity = await fetch(evalStatusLink, token);
 
-	return evaluationStatusEntity.getSubEntityByRel('https://assessments.api.brightspace.com/rels/assess-all-application').properties.path;
+	const url = new URL(evaluationStatusEntity.getSubEntityByRel('https://assessments.api.brightspace.com/rels/assess-all-application').properties.path);
+	url.searchParams.append('cft', 'qe');
+	return url;
 }
 
 export async function setToggleState(href, toggleState) {

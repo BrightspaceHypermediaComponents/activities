@@ -248,7 +248,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						${this._orgName || this._orgCode}
 					</div>
 					<div id="content-supporting-info-container" slot="supporting-info" class=${classMap(supportingClasses)}>
-					${this._description}
+						${this._description}
 					</div>
 				</d2l-list-item-content>
 			`

@@ -50,7 +50,7 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 	}
 
 	_logPerformanceEvent(action, href, type, startMark, measureName, custom) {
-		if (!action || !href || !type || !startMark || !measureName) {
+		if (!this._client || !action || !href || !type || !startMark || !measureName) {
 			return;
 		}
 

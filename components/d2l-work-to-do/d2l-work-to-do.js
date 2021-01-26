@@ -132,6 +132,18 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._setEntityType(UserEntity);
 
 		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
+
+		let prevPage = sessionStorage.getItem('prevPage');
+		if (prevPage) {
+			prevPage = parseInt(prevPage);
+			sessionStorage.setItem('prevPage', prevPage + 1);
+			console.log('previousPage was: ', prevPage, ', is now ', sessionStorage.getItem('prevPage'));
+		} else {
+			prevPage = 0;
+			sessionStorage.setItem('prevPage', 0);
+			console.log('did not have a prevPage, so setting it to: ', sessionStorage.getItem('prevPage'));
+			// idea: if we're in fullscreen view, don't actually change anything - keep the previous version
+		}
 	}
 
 	set _entity(entity) {
@@ -584,6 +596,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		// TODO: this is a default (and kind of a hacky way to get to it),
 		// ideally we want to get the user's homepage from their profile
 		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
+		console.log('_homeLinkHref calculated as: ', this._homeLinkHref);
 	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

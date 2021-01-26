@@ -1,5 +1,6 @@
 import Events from 'd2l-telemetry-browser-client';
 
+const W2D_TELEMETRY_ID = 'worktodo';
 const W2D_BASE_MARK = 'd2l-work-to-do';
 const W2D_OVERDUE_MARK = `${W2D_BASE_MARK}.ovedue`;
 const W2D_OVERDUE_LOAD_START_MARK = `${W2D_OVERDUE_MARK}.start`;
@@ -17,7 +18,6 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 	constructor() {
 		super();
 
-		this._telemetryId = 'worktodo';
 		this._telemetryEndpoint = undefined;
 		this._client = undefined;
 	}
@@ -71,7 +71,7 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 		const event = new Events.TelemetryEvent()
 			.setType('PerformanceEvent')
 			.setDate(new Date())
-			.setSourceId(this._telemetryId)
+			.setSourceId(W2D_TELEMETRY_ID)
 			.setBody(eventBody);
 
 		this._client.logUserEvent(event);

@@ -11,7 +11,7 @@ import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { nothing } from 'lit-html';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';

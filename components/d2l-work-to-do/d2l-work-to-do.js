@@ -18,16 +18,17 @@ import { Config, Constants, getOverdueWeekLimit, getUpcomingWeekLimit } from './
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { performSirenAction } from 'siren-sdk/src/es6/SirenAction';
 import { UserEntity } from 'siren-sdk/src/users/UserEntity';
+import { WorkToDoTelemetryMixin } from './mixins/d2l-work-to-do-telemetry-mixin';
 import { repeat } from 'lit-html/directives/repeat';
 import { nothing } from 'lit-html';
 
 /**
  * @classdesc Class representation of Work to Do widget component
  */
-class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
+class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkToDoMixin(LitElement))) {
 
 	static get properties() {
 		return {

@@ -130,9 +130,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueActivities = [];
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
-
-		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
-		Rels.Activities.myOrganizationActivitiesEmpty = 'https://activities.api.brightspace.com/rels/my-organization-activities#empty';
 	}
 
 	set _entity(entity) {

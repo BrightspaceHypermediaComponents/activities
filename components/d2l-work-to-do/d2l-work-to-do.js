@@ -494,8 +494,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	// !TODO Further investigate defect DE42208 to remove need for retry
-	async _performSirenActionWithRetry(token, action, fields, immediate, maxRetries = 1)  {
-		if (maxRetries) {
+	async _performSirenActionWithRetry(token, action, fields, immediate, maxRetries = 0)  {
+		if (maxRetries > -1) {
 			return performSirenAction(token, action, fields, immediate)
 				.catch(() => {
 					return this._performSirenActionWithRetry(token, action, fields, immediate, maxRetries - 1);
@@ -563,7 +563,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 			return acc;
 		}, []);
-		this._performSirenActionWithRetry(this.token, action, fields, true, 2)
+		this._performSirenActionWithRetry(this.token, action, fields, true, 1)
 			.then((sirenEntity) => {
 				if (sirenEntity) {
 					if (!isMax) {

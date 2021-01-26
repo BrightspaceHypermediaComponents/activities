@@ -587,8 +587,14 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		}
 
 		const source = entity.getLinkByRel(Rels.Activities.overdue).href;
+		this.markLoadOverdueStart();
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
+				const overdueCount = sirenEntity
+					? sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
+					: 0;
+				this.markAndLogLoadOverdueEnd(source, Rels.Activities.overdue, overdueCount);
+
 				if (sirenEntity) {
 					this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
 					this._overdueCollection = sirenEntity;

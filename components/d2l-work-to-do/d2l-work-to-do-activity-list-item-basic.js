@@ -201,11 +201,16 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		if (this.evaluateAllHref) {
 			return this.evaluateAllHref;
-		}
-		else if (this._activity && this._activity.hasLinkByRel('alternate')) {
+		} else if (
+			this._activity
+			&& this._activityProperties
+			&& this._activityProperties.linkRel
+			&& this._activity.hasLinkByRel(this._activityProperties.linkRel)) {
+
+			return this._activity.getLinkByRel(this._activityProperties.linkRel).href;
+		} else if (this._activity && this._activity.hasLinkByRel('alternate')) {
 			return this._activity.getLinkByRel('alternate').href;
-		}
-		else {
+		} else {
 			return '';
 		}
 	}
@@ -276,20 +281,30 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		for (const allowed in allowList) {
 			if (entity.hasClass(allowList[allowed].class)) {
 				this._activityProperties = allowList[allowed];
-				const source = (
-					entity.hasLinkByRel(allowList[allowed].rel)
-					&& entity.getLinkByRel(allowList[allowed].rel)
-					|| {}).href;
-				if (source) {
-					await fetchEntity(source, this.token)
-						.then((sirenEntity) => {
-							if (sirenEntity) {
-								this._activity = sirenEntity;
-							}
-						});
+				const relList = [].concat(this._activityProperties.rel);
+
+				const foundEntity = await this._followRelPath(relList, entity);
+
+				if (foundEntity) {
+					this._activity = foundEntity;
 				}
 			}
 		}
+	}
+
+	async _followRelPath(relList, entity) {
+		if (relList.length === 0) return entity;
+
+		const source = (
+			entity.hasLinkByRel(relList[0])
+			&& entity.getLinkByRel(relList[0])
+			|| {}).href;
+
+		if (source) {
+			return await this._followRelPath(relList.slice(1), await fetchEntity(source, this.token));
+		}
+
+		return null;
 	}
 
 	/**

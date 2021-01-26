@@ -75,7 +75,7 @@ export const ActivityAllowList = {
 };
 
 /** Entity classes that hides the org name in the supporting info */
-export const HideOrgNameClasses = [ Classes.activities.userCourseOfferingActivity ];
+export const HideOrgInfoClasses = [ Classes.activities.userCourseOfferingActivity ];
 
 export function getUpcomingWeekLimit() {
 	if (window.D2L && window.D2L.workToDoOptions && window.D2L.workToDoOptions.upcomingWeekLimit) {

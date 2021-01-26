@@ -6,7 +6,7 @@ import '../d2l-quick-eval-widget/d2l-quick-eval-widget-submission-icon';
 
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
-import { ActivityAllowList, HideOrgNameClasses } from './env';
+import { ActivityAllowList, HideOrgInfoClasses } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
@@ -292,8 +292,15 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		}
 	}
 
+	/**
+	 * Follows a list of rels beginning at a specific entity.
+	 * @async
+	 * @param {String[]} relList List of rels to follow
+	 * @param {object} entity Beginning entity
+	 * @returns {object|null|undefined} The entity at the end of the rel path. {null|undefined} if an entity in the chain is missing or doesn't have the next rel.
+	 */
 	async _followRelPath(relList, entity) {
-		if (relList.length === 0) return entity;
+		if (!entity || relList.length === 0) return entity;
 
 		const source = (
 			entity.hasLinkByRel(relList[0])
@@ -315,7 +322,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		if (!this._usage) return;
 
 		const entity = this._usage._entity;
-		const hiddenClass = HideOrgNameClasses.find(hiddenClass => entity.hasClass(hiddenClass));
+		const hiddenClass = HideOrgInfoClasses.find(hiddenClass => entity.hasClass(hiddenClass));
 
 		if (!hiddenClass) {
 			const organizationHref = this._usage.organizationHref();

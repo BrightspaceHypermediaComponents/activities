@@ -6,7 +6,7 @@ import '../d2l-activity-date/d2l-activity-date';
 import { bodyCompactStyles, bodySmallStyles, bodyStandardStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
-import { ActivityAllowList } from './env';
+import { ActivityAllowList, HideOrgInfoClasses } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
@@ -376,12 +376,17 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	async _loadOrganization() {
 		if (!this._usage) return;
 
-		const organizationHref = this._usage.organizationHref();
-		if (organizationHref) {
-			await fetchEntity(organizationHref, this.token)
-				.then((organization) => {
-					this._organization = organization;
-				});
+		const entity = this._usage._entity;
+		const hiddenClass = HideOrgInfoClasses.find(hiddenClass => entity.hasClass(hiddenClass));
+
+		if (!hiddenClass) {
+			const organizationHref = this._usage.organizationHref();
+			if (organizationHref) {
+				await fetchEntity(organizationHref, this.token)
+					.then((organization) => {
+						this._organization = organization;
+					});
+			}
 		}
 	}
 }

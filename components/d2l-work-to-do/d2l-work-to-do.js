@@ -133,12 +133,17 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
 
-		let prevPage = sessionStorage.getItem('prevPage');
-		if (prevPage) {
-			prevPage = parseInt(prevPage);
-			sessionStorage.setItem('prevPage', prevPage + 1);
-			console.log('previousPage was: ', prevPage, ', is now ', sessionStorage.getItem('prevPage'));
+		if (this.fullscreen) {
+			let prevPage = sessionStorage.getItem('prevPage');
+			if (prevPage) {
+				// backHomeLink = whatever we read
+				// probably need some validation here?
+			} else {
+				// backHomeLink = a sensible default (/d2l/home)
+			}
 		} else {
+			// sessionStorage.setItem(whatever)
+		}
 			prevPage = 0;
 			sessionStorage.setItem('prevPage', 0);
 			console.log('did not have a prevPage, so setting it to: ', sessionStorage.getItem('prevPage'));

@@ -48,7 +48,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			/** Represents current session's UpcomingWeekLimit */
 			_upcomingWeekLimit: { type: Number, attribute: 'data-upcoming-week-limit' },
 			/** individual items within upcomingCollection + subsequent pages once the UI has them */
-			_upcomingActivities: { type: Array }
+			_upcomingActivities: { type: Array },
+			/** keeps track of the sub items being loaded, so we can show all data at once and not a partial activity */
+			_initialLoad: { type: Boolean }
 		};
 	}
 
@@ -130,6 +132,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueActivities = [];
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
+		this._initialLoad = true;
+		this._loadedElements = [];
 	}
 
 	set _entity(entity) {
@@ -191,13 +195,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				item => html`
 					<d2l-work-to-do-activity-list-item-basic
 						href=${ifDefined(item.getLinkByRel('self').href)}
-						.token=${ifDefined(this.token)}></d2l-work-to-do-activity-list-item-basic>
+						.token=${ifDefined(this.token)}
+						?skeleton=${this._initialLoad}
+						@data-loaded="${this._itemLoaded}"></d2l-work-to-do-activity-list-item-basic>
 				`
 			);
 
 			return html`
 				<div class="d2l-activity-collection">
-					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length}></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length}></d2l-work-to-do-activity-list-header>
 					<d2l-list separators="none">${items}</d2l-list>
 				</div>
 			`;
@@ -318,13 +324,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					<d2l-work-to-do-activity-list-item-detailed
 						href=${ifDefined(activity.getLinkByRel('self').href)}
 						.token=${ifDefined(this.token)}
+						?skeleton=${this._initialLoad}
+						@data-loaded="${this._itemLoaded}"
 						?include-date=${newDay}></d2l-work-to-do-activity-list-item-detailed>
 				`;
 			});
 
 			return html`
 				<div class="d2l-activity-collection-container-fullscreen">
-					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>
 				</div>
 			`;
@@ -381,13 +389,18 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 		const detailedSkeleton = html`
 			${immersiveNav()}
-			<d2l-work-to-do-activity-list-header skeleton fullscreen></d2l-work-to-do-activity-list-header>
-			<d2l-list separators="none">
-				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
-				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
-				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
-			</d2l-list>
-			<div class="d2l-load-more-button-skeleton d2l-skeletize"></div>
+			<div class="d2l-work-to-do-fullscreen-container">
+				<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
+				<div class="d2l-overdue-collection-fullscreen">
+					<d2l-work-to-do-activity-list-header skeleton fullscreen></d2l-work-to-do-activity-list-header>
+					<d2l-list separators="none">
+						<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
+						<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
+						<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
+					</d2l-list>
+					<div class="d2l-load-more-button-skeleton d2l-skeletize"></div>
+				</div>
+			</div>
 		`;
 
 		const loadingTemplate = () => {
@@ -452,6 +465,21 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 		}
 		return 'loading';
+	}
+
+	/**
+	 * Fired when all the data required to render the activity is present.
+	 * Event is guarunteed to fire for success and failures.
+	 * @param {CustomEvent} event Event data from the activity item
+	 */
+	_itemLoaded(event) {
+		if (this._initialLoad) {
+			this._loadedElements.push(event.target);
+			if (this._loadedElements.length === this._overdueActivities.length + this._upcomingActivities.length) {
+				this._initialLoad = false;
+				this._loadedElements = [];
+			}
+		}
 	}
 
 	_getFilteredOverdueActivities(collection) {

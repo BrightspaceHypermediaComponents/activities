@@ -469,7 +469,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 	/**
 	 * Fired when all the data required to render the activity is present.
-	 * Event is guarunteed to fire for success and failures.
+	 * Event is guaranteed to fire for success and failures.
 	 * @param {CustomEvent} event Event data from the activity item
 	 */
 	_itemLoaded(event) {

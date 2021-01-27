@@ -494,15 +494,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	// !TODO Further investigate defect DE42208 to remove need for retry
-	async _performSirenActionWithRetry(token, action, fields, immediate, maxRetries = 0)  {
+	async _performSirenActionWithRetry(token, action, fields, immediate, maxRetries = 0, error = null)  {
 		if (maxRetries > -1) {
 			return performSirenAction(token, action, fields, immediate)
-				.catch(() => {
-					return this._performSirenActionWithRetry(token, action, fields, immediate, maxRetries - 1);
+				.catch((error) => {
+					return this._performSirenActionWithRetry(token, action, fields, immediate, maxRetries - 1, error);
 				});
 		}
 
-		return Promise.reject();
+		return Promise.reject(error);
 	}
 
 	/**

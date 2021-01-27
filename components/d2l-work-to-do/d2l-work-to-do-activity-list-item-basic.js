@@ -50,8 +50,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					display: none;
 				}
 				.d2l-activity-icon-container {
+					border-radius: 0 !important;
 					padding-top: 0.2rem;
-					border-radius: 0px !important;
 				}
 				:host([skeleton]) .d2l-activity-icon-container {
 					height: 1.3rem;

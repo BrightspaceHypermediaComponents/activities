@@ -17,6 +17,7 @@ export const val = {
 	nothingHere : "There\'s nothing here...", // Displayed as header line in widget text when there are no activities within the provided time period
 	overdue : "Overdue", // Indicates that the below list of activities are overdue (have a due date that is in the past)
 	Quiz : "Quiz", // Meta-data descriptor that informs which type of activity is being displayed on a line item
+	StartsWithDate : "Starts {startDate}", // show Start Date on status indicator when an activity starts in the future - formatted like "Starts Aug 15"
 	Survey : "Survey", // Meta-data descriptor that informs which type of activity is being displayed on a line item
 	upcoming : "Upcoming Work", // Indicates that the below list of activites are upcoming (have a due due or end date that is in the future)
 	viewAllWork : "View All Work", // Button text displayed in 'Empty View' when user can navigate to full page view to see all work

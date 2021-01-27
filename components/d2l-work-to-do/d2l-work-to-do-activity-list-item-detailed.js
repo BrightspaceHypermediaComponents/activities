@@ -336,9 +336,10 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 	/** Start Date formatted like (Short month) (Day) e.g. "Aug 15" */
 	get _startDateFormatted() {
-		return `Starts ${this._usage && this._usage.startDate()
-			? formatDate(new Date(this._usage.startDate()), { format: 'shortMonthDay' })
-			: undefined}`;
+		return this.localize('StartsWithDate', 'startDate',
+			this._usage && this._usage.startDate()
+				? formatDate(new Date(this._usage.startDate()), { format: 'shortMonthDay' })
+				: '');
 	}
 
 	get _type() {

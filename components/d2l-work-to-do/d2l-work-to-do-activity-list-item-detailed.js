@@ -278,10 +278,16 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 	/** String associated with icon catalogue for provided activity type */
 	get _icon() {
-		return this._activityProperties && !this.skeleton
-			? this._activityProperties.icon
-			: '';
-
+		if (this._activity && !this.skeleton) {
+			const subEntity = this._activity.getSubEntityByClasses(['icon', 'tier2']);
+			if (subEntity && subEntity.hasProperty('iconSetKey')) {
+				return subEntity.properties.iconSetKey;
+			}
+		}
+		if (this._activityProperties && !this.skeleton) {
+			return this._activityProperties.icon;
+		}
+		return '';
 	}
 
 	/** Specific name of the activity */

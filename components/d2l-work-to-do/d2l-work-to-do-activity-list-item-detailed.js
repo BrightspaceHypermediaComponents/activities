@@ -55,6 +55,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 				}
 				.d2l-activity-icon-container {
 					padding: 0.8rem 0 0 0.25rem;
+					border-radius: 0px !important;
 				}
 				:host([dir="rtl"]) .d2l-activity-icon-container {
 					padding: 0.8rem 0.25rem 0 0;

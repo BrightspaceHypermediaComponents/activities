@@ -9,6 +9,17 @@ import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 import { LocalizeWorkToDoMixin } from './localization';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
+const ro = new ResizeObserver(entries => {
+	entries.forEach(entry => {
+		const observerSize = entry && ((entry.contentBoxSize && entry.contentBoxSize[0]) || entry.contentBoxSize || entry.contentRect);
+		const width = observerSize && observerSize.width || observerSize.inlineSize;
+
+		if (entry && entry.target && entry.target.resizedCallback && width) {
+			entry.target.resizedCallback(width);
+		}
+	});
+});
+
 /**
  * Provides Title and Count for associated activity usage list
  */
@@ -93,6 +104,16 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 		this.isOverdue = false;
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+		ro.observe(this);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		ro.unobserve(this);
+	}
+
 	render() {
 		const containerClasses = {
 			'd2l-activity-list-header-basic': !this.fullscreen,
@@ -161,11 +182,12 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 		const now = new Date();
 		const endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + (getUpcomingWeekLimit() * 7), 23, 59, 59, 999);
 		const startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+		const monthFormat = this._width <= 228 ? 'MMM' : 'MMMM';
 
 		const startDay = formatDate(startDate, { format: 'd' });
-		const startMonth = formatDate(startDate, { format: 'MMMM' });
+		const startMonth = formatDate(startDate, { format: monthFormat });
 		const endDay = formatDate(endDate, { format: 'd' });
-		const endMonth = formatDate(endDate, { format: 'MMMM' });
+		const endMonth = formatDate(endDate, { format: monthFormat });
 
 		return this.localize(
 			'dateHeader',
@@ -174,6 +196,11 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 			'endMonth', endMonth,
 			'endDay', endDay
 		);
+	}
+
+	resizedCallback(width) {
+		this._width = width;
+		this.requestUpdate('_message');
 	}
 }
 customElements.define('d2l-work-to-do-activity-list-header', ActivityListHeader);

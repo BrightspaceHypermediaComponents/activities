@@ -352,24 +352,45 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		for (const allowed in ActivityAllowList) {
 			if (entity.hasClass(ActivityAllowList[allowed].class)) {
 				this._activityProperties = ActivityAllowList[allowed];
-				const source = (
-					entity.hasLinkByRel(ActivityAllowList[allowed].rel)
-					&& entity.getLinkByRel(ActivityAllowList[allowed].rel)
-					|| {}).href;
-				if (source) {
-					await fetchEntity(source, this.token)
-						.then((sirenEntity) => {
-							if (sirenEntity) {
-								this._activity = sirenEntity;
-								const link = sirenEntity.getLinkByRel('alternate');
-								this.actionHref = (this._started && link && link.href) || null;
-							}
-						});
-				}
+				const relList = [].concat(this._activityProperties.rel);
 
-				break;
+				const foundEntity = await this._followRelPath(relList, entity);
+
+				if (foundEntity) {
+					this._activity = foundEntity;
+
+					const link = (
+						this._activityProperties
+						&& this._activityProperties.linkRel
+						&& this._activity.getLinkByRel(this._activityProperties.linkRel)
+					) || this._activity.getLinkByRel('alternate');
+
+					this.actionHref = (this._started && (this.evaluateAllHref || (link && link.href))) || null;
+				}
 			}
 		}
+	}
+
+	/**
+	 * Follows a list of rels beginning at a specific entity.
+	 * @async
+	 * @param {String[]} relList List of rels to follow
+	 * @param {object} entity Beginning entity
+	 * @returns {object|null|undefined} The entity at the end of the rel path. {null|undefined} if an entity in the chain is missing or doesn't have the next rel.
+	 */
+	async _followRelPath(relList, entity) {
+		if (!entity || relList.length === 0) return entity;
+
+		const source = (
+			entity.hasLinkByRel(relList[0])
+			&& entity.getLinkByRel(relList[0])
+			|| {}).href;
+
+		if (source) {
+			return await this._followRelPath(relList.slice(1), await fetchEntity(source, this.token));
+		}
+
+		return null;
 	}
 
 	/**

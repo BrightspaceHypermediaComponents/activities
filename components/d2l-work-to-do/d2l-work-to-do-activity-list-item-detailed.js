@@ -365,7 +365,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						&& this._activity.getLinkByRel(this._activityProperties.linkRel)
 					) || this._activity.getLinkByRel('alternate');
 
-					this.actionHref = (this._started && (this.evaluateAllHref || (link && link.href))) || null;
+					this.actionHref = (this._started && (link && link.href)) || null;
 				}
 			}
 		}

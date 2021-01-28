@@ -272,7 +272,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	get _description() {
 		if (this._activity && !this.skeleton) {
 			if (this._activity.hasSubEntityByClass('description')) {
-				return this._activity.getSubEntityByClass('description').properties.text;
+				return this._activity.getSubEntityByClass('description').properties
+				&& this._activity.getSubEntityByClass('description').properties.text;
 			} else if (this._activity.properties.instructionsText) {
 				return this._activity.properties.instructionsText;
 			}

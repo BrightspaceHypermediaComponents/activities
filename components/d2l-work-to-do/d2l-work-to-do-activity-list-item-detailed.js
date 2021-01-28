@@ -61,17 +61,10 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 					padding: 0.8rem 0.25rem 0 0;
 				}
 				.d2l-activity-name-container {
-					color: var(--d2l-color-ferrite);
 					margin: 0.6rem 0 0 0;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
-				}
-				.d2l-hovering .d2l-activity-icon-container.d2l-has-action,
-				.d2l-focusing .d2l-activity-icon-container.d2l-has-action,
-				.d2l-hovering .d2l-activity-name-container.d2l-has-action,
-				.d2l-focusing .d2l-activity-name-container.d2l-has-action {
-					color: var(--d2l-color-celestine);
 				}
 				.d2l-icon-bullet {
 					color: var(--d2l-color-tungsten);
@@ -101,9 +94,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 				}
 				[slot="content"] {
 					padding: 0;
-				}
-				d2l-list-item-generic-layout {
-					background: transparent !important; /* !important is temporary until the actionHref attribute reflection is fixed */
 				}
 				#content {
 					width: 100%;
@@ -179,20 +169,14 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 		const iconClasses = {
 			'd2l-activity-icon-container': true,
-			'd2l-focusing': this._focusingLink,
-			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
-			'd2l-has-action': this.actionHref,
 		};
 
 		const nameClasses = {
 			'd2l-body-standard': true,
 			'd2l-activity-name-container': true,
-			'd2l-focusing': this._focusingLink,
-			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
 			'd2l-skeletize-30': true,
-			'd2l-has-action': this.actionHref,
 		};
 
 		const secondaryClasses = {
@@ -255,23 +239,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			${dateTemplate}
 			${listItemTemplate}
 		`;
-	}
-
-	set actionHref(href) {  // Require setter function as list-mixin initializes value
-		const oldVal = this._actionHref;
-		this._actionHref = href;
-		this.requestUpdate('actionHref', oldVal);
-	}
-
-	/** Link to activity instance for user navigation to complete/work on activity */
-	get actionHref() {
-		if (!this._started || this.skeleton) {
-			return '';
-		}
-
-		return this._activity && this._activity.hasLinkByRel('alternate')
-			? this._activity.getLinkByRel('alternate').href
-			: '';
 	}
 
 	/** Due or end date of activity */
@@ -360,6 +327,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						.then((sirenEntity) => {
 							if (sirenEntity) {
 								this._activity = sirenEntity;
+								const link = sirenEntity.getLinkByRel('alternate');
+								this.actionHref = (this._started && link && link.href) || null;
 							}
 						});
 				}

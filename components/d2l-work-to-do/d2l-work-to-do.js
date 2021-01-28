@@ -113,6 +113,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				.d2l-activity-collection-container-fullscreen d2l-list d2l-work-to-do-activity-list-item-detailed:last-of-type {
 					margin-bottom: 1.5rem;
 				}
+				d2l-work-to-do-activity-list-item-basic,
+				d2l-work-to-do-activity-list-item-detailed {
+					--d2l-list-item-content-text-color: var(--d2l-color-ferrite);
+				}
 			`
 		];
 	}

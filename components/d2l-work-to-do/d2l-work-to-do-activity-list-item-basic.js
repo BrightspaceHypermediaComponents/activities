@@ -58,16 +58,9 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					width: 1.2rem;
 				}
 				.d2l-activity-name-container {
-					color: var(--d2l-color-ferrite);
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
-				}
-				.d2l-hovering .d2l-activity-icon-container.d2l-has-action,
-				.d2l-focusing .d2l-activity-icon-container.d2l-has-action,
-				.d2l-hovering .d2l-activity-name-container.d2l-has-action,
-				.d2l-focusing .d2l-activity-name-container.d2l-has-action {
-					color: var(--d2l-color-celestine);
 				}
 				.d2l-icon-bullet {
 					color: var(--d2l-color-tungsten);
@@ -82,9 +75,6 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				}
 				[slot="content"] {
 					padding: 0.1rem 0;
-				}
-				d2l-list-item-generic-layout {
-					background: transparent !important; /* !important is temporary until the actionHref attribute reflection is fixed */
 				}
 				#content {
 					width: 100%;
@@ -145,19 +135,13 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		const iconClasses = {
 			'd2l-activity-icon-container': true,
-			'd2l-focusing': this._focusingLink,
-			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
-			'd2l-has-action': this.actionHref,
 		};
 
 		const nameClasses = {
 			'd2l-activity-name-container': true,
-			'd2l-focusing': this._focusingLink,
-			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
 			'd2l-skeletize-60': true,
-			'd2l-has-action': this.actionHref,
 		};
 
 		const secondaryClasses = {
@@ -198,32 +182,6 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				</d2l-list-item-content>
 			`
 		});
-	}
-
-	set actionHref(href) {  // This is a hack - Garbage setter function since list-mixin initializes value
-		this.requestUpdate('actionHref', this.evaluateAllHref ? this.evaluateAllHref : href);
-	}
-
-	/** Link to activity instance for user navigation to complete/work on activity */
-	get actionHref() {
-		if (!this._started || this.skeleton) {
-			return '';
-		}
-
-		if (this.evaluateAllHref) {
-			return this.evaluateAllHref;
-		} else if (
-			this._activity
-			&& this._activityProperties
-			&& this._activityProperties.linkRel
-			&& this._activity.hasLinkByRel(this._activityProperties.linkRel)) {
-
-			return this._activity.getLinkByRel(this._activityProperties.linkRel).href;
-		} else if (this._activity && this._activity.hasLinkByRel('alternate')) {
-			return this._activity.getLinkByRel('alternate').href;
-		} else {
-			return '';
-		}
 	}
 
 	/** Due or end date of activity */
@@ -298,6 +256,14 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 				if (foundEntity) {
 					this._activity = foundEntity;
+
+					const link = (
+						this._activityProperties
+						&& this._activityProperties.linkRel
+						&& this._activity.getLinkByRel(this._activityProperties.linkRel)
+					) || this._activity.getLinkByRel('alternate');
+
+					this.actionHref = (this._started && (this.evaluateAllHref || (link && link.href))) || null;
 				}
 
 				break;

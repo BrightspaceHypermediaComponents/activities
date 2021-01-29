@@ -1,0 +1,13 @@
+{
+  "class": [
+    "collection"
+  ],
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "./data/activity-collection-caught-up.json"
+    }
+  ]
+}

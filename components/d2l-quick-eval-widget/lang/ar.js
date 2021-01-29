@@ -1,5 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"ViewAllActivities": "View all activities",
+	"CaughtUp": "لقد انتهيت من مهامك!",
+	"Error": "عذرًا! حدث خطأ وتعذر تحميل المواد. يُرجى تحديث الصفحة أو المحاولة مرة أخرة لاحقًا.",
+	"NoSubmissions": "ليس لديك أي عمليات إرسال تحتاج إلى تقييم. تحقق من توفر عمليات إرسال جديدة في وقت لاحق.",
+	"ViewAllActivities": "عرض كل الأنشطة",
 };

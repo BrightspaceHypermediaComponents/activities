@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Schließen", //Label for Close button
 	"editor.btnCloseDialog": "Dieses Dialogfeld schließen", // close dialog button
 	"editor.btnManageSpecialAccess": "Beschränkten Zugriff verwalten", // manage special access button
+	"editor.saveSuccessful": "Erfolgreich gespeichert", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Nur Benutzer mit beschränktem Zugriff können diesen Ordner sehen", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Benutzer können außerhalb normaler Verfügbarkeitszeiträume einreichen", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 Benutzer} other {{count} Benutzer}} mit beschränktem Zugriff", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Vorhandene Aktivität", // Attach menu item text
 
 	"content.name": "Name", // Text label for name input field
-	"content.emptyNameField": "Name erforderlich", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Name erforderlich.", // Error text that appears below name field when it is left empty
 	"content.description": "Beschreibung", // Text label for description input field
 	"content.availabilityHeader": "Verfügbarkeitsdaten", // availability header
 	"content.saveError": "Ihr Inhaltselement wurde nicht gespeichert. Korrigieren Sie die rot umrandeten Felder.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Abgabetermin hinzufügen" // Text label for name input field
+	"content.addDueDate": "Abgabetermin hinzufügen", // Text label for name input field
+	"content.embedOnPage": "Auf Seite einbinden (iframe)", // Text label for link radio button
+	"content.openNewTab": "In neuer Registerkarte öffnen", // Text label for link radio button
+	"content.link": "Link", //Text label for link input field
+	"content.emptyLinkField": "Link ist erforderlich.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Bitte geben Sie eine gültige URL ein.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Nur Links, die mit „https“ beginnen, können eingebunden werden.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Die Site kann nicht eingebunden werden.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Vorschau", // The label text for the link preview
 };

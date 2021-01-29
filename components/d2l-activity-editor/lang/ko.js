@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "닫기", //Label for Close button
 	"editor.btnCloseDialog": "이 대화 상자 닫기", // close dialog button
 	"editor.btnManageSpecialAccess": "특별 접근 관리", // manage special access button
+	"editor.saveSuccessful": "성공적으로 저장됨", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "특별 접근 권한이 있는 사용자만이 이 폴더를 볼 수 있습니다.", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "사용자는 정상 사용 가능 날짜 이외의 날짜를 제출할 수 있습니다.", // not restricted special access description
 	"editor.specialAccessCount": "특별 접근 권한이 있는 {count, plural, =1 {1명 사용자} other {{count}명 사용자}}", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "기존 활동", // Attach menu item text
 
 	"content.name": "이름", // Text label for name input field
-	"content.emptyNameField": "이름이 필요함", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "이름이 필요합니다.", // Error text that appears below name field when it is left empty
 	"content.description": "설명", // Text label for description input field
 	"content.availabilityHeader": "사용 가능 날짜", // availability header
 	"content.saveError": "콘텐츠 항목이 저장되지 않았습니다. 빨간색으로 표시된 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "기한 추가" // Text label for name input field
+	"content.addDueDate": "기한 추가", // Text label for name input field
+	"content.embedOnPage": "페이지에 임베드됨(iframe)", // Text label for link radio button
+	"content.openNewTab": "새 탭에서 열기", // Text label for link radio button
+	"content.link": "링크", //Text label for link input field
+	"content.emptyLinkField": "링크가 필요합니다.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "유효한 URL을 입력하십시오.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "\"https\"를 사용한 링크만 임베드됩니다.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "해당 사이트는 임베드할 수 없습니다.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "미리 보기", // The label text for the link preview
 };

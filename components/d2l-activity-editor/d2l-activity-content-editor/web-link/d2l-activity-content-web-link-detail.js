@@ -1,4 +1,6 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
+import './d2l-activity-content-web-link-url-preview.js';
+import './d2l-activity-content-editor-link.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
@@ -28,9 +30,6 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 				:host > div {
 					padding-bottom: 20px;
 				}
-				.d2l-activity-label-container {
-					margin-bottom: 7px;
-				}
 			`
 		];
 	}
@@ -46,6 +45,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 	connectedCallback() {
 		super.connectedCallback();
 		this.saveTitle = this.saveTitle.bind(this);
+		this.saveLink = this.saveLink.bind(this);
 	}
 
 	render() {
@@ -61,6 +61,17 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			>
 			</d2l-activity-content-editor-title>
 			<slot name="due-date"></slot>
+
+			<d2l-activity-content-editor-link
+				.entity=${webLinkEntity}
+				.onSave=${this.saveLink}
+			>
+			</d2l-activity-content-editor-link>
+
+			<d2l-activity-content-web-link-url-preview
+				.entity=${webLinkEntity}
+			>
+			</d2l-activity-content-web-link-url-preview>
 		`;
 	}
 
@@ -96,12 +107,23 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		await webLinkEntity.save();
 	}
 
-	saveTitle(value) {
+	saveLink(link, isExternal) {
 		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
 		if (!webLinkEntity) {
 			return;
 		}
-		webLinkEntity.setTitle(value);
+
+		webLinkEntity.setLink(link);
+		webLinkEntity.setExternalResource(isExternal);
+	}
+
+	saveTitle(title) {
+		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
+		if (!webLinkEntity) {
+			return;
+		}
+		webLinkEntity.setTitle(title);
 	}
 }
+
 customElements.define('d2l-activity-content-web-link-detail', ContentWebLinkDetail);

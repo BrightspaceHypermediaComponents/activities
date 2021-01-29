@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Cerrar", //Label for Close button
 	"editor.btnCloseDialog": "Cerrar este cuadro de diálogo", // close dialog button
 	"editor.btnManageSpecialAccess": "Administrar acceso especial", // manage special access button
+	"editor.saveSuccessful": "Guardado correctamente", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Solo los usuarios con acceso especial pueden ver esta carpeta", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Los usuarios pueden entregar fuera de las fechas de disponibilidad normales", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 usuario} other {{count} usuarios}} con acceso especial", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Actividad existente", // Attach menu item text
 
 	"content.name": "Nombre", // Text label for name input field
-	"content.emptyNameField": "El nombre es obligatorio", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "El nombre es obligatorio.", // Error text that appears below name field when it is left empty
 	"content.description": "Descripción", // Text label for description input field
 	"content.availabilityHeader": "Fechas de disponibilidad", // availability header
 	"content.saveError": "El elemento de contenido no se ha guardado. Corrija los campos señalados en rojo.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Agregar fecha de vencimiento" // Text label for name input field
+	"content.addDueDate": "Agregar fecha de vencimiento", // Text label for name input field
+	"content.embedOnPage": "Incrustar en la página (iframe)", // Text label for link radio button
+	"content.openNewTab": "Abrir en una pestaña nueva", // Text label for link radio button
+	"content.link": "Link", //Text label for link input field
+	"content.emptyLinkField": "El enlace es obligatorio.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Introduzca una URL válida.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Solo se pueden incrustar enlaces con “https”.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Ese sitio no se puede incrustar.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Vista previa", // The label text for the link preview
 };

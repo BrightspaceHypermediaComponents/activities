@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Luk", //Label for Close button
 	"editor.btnCloseDialog": "Luk denne dialogboks", // close dialog button
 	"editor.btnManageSpecialAccess": "Administrer særlig adgang", // manage special access button
+	"editor.saveSuccessful": "Gemt", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Kun brugere med særlig adgang kan se denne mappe", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Brugere kan aflevere uden for datoer for normal tilgængelighed", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 bruger} other {{count} brugere}} med særlig adgang", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Eksisterende aktivitet", // Attach menu item text
 
 	"content.name": "Navn", // Text label for name input field
-	"content.emptyNameField": "Navn påkrævet", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Navn er påkrævet.", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivelse", // Text label for description input field
 	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
 	"content.saveError": "Dit indholdselement blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Tilføj forfaldsdato" // Text label for name input field
+	"content.addDueDate": "Tilføj forfaldsdato", // Text label for name input field
+	"content.embedOnPage": "Indlejr på siden (iframe)", // Text label for link radio button
+	"content.openNewTab": "Åbn i en ny fane", // Text label for link radio button
+	"content.link": "Link", //Text label for link input field
+	"content.emptyLinkField": "Link er påkrævet.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Indtast en gyldig URL-adresse.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Der kan kun indlejres links, der bruger \"https\".", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Dette websted kan ikke indlejres.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Forhåndsvisning", // The label text for the link preview
 };

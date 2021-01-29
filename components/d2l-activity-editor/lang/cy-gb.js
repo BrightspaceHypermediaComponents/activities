@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Cau", //Label for Close button
 	"editor.btnCloseDialog": "Caewch y Ddeialog hon", // close dialog button
 	"editor.btnManageSpecialAccess": "Rheoli Mynediad Arbennig", // manage special access button
+	"editor.saveSuccessful": "Llwyddwyd i gadw", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Defnyddwyr â mynediad arbennig yn unig gall gweld y ffolder hwn", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gall defnyddwyr gyflwyno y tu allan i’r dyddiadau argaeledd arferol", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 user} other {{count} users}} â mynediad arbennig", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Gweithgaredd Presennol", // Attach menu item text
 
 	"content.name": "Enw", // Text label for name input field
-	"content.emptyNameField": "Mae angen enw", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Mae angen enw.", // Error text that appears below name field when it is left empty
 	"content.description": "Disgrifiad", // Text label for description input field
 	"content.availabilityHeader": "Dyddiadau Argaeledd", // availability header
 	"content.saveError": "Ni chadwyd eich eitem cynnwys. Cywirwch y meysydd a amlinellir mewn coch.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Ychwanegu Dyddiad Cyflwyno" // Text label for name input field
+	"content.addDueDate": "Ychwanegu Dyddiad Cyflwyno", // Text label for name input field
+	"content.embedOnPage": "Mewnblannu ar y dudalen (iframe)", // Text label for link radio button
+	"content.openNewTab": "Agor mewn tab newydd", // Text label for link radio button
+	"content.link": "Cysylltu", //Text label for link input field
+	"content.emptyLinkField": "Mae angen dolen.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Rhowch URL dilys.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Dim ond dolenni sy’n defnyddio \"https\" y gellir eu mewnblannu.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Does dim modd mewnblannu’r wefan honno.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Rhagolwg", // The label text for the link preview
 };

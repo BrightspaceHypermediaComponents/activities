@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Fechar", //Label for Close button
 	"editor.btnCloseDialog": "Fechar esta caixa de diálogo", // close dialog button
 	"editor.btnManageSpecialAccess": "Gerenciar acesso especial", // manage special access button
+	"editor.saveSuccessful": "Salvo com êxito", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Apenas usuários com acesso especial podem ver esta pasta", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Os usuários podem fazer envios fora das datas normais de disponibilidade", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 usuário} other {{count} usuários}} com acesso especial", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Atividade existente", // Attach menu item text
 
 	"content.name": "Nome", // Text label for name input field
-	"content.emptyNameField": "O campo Nome é obrigatório", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "O nome é obrigatório.", // Error text that appears below name field when it is left empty
 	"content.description": "Descrição", // Text label for description input field
 	"content.availabilityHeader": "Datas de disponibilidade", // availability header
 	"content.saveError": "Seu item de conteúdo não foi salvo. Corrija os campos destacados em vermelho.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Adicionar prazo" // Text label for name input field
+	"content.addDueDate": "Adicionar prazo", // Text label for name input field
+	"content.embedOnPage": "Incorporar na página (iframe)", // Text label for link radio button
+	"content.openNewTab": "Abrir em uma nova guia", // Text label for link radio button
+	"content.link": "Link", //Text label for link input field
+	"content.emptyLinkField": "O link é obrigatório.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Insira um URL válido.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Apenas links usando \"https\" podem ser incorporados.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Este site não pode ser incorporado.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Preview", // The label text for the link preview
 };

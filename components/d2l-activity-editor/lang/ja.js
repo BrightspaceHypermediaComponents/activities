@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "閉じる", //Label for Close button
 	"editor.btnCloseDialog": "このダイアログを閉じる", // close dialog button
 	"editor.btnManageSpecialAccess": "特殊なアクセスの管理", // manage special access button
+	"editor.saveSuccessful": "正常に保存されました", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "特殊なアクセスを持つユーザーのみがこのフォルダを表示することができます", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "ユーザーは、通常の利用可能日以外の日にも送信することができます", // not restricted special access description
 	"editor.specialAccessCount": "特殊なアクセスを持つ {count, plural, =1 {1 人のユーザー} other {{count} 人のユーザー}}", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "既存アクティビティ", // Attach menu item text
 
 	"content.name": "名前", // Text label for name input field
-	"content.emptyNameField": "名前は必須です", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "名前は必須です。", // Error text that appears below name field when it is left empty
 	"content.description": "説明", // Text label for description input field
 	"content.availabilityHeader": "使用可能日", // availability header
 	"content.saveError": "コンテンツ項目は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "期限の追加" // Text label for name input field
+	"content.addDueDate": "期限の追加", // Text label for name input field
+	"content.embedOnPage": "ページに埋め込み（iframe）", // Text label for link radio button
+	"content.openNewTab": "新規タブで開く", // Text label for link radio button
+	"content.link": "リンク", //Text label for link input field
+	"content.emptyLinkField": "リンクは必須です。", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "有効な URL を入力してください。", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "埋め込みできるのは「https」を使ったリンクのみです。", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "そのサイトを埋め込むことはできません。", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "プレビュー", // The label text for the link preview
 };

@@ -44,7 +44,7 @@ describe('d2l-activity-availability-dates-editor', function() {
 		});
 	});
 
-	describe('inputs hidden', function() {
+	describe('inputs disabled', function() {
 		beforeEach(async() => {
 			dates.setCanEditDates(false);
 			await elementUpdated(el);
@@ -53,9 +53,9 @@ describe('d2l-activity-availability-dates-editor', function() {
 			endDateInput = el.shadowRoot.querySelector('#end-date-input');
 		});
 
-		it('hides both availability date inputs if not allowed to edit', async() => {
-			expect(startDateInput).to.not.exist;
-			expect(endDateInput).to.not.exist;
+		it('renders disabled date inputs if not allowed to edit', async() => {
+			expect(startDateInput).to.have.attr('disabled');
+			expect(endDateInput).to.have.attr('disabled');
 		});
 	});
 

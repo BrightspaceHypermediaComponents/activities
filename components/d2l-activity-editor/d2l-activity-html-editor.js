@@ -64,7 +64,6 @@ class ActivityHtmlEditor extends LocalizeActivityEditorMixin(LitElement) {
 	render() {
 		return html`
 			<d2l-html-editor
-				id="assignment-instructions"
 				editor-id="${this._htmlEditorUniqueId}"
 				app-root="${resolveUrl('../../', import.meta.url)}"
 				@change="${this._onContentChange}"

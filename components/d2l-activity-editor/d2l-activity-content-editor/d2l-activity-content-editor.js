@@ -11,6 +11,7 @@ import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/content-store.js';
+import { trustedSitesProviderFn } from '../shared/trusted-site-provider.js';
 
 class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorMixin(MobxLitElement))) {
 
@@ -19,7 +20,9 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 			widthType: { type: String, attribute: 'width-type' },
 			isNew: { type: Boolean },
 			cancelHref: { type: String },
-			saveHref: { type: String }
+			saveHref: { type: String },
+			unfurlEndpoint: { type: String },
+			trustedSitesEndpoint: { type: String },
 		};
 	}
 
@@ -40,8 +43,6 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 
 	constructor() {
 		super(store);
-		// Only show the scrollbar when necessary
-		document.body.style.overflow = 'auto';
 	}
 
 	connectedCallback() {
@@ -62,6 +63,9 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 				telemetryId="content"
 				.href=${this.href}
 				.token=${this.token}
+				unfurlEndpoint="${this.unfurlEndpoint}"
+				trustedSitesEndpoint="${this.trustedSitesEndpoint}"
+				@d2l-request-provider="${this._onRequestProvider}"
 				width-type="${this.widthType}"
 				error-term="${this.localize('content.saveError')}"
 				?isnew="${this.isNew}"
@@ -97,6 +101,23 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 				</d2l-activity-content-editor-secondary>
 			</div>
 		`;
+	}
+
+	_onRequestProvider(e) {
+		// Provides unfurl API endpoint for d2l-labs-attachment component
+		// https://github.com/Brightspace/attachment/blob/e44cab1f0cecc55dd93acf59212fabc6872c0bd3/components/attachment.js#L110
+		if (e.detail.key === 'd2l-provider-unfurl-api-endpoint') {
+			e.detail.provider = () => this.unfurlEndpoint;
+			e.stopPropagation();
+			return;
+		}
+
+		// Provides function to validate if a URL is trusted for d2l-labs-attachment
+		// https://github.com/Brightspace/attachment/blob/e44cab1f0cecc55dd93acf59212fabc6872c0bd3/components/attachment.js#L115
+		if (e.detail.key === 'd2l-provider-trusted-site-fn') {
+			e.detail.provider = trustedSitesProviderFn(this.trustedSitesEndpoint);
+			e.stopPropagation();
+		}
 	}
 
 	_redirectOnCancelComplete() {

@@ -5,12 +5,11 @@ import './d2l-activity-quiz-evaluation-and-feedback-editor.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class QuizEditorSecondary extends ActivityEditorFeaturesMixin(AsyncContainerMixin(SkeletonMixin(RtlMixin(LitElement)))) {
+class QuizEditorSecondary extends AsyncContainerMixin(SkeletonMixin(RtlMixin(LitElement))) {
 
 	static get properties() {
 		return {

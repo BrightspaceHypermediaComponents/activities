@@ -4,6 +4,7 @@ import '@brightspace-ui/core/components/link/link';
 import './d2l-work-to-do-activity-list-header';
 import './d2l-work-to-do-activity-list-item-basic';
 import './d2l-work-to-do-activity-list-item-detailed';
+import './d2l-work-to-do-empty-state-image';
 
 import '@webcomponents/webcomponentsjs/webcomponents-loader';
 import 'd2l-navigation/d2l-navigation-immersive';
@@ -13,7 +14,7 @@ import 'd2l-navigation/d2l-navigation-button-close';
 import { Actions, Rels } from 'siren-sdk/src/hypermedia-constants';
 import { bodyStandardStyles, heading1Styles, heading3Styles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
-import { Config, Constants } from './env';
+import { Config, Constants, getOverdueWeekLimit, getUpcomingWeekLimit } from './env';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ifDefined } from 'lit-html/directives/if-defined';
@@ -45,7 +46,11 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			/** ActivityUsageCollection with time: 0 -> UpcomingWeekLimit */
 			_upcomingCollection: { type: Object },
 			/** Represents current session's UpcomingWeekLimit */
-			_upcomingWeekLimit: { type: Number, attribute: 'data-upcoming-week-limit' }
+			_upcomingWeekLimit: { type: Number, attribute: 'data-upcoming-week-limit' },
+			/** individual items within upcomingCollection + subsequent pages once the UI has them */
+			_upcomingActivities: { type: Array },
+			/** keeps track of the sub items being loaded, so we can show all data at once and not a partial activity */
+			_initialLoad: { type: Boolean }
 		};
 	}
 
@@ -75,7 +80,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				.d2l-empty-body-text-container {
 					display: block;
 					text-align: center;
-					width: 16.5rem;
+					width: 100%;
 				}
 				.d2l-empty-header-text-container {
 					margin: 1.2rem auto 0.3rem auto;
@@ -89,15 +94,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					width: 100%;
 				}
 				#empty-icon {
-					height: 100px;
-					width: 100px;
+					max-width: 18rem;
+					width: 100%;
+				}
+				.d2l-load-more-button {
+					padding: 1.8rem 0;
 				}
 				.d2l-work-to-do-fullscreen-container {
 					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
-					padding: 3.35rem 2rem 0 2rem;
-				}
-				d2l-button {
-					padding: 1.8rem 0;
+					padding: 0 2rem;
 				}
 				.d2l-activity-collection d2l-list d2l-work-to-do-activity-list-item-basic:first-of-type {
 					margin-top: 0.3rem;
@@ -107,6 +112,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				}
 				.d2l-activity-collection-container-fullscreen d2l-list d2l-work-to-do-activity-list-item-detailed:last-of-type {
 					margin-bottom: 1.5rem;
+				}
+				d2l-work-to-do-activity-list-item-basic,
+				d2l-work-to-do-activity-list-item-detailed {
+					--d2l-list-item-content-text-color: var(--d2l-color-ferrite);
 				}
 			`
 		];
@@ -123,8 +132,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._upcomingCollection = undefined;
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
+		this._upcomingActivities = [];
+		this._overdueActivities = [];
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
+		this._initialLoad = true;
+		this._loadedElements = [];
 	}
 
 	set _entity(entity) {
@@ -175,13 +188,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	render() {
 
 		/** Activity state templates */
-		const collectionTemplate = (collection, displayLimit, isOverdue) => {
-			if (!collection || displayLimit === 0) {
-				return nothing;
-			}
-
-			const activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-			if (activities.length === 0) {
+		const collectionTemplate = (activities, displayLimit, isOverdue) => {
+			if (!activities || activities.length === 0 || displayLimit === 0) {
 				return nothing;
 			}
 
@@ -191,13 +199,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				item => html`
 					<d2l-work-to-do-activity-list-item-basic
 						href=${ifDefined(item.getLinkByRel('self').href)}
-						.token=${ifDefined(this.token)}></d2l-work-to-do-activity-list-item-basic>
+						.token=${ifDefined(this.token)}
+						?skeleton=${this._initialLoad}
+						@data-loaded="${this._itemLoaded}"></d2l-work-to-do-activity-list-item-basic>
 				`
 			);
 
 			return html`
 				<div class="d2l-activity-collection">
-					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length}></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length}></d2l-work-to-do-activity-list-header>
 					<d2l-list separators="none">${items}</d2l-list>
 				</div>
 			`;
@@ -209,44 +219,66 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 			return html`
 				<div class="d2l-overdue-list">
-					${collectionTemplate(this._overdueCollection, this._overdueDisplayLimit, true)}
+					${collectionTemplate(this._overdueActivities, this._overdueDisplayLimit, true)}
 				</div>
 				<div class="d2l-upcoming-list">
-					${collectionTemplate(this._upcomingCollection, this._upcomingDisplayLimit, false)}
+					${collectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, false)}
 				</div>
 				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource}>${this.localize('fullViewLink')}</d2l-link>
 			`;
 		};
 
 		/** Empty state templates */
-		const emptyViewTextTemplate = (discoverActive, hasActivities) => {
-			if (hasActivities) {
-				return html`${this.localize('activitiesAvailable')}`;
-			}
+		const emptyViewHeaderTemplate = (hasActivities) => {
+			const emptyViewHeader = hasActivities ?
+				this.localize('xWeeksClear', 'count', getUpcomingWeekLimit()) :
+				this.localize('allClear');
 
-			return discoverActive
-				? html`${this.localize('noActivitiesDiscoverActive')}`
-				: html`${this.localize('noActivitiesDiscoverInactive')}`;
+			return html`
+				<div class="d2l-heading-3 d2l-empty-header-text-container">
+					${emptyViewHeader}
+				</div>
+			`;
 		};
 
-		const emptyViewButtonTemplate = (discoverActive, hasActivities) => {
-			if (hasActivities) {
-				return html `
-					<d2l-button
-						primary
-						@click=${() => window.location.href = this._viewAllSource}>
-						${this.localize('viewAllWork')}
-					</d2l-button>`;
+		/** Empty state templates */
+		const emptyViewTextTemplate = (hasActivities) => {
+			if (this.fullscreen) {
+				return html`
+					<div class="d2l-body-standard d2l-empty-body-text-container">
+						${this.localize('noActivities')}
+					</div>
+					<div class="d2l-body-standard d2l-empty-body-text-container">
+						${this.localize('comeBackNoFutureActivities')}
+					</div>
+				`;
 			}
 
-			return discoverActive
-				? html`
-					<d2l-button
-						primary
-						@click=${() => window.location.href = this._discoverHref}>
-						${this.localize('goToDiscover')}
-					</d2l-button>`
-				: nothing;
+			const emptyViewText = hasActivities ?
+				this.localize('noActivitiesFutureActivities') :
+				this.localize('noActivitiesNoFutureActivities');
+
+			return html`
+				<div class="d2l-body-standard d2l-empty-body-text-container">
+					${emptyViewText}
+				</div>
+			`;
+		};
+
+		const emptyViewButtonTemplate = (hasActivities) => {
+			if (hasActivities && !this.fullscreen) {
+				return html `
+					<div class="d2l-empty-button-container">
+						<d2l-button
+							primary
+							@click=${() => window.location.href = this._viewAllSource}>
+							${this.localize('viewAllWork')}
+						</d2l-button>
+					</div>
+				`;
+			}
+
+			return nothing;
 		};
 
 		const emptyViewTemplate = () => {
@@ -255,19 +287,14 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 
 			return html`
+				${this.fullscreen ? immersiveNav() : ''}
 				<div class="d2l-empty-template">
 					<div class="d2l-empty-icon-container">
-						<d2l-icon id="empty-icon" icon="tier3:search"></d2l-icon>
+						<d2l-work-to-do-empty-state-image id="empty-icon"></d2l-work-to-do-empty-state-image>
 					</div>
-					<div class="d2l-heading-3 d2l-empty-header-text-container">
-						${this.localize('nothingHere')}
-					</div>
-					<div class="d2l-body-standard d2l-empty-body-text-container">
-						${emptyViewTextTemplate(this._discoverActive, this._maxCount)}
-					</div>
-					<div class="d2l-empty-button-container">
-						${emptyViewButtonTemplate(this._discoverActive, this._maxCount)}
-					</div>
+					${emptyViewHeaderTemplate(this._maxCount)}
+					${emptyViewTextTemplate(this._maxCount)}
+					${emptyViewButtonTemplate(this._maxCount)}
 				</div>
 			`;
 		};
@@ -276,19 +303,18 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const errorTemplate = nothing;
 
 		/** Fullscreen state templates */
-		const fullscreenCollectionTemplate = (collection, displayLimit, isOverdue) => {
-			if (!collection || displayLimit === 0) {
+		const fullscreenCollectionTemplate = (activities, isOverdue) => {
+			if (!activities || activities.length === 0) {
 				return nothing;
 			}
 
-			const activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 			if (activities.length === 0) {
 				return nothing;
 			}
 
 			let prevDate = new Date(0, 0, 0, 0);
 
-			const groupedByDate = activities.slice(0, displayLimit).map((activity) => {
+			const groupedByDate = activities.map((activity) => {
 				const activityDate = activity.hasSubEntityByClass('due-date')
 					? new Date(activity.getSubEntityByClass('due-date').properties.date)
 					: new Date(activity.getSubEntityByClass('end-date').properties.date);
@@ -302,25 +328,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					<d2l-work-to-do-activity-list-item-detailed
 						href=${ifDefined(activity.getLinkByRel('self').href)}
 						.token=${ifDefined(this.token)}
+						?skeleton=${this._initialLoad}
+						@data-loaded="${this._itemLoaded}"
 						?include-date=${newDay}></d2l-work-to-do-activity-list-item-detailed>
 				`;
 			});
 
-			const immersiveNav = (isFullscreen) => {
-				return isFullscreen
-					? html`
-						<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
-							<div class="d2l-typography d2l-body-standard" slot="middle">
-								<p>${this.localize('myWorkToDo')}</p>
-							</div>
-						</d2l-navigation-immersive>`
-					: nothing;
-			};
-
 			return html`
-				${immersiveNav(this.fullscreen)}
 				<div class="d2l-activity-collection-container-fullscreen">
-					<d2l-work-to-do-activity-list-header ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>
 				</div>
 			`;
@@ -336,18 +352,29 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				</d2l-button>`
 			: nothing;
 
+		const immersiveNav = () => {
+			return html`
+				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+					<div class="d2l-typography d2l-body-standard" slot="middle">
+						<p>${this.localize('myWorkToDo')}</p>
+					</div>
+				</d2l-navigation-immersive>`;
+		};
+
 		const fullscreenTemplate = () => {
 			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
 				return nothing;
 			}
+
 			return html`
+				${immersiveNav()}
 				<div class="d2l-work-to-do-fullscreen-container">
 					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
 					<div class="d2l-overdue-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._overdueCollection, this._overdueDisplayLimit, true)}
+						${fullscreenCollectionTemplate(this._overdueActivities, true)}
 					</div>
 					<div class="d2l-upcoming-collection-fullscreen">
-						${fullscreenCollectionTemplate(this._upcomingCollection, this._upcomingDisplayLimit, false)}
+						${fullscreenCollectionTemplate(this._upcomingActivities, false)}
 					</div>
 					${loadButtonTemplate}
 				</div>
@@ -365,13 +392,19 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		`;
 
 		const detailedSkeleton = html`
-			<d2l-work-to-do-activity-list-header skeleton fullscreen></d2l-work-to-do-activity-list-header>
-			<d2l-list separators="none">
-				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
-				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
-				<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
-			</d2l-list>
-			<div class="d2l-load-more-button-skeleton d2l-skeletize"></div>
+			${immersiveNav()}
+			<div class="d2l-work-to-do-fullscreen-container">
+				<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
+				<div class="d2l-overdue-collection-fullscreen">
+					<d2l-work-to-do-activity-list-header skeleton fullscreen></d2l-work-to-do-activity-list-header>
+					<d2l-list separators="none">
+						<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
+						<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
+						<d2l-work-to-do-activity-list-item-detailed skeleton href=' ' token=' '></d2l-work-to-do-activity-list-item-detailed>
+					</d2l-list>
+					<div class="d2l-load-more-button-skeleton d2l-skeletize"></div>
+				</div>
+			</div>
 		`;
 
 		const loadingTemplate = () => {
@@ -398,9 +431,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	get _moreAvail() {
-		// Logic is waiting on paging capability from activities service
-		// For now just forcing on so we can see the button
-		return true;
+		return this._upcomingCollection && this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage);
 	}
 
 	get _maxCount() {
@@ -441,6 +472,44 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	/**
+	 * Fired when all the data required to render the activity is present.
+	 * Event is guaranteed to fire for success and failures.
+	 * @param {CustomEvent} event Event data from the activity item
+	 */
+	_itemLoaded(event) {
+		if (this._initialLoad) {
+			this._loadedElements.push(event.target);
+
+			const totalActivities = this._overdueActivities.length + this._upcomingActivities.length;
+			const expectedLoadedActivities = this.fullscreen
+				? totalActivities
+				: Math.min(Constants.MaxWidgetDisplay, totalActivities);
+
+			if (this._loadedElements.length === expectedLoadedActivities) {
+				this._initialLoad = false;
+				this._loadedElements = [];
+			}
+		}
+	}
+
+	_getFilteredOverdueActivities(collection) {
+		let activities = collection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+
+		const cutOffDate = new Date();
+		cutOffDate.setDate(cutOffDate.getDate() - (getOverdueWeekLimit() * 7));
+
+		activities = activities.filter((activity) => {
+			const activityDate = activity.hasSubEntityByClass('due-date')
+				? new Date(activity.getSubEntityByClass('due-date').properties.date)
+				: new Date(activity.getSubEntityByClass('end-date').properties.date);
+
+			return activityDate.getTime() >= cutOffDate.getTime();
+		});
+
+		return activities;
+	}
+
+	/**
 	 * Get collections of overdue, upcoming and max range ActivityUsageCollectionEntities
 	 * @async
 	 * @param {UserEntity} entity - User 'whoami' endpoint response
@@ -449,6 +518,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const emptySource = (
 			entity.hasLinkByRel(Rels.Activities.myActivitiesEmpty)
 			&& entity.getLinkByRel(Rels.Activities.myActivitiesEmpty)
+			|| entity.hasLinkByRel(Rels.Activities.myOrganizationActivitiesEmpty)
+			&& entity.getLinkByRel(Rels.Activities.myOrganizationActivitiesEmpty)
 			|| {}).href;
 
 		if (emptySource) {
@@ -467,10 +538,27 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * Add to display limit so next page of activities renders for user
 	 * Load next page of activities into memory in anticipation for next request
 	 */
-	_handleLoadMoreClicked() {
-		// Nothing here right now - blocked on US120246
-		// eslint-disable-next-line no-console
-		console.log('I am an empty block of code, please complete me.');
+	async _handleLoadMoreClicked() {
+		if (!this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage)) return;
+
+		const upcomingSource = this._upcomingCollection.getLinkByRel(Rels.Activities.nextPage).href;
+		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
+		if (upcomingNextPage && upcomingNextPage.hasSubEntityByRel(Rels.Activities.userActivityUsage)) {
+			this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+			this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
+		}
+	}
+
+	// !TODO Further investigate defect DE42208 to remove need for retry
+	async _performSirenActionWithRetry(token, action, fields, immediate, maxRetries = 0, error = null)  {
+		if (maxRetries > -1) {
+			return performSirenAction(token, action, fields, immediate)
+				.catch((error) => {
+					return this._performSirenActionWithRetry(token, action, fields, immediate, maxRetries - 1, error);
+				});
+		}
+
+		return Promise.reject(error);
 	}
 
 	/**
@@ -487,7 +575,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		const source = entity.getLinkByRel(Rels.Activities.overdue).href;
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
-				this._overdueCollection = sirenEntity;
+				if (sirenEntity) {
+					this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
+					this._overdueCollection = sirenEntity;
+				}
 			});
 	}
 
@@ -499,29 +590,44 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	 * @param {SimpleEntity} entity - 'Empty' Activities domain endpoint response
 	 * @param {Number} [forwardLimit] - [Default: Config.UpcomingWeekLimit * 7] Number of days into future to look for activities
 	 */
-	async _loadUpcoming(entity, forwardLimit) {
-		if (!entity || !entity.hasActionByName(Actions.activities.selectCustomDateRange)) {
+	async _loadUpcoming(entity, forwardLimit, pageSize) {
+		if (!pageSize) pageSize = Constants.PageSize;
+
+		if (!entity || (!entity.hasActionByName(Actions.activities.filterWorkToDo) && !entity.hasActionByName(Actions.activities.selectCustomDateRange))) {
 			return;
 		}
 
 		const isMax = !!forwardLimit;
-		forwardLimit = forwardLimit ? forwardLimit : (Config.UpcomingWeekLimit * 7);
+		forwardLimit = forwardLimit ? forwardLimit : (getUpcomingWeekLimit() * 7);
 
 		const now = new Date();
 		const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + forwardLimit, 23, 59, 59, 999).toISOString();
 		const start = new Date(now.getTime()).toISOString();
 
-		const action = entity.getActionByName(Actions.activities.selectCustomDateRange);
-		const fields = [
-			{ name: 'start', value: start },
-			{ name: 'end', value: end }
-		];
-		performSirenAction(this.token, action, fields, true)
+		const action = entity.hasActionByName(Actions.activities.filterWorkToDo)
+			? entity.getActionByName(Actions.activities.filterWorkToDo)
+			: entity.getActionByName(Actions.activities.selectCustomDateRange);
+		const fields = [].concat(action.fields).reduce((acc, field) => {
+			switch (field.name) {
+				case 'start': acc.push({ ...field, value: start }); break;
+				case 'end': acc.push({ ...field, value: end }); break;
+				case 'pageSize': acc.push({ ...field, value: pageSize }); break;
+				default:
+					if (field.value)
+						acc.push(field);
+					break;
+			}
+			return acc;
+		}, []);
+		this._performSirenActionWithRetry(this.token, action, fields, true, 1)
 			.then((sirenEntity) => {
-				if (!isMax) {
-					this._upcomingCollection = sirenEntity;
-				} else {
-					this._maxCollection = sirenEntity;
+				if (sirenEntity) {
+					if (!isMax) {
+						this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+						this._upcomingCollection = sirenEntity;
+					} else {
+						this._maxCollection = sirenEntity;
+					}
 				}
 			});
 	}

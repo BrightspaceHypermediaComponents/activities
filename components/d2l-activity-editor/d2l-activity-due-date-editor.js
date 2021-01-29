@@ -33,10 +33,6 @@ class ActivityDueDateEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeAc
 			dueDateError
 		} = this._getDateValues();
 
-		if (!canEditDates) {
-			return html``;
-		}
-
 		return html`
 		 	<d2l-input-date-time
 				?skeleton="${this.skeleton}"
@@ -44,7 +40,8 @@ class ActivityDueDateEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeAc
 				label="${this.localize('editor.dueDate')}"
 				time-default-value="endOfDay"
 				value="${dueDate}"
-				@change="${this._onDatetimeChanged}">
+				@change="${this._onDatetimeChanged}"
+				?disabled="${!canEditDates}">
 			</d2l-input-date-time>
 			<d2l-validation-custom
 				for="due-date-input"
@@ -79,7 +76,6 @@ class ActivityDueDateEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeAc
 
 		if (!dates.canEditDates) {
 			datesEntity.canEditDates = false;
-			return datesEntity;
 		}
 
 		if (dates.dueDateErrorTerm) {

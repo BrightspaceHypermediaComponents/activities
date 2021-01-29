@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "關閉", //Label for Close button
 	"editor.btnCloseDialog": "關閉此對話方塊", // close dialog button
 	"editor.btnManageSpecialAccess": "管理特殊存取權限", // manage special access button
+	"editor.saveSuccessful": "已成功儲存", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "僅具有特殊存取權限的使用者可檢視此資料夾", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "使用者可於正常可用情況日期之外提交", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 位使用者} other {{count} 位使用者}} 具有特殊存取權限", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "現有活動", // Attach menu item text
 
 	"content.name": "名稱", // Text label for name input field
-	"content.emptyNameField": "名稱為必填", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "名稱為必填。", // Error text that appears below name field when it is left empty
 	"content.description": "說明", // Text label for description input field
 	"content.availabilityHeader": "可用情況日期", // availability header
 	"content.saveError": "您的內容項目尚未儲存。請修正以紅色顯示的欄位。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "新增截止日期" // Text label for name input field
+	"content.addDueDate": "新增截止日期", // Text label for name input field
+	"content.embedOnPage": "內嵌於頁面上 (iframe)", // Text label for link radio button
+	"content.openNewTab": "在新頁籤中開啟", // Text label for link radio button
+	"content.link": "連結", //Text label for link input field
+	"content.emptyLinkField": "連結為必填。", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "請輸入有效的 URL。", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "只能嵌入使用「https」的連結。", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "無法嵌入該網站。", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "預覽", // The label text for the link preview
 };

@@ -224,7 +224,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				<div class="d2l-upcoming-list">
 					${collectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, false)}
 				</div>
-				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource}>${this.localize('fullViewLink')}</d2l-link>
+				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource || !this._hasHiddenActivities}>${this.localize('fullViewLink')}</d2l-link>
 			`;
 		};
 
@@ -292,9 +292,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 					<div class="d2l-empty-icon-container">
 						<d2l-work-to-do-empty-state-image id="empty-icon"></d2l-work-to-do-empty-state-image>
 					</div>
-					${emptyViewHeaderTemplate(this._maxCount)}
-					${emptyViewTextTemplate(this._maxCount)}
-					${emptyViewButtonTemplate(this._maxCount)}
+					${emptyViewHeaderTemplate(this._hasHiddenActivities)}
+					${emptyViewTextTemplate(this._hasHiddenActivities)}
+					${emptyViewButtonTemplate(this._hasHiddenActivities)}
 				</div>
 			`;
 		};
@@ -362,7 +362,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		};
 
 		const fullscreenTemplate = () => {
-			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
+			if (!this._overdueCollection || !this._upcomingCollection) {
 				return nothing;
 			}
 
@@ -434,10 +434,13 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		return this._upcomingCollection && this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage);
 	}
 
-	get _maxCount() {
-		return this._maxCollection && this._maxCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
-			? this._maxCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-			: 0;
+	get _hasHiddenActivities() {
+		const hiddenUpcoming = this._upcomingCount > this._upcomingDisplayLimit;
+		const futureActivities = this._maxCollection && this._maxCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
+			? this._maxCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length - this._upcomingCount > 0
+			: false;
+
+		return hiddenUpcoming || futureActivities;
 	}
 
 	get _overdueCount() {
@@ -464,7 +467,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				return this.fullscreen
 					? 'fullscreen'
 					: 'activity';
-			} else if (this._maxCollection) {
+			} else {
 				return 'empty';
 			}
 		}
@@ -523,14 +526,24 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			|| {}).href;
 
 		if (emptySource) {
-			await fetchEntity(emptySource, this.token)
-				.then((emptyEntity) => {
-					if (emptyEntity) {
-						this._loadOverdue(emptyEntity);
-						this._loadUpcoming(emptyEntity);
-						this._loadUpcoming(emptyEntity, Constants.MaxDays);
-					}
-				});
+			const emptyEntity = await fetchEntity(emptySource, this.token);
+			if (emptyEntity) {
+				this._loadOverdue(emptyEntity);
+				const [ upcomingCollection, maxCollection ] = await Promise.all(
+					// In fullscreen load 1 year, max doesn't matter if upcoming is greater than or equal to 1 year
+					// In widget mode load limited data, and fetch max for future 'view all data' information.
+					this.fullscreen || getUpcomingWeekLimit() * 7 >= Constants.MaxDays
+						? [ this._loadMaxUpcoming(emptyEntity), Promise.resolve(null) ]
+						: [ this._loadLimitedUpcoming(emptyEntity), this._loadMaxUpcoming(emptyEntity) ]);
+
+				if (upcomingCollection) {
+					this._upcomingCollection = upcomingCollection;
+					this._upcomingActivities = upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+				}
+				if (maxCollection) {
+					this._maxCollection = maxCollection;
+				}
+			}
 		}
 	}
 
@@ -582,6 +595,14 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			});
 	}
 
+	async _loadMaxUpcoming(entity) {
+		return await this._loadUpcoming(entity, Constants.MaxDays, Constants.PageSize);
+	}
+
+	async _loadLimitedUpcoming(entity) {
+		return await this._loadUpcoming(entity, getUpcomingWeekLimit() * 7, Constants.MaxWidgetDisplay);
+	}
+
 	/**
 	 * Load collection of upcoming activities from present time until 'forwardLimit'.
 	 * Will set collection of upcoming activities
@@ -596,9 +617,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		if (!entity || (!entity.hasActionByName(Actions.activities.filterWorkToDo) && !entity.hasActionByName(Actions.activities.selectCustomDateRange))) {
 			return;
 		}
-
-		const isMax = !!forwardLimit;
-		forwardLimit = forwardLimit ? forwardLimit : (getUpcomingWeekLimit() * 7);
 
 		const now = new Date();
 		const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + forwardLimit, 23, 59, 59, 999).toISOString();
@@ -619,17 +637,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 			return acc;
 		}, []);
-		this._performSirenActionWithRetry(this.token, action, fields, true, 1)
-			.then((sirenEntity) => {
-				if (sirenEntity) {
-					if (!isMax) {
-						this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-						this._upcomingCollection = sirenEntity;
-					} else {
-						this._maxCollection = sirenEntity;
-					}
-				}
-			});
+
+		return await this._performSirenActionWithRetry(this.token, action, fields, true, 1);
 	}
 
 	_getHomeHref() {

@@ -102,10 +102,9 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 				Object.entries(values).forEach(([key, value]) => {
 					eventBody.addCustom(key, value.toString());
 				});
+				this._custom[measure] = {};
 			}
 		});
-
-		this._custom = {};
 
 		const event = new Events.TelemetryEvent()
 			.setType('PerformanceEvent')

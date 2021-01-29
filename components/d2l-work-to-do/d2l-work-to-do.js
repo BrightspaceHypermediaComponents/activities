@@ -431,7 +431,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	get _hasHiddenActivities() {
-		const hiddenUpcoming = this._upcomingCount > this._upcomingDisplayLimit;
+		const hiddenUpcoming = this._upcomingCount > this._upcomingDisplayLimit || this._moreAvail;
 		const futureActivities = this._maxCollection && this._maxCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
 			? this._maxCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length - this._upcomingCount > 0
 			: false;

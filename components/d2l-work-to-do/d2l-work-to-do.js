@@ -475,7 +475,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	_itemLoaded(event) {
 		if (this._initialLoad) {
 			this._loadedElements.push(event.target);
-			if (this._loadedElements.length === this._overdueActivities.length + this._upcomingActivities.length) {
+
+			const expectedLoadedActivities = this.fullscreen
+				? this._overdueActivities.length + this._upcomingActivities.length
+				: this._overdueDisplayLimit + this._upcomingDisplayLimit;
+
+			if (this._loadedElements.length === expectedLoadedActivities) {
 				this._initialLoad = false;
 				this._loadedElements = [];
 			}

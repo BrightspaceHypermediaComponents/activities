@@ -9,7 +9,7 @@ import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 import { LocalizeWorkToDoMixin } from './localization';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
-const ro = new ResizeObserver(entries => {
+const ro = window.ResizeObserver && new ResizeObserver(entries => {
 	entries.forEach(entry => {
 		const observerSize = entry && ((entry.contentBoxSize && entry.contentBoxSize[0]) || entry.contentBoxSize || entry.contentRect);
 		const width = observerSize && observerSize.width || observerSize.inlineSize;
@@ -106,12 +106,12 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 
 	connectedCallback() {
 		super.connectedCallback();
-		ro.observe(this);
+		ro && ro.observe(this);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
-		ro.unobserve(this);
+		ro && ro.unobserve(this);
 	}
 
 	render() {

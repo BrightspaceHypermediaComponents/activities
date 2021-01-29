@@ -6,8 +6,16 @@ const W2D_API_NAMESPACE = `${W2D_BASE_NAMESPACE}.api`;
 const W2D_OVERDUE_MARK = `${W2D_API_NAMESPACE}.overdue`;
 const W2D_OVERDUE_LOAD_START_MARK = `${W2D_OVERDUE_MARK}.start`;
 const W2D_OVERDUE_LOADED_MEASURE = `${W2D_OVERDUE_MARK}.loaded`;
+const W2D_UPCOMING_MARK = `${W2D_API_NAMESPACE}.upcoming`;
+const W2D_UPCOMING_LOAD_START_MARK = `${W2D_UPCOMING_MARK}.start`;
+const W2D_UPCOMING_LOADED_MEASURE = `${W2D_UPCOMING_MARK}.loaded`;
+const W2D_UPCOMING_MAX_MARK = `${W2D_API_NAMESPACE}.upcoming.max`;
+const W2D_UPCOMING_MAX_LOAD_START_MARK = `${W2D_UPCOMING_MAX_MARK}.start`;
+const W2D_UPCOMING_MAX_LOADED_MEASURE = `${W2D_UPCOMING_MAX_MARK}.loaded`;
 const W2D_VIEW_NAMESPACE = `${W2D_BASE_NAMESPACE}.view`;
 const W2D_VIEW_LOADED_MEASURE = `${W2D_VIEW_NAMESPACE}.loaded`;
+const W2D_WIEW_LOAD_MEASURES = new Set([W2D_OVERDUE_LOADED_MEASURE, W2D_UPCOMING_LOADED_MEASURE,
+	W2D_UPCOMING_MAX_LOADED_MEASURE, W2D_VIEW_LOADED_MEASURE]);
 
 export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 
@@ -44,9 +52,24 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 		this._markEventEnd(W2D_OVERDUE_LOADED_MEASURE, W2D_OVERDUE_LOAD_START_MARK, { OverdueCount: count });
 	}
 
-	markAndLogWidgetLoaded(href) {
+	markLoadUpcomingStart(isMax) {
+		this._markEventStart(isMax ? W2D_UPCOMING_MAX_LOAD_START_MARK : W2D_UPCOMING_LOAD_START_MARK);
+	}
+
+	markLoadUpcomingEnd(isMax, count) {
+		isMax
+			? this._markEventEnd(W2D_UPCOMING_MAX_LOADED_MEASURE, W2D_UPCOMING_MAX_LOAD_START_MARK, { UpcomingMaxCount: count })
+			: this._markEventEnd(W2D_UPCOMING_LOADED_MEASURE, W2D_UPCOMING_LOAD_START_MARK, { UpcomingCount: count });
+	}
+
+	markAndLogWidgetLoaded(fullscreen) {
 		this._markEventEnd(W2D_VIEW_LOADED_MEASURE);
-		this._logPerformanceEvent('LoadView', href, 'View');
+
+		const timings = performance
+			.getEntriesByType('measure')
+			.filter((measure) => W2D_WIEW_LOAD_MEASURES.has(measure.name));
+
+		this._logPerformanceEvent('LoadView', 'View', fullscreen ? 'Fullscreen' : 'Widget', timings);
 	}
 
 	_markEventStart(startMark) {
@@ -65,7 +88,7 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 		Object.assign(this._custom, custom);
 	}
 
-	_logPerformanceEvent(action, href, type) {
+	_logPerformanceEvent(action, href, type, timings) {
 		if (!this._client || !action || !href || !type) {
 			return;
 		}
@@ -73,12 +96,7 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 		const eventBody = new Events.PerformanceEventBody()
 			.setAction(action)
 			.setObject(encodeURIComponent(href), type, href)
-			.addUserTiming(performance.getEntriesByType('measure').filter((measure) => {
-				return measure.name.startsWith(W2D_BASE_NAMESPACE);
-			}));
-
-		performance.clearMarks();
-		performance.clearMeasures();
+			.addUserTiming(timings);
 
 		Object.entries(this._custom).forEach(([key, value]) => {
 			eventBody.addCustom(key, value.toString());

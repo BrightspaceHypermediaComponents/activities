@@ -367,6 +367,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 					this.actionHref = (this._started && (link && link.href)) || null;
 				}
+
+				break;
 			}
 		}
 	}

@@ -51,5 +51,8 @@ export default {
 	"disableRightClickHelpDialogConfirmationText": "OK", // copy that appears on the disable right click help dialog confirmation button
 	"manageTimingDialogConfirmationText": "OK", // copy that appears on the Timing dialog confirmation button
 	"manageTimingDialogCancelText": "Cancel", // copy that appears on the Timing dialog cancel button
-	"description": "Description", // Description label for the Description text input box
+	"description": "Description", // Description label for the Description text input box,
+	"btnOpenIpRestrictionDialog": "Manage IP restrictions", // Button text for opening IP restriction dialog
+	"hdrIpRestrictionDialog": "IP Restrictions (IPv4)", // timing/display accordion header
+	"ipRestrictionLabel": "IP Restrictions" // Label for IP restrictions editor
 };

@@ -282,10 +282,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		};
 
 		const emptyViewTemplate = () => {
-			if (!this._maxCollection) {
-				return nothing;
-			}
-
 			return html`
 				${this.fullscreen ? immersiveNav() : ''}
 				<div class="d2l-empty-template">

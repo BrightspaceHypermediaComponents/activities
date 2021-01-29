@@ -492,6 +492,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			if (this._loadedElements.length === expectedLoadedActivities) {
 				this._initialLoad = false;
 				this._loadedElements = [];
+				this.markAndLogWidgetLoaded(this.fullscreen);
 			}
 		}
 	}
@@ -652,14 +653,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		// TODO: this is a default (and kind of a hacky way to get to it),
 		// ideally we want to get the user's homepage from their profile
 		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
-	}
-
-	updated(changedProperties) {
-		super.updated(changedProperties);
-		if (this._state !== 'loading') {
-			console.log(this._initialLoad);
-			this.markAndLogWidgetLoaded('abc');
-		}
 	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

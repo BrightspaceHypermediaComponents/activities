@@ -593,7 +593,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 				const overdueCount = sirenEntity
 					? sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
 					: 0;
-				this.markAndLogLoadOverdueEnd(source, Rels.Activities.overdue, overdueCount);
+				this.markLoadOverdueEnd(source, Rels.Activities.overdue, overdueCount);
 
 				if (sirenEntity) {
 					this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
@@ -657,6 +657,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 	updated(changedProperties) {
 		super.updated(changedProperties);
 		if (this._state !== 'loading') {
+			console.log(this._initialLoad);
 			this.markAndLogWidgetLoaded('abc');
 		}
 	}

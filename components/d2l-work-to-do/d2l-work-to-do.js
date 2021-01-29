@@ -474,6 +474,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		return 'loading';
 	}
 
+	get _upcomingDayLimit() {
+		return getUpcomingWeekLimit() * 7;
+	}
+
 	/**
 	 * Fired when all the data required to render the activity is present.
 	 * Event is guaranteed to fire for success and failures.
@@ -532,7 +536,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				const [ upcomingCollection, maxCollection ] = await Promise.all(
 					// In fullscreen load 1 year, max doesn't matter if upcoming is greater than or equal to 1 year
 					// In widget mode load limited data, and fetch max for future 'view all data' information.
-					this.fullscreen || getUpcomingWeekLimit() * 7 >= Constants.MaxDays
+					this.fullscreen || this._upcomingDayLimit >= Constants.MaxDays
 						? [ this._loadMaxUpcoming(emptyEntity), Promise.resolve(null) ]
 						: [ this._loadLimitedUpcoming(emptyEntity), this._loadMaxUpcoming(emptyEntity) ]);
 
@@ -596,11 +600,11 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	async _loadMaxUpcoming(entity) {
-		return await this._loadUpcoming(entity, Constants.MaxDays, Constants.PageSize);
+		return await this._loadUpcoming(entity, Math.max(Constants.MaxDays, this._upcomingDayLimit), Constants.PageSize);
 	}
 
 	async _loadLimitedUpcoming(entity) {
-		return await this._loadUpcoming(entity, getUpcomingWeekLimit() * 7, Constants.MaxWidgetDisplay);
+		return await this._loadUpcoming(entity, this._upcomingDayLimit, Constants.MaxWidgetDisplay);
 	}
 
 	/**

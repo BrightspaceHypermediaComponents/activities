@@ -653,5 +653,12 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		// ideally we want to get the user's homepage from their profile
 		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
 	}
+
+	updated(changedProperties) {
+		super.updated(changedProperties);
+		if (this._state !== 'loading') {
+			this.markAndLogWidgetLoaded('abc');
+		}
+	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

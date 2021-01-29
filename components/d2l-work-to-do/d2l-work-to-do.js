@@ -51,7 +51,9 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			/** individual items within upcomingCollection + subsequent pages once the UI has them */
 			_upcomingActivities: { type: Array },
 			/** keeps track of the sub items being loaded, so we can show all data at once and not a partial activity */
-			_initialLoad: { type: Boolean }
+			_initialLoad: { type: Boolean },
+			/** Represents telemetry endpoint to publish events to */
+			_telemetryEndpoint: { type: String, attribute: 'data-telemetry-endpoint' }
 		};
 	}
 
@@ -139,6 +141,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		this._setEntityType(UserEntity);
 		this._initialLoad = true;
 		this._loadedElements = [];
+		this._telemetryEndpoint = undefined;
 	}
 
 	set _entity(entity) {
@@ -161,6 +164,10 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			case 'data-overdue-week-limit':
 				this._overdueWeekLimit = (parseInt(newval) < 0) ? Config.OverdueWeekLimit : parseInt(newval);
 				window.D2L.workToDoOptions.overdueWeekLimit = this._overdueWeekLimit;
+				break;
+			case 'data-telemetry-endpoint':
+				this._telemetryEndpoint = newval;
+				window.D2L.workToDoOptions.telemetryEndpoint = this._telemetryEndpoint;
 				break;
 			case 'data-upcoming-week-limit':
 				this._upcomingWeekLimit = (parseInt(newval) < 0) ? Config.UpcomingWeekLimit : parseInt(newval);
@@ -596,14 +603,12 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		this.markLoadOverdueStart();
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
-				const overdueCount = sirenEntity
-					? sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-					: 0;
-				this.markLoadOverdueEnd(overdueCount);
-
 				if (sirenEntity) {
+					this.markLoadOverdueEnd(sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
 					this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
 					this._overdueCollection = sirenEntity;
+				} else {
+					this.markLoadOverdueEnd(0);
 				}
 			});
 	}

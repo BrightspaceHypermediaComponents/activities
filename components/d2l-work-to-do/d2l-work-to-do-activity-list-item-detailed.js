@@ -14,9 +14,10 @@ import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-ite
 import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { nothing } from 'lit-html';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { WorkToDoTelemetryMixin } from './mixins/d2l-work-to-do-telemetry-mixin';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 
-class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
+class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkToDoMixin(LitElement))))) {
 
 	static get properties() {
 		return {
@@ -159,8 +160,22 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	 * Fire data-loaded event to tell the main component we are ready to render.
 	 */
 	_onDataLoaded() {
+		this.addEventListener('click', this._onItemTriggered.bind(this));
+		this.addEventListener('keydown', this._onItemTriggered.bind(this));
+
 		const event = new CustomEvent('data-loaded');
 		this.dispatchEvent(event);
+	}
+
+	/**
+	 * Logs activity navigated telemetry event
+	 */
+	_onItemTriggered(event) {
+		if (event.type === 'keydown' && event.keyCode !== 13 && event.keyCode !== 32) {
+			return;
+		}
+
+		this.logActivityNavigatedTo(this.actionHref, this._activityProperties && this._activityProperties.type);
 	}
 
 	render() {

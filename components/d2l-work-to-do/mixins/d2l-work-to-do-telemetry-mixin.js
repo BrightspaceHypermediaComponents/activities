@@ -20,29 +20,11 @@ const W2D_WIEW_LOAD_MEASURES = [W2D_OVERDUE_LOADED_MEASURE, W2D_UPCOMING_LOADED_
 
 export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 
-	static get properties() {
-		return {
-			/** Represents telemetry endpoint to publish events to */
-			_telemetryEndpoint: { type: String, attribute: 'data-telemetry-endpoint' },
-		};
-	}
-
 	constructor() {
 		super();
 
-		this._telemetryEndpoint = undefined;
 		this._client = undefined;
 		this._custom = {};
-	}
-
-	attributeChangedCallback(name, oldval, newval) {
-		if (name === 'data-telemetry-endpoint') {
-			this._client = newval
-				? new Events.Client({ endpoint: newval })
-				: undefined;
-		}
-
-		super.attributeChangedCallback(name, oldval, newval);
 	}
 
 	markLoadOverdueStart() {
@@ -77,6 +59,10 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 		this._logPerformanceEvent('LoadView', 'View', fullscreen ? 'Fullscreen' : 'Widget', W2D_WIEW_LOAD_MEASURES);
 	}
 
+	logActivityNavigatedTo(href, type) {
+		this._logTelemetryEvent('NavigatedTo', href, type);
+	}
+
 	_markEventStart(startMark) {
 		if (!startMark) {
 			return;
@@ -94,7 +80,7 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 	}
 
 	_logPerformanceEvent(action, href, type, measures) {
-		if (!this._client || !action || !href || !type || !measures) {
+		if (!action || !href || !type || !measures) {
 			return;
 		}
 
@@ -122,7 +108,37 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 			.setSourceId(W2D_TELEMETRY_ID)
 			.setBody(eventBody);
 
-		console.log(event);
-		// this._client.logUserEvent(event);
+		this._sendEvent(event);
+	}
+
+	_logTelemetryEvent(action, href, type) {
+		if (!action || !href || !type) {
+			return;
+		}
+
+		const eventBody = new Events.EventBody()
+			.setAction(action)
+			.setObject(encodeURIComponent(href), type, href);
+
+		const event = new Events.TelemetryEvent()
+			.setType('TelemetryEvent')
+			.setDate(new Date())
+			.setSourceId(W2D_TELEMETRY_ID)
+			.setBody(eventBody);
+
+		this._sendEvent(event);
+	}
+
+	_sendEvent(event) {
+		const telemetryEndpoint = window.D2L && window.D2L.workToDoOptions && window.D2L.workToDoOptions.telemetryEndpoint;
+		if (!telemetryEndpoint) {
+			return;
+		}
+
+		if (!this._client || this._client.options.endpoint !== telemetryEndpoint) {
+			this._client = new Events.Client({ endpoint: telemetryEndpoint });
+		}
+
+		this._client.logUserEvent(event);
 	}
 };

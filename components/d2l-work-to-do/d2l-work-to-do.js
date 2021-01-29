@@ -557,10 +557,15 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		if (!this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage)) return;
 
 		const upcomingSource = this._upcomingCollection.getLinkByRel(Rels.Activities.nextPage).href;
+		this.markLoadMoreStart();
 		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
 		if (upcomingNextPage && upcomingNextPage.hasSubEntityByRel(Rels.Activities.userActivityUsage)) {
-			this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+			const nextActivities = upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+			this.markAndLogLoadMoreEnd(nextActivities.length);
+			this._upcomingActivities = this._upcomingActivities.concat(nextActivities);
 			this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
+		} else {
+			this.markAndLogLoadMoreEnd(0);
 		}
 	}
 

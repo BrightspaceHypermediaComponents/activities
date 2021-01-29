@@ -1,4 +1,5 @@
 import Events from 'd2l-telemetry-browser-client';
+import { Rels } from 'siren-sdk/src/hypermedia-constants';
 
 const W2D_TELEMETRY_ID = 'worktodo';
 const W2D_BASE_NAMESPACE = 'd2l-work-to-do';
@@ -60,6 +61,15 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 		isMax
 			? this._markEventEnd(W2D_UPCOMING_MAX_LOADED_MEASURE, W2D_UPCOMING_MAX_LOAD_START_MARK, { UpcomingMaxCount: count })
 			: this._markEventEnd(W2D_UPCOMING_LOADED_MEASURE, W2D_UPCOMING_LOAD_START_MARK, { UpcomingCount: count });
+	}
+
+	markLoadMoreStart() {
+		this.markLoadUpcomingStart();
+	}
+
+	markAndLogLoadMoreEnd(count) {
+		this.markLoadUpcomingEnd(false, count);
+		this._logPerformanceEvent('LoadMore', Rels.Activities.nextPage, 'ActivitiesNextPage', [W2D_UPCOMING_LOADED_MEASURE]);
 	}
 
 	markAndLogWidgetLoaded(fullscreen) {

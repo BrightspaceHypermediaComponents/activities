@@ -135,6 +135,9 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		this._activityProperties = undefined;
 		this._organization = undefined;
 		this._setEntityType(ActivityUsageEntity);
+
+		this.addEventListener('click', this._onItemTriggered.bind(this));
+		this.addEventListener('keydown', this._onItemTriggered.bind(this));
 	}
 
 	set _entity(entity) {
@@ -160,9 +163,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	 * Fire data-loaded event to tell the main component we are ready to render.
 	 */
 	_onDataLoaded() {
-		this.addEventListener('click', this._onItemTriggered.bind(this));
-		this.addEventListener('keydown', this._onItemTriggered.bind(this));
-
 		const event = new CustomEvent('data-loaded');
 		this.dispatchEvent(event);
 	}
@@ -171,11 +171,15 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	 * Logs activity navigated telemetry event
 	 */
 	_onItemTriggered(event) {
-		if (event.type === 'keydown' && event.keyCode !== 13 && event.keyCode !== 32) {
+		const activityType = this._activityProperties && this._activityProperties.type;
+		if (this.skeleton ||
+			!activityType ||
+			!this.actionHref ||
+			(event.type === 'keydown' && event.keyCode !== 13 && event.keyCode !== 32)) {
 			return;
 		}
 
-		this.logActivityNavigatedTo(this.actionHref, this._activityProperties && this._activityProperties.type);
+		this.logActivityNavigatedTo(this.actionHref, activityType);
 	}
 
 	render() {

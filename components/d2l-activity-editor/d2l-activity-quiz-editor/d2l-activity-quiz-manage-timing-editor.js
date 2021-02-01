@@ -71,17 +71,12 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 		} = entity || {};
 
 		return html`
-			${this._renderTimeEnforcementOptions()}
-			${isTimingEnforced ? html`${this._renderTimeEnforcedMenu()}` : html`${this._renderRecommendedTimeLimitMenu()}`}
+			${this._renderTimeEnforcementOptions(entity)}
+			${isTimingEnforced ? html`${this._renderTimeEnforcedMenu(entity)}` : html`${this._renderRecommendedTimeLimitMenu(entity)}`}
 		`;
 	}
 
-	_renderExtendedDeadline() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
-
+	_renderExtendedDeadline(entity) {
 		const {
 			extendedDeadlineOptions,
 		} = entity || {};
@@ -100,12 +95,7 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 		`;
 	}
 
-	_renderRecommendedTimeLimitMenu() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
-
+	_renderRecommendedTimeLimitMenu(entity) {
 		const {
 			showClock,
 			recommendedTimeLimit
@@ -133,12 +123,7 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 			</div>
 		`;
 	}
-	_renderTimeEnforcedMenu() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
-
+	_renderTimeEnforcedMenu(entity) {
 		const {
 			submissionLateType,
 			enforcedTimeLimit,
@@ -188,16 +173,11 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 						?checked=${type.selected}
 						.value=${type.value}
 					/>${type.title}</label>`)}
-				${showExtendedDeadline ? html`${this._renderExtendedDeadline()}` : null}
+				${showExtendedDeadline ? html`${this._renderExtendedDeadline(entity)}` : null}
 			</div>
 		`;
 	}
-	_renderTimeEnforcementOptions() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
-
+	_renderTimeEnforcementOptions(entity) {
 		const {
 			canEditTiming,
 			timingTypes

@@ -135,7 +135,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => {
 				if (invalidWeblinkError) {
-					this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
+					this.setError('_linkError', invalidWeblinkError);
 				}
 				else {
 					this.clearError('_linkError');

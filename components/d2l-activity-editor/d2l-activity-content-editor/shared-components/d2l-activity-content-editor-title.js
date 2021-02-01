@@ -106,7 +106,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => {
 				if (isTitleEmpty) {
-					this.setError('_titleError', 'content.emptyNameField', 'title-tooltip');
+					this.setError('_titleError', 'content.emptyNameField');
 				}
 				else {
 					this.clearError('_titleError');

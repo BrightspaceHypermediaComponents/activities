@@ -1,4 +1,3 @@
-import './d2l-activity-quiz-manage-timing-container';
 import '@brightspace-ui/core/components/inputs/input-number.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -101,14 +100,14 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 			recommendedTimeLimit
 		} = entity || {};
 		// TODO: remove constant min/max
-		const hidden = true;
+		const hideMinutesLabel = true;
 		return html`
 			<div class="d2l-time-menu-container">
 				<div class="d2l-time-enforcement-input-container">
 					<d2l-input-number
 							label=${this.localize('minutesLabel')}
 							title=${this.localize('minutesLabel')}
-							?label-hidden=${hidden}
+							?label-hidden=${hideMinutesLabel}
 							value=${recommendedTimeLimit}
 							min=1
 							max=9999>
@@ -156,18 +155,14 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 					</d2l-input-number>`)}
 				</div>
 
-				<label class="d2l-label-text"
-					>${this.localize('subHdrExceededTimeLimitBehaviour')}</label
-				>
+				<label class="d2l-label-text">${this.localize('subHdrExceededTimeLimitBehaviour')}</label>
 				<div>
-					<label class="d2l-italic-label"
-						>${this.localize('exceededTimeLimitBehaviourPrefix')}</label
-					>
+					<label class="d2l-italic-label">${this.localize('exceededTimeLimitBehaviourPrefix')}</label>
 				</div>
 	 			<!-- TODO: add @change for input -->
 				${submissionLateType.map((type) => html`
-				<label class="d2l-input-radio-label"
-					><input
+				<label class="d2l-input-radio-label">
+					<input
 						type="radio"
 						name="exceededTimeBehaviour"
 						?checked=${type.selected}

@@ -13,22 +13,22 @@ class ActivityQuizManageTimingContainer extends ActivityEditorMixin(LocalizeActi
 
 	render() {
 		return html`
-		<div>
-			<d2l-dialog id="quiz-manage-timing-dialog" ?opened=${this.isDialogOpen} width=800 title-text=${this.localize('subHdrTimingTools') }>
-			${this._renderQuizTimingEditor()}
-				<d2l-button slot="footer" primary data-dialog-action="ok">${this.localize('manageTimingDialogConfirmationText')}</d2l-button>
-				<d2l-button slot="footer" data-dialog-action>${this.localize('manageTimingDialogCancelText')}</d2l-button>
-			</d2l-dialog>
-		</div>
-    `;
+			<div>
+				<d2l-dialog id="quiz-manage-timing-dialog" ?opened=${this.isDialogOpen} width=800 title-text=${this.localize('subHdrTimingTools') }>
+				${this._renderQuizTimingEditor()}
+					<d2l-button slot="footer" primary data-dialog-action="ok">${this.localize('manageTimingDialogConfirmationText')}</d2l-button>
+					<d2l-button slot="footer" data-dialog-action>${this.localize('manageTimingDialogCancelText')}</d2l-button>
+				</d2l-dialog>
+			</div>
+    	`;
 	}
 
 	_renderQuizTimingEditor() {
 		return html`
-		<d2l-activity-quiz-manage-timing-editor
-				href="${this.href}"
-				.token="${this.token}">
-		</d2l-activity-quiz-manage-timing-editor>
+			<d2l-activity-quiz-manage-timing-editor
+					href="${this.href}"
+					.token="${this.token}">
+			</d2l-activity-quiz-manage-timing-editor>
 		`;
 	}
 }

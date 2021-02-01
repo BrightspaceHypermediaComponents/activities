@@ -1,0 +1,13 @@
+{
+  "class": [
+    "named-entity",
+    "describable-entity",
+    "draft-published-entity",
+    "published",
+    "active",
+    "course-offering"
+  ],
+  "properties": {
+    "name": "Mathematics for Dev Testing and Beyond"
+  }
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+		<title>d2l-quick-eval-widget visual diff tests</title>
+		<script type="module" src="../../../components/d2l-quick-eval-widget/d2l-quick-eval-widget.js"></script>
+
+		<style>
+		html {
+			font-size: 20px;
+		}
+		div {
+			margin: 50px 10px;
+			width: 310px;
+		}
+		</style>
+		<script type="module">
+			import '@brightspace-ui/core/components/typography/typography.js';
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div id="default" class="visual-diff">
+			<d2l-quick-eval-widget
+				token="token"
+				href="../data/activity-collection-seven-items.json"
+				quick-eval-href=""
+				toggle-href=""
+				toggle-state="activities">
+			</d2l-quick-eval-widget>
+		</div>
+
+		<div id="limits-count" class="visual-diff">
+			<d2l-quick-eval-widget
+				token="token"
+				href="../data/activity-collection-seven-items.json"
+				quick-eval-href=""
+				toggle-href=""
+				toggle-state="activities"
+				count="3">
+			</d2l-quick-eval-widget>
+		</div>
+
+		<div id="error-message" class="visual-diff">
+			<d2l-quick-eval-widget
+				token="token"
+				href="../data/activity-collection-error.json"
+				quick-eval-href=""
+				toggle-href=""
+				toggle-state="activities"
+				count="3">
+			</d2l-quick-eval-widget>
+		</div>
+
+		<div id="no-submissions" class="visual-diff">
+			<d2l-quick-eval-widget
+				token="token"
+				href="../data/activity-collection-no-submissions.json"
+				quick-eval-href=""
+				toggle-href=""
+				toggle-state="activities"
+				count="3">
+			</d2l-quick-eval-widget>
+		</div>
+	</body>
+</html>

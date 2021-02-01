@@ -1,7 +1,6 @@
 import './d2l-activity-quiz-manage-timing-container';
 import '@brightspace-ui/core/components/inputs/input-number.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { ActivityEditorFeaturesMixin } from '../mixins/d2l-activity-editor-features-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -12,7 +11,7 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { sharedTiming as store } from './state/quiz-store';
 
-class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorFeaturesMixin(ActivityEditorMixin(MobxLitElement))))) {
+class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivityQuizEditorMixin(SkeletonMixin(ActivityEditorMixin(MobxLitElement)))) {
 	static get styles() {
 		return [
 			super.styles,

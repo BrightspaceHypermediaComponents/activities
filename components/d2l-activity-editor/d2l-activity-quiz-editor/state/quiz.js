@@ -56,6 +56,7 @@ export class Quiz {
 		this.timingHref = entity.timingHref();
 		this.description = entity.canEditDescription() ? entity.descriptionEditorHtml() : entity.descriptionHtml();
 		this.canEditDescription = entity.canEditDescription();
+		this.descriptionIsDisplayed = entity.descriptionIsDisplayed();
 		this.descriptionRichTextEditorConfig = entity.descriptionRichTextEditorConfig();
 	}
 
@@ -162,6 +163,7 @@ decorate(Quiz, {
 	timingHref: observable,
 	description: observable,
 	canEditDescription: observable,
+	descriptionIsDisplayed: observable,
 	descriptionRichTextEditorConfig: observable,
 	// actions
 	load: action,

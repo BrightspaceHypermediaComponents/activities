@@ -45,6 +45,7 @@ describe('Quiz', function() {
 				canPreviewQuiz: () => true,
 				descriptionEditorHtml: () => 'This is a description',
 				canEditDescription: () => true,
+				descriptionIsDisplayed: () => true,
 				descriptionRichTextEditorConfig: () => {}
 			};
 		});
@@ -78,6 +79,7 @@ describe('Quiz', function() {
 		expect(quiz.timingHref).to.equal('https://afe99802-9130-4320-a770-8d138b941e74.quizzes.api.proddev.d2l/6606/quizzes/22/timing?workingCopyId=1234');
 		expect(quiz.canPreviewQuiz).to.equal(true);
 		expect(quiz.description).to.equal('This is a description');
+		expect(quiz.descriptionIsDisplayed).to.equal(true);
 	});
 
 	it('setName', async() => {

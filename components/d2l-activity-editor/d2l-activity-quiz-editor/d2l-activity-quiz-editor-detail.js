@@ -1,3 +1,4 @@
+import '@brightspace-ui/core/components/alert/alert.js';
 import '@brightspace-ui/core/components/inputs/input-text.js';
 import '@brightspace-hmc/foundation-components/components/activity/editor/d2l-activity-editor-main.js';
 import 'd2l-tooltip/d2l-tooltip';
@@ -71,6 +72,9 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 				#score-and-duedate-container {
 					padding-bottom: 0;
 				}
+				d2l-alert {
+					margin-bottom: 10px;
+				}
 			`
 		];
 	}
@@ -89,10 +93,17 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 			canPreviewQuiz,
 			description,
 			canEditDescription,
-			descriptionRichTextEditorConfig
+			descriptionRichTextEditorConfig,
+			descriptionIsDisplayed
 		} = quiz || {};
 
+		const descriptionLang = this.localize('description');
+
 		return html`
+		<d2l-alert has-close-button ?hidden=${this.skeleton || descriptionIsDisplayed}>
+			${this.localize('textIsDisplayedPart1')}
+			${this.localize('textIsDisplayedSingularPart2', 'field', descriptionLang)}
+		</d2l-alert>
 			<div id="quiz-name-container">
 				<d2l-input-text
 					?skeleton="${this.skeleton}"
@@ -119,14 +130,14 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 
 			<div id="quiz-description-container">
 				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
-					${this.localize('description')}
+					${descriptionLang}
 				</div>
 				<div class="d2l-skeletize">
 					<d2l-activity-text-editor
 						.value="${description}"
 						.richtextEditorConfig="${descriptionRichTextEditorConfig}"
 						@d2l-activity-text-editor-change="${this._saveDescriptionOnChange}"
-						ariaLabel="${this.localize('description')}"
+						ariaLabel="${descriptionLang}"
 						?disabled="${canEditDescription === undefined ? false : !canEditDescription}">
 					</d2l-activity-text-editor>
 				</div>

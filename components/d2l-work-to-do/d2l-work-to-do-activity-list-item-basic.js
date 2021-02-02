@@ -107,8 +107,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		this._organization = undefined;
 		this._setEntityType(ActivityUsageEntity);
 
-		this.addEventListener('click', this._onItemTriggered.bind(this));
-		this.addEventListener('keydown', this._onItemTriggered.bind(this));
+		this.addEventListener('d2l-list-item-link-click', this._onItemLinkClicked.bind(this));
 	}
 
 	set _entity(entity) {
@@ -141,12 +140,9 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 	/**
 	 * Logs activity navigated telemetry event
 	 */
-	_onItemTriggered(event) {
+	_onItemLinkClicked() {
 		const activityType = this._activityProperties && this._activityProperties.type;
-		if (this.skeleton ||
-			!activityType ||
-			!this.actionHref ||
-			(event.type === 'keydown' && event.keyCode !== 13 && event.keyCode !== 32)) {
+		if (this.skeleton || !activityType || !this.actionHref) {
 			return;
 		}
 

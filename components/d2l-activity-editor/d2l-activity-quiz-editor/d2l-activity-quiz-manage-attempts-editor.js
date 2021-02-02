@@ -17,7 +17,7 @@ class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEdito
 			selectStyles,
 			css`
 				.d2l-input-select {
-					margin-bottom: 1.5rem
+					margin-bottom: 1.5rem;
 				}
 			`
 		];

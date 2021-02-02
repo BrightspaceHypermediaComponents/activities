@@ -6,7 +6,6 @@ import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
-import { labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
@@ -27,7 +26,6 @@ class ActivityQuizAttemptsAndCompletionEditor extends AsyncContainerMixin(Locali
 		return [
 			super.styles,
 			accordionStyles,
-			labelStyles,
 			css`
 				.d2l-editors:not(:first-of-type) {
 					margin-top: 20px;

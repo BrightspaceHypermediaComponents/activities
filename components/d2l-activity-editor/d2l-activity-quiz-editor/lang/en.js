@@ -54,5 +54,9 @@ export default {
 	"description": "Description", // Description label for the Description text input box,
 	"btnOpenIpRestrictionDialog": "Manage IP restrictions", // Button text for opening IP restriction dialog
 	"hdrIpRestrictionDialog": "IP Restrictions (IPv4)", // timing/display accordion header
-	"ipRestrictionLabel": "IP Restrictions" // Label for IP restrictions editor
+	"ipRestrictionLabel": "IP Restrictions", // Label for IP restrictions editor
+	"manageAttemptsDialogConfirmationText": "OK", // copy that appears on the Attempts dialog confirmation button
+	"manageAttemptsDialogCancelText": "Cancel", // copy that appears on the Attempts dialog cancel button
+	"subHdrAttemptsTools": "Attempts", // Title for attempts tools
+	"manageAttempts": "Manage Attempts", // Label for button to launch attempts dialog
 };

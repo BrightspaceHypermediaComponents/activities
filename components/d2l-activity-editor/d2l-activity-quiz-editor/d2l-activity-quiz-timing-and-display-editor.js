@@ -69,8 +69,8 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 					<label class="d2l-label-text">
 						${this.localize('subHdrTimingTools')}
 					</label>
-					<div class="placeholder-for-summarizer"></div> 
-					<d2l-button-subtle 
+					<div class="placeholder-for-summarizer"></div>
+					<d2l-button-subtle
 						text=${this.localize('manageTiming')}
 						@click="${this._openDialog}"
 						>

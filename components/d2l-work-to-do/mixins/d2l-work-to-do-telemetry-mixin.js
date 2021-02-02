@@ -56,7 +56,7 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 
 	markAndLogWidgetLoaded(fullscreen) {
 		this._markEventEnd(W2D_VIEW_LOADED_MEASURE);
-		this._logPerformanceEvent('LoadView', 'View', fullscreen ? 'Fullscreen' : 'Widget', W2D_WIEW_LOAD_MEASURES);
+		this._logPerformanceEvent('LoadView', window.location.pathname, fullscreen ? 'Fullscreen' : 'Widget', W2D_WIEW_LOAD_MEASURES);
 	}
 
 	logActivityNavigatedTo(href, type) {

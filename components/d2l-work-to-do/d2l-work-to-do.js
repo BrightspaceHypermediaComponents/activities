@@ -585,7 +585,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 		if (this.fullscreen) {
 			const prevPage = sessionStorage.getItem('prevPage');
-			if (prevPage) {
+			if (prevPage && (new URL(prevPage)).hostname === window.location.hostname) {
 				this._homeLinkHref = prevPage;
 			} else {
 				this._homeLinkHref = '/';

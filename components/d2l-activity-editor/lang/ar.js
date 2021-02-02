@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "إغلاق", //Label for Close button
 	"editor.btnCloseDialog": "إغلاق مربع الحوار هذا", // close dialog button
 	"editor.btnManageSpecialAccess": "إدارة إمكانية الوصول الخاص", // manage special access button
+	"editor.saveSuccessful": "تم الحفظ بنجاح", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "يمكن فقط للمستخدمين الذين يتمتعون بإمكانية وصول خاص رؤية هذا المجلد", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "يمكن للمستخدمين إجراء عملية الإرسال خارج تواريخ التوفّر الاعتيادية", // not restricted special access description
 	"editor.specialAccessCount": "يتمتع {count, plural, =1 {مستخدم واحد} other ‏{{count} من المستخدمين}} بإمكانية وصول خاص", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "النشاط الحالي", // Attach menu item text
 
 	"content.name": "الاسم", // Text label for name input field
-	"content.emptyNameField": "الاسم مطلوب", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "الاسم مطلوب.", // Error text that appears below name field when it is left empty
 	"content.description": "وصف", // Text label for description input field
 	"content.availabilityHeader": "تواريخ إمكانية التوفّر", // availability header
 	"content.saveError": "لم يتم حفظ مادة المحتوى الخاصة بك. يُرجى تصحيح الحقول الموضّحة باللون الأحمر.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "إضافة تاريخ الاستحقاق" // Text label for name input field
+	"content.addDueDate": "إضافة تاريخ الاستحقاق", // Text label for name input field
+	"content.embedOnPage": "تضمين في الصفحة (iframe)", // Text label for link radio button
+	"content.openNewTab": "فتح في علامة تبويب جديدة", // Text label for link radio button
+	"content.link": "الارتباط", //Text label for link input field
+	"content.emptyLinkField": "الارتباط مطلوب.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "يُرجى إدخال عنوان URL صالح.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "لا يمكن تضمين إلا الارتباطات التي تستخدم \"https\".", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "يتعذّر تضمين هذا الموقع.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "معاينة", // The label text for the link preview
 };

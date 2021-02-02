@@ -6,7 +6,7 @@ import '../d2l-activity-date/d2l-activity-date';
 import { bodyCompactStyles, bodySmallStyles, bodyStandardStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity';
-import { ActivityAllowList } from './env';
+import { ActivityAllowList, HideOrgInfoClasses } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
@@ -14,6 +14,7 @@ import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-ite
 import { LocalizeWorkToDoMixin } from './localization';
 import { nothing } from 'lit-html';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 
 class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
 
@@ -54,24 +55,17 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 					padding: 0;
 				}
 				.d2l-activity-icon-container {
+					border-radius: 0 !important;
 					padding: 0.8rem 0 0 0.25rem;
 				}
 				:host([dir="rtl"]) .d2l-activity-icon-container {
 					padding: 0.8rem 0.25rem 0 0;
 				}
 				.d2l-activity-name-container {
-					color: var(--d2l-color-ferrite);
 					margin: 0.6rem 0 0 0;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
-				}
-				.d2l-activity-icon-container.d2l-hovering,
-				.d2l-activity-icon-container.d2l-focusing,
-				.d2l-activity-name-container.d2l-hovering,
-				.d2l-activity-name-container.d2l-focusing {
-					--d2l-list-item-content-text-decoration: underline;
-					color: var(--d2l-color-celestine);
 				}
 				.d2l-icon-bullet {
 					color: var(--d2l-color-tungsten);
@@ -99,11 +93,14 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
+				.d2l-status-container {
+					display: inline;
+					margin-bottom: 0.5rem;
+					margin-right: 0.2rem;
+					margin-top: -0.5rem;
+				}
 				[slot="content"] {
 					padding: 0;
-				}
-				d2l-list-item-generic-layout {
-					background: transparent;
 				}
 				#content {
 					width: 100%;
@@ -152,8 +149,18 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	 */
 	_onActivityUsageChange(usage) {
 		this._usage = usage;
-		this._loadActivity();
-		this._loadOrganization();
+		Promise.all([
+			this._loadActivity(),
+			this._loadOrganization()
+		]).finally(() => this._onDataLoaded());
+	}
+
+	/**
+	 * Fire data-loaded event to tell the main component we are ready to render.
+	 */
+	_onDataLoaded() {
+		const event = new CustomEvent('data-loaded');
+		this.dispatchEvent(event);
 	}
 
 	render() {
@@ -169,18 +176,14 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 		const iconClasses = {
 			'd2l-activity-icon-container': true,
-			'd2l-focusing': this._focusingLink,
-			'd2l-hovering': this._hoveringLink,
-			'd2l-skeletize': true
+			'd2l-skeletize': true,
 		};
 
 		const nameClasses = {
 			'd2l-body-standard': true,
 			'd2l-activity-name-container': true,
-			'd2l-focusing': this._focusingLink,
-			'd2l-hovering': this._hoveringLink,
 			'd2l-skeletize': true,
-			'd2l-skeletize-30': true
+			'd2l-skeletize-30': true,
 		};
 
 		const secondaryClasses = {
@@ -194,7 +197,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		const supportingClasses = {
 			'd2l-body-compact': true,
 			'd2l-supporting-info-content-container': true,
-			'd2l-skeletize-paragraph-2': true
+			'd2l-skeletize-paragraph-2': true,
 		};
 
 		const dateTemplate = this.includeDate
@@ -215,6 +218,13 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
 			: nothing;
 
+		const startDateTemplate = !this.skeleton && !this._started
+			? html `
+			<div class="d2l-status-container">
+				<d2l-status-indicator state="none" text="${this._startDateFormatted}"></d2l-status-indicator>
+			</div>`
+			: nothing;
+
 		const listItemTemplate = this._renderListItem({
 			illustration: html`
 				<d2l-icon
@@ -228,6 +238,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						${this._name}
 					</div>
 					<div class=${classMap(secondaryClasses)} slot="secondary">
+						${startDateTemplate}
 						${this._type}
 						${separatorTemplate}
 						${this._orgName || this._orgCode}
@@ -245,23 +256,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		`;
 	}
 
-	set actionHref(href) {  // Require setter function as list-mixin initializes value
-		const oldVal = this._actionHref;
-		this._actionHref = href;
-		this.requestUpdate('actionHref', oldVal);
-	}
-
-	/** Link to activity instance for user navigation to complete/work on activity */
-	get actionHref() {
-		if (!this._started || this.skeleton) {
-			return '';
-		}
-
-		return this._activity && this._activity.hasLinkByRel('alternate')
-			? this._activity.getLinkByRel('alternate').href
-			: '';
-	}
-
 	/** Due or end date of activity */
 	get _date() {
 		return this._usage && !this.skeleton
@@ -270,17 +264,29 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	}
 
 	get _description() {
-		return this._activity && this._activity.hasProperty('description') && !this.skeleton
-			? this._activity.properties.description
-			: '';
+		if (this._activity && !this.skeleton) {
+			if (this._activity.hasSubEntityByClass('description')) {
+				return this._activity.getSubEntityByClass('description').properties
+				&& this._activity.getSubEntityByClass('description').properties.text;
+			} else if (this._activity.properties.instructionsText) {
+				return this._activity.properties.instructionsText;
+			}
+		}
+		return '';
 	}
 
 	/** String associated with icon catalogue for provided activity type */
 	get _icon() {
-		return this._activityProperties && !this.skeleton
-			? this._activityProperties.icon
-			: '';
-
+		if (this._activity && !this.skeleton) {
+			const subEntity = this._activity.getSubEntityByClasses(['icon', 'tier2']);
+			if (subEntity && subEntity.hasProperty('iconSetKey')) {
+				return subEntity.properties.iconSetKey;
+			}
+		}
+		if (this._activityProperties && !this.skeleton) {
+			return this._activityProperties.icon;
+		}
+		return '';
 	}
 
 	/** Specific name of the activity */
@@ -319,6 +325,14 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			: true;
 	}
 
+	/** Start Date formatted like (Short month) (Day) e.g. "Aug 15" */
+	get _startDateFormatted() {
+		return this.localize('StartsWithDate', 'startDate',
+			this._usage && this._usage.startDate()
+				? formatDate(new Date(this._usage.startDate()), { format: 'shortMonthDay' })
+				: '');
+	}
+
 	get _type() {
 		return this._activityProperties && !this.skeleton
 			? this.localize(this._activityProperties.type)
@@ -335,24 +349,50 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		}
 
 		const entity = this._usage._entity;
-
 		for (const allowed in ActivityAllowList) {
 			if (entity.hasClass(ActivityAllowList[allowed].class)) {
 				this._activityProperties = ActivityAllowList[allowed];
-				const source = (
-					entity.hasLinkByRel(ActivityAllowList[allowed].rel)
-					&& entity.getLinkByRel(ActivityAllowList[allowed].rel)
-					|| {}).href;
-				if (source) {
-					await fetchEntity(source, this.token)
-						.then((sirenEntity) => {
-							if (sirenEntity) {
-								this._activity = sirenEntity;
-							}
-						});
+				const relList = [].concat(this._activityProperties.rel);
+
+				const foundEntity = await this._followRelPath(relList, entity);
+
+				if (foundEntity) {
+					this._activity = foundEntity;
+
+					const link = (
+						this._activityProperties
+						&& this._activityProperties.linkRel
+						&& this._activity.getLinkByRel(this._activityProperties.linkRel)
+					) || this._activity.getLinkByRel('alternate');
+
+					this.actionHref = (this._started && (link && link.href)) || null;
 				}
+
+				break;
 			}
 		}
+	}
+
+	/**
+	 * Follows a list of rels beginning at a specific entity.
+	 * @async
+	 * @param {String[]} relList List of rels to follow
+	 * @param {object} entity Beginning entity
+	 * @returns {object|null|undefined} The entity at the end of the rel path. {null|undefined} if an entity in the chain is missing or doesn't have the next rel.
+	 */
+	async _followRelPath(relList, entity) {
+		if (!entity || relList.length === 0) return entity;
+
+		const source = (
+			entity.hasLinkByRel(relList[0])
+			&& entity.getLinkByRel(relList[0])
+			|| {}).href;
+
+		if (source) {
+			return await this._followRelPath(relList.slice(1), await fetchEntity(source, this.token));
+		}
+
+		return null;
 	}
 
 	/**
@@ -362,12 +402,17 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	async _loadOrganization() {
 		if (!this._usage) return;
 
-		const organizationHref = this._usage.organizationHref();
-		if (organizationHref) {
-			await fetchEntity(organizationHref, this.token)
-				.then((organization) => {
-					this._organization = organization;
-				});
+		const entity = this._usage._entity;
+		const hiddenClass = HideOrgInfoClasses.find(hiddenClass => entity.hasClass(hiddenClass));
+
+		if (!hiddenClass) {
+			const organizationHref = this._usage.organizationHref();
+			if (organizationHref) {
+				await fetchEntity(organizationHref, this.token)
+					.then((organization) => {
+						this._organization = organization;
+					});
+			}
 		}
 	}
 }

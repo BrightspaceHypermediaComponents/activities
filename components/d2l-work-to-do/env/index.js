@@ -15,6 +15,13 @@ export const Constants = {
 	PageSize: 20,
 };
 
+/**
+ * class [string]: Used to match the entity class
+ * icon [string]: Icon to display in the list
+ * rel [string | string[]]: Rel link to follow to fetch the entity, if an array it will follow the chain.
+ * linkRel [string | undefined]: Rel to use when getting the href for the item, default is 'alternate'.
+ * type: [string]: Name of the entity type to localize
+ */
 export const ActivityAllowList = {
 	userAssignmentActivity: {
 		class: Classes.activities.userAssignmentActivity,
@@ -25,7 +32,7 @@ export const ActivityAllowList = {
 	userChecklistActivity: {
 		class: Classes.activities.userChecklistActivity,
 		icon: 'tier2:checklist',
-		rel: Rels.Checklists.checklist,
+		rel: Rels.Checklists.checklistItem,
 		type: 'Checklist'
 	},
 	userContentActivity: {
@@ -37,7 +44,8 @@ export const ActivityAllowList = {
 	userCourseOfferingActivity: {
 		class: Classes.activities.userCourseOfferingActivity,
 		icon: 'tier2:syllabus',
-		rel: Rels.courseOfferingInfoPage,
+		rel: [ Rels.userEnrollment, Rels.organization ],
+		linkRel: Rels.organizationHomepage,
 		type: 'Course'
 	},
 	userDiscussionActivity: {
@@ -65,6 +73,9 @@ export const ActivityAllowList = {
 		type: 'Survey'
 	}
 };
+
+/** Entity classes that hides the org name in the supporting info */
+export const HideOrgInfoClasses = [ Classes.activities.userCourseOfferingActivity ];
 
 export function getUpcomingWeekLimit() {
 	if (window.D2L && window.D2L.workToDoOptions && window.D2L.workToDoOptions.upcomingWeekLimit) {

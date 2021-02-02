@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Sluiten", //Label for Close button
 	"editor.btnCloseDialog": "Dit dialoogvenster sluiten", // close dialog button
 	"editor.btnManageSpecialAccess": "Speciale toegang beheren", // manage special access button
+	"editor.saveSuccessful": "Opgeslagen", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Alleen gebruikers met speciale toegang kunnen deze map zien", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Gebruikers kunnen antwoorden buiten de normale beschikbaarheidsdatums indienen", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 gebruiker} other {{count} gebruikers}} met speciale toegang", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Bestaande activiteit", // Attach menu item text
 
 	"content.name": "Naam", // Text label for name input field
-	"content.emptyNameField": "Naam is vereist", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Naam is vereist.", // Error text that appears below name field when it is left empty
 	"content.description": "Beschrijving", // Text label for description input field
 	"content.availabilityHeader": "Beschikbare data", // availability header
 	"content.saveError": "Uw inhoudsitem is niet opgeslagen. Corrigeer de rood omlijnde velden.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Uiterste datum toevoegen" // Text label for name input field
+	"content.addDueDate": "Uiterste datum toevoegen", // Text label for name input field
+	"content.embedOnPage": "Invoegen op de pagina (iframe)", // Text label for link radio button
+	"content.openNewTab": "Openen in een nieuw tabblad", // Text label for link radio button
+	"content.link": "Koppeling", //Text label for link input field
+	"content.emptyLinkField": "Koppeling is vereist.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Voer een geldige URL in.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Er kunnen koppelingen met 'https' worden ingevoegd.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Die website kan niet worden ingevoegd.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Voorbeeldweergave", // The label text for the link preview
 };

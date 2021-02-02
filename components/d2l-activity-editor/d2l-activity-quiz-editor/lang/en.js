@@ -51,5 +51,23 @@ export default {
 	"disableRightClickHelpDialogConfirmationText": "OK", // copy that appears on the disable right click help dialog confirmation button
 	"manageTimingDialogConfirmationText": "OK", // copy that appears on the Timing dialog confirmation button
 	"manageTimingDialogCancelText": "Cancel", // copy that appears on the Timing dialog cancel button
+	"minutesLabel": "minute(s)",  // label for Timing dialog time limit input slot
+	"minutesBeforeFlaggedLabel": "minute(s) before flagged as exceeded time limit", // label for Timing dialog grace period input slot
+	"extendedDeadlineLabel": "Extended Deadline",  // label for timing dialog - extended deadline select
+	"extendedDeadlineInputLabel": "minute(s) after the Grace Period ends",  //label for Timing dialog extended deadline select slot
+	"subHdrExceededTimeLimitBehaviour": "Exceeded Time Limit Behaviour", // Title for submission late type options,
+	"exceededTimeLimitBehaviourPrefix": "After the grace period, flag the quiz attempt as exceeded time limit and,", // label for submission label type options
+	"showClockLabel": "Will be displayed before the quiz starts", // Label for show clock checkbox
 	"description": "Description", // Description label for the Description text input box
+	"showClockTitle": "Show clock", // Title for show clock
+	"description": "Description", // Description label for the Description text input box,
+	"btnOpenIpRestrictionDialog": "Manage IP restrictions", // Button text for opening IP restriction dialog
+	"hdrIpRestrictionDialog": "IP Restrictions (IPv4)", // timing/display accordion header
+	"ipRestrictionLabel": "IP Restrictions", // Label for IP restrictions editor
+	"manageAttemptsDialogConfirmationText": "OK", // copy that appears on the Attempts dialog confirmation button
+	"manageAttemptsDialogCancelText": "Cancel", // copy that appears on the Attempts dialog cancel button
+	"subHdrAttemptsTools": "Attempts", // Title for attempts tools
+	"manageAttempts": "Manage Attempts", // Label for button to launch attempts dialog
+	"textIsDisplayedPart1": "Fields cannot be toggled off in the new quiz creation experience.", // First sentence of alert warning that text fields will be visible
+	"textIsDisplayedSingularPart2": "The {field} field appears to learners when the quiz is saved." // Second sentence of alert warning that text fields will be visible, when there is only one field
 };

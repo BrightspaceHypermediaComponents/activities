@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Kapat", //Label for Close button
 	"editor.btnCloseDialog": "Bu Diyaloğu Kapat", // close dialog button
 	"editor.btnManageSpecialAccess": "Özel Erişimi Yönet", // manage special access button
+	"editor.saveSuccessful": "Başarıyla kaydedildi", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Yalnızca özel erişime sahip kullanıcılar bu klasörü görebilir", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Kullanıcılar normal uygunluk tarihleri dışında gönderim yapabilir", // not restricted special access description
 	"editor.specialAccessCount": "Özel erişime sahip {count, plural, =1 {1 kullanıcı} other {{count} kullanıcı}}", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Mevcut Etkinlik", // Attach menu item text
 
 	"content.name": "Ad", // Text label for name input field
-	"content.emptyNameField": "Ad gerekli", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Ad gerekli.", // Error text that appears below name field when it is left empty
 	"content.description": "Açıklama", // Text label for description input field
 	"content.availabilityHeader": "Geçerlilik Tarihleri", // availability header
 	"content.saveError": "İçerik öğeniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Bitiş Tarihi Ekle" // Text label for name input field
+	"content.addDueDate": "Bitiş Tarihi Ekle", // Text label for name input field
+	"content.embedOnPage": "Sayfaya göm (iframe)", // Text label for link radio button
+	"content.openNewTab": "Yeni bir sekmede aç", // Text label for link radio button
+	"content.link": "Bağlantı", //Text label for link input field
+	"content.emptyLinkField": "Bağlantı gerekli.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Lütfen geçerli bir URL girin.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Yalnızca \"https\" protokolünü kullanan bağlantılar gömülebilir.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Bu site gömülemez.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Preview", // The label text for the link preview
 };

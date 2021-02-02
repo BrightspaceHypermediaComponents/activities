@@ -1,8 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"CaughtUp": "You're all caught up!",
-	"Error": "Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.",
-	"NoSubmissions": "You have no submissions that need evaluation. Check back later for new submissions.",
-	"ViewAllActivities": "View all activities",
+	"CaughtUp": "您已跟上进度！",
+	"Error": "哎呀！出现错误，无法加载项目。请刷新页面或稍后重试。",
+	"NoSubmissions": "您没有需要评估的提交。请稍后查看新的提交。",
+	"ViewAllActivities": "查看所有活动",
 };

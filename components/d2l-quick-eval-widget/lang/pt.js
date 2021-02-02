@@ -1,8 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"CaughtUp": "You're all caught up!",
-	"Error": "Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.",
-	"NoSubmissions": "You have no submissions that need evaluation. Check back later for new submissions.",
-	"ViewAllActivities": "View all activities",
+	"CaughtUp": "Você está em dia!",
+	"Error": "Ops! Algo deu errado e os itens não puderam ser carregados. Atualize a página ou tente novamente mais tarde.",
+	"NoSubmissions": "Você não tem envios de atividades que precisam de avaliação. Verifique mais tarde se há novos envios de atividades.",
+	"ViewAllActivities": "Exibir todas atividades",
 };

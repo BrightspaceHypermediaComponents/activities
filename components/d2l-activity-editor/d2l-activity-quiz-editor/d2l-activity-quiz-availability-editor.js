@@ -5,6 +5,7 @@ import '../d2l-activity-usage-conditions-editor.js';
 import '../d2l-activity-usage-conditions-summary.js';
 import './d2l-activity-quiz-password-summary';
 import './d2l-activity-quiz-password-editor.js';
+import './d2l-activity-quiz-ip-restriction-editor';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -70,6 +71,7 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 					${this._renderAvailabilityDatesEditor()}
 					${this._renderReleaseConditionEditor()}
 					${this._renderPasswordEditor()}
+					${this._renderIpRestrictionEditor()}
 				</span>
 			</d2l-activity-accordion-collapse>
 		`;
@@ -103,6 +105,16 @@ class ActivityQuizAvailabilityEditor extends AsyncContainerMixin(LocalizeActivit
 				href="${this.activityUsageHref}"
 				.token="${this.token}">
 			</d2l-activity-availability-dates-summary>
+		`;
+	}
+
+	_renderIpRestrictionEditor() {
+
+		return html`
+			<d2l-activity-quiz-ip-restriction-editor
+				.href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-quiz-ip-restriction-editor>
 		`;
 	}
 

@@ -1,8 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"CaughtUp": "You're all caught up!",
-	"Error": "Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.",
-	"NoSubmissions": "You have no submissions that need evaluation. Check back later for new submissions.",
-	"ViewAllActivities": "View all activities",
+	"CaughtUp": "Du är ifatt!",
+	"Error": "Hoppsan! Något gick fel och objekten kunde inte läsas in. Uppdatera sidan eller försök igen senare.",
+	"NoSubmissions": "Du har inga inlämningar som behöver utvärderas. Du bör kontrollera senare om det finns nya inlämningar.",
+	"ViewAllActivities": "Visa alla aktiviteter",
 };

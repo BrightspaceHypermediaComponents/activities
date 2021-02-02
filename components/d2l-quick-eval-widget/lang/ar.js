@@ -1,8 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"CaughtUp": "You're all caught up!",
-	"Error": "Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.",
-	"NoSubmissions": "You have no submissions that need evaluation. Check back later for new submissions.",
-	"ViewAllActivities": "View all activities",
+	"CaughtUp": "لقد انتهيت من مهامك!",
+	"Error": "عذرًا! حدث خطأ وتعذر تحميل المواد. يُرجى تحديث الصفحة أو المحاولة مرة أخرة لاحقًا.",
+	"NoSubmissions": "ليس لديك أي عمليات إرسال تحتاج إلى تقييم. تحقق من توفر عمليات إرسال جديدة في وقت لاحق.",
+	"ViewAllActivities": "عرض كل الأنشطة",
 };

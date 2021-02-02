@@ -1,8 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"CaughtUp": "You're all caught up!",
-	"Error": "Whoops! Something went wrong and items could not be loaded. Please refresh the page or try again later.",
-	"NoSubmissions": "You have no submissions that need evaluation. Check back later for new submissions.",
-	"ViewAllActivities": "View all activities",
+	"CaughtUp": "学習はすべて順調に進んでいます！",
+	"Error": "申し訳ございません。問題が発生したため、項目を読み込めませんでした。ページを更新するか、後でもう一度試してください。",
+	"NoSubmissions": "評価が必要な送信物はありません。新規送信物を後でチェックしてください。",
+	"ViewAllActivities": "すべてのアクティビティの表示",
 };

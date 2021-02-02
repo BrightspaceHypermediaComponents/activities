@@ -64,6 +64,7 @@ export default {
 	"editor.btnClose": "Stäng", //Label for Close button
 	"editor.btnCloseDialog": "Stäng den här dialogrutan", // close dialog button
 	"editor.btnManageSpecialAccess": "Hantera särskild behörighet", // manage special access button
+	"editor.saveSuccessful": "Sparades", // alert message after a successful save
 	"editor.specialAccessRestrictedText": "Endast användare med specialåtkomst kan se den här mappen", // restricted special access description
 	"editor.specialAccessNotRestrictedText": "Användare kan lämna in utanför normala tillgänglighetsdatum", // not restricted special access description
 	"editor.specialAccessCount": "{count, plural, =1 {1 användare} other {{count} användare}} med specialåtkomst", // Label for number of special access users
@@ -117,9 +118,17 @@ export default {
 	"attachments.addQuicklinkMenu": "Befintlig aktivitet", // Attach menu item text
 
 	"content.name": "Namn", // Text label for name input field
-	"content.emptyNameField": "Ange ett namn", // Error text that appears below name field when it is left empty
+	"content.emptyNameField": "Namn krävs.", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivning", // Text label for description input field
 	"content.availabilityHeader": "Tillgänglighetsdatum", // availability header
 	"content.saveError": "Ditt innehållsobjekt sparades inte. Korrigera de fält som är markerade med rött.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
-	"content.addDueDate": "Lägg till slutdatum" // Text label for name input field
+	"content.addDueDate": "Lägg till slutdatum", // Text label for name input field
+	"content.embedOnPage": "Integrera i sidan (iframe)", // Text label for link radio button
+	"content.openNewTab": "Öppna i ny flik", // Text label for link radio button
+	"content.link": "Länk", //Text label for link input field
+	"content.emptyLinkField": "Länk krävs.", //Error message shown on link tooltip when the link is empty
+	"content.invalidLink": "Ange en giltig webbadress.", //Error message shown on link tooltip when the link is not formatted correctly
+	"content.notHttps": "Bara länkar som använder \"https\" kan integreras.", //Error message shown on link tooltip when https is not used for embedded links
+	"content.noEmbed": "Sidan kan inte integreras.", //Error message shown on link tooltip when the link cannot be embedded
+	"content.previewLabel": "Förhandsgranska", // The label text for the link preview
 };

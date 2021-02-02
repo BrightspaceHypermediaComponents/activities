@@ -564,15 +564,13 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		if (!this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage)) return;
 
 		const upcomingSource = this._upcomingCollection.getLinkByRel(Rels.Activities.nextPage).href;
-		this.markLoadMoreStart();
+		const startMark = this.markLoadMoreStart();
 		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
 		if (upcomingNextPage && upcomingNextPage.hasSubEntityByRel(Rels.Activities.userActivityUsage)) {
 			const nextActivities = upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-			this.markAndLogLoadMoreEnd(nextActivities.length);
+			this.markAndLogLoadMoreEnd(startMark, nextActivities.length);
 			this._upcomingActivities = this._upcomingActivities.concat(nextActivities);
 			this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
-		} else {
-			this.markAndLogLoadMoreEnd(0);
 		}
 	}
 
@@ -600,15 +598,13 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		}
 
 		const source = entity.getLinkByRel(Rels.Activities.overdue).href;
-		this.markLoadOverdueStart();
+		const startMark = this.markLoadOverdueStart();
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
 				if (sirenEntity) {
-					this.markLoadOverdueEnd(sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
+					this.markLoadOverdueEnd(startMark, sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
 					this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
 					this._overdueCollection = sirenEntity;
-				} else {
-					this.markLoadOverdueEnd(0);
 				}
 			});
 	}
@@ -656,7 +652,13 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			return acc;
 		}, []);
 
-		return await this._performSirenActionWithRetry(this.token, action, fields, true, 1);
+		const startMark = this.markLoadUpcomingStart();
+		const sirenEntity = await this._performSirenActionWithRetry(this.token, action, fields, true, 1);
+		if (sirenEntity) {
+			this.markLoadUpcomingEnd(startMark, sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
+		}
+
+		return sirenEntity;
 	}
 
 	_getHomeHref() {

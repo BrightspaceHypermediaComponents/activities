@@ -10,13 +10,10 @@ const W2D_OVERDUE_LOADED_MEASURE = `${W2D_OVERDUE_MARK}.loaded`;
 const W2D_UPCOMING_MARK = `${W2D_API_NAMESPACE}.upcoming`;
 const W2D_UPCOMING_LOAD_START_MARK = `${W2D_UPCOMING_MARK}.start`;
 const W2D_UPCOMING_LOADED_MEASURE = `${W2D_UPCOMING_MARK}.loaded`;
-const W2D_UPCOMING_MAX_MARK = `${W2D_API_NAMESPACE}.upcoming.max`;
-const W2D_UPCOMING_MAX_LOAD_START_MARK = `${W2D_UPCOMING_MAX_MARK}.start`;
-const W2D_UPCOMING_MAX_LOADED_MEASURE = `${W2D_UPCOMING_MAX_MARK}.loaded`;
 const W2D_VIEW_NAMESPACE = `${W2D_BASE_NAMESPACE}.view`;
 const W2D_VIEW_LOADED_MEASURE = `${W2D_VIEW_NAMESPACE}.loaded`;
 const W2D_WIEW_LOAD_MEASURES = [W2D_OVERDUE_LOADED_MEASURE, W2D_UPCOMING_LOADED_MEASURE,
-	W2D_UPCOMING_MAX_LOADED_MEASURE, W2D_VIEW_LOADED_MEASURE];
+	W2D_VIEW_LOADED_MEASURE];
 
 export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 
@@ -28,34 +25,32 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 	}
 
 	markLoadOverdueStart() {
-		this._markEventStart(W2D_OVERDUE_LOAD_START_MARK);
+		return this._markEventStart(W2D_OVERDUE_LOAD_START_MARK);
 	}
 
-	markLoadOverdueEnd(count) {
-		this._markEventEnd(W2D_OVERDUE_LOADED_MEASURE, W2D_OVERDUE_LOAD_START_MARK, { OverdueCount: count });
+	markLoadOverdueEnd(startMark, count) {
+		this._markEventEnd(W2D_OVERDUE_LOADED_MEASURE, startMark, { OverdueCount: count });
 	}
 
-	markLoadUpcomingStart(isMax) {
-		this._markEventStart(isMax ? W2D_UPCOMING_MAX_LOAD_START_MARK : W2D_UPCOMING_LOAD_START_MARK);
+	markLoadUpcomingStart() {
+		return this._markEventStart(W2D_UPCOMING_LOAD_START_MARK);
 	}
 
-	markLoadUpcomingEnd(isMax, count) {
-		isMax
-			? this._markEventEnd(W2D_UPCOMING_MAX_LOADED_MEASURE, W2D_UPCOMING_MAX_LOAD_START_MARK, { UpcomingMaxCount: count })
-			: this._markEventEnd(W2D_UPCOMING_LOADED_MEASURE, W2D_UPCOMING_LOAD_START_MARK, { UpcomingCount: count });
+	markLoadUpcomingEnd(startMark, count) {
+		this._markEventEnd(W2D_UPCOMING_LOADED_MEASURE, startMark, { UpcomingCount: count });
 	}
 
 	markLoadMoreStart() {
-		this.markLoadUpcomingStart();
+		return this.markLoadUpcomingStart();
 	}
 
-	markAndLogLoadMoreEnd(count) {
-		this.markLoadUpcomingEnd(false, count);
+	markAndLogLoadMoreEnd(startMark, count) {
+		this.markLoadUpcomingEnd(startMark, count);
 		this._logPerformanceEvent('LoadMore', Rels.Activities.nextPage, 'ActivitiesNextPage', [W2D_UPCOMING_LOADED_MEASURE]);
 	}
 
 	markAndLogWidgetLoaded(fullscreen) {
-		this._markEventEnd(W2D_VIEW_LOADED_MEASURE);
+		this._markEventEnd(W2D_VIEW_LOADED_MEASURE, null);
 		this._logPerformanceEvent('LoadView', window.location.pathname, fullscreen ? 'Fullscreen' : 'Widget', W2D_WIEW_LOAD_MEASURES);
 	}
 
@@ -68,15 +63,29 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 			return;
 		}
 
-		performance.clearMarks(startMark);
-		performance.mark(startMark);
+		const mark = `${startMark}:${performance.now()}`;
+
+		performance.mark(mark);
+
+		return mark;
 	}
 
 	_markEventEnd(measure, startMark, custom) {
-		performance.clearMeasures(measure);
+		if (startMark === undefined) {
+			return;
+		}
+
 		performance.measure(measure, startMark);
 
-		this._custom[measure] = Object.assign({}, this._custom[measure], custom);
+		if (custom) {
+			if (!this._custom[measure]) {
+				this._custom[measure] = [];
+			}
+
+			Object.entries(custom).forEach(([name, value]) => {
+				this._custom[measure].push({ name, value });
+			});
+		}
 	}
 
 	_logPerformanceEvent(action, href, type, measures) {
@@ -86,19 +95,22 @@ export const WorkToDoTelemetryMixin = superclass => class extends superclass {
 
 		const timings = performance
 			.getEntriesByType('measure')
-			.filter((measure) => measures.includes(measure.name));
+			.filter((measure) => measures.includes(measure.name))
+			.map((measure) => {
+				performance.clearMeasures(measure.name); // remove measures that we took
+				return measure;
+			});
 
 		const eventBody = new Events.PerformanceEventBody()
 			.setAction(action)
 			.setObject(encodeURIComponent(href), type, href)
 			.addUserTiming(timings);
 
-		Object.entries(this._custom).forEach(([measure, values]) => {
-			if (measures.includes(measure)) {
-				Object.entries(values).forEach(([key, value]) => {
-					eventBody.addCustom(key, value.toString());
-				});
-				this._custom[measure] = {};
+		measures.forEach((measure) => {
+			const values = this._custom[measure];
+			while (values && values.length) {
+				const value = values.pop();
+				eventBody.addCustom(value.name, value.value);
 			}
 		});
 

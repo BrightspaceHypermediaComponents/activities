@@ -208,7 +208,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 			return html`
 				<div class="d2l-activity-collection">
-					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length}></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${isOverdue ? activities.length : this._totalUpcomingActivities}></d2l-work-to-do-activity-list-header>
 					<d2l-list separators="none">${items}</d2l-list>
 				</div>
 			`;

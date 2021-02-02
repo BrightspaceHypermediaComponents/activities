@@ -1,7 +1,7 @@
 import '../d2l-activity-accordion-collapse.js';
 import '../d2l-activity-notification-email-editor.js';
 import './d2l-activity-quiz-notification-email-summary.js';
-import './d2l-activity-quiz-manage-attempts-container';
+import './d2l-activity-quiz-manage-attempts-editor';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -53,13 +53,7 @@ class ActivityQuizAttemptsAndCompletionEditor extends AsyncContainerMixin(Locali
 				<li slot="summary-items">${this._renderNotificationEmailSummary()}</li>
 
 				<div class="d2l-editors" slot="components">
-					<label class="d2l-label-text">
-						${this.localize('subHdrAttemptsTools')}
-					</label>
-					<div>
-						<d2l-button-subtle text=${this.localize('manageAttempts')} @click="${this._openDialog}"></d2l-button-subtle>
-					</div>
-					${this._renderManageAttemptsContainer()}
+					${this._renderManageAttemptsEditor()}
 				</div>
 
 				<div class="d2l-editors" slot="components">
@@ -79,18 +73,13 @@ class ActivityQuizAttemptsAndCompletionEditor extends AsyncContainerMixin(Locali
 		const data = event.detail.value;
 		entity.setNotificationEmail(data);
 	}
-	_openDialog() {
-		const dialog = this.shadowRoot.querySelector('d2l-activity-quiz-manage-attempts-container').shadowRoot.querySelector('#quiz-manage-attempts-dialog');
-		if (dialog) {
-			dialog.opened = true;
-		}
-	}
-	_renderManageAttemptsContainer() {
+
+	_renderManageAttemptsEditor() {
 		return html`
-			<d2l-activity-quiz-manage-attempts-container
+			<d2l-activity-quiz-manage-attempts-editor
 				href="${this.href}"
 				.token="${this.token}">
-			</d2l-activity-quiz-manage-attempts-container>`;
+			</d2l-activity-quiz-manage-attempts-editor>`;
 	}
 
 	_renderNotificationEmailEditor() {

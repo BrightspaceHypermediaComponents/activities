@@ -588,7 +588,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			if (prevPage) {
 				this._homeLinkHref = prevPage;
 			} else {
-				this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
+				this._homeLinkHref = '/';
 			}
 		} else {
 			sessionStorage.setItem('prevPage', window.location.href);

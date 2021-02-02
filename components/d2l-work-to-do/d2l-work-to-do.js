@@ -133,6 +133,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._upcomingActivities = [];
+		this._totalUpcomingActivities = undefined;
 		this._overdueActivities = [];
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
@@ -332,7 +333,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 			return html`
 				<div class="d2l-activity-collection-container-fullscreen">
-					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${isOverdue ? activities.length : this._totalUpcomingActivities} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>
 				</div>
 			`;
@@ -537,6 +538,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 						: [ this._loadLimitedUpcoming(emptyEntity), this._loadMaxUpcoming(emptyEntity) ]);
 
 				if (upcomingCollection) {
+					this._totalUpcomingActivities = upcomingCollection.hasProperty('pagingTotalResults') && upcomingCollection.properties.pagingTotalResults;
 					this._upcomingCollection = upcomingCollection;
 					this._upcomingActivities = upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
 				}

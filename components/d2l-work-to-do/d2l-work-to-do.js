@@ -182,7 +182,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			return;
 		}
 		this._getCollections(user._entity);
-		this._getHomeHref();
+		this._updateHomeHref();
 	}
 
 	render() {
@@ -641,7 +641,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		return await this._performSirenActionWithRetry(this.token, action, fields, true, 1);
 	}
 
-	_getHomeHref() {
+	_updateHomeHref() {
 
 		if (this.fullscreen) {
 			const prevPage = sessionStorage.getItem(Constants.HomepageSessionStorageKey);

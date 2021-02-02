@@ -133,22 +133,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
 
-		if (this.fullscreen) {
-			let prevPage = sessionStorage.getItem('prevPage');
-			if (prevPage) {
-				// backHomeLink = whatever we read
-				// probably need some validation here?
-			} else {
-				// backHomeLink = a sensible default (/d2l/home)
-			}
-		} else {
-			// sessionStorage.setItem(whatever)
-		}
-			prevPage = 0;
-			sessionStorage.setItem('prevPage', 0);
-			console.log('did not have a prevPage, so setting it to: ', sessionStorage.getItem('prevPage'));
-			// idea: if we're in fullscreen view, don't actually change anything - keep the previous version
-		}
 	}
 
 	set _entity(entity) {
@@ -598,10 +582,17 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	}
 
 	_getHomeHref() {
-		// TODO: this is a default (and kind of a hacky way to get to it),
-		// ideally we want to get the user's homepage from their profile
-		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
-		console.log('_homeLinkHref calculated as: ', this._homeLinkHref);
+
+		if (this.fullscreen) {
+			const prevPage = sessionStorage.getItem('prevPage');
+			if (prevPage) {
+				this._homeLinkHref = prevPage;
+			} else {
+				this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
+			}
+		} else {
+			sessionStorage.setItem('prevPage', window.location.href);
+		}
 	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

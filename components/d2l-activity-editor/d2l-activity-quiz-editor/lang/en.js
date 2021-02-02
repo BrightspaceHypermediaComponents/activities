@@ -59,4 +59,6 @@ export default {
 	"manageAttemptsDialogCancelText": "Cancel", // copy that appears on the Attempts dialog cancel button
 	"subHdrAttemptsTools": "Attempts", // Title for attempts tools
 	"manageAttempts": "Manage Attempts", // Label for button to launch attempts dialog
+	"textIsDisplayedPart1": "Fields cannot be toggled off in the new quiz creation experience.", // First sentence of alert warning that text fields will be visible
+	"textIsDisplayedSingularPart2": "The {field} field appears to learners when the quiz is saved." // Second sentence of alert warning that text fields will be visible, when there is only one field
 };

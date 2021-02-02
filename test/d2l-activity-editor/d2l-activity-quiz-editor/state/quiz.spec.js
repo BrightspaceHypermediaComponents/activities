@@ -44,6 +44,7 @@ describe('Quiz', function() {
 				canPreviewQuiz: () => true,
 				descriptionEditorHtml: () => 'This is a description',
 				canEditDescription: () => true,
+				descriptionIsDisplayed: () => true,
 				descriptionRichTextEditorConfig: () => {}
 			};
 		});
@@ -76,6 +77,7 @@ describe('Quiz', function() {
 		expect(quiz.previewHref).to.equal('http://test.desire2learn.d2l/d2l/lms/quizzing/user/quiz_summary.d2l?ou=6606&qi=46&isprv=1&fromQB=1&bp=1');
 		expect(quiz.canPreviewQuiz).to.equal(true);
 		expect(quiz.description).to.equal('This is a description');
+		expect(quiz.descriptionIsDisplayed).to.equal(true);
 	});
 
 	it('setName', async() => {

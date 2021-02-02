@@ -13,6 +13,7 @@ export const Constants = {
 	MaxActivityCount: 99,
 	MaxWidgetDisplay: 6,
 	PageSize: 20,
+	HomepageSessionStorageKey: 'd2l.workToDo.prevPage'
 };
 
 /**

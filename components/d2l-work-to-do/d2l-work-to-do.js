@@ -136,14 +136,8 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueActivities = [];
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
-<<<<<<< HEAD
-
-		Rels.Activities.nextPage = 'https://activities.api.brightspace.com/rels/next-page';
-
-=======
 		this._initialLoad = true;
 		this._loadedElements = [];
->>>>>>> master
 	}
 
 	set _entity(entity) {
@@ -650,14 +644,14 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 	_getHomeHref() {
 
 		if (this.fullscreen) {
-			const prevPage = sessionStorage.getItem('prevPage');
+			const prevPage = sessionStorage.getItem(Constants.HomepageSessionStorageKey);
 			if (prevPage && (new URL(prevPage)).hostname === window.location.hostname) {
 				this._homeLinkHref = prevPage;
 			} else {
 				this._homeLinkHref = '/';
 			}
 		} else {
-			sessionStorage.setItem('prevPage', window.location.href);
+			sessionStorage.setItem(Constants.HomepageSessionStorageKey, window.location.href);
 		}
 	}
 }

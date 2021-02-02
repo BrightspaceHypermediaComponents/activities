@@ -538,9 +538,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 						: [ this._loadLimitedUpcoming(emptyEntity), this._loadMaxUpcoming(emptyEntity) ]);
 
 				if (upcomingCollection) {
-					this._totalUpcomingActivities = upcomingCollection.hasProperty('pagingTotalResults') && upcomingCollection.properties.pagingTotalResults;
 					this._upcomingCollection = upcomingCollection;
 					this._upcomingActivities = upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+					this._totalUpcomingActivities = upcomingCollection.hasProperty('pagingTotalResults') && upcomingCollection.properties.pagingTotalResults || this._upcomingActivities.length;
 				}
 				if (maxCollection) {
 					this._maxCollection = maxCollection;

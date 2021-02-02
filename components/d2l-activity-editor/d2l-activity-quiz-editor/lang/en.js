@@ -60,5 +60,15 @@ export default {
 	"subHdrAttemptsTools": "Attempts", // Title for attempts tools
 	"manageAttempts": "Manage Attempts", // Label for button to launch attempts dialog
 	"textIsDisplayedPart1": "Fields cannot be toggled off in the new quiz creation experience.", // First sentence of alert warning that text fields will be visible
-	"textIsDisplayedSingularPart2": "The {field} field appears to learners when the quiz is saved." // Second sentence of alert warning that text fields will be visible, when there is only one field
+	"textIsDisplayedSingularPart2": "The {field} field appears to learners when the quiz is saved.", // Second sentence of alert warning that text fields will be visible, when there is only one field
+	"attemptsAllowed": "Attempts Allowed", // Title for Attempts Allowed select in Attempts dialog
+	"overallGradeCalculation": "Overall Grade Calculation", // Title for Overall Grade Calculation select in Attempts dialog
+	"retakeIncorrectQuestionsOnly": "Retake Incorrect Questions Only", // Title for RIO checkbox in Attempts dialog
+	"rioCheckboxLabel": "On new attempts, only allow answers for previously incorrect questions", // Label for RIO checkbox in Attempts dialog
+	"btnAddAttemptConditions": "Add Attempt Conditions", // Label for Add Attempt Conditions button in Attempts dialog
+	"rioAccessibileHelpText": "Get help on - Retake Incorrect Only", // accessible help text for RIO question mark button
+	"rioDialogTitle": "Information: Retake Incorrect Questions Only", // Title for RIO help dialog
+	"rioDialogParagraph": "When this setting is selected, learners who attempt a quiz more than once can only answer questions that were incorrect on the previous attempt. If you are using Automatic grading, Written Response questions will be marked as 0 and included in future attempts until they are graded manually.", // content for RIO dialog
+	"rioDialogConfirmationText": "OK", // copy that appears on the RIO help dialog confirmation button
+
 };

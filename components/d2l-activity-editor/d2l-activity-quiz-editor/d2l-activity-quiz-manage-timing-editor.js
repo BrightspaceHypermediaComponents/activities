@@ -87,12 +87,10 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 			<div class="d2l-time-menu-container">
 				<label>
 					<span class="d2l-input-label">${this.localize('extendedDeadlineLabel')}</span>
-				</label>
-				<select class="d2l-input-select" @change=${this._setExtendedDeadline}>
-					${extendedDeadlineOptions.map((option) => html`
-					<option value=${option.value} ?selected=${option.selected}>${option.value}</option>`)}
-				</select>
-				<label>
+					<select class="d2l-input-select" @change=${this._setExtendedDeadline}>
+						${extendedDeadlineOptions.map((option) => html`
+						<option value=${option.value} ?selected=${option.selected}>${option.value}</option>`)}
+					</select>
 					<span class='d2l-input-number-label'>${this.localize('extendedDeadlineInputLabel')}</span>
 				</label>
 			</div> ` : null;
@@ -116,15 +114,15 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 						min=1
 						max=9999
 						@change=${this._setTimeLimit}>
-						<label slot="after">
+						<div slot="after">
 							<span class="d2l-input-number-label">${this.localize('minutesLabel')}</span>
-						</label>
-						</d2l-input-number>
-					</div>
+						</div>
+					</d2l-input-number>
+				</div>
 					<label>
 						<span class="d2l-italic-label">${this.localize('showClockLabel')}</span>
+						<d2l-input-checkbox ?checked=${showClock}>${this.localize('showClockTitle')}</d2l-input-checkbox>
 					</label>
-					<d2l-input-checkbox ?checked=${showClock}>${this.localize('showClockTitle')}</d2l-input-checkbox>
 				</div>
 			</div>
 		`;
@@ -154,17 +152,13 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 						min=${type.min}
 						max=${type.max}
 						@change=${type.change}>
-						<label slot="after">
+						<div slot="after">
 							<span class="d2l-input-number-label">${type.slot}</span>
-						</label>
+						</div>
 					</d2l-input-number>`)}
 				</div>
-				<label>
-					<span class="d2l-input-label">${this.localize('subHdrExceededTimeLimitBehaviour')}</span>
-				</label>
-				<label>
-					<span class="d2l-italic-label">${this.localize('exceededTimeLimitBehaviourPrefix')}</span>
-				</label>
+				<div class="d2l-input-label">${this.localize('subHdrExceededTimeLimitBehaviour')}</div>
+				<div class="d2l-italic-label">${this.localize('exceededTimeLimitBehaviourPrefix')}</div>
 				${submissionLateType.map((type) => html`
 				<label class="d2l-input-radio-label">
 					<input

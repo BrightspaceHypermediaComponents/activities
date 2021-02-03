@@ -449,15 +449,11 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 	}
 
 	get _overdueCount() {
-		return this._overdueCollection && this._overdueCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
-			? this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-			: 0;
+		return this._overdueActivities.length;
 	}
 
 	get _upcomingCount() {
-		return this._upcomingCollection && this._upcomingCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
-			? this._upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-			: 0;
+		return this._upcomingActivities.length;
 	}
 
 	get _upcomingDisplayLimit() {

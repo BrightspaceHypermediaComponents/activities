@@ -71,7 +71,7 @@
   },
   "main": "d2l-activities.js",
   "dependencies": {
-    "@adobe/lit-mobx": "^0.0.x",
+    "@adobe/lit-mobx": "^1.0.x",
     "@brightspace-hmc/foundation-components": "github:BrightspaceHypermediaComponents/foundation-components#semver:^0",
     "@brightspace-ui-labs/accordion": "^2.0.2",
     "@brightspace-ui-labs/edit-in-place": "^1.0.11",

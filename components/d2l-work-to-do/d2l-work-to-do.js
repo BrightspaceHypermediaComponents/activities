@@ -435,6 +435,17 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		}
 	}
 
+	updated(changedProperties) {
+		// we are done loading after initial load finishes for "activity" and "fullscreen" states
+		// or right away otherwise ("empty" or "error")
+		if (this._state !== 'loading' &&
+			(!this._initialLoad || (this._state !== 'activity' && this._state !== 'fullscreen'))) {
+			this.markAndLogWidgetLoaded(this.fullscreen);
+		}
+
+		super.updated(changedProperties);
+	}
+
 	get _moreAvail() {
 		return this._upcomingCollection && this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage);
 	}
@@ -500,7 +511,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			if (this._loadedElements.length === expectedLoadedActivities) {
 				this._initialLoad = false;
 				this._loadedElements = [];
-				this.markAndLogWidgetLoaded(this.fullscreen);
 			}
 		}
 	}

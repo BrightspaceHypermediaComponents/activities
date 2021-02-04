@@ -104,7 +104,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 					padding: 1.8rem 0;
 				}
 				.d2l-work-to-do-fullscreen-container {
-					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
 					padding: 0 2rem;
 				}
 				.d2l-activity-collection d2l-list d2l-work-to-do-activity-list-item-basic:first-of-type {

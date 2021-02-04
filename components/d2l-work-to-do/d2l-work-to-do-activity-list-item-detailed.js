@@ -217,7 +217,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 
 		const dateTemplate = this.includeDate
 			? html `
-				<div class=${classMap(dateClasses)}>
+				<h3 class=${classMap(dateClasses)}>
 					<d2l-activity-date
 						class="d2l-heading-4"
 						href=${this.href}
@@ -226,7 +226,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						format="dddd, MMMM d"
 						date-only>
 					</d2l-activity-date>
-				</div>`
+				</h3>`
 			: nothing;
 
 		const separatorTemplate = !this.skeleton && this._type && (this._orgName || this._orgCode)

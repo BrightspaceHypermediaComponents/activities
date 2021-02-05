@@ -29,10 +29,6 @@ export class QuizIpRestrictions {
 		}
 	}
 
-	get dirty() {
-		return !this._entity.equals(this._makeQuizData());
-	}
-
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 

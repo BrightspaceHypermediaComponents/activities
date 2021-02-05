@@ -69,7 +69,7 @@ export class QuizIpRestrictions {
 			}
 		});
 
-		if (errors) {
+		if (errors && errors.length) {
 			//TODO: handle errors
 		}
 	}

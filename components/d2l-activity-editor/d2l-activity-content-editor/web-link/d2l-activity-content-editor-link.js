@@ -48,6 +48,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		super();
 		this._debounceJobs = {};
 		this.skeleton = true;
+		this.saveOrder = 2000;
 	}
 
 	render() {
@@ -103,8 +104,12 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	}
 
 	validate() {
+		const link = this.shadowRoot.getElementById('content-link').value;
+		const isExternalResource = this.shadowRoot.getElementById('open-new-tab').checked;
+		const invalidWeblinkError = getWeblinkError(link, isExternalResource, true);
+
 		this.clearError('_linkError');
-		this._saveLink();
+		this.setError('_linkError', invalidWeblinkError);
 	}
 
 	_renderLinkTooltip() {
@@ -135,7 +140,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => {
 				if (invalidWeblinkError) {
-					this.setError('_linkError', invalidWeblinkError, 'link-tooltip');
+					this.setError('_linkError', invalidWeblinkError);
 				}
 				else {
 					this.clearError('_linkError');

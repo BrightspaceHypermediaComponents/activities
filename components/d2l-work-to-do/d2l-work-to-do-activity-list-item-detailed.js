@@ -11,12 +11,13 @@ import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { nothing } from 'lit-html';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { WorkToDoTelemetryMixin } from './mixins/d2l-work-to-do-telemetry-mixin';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 
-class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
+class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkToDoMixin(LitElement))))) {
 
 	static get properties() {
 		return {
@@ -134,6 +135,8 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 		this._activityProperties = undefined;
 		this._organization = undefined;
 		this._setEntityType(ActivityUsageEntity);
+
+		this.addEventListener('d2l-list-item-link-click', this._onItemLinkClicked.bind(this));
 	}
 
 	set _entity(entity) {
@@ -161,6 +164,18 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 	_onDataLoaded() {
 		const event = new CustomEvent('data-loaded');
 		this.dispatchEvent(event);
+	}
+
+	/**
+	 * Logs activity navigated telemetry event
+	 */
+	_onItemLinkClicked() {
+		const activityType = this._activityProperties && this._activityProperties.type;
+		if (this.skeleton || !activityType || !this.actionHref) {
+			return;
+		}
+
+		this.logActivityNavigatedTo(this.actionHref, activityType);
 	}
 
 	render() {

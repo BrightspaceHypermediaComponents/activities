@@ -18,16 +18,17 @@ import { Config, Constants, getOverdueWeekLimit, getUpcomingWeekLimit } from './
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
 import { ifDefined } from 'lit-html/directives/if-defined';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { performSirenAction } from 'siren-sdk/src/es6/SirenAction';
 import { UserEntity } from 'siren-sdk/src/users/UserEntity';
+import { WorkToDoTelemetryMixin } from './mixins/d2l-work-to-do-telemetry-mixin';
 import { repeat } from 'lit-html/directives/repeat';
 import { nothing } from 'lit-html';
 
 /**
  * @classdesc Class representation of Work to Do widget component
  */
-class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
+class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkToDoMixin(LitElement))) {
 
 	static get properties() {
 		return {
@@ -50,7 +51,9 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			/** individual items within upcomingCollection + subsequent pages once the UI has them */
 			_upcomingActivities: { type: Array },
 			/** keeps track of the sub items being loaded, so we can show all data at once and not a partial activity */
-			_initialLoad: { type: Boolean }
+			_initialLoad: { type: Boolean },
+			/** Represents telemetry endpoint to publish events to */
+			_telemetryEndpoint: { type: String, attribute: 'data-telemetry-endpoint' }
 		};
 	}
 
@@ -133,11 +136,13 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		this._overdueWeekLimit = Config.OverdueWeekLimit;
 		this._upcomingWeekLimit = Config.UpcomingWeekLimit;
 		this._upcomingActivities = [];
+		this._totalUpcomingActivities = undefined;
 		this._overdueActivities = [];
 		this._viewAllSource = undefined;
 		this._setEntityType(UserEntity);
 		this._initialLoad = true;
 		this._loadedElements = [];
+		this._telemetryEndpoint = undefined;
 	}
 
 	set _entity(entity) {
@@ -161,6 +166,10 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				this._overdueWeekLimit = (parseInt(newval) < 0) ? Config.OverdueWeekLimit : parseInt(newval);
 				window.D2L.workToDoOptions.overdueWeekLimit = this._overdueWeekLimit;
 				break;
+			case 'data-telemetry-endpoint':
+				this._telemetryEndpoint = newval;
+				window.D2L.workToDoOptions.telemetryEndpoint = this._telemetryEndpoint;
+				break;
 			case 'data-upcoming-week-limit':
 				this._upcomingWeekLimit = (parseInt(newval) < 0) ? Config.UpcomingWeekLimit : parseInt(newval);
 				window.D2L.workToDoOptions.upcomingWeekLimit = this._upcomingWeekLimit;
@@ -182,7 +191,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			return;
 		}
 		this._getCollections(user._entity);
-		this._getHomeHref();
+		this._updateHomeHref();
 	}
 
 	render() {
@@ -207,7 +216,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 			return html`
 				<div class="d2l-activity-collection">
-					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length}></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${isOverdue ? activities.length : this._totalUpcomingActivities}></d2l-work-to-do-activity-list-header>
 					<d2l-list separators="none">${items}</d2l-list>
 				</div>
 			`;
@@ -224,7 +233,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				<div class="d2l-upcoming-list">
 					${collectionTemplate(this._upcomingActivities, this._upcomingDisplayLimit, false)}
 				</div>
-				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource}>${this.localize('fullViewLink')}</d2l-link>
+				<d2l-link aria-label="${this.localize('fullViewLink')}" href="${this._viewAllSource}" small ?hidden=${!this._viewAllSource || !this._hasHiddenActivities}>${this.localize('fullViewLink')}</d2l-link>
 			`;
 		};
 
@@ -282,19 +291,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		};
 
 		const emptyViewTemplate = () => {
-			if (!this._maxCollection) {
-				return nothing;
-			}
-
 			return html`
 				${this.fullscreen ? immersiveNav() : ''}
 				<div class="d2l-empty-template">
 					<div class="d2l-empty-icon-container">
 						<d2l-work-to-do-empty-state-image id="empty-icon"></d2l-work-to-do-empty-state-image>
 					</div>
-					${emptyViewHeaderTemplate(this._maxCount)}
-					${emptyViewTextTemplate(this._maxCount)}
-					${emptyViewButtonTemplate(this._maxCount)}
+					${emptyViewHeaderTemplate(this._hasHiddenActivities)}
+					${emptyViewTextTemplate(this._hasHiddenActivities)}
+					${emptyViewButtonTemplate(this._hasHiddenActivities)}
 				</div>
 			`;
 		};
@@ -336,7 +341,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 
 			return html`
 				<div class="d2l-activity-collection-container-fullscreen">
-					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${activities.length} fullscreen></d2l-work-to-do-activity-list-header>
+					<d2l-work-to-do-activity-list-header ?skeleton=${this._initialLoad} ?overdue=${isOverdue} count=${isOverdue ? activities.length : this._totalUpcomingActivities} fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list>${groupedByDate}</d2l-list>
 				</div>
 			`;
@@ -362,7 +367,7 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		};
 
 		const fullscreenTemplate = () => {
-			if (!this._overdueCollection || !this._upcomingCollection || !this._maxCollection) {
+			if (!this._overdueCollection || !this._upcomingCollection) {
 				return nothing;
 			}
 
@@ -430,26 +435,36 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		}
 	}
 
+	updated(changedProperties) {
+		// we are done loading after initial load finishes for "activity" and "fullscreen" states
+		// or right away otherwise ("empty" or "error")
+		if (this._state !== 'loading' &&
+			(!this._initialLoad || (this._state !== 'activity' && this._state !== 'fullscreen'))) {
+			this.markAndLogWidgetLoaded(this.fullscreen);
+		}
+
+		super.updated(changedProperties);
+	}
+
 	get _moreAvail() {
 		return this._upcomingCollection && this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage);
 	}
 
-	get _maxCount() {
-		return this._maxCollection && this._maxCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
-			? this._maxCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-			: 0;
+	get _hasHiddenActivities() {
+		const hiddenUpcoming = this._upcomingCount > this._upcomingDisplayLimit || this._moreAvail;
+		const futureActivities = this._maxCollection && this._maxCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
+			? this._maxCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length - this._upcomingCount > 0
+			: false;
+
+		return hiddenUpcoming || futureActivities;
 	}
 
 	get _overdueCount() {
-		return this._overdueCollection && this._overdueCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
-			? this._overdueCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-			: 0;
+		return this._overdueActivities.length;
 	}
 
 	get _upcomingCount() {
-		return this._upcomingCollection && this._upcomingCollection.hasSubEntityByRel(Rels.Activities.userActivityUsage)
-			? this._upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length
-			: 0;
+		return this._upcomingActivities.length;
 	}
 
 	get _upcomingDisplayLimit() {
@@ -464,11 +479,15 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 				return this.fullscreen
 					? 'fullscreen'
 					: 'activity';
-			} else if (this._maxCollection) {
+			} else {
 				return 'empty';
 			}
 		}
 		return 'loading';
+	}
+
+	get _upcomingDayLimit() {
+		return getUpcomingWeekLimit() * 7;
 	}
 
 	/**
@@ -523,14 +542,25 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			|| {}).href;
 
 		if (emptySource) {
-			await fetchEntity(emptySource, this.token)
-				.then((emptyEntity) => {
-					if (emptyEntity) {
-						this._loadOverdue(emptyEntity);
-						this._loadUpcoming(emptyEntity);
-						this._loadUpcoming(emptyEntity, Constants.MaxDays);
-					}
-				});
+			const emptyEntity = await fetchEntity(emptySource, this.token);
+			if (emptyEntity) {
+				this._loadOverdue(emptyEntity);
+				const [ upcomingCollection, maxCollection ] = await Promise.all(
+					// In fullscreen load 1 year, max doesn't matter if upcoming is greater than or equal to 1 year
+					// In widget mode load limited data, and fetch max for future 'view all data' information.
+					this.fullscreen || this._upcomingDayLimit >= Constants.MaxDays
+						? [ this._loadMaxUpcoming(emptyEntity), Promise.resolve(null) ]
+						: [ this._loadLimitedUpcoming(emptyEntity), this._loadMaxUpcoming(emptyEntity) ]);
+
+				if (upcomingCollection) {
+					this._upcomingCollection = upcomingCollection;
+					this._upcomingActivities = upcomingCollection.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+					this._totalUpcomingActivities = upcomingCollection.hasProperty('pagingTotalResults') && upcomingCollection.properties.pagingTotalResults || this._upcomingActivities.length;
+				}
+				if (maxCollection) {
+					this._maxCollection = maxCollection;
+				}
+			}
 		}
 	}
 
@@ -542,9 +572,12 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		if (!this._upcomingCollection.hasLinkByRel(Rels.Activities.nextPage)) return;
 
 		const upcomingSource = this._upcomingCollection.getLinkByRel(Rels.Activities.nextPage).href;
+		const startMark = this.markLoadMoreStart();
 		const upcomingNextPage = await fetchEntity(upcomingSource, this.token, true);
 		if (upcomingNextPage && upcomingNextPage.hasSubEntityByRel(Rels.Activities.userActivityUsage)) {
-			this._upcomingActivities = this._upcomingActivities.concat(upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage));
+			const nextActivities = upcomingNextPage.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
+			this.markAndLogLoadMoreEnd(startMark, nextActivities.length);
+			this._upcomingActivities = this._upcomingActivities.concat(nextActivities);
 			this._upcomingCollection = upcomingNextPage; // moves "next page" forward every time this succeeds
 		}
 	}
@@ -573,13 +606,23 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		}
 
 		const source = entity.getLinkByRel(Rels.Activities.overdue).href;
+		const startMark = this.markLoadOverdueStart();
 		await fetchEntity(source, this.token)
 			.then((sirenEntity) => {
 				if (sirenEntity) {
+					this.markLoadOverdueEnd(startMark, sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
 					this._overdueActivities = this._getFilteredOverdueActivities(sirenEntity);
 					this._overdueCollection = sirenEntity;
 				}
 			});
+	}
+
+	async _loadMaxUpcoming(entity) {
+		return await this._loadUpcoming(entity, Math.max(Constants.MaxDays, this._upcomingDayLimit), Constants.PageSize);
+	}
+
+	async _loadLimitedUpcoming(entity) {
+		return await this._loadUpcoming(entity, this._upcomingDayLimit, Constants.MaxWidgetDisplay);
 	}
 
 	/**
@@ -596,9 +639,6 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 		if (!entity || (!entity.hasActionByName(Actions.activities.filterWorkToDo) && !entity.hasActionByName(Actions.activities.selectCustomDateRange))) {
 			return;
 		}
-
-		const isMax = !!forwardLimit;
-		forwardLimit = forwardLimit ? forwardLimit : (getUpcomingWeekLimit() * 7);
 
 		const now = new Date();
 		const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + forwardLimit, 23, 59, 59, 999).toISOString();
@@ -619,23 +659,28 @@ class WorkToDoWidget extends EntityMixinLit(LocalizeWorkToDoMixin(LitElement)) {
 			}
 			return acc;
 		}, []);
-		this._performSirenActionWithRetry(this.token, action, fields, true, 1)
-			.then((sirenEntity) => {
-				if (sirenEntity) {
-					if (!isMax) {
-						this._upcomingActivities = sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage);
-						this._upcomingCollection = sirenEntity;
-					} else {
-						this._maxCollection = sirenEntity;
-					}
-				}
-			});
+
+		const startMark = this.markLoadUpcomingStart();
+		const sirenEntity = await this._performSirenActionWithRetry(this.token, action, fields, true, 1);
+		if (sirenEntity) {
+			this.markLoadUpcomingEnd(startMark, sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
+		}
+
+		return sirenEntity;
 	}
 
-	_getHomeHref() {
-		// TODO: this is a default (and kind of a hacky way to get to it),
-		// ideally we want to get the user's homepage from their profile
-		this._homeLinkHref = window.location.href.substring(0, window.location.href.indexOf('/d2l/') + 5) + 'home';
+	_updateHomeHref() {
+
+		if (this.fullscreen) {
+			const prevPage = sessionStorage.getItem(Constants.HomepageSessionStorageKey);
+			if (prevPage && (new URL(prevPage)).hostname === window.location.hostname) {
+				this._homeLinkHref = prevPage;
+			} else {
+				this._homeLinkHref = '/';
+			}
+		} else {
+			sessionStorage.setItem(Constants.HomepageSessionStorageKey, window.location.href);
+		}
 	}
 }
 customElements.define('d2l-work-to-do', WorkToDoWidget);

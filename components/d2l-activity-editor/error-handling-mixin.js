@@ -5,11 +5,11 @@ export const ErrorHandlingMixin = superclass => class extends LocalizeMixin(supe
 	clearError(errorProperty) {
 		this[errorProperty] = '';
 	}
-	async setError(errorProperty, langterm, tooltipId) {
+	async setError(errorProperty, langterm, tooltipIdToForceShow) {
 		this[errorProperty] = this.localize(langterm);
 
 		await this.updateComplete;
-		this._showTooltip(tooltipId);
+		this._showTooltip(tooltipIdToForceShow);
 	}
 
 	_showTooltip(tooltipId) {

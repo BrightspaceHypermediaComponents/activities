@@ -62,7 +62,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.90.3",
+  "version": "3.100.1",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
@@ -72,13 +72,13 @@
   "main": "d2l-activities.js",
   "dependencies": {
     "@adobe/lit-mobx": "^0.0.x",
+    "@brightspace-hmc/foundation-components": "github:BrightspaceHypermediaComponents/foundation-components#semver:^0",
     "@brightspace-ui-labs/accordion": "^2.0.2",
     "@brightspace-ui-labs/edit-in-place": "^1.0.11",
     "@brightspace-ui-labs/list-item-accumulator": "^1",
-    "@brightspace-ui/core": "^1.102.2",
+    "@brightspace-ui/core": "^1.115.1",
     "@brightspace-ui/htmleditor": "^1",
     "@brightspace-ui/intl": "^3.0.1",
-    "@brightspace-hmc/foundation-components": "github:BrightspaceHypermediaComponents/foundation-components#semver:^0",
     "@d2l/d2l-attachment": "Brightspace/attachment#semver:^1",
     "@polymer/iron-resizable-behavior": "^3.0.0",
     "@polymer/polymer": "^3.0.0",

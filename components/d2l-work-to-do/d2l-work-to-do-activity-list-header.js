@@ -6,7 +6,7 @@ import { css, html, LitElement } from 'lit-element/lit-element';
 import { Constants, getUpcomingWeekLimit } from './env';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
 
 const ro = window.ResizeObserver && new ResizeObserver(entries => {

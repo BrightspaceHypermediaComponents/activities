@@ -39,12 +39,21 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 		this._sendResizeEvent();
 	}
 
-	_deleteIpRestriction() {
-		//TODO: implement delete
+	_deleteIpRestriction(e, index) {
+		const entity = store.get(this.href);
+		if (!entity) {
+			return;
+		}
+
+		entity.deleteIpRestriction(index);
+		this._sendResizeEvent();
 	}
 
-	_handleChange(e) {
-		const rowIndex = Number(e.target.parentElement.parentElement.attributes.rowindex.value);
+	_generateHandler(handler, rowindex) {
+		return (e) => handler(e, rowindex);
+	}
+
+	_handleChange(e, index) {
 		const { name, value } = e.target;
 
 		const entity = store.get(this.href);
@@ -52,8 +61,7 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 			return;
 		}
 
-		entity.setIpRestriction(rowIndex, name, value);
-
+		entity.setIpRestriction(index, name, value);
 	}
 
 	_renderActionButtons() {
@@ -98,22 +106,25 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 			return html``;
 		}
 
+		const deleteIp = this._deleteIpRestriction.bind(this);
+		const handleChange = this._handleChange.bind(this);
+
 		return entity.ipRestrictions.map((restriction, index) => {
 			const { start, end } = restriction;
 
 			return html`
-				<d2l-tr rowindex=${index}>
+				<d2l-tr>
 					<d2l-th>
-						<d2l-input-text @input="${this._handleChange}" value="${start}" name="start"></d2l-input-text>
+						<d2l-input-text @input="${this._generateHandler(handleChange, index)}" id="start" value="${start}" name="start"></d2l-input-text>
 					</d2l-th>
 					<d2l-th>
-						<d2l-input-text @input="${this._handleChange}" value="${end}" name="end"></d2l-input-text>
+						<d2l-input-text @input="${this._generateHandler(handleChange, index)}" value="${end}" name="end"></d2l-input-text>
 					</d2l-th>
 					<d2l-th>
 						<d2l-button-icon
 						icon="d2l-tier1:delete"
 						aria-label="delete"
-						@click="${this._deleteIpRestriction}">
+						@click="${this._generateHandler(deleteIp, index)}">
 						</d2l-button-icon>
 					</d2l-th>
 				</d2l-tr>
@@ -133,7 +144,6 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 	_sendResizeEvent() {
 		this.dispatchEvent(new CustomEvent('restrictions-resize-dialog', { bubbles: true, composed: true }));
 	}
-
 }
 
 customElements.define(

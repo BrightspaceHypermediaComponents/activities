@@ -16,8 +16,17 @@ export class QuizIpRestrictions {
 		this.ipRestrictions.push({ start: '', end: '' });
 	}
 
-	deleteIpRestriction(start, end) {
-		this._entity.deleteIpRestriction(start, end);
+	deleteIpRestriction(index) {
+		if (this.ipRestrictions.length === 1) {
+			return;
+		}
+
+		const restriction = this.ipRestrictions.splice(index, 1);
+		const isNew = restriction && restriction[0].id === undefined;
+
+		if (!isNew) {
+			this._entity.deleteIpRestriction(index);
+		}
 	}
 
 	get dirty() {
@@ -49,16 +58,40 @@ export class QuizIpRestrictions {
 			return;
 		}
 
-		const promises = restrictionsToSave.map(restriction => {
-			this._entity.addIpRestriction(restriction);
+		const promises = this._createPromises(restrictionsToSave);
+
+		const errors = [];
+		const results = await Promise.allSettled(promises);
+
+		results.forEach(res => {
+			if (res.status === 'rejected') {
+				errors.push(...res.reason.json.properties.errors);
+			}
 		});
 
-		await Promise.all(promises);
+		if (errors) {
+			//TODO: handle errors
+		}
 	}
 
 	setIpRestriction(index, key, val) {
 		const currentVal = this.ipRestrictions[index];
 		this.ipRestrictions[index] = { ...currentVal, [key]: val };
+	}
+
+	updateIpRestriction(restriction) {
+		this._entity.updateIpRestriction(restriction);
+	}
+
+	_createPromises(restrictions) {
+		return restrictions.map(restriction => {
+			const isNew = restriction.id === undefined;
+			if (isNew) {
+				return this._entity.addIpRestriction(restriction);
+			}
+
+			return this._entity.updateIpRestriction(restriction);
+		});
 	}
 
 	_filterOldRestrictions() {
@@ -75,21 +108,14 @@ export class QuizIpRestrictions {
 			}
 
 			if (start !== oldStart || end !== oldEnd) {
-				restrictionsToUpdate.push({ ...restriction, oldStart, oldEnd });
+				restrictionsToUpdate.push(restriction);
 			}
 		}
 
 		return restrictionsToUpdate;
 	}
 
-	_makeQuizData() {
-		/* NOTE: if you add fields here, please make sure you update the corresponding equals method in siren-sdk.
-					 The cancel workflow is making use of that to detect changes.
-		*/
-		const data = {};
 
-		return data;
-	}
 }
 
 decorate(QuizIpRestrictions, {

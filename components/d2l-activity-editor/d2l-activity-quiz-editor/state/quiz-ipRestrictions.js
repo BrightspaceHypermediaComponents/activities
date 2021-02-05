@@ -96,26 +96,30 @@ export class QuizIpRestrictions {
 
 	_filterOldRestrictions() {
 		const restrictionsToUpdate = [];
-		const oldRestrictions = this._entity.getIpRestrictions();
+		const expectedRestrictions = this._entity.getIpRestrictions();
 
-		for (const [index, restriction] of this.ipRestrictions.entries()) {
+		for (const restriction of this.ipRestrictions) {
 
-			const { start, end } = restriction || {};
-			const { start: oldStart, end: oldEnd } = oldRestrictions[index] || {};
+			const { start, end, id } = restriction || {};
 
 			if (!start || !end) {
 				continue;
 			}
 
-			if (start !== oldStart || end !== oldEnd) {
+			const expectedRestriction = expectedRestrictions[id];
+
+			if (!expectedRestriction) {
+				restrictionsToUpdate.push(restriction);
+				continue;
+			}
+
+			if (start !== expectedRestriction.start || end !== expectedRestriction.end) {
 				restrictionsToUpdate.push(restriction);
 			}
 		}
 
 		return restrictionsToUpdate;
 	}
-
-
 }
 
 decorate(QuizIpRestrictions, {

@@ -3,7 +3,6 @@ import { fetchEntity } from '../../../../components/d2l-activity-editor/state/fe
 import { QuizIpRestrictions } from '../../../../components/d2l-activity-editor/d2l-activity-quiz-editor/state/quiz-ipRestrictions.js';
 import { QuizIpRestrictionsEntity } from 'siren-sdk/src/activities/quizzes/ipRestrictions/QuizIpRestrictionsEntity.js';
 import sinon from 'sinon';
-
 jest.mock('siren-sdk/src/activities/quizzes/ipRestrictions/QuizIpRestrictionsEntity.js');
 jest.mock('../../../../components/d2l-activity-editor/state/fetch-entity.js');
 
@@ -14,7 +13,8 @@ describe('Activity IP Restrictions', function() {
 	function defaultEntityMock() {
 		return {
 			canEditIpRestrictions: () => true,
-			getIpRestrictions: () => [ mockRestriction ]
+			getIpRestrictions: () => [ mockRestriction ],
+			deleteIpRestriction: () => {}
 		};
 	}
 
@@ -77,6 +77,37 @@ describe('Activity IP Restrictions', function() {
 				expect(entitiesToUpdate.length).to.equal(1);
 				expect(entitiesToUpdate[0].start).to.equal(newEntity.start);
 				expect(entitiesToUpdate[0].end).to.equal(newEntity.end);
+			});
+		});
+
+		describe('deleting restrictions', () => {
+			it('should set restriction to empty if only 1 remaining', async() => {
+				const activityIpRestrictions = new QuizIpRestrictions('http://1', 'token');
+				await activityIpRestrictions.fetch();
+
+				activityIpRestrictions.deleteIpRestriction(0);
+
+				expect(activityIpRestrictions.ipRestrictions.length).to.equal(1);
+
+				const restriction = activityIpRestrictions.ipRestrictions[0];
+				expect(restriction.start).to.equal('');
+				expect(restriction.end).to.equal('');
+				expect(restriction.id).to.be.undefined;
+			});
+
+			it('should delete restriction', async() => {
+				const activityIpRestrictions = new QuizIpRestrictions('http://1', 'token');
+				await activityIpRestrictions.fetch();
+
+				activityIpRestrictions.ipRestrictions.push({ start: '10.10.10.10', end: '11.11.11.11' });
+				expect(activityIpRestrictions.ipRestrictions.length).to.equal(2);
+
+				activityIpRestrictions.deleteIpRestriction(1);
+				expect(activityIpRestrictions.ipRestrictions.length).to.equal(1);
+
+				const remainingRestriction = activityIpRestrictions.ipRestrictions[0];
+
+				expect(JSON.stringify(remainingRestriction)).to.equal(JSON.stringify(mockRestriction));
 			});
 		});
 	});

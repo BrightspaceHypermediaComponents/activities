@@ -18,6 +18,8 @@ export class QuizIpRestrictions {
 
 	deleteIpRestriction(index) {
 		if (this.ipRestrictions.length === 1) {
+			this._entity.deleteIpRestriction(index);
+			this.ipRestrictions = [{ start: '', end: '' }];
 			return;
 		}
 

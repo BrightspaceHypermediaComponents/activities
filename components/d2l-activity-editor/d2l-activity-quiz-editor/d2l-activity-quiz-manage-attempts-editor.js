@@ -1,5 +1,6 @@
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import './d2l-activity-quiz-retake-incorrect-only-editor.js';
+import './d2l-activity-quiz-attempt-conditions-editor.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorDialogMixin } from '../mixins/d2l-activity-editor-dialog-mixin';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
@@ -10,7 +11,6 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { shared as store } from './state/quiz-store';
 
 class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEditorDialogMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
-
 	static get styles() {
 		return [
 			labelStyles,
@@ -26,6 +26,7 @@ class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEdito
 	constructor() {
 		super(store);
 	}
+
 	render() {
 		return html`
 			${this._renderDialogOpener()}
@@ -33,13 +34,15 @@ class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEdito
 		`;
 	}
 
-	_renderAttemptsCondition() {
-		// TODO: add Attempts Conditions once design has been refined
+	_renderAttemptConditionsEditor() {
 		return html`
-			<d2l-button-subtle text=${this.localize('btnAddAttemptConditions')}></d2l-button-subtle>
+			<d2l-activity-quiz-attempt-conditions-editor
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-quiz-attempt-conditions-editor>
 		`;
 	}
-	_renderAttemptsSelects() {
+	_renderAttemptsSelectsEditor() {
 		// TODO: replace consts with data fetched from attempts entity
 		const attemptsAllowed = ['Unlimited', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 		const gradingTypes = ['Highest Attempt', 'Lowest Attempt', 'Average of All Attempts', 'First Attempt', 'Last Attempt'];
@@ -64,7 +67,7 @@ class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEdito
 				?opened="${this.opened}"
 				@d2l-dialog-close="${this.handleClose}"
 				title-text="${this.localize('subHdrAttemptsTools')}"
-				width=700>
+				width=850>
 					${this._renderDialogContent()}
 					<d2l-button slot="footer" primary data-dialog-action="ok">${this.localize('manageAttemptsDialogConfirmationText')}</d2l-button>
 		 			<d2l-button slot="footer" data-dialog-action>${this.localize('manageAttemptsDialogCancelText')}</d2l-button>
@@ -78,9 +81,9 @@ class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEdito
 		const showAttemptsConditions = true;
 
 		return html `
-			${this._renderAttemptsSelects()}
-			${showRio ? html`${this._renderRioOption()}` : null}
-			${showAttemptsConditions ? html `${this._renderAttemptsCondition()}` : null}
+			${this._renderAttemptsSelectsEditor()}
+			${showRio ? html`${this._renderRioEditor()}` : null}
+			${showAttemptsConditions ? html `${this._renderAttemptConditionsEditor()}` : null}
 		`;
 	}
 
@@ -91,12 +94,13 @@ class ActivityQuizManageAttemptsEditor extends ActivityEditorMixin(ActivityEdito
 			</div>
 			<d2l-button-subtle
 				text="${this.localize('manageAttempts')}"
-				@click="${this.open}">
+				@click="${this.open}"
+				h-align="text">
 			</d2l-button-subtle>
 		`;
 	}
 
-	_renderRioOption() {
+	_renderRioEditor() {
 		return html `
 			<d2l-activity-quiz-retake-incorrect-only-editor
 				href="${this.href}"

@@ -74,10 +74,18 @@ export default {
 	"overallGradeCalculation": "Overall Grade Calculation", // Title for Overall Grade Calculation select in Attempts dialog
 	"retakeIncorrectQuestionsOnly": "Retake Incorrect Questions Only", // Title for RIO checkbox in Attempts dialog
 	"rioCheckboxLabel": "On new attempts, only allow answers for previously incorrect questions", // Label for RIO checkbox in Attempts dialog
-	"btnAddAttemptConditions": "Add Attempt Conditions", // Label for Add Attempt Conditions button in Attempts dialog
+	"btnAttemptConditions": "Attempt Conditions", // Label for Attempt Conditions button in Attempts dialog
 	"rioAccessibileHelpText": "Get help on - Retake Incorrect Only", // accessible help text for RIO question mark button
 	"rioDialogTitle": "Information: Retake Incorrect Questions Only", // Title for RIO help dialog
 	"rioDialogParagraph": "When this setting is selected, learners who attempt a quiz more than once can only answer questions that were incorrect on the previous attempt. If you are using Automatic grading, Written Response questions will be marked as 0 and included in future attempts until they are graded manually.", // content for RIO dialog
 	"rioDialogConfirmationText": "OK", // copy that appears on the RIO help dialog confirmation button
-
+	"attemptConditions": "Attempt Conditions", // Header for Attempts Conditions section in Attempts dialog
+	"attemptConditionsParagraph1": "For a learner to qualify for another attempt, set a minimum and/or maximum percentage value between 0 to 100 that must be acheived on the previous attempt.", // content for paragraph1 on the Attempts dialog Attempts Condition section
+	"attemptConditionsParagraph2": "If a minimum or maximum field is blank, there won't be a limit applied to that portion of the attempt range.", // content for paragragh2 on the Attempts dialog Attempts Condition section
+	"attemptConditionsRangePrefixText1": "On Attempt", // prefix text 1 for Attempt Conditions range editor on Attempts dialog
+	"attemptConditionsRangePrefixText2": "learners must achieve between", // prefix text 2 for Attempt Conditions range editor on Attempts dialog
+	"attemptConditionsRangeSuffixText": "to release", //suffix text for Attempts Conditions range editor on Attempts dialog
+	"minLabel": "Min:", // label for Min input on Attempts Conditions range editor on Attempts Dialog
+	"maxLabel": "Max:", // label for Max input on Attempts Conditions range editor on Attempts Dialog
+	"andRangeText": "and" // copy on Attempts Condition range editor on Attempts Dialog
 };

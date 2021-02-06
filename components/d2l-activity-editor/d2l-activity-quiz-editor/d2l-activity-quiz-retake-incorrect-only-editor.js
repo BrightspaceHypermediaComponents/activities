@@ -52,12 +52,15 @@ class ActivityQuizRetakeIncorrectOnlyEditor
 			${this._renderDialog()}
 		`;
 	}
-
+	_handleClose(e) {
+		this.opened = false;
+		e.stopPropagation();
+	}
 	_renderDialog() {
 		return html`
 			<d2l-dialog
 				?opened="${this.opened}"
-				@d2l-dialog-close="${this.handleClose}"
+				@d2l-dialog-close="${this._handleClose}"
 				title-text="${this.localize('rioDialogTitle')}">
 					${this.localize('rioDialogParagraph')}
 					<d2l-button

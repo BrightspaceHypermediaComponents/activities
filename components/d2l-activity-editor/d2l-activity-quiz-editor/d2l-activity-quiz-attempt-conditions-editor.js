@@ -27,21 +27,21 @@ class ActivityQuizAttemptConditionsEditor extends ActivityEditorMixin(LocalizeAc
 					width: auto;
 				}
 				.d2l-attempts-condition-header {
-					margin: 0rem;
+					margin: 0;
 				}
 				.d2l-attempts-conditions-range-editor {
 					align-items: center;
+					border-bottom: 1px solid var(--d2l-color-corundum);
 					display: flex;
 					padding-bottom: 0.8rem;
-    				padding-top: 0.5rem;
-   					border-bottom: 1px solid var(--d2l-color-corundum);
+					padding-top: 0.5rem;
 				}
 				.d2l-input-number-text {
 					margin-left: 0.4rem;
 				}
 				.d2l-input-range-text {
-					margin-left: 0rem;
-					margin-right: 0rem;
+					margin-left: 0;
+					margin-right: 0;
 				}
 			`
 		];

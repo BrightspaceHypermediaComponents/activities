@@ -1,6 +1,6 @@
 import { ObjectStore } from '../../state/object-store.js';
 import { Quiz } from './quiz.js';
-import { QuizIpRestrictions } from './quiz-ipRestrictions';
+import { QuizIpRestrictions } from './quiz-ipRestrictions.js';
 import { QuizTiming } from './quiz-timing.js';
 
 export class QuizStore extends ObjectStore {

@@ -17,14 +17,12 @@ export class QuizIpRestrictions {
 	}
 
 	deleteIpRestriction(index) {
-		if (this.ipRestrictions.length === 1) {
-			this._entity.deleteIpRestriction(index);
-			this.ipRestrictions = [{ start: '', end: '' }];
-			return;
-		}
-
 		const restriction = this.ipRestrictions.splice(index, 1);
 		const isNew = restriction && restriction[0].id === undefined;
+
+		if (this.ipRestrictions.length === 0) {
+			this.ipRestrictions.push({ start: '', end: '' });
+		}
 
 		if (!isNew) {
 			this._entity.deleteIpRestriction(index);

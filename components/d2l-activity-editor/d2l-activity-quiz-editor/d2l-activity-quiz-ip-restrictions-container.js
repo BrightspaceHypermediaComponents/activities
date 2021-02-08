@@ -15,6 +15,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 
 	constructor() {
 		super(store);
+
+		this.deleteIp = this._deleteIpRestriction.bind(this);
+		this.handleChange = this._handleChange.bind(this);
 	}
 
 	render() {
@@ -106,25 +109,22 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 			return html``;
 		}
 
-		const deleteIp = this._deleteIpRestriction.bind(this);
-		const handleChange = this._handleChange.bind(this);
-
 		return entity.ipRestrictions.map((restriction, index) => {
 			const { start, end } = restriction;
 
 			return html`
 				<d2l-tr>
 					<d2l-th>
-						<d2l-input-text @input="${this._generateHandler(handleChange, index)}" id="start" value="${start}" name="start"></d2l-input-text>
+						<d2l-input-text @input="${this._generateHandler(this.handleChange, index)}" id="start" value="${start}" name="start"></d2l-input-text>
 					</d2l-th>
 					<d2l-th>
-						<d2l-input-text @input="${this._generateHandler(handleChange, index)}" value="${end}" name="end"></d2l-input-text>
+						<d2l-input-text @input="${this._generateHandler(this.handleChange, index)}" value="${end}" name="end"></d2l-input-text>
 					</d2l-th>
 					<d2l-th>
 						<d2l-button-icon
 						icon="d2l-tier1:delete"
 						aria-label="delete"
-						@click="${this._generateHandler(deleteIp, index)}">
+						@click="${this._generateHandler(this.deleteIp, index)}">
 						</d2l-button-icon>
 					</d2l-th>
 				</d2l-tr>

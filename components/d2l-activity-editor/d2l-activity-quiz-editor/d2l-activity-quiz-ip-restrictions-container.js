@@ -16,8 +16,8 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 	constructor() {
 		super(store);
 
-		this.deleteIp = this._deleteIpRestriction.bind(this);
-		this.handleChange = this._handleChange.bind(this);
+		this._deleteIp = this._deleteIpRestriction.bind(this);
+		this._handleChange = this._handleChange.bind(this);
 	}
 
 	render() {
@@ -115,16 +115,16 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(LocalizeAc
 			return html`
 				<d2l-tr>
 					<d2l-th>
-						<d2l-input-text @input="${this._generateHandler(this.handleChange, index)}" id="start" value="${start}" name="start"></d2l-input-text>
+						<d2l-input-text @input="${this._generateHandler(this._handleChange, index)}" id="start" value="${start}" name="start"></d2l-input-text>
 					</d2l-th>
 					<d2l-th>
-						<d2l-input-text @input="${this._generateHandler(this.handleChange, index)}" value="${end}" name="end"></d2l-input-text>
+						<d2l-input-text @input="${this._generateHandler(this._handleChange, index)}" value="${end}" name="end"></d2l-input-text>
 					</d2l-th>
 					<d2l-th>
 						<d2l-button-icon
 						icon="d2l-tier1:delete"
 						aria-label="delete"
-						@click="${this._generateHandler(this.deleteIp, index)}">
+						@click="${this._generateHandler(this._deleteIp, index)}">
 						</d2l-button-icon>
 					</d2l-th>
 				</d2l-tr>

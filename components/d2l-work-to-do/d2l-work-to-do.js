@@ -364,6 +364,15 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 				</d2l-button>`
 			: nothing;
 
+		const immersiveNav = () => {
+			return html`
+				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+					<div class="d2l-typography d2l-body-standard" slot="middle">
+						<p>${this.localize('txtWidgetTitle')}</p> <!-- OSLO -->
+					</div>
+				</d2l-navigation-immersive>`;
+		};
+
 		const fullscreenTemplate = () => {
 			if (!this._overdueCollection || !this._upcomingCollection) {
 				return nothing;

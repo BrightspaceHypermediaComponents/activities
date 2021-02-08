@@ -43,7 +43,7 @@ describe('d2l-activity-editor-dialog-mixin', function() {
 
 	it('handles closing a dialog', async() => {
 		const el = await fixture(`<${editor}></${editor}>`);
-		const event = { preventDefault: () => {} };
+		const event = { stopPropagation: () => {} };
 		el.opened = true;
 
 		el.handleClose(event);

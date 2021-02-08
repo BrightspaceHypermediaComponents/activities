@@ -9,7 +9,7 @@ import { shared as store } from './state/quiz-store';
 class ActivityQuizAttemptConditionsEditor extends ActivityEditorMixin(LocalizeActivityQuizEditorMixin(MobxLitElement)) {
 	static get properties() {
 		return {
-			isAttemptConditionsOpen: { attribute: false }
+			isAttemptConditionsOpen: { type: Boolean, attribute: false }
 		};
 	}
 
@@ -38,6 +38,7 @@ class ActivityQuizAttemptConditionsEditor extends ActivityEditorMixin(LocalizeAc
 				}
 				.d2l-input-number-text {
 					margin-left: 0.4rem;
+					margin-right: 0.4rem;
 				}
 				.d2l-input-range-text {
 					margin-left: 0;
@@ -49,6 +50,7 @@ class ActivityQuizAttemptConditionsEditor extends ActivityEditorMixin(LocalizeAc
 
 	constructor() {
 		super(store);
+		this.isAttemptConditionsOpen = false;
 	}
 
 	render() {
@@ -74,32 +76,33 @@ class ActivityQuizAttemptConditionsEditor extends ActivityEditorMixin(LocalizeAc
 		`;
 	}
 	_renderAttemptConditionsRangeEditor() {
-		// TODO: replace const with data fetched from attempts entity when #attempts allowed >=2
+		// TODO: replace attemptConditions with data fetched from attempts entity when #attempts allowed >=2 and replace index/next with fetched data
 		const attemptsConditions = [1, 2, 3, 4, 5];
-		return html`
-			${attemptsConditions.map((index) => html`
+		return html` ${attemptsConditions.map((index) => {
+			const next = index + 1;
+			return  html`
 				<div class="d2l-attempts-conditions-range-editor">
 					<div>
-						<div class="d2l-label-text">${this.localize('attemptConditionsRangePrefixText1')} ${index}:</div>
+						<div class="d2l-label-text">${this.localize('attemptConditionsRangePrefixText1', { index })}</div>
 						<div class="d2l-body-small">${this.localize('attemptConditionsRangePrefixText2')}</div>
 					</div>
 					<d2l-input-number label=${this.localize('minLabel')} min=0 max=100 input-width=3.5rem>
 						<div slot="after">
-							<span class="d2l-label-text d2l-input-number-text">%</span>
+							<span class="d2l-label-text d2l-input-number-text">${this.localize('percentageRangeText')}</span>
 						</div>
 					</d2l-input-number>
 					<div class="d2l-body-small d2l-input-range-text">${this.localize('andRangeText')}</div>
 					<d2l-input-number label=${this.localize('maxLabel')} min=0 max=100 input-width=3.5rem>
 						<div slot="after">
-							<span class="d2l-label-text d2l-input-number-text">%</span>
+							<span class="d2l-label-text d2l-input-number-text">${this.localize('percentageRangeText')}</span>
 						</div>
 					</d2l-input-number>
 					<div>
-						<div class="d2l-body-small">${this.localize('attemptConditionsRangeSuffixText')}</div>
-						<div class="d2l-label-text">Attempt ${index + 1}</div>
+						<div class="d2l-body-small">${this.localize('attemptConditionsRangeSuffixText1')}</div>
+						<div class="d2l-label-text">${this.localize('attemptConditionsRangeSuffixText2', { next })}</div>
 					</div>
 				</div>
-			`)}
+			`;})}
 		`;
 	}
 }

@@ -82,10 +82,12 @@ export default {
 	"attemptConditions": "Attempt Conditions", // Header for Attempts Conditions section in Attempts dialog
 	"attemptConditionsParagraph1": "For a learner to qualify for another attempt, set a minimum and/or maximum percentage value between 0 to 100 that must be acheived on the previous attempt.", // content for paragraph1 on the Attempts dialog Attempts Condition section
 	"attemptConditionsParagraph2": "If a minimum or maximum field is blank, there won't be a limit applied to that portion of the attempt range.", // content for paragragh2 on the Attempts dialog Attempts Condition section
-	"attemptConditionsRangePrefixText1": "On Attempt", // prefix text 1 for Attempt Conditions range editor on Attempts dialog
+	"attemptConditionsRangePrefixText1": "On Attempt {index}:", // prefix text 1 for Attempt Conditions range editor on Attempts dialog
 	"attemptConditionsRangePrefixText2": "learners must achieve between", // prefix text 2 for Attempt Conditions range editor on Attempts dialog
-	"attemptConditionsRangeSuffixText": "to release", //suffix text for Attempts Conditions range editor on Attempts dialog
+	"attemptConditionsRangeSuffixText1": "to release", //suffix text 1 for Attempts Conditions range editor on Attempts dialog
+	"attemptConditionsRangeSuffixText2": "Attempt {next}", // suffix text 2 for Attempts Condition range editor on Attempts dialog
 	"minLabel": "Min:", // label for Min input on Attempts Conditions range editor on Attempts Dialog
 	"maxLabel": "Max:", // label for Max input on Attempts Conditions range editor on Attempts Dialog
-	"andRangeText": "and" // copy on Attempts Condition range editor on Attempts Dialog
+	"andRangeText": "and", // copy on Attempts Condition range editor on Attempts Dialog
+	"percentageRangeText": "%" // copy on Attempts Condition range editor on Attempts Dialog
 };

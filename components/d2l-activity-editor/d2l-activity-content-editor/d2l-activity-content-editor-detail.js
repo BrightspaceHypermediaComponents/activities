@@ -1,5 +1,6 @@
 import './module/d2l-activity-content-module-detail.js';
 import './shared-components/d2l-activity-content-editor-due-date.js';
+import './lti-link/d2l-activity-content-lti-link-detail.js';
 import './web-link/d2l-activity-content-web-link-detail.js';
 import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -58,6 +59,17 @@ class ContentEditorDetail extends MobxLitElement {
 				>
 					${this._renderDueDate()}
 				</d2l-activity-content-web-link-detail>
+			`;
+		}
+
+		if (entityType === CONTENT_TYPES.ltilink) {
+			return html`
+				<d2l-activity-content-lti-link-detail
+					.href="${contentActivityHref}"
+					.token="${this.token}"
+				>
+					${this._renderDueDate()}
+				</d2l-activity-content-lti-link-detail>
 			`;
 		}
 

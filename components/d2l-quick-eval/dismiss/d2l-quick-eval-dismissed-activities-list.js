@@ -1,6 +1,6 @@
 import { formatDateTime } from '@brightspace-ui/intl/lib/dateTime.js';
 import { html, LitElement, css } from 'lit-element/lit-element.js';
-import { LitQuickEvalLocalize } from '../LitQuickEvalLocalize.js';
+import { LitQuickEvalLocalize } from '../QuickEvalLocalize.js';
 import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/list/list-item.js';
 import '@brightspace-ui/core/components/list/list-item-content.js';

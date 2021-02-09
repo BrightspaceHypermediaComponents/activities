@@ -28,7 +28,6 @@
     "@brightspace-ui/stylelint-config": "^0.0.3",
     "@open-wc/testing": "^2.5.1",
     "@open-wc/testing-karma": "^4.0.5",
-    "@polymer/iron-component-page": "^3.0.0-pre.18",
     "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
     "@polymer/iron-test-helpers": "^3.0.0-pre.18",
     "@polymer/test-fixture": "^4.0.2",
@@ -106,13 +105,10 @@
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "d2l-users": "BrightspaceHypermediaComponents/users#semver:^2",
-    "del": "^6.0.0",
     "fastdom": "^1.0.8",
     "lit-element": "^2",
     "lit-html": "^1.1.2",
-    "merge-stream": "^1.0.1",
     "mobx": "^5.15.2",
-    "require-dir": "^1.2.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1"
   }
 }

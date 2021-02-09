@@ -51,6 +51,10 @@ export default {
 	"disableRightClickHelpDialogConfirmationText": "OK", // copy that appears on the disable right click help dialog confirmation button
 	"manageTimingDialogConfirmationText": "OK", // copy that appears on the Timing dialog confirmation button
 	"manageTimingDialogCancelText": "Cancel", // copy that appears on the Timing dialog cancel button
+	"description": "Description", // Description label for the Description text input box,
+	"btnOpenIpRestrictionDialog": "Manage IP restrictions", // Button text for opening IP restriction dialog
+	"hdrIpRestrictionDialog": "IP Restrictions (IPv4)", // timing/display accordion header
+	"ipRestrictionLabel": "IP Restrictions", // Label for IP restrictions editor
 	"minutesLabel": "minute(s)",  // label for Timing dialog time limit input slot
 	"minutesBeforeFlaggedLabel": "minute(s) before flagged as exceeded time limit", // label for Timing dialog grace period input slot
 	"extendedDeadlineLabel": "Extended Deadline",  // label for timing dialog - extended deadline select

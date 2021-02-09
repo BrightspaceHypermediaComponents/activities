@@ -39,7 +39,7 @@
     "chai-a11y-axe": "^1.2.2",
     "chai-as-promised": "^7.1.1",
     "eslint": "^7.9.0",
-    "eslint-config-brightspace": "^0.10.0",
+    "eslint-config-brightspace": "^0.12.0",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-lit": "^1.2.0",
     "eslint-plugin-sort-class-members": "^1.6.0",
@@ -56,7 +56,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.102.1",
+  "version": "3.104.0",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",

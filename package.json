@@ -6,7 +6,6 @@
   },
   "name": "d2l-activities",
   "scripts": {
-    "build": "gulp build",
     "lint": "npm run lint:style && npm run lint:wc && npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.html",
     "lint:style": "stylelint \"**/*.js\"",
@@ -45,10 +44,6 @@
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-lit": "^1.2.0",
     "eslint-plugin-sort-class-members": "^1.6.0",
-    "gulp": "^4.0.0",
-    "gulp-cli": "^2.0.1",
-    "gulp-ejs": "^5.1.0",
-    "gulp-rename": "^2.0.0",
     "jest": "^26.0.1",
     "karma": "^5.1.0",
     "karma-sauce-launcher": "^4",
@@ -62,7 +57,7 @@
     "wct-mocha": "^1.0.1",
     "whatwg-fetch": "^3.0.0"
   },
-  "version": "3.100.1",
+  "version": "3.102.1",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",

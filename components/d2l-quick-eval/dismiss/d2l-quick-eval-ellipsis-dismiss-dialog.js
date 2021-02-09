@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { LitQuickEvalLocalize } from '../LitQuickEvalLocalize.js';
+import { LitQuickEvalLocalize } from '../QuickEvalLocalize.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';

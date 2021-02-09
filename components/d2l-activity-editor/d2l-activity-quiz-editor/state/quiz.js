@@ -58,6 +58,7 @@ export class Quiz {
 		this.canEditDescription = entity.canEditDescription();
 		this.descriptionIsDisplayed = entity.descriptionIsDisplayed();
 		this.descriptionRichTextEditorConfig = entity.descriptionRichTextEditorConfig();
+		this.ipRestrictionsHref = entity.ipRestrictionsHref();
 	}
 
 	async save() {

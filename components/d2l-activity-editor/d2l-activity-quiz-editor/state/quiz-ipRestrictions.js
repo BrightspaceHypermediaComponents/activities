@@ -102,7 +102,7 @@ export class QuizIpRestrictions {
 				continue;
 			}
 
-			const expectedRestriction = expectedRestrictions[id];
+			const expectedRestriction = expectedRestrictions.find(restriction => restriction.id === id);
 
 			if (!expectedRestriction) {
 				restrictionsToUpdate.push(restriction);

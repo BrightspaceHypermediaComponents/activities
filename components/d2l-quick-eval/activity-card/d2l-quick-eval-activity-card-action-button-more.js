@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { LitQuickEvalLocalize } from '../LitQuickEvalLocalize.js';
+import { LitQuickEvalLocalize } from '../QuickEvalLocalize.js';
 import '@brightspace-ui/core/components/dropdown/dropdown.js';
 import '@brightspace-ui/core/components/dropdown/dropdown-menu.js';
 import '@brightspace-ui/core/components/menu/menu.js';

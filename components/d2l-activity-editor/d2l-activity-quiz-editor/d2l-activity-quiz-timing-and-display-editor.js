@@ -76,11 +76,6 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 				<li slot="summary-items">${this._renderDisablePagerAndAlertsSummary()}</li>
 
 				<div class="d2l-editors" slot="components">
-					<label class="d2l-label-text">
-						${this.localize('subHdrTimingTools')}
-					</label>
-					<div class="placeholder-for-summarizer"></div>
-					<d2l-button-subtle text=${this.localize('manageTiming')} @click="${this._openDialog}"></d2l-button-subtle>
 					${this._renderManageTimingContainer(timingHref)}
 				</div>
 
@@ -113,13 +108,6 @@ class ActivityQuizTimingAndDisplayEditor extends AsyncContainerMixin(LocalizeAct
 	// Returns true if any error states relevant to this accordion are set
 	_errorInAccordion() {
 		return false; // Todo: implement error handling
-	}
-
-	_openDialog() {
-		const dialog = this.shadowRoot.querySelector('d2l-activity-quiz-manage-timing-container').shadowRoot.querySelector('#quiz-manage-timing-dialog');
-		if (dialog) {
-			dialog.opened = true;
-		}
 	}
 
 	_renderAllowHintsSummary() {

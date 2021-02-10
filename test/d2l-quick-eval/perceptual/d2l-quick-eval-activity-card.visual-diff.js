@@ -9,8 +9,7 @@ describe('d2l-quick-eval-activity-card', function() {
 
 	before(async() => {
 		browser = await puppeteer.launch();
-		page = await browser.newPage();
-		await page.setViewport({ width: 900, height: 1900, deviceScaleFactor: 2 });
+		page = await visualDiff.createPage(browser, { viewport: { width: 900, height: 1900 } });
 		await page.goto(`${visualDiff.getBaseUrl()}/test/d2l-quick-eval/perceptual/d2l-quick-eval-activity-card.visual-diff.html`, { waitUntil: ['networkidle0', 'load'] });
 		await page.bringToFront();
 	});
@@ -35,14 +34,12 @@ describe('d2l-quick-eval-activity-card', function() {
 	it ('dismiss', async function() {
 		// The differences between this and the "regular" card is only in the buttons which only appear on hover.
 		page.hover('#dismiss d2l-quick-eval-activity-card');
-		await page.waitFor(2000);
 		const rect = await visualDiff.getRect(page, '#dismiss');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
 
 	it('hovered', async function() {
 		page.hover('#hovered');
-		await page.waitFor(2000);
 		const rect = await visualDiff.getRect(page, '#hovered');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
@@ -74,16 +71,16 @@ describe('d2l-quick-eval-activity-card', function() {
 	it('dismiss-dropdown-publish-disabled', async function() {
 		await page.setViewport({ width: 900, height: 1900, deviceScaleFactor: 2 });
 		page.hover('#dismiss d2l-quick-eval-activity-card');
-		await page.waitFor(2000);
 		await page.evaluate(() => {
-			const card = document.querySelector('#dismiss d2l-quick-eval-activity-card');
-			//card.publishAll = null;
-			card
-				.shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button-more')
-				.shadowRoot.querySelector('d2l-dropdown')
-				.toggleOpen(false);
+			return new Promise(resolve => {
+				const card = document.querySelector('#dismiss d2l-quick-eval-activity-card');
+				//card.publishAll = null;
+				const dropdown = card.shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button-more')
+					.shadowRoot.querySelector('d2l-dropdown');
+				dropdown.addEventListener('d2l-dropdown-open', resolve, { once: true });
+				dropdown.toggleOpen(false);
+			});
 		});
-		await page.waitFor(2000);
 		const rect = await visualDiff.getRect(page, '#dismiss');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});
@@ -91,14 +88,15 @@ describe('d2l-quick-eval-activity-card', function() {
 	it('dismiss-dropdown-publish-enabled', async function() {
 		await page.setViewport({ width: 900, height: 1900, deviceScaleFactor: 2 });
 		page.hover('#dismiss-with-publish d2l-quick-eval-activity-card');
-		await page.waitFor(2000);
 		await page.evaluate(() => {
-			document.querySelector('#dismiss-with-publish d2l-quick-eval-activity-card')
-				.shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button-more')
-				.shadowRoot.querySelector('d2l-dropdown')
-				.toggleOpen(false);
+			return new Promise(resolve => {
+				const dropdown = document.querySelector('#dismiss-with-publish d2l-quick-eval-activity-card')
+					.shadowRoot.querySelector('d2l-quick-eval-activity-card-action-button-more')
+					.shadowRoot.querySelector('d2l-dropdown');
+				dropdown.addEventListener('d2l-dropdown-open', resolve, { once: true });
+				dropdown.toggleOpen(false);
+			});
 		});
-		await page.waitFor(2000);
 		const rect = await visualDiff.getRect(page, '#dismiss-with-publish');
 		await visualDiff.screenshotAndCompare(page, this.test.fullTitle(), { clip: rect });
 	});

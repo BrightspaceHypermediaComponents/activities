@@ -31,6 +31,7 @@ describe('Content', function() {
 			return {
 				getModuleHref: () => 'http://test-module-href.com',
 				getWebLinkHref: () => '',
+				getLTILinkHref: () => '',
 				getEntityType: () => 'module'
 			};
 		});

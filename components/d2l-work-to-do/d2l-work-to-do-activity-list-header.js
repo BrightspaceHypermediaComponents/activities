@@ -139,10 +139,15 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 			'd2l-heading-3': this.fullscreen,
 		};
 
-		const messageTemplate = html`
-			<div class=${classMap(messageClasses)}>
-				${this._message}
-			</div>`;
+		const messageTemplate = this.fullscreen
+			? html`
+				<h2 class=${classMap(messageClasses)}>
+					${this._message}
+				</h2>`
+			: html`
+				<h3 class=${classMap(messageClasses)}>
+					${this._message}
+				</h3>`;
 
 		const counterTemplate = html`
 			<div class=${classMap(counterContainerClasses)}>

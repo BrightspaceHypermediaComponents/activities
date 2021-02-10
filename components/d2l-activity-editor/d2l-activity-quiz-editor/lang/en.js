@@ -20,7 +20,7 @@ export default {
 	"disableRightClickDescription": "Disable right click", // description for disable right click
 	"disableRightClickSummary": "Right clicks disabled", // summary text when right clicks are disabled
 	"preventMovingBackwardsDescription": "Prevent going back to previous pages",
-	"disablePagerAndAlertsDescription": "Disable Email, Instant Messages and alerts", // description for blocking communications / disable pager and alerts during a quiz
+	"disablePagerAndAlertsDescription": "Disable Email, Instant Messages and Alerts within Brightspace", // description for blocking communications / disable pager and alerts during a quiz
 	"disablePagerAndAlertsSummary": "Alerts and communication blocked", // summary text when communications / pager and alerts are disabled
 	"emailNotificationSummary": "Attempt notification by email", // summary for email notification
 	"preventMovingBackwardsSummary": "Paging limitations", // summary for prevent moving backwards checkbox
@@ -40,10 +40,10 @@ export default {
 	"autoSetGradedHelpDialogParagraph1": "When this setting is turned on users can see their score as soon as they submit their attempt. The score displayed is only what the system can auto-grade.", // content for paragraph 1 of autoSetGraded help dialog
 	"autoSetGradedHelpDialogParagraph2": "This setting must be turned on for grades to be automatically sent to the grade book, and for the default submission view to be released to users when they complete an attempt.", // content for paragraph 2 of autoSetGraded help dialog
 	"autoSetGradedHelpDialogParagraph3": "Note: Written Response questions will be marked as 0 until manually graded.", // content for paragraph 3 of autoSetGraded help dialog
-	"disableAlertsHelpDialogTitle": "Information: Disable Email, Instant Messages and Alerts", // title that appears when the disable alerts help dialog is rendered
+	"disableAlertsHelpDialogTitle": "Information: Disable Email, Instant Messages and Alerts within Brightspace", // title that appears when the disable alerts help dialog is rendered
 	"disableAlertsHelpDialogContent": "If you turn on this option, learners cannot access the Brightspace Email, Instant Messages, or their alerts if they have a quiz attempt in progress.", // content that appears when the disable alerts help dialog is rendered
 	"disableAlertsHelpDialogConfirmationText": "OK", // copy that appears on the disable alerts help dialog confirmation button
-	"disableAlertsAccessibleHelpText": "Get help on - Disable Email, Instant Messages and alerts", // accessible help text for disable alerts question mark button
+	"disableAlertsAccessibleHelpText": "Get help on - Disable Email, Instant Messages and Alerts within Brightspace", // accessible help text for disable alerts question mark button
 	"disableRightClickAccessibleHelpText": "Get help on - Disable Right Click", // accessible help text for disable right click question mark button
 	"disableRightClickHelpDialogTitle": "Information: Disable Right Click", // title that appears when the disable right click help dialog is rendered
 	"disableRightClickHelpDialogParagraph1": "This feature prohibits learners from printing quiz questions by right-clicking on a question while an attempt is in progress. But learners will still be able to screen capture the quiz through other technologies outside of the browser.", // content for paragraph 1 of disable right click help dialog
@@ -51,6 +51,10 @@ export default {
 	"disableRightClickHelpDialogConfirmationText": "OK", // copy that appears on the disable right click help dialog confirmation button
 	"manageTimingDialogConfirmationText": "OK", // copy that appears on the Timing dialog confirmation button
 	"manageTimingDialogCancelText": "Cancel", // copy that appears on the Timing dialog cancel button
+	"description": "Description", // Description label for the Description text input box,
+	"btnOpenIpRestrictionDialog": "Manage IP restrictions", // Button text for opening IP restriction dialog
+	"hdrIpRestrictionDialog": "IP Restrictions (IPv4)", // timing/display accordion header
+	"ipRestrictionLabel": "IP Restrictions", // Label for IP restrictions editor
 	"minutesLabel": "minute(s)",  // label for Timing dialog time limit input slot
 	"minutesBeforeFlaggedLabel": "minute(s) before flagged as exceeded time limit", // label for Timing dialog grace period input slot
 	"extendedDeadlineLabel": "Extended Deadline",  // label for timing dialog - extended deadline select
@@ -74,10 +78,30 @@ export default {
 	"overallGradeCalculation": "Overall Grade Calculation", // Title for Overall Grade Calculation select in Attempts dialog
 	"retakeIncorrectQuestionsOnly": "Retake Incorrect Questions Only", // Title for RIO checkbox in Attempts dialog
 	"rioCheckboxLabel": "On new attempts, only allow answers for previously incorrect questions", // Label for RIO checkbox in Attempts dialog
-	"btnAddAttemptConditions": "Add Attempt Conditions", // Label for Add Attempt Conditions button in Attempts dialog
+	"btnAttemptConditions": "Attempt Conditions", // Label for Attempt Conditions button in Attempts dialog
 	"rioAccessibileHelpText": "Get help on - Retake Incorrect Only", // accessible help text for RIO question mark button
 	"rioDialogTitle": "Information: Retake Incorrect Questions Only", // Title for RIO help dialog
 	"rioDialogParagraph": "When this setting is selected, learners who attempt a quiz more than once can only answer questions that were incorrect on the previous attempt. If you are using Automatic grading, Written Response questions will be marked as 0 and included in future attempts until they are graded manually.", // content for RIO dialog
 	"rioDialogConfirmationText": "OK", // copy that appears on the RIO help dialog confirmation button
-
+	"ipRestrictionDialogPart1": "Only learners coming from IP addresses that meet the defined restrictions can write the quiz.", // guidelines for IP restrictions dialog
+	"ipRestrictionDialogPart2": "To specify a range of accepted IP addresses, enter a value ranging from 0 to 255 in the IP Range Start and IP Range End fields, respectively.", // guidelines for IP restrictions dialog
+	"ipRestrictionDialogPart3": "To specify an individual accepted IP address, fill in just the IP Range Start.", // guidelines for IP restrictions dialog
+	"ipRestrictionDialogPart4": "Note: The IP Range Start value must be smaller than the IP Range End value.", // guidelines for IP restrictions dialog,
+	"btnIpRestrictionsDialogAdd": "Add", // text for IP restrictions dialog "Add" button
+	"btnIpRestrictionsDialogBtnCancel": "Cancel", // text for IP restrictions dialog "Cancel" button
+	"ipRestrictionsDialogAddNewRange": "Add new IP range", // text for IP restrictions dialog "Add new IP range" button
+	"ipRestrictionsTableStartRangeHdr": "IP Range Start", // text for IP restrictions table header start
+	"ipRestrictionsTableEndRangeHdr": "IP Range End", // text for IP restrictions table header end
+	"ipRestrictionsTableDeleteRangeHdr": "Delete", // text for IP restrictions table header delete
+	"attemptConditions": "Attempt Conditions", // Header for Attempts Conditions section in Attempts dialog
+	"attemptConditionsParagraph1": "For a learner to qualify for another attempt, set a minimum and/or maximum percentage value between 0 to 100 that must be acheived on the previous attempt.", // content for paragraph1 on the Attempts dialog Attempts Condition section
+	"attemptConditionsParagraph2": "If a minimum or maximum field is blank, there won't be a limit applied to that portion of the attempt range.", // content for paragragh2 on the Attempts dialog Attempts Condition section
+	"attemptConditionsRangePrefixText1": "On Attempt {index}:", // prefix text 1 for Attempt Conditions range editor on Attempts dialog
+	"attemptConditionsRangePrefixText2": "learners must achieve between", // prefix text 2 for Attempt Conditions range editor on Attempts dialog
+	"attemptConditionsRangeSuffixText1": "to release", //suffix text 1 for Attempts Conditions range editor on Attempts dialog
+	"attemptConditionsRangeSuffixText2": "Attempt {next}", // suffix text 2 for Attempts Condition range editor on Attempts dialog
+	"minLabel": "Min:", // label for Min input on Attempts Conditions range editor on Attempts Dialog
+	"maxLabel": "Max:", // label for Max input on Attempts Conditions range editor on Attempts Dialog
+	"andRangeText": "and", // copy on Attempts Condition range editor on Attempts Dialog
+	"percentageRangeText": "%" // copy on Attempts Condition range editor on Attempts Dialog
 };

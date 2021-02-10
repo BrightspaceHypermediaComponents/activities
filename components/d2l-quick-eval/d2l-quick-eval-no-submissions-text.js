@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit-element/lit-element.js';
-import { LitQuickEvalLocalize } from './LitQuickEvalLocalize.js';
+import { LitQuickEvalLocalize } from './QuickEvalLocalize.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { heading2Styles } from '@brightspace-ui/core/components/typography/styles.js';
 import '@brightspace-ui/core/components/link/link.js';

@@ -104,7 +104,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 					padding: 1.8rem 0;
 				}
 				.d2l-work-to-do-fullscreen-container {
-					background-image: linear-gradient(to bottom, #f9fbff, #ffffff);
 					padding: 0 2rem;
 				}
 				.d2l-activity-collection d2l-list d2l-work-to-do-activity-list-item-basic:first-of-type {
@@ -195,6 +194,12 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 	}
 
 	render() {
+
+		const immersiveNav = () => {
+			return html`
+				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
+				</d2l-navigation-immersive>`;
+		};
 
 		/** Activity state templates */
 		const collectionTemplate = (activities, displayLimit, isOverdue) => {
@@ -357,12 +362,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 				</d2l-button>`
 			: nothing;
 
-		const immersiveNav = () => {
-			return html`
-				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
-				</d2l-navigation-immersive>`;
-		};
-
 		const fullscreenTemplate = () => {
 			if (!this._overdueCollection || !this._upcomingCollection) {
 				return nothing;
@@ -371,7 +370,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			return html`
 				${immersiveNav()}
 				<div class="d2l-work-to-do-fullscreen-container">
-					<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
+					<h1 class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</h1>
 					<div class="d2l-overdue-collection-fullscreen">
 						${fullscreenCollectionTemplate(this._overdueActivities, true)}
 					</div>

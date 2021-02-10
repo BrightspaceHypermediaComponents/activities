@@ -39,6 +39,12 @@ export class QuizTiming {
 		this.isAutomaticZero = entity.isAutomaticZero();
 		this.showClock = entity.showClock();
 		this.recommendedTimeLimit = entity.recommendedTimeLimit();
+		this.minRecommendedTimeLimit = entity.minRecommendedTimeLimit();
+		this.maxRecommendedTimeLimit = entity.maxRecommendedTimeLimit();
+		this.minEnforcedTimeLimit = entity.minEnforcedTimeLimit();
+		this.maxEnforcedTimeLimit = entity.maxEnforcedTimeLimit();
+		this.minEnforcedGraceLimit = entity.minEnforcedGraceLimit();
+		this.maxEnforcedGraceLimit = entity.maxEnforcedGraceLimit();
 	}
 
 	setExceededTimeLimitBehaviour(data) {
@@ -84,6 +90,12 @@ decorate(QuizTiming, {
 	isAutomaticZero: observable,
 	showClock: observable,
 	recommendedTimeLimit: observable,
+	minRecommendedTimeLimit: observable,
+	maxRecommendedTimeLimit: observable,
+	minEnforcedTimeLimit: observable,
+	maxEnforcedTimeLimit: observable,
+	minEnforcedGraceLimit: observable,
+	maxEnforcedGraceLimit: observable,
 	// actions
 	load: action,
 	setTimingType: action,

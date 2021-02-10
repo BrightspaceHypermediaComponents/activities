@@ -20,6 +20,9 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 			radioStyles,
 			selectStyles,
 			css`
+				:host([dir="rtl"]) .d2l-input-radio-label {
+					padding-left: 1rem;
+				}
 				d2l-input-checkbox {
 					margin-top: 0.9rem;
 				}
@@ -77,6 +80,10 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 		`;
 	}
 
+	_isInputTimeInvalid(data, min, max) {
+		return data < min || data > max;
+	}
+
 	_renderExtendedDeadline(entity) {
 		const {
 			extendedDeadlineOptions,
@@ -99,10 +106,12 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 	_renderRecommendedTimeLimitMenu(entity) {
 		const {
 			showClock,
-			recommendedTimeLimit
+			recommendedTimeLimit,
+			minRecommendedTimeLimit,
+			maxRecommendedTimeLimit
 		} = entity || {};
-		// TODO: remove constant min/max
 		const hideMinutesLabel = true;
+		const inputValueRequired = true;
 		return html`
 			<div class="d2l-time-menu-container">
 				<div class="d2l-time-enforcement-input-container">
@@ -111,8 +120,9 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 						title=${this.localize('minutesLabel')}
 						?label-hidden=${hideMinutesLabel}
 						value=${recommendedTimeLimit}
-						min=1
-						max=9999
+						min=${minRecommendedTimeLimit}
+						max=${maxRecommendedTimeLimit}
+						?required=${inputValueRequired}
 						@change=${this._setTimeLimit}>
 						<div slot="after">
 							<span class="d2l-input-number-label">${this.localize('minutesLabel')}</span>
@@ -131,26 +141,31 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 		const {
 			submissionLateType,
 			enforcedTimeLimit,
-			enforcedGraceLimit
+			enforcedGraceLimit,
+			minEnforcedTimeLimit,
+			maxEnforcedTimeLimit,
+			minEnforcedGraceLimit,
+			maxEnforcedGraceLimit
 		} = entity || {};
 
-		const timeEnforcementLabels = [];
-		// TODO: remove constant min/max
-		const timeLimit = { ...enforcedTimeLimit, min:'1', max: '9999', slot: this.localize('minutesLabel'), change: this._setTimeLimit };
-		const graceLimit = { ...enforcedGraceLimit, min:'1', max:'999,999,999,999,999', slot: this.localize('minutesBeforeFlaggedLabel'), change: this._setGracePeriod };
-		timeEnforcementLabels.push(timeLimit);
-		timeEnforcementLabels.push(graceLimit);
+		const inputValueRequired = true;
+		const timeEnforcementProperties = [];
+		const timeLimit = { ...enforcedTimeLimit, min: minEnforcedTimeLimit, max: maxEnforcedTimeLimit, slot: this.localize('minutesLabel'), change: this._setTimeLimit };
+		const graceLimit = { ...enforcedGraceLimit, min: minEnforcedGraceLimit, max: maxEnforcedGraceLimit, slot: this.localize('minutesBeforeFlaggedLabel'), change: this._setGracePeriod };
+		timeEnforcementProperties.push(timeLimit);
+		timeEnforcementProperties.push(graceLimit);
 
 		return html`
 			<div class="d2l-time-menu-container">
 				<div class="d2l-time-enforcement-input-container">
-					${timeEnforcementLabels.map((type) => html`
+					${timeEnforcementProperties.map((type) => html`
 					<d2l-input-number
 						label=${type.title}
 						title=${type.title}
 						value=${type.value}
 						min=${type.min}
 						max=${type.max}
+						?required=${inputValueRequired}
 						@change=${type.change}>
 						<div slot="after">
 							<span class="d2l-input-number-label">${type.slot}</span>
@@ -204,19 +219,27 @@ class ActivityQuizManageTimingEditor extends AsyncContainerMixin(LocalizeActivit
 		const data = e.target.value;
 		entity && entity.setExtendedDeadline(data);
 	}
-	// TODO: handle min/max inputs
 	_setGracePeriod(e) {
 		const entity = store.get(this.href);
+		const { minEnforcedGraceLimit, maxEnforcedGraceLimit } = entity || {};
 		const data = e.target.value;
+		if (this._isInputTimeInvalid(data, minEnforcedGraceLimit, maxEnforcedGraceLimit)) {
+			return;
+		}
 		entity && entity.setGracePeriod(data);
 	}
-	// TODO: handle min/max inputs
 	_setTimeLimit(e) {
 		const entity = store.get(this.href);
+		const { minRecommendedTimeLimit, maxRecommendedTimeLimit, minEnforcedTimeLimit, maxEnforcedTimeLimit } = entity || {};
 		const data = e.target.value;
+		if (!entity.isTimingEnforced && this._isInputTimeInvalid(data, minRecommendedTimeLimit, maxRecommendedTimeLimit)) {
+			return;
+		}
+		if (entity.isTimingEnforced && this._isInputTimeInvalid(data, minEnforcedTimeLimit, maxEnforcedTimeLimit)) {
+			return;
+		}
 		entity && entity.setTimeLimit(data);
 	}
-
 	_setTimingType(e) {
 		const entity = store.get(this.href);
 		const data = e.target.value;

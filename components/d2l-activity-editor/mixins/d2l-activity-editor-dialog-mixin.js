@@ -11,8 +11,9 @@ export const ActivityEditorDialogMixin = superclass => class extends superclass 
 		this.opened = false;
 	}
 
-	handleClose() {
+	handleClose(e) {
 		this.opened = false;
+		e.stopPropagation();
 	}
 
 	open(event) {

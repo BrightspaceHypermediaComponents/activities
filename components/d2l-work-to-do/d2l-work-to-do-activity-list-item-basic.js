@@ -11,6 +11,7 @@ import { ActivityAllowList, HideOrgInfoClasses } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
 import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { nothing } from 'lit-html';
@@ -185,11 +186,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			: nothing;
 
 		return this._renderListItem({
-			illustration: this.submissionCount ? html`
+			illustration: this.evaluateAllHref ? html`
 					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
 						class="${classMap(iconClasses)}"
 						icon=${this._icon}
-						submission-count=${this.submissionCount > 99 ? '99+' : this.submissionCount}>
+						submission-count=${ifDefined(this.submissionCount > 0 ? (this.submissionCount > 99 ? '99+' : this.submissionCount) : undefined)} >
 					</d2l-quick-eval-widget-submission-icon>` :
 				html`
 					<d2l-icon

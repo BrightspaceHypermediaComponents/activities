@@ -214,6 +214,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 					<d2l-work-to-do-activity-list-item-basic
 						href=${ifDefined(item.getLinkByRel('self').href)}
 						.token=${ifDefined(this.token)}
+						?is-started=${item.hasClass('started')}
 						?skeleton=${this._initialLoad}
 						@data-loaded="${this._itemLoaded}"></d2l-work-to-do-activity-list-item-basic>
 				`
@@ -339,6 +340,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 						href=${ifDefined(activity.getLinkByRel('self').href)}
 						.token=${ifDefined(this.token)}
 						?skeleton=${this._initialLoad}
+						?is-started=${activity.hasClass('started')}
 						@data-loaded="${this._itemLoaded}"
 						?include-date=${newDay}></d2l-work-to-do-activity-list-item-detailed>
 				`;
@@ -661,7 +663,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		if (sirenEntity) {
 			this.markLoadUpcomingEnd(startMark, sirenEntity.getSubEntitiesByRel(Rels.Activities.userActivityUsage).length);
 		}
-
 		return sirenEntity;
 	}
 

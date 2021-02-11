@@ -29,6 +29,11 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			_activityProperties: { type: Object },
 			/** entity associated with ActivityUsageEntity's organization */
 			_organization: { type: Object },
+			/** whether or not the activity has a startDate in the past */
+			isStarted: {
+				attribute: 'is-started',
+				type: Boolean
+			}
 		};
 	}
 
@@ -233,7 +238,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
 			: nothing;
 
-		const startDateTemplate = !this.skeleton && !this._started
+		const startDateTemplate = !this.skeleton && !this.isStarted
 			? html `
 			<div class="d2l-status-container">
 				<d2l-status-indicator state="none" text="${this._startDateFormatted}"></d2l-status-indicator>
@@ -333,13 +338,6 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 			: '';
 	}
 
-	/** Indicates if activity start date is in the past */
-	get _started() {
-		return this._usage && this._usage.startDate()
-			? new Date(this._usage.startDate()) < new Date()
-			: true;
-	}
-
 	/** Start Date formatted like (Short month) (Day) e.g. "Aug 15" */
 	get _startDateFormatted() {
 		return this.localize('StartsWithDate', 'startDate',
@@ -380,7 +378,7 @@ class ActivityListItemDetailed extends ListItemLinkMixin(SkeletonMixin(EntityMix
 						&& this._activity.getLinkByRel(this._activityProperties.linkRel)
 					) || this._activity.getLinkByRel('alternate');
 
-					this.actionHref = (this._started && (link && link.href)) || null;
+					this.actionHref = (this.isStarted && (link && link.href)) || null;
 				}
 
 				break;

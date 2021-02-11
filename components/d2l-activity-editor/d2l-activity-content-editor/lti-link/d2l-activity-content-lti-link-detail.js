@@ -1,4 +1,5 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
+import './d2l-activity-content-lti-link-options.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
@@ -34,6 +35,7 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 	connectedCallback() {
 		super.connectedCallback();
 		this.saveTitle = this.saveTitle.bind(this);
+		this.saveLinkOptions = this.saveLinkOptions.bind(this);
 	}
 
 	render() {
@@ -49,6 +51,12 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			>
 			</d2l-activity-content-editor-title>
 			<slot name="due-date"></slot>
+
+			<d2l-activity-content-lti-link-options
+				.entity=${ltiLinkEntity}
+				.onSave=${this.saveLinkOptions}
+				>
+			</d2l-activity-content-lti-link-options>
 		`;
 	}
 
@@ -82,6 +90,14 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		}
 
 		await ltiLinkEntity.save();
+	}
+
+	saveLinkOptions(isExternalResource) {
+		const ltiLinkEntity = ltiLinkStore.getContentLTILinkActivity(this.href);
+		if (!ltiLinkEntity) {
+			return;
+		}
+		ltiLinkEntity.setExternalResource(isExternalResource);
 	}
 
 	saveTitle(title) {

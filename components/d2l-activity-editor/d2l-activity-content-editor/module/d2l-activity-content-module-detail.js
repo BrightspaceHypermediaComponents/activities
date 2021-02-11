@@ -126,22 +126,6 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		);
 	}
 
-	_renderTitleTooltip() {
-		if (!this._titleError) {
-			return html ``;
-		}
-
-		return html`
-			<d2l-tooltip
-				id="title-tooltip"
-				for="content-title"
-				position="bottom"
-				?showing="${!!this._titleError}">
-				${this._titleError}
-			</d2l-tooltip>
-		`;
-	}
-
 	_saveDescription(richText) {
 		const moduleEntity = moduleStore.getContentModuleActivity(this.href);
 		if (!moduleEntity) {

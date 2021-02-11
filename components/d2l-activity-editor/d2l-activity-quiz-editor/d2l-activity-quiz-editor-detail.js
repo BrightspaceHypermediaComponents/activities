@@ -94,14 +94,10 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 			description,
 			canEditDescription,
 			descriptionRichTextEditorConfig,
-			descriptionIsDisplayed,
-			header,
-			canEditHeader,
-			headerRichTextEditorConfig
+			descriptionIsDisplayed
 		} = quiz || {};
 
 		const descriptionLang = this.localize('description');
-		const headerLang = this.localize('header');
 
 		return html`
 		<d2l-alert has-close-button ?hidden=${this.skeleton || descriptionIsDisplayed || !description || description.length === 0}>
@@ -143,21 +139,6 @@ class QuizEditorDetail extends ActivityEditorMixin(AsyncContainerMixin(SkeletonM
 						@d2l-activity-text-editor-change="${this._saveDescriptionOnChange}"
 						ariaLabel="${descriptionLang}"
 						?disabled="${canEditDescription === undefined ? false : !canEditDescription}">
-					</d2l-activity-text-editor>
-				</div>
-			</div>
-
-			<div id="quiz-header-container">
-				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
-					${headerLang}
-				</div>
-				<div class="d2l-skeletize">
-					<d2l-activity-text-editor
-						.value="${header}"
-						.richtextEditorConfig="${headerRichTextEditorConfig}"
-						@d2l-activity-text-editor-change="${this._saveHeaderOnChange}"
-						ariaLabel="${headerLang}"
-						?disabled="${canEditHeader === undefined ? false : !canEditHeader}">
 					</d2l-activity-text-editor>
 				</div>
 			</div>

@@ -161,7 +161,7 @@ class ActivityQuizIpRestrictionEditor
 
 		await entity.saveRestrictions();
 
-		if (!entity.errors && !entity.errors.length) {
+		if (!entity.errors || !entity.errors.length) {
 			this.handleClose();
 		}
 	}

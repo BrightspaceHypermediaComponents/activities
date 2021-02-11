@@ -8,7 +8,6 @@ jest.mock('siren-sdk/src/activities/quizzes/QuizEntity.js');
 jest.mock('../../../../components/d2l-activity-editor/state/fetch-entity.js');
 
 describe('Quiz', function() {
-
 	afterEach(() => {
 		sinon.restore();
 		QuizEntity.mockClear();
@@ -39,12 +38,19 @@ describe('Quiz', function() {
 				canEditNotificationEmail: () => true,
 				notificationEmail: () => 'hello@d2l.com',
 				previewHref: () => 'http://test.desire2learn.d2l/d2l/lms/quizzing/user/quiz_summary.d2l?ou=6606&qi=46&isprv=1&fromQB=1&bp=1',
+				timingHref: () => 'https://afe99802-9130-4320-a770-8d138b941e74.quizzes.api.proddev.d2l/6606/quizzes/22/timing?workingCopyId=1234',
+				ipRestrictionsHref: () => 'https://afe99802-9130-4320-a770-8d138b941e74.quizzes.api.proddev.d2l/6606/quizzes/37/ip',
 				canEditPassword: () => true,
 				password: () => 'hello',
 				canPreviewQuiz: () => true,
 				descriptionEditorHtml: () => 'This is a description',
 				canEditDescription: () => true,
-				descriptionRichTextEditorConfig: () => {}
+				descriptionIsDisplayed: () => true,
+				descriptionRichTextEditorConfig: () => {},
+				headerEditorHtml: () => 'This is an header',
+				headerIsDisplayed: () => true,
+				canEditHeader: () => true,
+				headerRichTextEditorConfig: () => {}
 			};
 		});
 
@@ -74,8 +80,12 @@ describe('Quiz', function() {
 		expect(QuizEntity.mock.calls[0][1]).to.equal('token');
 		expect(fetchEntity.mock.calls.length).to.equal(1);
 		expect(quiz.previewHref).to.equal('http://test.desire2learn.d2l/d2l/lms/quizzing/user/quiz_summary.d2l?ou=6606&qi=46&isprv=1&fromQB=1&bp=1');
+		expect(quiz.timingHref).to.equal('https://afe99802-9130-4320-a770-8d138b941e74.quizzes.api.proddev.d2l/6606/quizzes/22/timing?workingCopyId=1234');
+		expect(quiz.ipRestrictionsHref).to.equal('https://afe99802-9130-4320-a770-8d138b941e74.quizzes.api.proddev.d2l/6606/quizzes/37/ip');
 		expect(quiz.canPreviewQuiz).to.equal(true);
 		expect(quiz.description).to.equal('This is a description');
+		expect(quiz.descriptionIsDisplayed).to.equal(true);
+		expect(quiz.header).to.equal('This is an header');
 	});
 
 	it('setName', async() => {
@@ -162,5 +172,14 @@ describe('Quiz', function() {
 		quiz.setDescription('New description');
 
 		expect(quiz.description).to.equal('New description');
+	});
+
+	it('setHeader', async() => {
+		const quiz = new Quiz('http://quiz/1', 'token');
+		await quiz.fetch();
+
+		quiz.setHeader('New header');
+
+		expect(quiz.header).to.equal('New header');
 	});
 });

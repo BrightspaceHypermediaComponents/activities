@@ -1,6 +1,7 @@
-export const getWeblinkError = (link, isExternalResource) => {
+export const getWeblinkError = (link, isExternalResource, isSubmitting = false) => {
 	if (link.length === 0) {
-		return 'content.emptyLinkField';
+		// This error should only show when the user tries to submit, not on keystroke
+		return isSubmitting ? 'content.emptyLinkField' : null;
 	}
 
 	const expression = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9][a-zA-Z0-9-]*(?::\d+)?(?:$|[/?#].*$)/;

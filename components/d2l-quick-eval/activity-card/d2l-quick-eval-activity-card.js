@@ -130,6 +130,11 @@ class D2LQuickEvalActivityCard extends QuickEvalLocalize(PolymerElement) {
 					d2l-quick-eval-activity-card-items {
 						transition: transform 200ms ease-out, opacity 200ms ease-out;
 					}
+					@media (prefers-reduced-motion: reduce) {
+						d2l-quick-eval-activity-card-items {
+							transition: none;
+						}
+					}
 					.d2l-quick-eval-card-actions d2l-quick-eval-activity-card-items {
 						position: absolute;
 						top: 0;

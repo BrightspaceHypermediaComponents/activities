@@ -6,8 +6,9 @@ import { css, html, LitElement } from 'lit-element/lit-element';
 import { Constants, getUpcomingWeekLimit } from './env';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { nothing } from 'lit-html';
 
 const ro = window.ResizeObserver && new ResizeObserver(entries => {
 	entries.forEach(entry => {
@@ -139,17 +140,24 @@ class ActivityListHeader extends SkeletonMixin(LocalizeWorkToDoMixin(LitElement)
 			'd2l-heading-3': this.fullscreen,
 		};
 
-		const messageTemplate = html`
-			<div class=${classMap(messageClasses)}>
-				${this._message}
-			</div>`;
+		const messageTemplate = this.fullscreen
+			? html`
+				<h2 class=${classMap(messageClasses)}>
+					${this._message}
+				</h2>`
+			: html`
+				<h3 class=${classMap(messageClasses)}>
+					${this._message}
+				</h3>`;
 
-		const counterTemplate = html`
+		const counterTemplate = !this.skeleton
+			? html`
 			<div class=${classMap(counterContainerClasses)}>
 				<div class=${classMap(counterClasses)}>
 					${this._counterString}
 				</div>
-			</div>`;
+			</div>`
+			: nothing ;
 
 		return html`
 			<div class=${classMap(containerClasses)}>

@@ -86,7 +86,7 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 		return html`
 			<div class="d2l-quick-eval-widget-submission-icon-content">
 				<d2l-icon icon="${this.icon}"></d2l-icon>
-				<div class="d2l-quick-eval-widget-submission-icon-submission-count-container">
+				<div class="d2l-quick-eval-widget-submission-icon-submission-count-container" ?hidden=${!this.submissionCount}>
 					<div class="d2l-quick-eval-widget-submission-icon-submission-count">${this.submissionCount}</div>
 				</div>
 			</div>

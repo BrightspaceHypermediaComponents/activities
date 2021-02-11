@@ -9,8 +9,7 @@ describe('d2l-quick-eval-activity-card-action-button', function() {
 
 	before(async() => {
 		browser = await puppeteer.launch();
-		page = await browser.newPage();
-		await page.setViewport({ width: 900, height: 800, deviceScaleFactor: 2 });
+		page = await visualDiff.createPage(browser, { viewport: { width: 900, height: 800 } });
 		await page.goto(`${visualDiff.getBaseUrl()}/test/d2l-quick-eval/perceptual/d2l-quick-eval-activity-card-action-button.visual-diff.html`, { waitUntil: ['networkidle0', 'load'] });
 		await page.bringToFront();
 	});

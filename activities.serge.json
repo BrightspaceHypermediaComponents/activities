@@ -1,8 +1,12 @@
 [
   {
     "name": "evaluationIcon",
+    "parser_plugin": {
+      "plugin": "parse_js"
+    },
+    "source_match": "en\\.js$",
     "source_dir": "components/d2l-activity-evaluation-icon/lang",
-    "output_file_path": "components/d2l-activity-evaluation-icon/lang/%LANG%.json",
+    "output_file_path": "components/d2l-activity-evaluation-icon/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",
@@ -20,8 +24,35 @@
     ]
   },{
     "name": "activityCard",
+    "parser_plugin": {
+      "plugin": "parse_js"
+    },
+    "source_match": "en\\.js$",
     "source_dir": "components/d2l-activity-card/lang",
-    "output_file_path": "components/d2l-activity-card/lang/%LANG%.json",
+    "output_file_path": "components/d2l-activity-card/lang/%LANG%.js",
+    "output_lang_rewrite": [
+      "ar-sa ar",
+      "de-de de",
+      "es-mx es",
+      "fi-FI fi",
+      "fr-ca fr",
+      "ja-jp ja",
+      "ko-kr ko",
+      "nl-nl nl",
+      "pt-br pt",
+      "sv-se sv",
+      "tr-tr tr",
+      "zh-cn zh",
+      "zh-tw zh-tw"
+    ]
+  },{
+    "name": "activityDate",
+    "parser_plugin": {
+      "plugin": "parse_js"
+    },
+    "source_match": "en\\.js$",
+    "source_dir": "components/d2l-activity-date/lang",
+    "output_file_path": "components/d2l-activity-date/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",
@@ -39,8 +70,12 @@
     ]
   },{
     "name": "listItem",
+    "parser_plugin": {
+      "plugin": "parse_js"
+    },
+    "source_match": "en\\.js$",
     "source_dir": "components/d2l-activity-list-item/lang",
-    "output_file_path": "components/d2l-activity-list-item/lang/%LANG%.json",
+    "output_file_path": "components/d2l-activity-list-item/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",
@@ -58,31 +93,12 @@
     ]
   },{
     "name": "quickEval",
-    "source_dir": "components/d2l-quick-eval/lang",
-    "output_file_path": "components/d2l-quick-eval/lang/%LANG%.json",
-    "output_lang_rewrite": [
-      "ar-sa ar",
-      "de-de de",
-      "es-mx es",
-      "fi-FI fi",
-      "fr-ca fr",
-      "ja-jp ja",
-      "ko-kr ko",
-      "nl-nl nl",
-      "pt-br pt",
-      "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
-    ]
-  },{
-    "name": "quickEval_EXPERIMENTAL",
-		"parser_plugin": {
+    "parser_plugin": {
       "plugin": "parse_js"
     },
     "source_match": "en\\.js$",
-    "source_dir": "components/d2l-quick-eval/build/lang",
-    "output_file_path": "components/d2l-quick-eval/lang-experimental/%LANG%.js",
+    "source_dir": "components/d2l-quick-eval/lang",
+    "output_file_path": "components/d2l-quick-eval/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",

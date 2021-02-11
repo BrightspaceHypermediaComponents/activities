@@ -2,6 +2,7 @@ import '../shared-components/d2l-activity-content-editor-title.js';
 import '../../d2l-activity-html-editor';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentEditorConstants } from '../constants';
 import { ContentModuleEntity } from 'siren-sdk/src/activities/content/ContentModuleEntity.js';
@@ -22,16 +23,8 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		return  [
 			super.styles,
 			labelStyles,
+			activityContentEditorStyles,
 			css`
-				:host {
-					display: block;
-				}
-				:host([hidden]) {
-					display: none;
-				}
-				:host > div {
-					padding-bottom: 20px;
-				}
 				.d2l-activity-label-container {
 					margin-bottom: 7px;
 				}
@@ -131,22 +124,6 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this._saveDescription(descriptionRichText)
 		);
-	}
-
-	_renderTitleTooltip() {
-		if (!this._titleError) {
-			return html ``;
-		}
-
-		return html`
-			<d2l-tooltip
-				id="title-tooltip"
-				for="content-title"
-				position="bottom"
-				?showing="${!!this._titleError}">
-				${this._titleError}
-			</d2l-tooltip>
-		`;
 	}
 
 	_saveDescription(richText) {

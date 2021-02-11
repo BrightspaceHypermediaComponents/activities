@@ -11,14 +11,16 @@ import { ActivityAllowList, HideOrgInfoClasses } from './env';
 import { classMap } from 'lit-html/directives/class-map';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit';
 import { fetchEntity } from './state/fetch-entity';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import { ListItemLinkMixin } from '@brightspace-ui/core/components/list/list-item-link-mixin';
-import { LocalizeWorkToDoMixin } from './localization';
+import { LocalizeWorkToDoMixin } from './mixins/d2l-work-to-do-localization-mixin';
 import { nothing } from 'lit-html';
 import { QuickEvalActivityAllowList } from '../d2l-quick-eval-widget/env';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin';
+import { WorkToDoTelemetryMixin } from './mixins/d2l-work-to-do-telemetry-mixin';
 import { formatDate } from '@brightspace-ui/intl/lib/dateTime';
 
-class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(LocalizeWorkToDoMixin(LitElement)))) {
+class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkToDoMixin(LitElement))))) {
 
 	static get properties() {
 		return {
@@ -105,6 +107,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		this._activityProperties = undefined;
 		this._organization = undefined;
 		this._setEntityType(ActivityUsageEntity);
+
+		this.addEventListener('d2l-list-item-link-click', this._onItemLinkClicked.bind(this));
 	}
 
 	set _entity(entity) {
@@ -132,6 +136,18 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 	_onDataLoaded() {
 		const event = new CustomEvent('data-loaded');
 		this.dispatchEvent(event);
+	}
+
+	/**
+	 * Logs activity navigated telemetry event
+	 */
+	_onItemLinkClicked() {
+		const activityType = this._activityProperties && this._activityProperties.type;
+		if (this.skeleton || !activityType || !this.actionHref) {
+			return;
+		}
+
+		this.logActivityNavigatedTo(this.actionHref, activityType);
 	}
 
 	render() {
@@ -170,11 +186,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			: nothing;
 
 		return this._renderListItem({
-			illustration: this.submissionCount ? html`
+			illustration: this.evaluateAllHref ? html`
 					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
 						class="${classMap(iconClasses)}"
 						icon=${this._icon}
-						submission-count=${this.submissionCount > 99 ? '99+' : this.submissionCount}>
+						submission-count=${ifDefined(this.submissionCount > 0 ? (this.submissionCount > 99 ? '99+' : this.submissionCount) : undefined)} >
 					</d2l-quick-eval-widget-submission-icon>` :
 				html`
 					<d2l-icon

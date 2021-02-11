@@ -18,7 +18,8 @@ export async function fetchSubmissionCount(activityUsageEntity, token) {
 
 	const evaluationStatusEntity = await fetch(evalStatusLink, token);
 
-	return evaluationStatusEntity.properties.newsubmissions + evaluationStatusEntity.properties.resubmissions;
+	const newSubmissions = evaluationStatusEntity.properties.newsubmissions + evaluationStatusEntity.properties.resubmissions;
+	return newSubmissions || 0;
 }
 
 export async function fetchEvaluateAllHref(activityUsageEntity, token) {

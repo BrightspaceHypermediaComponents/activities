@@ -11,23 +11,26 @@ import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { sharedIpRestrictions as store } from './state/quiz-store.js';
+import { tableStyles } from '../styles/table-styles';
 import { validateIp } from './helpers/ip-validation-helper.js';
 
 class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEditorContainerMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
 
 	static get styles() {
-		return css`
-				:host {
-					border-bottom: solid 1px var(--d2l-color-gypsum);
-					display: block;
-				}
-				:host([hidden]) {
-					display: none;
-				}
-				d2l-button-subtle {
-					margin: 0.5rem 0;
-				}
-			`;
+		return [
+			tableStyles,
+			css`
+			:host {
+				border-bottom: solid 1px var(--d2l-color-gypsum);
+				display: block;
+			}
+			:host([hidden]) {
+				display: none;
+			}
+			d2l-button-subtle {
+				margin: 0.5rem 0;
+			}
+		`];
 	}
 
 	constructor() {

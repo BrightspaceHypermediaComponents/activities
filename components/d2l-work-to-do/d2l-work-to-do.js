@@ -206,7 +206,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			if (!activities || activities.length === 0 || displayLimit === 0) {
 				return nothing;
 			}
-			console.log('');
+
 			const items = repeat(
 				activities.slice(0, displayLimit),
 				item => item.links,

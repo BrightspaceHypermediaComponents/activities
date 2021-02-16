@@ -178,7 +178,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
 			: nothing;
 
-		const startDateTemplate = !this.skeleton && !this._started
+		const startDateTemplate = !this.skeleton && !this._started && !this.evaluateAllHref
 			? html `
 			<div class="d2l-status-container">
 				<d2l-status-indicator state="none" text="${this._startDateFormatted}"></d2l-status-indicator>
@@ -188,7 +188,6 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		return this._renderListItem({
 			illustration: this.evaluateAllHref ? html`
 					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
-						class="${classMap(iconClasses)}"
 						icon=${this._icon}
 						submission-count=${ifDefined(this.submissionCount > 0 ? (this.submissionCount > 99 ? '99+' : this.submissionCount) : undefined)} >
 					</d2l-quick-eval-widget-submission-icon>` :
@@ -238,7 +237,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 	/** String associated with icon catalogue for provided activity type */
 	get _icon() {
-		if (this._activity && !this.skeleton) {
+		if (this._activity && !this.skeleton && !this.evaluateAllHref) {
 			const subEntity = this._activity.getSubEntityByClasses(['icon', 'tier2']);
 			if (subEntity && subEntity.hasProperty('iconSetKey')) {
 				return subEntity.properties.iconSetKey;
@@ -307,7 +306,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 						&& this._activity.getLinkByRel(this._activityProperties.linkRel)
 					) || this._activity.getLinkByRel('alternate');
 
-					this.actionHref = (this._started && (this.evaluateAllHref || (link && link.href))) || null;
+					this.actionHref = (this.evaluateAllHref || this._started && (link && link.href)) || null;
 				}
 
 				break;

@@ -6,8 +6,7 @@ export const LocalizeWorkToDoMixin = superclass => class extends LocalizeMixin(s
 	static async getLocalizeResources(langs) {
 
 		function resolveOverridesFunc() {
-			// return 'd2l-activities\\workToDo';
-			return 'widgets\\workToDo'; // I just stole this from the language management page
+			return 'd2l-activities\\workToDo';
 		}
 
 		let translations;

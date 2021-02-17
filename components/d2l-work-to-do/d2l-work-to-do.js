@@ -142,8 +142,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		this._initialLoad = true;
 		this._loadedElements = [];
 		this._telemetryEndpoint = undefined;
-
-		console.log('langterm: ', this.localize('txtWidgetTitle'));
 	}
 
 	set _entity(entity) {
@@ -365,15 +363,6 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 					${this.localize('loadMore')}
 				</d2l-button>`
 			: nothing;
-
-		const immersiveNav = () => {
-			return html`
-				<d2l-navigation-immersive back-link-href="${this._homeLinkHref}" back-link-text="${this.localize('backToD2L')}">
-					<div class="d2l-typography d2l-body-standard" slot="middle">
-						<p>${this.localize('txtWidgetTitle')}</p>
-					</div>
-				</d2l-navigation-immersive>`;
-		};
 
 		const fullscreenTemplate = () => {
 			if (!this._overdueCollection || !this._upcomingCollection) {

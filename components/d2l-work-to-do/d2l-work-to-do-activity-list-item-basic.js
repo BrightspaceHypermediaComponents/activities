@@ -81,6 +81,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
+					margin-top: -0.2rem;
+					margin-bottom: 0.2rem;
 				}
 				.d2l-status-container {
 					margin-bottom: 0.1rem;

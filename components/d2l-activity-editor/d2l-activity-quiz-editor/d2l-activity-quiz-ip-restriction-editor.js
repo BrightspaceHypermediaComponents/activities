@@ -36,14 +36,6 @@ class ActivityQuizIpRestrictionEditor
 					display: none;
 				}
 
-				#ip-restriction-editor-label {
-					margin-bottom: 10px;
-				}
-
-				d2l-button {
-					margin: 1rem 0;
-				}
-
 				d2l-alert {
 					margin: 1rem 0;
 				}
@@ -69,13 +61,6 @@ class ActivityQuizIpRestrictionEditor
 		`;
 	}
 
-	_renderActionButtons() {
-		return html`
-			<d2l-button primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
-			<d2l-button data-dialog-action>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
-		`;
-	}
-
 	_renderDialog() {
 		return html`
 			<d2l-dialog
@@ -86,18 +71,23 @@ class ActivityQuizIpRestrictionEditor
 				${this._renderErrors()}
 				${this._renderHelpDialog()}
 				${this._renderIpRestrictionsContainer()}
-				${this._renderActionButtons()}
 
 			</d2l-dialog>
 		`;
 	}
 
 	_renderDialogOpener() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity) {
+			return;
+		}
+
 		return html`
-			<div id="ip-restriction-editor-label" class="d2l-label-text">
+			<div class="d2l-label-text">
 				${this.localize('ipRestrictionLabel')}
 			</div>
 			<d2l-button-subtle
+				?disabled=${!entity.canEditIpRestrictions}
 				text="${this.localize('btnOpenIpRestrictionDialog')}"
 				h-align="text"
 				@click="${this.open}">
@@ -143,7 +133,8 @@ class ActivityQuizIpRestrictionEditor
 			<d2l-activity-quiz-ip-restrictions-container
 				href="${this.ipRestrictionsHref}"
 				.token="${this.token}"
-				@restrictions-resize-dialog="${this._resizeDialog}">
+				@restrictions-resize-dialog="${this._resizeDialog}"
+				@close-ip-dialog="${this.handleClose}">
 			</d2l-activity-quiz-ip-restrictions-container>
 		`;
 	}
@@ -151,19 +142,6 @@ class ActivityQuizIpRestrictionEditor
 	_resizeDialog() {
 		const dialog = this.shadowRoot.querySelector('d2l-dialog');
 		dialog.resize();
-	}
-
-	async _saveRestrictions() {
-		const entity = ipStore.get(this.ipRestrictionsHref);
-		if (!entity) {
-			return;
-		}
-
-		await entity.saveRestrictions();
-
-		if (!entity.errors || !entity.errors.length) {
-			this.handleClose();
-		}
 	}
 }
 

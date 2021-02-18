@@ -1,0 +1,13 @@
+{
+    "class": [
+        "named-entity",
+        "topic",
+        "html"
+    ],
+    "properties": {
+        "name": "Discuss how is art beneficial to our society with no due date"
+    },
+    "rel": [
+            "https://discussions.api.brightspace.com/rels/topic"
+    ]
+}

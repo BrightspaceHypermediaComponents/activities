@@ -21,6 +21,8 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		return {
 			widthType: { type: String, attribute: 'width-type' },
 			errorTerm: { type: String, attribute: 'error-term' },
+			htmlEditorEnabled: { type: Boolean, attribute: 'html-editor-enabled' },
+			htmlNewEditorEnabled: { type: Boolean, attribute: 'html-new-editor-enabled' },
 			_backdropShown: { type: Boolean },
 			_saveToastVisible: { type: Boolean }
 		};
@@ -70,11 +72,13 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 	connectedCallback() {
 		super.connectedCallback();
 		this.addEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
+		this.addEventListener('d2l-request-provider', this._onRequestProvider);
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		this.removeEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
+		this.removeEventListener('d2l-request-provider', this._onRequestProvider);
 	}
 
 	render() {
@@ -85,7 +89,10 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 
 		return html`
 			<div id="editor-container">
-				<d2l-template-primary-secondary background-shading="secondary" width-type="${this.widthType}">
+				<d2l-template-primary-secondary
+					background-shading="secondary"
+					width-type="${this.widthType}">
+
 					<slot name="header" slot="header"></slot>
 					<div slot="primary" class="d2l-primary-panel">
 						<d2l-alert type="error" ?hidden=${!this.isError}>${this.errorTerm}</d2l-alert>
@@ -154,6 +161,20 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		const activity = store.get(this.href);
 		if (activity) {
 			await activity.validate();
+		}
+	}
+
+	_onRequestProvider(e) {
+		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
+			e.detail.provider = this.htmlEditorEnabled;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-provider-html-new-editor-enabled') {
+			e.detail.provider = this.htmlNewEditorEnabled;
+			e.stopPropagation();
+			return;
 		}
 	}
 

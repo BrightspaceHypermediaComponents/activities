@@ -50,8 +50,9 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				.token=${this.token}
 				width-type="${this.widthType}"
 				error-term="${this.localize('quizSaveError')}"
-				@d2l-request-provider="${this._onRequestProvider}"
-				?isnew="${this.isNew}">
+				?isnew="${this.isNew}"
+				?html-editor-enabled="${this.htmlEditorEnabled}"
+				?html-new-editor-enabled="${this.htmlNewEditorEnabled}">
 
 				${this._editorTemplate}
 
@@ -83,20 +84,5 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 			</div>
 		`;
 	}
-
-	_onRequestProvider(e) {
-		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
-			e.detail.provider = this.htmlEditorEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-provider-html-new-editor-enabled') {
-			e.detail.provider = this.htmlNewEditorEnabled;
-			e.stopPropagation();
-			return;
-		}
-	}
-
 }
 customElements.define('d2l-activity-quiz-editor', QuizEditor);

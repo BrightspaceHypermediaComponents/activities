@@ -85,7 +85,9 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 				@d2l-request-provider="${this._onRequestProvider}"
 				width-type="${this.widthType}"
 				error-term="${this.localize('assignmentSaveError')}"
-				?isnew="${this.isNew}">
+				?isnew="${this.isNew}"
+				?html-editor-enabled="${this.htmlEditorEnabled}"
+				?html-new-editor-enabled="${this.htmlNewEditorEnabled}">
 
 				${this._editorTemplate}
 
@@ -126,18 +128,6 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 	}
 
 	_onRequestProvider(e) {
-		if (e.detail.key === 'd2l-provider-html-editor-enabled') {
-			e.detail.provider = this.htmlEditorEnabled;
-			e.stopPropagation();
-			return;
-		}
-
-		if (e.detail.key === 'd2l-provider-html-new-editor-enabled') {
-			e.detail.provider = this.htmlNewEditorEnabled;
-			e.stopPropagation();
-			return;
-		}
-
 		// Provides unfurl API endpoint for d2l-labs-attachment component
 		// https://github.com/Brightspace/attachment/blob/e44cab1f0cecc55dd93acf59212fabc6872c0bd3/components/attachment.js#L110
 		if (e.detail.key === 'd2l-provider-unfurl-api-endpoint') {

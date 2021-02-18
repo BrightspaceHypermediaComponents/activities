@@ -78,11 +78,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				}
 				.d2l-secondary-content-container {
 					color: var(--d2l-color-tungsten);
+					margin-bottom: 0.2rem;
+					margin-top: -0.2rem;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
-					margin-top: -0.2rem;
-					margin-bottom: 0.2rem;
 				}
 				.d2l-status-container {
 					margin-bottom: 0.1rem;

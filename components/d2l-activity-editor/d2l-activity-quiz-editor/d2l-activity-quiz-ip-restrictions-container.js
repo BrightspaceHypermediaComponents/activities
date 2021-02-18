@@ -207,7 +207,7 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		await entity.saveRestrictions();
 
 		if (!entity.errors || !entity.errors.length) {
-			this._handleClose();
+			this._sendCloseEvent();
 		}
 	}
 

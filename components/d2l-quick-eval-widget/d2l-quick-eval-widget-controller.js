@@ -22,13 +22,14 @@ export async function fetchSubmissionCount(activityUsageEntity, token) {
 	return newSubmissions || 0;
 }
 
-export async function fetchEvaluateAllHref(activityUsageEntity, token) {
+export async function fetchEvaluationHref(activityUsageEntity, token, evaluateAll) {
 	const evalStatusRel = 'https://activities.api.brightspace.com/rels/evaluation-status';
 	const evalStatusLink = activityUsageEntity.getLink(evalStatusRel);
 
 	const evaluationStatusEntity = await fetch(evalStatusLink, token);
 
-	const path = evaluationStatusEntity.getSubEntityByRel('https://assessments.api.brightspace.com/rels/assess-all-application').properties.path;
+	const typeRel = evaluateAll ? 'https://assessments.api.brightspace.com/rels/assess-all-application' : 'https://assessments.api.brightspace.com/rels/assess-new-application';
+	const path = evaluationStatusEntity.getSubEntityByRel(typeRel).properties.path;
 	const placeHolderHost = 'http://fake.commm';
 	const newUrl = new URL(path, placeHolderHost);
 	newUrl.searchParams.append('cft', 'qe');

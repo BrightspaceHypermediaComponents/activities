@@ -78,8 +78,6 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				}
 				.d2l-secondary-content-container {
 					color: var(--d2l-color-tungsten);
-					margin-bottom: 0.2rem;
-					margin-top: -0.2rem;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
@@ -209,7 +207,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					<div class=${classMap(nameClasses)}>
 						${this._name}
 					</div>
-					<div class=${classMap(secondaryClasses)} slot="supporting-info">
+					<div class=${classMap(secondaryClasses)} slot="secondary">
 						${dateTemplate}
 						${separatorTemplate}
 						${this._orgName || this._orgCode}

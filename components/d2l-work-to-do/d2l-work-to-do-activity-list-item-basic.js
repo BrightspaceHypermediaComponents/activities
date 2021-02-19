@@ -211,7 +211,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 						${this._name}
 					</div>
 					<div class=${classMap(secondaryClasses)} slot="supporting-info">
-						${supportingInfoTemplate([dateTemplate, (this._orgName || this._orgCode), this._type === this.localize('Course') ? this._type : null])}
+						${supportingInfoTemplate([dateTemplate, (this._orgName || this._orgCode), this._type === ActivityAllowList.userCourseOfferingActivity.type ? this._type : null])}
 						${startDateTemplate}
 					</div>
 				</d2l-list-item-content>

@@ -6,7 +6,7 @@ import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 
 import { css, html, LitElement } from 'lit-element';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { fetchActivities, fetchEvaluateAllHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
+import { fetchActivities, fetchEvaluationHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
 import { LocalizeQuickEvalWidget } from './lang/localize-quick-eval-widget.js';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
@@ -121,12 +121,13 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 					const submissionCount = await fetchSubmissionCount(activityUsage, token);
 
 					const href = activityUsage.getLinkByRel('self').href;
-					const evaluateAllHref = await fetchEvaluateAllHref(activityUsage, token);
+					const evaluateAll = submissionCount === 0;
+					const evaluationHref = await fetchEvaluationHref(activityUsage, token, evaluateAll);
 
 					return {
 						submissionCount,
 						href,
-						evaluateAllHref
+						evaluationHref
 					};
 				}));
 	}
@@ -164,7 +165,7 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 	get loadedTemplate() {
 		const listItems = this._activities.map(activity => {
 			return html`<d2l-work-to-do-activity-list-item-basic
-					evaluate-all-href="${activity.evaluateAllHref}"
+					evaluate-href="${activity.evaluationHref}"
 					href="${activity.href}"
 					submission-count=${activity.submissionCount}
 					.token=${ifDefined(this.token)}></d2l-work-to-do-activity-list-item-basic>`;

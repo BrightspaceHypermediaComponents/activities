@@ -6,11 +6,32 @@ export const LocalizeWorkToDoMixin = superclass => class extends LocalizeMixin(s
 		let translations;
 		for await (const lang of langs) {
 			switch (lang) {
+				case 'ar':
+					translations = await import('../lang/ar.js');
+					break;
+				case 'cy-gb':
+					translations = await import('../lang/cy-gb.js');
+					break;
+				case 'cy':
+					translations = await import('../lang/cy.js');
+					break;
+				case 'da':
+					translations = await import('../lang/da.js');
+					break;
+				case 'de':
+					translations = await import('../lang/de.js');
+					break;
 				case 'en':
 					translations = await import('../lang/en.js');
 					break;
+				case 'es-es':
+					translations = await import('../lang/es-es.js');
+					break;
 				case 'es':
 					translations = await import('../lang/es.js');
+					break;
+				case 'fr-ca':
+					translations = await import('../lang/fr-ca.js');
 					break;
 				case 'fr':
 					translations = await import('../lang/fr.js');

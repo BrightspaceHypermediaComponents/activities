@@ -121,7 +121,7 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 					const submissionCount = await fetchSubmissionCount(activityUsage, token);
 
 					const href = activityUsage.getLinkByRel('self').href;
-					const evaluateAll = submissionCount > 0;
+					const evaluateAll = submissionCount === 0;
 					const evaluationHref = await fetchEvaluationHref(activityUsage, token, evaluateAll);
 
 					return {

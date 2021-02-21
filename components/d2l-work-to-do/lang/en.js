@@ -6,7 +6,7 @@ export const val = {
 	Checklist : "Checklist", // Meta-data descriptor that informs which type of activity is being displayed on a line item
 	comeBackNoFutureActivities : "Come back later to see if you have work to do.", // 'Empty state' - When there are no activities in full page view
 	Content : "Content", // Meta-data descriptor that informs which type of activity is being displayed on a line item
-	Course : "Course", // Meta-data descriptor that informs which type of activity is being displayed on a line item
+	Course : "Course^^", // Meta-data descriptor that informs which type of activity is being displayed on a line item
 	dateHeader : "{startMonth} {startDay} - {endMonth} {endDay}", // Indicates that the below list of activities are due/end within the listed date range
 	Discussion : "Discussion", // Meta-data descriptor that informs which type of activity is being displayed on a line item
 	fullViewLink: "View all work", // Link text displayed in "Activities View", where the user can navigate to the full page view to see all work

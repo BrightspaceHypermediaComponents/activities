@@ -69,7 +69,12 @@ class ActivityQuizIpRestrictionEditor
 	}
 
 	_focusInput() {
-		this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container').shadowRoot.querySelector('d2l-input-text').focus();
+		const ipRestrictionsContainer = this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container');
+		if (!ipRestrictionsContainer) return;
+		const input = ipRestrictionsContainer.shadowRoot.querySelector('d2l-input-text');
+		if (!input) return;
+
+		input.focus();
 	}
 
 	_renderActionButtons() {
@@ -186,6 +191,9 @@ class ActivityQuizIpRestrictionEditor
 
 	_validate() {
 		const ipRestrictionsContainer = this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container');
+
+		if (!ipRestrictionsContainer) return;
+
 		const inputs = ipRestrictionsContainer.shadowRoot.querySelectorAll('.d2l-ip-input');
 
 		let hasValidationError = false;

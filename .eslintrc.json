@@ -6,8 +6,8 @@
   },
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-      "sourceType": "module",
-			"requireConfigFile": false
+    "sourceType": "module",
+    "requireConfigFile": false
   },
   "rules": {
     "no-var": "error",

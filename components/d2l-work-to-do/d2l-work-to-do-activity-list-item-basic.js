@@ -66,6 +66,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					height: 1.3rem;
 					width: 1.2rem;
 				}
+				:host([skeleton]) .d2l-activity-qe-icon-container {
+					height: 2rem;
+					width: 2.5rem;
+					margin-left: 0.5rem;
+				}
 				.d2l-activity-name-container {
 					overflow: hidden;
 					text-overflow: ellipsis;
@@ -165,6 +170,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			'd2l-skeletize': true,
 		};
 
+		const qeIconClasses = {
+			'd2l-activity-qe-icon-container': true,
+			'd2l-skeletize': true,
+		}
+
 		const nameClasses = {
 			'd2l-activity-name-container': true,
 			'd2l-skeletize': true,
@@ -191,17 +201,19 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			: nothing;
 
 		return this._renderListItem({
-			illustration: this.evaluationHref ? html`
-					<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
-						icon=${this._icon}
-						submission-count=${ifDefined(this.submissionCount > 0 ? (this.submissionCount > 99 ? '99+' : this.submissionCount) : undefined)} >
-					</d2l-quick-eval-widget-submission-icon>` :
+			illustration: this.evaluationHref? html`
+				<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
+					class=${classMap(qeIconClasses)}
+					icon=${this._icon}
+					?skeleton=${this.skeleton}
+					submission-count=${ifDefined(this.submissionCount > 0 ? (this.submissionCount > 99 ? '99+' : this.submissionCount) : undefined)} >
+				</d2l-quick-eval-widget-submission-icon>` :
 				html`
-					<d2l-icon
-						class=${classMap(iconClasses)}
-						?skeleton=${this.skeleton}
-						icon=${this._icon}>
-					</d2l-icon>`,
+				<d2l-icon
+					class=${classMap(iconClasses)}
+					?skeleton=${this.skeleton}
+					icon=${this._icon}>
+				</d2l-icon>`,
 			content: html`
 				<d2l-list-item-content id="content">
 					<div class=${classMap(nameClasses)}>

@@ -12,13 +12,15 @@ import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
 const errorState = 'error';
-const loadedState = 'loaded';
+const listState = 'list';
 const noSubmissionState = 'noSubmission';
 
 export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitElement)) {
 	static get properties() {
 		return {
 			_activities: { type: Array },
+			_loading: { type: Boolean },
+			_loadedElements: { type: Array },
 			_state: { type: String },
 			activitiesHref: {
 				attribute: 'href',
@@ -89,6 +91,9 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 	constructor() {
 		super();
 		this._activities = [];
+		this._loading = true;
+		this._loadedElements = [];
+		this._state = listState;
 		this.count = 6;
 	}
 
@@ -96,15 +101,13 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 		super.updated();
 
 		if ((changedProperties.has('activitiesHref') || changedProperties.has('token')) && this.activitiesHref && this.token) {
-			this.skeleton = true;
 			try {
 				this._activities = await this.getActivities(this.activitiesHref, this.token);
-				this._state = this._activities.length > 0 ? loadedState : noSubmissionState;
+				this._state = this._activities.length > 0 ? listState : noSubmissionState;
+				this._loading = true;
 			} catch (e) {
 				console.error('quick-eval-widget: Unable to load activities from entity.');
 				this._state = errorState;
-			} finally {
-				this.skeleton = false;
 			}
 		}
 	}
@@ -140,6 +143,17 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 		}
 	}
 
+	_itemLoaded(event) {
+		if (this._loading) {
+			this._loadedElements.push(event.target);
+
+			if (this._loadedElements.length === this._activities.length) {
+				this._loading = false;
+				this._loadedElements = [];
+			}
+		}
+	}
+
 	get errorTemplate() {
 		return html`
 		<div class="d2l-quick-eval-widget-error">
@@ -162,13 +176,15 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 			</div>`;
 	}
 
-	get loadedTemplate() {
+	get listTemplate() {
 		const listItems = this._activities.map(activity => {
 			return html`<d2l-work-to-do-activity-list-item-basic
 					evaluate-href="${activity.evaluationHref}"
 					href="${activity.href}"
+					?skeleton=${this._loading || this.skeleton}
 					submission-count=${activity.submissionCount}
-					.token=${ifDefined(this.token)}></d2l-work-to-do-activity-list-item-basic>`;
+					.token=${ifDefined(this.token)}
+					@data-loaded=${this._itemLoaded}></d2l-work-to-do-activity-list-item-basic>`;
 		});
 		return html`
 			<d2l-list class="d2l-quick-eval-widget-list" separators="none">${listItems}</d2l-list>
@@ -184,20 +200,9 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 	}
 
 	render() {
-		// delete when d2l-list supports SkeletonMixin
-		if (this.skeleton) {
-			const loading = [];
-			for (let i = 0; i < this.count ; i++) {
-				loading.push(html`<ol class="d2l-skeletize"><li></li><li></li></ol>`);
-			}
-			return html`
-				${loading }
-				${this.viewAllLinkTemplate}`;
-		}
-
 		switch (this._state) {
-			case loadedState:
-				return this.loadedTemplate;
+			case listState:
+				return this.listTemplate;
 			case noSubmissionState:
 				return this.noSubmissionTemplate;
 			case errorState:

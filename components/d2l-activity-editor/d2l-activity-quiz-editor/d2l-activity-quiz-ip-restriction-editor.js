@@ -48,12 +48,6 @@ class ActivityQuizIpRestrictionEditor
 		super(store);
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-
-		this.addEventListener('d2l-dialog-open', this._focusInput);
-	}
-
 	render() {
 		const entity = store.get(this.href);
 		if (!entity) {
@@ -66,15 +60,6 @@ class ActivityQuizIpRestrictionEditor
 			${this._renderDialog()}
 			${this._renderDialogOpener()}
 		`;
-	}
-
-	_focusInput() {
-		const ipRestrictionsContainer = this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container');
-		if (!ipRestrictionsContainer) return;
-		const input = ipRestrictionsContainer.shadowRoot.querySelector('d2l-input-text');
-		if (!input) return;
-
-		input.focus();
 	}
 
 	_renderActionButtons() {

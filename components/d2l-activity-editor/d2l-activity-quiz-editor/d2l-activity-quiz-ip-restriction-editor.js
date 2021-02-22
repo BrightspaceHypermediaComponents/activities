@@ -10,6 +10,7 @@ import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { validateIp } from './helpers/ip-validation-helper.js';
 
 class ActivityQuizIpRestrictionEditor
 	extends ActivityEditorMixin(RtlMixin(ActivityEditorDialogMixin(LocalizeActivityQuizEditorMixin(MobxLitElement)))) {
@@ -47,6 +48,12 @@ class ActivityQuizIpRestrictionEditor
 		super(store);
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+
+		this.addEventListener('d2l-dialog-open', this._focusInput);
+	}
+
 	render() {
 		const entity = store.get(this.href);
 		if (!entity) {
@@ -61,6 +68,19 @@ class ActivityQuizIpRestrictionEditor
 		`;
 	}
 
+	_focusInput() {
+		this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container').shadowRoot.querySelector('d2l-input-text').focus();
+	}
+
+	_renderActionButtons() {
+		return html`
+			<div slot="footer" id="d2l-actions-container">
+				<d2l-button slot="footer" primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
+				<d2l-button slot="footer" @click=${this.handleClose}>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
+			</div>
+		`;
+	}
+
 	_renderDialog() {
 		return html`
 			<d2l-dialog
@@ -71,6 +91,7 @@ class ActivityQuizIpRestrictionEditor
 				${this._renderErrors()}
 				${this._renderHelpDialog()}
 				${this._renderIpRestrictionsContainer()}
+				${this._renderActionButtons()}
 
 			</d2l-dialog>
 		`;
@@ -133,8 +154,7 @@ class ActivityQuizIpRestrictionEditor
 			<d2l-activity-quiz-ip-restrictions-container
 				href="${this.ipRestrictionsHref}"
 				.token="${this.token}"
-				@restrictions-resize-dialog="${this._resizeDialog}"
-				@close-ip-dialog="${this.handleClose}">
+				@restrictions-resize-dialog="${this._resizeDialog}">
 			</d2l-activity-quiz-ip-restrictions-container>
 		`;
 	}
@@ -142,6 +162,63 @@ class ActivityQuizIpRestrictionEditor
 	_resizeDialog() {
 		const dialog = this.shadowRoot.querySelector('d2l-dialog');
 		dialog.resize();
+	}
+
+	async _saveRestrictions() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+
+		if (!entity) {
+			return;
+		}
+
+		const hasValidationError = this._validate();
+
+		if (hasValidationError) {
+			return;
+		}
+
+		await entity.saveRestrictions();
+
+		if (!entity.errors || !entity.errors.length) {
+			this.handleClose();
+		}
+	}
+
+	_validate() {
+		const ipRestrictionsContainer = this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container');
+		const inputs = ipRestrictionsContainer.shadowRoot.querySelectorAll('.d2l-ip-input');
+
+		let hasValidationError = false;
+
+		for (const input of inputs) {
+			if (!this._validateRestriction(input)) {
+				hasValidationError = true;
+			}
+		}
+
+		const entity = ipStore.get(this.ipRestrictionsHref);
+
+		if (hasValidationError) {
+			const errorMsg = this.localize('ipRestrictionsValidationError');
+			entity.setErrors([errorMsg]);
+		} else {
+			entity.setErrors([]);
+			this._resizeDialog();
+		}
+
+		return hasValidationError;
+	}
+
+	_validateRestriction(restriction) {
+		if (!restriction) {
+			return true;
+		}
+
+		const isValid = !restriction.formValue || validateIp(restriction.formValue);
+
+		restriction.setAttribute('aria-invalid', !isValid);
+
+		return isValid;
 	}
 }
 

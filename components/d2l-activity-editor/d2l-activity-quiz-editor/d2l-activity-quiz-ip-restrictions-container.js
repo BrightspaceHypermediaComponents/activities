@@ -11,30 +11,25 @@ import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { sharedIpRestrictions as store } from './state/quiz-store.js';
-import { validateIp } from './helpers/ip-validation-helper.js';
 
 class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEditorContainerMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
 
 	static get styles() {
 		return css`
 				:host {
-
 					display: block;
 				}
 				:host([hidden]) {
 					display: none;
 				}
 				d2l-button-subtle {
-					margin: 0.5rem 0;
+					margin-top: 0.5rem;
 				}
 				d2l-thead {
 					font-weight: 700;
 				}
 				d2l-button {
 					margin: 1rem 0;
-				}
-				#d2l-actions-container {
-					border-top: solid 1px var(--d2l-color-gypsum);
 				}
 			`;
 	}
@@ -52,12 +47,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 			return html``;
 		}
 
-		this._validationErrorMsg = this.localize('ipRestrictionsValidationError');
-
 		return html`
 			${this._renderIpRestrictionTable()}
 			${this._renderAddRowButton()}
-			${this._renderActionButtons()}
     	`;
 	}
 
@@ -99,15 +91,6 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		}
 
 		entity.setIpRestriction(index, name, value);
-	}
-
-	_renderActionButtons() {
-		return html`
-			<div id="d2l-actions-container">
-				<d2l-button primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
-				<d2l-button @click=${this._sendCloseEvent}>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
-			</div>
-		`;
 	}
 
 	_renderAddRowButton() {
@@ -192,68 +175,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		});
 	}
 
-	async _saveRestrictions() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return;
-		}
-
-		const hasValidationError = this._validate();
-
-		if (hasValidationError) {
-			return;
-		}
-
-		await entity.saveRestrictions();
-
-		if (!entity.errors || !entity.errors.length) {
-			this._sendCloseEvent();
-		}
-	}
-
-	_sendCloseEvent() {
-		this.dispatchEvent(new CustomEvent('close-ip-dialog', { bubbles: true, composed: true }));
-	}
-
 	_sendResizeEvent() {
 		this.dispatchEvent(new CustomEvent('restrictions-resize-dialog', { bubbles: true, composed: true }));
 	}
-
-	_validate() {
-		const inputs = this.shadowRoot.querySelectorAll('.d2l-ip-input');
-		let hasValidationError = false;
-
-		for (const input of inputs) {
-			if (!this._validateRestriction(input)) {
-				hasValidationError = true;
-			}
-		}
-
-		const entity = store.get(this.href);
-
-		if (hasValidationError) {
-			const errorMsg = this.localize('ipRestrictionsValidationError');
-			entity.setErrors([errorMsg]);
-		} else {
-			entity.setErrors([]);
-			this._sendResizeEvent();
-		}
-
-		return hasValidationError;
-	}
-
-	_validateRestriction(restriction) {
-		if (!restriction) {
-			return true;
-		}
-
-		const isValid = !restriction.formValue || validateIp(restriction.formValue);
-
-		restriction.setAttribute('aria-invalid', !isValid);
-
-		return isValid;
-	}
-
 }
 
 customElements.define(

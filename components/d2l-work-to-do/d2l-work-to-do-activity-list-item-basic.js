@@ -68,8 +68,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				}
 				:host([skeleton]) .d2l-activity-qe-icon-container {
 					height: 2rem;
-					width: 2.5rem;
 					margin-left: 0.5rem;
+					width: 2.5rem;
 				}
 				.d2l-activity-name-container {
 					overflow: hidden;
@@ -173,7 +173,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		const qeIconClasses = {
 			'd2l-activity-qe-icon-container': true,
 			'd2l-skeletize': true,
-		}
+		};
 
 		const nameClasses = {
 			'd2l-activity-name-container': true,
@@ -201,7 +201,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			: nothing;
 
 		return this._renderListItem({
-			illustration: this.evaluationHref? html`
+			illustration: this.evaluationHref ? html`
 				<d2l-quick-eval-widget-submission-icon style="overflow: visible;"
 					class=${classMap(qeIconClasses)}
 					icon=${this._icon}

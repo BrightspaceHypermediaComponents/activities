@@ -9,6 +9,53 @@ export class Quiz {
 		this.href = href;
 		this.token = token;
 		this._saving = null;
+		this._checkedOut = null;
+	}
+
+	async checkin(quizStore) {
+		if (!this._entity) {
+			return;
+		}
+
+		if (this._saving) {
+			return this._saving;
+		}
+
+		this._saving = this._entity.checkin();
+		const sirenEntity = await this._saving;
+		if (!sirenEntity) return;
+
+		const href = sirenEntity.self();
+		const entity = new Quiz(href, this.token);
+		entity.load(sirenEntity);
+		quizStore.put(href, entity);
+
+		this._saving = null;
+	}
+
+	checkout(quizStore, forcedCheckout) {
+		if (!forcedCheckout && this._checkedOut) {
+			return this._checkedOut;
+		}
+
+		let href = this.href;
+		const getHrefPromise = this._entity.checkout().then(sirenEntity => {
+			if (sirenEntity) {
+				href = sirenEntity.self();
+				const entity = new Quiz(href, this.token);
+				entity.load(sirenEntity);
+				quizStore.put(href, entity);
+			}
+			return href;
+		}, () => {
+			return href;
+		});
+
+		if (!forcedCheckout) {
+			this._checkedOut = getHrefPromise;
+		}
+
+		return getHrefPromise;
 	}
 
 	delete() {
@@ -21,11 +68,11 @@ export class Quiz {
 
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
-
 		if (sirenEntity) {
 			const entity = new QuizEntity(sirenEntity, this.token, {
 				remove: () => { },
 			});
+
 			this.load(entity);
 		}
 		return this;
@@ -192,5 +239,7 @@ decorate(Quiz, {
 	setDescription: action,
 	setHeader: action,
 	save: action,
-	delete: action
+	delete: action,
+	checkout: action,
+	checkin: action
 });

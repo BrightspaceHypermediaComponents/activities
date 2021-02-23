@@ -11,21 +11,25 @@ import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { sharedIpRestrictions as store } from './state/quiz-store.js';
-import { validateIp } from './helpers/ip-validation-helper.js';
 
 class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEditorContainerMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
 
 	static get styles() {
 		return css`
 				:host {
-					border-bottom: solid 1px var(--d2l-color-gypsum);
 					display: block;
 				}
 				:host([hidden]) {
 					display: none;
 				}
 				d2l-button-subtle {
-					margin: 0.5rem 0;
+					margin-top: 0.5rem;
+				}
+				d2l-thead {
+					font-weight: 700;
+				}
+				d2l-button {
+					margin: 1rem 0;
 				}
 			`;
 	}
@@ -43,11 +47,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 			return html``;
 		}
 
-		this._validationErrorMsg = this.localize('ipRestrictionsValidationError');
-
 		return html`
 			${this._renderIpRestrictionTable()}
-			${this._renderActionButtons()}
+			${this._renderAddRowButton()}
     	`;
 	}
 
@@ -60,7 +62,7 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		entity.addRestriction();
 	}
 
-	_deleteIpRestriction(_, index) {
+	async _deleteIpRestriction(_, index) {
 		const entity = store.get(this.href);
 		if (!entity) {
 			return;
@@ -71,6 +73,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		}
 
 		entity.deleteIpRestriction(index);
+
+		await this.updateComplete;
+		this._sendDeleteEvent();
 	}
 
 	_generateHandler(handler, rowindex) {
@@ -88,12 +93,12 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		entity.setIpRestriction(index, name, value);
 	}
 
-	_renderActionButtons() {
+	_renderAddRowButton() {
 		return html`
 			<d2l-button-subtle
 				text=${this.localize('ipRestrictionsDialogAddNewRange')}
 				h-align="text"
-				icon="tier1:plus-default"
+				icon="tier1:plus-large"
 				@click="${this._addRow}">
 			</d2l-button-subtle>
 		`;
@@ -141,9 +146,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 					<d2l-th>
 
 						<d2l-input-text
+							class="d2l-ip-input"
 							@input="${this._generateHandler(this._handleChange, index)}"
 							value="${start}"
-							@blur=${this._validateRestriction}
 							name="start">
 						</d2l-input-text>
 
@@ -151,9 +156,9 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 					<d2l-th>
 
 						<d2l-input-text
+							class="d2l-ip-input"
 							@input="${this._generateHandler(this._handleChange, index)}"
 							value="${end}"
-							@blur=${this._validateRestriction}
 							name="end">
 						</d2l-input-text>
 
@@ -170,28 +175,12 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		});
 	}
 
-	_sendResizeEvent() {
-		this.dispatchEvent(new CustomEvent('restrictions-resize-dialog', { bubbles: true, composed: true }));
+	_sendDeleteEvent() {
+		this.dispatchEvent(new CustomEvent('ip-restriction-deleted', { bubbles: true, composed: true }));
 	}
 
-	_validateRestriction(e) {
-		if (!e || !e.target || !e.target.value) {
-			return;
-		}
-
-		const entity = store.get(this.href);
-
-		const isValid = validateIp(e.target.value);
-
-		e.target.setAttribute('aria-invalid', !isValid);
-
-		if (isValid) {
-			entity.setErrors([]);
-			this._sendResizeEvent();
-		} else {
-			const errorMsg = this.localize('ipRestrictionsValidationError');
-			entity.setErrors([errorMsg]);
-		}
+	_sendResizeEvent() {
+		this.dispatchEvent(new CustomEvent('restrictions-resize-dialog', { bubbles: true, composed: true }));
 	}
 }
 

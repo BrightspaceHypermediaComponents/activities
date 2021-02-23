@@ -1,5 +1,5 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
-import '../../d2l-activity-html-editor';
+import '../../d2l-activity-text-editor.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
@@ -64,14 +64,14 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 					${this.localize('content.description')}
 				</div>
 				<div class="d2l-skeletize">
-					<d2l-activity-html-editor
+					<d2l-activity-text-editor
 						.ariaLabel="content-description"
 						.key="content-description"
 						.value="${descriptionRichText}"
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"
 						.richtextEditorConfig="${{}}"
 					>
-					</d2l-activity-html-editor>
+					</d2l-activity-text-editor>
 				</div>
 			</div>
 		`;

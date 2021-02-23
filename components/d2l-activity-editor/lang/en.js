@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "Cancel", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Press ALT-F10 for toolbar, and press ESC to exit toolbar once inside.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Choose from Grades", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubrics", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Start Date must be before End Date",
 	"editor.dueBetweenStartEndDate": "Due Date must be after Start Date and before or equal to End Date",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "No",
 	"editor.notificationEmailLabel": "Notification Email", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Please enter a valid email address", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Add rubric", //text for add rubric button
 	"rubrics.btnCreateNew": "Create New", //Text for create new dropdown

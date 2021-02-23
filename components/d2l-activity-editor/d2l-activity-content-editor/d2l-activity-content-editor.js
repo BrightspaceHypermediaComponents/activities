@@ -17,6 +17,8 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 
 	static get properties() {
 		return {
+			htmlEditorEnabled: { type: Boolean },
+			htmlNewEditorEnabled: { type: Boolean },
 			widthType: { type: String, attribute: 'width-type' },
 			isNew: { type: Boolean },
 			cancelHref: { type: String },
@@ -69,6 +71,8 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 				width-type="${this.widthType}"
 				error-term="${this.localize('content.saveError')}"
 				?isnew="${this.isNew}"
+				?html-editor-enabled="${this.htmlEditorEnabled}"
+				?html-new-editor-enabled="${this.htmlNewEditorEnabled}">
 			>
 				${this._editorTemplate}
 			</d2l-activity-editor>

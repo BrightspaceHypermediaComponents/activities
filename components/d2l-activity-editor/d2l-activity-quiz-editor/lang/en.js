@@ -86,7 +86,7 @@ export default {
 	"ipRestrictionDialogDescription": "Only learners coming from IP addresses that meet the defined restrictions can write the quiz.", // guidelines for IP restrictions dialog
 	"btnIpRestrictionsDialogAdd": "Add", // text for IP restrictions dialog "Add" button
 	"btnIpRestrictionsDialogBtnCancel": "Cancel", // text for IP restrictions dialog "Cancel" button
-	"ipRestrictionsDialogAddNewRange": "Add new IP range", // text for IP restrictions dialog "Add new IP range" button
+	"ipRestrictionsDialogAddNewRange": "IP Range", // text for IP restrictions dialog "Add new IP range" button
 	"ipRestrictionsTableStartRangeHdr": "IP Range Start", // text for IP restrictions table header start
 	"ipRestrictionsTableEndRangeHdr": "IP Range End", // text for IP restrictions table header end
 	"ipRestrictionsTableDeleteRangeHdr": "Delete", // text for IP restrictions table header delete

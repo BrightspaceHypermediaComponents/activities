@@ -28,6 +28,10 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			 */
 			htmlNewEditorEnabled: { type: Boolean },
 			/**
+			 * True if the create selectbox grade item feature is on
+			 */
+			createSelectboxGradeItemEnabled: { type: Boolean },
+			/**
 			 * API endpoint for attachment unfurling service
 			 */
 			unfurlEndpoint: { type: String },
@@ -144,6 +148,12 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 
 		if (e.detail.key === 'd2l-provider-browse-outcomes-text') {
 			e.detail.provider = this.browseOutcomesText;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-provider-create-selectbox-grade-item-enabled') {
+			e.detail.provider = this.createSelectboxGradeItemEnabled;
 			e.stopPropagation();
 			return;
 		}

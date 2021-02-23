@@ -17,7 +17,19 @@
         "https://assessments.api.brightspace.com/rels/assess-all-application"
       ],
       "properties": {
-        "path": "#evaluateAllAssignment"
+        "path": "fakeurl/evaluate-all-assignment"
+      }
+    },
+    {
+      "class": [
+        "relative-uri"
+      ],
+      "rel": [
+        "item",
+        "https://assessments.api.brightspace.com/rels/assess-new-application"
+      ],
+      "properties": {
+        "path": "fakeurl/evaluate-new-assigment"
       }
     }
   ],

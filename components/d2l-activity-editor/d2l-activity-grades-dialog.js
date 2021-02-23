@@ -20,7 +20,8 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 		return {
 			_createNewRadioChecked: { type: Boolean },
 			_canLinkNewGrade: { type: Boolean },
-			_hasGradeCandidates: { type: Boolean }
+			_hasGradeCandidates: { type: Boolean },
+			_createSelectboxGradeItemEnabled: { type: Boolean }
 		};
 	}
 
@@ -72,6 +73,20 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 		super(store);
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+
+		const event = new CustomEvent('d2l-request-provider', {
+			detail: { key: 'd2l-provider-create-selectbox-grade-item-enabled' },
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		this.dispatchEvent(event);
+
+		this._createSelectboxGradeItemEnabled = event.detail.provider;
+	}
+
 	render() {
 		const activity = store.get(this.href);
 		if (!activity) {
@@ -85,7 +100,11 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 		} = activity.scoreAndGrade;
 
 		return html`
-			<d2l-dialog title-text="${this.localize('editor.chooseFromGrades')}" width="460" @d2l-dialog-open="${this._onDialogOpen}">
+			<d2l-dialog
+				title-text="${this._createSelectboxGradeItemEnabled ? this.localize('editor.editLinkExisting') : this.localize('editor.chooseFromGrades')}"
+				width="460"
+				@d2l-dialog-open="${this._onDialogOpen}">
+
 				<label class="d2l-input-radio-label ${!this._canLinkNewGrade ? 'd2l-input-radio-label-disabled' : ''}">
 					<input
 						type="radio"
@@ -108,7 +127,10 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 								</div>
 							</div>
 						</div>
-						<d2l-activity-grade-category-selector .href="${this.href}" .token="${this.token}"></d2l-activity-grade-category-selector>
+						<d2l-activity-grade-category-selector
+							.href="${this.href}"
+							.token="${this.token}">
+						</d2l-activity-grade-category-selector>
 					` : html`
 						<div class="d2l-body-small">
 							${this.localize('editor.noGradeCreatePermission')}
@@ -187,6 +209,7 @@ class ActivityGradesDialog extends ActivityEditorMixin(LocalizeActivityEditorMix
 	}
 
 	_onDialogOpen(e) {
+		this.shadowRoot.querySelector('d2l-activity-grade-category-selector').setShowCategories(false);
 		e.target.resize();
 	}
 

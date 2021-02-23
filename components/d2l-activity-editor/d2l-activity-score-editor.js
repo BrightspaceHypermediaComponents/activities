@@ -27,7 +27,8 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 	static get properties() {
 		return {
 			activityName: { type: String },
-			_focusUngraded: { type: Boolean }
+			_focusUngraded: { type: Boolean },
+			_createSelectboxGradeItemEnabled: { type: Boolean }
 		};
 	}
 
@@ -164,6 +165,20 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 		super(store);
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+
+		const event = new CustomEvent('d2l-request-provider', {
+			detail: { key: 'd2l-provider-create-selectbox-grade-item-enabled' },
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		this.dispatchEvent(event);
+
+		this._createSelectboxGradeItemEnabled = event.detail.provider;
+	}
+
 	render() {
 		const activity = store.get(this.href);
 		const {
@@ -177,6 +192,9 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 		} = activity && activity.scoreAndGrade || {};
 
 		this._focusUngraded = isUngraded;
+
+		const inGradesTerm = this._createSelectboxGradeItemEnabled ? this.localize('editor.inGradebook') : this.localize('editor.inGrades');
+		const notInGradesTerm = this._createSelectboxGradeItemEnabled ? this.localize('editor.notInGradebook') : this.localize('editor.notInGrades');
 
 		return isUngraded || this.skeleton ? html`
 			<div id="ungraded-button-container" class="d2l-skeletize">
@@ -193,7 +211,7 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 				<div id="score-out-of-container">
 					<d2l-input-text
 						id="score-out-of"
-						label="${this.localize('editor.scoreOutOf')}"
+						label="${this._createSelectboxGradeItemEnabled ? this.localize('editor.gradeOutOf') : this.localize('editor.scoreOutOf')}"
 						label-hidden
 						value="${scoreOutOf}"
 						size=4
@@ -222,13 +240,13 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 						<d2l-dropdown ?disabled="${!canEditScoreOutOf}">
 							<button class="d2l-label-text d2l-grade-info d2l-dropdown-opener" ?disabled="${!canEditScoreOutOf}">
 								${inGrades ? html`<d2l-icon icon="tier1:grade"></d2l-icon>` : null}
-								<div>${inGrades ? this.localize('editor.inGrades') : this.localize('editor.notInGrades')}</div>
+								<div>${inGrades ? inGradesTerm : notInGradesTerm}</div>
 								<d2l-icon icon="tier1:chevron-down"></d2l-icon>
 							</button>
 							<d2l-dropdown-menu id="grade-dropdown" align="start" no-pointer vertical-offset="3px">
-								<d2l-menu label="${inGrades ? this.localize('editor.inGrades') : this.localize('editor.notInGrades')}">
+								<d2l-menu label="${inGrades ? inGradesTerm : notInGradesTerm}">
 									<d2l-menu-item
-										text="${this.localize('editor.chooseFromGrades')}"
+										text="${this._createSelectboxGradeItemEnabled ? this.localize('editor.editLinkExisting') : this.localize('editor.chooseFromGrades')}"
 										@d2l-menu-item-select="${this._chooseFromGrades}"
 									></d2l-menu-item>
 									${this._addOrRemoveMenuItem()}
@@ -280,12 +298,12 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 		const scoreAndGrade = store.get(this.href).scoreAndGrade;
 		return scoreAndGrade.inGrades ? html`
 			<d2l-menu-item
-				text="${this.localize('editor.removeFromGrades')}"
+				text="${this._createSelectboxGradeItemEnabled ? this.localize('editor.notInGradebook') : this.localize('editor.removeFromGrades')}"
 				@d2l-menu-item-select="${this._removeFromGrades}"
 			></d2l-menu-item>
 		` : scoreAndGrade.canEditGrades ? html`
 			<d2l-menu-item
-				text="${this.localize('editor.addToGrades')}"
+				text="${this._createSelectboxGradeItemEnabled ? this.localize('editor.addToGradebook') : this.localize('editor.addToGrades')}"
 				@d2l-menu-item-select="${this._addToGrades}"
 			></d2l-menu-item>
 		` : null;

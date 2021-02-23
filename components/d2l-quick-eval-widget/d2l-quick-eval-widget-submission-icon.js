@@ -19,7 +19,12 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 			/**
 			 * Submission count to display as a superscript on the icon
 			 */
-			submissionCount: { type: String, attribute: 'submission-count', reflect: true }
+			submissionCount: { type: String, attribute: 'submission-count', reflect: true },
+			/**
+			 * Does not make the component fully skeleton compatible, but makes it more comparable to
+			 * d2l-icon which doesn't support it either (prevents visual weirdness of count bubble displaying behind skeleton)
+			 */
+			skeleton: { type: Boolean }
 		};
 	}
 
@@ -85,8 +90,8 @@ class SubmissionIcon extends RtlMixin(LitElement) {
 	render() {
 		return html`
 			<div class="d2l-quick-eval-widget-submission-icon-content">
-				<d2l-icon icon="${this.icon}"></d2l-icon>
-				<div class="d2l-quick-eval-widget-submission-icon-submission-count-container" ?hidden=${!this.submissionCount}>
+				<d2l-icon icon="${this.icon}" ></d2l-icon>
+				<div class="d2l-quick-eval-widget-submission-icon-submission-count-container" ?hidden=${!this.submissionCount || this.skeleton}>
 					<div class="d2l-quick-eval-widget-submission-icon-submission-count">${this.submissionCount}</div>
 				</div>
 			</div>

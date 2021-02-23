@@ -10,6 +10,7 @@ import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { validateIp } from './helpers/ip-validation-helper.js';
 
 class ActivityQuizIpRestrictionEditor
 	extends ActivityEditorMixin(RtlMixin(ActivityEditorDialogMixin(LocalizeActivityQuizEditorMixin(MobxLitElement)))) {
@@ -34,14 +35,6 @@ class ActivityQuizIpRestrictionEditor
 
 				:host([hidden]) {
 					display: none;
-				}
-
-				#ip-restriction-editor-label {
-					margin-bottom: 10px;
-				}
-
-				d2l-button {
-					margin: 1rem 0;
 				}
 
 				d2l-alert {
@@ -71,8 +64,10 @@ class ActivityQuizIpRestrictionEditor
 
 	_renderActionButtons() {
 		return html`
-			<d2l-button primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
-			<d2l-button data-dialog-action>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
+			<div slot="footer" id="d2l-actions-container">
+				<d2l-button primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
+				<d2l-button @click=${this.handleClose}>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
+			</div>
 		`;
 	}
 
@@ -93,11 +88,17 @@ class ActivityQuizIpRestrictionEditor
 	}
 
 	_renderDialogOpener() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity) {
+			return;
+		}
+
 		return html`
-			<div id="ip-restriction-editor-label" class="d2l-label-text">
+			<div class="d2l-label-text">
 				${this.localize('ipRestrictionLabel')}
 			</div>
 			<d2l-button-subtle
+				?disabled=${!entity.canEditIpRestrictions}
 				text="${this.localize('btnOpenIpRestrictionDialog')}"
 				h-align="text"
 				@click="${this.open}">
@@ -143,7 +144,8 @@ class ActivityQuizIpRestrictionEditor
 			<d2l-activity-quiz-ip-restrictions-container
 				href="${this.ipRestrictionsHref}"
 				.token="${this.token}"
-				@restrictions-resize-dialog="${this._resizeDialog}">
+				@restrictions-resize-dialog="${this._resizeDialog}"
+				@ip-restriction-deleted="${this._validate}">
 			</d2l-activity-quiz-ip-restrictions-container>
 		`;
 	}
@@ -155,7 +157,14 @@ class ActivityQuizIpRestrictionEditor
 
 	async _saveRestrictions() {
 		const entity = ipStore.get(this.ipRestrictionsHref);
+
 		if (!entity) {
+			return;
+		}
+
+		const hasValidationError = this._validate();
+
+		if (hasValidationError) {
 			return;
 		}
 
@@ -164,6 +173,46 @@ class ActivityQuizIpRestrictionEditor
 		if (!entity.errors || !entity.errors.length) {
 			this.handleClose();
 		}
+	}
+
+	_validate() {
+		const ipRestrictionsContainer = this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-container');
+
+		if (!ipRestrictionsContainer) return;
+
+		const inputs = ipRestrictionsContainer.shadowRoot.querySelectorAll('.d2l-ip-input');
+
+		let hasValidationError = false;
+
+		for (const input of inputs) {
+			if (!this._validateRestriction(input)) {
+				hasValidationError = true;
+			}
+		}
+
+		const entity = ipStore.get(this.ipRestrictionsHref);
+
+		if (hasValidationError) {
+			const errorMsg = this.localize('ipRestrictionsValidationError');
+			entity.setErrors([errorMsg]);
+		} else {
+			entity.setErrors([]);
+			this._resizeDialog();
+		}
+
+		return hasValidationError;
+	}
+
+	_validateRestriction(restriction) {
+		if (!restriction) {
+			return true;
+		}
+
+		const isValid = !restriction.formValue || validateIp(restriction.formValue);
+
+		restriction.setAttribute('aria-invalid', !isValid);
+
+		return isValid;
 	}
 }
 

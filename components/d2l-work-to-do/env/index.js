@@ -28,50 +28,50 @@ export const ActivityAllowList = {
 		class: Classes.activities.userAssignmentActivity,
 		icon: 'tier2:assignments',
 		rel: Rels.assignment,
-		type: 'Assignment'
+		type: 'assignment'
 	},
 	userChecklistActivity: {
 		class: Classes.activities.userChecklistActivity,
 		icon: 'tier2:checklist',
 		rel: Rels.Checklists.checklistItem,
-		type: 'Checklist'
+		type: 'checklist'
 	},
 	userContentActivity: {
 		class: Classes.activities.userContentActivity,
 		icon: 'tier2:content',
 		rel: Rels.content,
-		type: 'Content'
+		type: 'content'
 	},
 	userCourseOfferingActivity: {
 		class: Classes.activities.userCourseOfferingActivity,
 		icon: 'tier2:syllabus',
 		rel: [ Rels.userEnrollment, Rels.organization ],
 		linkRel: Rels.organizationHomepage,
-		type: 'Course'
+		type: 'course'
 	},
 	userDiscussionActivity: {
 		class: Classes.activities.userDiscussionActivity,
 		icon: 'tier2:discussions',
 		rel: Rels.Discussions.topic,
-		type: 'Discussion'
+		type: 'discussion'
 	},
 	userQuizActivity: {
 		class: Classes.activities.userQuizActivity,
 		icon: 'tier2:quizzing',
 		rel: Rels.quiz,
-		type: 'Quiz'
+		type: 'quiz'
 	},
 	userQuizAttemptActivity: {
 		class: Classes.activities.userQuizAttemptActivity,
 		icon: 'tier2:quizzing',
 		rel: Rels.quiz,
-		type: 'Quiz'
+		type: 'quiz'
 	},
 	userSurveyActivity: {
 		class: Classes.activities.userSurveyActivity,
 		icon: 'tier2:surveys',
 		rel: Rels.Surveys.survey,
-		type: 'Survey'
+		type: 'survey'
 	}
 };
 

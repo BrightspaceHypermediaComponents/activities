@@ -48,23 +48,42 @@ export class QuizTiming {
 	}
 
 	setExceededTimeLimitBehaviour(data) {
-		this._entity.setExceededTimeLimitBehaviour(data);
+		this.isAutomaticZero = this._entity.isAutomaticZero(data);
+		this.updateProperty(() => this._entity.setExceededTimeLimitBehaviour(data));
+
 	}
 
 	setExtendedDeadline(data) {
-		this._entity.setExtendedDeadline(data);
+		this.updateProperty(() => this._entity.setExtendedDeadline(data));
 	}
 
 	setGracePeriod(data) {
-		this._entity.setGracePeriod(data);
+		this.updateProperty(() => this._entity.setGracePeriod(data));
+	}
+
+	setShowClock(data) {
+		this.updateProperty(() => this._entity.setShowClock(data));
 	}
 
 	setTimeLimit(data) {
-		this._entity.setTimeLimit(data);
+		this.updateProperty(() => this._entity.setTimeLimit(data));
 	}
 
 	setTimingType(data) {
-		this._entity.setTimingType(data);
+		this.isTimingEnforced = this._entity.isTimingEnforced(data);
+		this.updateProperty(() => this._entity.setTimingType(data));
+	}
+
+	async updateProperty(updateFunc) {
+		const entity = await updateFunc();
+		// The siren-sdk function called to perform an action first checks that the entity has permission to do so.
+		// If the entity lacks permission, the function returns `undefined`, otherwise it returns a reconstructed siren-sdk timing entity.
+		// If `undefined` is returned, it likely means the UI is out of sync with the entity state, and disallowed actions can be performed.
+		// In this case, we should attempt to reload the MobX object, so that the UI state is in sync again.
+		if (!entity) {
+			this.fetch();
+		}
+		this._entity = entity;
 	}
 
 	_makeQuizData() {
@@ -101,6 +120,7 @@ decorate(QuizTiming, {
 	setTimingType: action,
 	setExceededTimeLimitBehaviour: action,
 	setGracePeriod: action,
+	setShowClock: action,
 	setTimeLimit: action,
 	setExtendedDeadline: action
 });

@@ -30,6 +30,7 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 		return {
 			_linksProcessor: { type: Object },
 			activityUsageHref: { type: String, attribute: 'activity-usage-href' },
+			_createSelectboxGradeItemEnabled: { type: Boolean }
 		};
 	}
 
@@ -90,6 +91,20 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 		this.saveOrder = 2000;
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+
+		const event = new CustomEvent('d2l-request-provider', {
+			detail: { key: 'd2l-provider-create-selectbox-grade-item-enabled' },
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		this.dispatchEvent(event);
+
+		this._createSelectboxGradeItemEnabled = event.detail.provider;
+	}
+
 	render() {
 		const assignment = store.get(this.href);
 
@@ -142,7 +157,7 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 			<div id="score-and-duedate-container">
 				<div id="score-container" class="d2l-editor-layout-section">
 					<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
-						${this.localize('scoreOutOf')}
+						${this._createSelectboxGradeItemEnabled ? this.localize('gradeOutOf') : this.localize('scoreOutOf')}
 					</div>
 					<d2l-activity-score-editor
 						?skeleton="${this.skeleton}"

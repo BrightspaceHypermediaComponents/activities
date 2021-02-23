@@ -108,7 +108,7 @@ D2L.PolymerBehaviors.Siren.D2LSirenHelperBehaviorImpl = {
 
 		let extraInfo = '';
 		extraParams.forEach(param => {
-			extraInfo += '-' + param.name + '_' + param.value;
+			extraInfo += '|' + param.name + '~' + param.value;
 		});
 
 		searchParams['cfi'] = extraInfo.substring(1);

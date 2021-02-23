@@ -75,7 +75,7 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 		entity.deleteIpRestriction(index);
 
 		await this.updateComplete;
-		this._validate();
+		this._sendDeleteEvent();
 	}
 
 	_generateHandler(handler, rowindex) {
@@ -173,6 +173,10 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 				</d2l-tr>
 			`;
 		});
+	}
+
+	_sendDeleteEvent() {
+		this.dispatchEvent(new CustomEvent('ip-restriction-deleted', { bubbles: true, composed: true }));
 	}
 
 	_sendResizeEvent() {

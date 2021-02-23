@@ -144,7 +144,8 @@ class ActivityQuizIpRestrictionEditor
 			<d2l-activity-quiz-ip-restrictions-container
 				href="${this.ipRestrictionsHref}"
 				.token="${this.token}"
-				@restrictions-resize-dialog="${this._resizeDialog}">
+				@restrictions-resize-dialog="${this._resizeDialog}"
+				@ip-restriction-deleted="${this._validate}">
 			</d2l-activity-quiz-ip-restrictions-container>
 		`;
 	}

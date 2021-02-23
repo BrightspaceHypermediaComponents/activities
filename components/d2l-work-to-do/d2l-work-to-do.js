@@ -372,7 +372,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 			return html`
 				${immersiveNav()}
 				<div class="d2l-work-to-do-fullscreen-container">
-					<h1 class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</h1>
+					<h1 class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('workToDo')}</h1>
 					<div class="d2l-overdue-collection-fullscreen">
 						${fullscreenCollectionTemplate(this._overdueActivities, true)}
 					</div>
@@ -397,7 +397,7 @@ class WorkToDoWidget extends EntityMixinLit(WorkToDoTelemetryMixin(LocalizeWorkT
 		const detailedSkeleton = html`
 			${immersiveNav()}
 			<div class="d2l-work-to-do-fullscreen-container">
-				<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('myWorkToDo')}</div>
+				<div class="d2l-heading-1 d2l-work-to-do-fullscreen-title">${this.localize('workToDo')}</div>
 				<div class="d2l-overdue-collection-fullscreen">
 					<d2l-work-to-do-activity-list-header skeleton fullscreen></d2l-work-to-do-activity-list-header>
 					<d2l-list separators="none">

@@ -73,6 +73,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				}
 				.d2l-icon-bullet {
 					color: var(--d2l-color-tungsten);
+					margin-left: -0.15rem;
+					margin-right: -0.15rem;
 				}
 				.d2l-secondary-content-container {
 					color: var(--d2l-color-tungsten);
@@ -190,7 +192,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		const supportingInfoTemplate = (items) => {
 			const filteredItems = items.filter(item => item);
-			return html `${filteredItems.map((item, idx) => [item, idx < filteredItems.length - 1 ? separatorTemplate : nothing]).flat()}`;
+			return html `${filteredItems.map((item, idx) => [item, ' ', idx < filteredItems.length - 1 ? [separatorTemplate, ' '].flat() : nothing]).flat()}`;
 		};
 
 		return this._renderListItem({

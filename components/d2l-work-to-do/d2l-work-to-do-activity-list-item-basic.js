@@ -179,8 +179,8 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		const dateTemplate = html `<d2l-activity-date href="${this.href}" .token="${this.token}" format="MMM d" ?hidden=${this.skeleton}></d2l-activity-date>`;
 
-		const separatorTemplate = !this.skeleton && this._date && (this._orgName || this._orgCode)
-			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
+		const separatorTemplate = !this.skeleton
+			? html ` <d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon> `
 			: nothing;
 
 		const startDateTemplate = !this.skeleton && !this._started && !this.evaluationHref
@@ -189,6 +189,11 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 				<d2l-status-indicator state="none" text="${this._startDateFormatted}"></d2l-status-indicator>
 			</div>`
 			: nothing;
+
+		const supportingInfoTemplate = (items) => {
+			const filteredItems = items.filter(item => item);
+			return html `${filteredItems.map((item, idx) => [item, idx < filteredItems.length - 1 ? separatorTemplate : nothing]).flat()}`;
+		};
 
 		return this._renderListItem({
 			illustration: this.evaluationHref ? html`
@@ -208,10 +213,9 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					<div class=${classMap(nameClasses)}>
 						${this._name}
 					</div>
-					<div class=${classMap(secondaryClasses)} slot="supporting-info">
-						${dateTemplate}
-						${separatorTemplate}
-						${this._orgName || this._orgCode}
+					<div class=${classMap(secondaryClasses)} slot="secondary">
+						${supportingInfoTemplate([this._date ? dateTemplate : null, this._orgName || this._orgCode, // eslint-disable-next-line indent
+							this._activityProperties.type === ActivityAllowList.userCourseOfferingActivity.type && this._type])}
 						${startDateTemplate}
 					</div>
 				</d2l-list-item-content>
@@ -239,6 +243,12 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 			this._usage && this._usage.startDate()
 				? formatDate(new Date(this._usage.startDate()), { format: 'shortMonthDay' })
 				: '');
+	}
+
+	get _type() {
+		return this._activityProperties && !this.skeleton
+			? this.localize(this._activityProperties.type)
+			: '';
 	}
 
 	/** String associated with icon catalogue for provided activity type */

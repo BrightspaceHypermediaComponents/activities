@@ -190,7 +190,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 		const dateTemplate = html `<d2l-activity-date href="${this.href}" .token="${this.token}" format="MMM d" ?hidden=${this.skeleton}></d2l-activity-date>`;
 
 		const separatorTemplate = !this.skeleton
-			? html `<d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon>`
+			? html ` <d2l-icon class="d2l-icon-bullet" icon="tier1:bullet"></d2l-icon> `
 			: nothing;
 
 		const startDateTemplate = !this.skeleton && !this._started && !this.evaluationHref
@@ -202,7 +202,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 
 		const supportingInfoTemplate = (items) => {
 			const filteredItems = items.filter(item => item);
-			return html `${filteredItems.map((item, idx) => [item, ' ', idx < filteredItems.length - 1 ? [separatorTemplate, ' '].flat() : nothing]).flat()}`;
+			return html `${filteredItems.map((item, idx) => [item, idx < filteredItems.length - 1 ? separatorTemplate : nothing]).flat()}`;
 		};
 
 		return this._renderListItem({
@@ -225,7 +225,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 						${this._name}
 					</div>
 					<div class=${classMap(secondaryClasses)} slot="secondary">
-						${supportingInfoTemplate([dateTemplate, this._orgName || this._orgCode, // eslint-disable-next-line indent
+						${supportingInfoTemplate([this._date ? dateTemplate : null, this._orgName || this._orgCode, // eslint-disable-next-line indent
 							this._activityProperties.type === ActivityAllowList.userCourseOfferingActivity.type && this._type])}
 						${startDateTemplate}
 					</div>

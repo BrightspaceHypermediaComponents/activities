@@ -135,5 +135,5 @@ export default {
 	"content.invalidLink": "Insira um URL válido.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Apenas links usando \"https\" podem ser incorporados.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Este site não pode ser incorporado.", //Error message shown on link tooltip when the link cannot be embedded
-	"content.previewLabel": "Preview", // The label text for the link preview
+	"content.previewLabel": "Visualizar", // The label text for the link preview
 };

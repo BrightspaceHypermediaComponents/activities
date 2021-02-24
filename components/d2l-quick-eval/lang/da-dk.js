@@ -63,7 +63,7 @@ export default {
    "publishAllConfirmDialogMessage" : "{evaluated} ud af {assigned} brugere modtager feedback ved udgivelse. Vil du fortsætte?",
    "publishAllToastMessage" : "Evalueringer af {activityName} blev udgivet.",
    "publishAllToastMessageTruncated" : "Evalueringer af {truncatedActivityName} blev udgivet.",
-   "published" : "Offentliggjort",
+   "published" : "Udgivet",
    "quiz" : "Eksamination",
    "restore" : "Gendan",
    "search" : "Søg",

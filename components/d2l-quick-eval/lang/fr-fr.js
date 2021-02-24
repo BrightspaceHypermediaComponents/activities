@@ -38,7 +38,7 @@ export default {
    "failedToSearch" : "Impossible d’appliquer la recherche. Réessayez dans quelques minutes.",
    "firstName" : "Prénom",
    "forever" : "Toujours",
-   "lastName" : "Nom",
+   "lastName" : "Nom de famille",
    "loadMore" : "Charger plus",
    "loading" : "Chargement en cours",
    "masterTeacher" : "Enseignant",

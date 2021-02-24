@@ -2,5 +2,5 @@
 
 export default {
   "course" : "Cours",
-  "learning-path" : "Chemin d’apprentissage"
+  "learning-path" : "Chemin d'apprentissage"
 }

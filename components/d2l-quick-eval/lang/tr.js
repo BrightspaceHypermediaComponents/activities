@@ -23,7 +23,7 @@ export default {
    "dismissedOn" : "{date} tarihinde çıkarıldı",
    "dismissingAnActivityHides" : "Bir etkinliğin çıkarılması, etkinliği Quick Eval'den gizler ancak etkinliği etkilemez",
    "displayName" : "Ad, Soyad",
-   "due" : "Teslim Tarihi:{date}",
+   "due" : "Bitiş Tarihi: {date}",
    "editActivity" : "Etkinliği Düzenle",
    "evaluate" : "Değerlendir: {displayName}",
    "evaluateAll" : "Tümünü Değerlendir",

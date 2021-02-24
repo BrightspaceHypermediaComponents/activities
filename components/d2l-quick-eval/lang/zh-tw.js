@@ -25,7 +25,7 @@ export default {
    "displayName" : "名字，姓氏",
    "due" : "截止日期：{date}",
    "editActivity" : "編輯活動",
-   "evaluate" : "評估{displayName}",
+   "evaluate" : "評估 {displayName}",
    "evaluateAll" : "全部評估",
    "evaluated" : "已評估",
    "failedToDismissActivity" : "不能關閉活動。請再試一次。",

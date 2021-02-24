@@ -135,5 +135,5 @@ export default {
 	"content.invalidLink": "Lütfen geçerli bir URL girin.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Yalnızca \"https\" protokolünü kullanan bağlantılar gömülebilir.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Bu site gömülemez.", //Error message shown on link tooltip when the link cannot be embedded
-	"content.previewLabel": "Preview", // The label text for the link preview
+	"content.previewLabel": "Önizle", // The label text for the link preview
 };

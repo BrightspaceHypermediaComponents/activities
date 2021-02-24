@@ -1,8 +1,14 @@
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { getLocalizeOverrideResources } from '@brightspace-ui/core/helpers/getLocalizeResources.js';
 
 export const LocalizeWorkToDoMixin = superclass => class extends LocalizeMixin(superclass) {
 
 	static async getLocalizeResources(langs) {
+
+		function resolveOverridesFunc() {
+			return 'd2l-activities\\workToDo';
+		}
+
 		let translations;
 		for await (const lang of langs) {
 			switch (lang) {
@@ -62,17 +68,19 @@ export const LocalizeWorkToDoMixin = superclass => class extends LocalizeMixin(s
 					break;
 			}
 			if (translations && translations.val) {
-				return {
-					language: lang,
-					resources: translations.val
-				};
+				return await getLocalizeOverrideResources(
+					lang,
+					translations.val,
+					resolveOverridesFunc
+				);
 			}
 		}
 
 		translations = await import('../lang/en.js');
-		return {
-			language: 'en',
-			resources: translations.val
-		};
+		return await getLocalizeOverrideResources(
+			'en',
+			translations.val,
+			resolveOverridesFunc
+		);
 	}
 };

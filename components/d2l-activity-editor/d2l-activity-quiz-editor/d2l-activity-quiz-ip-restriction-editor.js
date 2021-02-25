@@ -5,15 +5,14 @@ import 'd2l-inputs/d2l-input-text.js';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html } from 'lit-element/lit-element.js';
 import { sharedIpRestrictions as ipStore, shared as store } from './state/quiz-store.js';
-import { ActivityEditorDialogMixin } from '../mixins/d2l-activity-editor-dialog-mixin';
-import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { ActivityEditorWorkingCopyDialogMixin } from '../mixins/d2l-activity-editor-working-copy-dialog-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { validateIp } from './helpers/ip-validation-helper.js';
 
 class ActivityQuizIpRestrictionEditor
-	extends ActivityEditorMixin(RtlMixin(ActivityEditorDialogMixin(LocalizeActivityQuizEditorMixin(MobxLitElement)))) {
+	extends ActivityEditorWorkingCopyDialogMixin(RtlMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
 
 	static get properties() {
 
@@ -49,12 +48,13 @@ class ActivityQuizIpRestrictionEditor
 	}
 
 	render() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
+		const entity = store.get(this.dialogHref);
 
-		this.ipRestrictionsHref = entity.ipRestrictionsHref;
+		const {
+			ipRestrictionsHref
+		} = entity || {};
+
+		this.ipRestrictionsHref = ipRestrictionsHref || '';
 
 		return html`
 			${this._renderDialog()}
@@ -66,7 +66,7 @@ class ActivityQuizIpRestrictionEditor
 		return html`
 			<div slot="footer" id="d2l-actions-container">
 				<d2l-button primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
-				<d2l-button @click=${this.handleClose}>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
+				<d2l-button data-dialog-action>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
 			</div>
 		`;
 	}
@@ -75,7 +75,7 @@ class ActivityQuizIpRestrictionEditor
 		return html`
 			<d2l-dialog
 				?opened="${this.opened}"
-				@d2l-dialog-close="${this.handleClose}"
+				@d2l-dialog-close="${this.closeDialog}"
 				title-text="${this.localize('hdrIpRestrictionDialog')}">
 
 				${this._renderErrors()}
@@ -88,7 +88,7 @@ class ActivityQuizIpRestrictionEditor
 	}
 
 	_renderDialogOpener() {
-		const entity = ipStore.get(this.ipRestrictionsHref);
+		const entity = ipStore.get(this.ipRestrictionsHref) || { canEditIpRestrictions: true }; // FIX THIS. We need to fetch the IP restrictions entity before opening the dialog
 		if (!entity) {
 			return;
 		}
@@ -101,7 +101,7 @@ class ActivityQuizIpRestrictionEditor
 				?disabled=${!entity.canEditIpRestrictions}
 				text="${this.localize('btnOpenIpRestrictionDialog')}"
 				h-align="text"
-				@click="${this.open}">
+				@click="${this.openDialog}">
 			</d2l-button-subtle>
 		`;
 	}
@@ -155,7 +155,7 @@ class ActivityQuizIpRestrictionEditor
 		dialog.resize();
 	}
 
-	async _saveRestrictions() {
+	async _saveRestrictions(e) {
 		const entity = ipStore.get(this.ipRestrictionsHref);
 
 		if (!entity) {
@@ -171,7 +171,7 @@ class ActivityQuizIpRestrictionEditor
 		await entity.saveRestrictions();
 
 		if (!entity.errors || !entity.errors.length) {
-			this.handleClose();
+			this.checkinDialog(e);
 		}
 	}
 

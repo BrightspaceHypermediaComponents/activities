@@ -2,11 +2,10 @@ import { LocalizeDynamicMixin } from '@brightspace-ui/core/mixins/localize-dynam
 
 export const LocalizeWorkToDoMixin = superclass => class extends LocalizeDynamicMixin(superclass) {
 
-	static get config() {
+	static get localizeConfig() {
 		return {
-			importFunc: lang => import(`../lang/${lang}.js`),
+			importFunc: async lang => (await import(`../lang/${lang}.js`)).val,
 			osloCollection: 'd2l-activities\\workToDo',
-			exportName: 'val',
 		};
 	}
 };

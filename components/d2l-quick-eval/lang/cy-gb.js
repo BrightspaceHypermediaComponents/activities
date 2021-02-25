@@ -25,7 +25,7 @@ export default {
    "displayName" : "Enw Cyntaf, Cyfenw",
    "due" : "Dyddiad cyflwyno: {date}",
    "editActivity" : "Golygu'r Gweithgaredd",
-   "evaluate" : "Gwerthuso {enwArddangos}",
+   "evaluate" : "Gwerthuso {displayName}",
    "evaluateAll" : "Gwerthuso’r Cyfan",
    "evaluated" : "Wedi gwerthuso",
    "failedToDismissActivity" : "Ni ellir diystyru’r gweithgaredd. Rhowch gynnig arall arni.",

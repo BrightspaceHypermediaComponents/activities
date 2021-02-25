@@ -62,7 +62,7 @@ export default {
    "publishAll" : "Publicar tudo",
    "publishAllConfirmDialogMessage" : "{evaluated} de {assigned} usuários receberão feedback sobre a publicação. Deseja continuar?",
    "publishAllToastMessage" : "Avaliações de {activityName} publicadas com êxito.",
-   "publishAllToastMessageTruncated" : "Avaliações de {truncedActivityName}... publicadas com êxito.",
+   "publishAllToastMessageTruncated" : "Avaliações de {truncatedActivityName}... publicadas com êxito.",
    "published" : "Publicada",
    "quiz" : "Questionário",
    "restore" : "Restaurar",

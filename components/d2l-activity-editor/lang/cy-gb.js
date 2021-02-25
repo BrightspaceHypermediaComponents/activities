@@ -8,7 +8,7 @@ export default {
 	"editor.btnRemoveCondition": "Tynnu’r Amod", // remove condition button
 	"editor.lblConditionsOperator": "I weld yr eitem hon, rhaid i ddefnyddwyr fodloni", // conditions operator label
 	"editor.txtConditionAdded": "Amod a ychwanegwyd: {title}",
-	"editor.txtConditionRemoved": "Amod a dynnwyd: {condition}",
+	"editor.txtConditionRemoved": "Amod a dynnwyd: {title}",
 	"editor.txtConditionsAdded": "Ychwanegwyd {count} amod",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} amod rhyddhau} other {{count} amod rhyddhau}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text

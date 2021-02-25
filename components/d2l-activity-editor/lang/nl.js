@@ -61,7 +61,7 @@ export default {
 	"editor.competenciesCount": "{count, plural, =1 {1 toegevoegd} other {{count} toegevoegd}}", //Label for number of associated competencies
 	"editor.noLearningObjectives": "Geen leerdoelen", //text label when there are no associated learning objectives
 	"editor.competenciesCountSummary": "{count, plural, =1 {1 leerdoel} other {{count} leerdoelen}}", // num release condition text
-	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}}", //Label for number of unevalated associated competencies
+	"editor.unevaluatedCompetencies": "{count, plural, =1 {1 ontbrekende evaluatie} other {{count} ontbrekende evaluaties}}", //Label for number of unevalated associated competencies
 	"editor.btnClose": "Sluiten", //Label for Close button
 	"editor.btnCloseDialog": "Dit dialoogvenster sluiten", // close dialog button
 	"editor.btnManageSpecialAccess": "Speciale toegang beheren", // manage special access button

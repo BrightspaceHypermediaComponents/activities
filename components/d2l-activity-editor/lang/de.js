@@ -26,9 +26,9 @@ export default {
 	"editor.noEndDate": "Kein Enddatum", // Placeholder text for due date field when no due date is set
 	"editor.noStartDate": "Kein Startdatum", // Placeholder text for due date field when no due date is set
 	"editor.visible": "Sichtbar", // Label displayed with the visibility switch when visible
-	"editor.txtAvailabilityStartAndEnd": "Verfügbarkeit beginnt am {StartDate} und endet am {EndDate}", // start/end text
-	"editor.txtAvailabilityStartOnly": "Verfügbarkeit beginnt am {StartDate}", // start only text
-	"editor.txtAvailabilityEndOnly": "Verfügbarkeit endet am {EndDate}", // end only text
+	"editor.txtAvailabilityStartAndEnd": "Verfügbarkeit beginnt am {startDate} und endet am {endDate}", // start/end text
+	"editor.txtAvailabilityStartOnly": "Verfügbarkeit beginnt am {startDate}", // start only text
+	"editor.txtAvailabilityEndOnly": "Verfügbarkeit endet am {endDate}", // end only text
 	"editor.txtAvailabilityNeither": "Immer verfügbar", // always available text
 	"editor.ungraded": "Nicht bewertet", // State of score field when there is no score and no grade item, when creating/editing an activity
 	"editor.inGrades": "In Noten", // State of the grades field when there is a score, and an associated grade item

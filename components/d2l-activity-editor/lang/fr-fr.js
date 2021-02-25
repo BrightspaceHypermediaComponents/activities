@@ -8,7 +8,7 @@ export default {
 	"editor.btnRemoveCondition": "Supprimer la condition", // remove condition button
 	"editor.lblConditionsOperator": "Pour afficher cet élément, l’utilisateur doit satisfaire", // conditions operator label
 	"editor.txtConditionAdded": "Condition ajoutée : {title}",
-	"editor.txtConditionRemoved": "Condition supprimée : {condition}",
+	"editor.txtConditionRemoved": "Condition supprimée : {title}",
 	"editor.txtConditionsAdded": "{count} conditions ajoutées",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} condition de diffusion} other {{count} conditions de diffusion}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 utilisateur avec accès spécial} other {{userCount} utilisateurs avec accès spécial}}", // num users with special access text

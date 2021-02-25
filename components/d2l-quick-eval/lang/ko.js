@@ -67,7 +67,7 @@ export default {
    "quiz" : "퀴즈",
    "restore" : "복원",
    "search" : "검색",
-   "searchResultsMore" : "{Num}개 이상 검색 결과",
+   "searchResultsMore" : "{num}개 이상 검색 결과",
    "searchResultsMultiple" : "{num}개 검색 결과",
    "searchResultsSingle" : "1개 검색 결과",
    "sortBy" : "{columnName} 기준 정렬",
@@ -77,7 +77,7 @@ export default {
    "submissions" : "제출 항목",
    "tableTitle" : "강의 및 도구 전체의 평가되지 않은 학습자 제출 항목 목록",
    "toggleIndicatorLabelActions" : "{target}에 대한 작업 수행",
-   "toggleIndicatorLabelInfo" : "{Target}에 대한 정보 보기",
+   "toggleIndicatorLabelInfo" : "{target}에 대한 정보 보기",
    "tryAgain" : "다시 시도",
    "viewBy" : "보기 기준:",
    "yes" : "예"

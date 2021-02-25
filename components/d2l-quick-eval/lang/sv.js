@@ -48,7 +48,7 @@ export default {
    "newAttemptsDetails" : "{newNum, plural, =0 {{reAttemptNum, plural, =1 {1 återförsök} other {{reAttemptNum} återförsök}}} other {{reAttemptNum, plural, =0 {{newNum} nya} =1{{newNum} nytt, 1 återförsök} other {{newNum} nya, {reAttemptNum} återförsök}}}}",
    "newPostDetails" : "{numInteractions, plural, =1 {1 tråd eller svar} other {{numInteractions} trådar eller svar}}",
    "newPosts" : "Nya inlägg",
-   "newSubmissionDetails" : "{new Num, plural, =0 {{resub, plural, =1 {1 återinlämning} other {{resub} återinlämningar}}} other {{resub, plural, =0 {{newNum} nya} =1{{newNum} ny, 1 återinlämning} other {{newNum} nya, {resub} återinlämningar}}}}",
+   "newSubmissionDetails" : "{newNum, plural, =0 {{resub, plural, =1 {1 återinlämning} other {{resub} återinlämningar}}} other {{resub, plural, =0 {{newNum} nya} =1{{newNum} ny, 1 återinlämning} other {{newNum} nya, {resub} återinlämningar}}}}",
    "newSubmissions" : "Nya inlämningar",
    "nextSubmission" : "Nästa inlämning",
    "no" : "Nej",

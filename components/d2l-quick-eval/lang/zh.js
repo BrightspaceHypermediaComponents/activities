@@ -67,7 +67,7 @@ export default {
    "quiz" : "测验",
    "restore" : "恢复",
    "search" : "搜索",
-   "searchResultsMore" : "{Num}+ 个搜索结果",
+   "searchResultsMore" : "{num}+ 个搜索结果",
    "searchResultsMultiple" : "{num} 个搜索结果",
    "searchResultsSingle" : "1 个搜索结果",
    "sortBy" : "按 {columnName} 排序",

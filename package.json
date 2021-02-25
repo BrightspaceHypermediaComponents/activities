@@ -70,7 +70,7 @@
     "@brightspace-ui-labs/accordion": "^2.0.2",
     "@brightspace-ui-labs/edit-in-place": "^1.0.11",
     "@brightspace-ui-labs/list-item-accumulator": "^1",
-    "@brightspace-ui/core": "^1.115.1",
+    "@brightspace-ui/core": "^1.116.0",
     "@brightspace-ui/htmleditor": "^1",
     "@brightspace-ui/intl": "^3.0.1",
     "@d2l/d2l-attachment": "Brightspace/attachment#semver:^1",

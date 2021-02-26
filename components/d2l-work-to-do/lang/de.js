@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Zu Discover", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Mehr laden", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Weitere zugewiesene Aktivitäten anzeigen", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "Meine ausstehenden Aufgaben", // Widget title
   noActivities: "Sie haben keine unerledigten Aktivitäten mit verfügbarem Fälligkeits- oder Enddatum.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Es sind keine unvollständigen Aktivitäten vorhanden, die in Kürze fällig sind oder enden. Kommen Sie später zurück oder sehen Sie sich alle Arbeiten an, um zu sehen, was als Nächstes kommt.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "Sie haben keine unerledigten Aktivitäten mit verfügbarem Fälligkeits- oder Enddatum. Sehen Sie später erneut nach, ob Sie unerledigte Arbeit haben.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

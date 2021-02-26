@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "الانتقال إلى Discover", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "تحميل المزيد", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "عرض المزيد من الأنشطة المعيّنة", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "العمل الذي يجب إنجازه", // Widget title
   noActivities: "ليس لديك أي أنشطة غير مكتملة تتوفر تواريخ استحقاقها أو انتهائها.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "ليس لديك أي أنشطة غير مكتملة مستحقة أو تنتهي قريبًا. تحقق من الصفحة في وقت لاحق أو حدد عرض كل العمل للاطّلاع على الأنشطة المقبلة.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "ليس لديك أي أنشطة غير مكتملة تتوفر تواريخ استحقاقها أو انتهائها. تحقق من الصفحة في وقت لاحق لمعرفة ما إذا كان ثمة عمل يجب إنجازه.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

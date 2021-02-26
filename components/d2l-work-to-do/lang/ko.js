@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "검색으로 이동합니다", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "더 많이 로드", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "할당된 활동을 더 많이 표시합니다", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "할 일", // Widget title
   noActivities: "기한 또는 종료일이 있는 미완료 활동이 없습니다.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "기한이 만료되거나 곧 종료되는 활동이 없습니다. 나중에 다시 돌아오거나 모든 작업 보기 를 통해 다음 내용을 확인할 수 있습니다.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "기한 또는 종료일이 있는 미완료 활동이 없습니다. 나중에 돌아와 해야 할 일이 있는지 확인합니다.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

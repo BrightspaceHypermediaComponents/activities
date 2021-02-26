@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Gå til Registrer", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Indlæs flere", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Vis flere tildelte aktiviteter", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "Mine opgaver, der skal udføres", // Widget title
   noActivities: "Du har ingen ikke-gennemførte aktiviteter, hvor forfalds- eller slutdatoer er tilgængelige.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Du har ingen ikke-gennemførte aktiviteter, der forfalder eller slutter snart. Kom tilbage senere eller Se alle opgaver for at se, hvad der er på vej.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "Du har ingen ikke-gennemførte aktiviteter, hvor forfalds- eller slutdatoer er tilgængelige. Kom tilbage senere for at se, om du har opgaver, der skal udføres.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

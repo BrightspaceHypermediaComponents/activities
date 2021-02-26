@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "［Discover］に移動", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "さらに読み込む", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "割り当てられたその他のアクティビティを表示します", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "取り組むこと", // Widget title
   noActivities: "期限または終了日が設定された未完了のアクティビティはありません。", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "期限または終了日が近い未完了のアクティビティはありません。後でまた確認するか、［すべての学習の表示］をクリックして次のアクティビティを確認してください。",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "期限または終了日が設定された未完了のアクティビティはありません。後でまた、アクティビティがあるか確認してください。", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Keşfet'e Git", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Daha Fazla Yükle", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Daha fazla atanmış etkinlik görüntüle", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "Yapılacak İşlerim", // Widget title
   noActivities: "Teslim veya sona erme tarihi bulunan tamamlanmamış etkinliğiniz yok.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Teslim veya sona erme tarihi yaklaşmakta olan tamamlanmamış etkinliğiniz yok. Daha sonraki etkinlikleri görmek için daha sonra tekrar ziyaret edin veya Tüm İşleri Görüntüleyin.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "Teslim veya sona erme tarihi bulunan tamamlanmamış etkinliğiniz yok. Üzerinde çalışacağınız bir iş olup olmadığını görmek için daha sonra tekrar ziyaret edin.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

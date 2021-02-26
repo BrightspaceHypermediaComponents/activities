@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Ewch i Darganfod", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Llwytho Mwy", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Dangos rhagor o weithgareddau penodedig", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "Fy Ngwaith i’w Wneud", // Widget title
   noActivities: "Nid oes gennych unrhyw weithgareddau anghyflawn gyda dyddiadau dyledus neu ddyddiadau gorffen ar gael.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Nid oes gennych unrhyw weithgareddau anghyflawn dyledus neu sy'n dod i ben yn fuan. Dewch yn ôl yn nes ymlaen neu Gweld Pob Darn o Waith i weld beth sy'n dod nesaf.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "Nid oes gennych unrhyw weithgareddau anghyflawn gyda dyddiadau dyledus neu ddyddiadau gorffen ar gael. Dewch yn ôl yn nes ymlaen i weld os oes gennych waith i'w wneud.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

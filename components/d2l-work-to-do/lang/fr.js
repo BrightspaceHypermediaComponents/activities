@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Accéder à Découvrir", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Charger plus", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Afficher plus d’activités attribuées", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "Mon travail à faire", // Widget title
   noActivities: "Vous n’avez aucune activité incomplète avec des dates d’échéance ou de fin disponibles.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Vous n’avez aucune activité incomplète ou se terminant bientôt. Revenez plus tard ou cliquez sur Afficher tout le travail pour voir les activités à venir.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "Vous n’avez aucune activité incomplète avec des dates d’échéance ou de fin disponibles. Revenez plus tard pour vérifier si vous avez du travail à faire.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

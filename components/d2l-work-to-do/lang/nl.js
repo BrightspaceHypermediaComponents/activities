@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Ga naar Ontdekken", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Meer laden", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Meer toegewezen activiteiten weergeven", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Work To Do", // Widget title
+  workToDo: "Mijn Work To Do", // Widget title
   noActivities: "U hebt geen onvolledige activiteiten met vervaldatums of einddatums beschikbaar.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "U hebt geen onvolledige activiteiten die binnenkort vervallen of eindigen. Kom later terug of bekijk Al het werk weergeven om te zien wat er op komst is.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "U hebt geen onvolledige activiteiten met vervaldatums of einddatums beschikbaar. Kom later terug om te zien of er werk is.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

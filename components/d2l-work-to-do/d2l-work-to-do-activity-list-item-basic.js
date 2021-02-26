@@ -215,7 +215,7 @@ class ActivityListItemBasic extends ListItemLinkMixin(SkeletonMixin(EntityMixinL
 					</div>
 					<div class=${classMap(secondaryClasses)} slot="secondary">
 						${supportingInfoTemplate([this._date ? dateTemplate : null, this._orgName || this._orgCode, // eslint-disable-next-line indent
-							this._activityProperties.type === ActivityAllowList.userCourseOfferingActivity.type && this._type])}
+							this._activityProperties && this._activityProperties.type === ActivityAllowList.userCourseOfferingActivity.type && this._type])}
 						${startDateTemplate}
 					</div>
 				</d2l-list-item-content>

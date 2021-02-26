@@ -1,9 +1,10 @@
 import { ActivityEditorDialogMixin } from './d2l-activity-editor-dialog-mixin';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
+import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { findComposedAncestor } from '@brightspace-ui/core/helpers/dom.js';
 import { getFirstFocusableDescendant } from '@brightspace-ui/core/helpers/focus.js';
 
-export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends ActivityEditorMixin(ActivityEditorDialogMixin(superclass)) {
+export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends ActivityEditorMixin(ActivityEditorDialogMixin(AsyncContainerMixin(superclass))) {
 
 	static get properties() {
 		return {
@@ -29,11 +30,13 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 			}
 		}
 
-		entity.checkin(this.store);
+		await entity.checkin(this.store);
 		this.closeDialog(e);
 	}
 
 	async closeDialog(e) {
+		const dialog = this.shadowRoot.querySelector('d2l-dialog');
+		dialog && dialog.resetAsyncState();
 		this.dialogHref = '';
 		this.handleClose(e);
 	}
@@ -42,9 +45,8 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 		const entity = this.store.get(this.checkedOutHref);
 		if (!entity) return;
 
-		this.dialogHref = await entity.checkout(this.store, true);
-
 		this.open(e);
+		this.dialogHref = await entity.checkout(this.store, true);
 	}
 
 	async save() {

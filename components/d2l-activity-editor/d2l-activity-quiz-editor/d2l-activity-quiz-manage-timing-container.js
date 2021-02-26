@@ -35,12 +35,15 @@ class ActivityQuizManageTimingContainer extends ActivityEditorWorkingCopyDialogM
 	}
 
 	_renderDialog() {
+		const showSpinnerWhenLoading = true;
+		const width = 900;
 		return html`
 			<d2l-dialog
 				id="quiz-manage-timing-dialog"
 				?opened="${this.opened}"
 				@d2l-dialog-close="${this.closeDialog}"
-				width=900
+				?async="${showSpinnerWhenLoading}"
+				width="${width}"
 				title-text=${this.localize('subHdrTimingTools') }>
 					<div id="manage-timing-dialog-timing-editor">${this._renderQuizTimingEditor()}</div>
 					<d2l-button slot="footer" primary @click="${this._checkinDialog}">${this.localize('manageTimingDialogConfirmationText')}</d2l-button>

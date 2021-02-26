@@ -18,7 +18,9 @@ class ActivityQuizIpRestrictionEditor
 
 		return {
 			href: { type: String },
-			token: { type: Object }
+			token: { type: Object },
+			ipRestrictionsHref: { type: String },
+
 		};
 	}
 
@@ -39,6 +41,10 @@ class ActivityQuizIpRestrictionEditor
 				d2l-alert {
 					margin: 1rem 0;
 				}
+
+				#ip-container {
+					height: 250px;
+				}
 			`
 		];
 	}
@@ -54,7 +60,7 @@ class ActivityQuizIpRestrictionEditor
 			ipRestrictionsHref
 		} = entity || {};
 
-		this.ipRestrictionsHref = ipRestrictionsHref || '';
+		this.ipRestrictionsHref = ipRestrictionsHref;
 
 		return html`
 			${this._renderDialog()}
@@ -74,13 +80,17 @@ class ActivityQuizIpRestrictionEditor
 	_renderDialog() {
 		return html`
 			<d2l-dialog
+				async
 				?opened="${this.opened}"
 				@d2l-dialog-close="${this.closeDialog}"
 				title-text="${this.localize('hdrIpRestrictionDialog')}">
 
-				${this._renderErrors()}
-				${this._renderHelpDialog()}
-				${this._renderIpRestrictionsContainer()}
+				<div id="ip-container">
+					${this._renderErrors()}
+					${this._renderHelpDialog()}
+					${this._renderIpRestrictionsContainer()}
+				</div>
+
 				${this._renderActionButtons()}
 
 			</d2l-dialog>
@@ -88,17 +98,20 @@ class ActivityQuizIpRestrictionEditor
 	}
 
 	_renderDialogOpener() {
-		const entity = ipStore.get(this.ipRestrictionsHref) || { canEditIpRestrictions: true }; // FIX THIS. We need to fetch the IP restrictions entity before opening the dialog
+		const entity = store.get(this.href);
 		if (!entity) {
 			return;
 		}
+
+		// this is a hack so we don't have to fetch the IP restrictions entity just to determine this permission
+		const canEditIpRestrictions = entity.canEditName;
 
 		return html`
 			<div class="d2l-label-text">
 				${this.localize('ipRestrictionLabel')}
 			</div>
 			<d2l-button-subtle
-				?disabled=${!entity.canEditIpRestrictions}
+				?disabled=${!canEditIpRestrictions}
 				text="${this.localize('btnOpenIpRestrictionDialog')}"
 				h-align="text"
 				@click="${this.openDialog}">
@@ -120,7 +133,7 @@ class ActivityQuizIpRestrictionEditor
 
 		return errors.map((error) => {
 
-			if (!error) {
+			if (error === 500 || !error) {
 				error = this.localize('ipRestrictions500Error');
 			}
 

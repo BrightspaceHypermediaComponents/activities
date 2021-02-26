@@ -36,7 +36,10 @@ export class QuizIpRestrictions {
 		}
 
 		if (!isNew) {
-			this._entity.deleteIpRestriction(restriction.id);
+			this._entity.deleteIpRestriction(restriction.id).catch(() => {
+				this.setErrors([500]);
+				this._addRestriction(restriction, index);
+			});
 		}
 	}
 
@@ -83,8 +86,6 @@ export class QuizIpRestrictions {
 
 			return;
 		}
-
-		await this.fetch();
 	}
 
 	setErrors(errors) {
@@ -98,6 +99,10 @@ export class QuizIpRestrictions {
 
 	updateIpRestriction(restriction) {
 		this._entity.updateIpRestriction(restriction);
+	}
+
+	_addRestriction(restriction, index) {
+		this.ipRestrictions.splice(index, 0, restriction);
 	}
 
 	_createPromises(restrictions) {
@@ -163,5 +168,6 @@ decorate(QuizIpRestrictions, {
 	addRestriction: action,
 	setIpRestriction: action,
 	addIpRestriction: action,
-	deleteIpRestriction: action
+	deleteIpRestriction: action,
+	_addRestriction: action
 });

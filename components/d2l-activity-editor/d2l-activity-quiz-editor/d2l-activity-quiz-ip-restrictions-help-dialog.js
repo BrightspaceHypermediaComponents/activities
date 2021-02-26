@@ -39,6 +39,7 @@ class ActivityQuizIpRestrictionsHelpDialog
 			<div class="d2l-help-text-container d2l-body-compact">
 				<p class="d2l-body-compact" id="d2l-button-help-text">${this.localize('ipRestrictionDialogDescription')}</p>
 				<d2l-button-icon
+				    skip-alert
 					text=${this.localize('ipRestrictionsAccessibileHelpText')}
 					icon="tier1:help"
 					@click="${this.open}">

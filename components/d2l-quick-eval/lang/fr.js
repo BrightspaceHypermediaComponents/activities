@@ -4,7 +4,7 @@ export default {
    "activities" : "Activités",
    "activityDismissed" : "Activité rejetée",
    "activityName" : "Nom de l’activité",
-   "activityRestored" : "{count, plural, =1 {1 activité a été restaurée} {{count} autres activités ont été restaurées}}",
+   "activityRestored" : "{count, plural, =1 {1 activité a été restaurée} other {{count} autres activités ont été restaurées}}",
    "assignment" : "Travail",
    "cancel" : "Annuler",
    "caughtUp" : "Vous avez terminé!",

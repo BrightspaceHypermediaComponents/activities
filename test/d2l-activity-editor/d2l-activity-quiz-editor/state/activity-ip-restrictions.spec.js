@@ -14,7 +14,7 @@ describe('Activity IP Restrictions', function() {
 		return {
 			canEditIpRestrictions: () => true,
 			getIpRestrictions: () => [ mockRestriction ],
-			deleteIpRestriction: () => {}
+			deleteIpRestriction: () => ({ catch: () => {} })
 		};
 	}
 

@@ -1,6 +1,6 @@
 /* eslint quotes: 0 */
 
 export default {
-   "clickToViewActivity" : "Etkinliği görüntülemek için tıklayın",
-   "enroll" : "Kaydol"
+  "enroll": "Kaydol",
+  "clickToViewActivity": "Etkinliği görüntülemek için tıklayın"
 }

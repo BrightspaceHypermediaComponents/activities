@@ -26,9 +26,9 @@ export default {
 	"editor.noEndDate": "Kein Enddatum", // Placeholder text for due date field when no due date is set
 	"editor.noStartDate": "Kein Startdatum", // Placeholder text for due date field when no due date is set
 	"editor.visible": "Sichtbar", // Label displayed with the visibility switch when visible
-	"editor.txtAvailabilityStartAndEnd": "Verfügbarkeit beginnt am {StartDate} und endet am {EndDate}", // start/end text
-	"editor.txtAvailabilityStartOnly": "Verfügbarkeit beginnt am {StartDate}", // start only text
-	"editor.txtAvailabilityEndOnly": "Verfügbarkeit endet am {EndDate}", // end only text
+	"editor.txtAvailabilityStartAndEnd": "Verfügbarkeit beginnt am {startDate} und endet am {endDate}", // start/end text
+	"editor.txtAvailabilityStartOnly": "Verfügbarkeit beginnt am {startDate}", // start only text
+	"editor.txtAvailabilityEndOnly": "Verfügbarkeit endet am {endDate}", // end only text
 	"editor.txtAvailabilityNeither": "Immer verfügbar", // always available text
 	"editor.ungraded": "Nicht bewertet", // State of score field when there is no score and no grade item, when creating/editing an activity
 	"editor.inGrades": "In Noten", // State of the grades field when there is a score, and an associated grade item
@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "Abbrechen", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Drücken Sie Alt+F10, um die Toolbar zu öffnen und Escape, um Sie wieder zu schließen", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Wählen Sie aus den Noten", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Bewertungsschemas", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Das Startdatum muss vor dem Enddatum liegen.",
 	"editor.dueBetweenStartEndDate": "Das Abgabedatum muss nach dem Startdatum und vor oder gleich dem Enddatum sein",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "Nein",
 	"editor.notificationEmailLabel": "E-Mail-Benachrichtigung", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Geben Sie eine gültige E-Mail-Adresse ein", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Bewertungsschema hinzufügen", //text for add rubric button
 	"rubrics.btnCreateNew": "Neu erstellen", //Text for create new dropdown

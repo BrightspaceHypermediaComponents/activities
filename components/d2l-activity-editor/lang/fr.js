@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "Annuler", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Cliquez sur Alt + F10 pour afficher la barre d’outils et sur Échap pour la faire disparaître.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Faire un choix dans les Notes d’appréciation", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubriques", //Header for the rubrics section
 	"editor.startBeforeEndDate": "La date du début doit être antérieure à la date de fin.",
 	"editor.dueBetweenStartEndDate": "La date d’échéance doit être postérieure à la date du début et antérieure ou correspondre à la date de fin.",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "Non",
 	"editor.notificationEmailLabel": "Courriel de notification", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Veuillez saisir une adresse courriel valide", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Ajouter une rubrique", //text for add rubric button
 	"rubrics.btnCreateNew": "Créer", //Text for create new dropdown

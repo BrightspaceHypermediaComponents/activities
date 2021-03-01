@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "취소", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "도구 모음을 불러오려면 ALT-F10을 누르고, 도구 모음을 끝내려면 도구 모음 내에서 ESC를 누르십시오.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "평점 중에서 선택하십시오.", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "루브릭", //Header for the rubrics section
 	"editor.startBeforeEndDate": "시작일은 종료일 이전이어야 합니다.",
 	"editor.dueBetweenStartEndDate": "기한은 시작 날짜 이후여야 하며 종료 날짜 이전이거나 종료일과 같아야 합니다.",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "아니요",
 	"editor.notificationEmailLabel": "알림 이메일", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "유효한 이메일 주소를 입력하십시오.", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "루브릭 추가", //text for add rubric button
 	"rubrics.btnCreateNew": "새로 만들기", //Text for create new dropdown

@@ -45,5 +45,6 @@ export default {
 	"hdrSpecialAccess": "特殊存取權限", // special access heading
 	"hlpSpecialAccess": "特殊存取權限可讓作業僅提供給選取的使用者群組，或具有個別截止日期的特定使用者。", // special access help
 	"assignmentLocked": "由於已收到交件匣提交，因此某些設定已鎖定。",
-	"hlpSubmissionNotificationEmail": "輸入一個電子郵件或以逗點分隔的多個電子郵件，以便在作業提交至交件匣時收到通知。"
+	"hlpSubmissionNotificationEmail": "輸入一個電子郵件或以逗點分隔的多個電子郵件，以便在作業提交至交件匣時收到通知。",
+	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 };

@@ -13,21 +13,18 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 	}
 
 	constructor(store) {
-		super();
+		super(store);
 		this.checkoutOnLoad = true;
 		this.dialogHref = '';
-		this.store = store;
 	}
 
-	async checkinDialog(e, skipValidatingInputs) {
+	async checkinDialog(e) {
 		const entity = this.store.get(this.dialogHref);
 		if (!entity) return;
 
-		if (!skipValidatingInputs) {
-			const isValid = await this._verifyAllInputsValid();
-			if (!isValid) {
-				return;
-			}
+		const isValid = await this._verifyAllInputsValid();
+		if (!isValid) {
+			return;
 		}
 
 		await entity.checkin(this.store);

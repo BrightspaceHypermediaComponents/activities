@@ -45,5 +45,6 @@ export default {
 	"hdrSpecialAccess": "Özel Erişim", // special access heading
 	"hlpSpecialAccess": "Özel Erişim, ödevlerin yalnızca belirli bir kullanıcı grubu tarafından veya belirli kullanıcılar için kişiselleştirilmiş sona erme tarihlerinde kullanılabilmesini sağlar.", // special access help
 	"assignmentLocked": "Gönderimler alındığı için bazı ayarlar kilitlendi.",
-	"hlpSubmissionNotificationEmail": "Bir ödev gönderildiğinde bildirim almak için bir e-posta adresi veya virgülle ayırarak birden çok e-posta adresini girin."
+	"hlpSubmissionNotificationEmail": "Bir ödev gönderildiğinde bildirim almak için bir e-posta adresi veya virgülle ayırarak birden çok e-posta adresini girin.",
+	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 };

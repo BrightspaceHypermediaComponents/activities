@@ -1,6 +1,6 @@
 /* eslint quotes: 0 */
 
 export default {
-   "clickToViewActivity" : "النقر لعرض النشاط",
-   "enroll" : "تسجيل"
+  "enroll": "تسجيل",
+  "clickToViewActivity": "النقر لعرض النشاط"
 }

@@ -1,6 +1,6 @@
 /* eslint quotes: 0 */
 
 export default {
-   "clickToViewActivity" : "Clique aqui para visualizar a atividade",
-   "enroll" : "Inscrever"
+  "enroll": "Inscrição",
+  "clickToViewActivity": "Clique aqui para visualizar a atividade"
 }

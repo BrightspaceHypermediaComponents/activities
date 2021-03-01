@@ -8,7 +8,7 @@ export default {
 	"editor.btnRemoveCondition": "Tynnu’r Amod", // remove condition button
 	"editor.lblConditionsOperator": "I weld yr eitem hon, rhaid i ddefnyddwyr fodloni", // conditions operator label
 	"editor.txtConditionAdded": "Amod a ychwanegwyd: {title}",
-	"editor.txtConditionRemoved": "Amod a dynnwyd: {condition}",
+	"editor.txtConditionRemoved": "Amod a dynnwyd: {title}",
 	"editor.txtConditionsAdded": "Ychwanegwyd {count} amod",
 	"editor.txtNumReleaseConditions": "{count, plural, =1 {{count} amod rhyddhau} other {{count} amod rhyddhau}}", // num release condition text
 	"editor.txtNumSpecialAccess": "{userCount, plural, =1 {1 user with special access} other {{userCount} users with special access}}", // num users with special access text
@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "Canslo", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Pwyswch ALT-F10 i weld y bar offer, a phwyswch ESC i adael y bar offer pan fyddwch i mewn.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Dewis o Graddau", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Cyfeirebau", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Rhaid i'r Dyddiad Dechrau fod cyn y Dyddiad Dod i Ben.",
 	"editor.dueBetweenStartEndDate": "Rhaid i’r Dyddiad Cyflwyno fod ar ôl y Dyddiad Dechrau a cyn neu’r un peth â’r Dyddiad Dod i Ben",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "Na",
 	"editor.notificationEmailLabel": "E-bost Hysbysu", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Rhowch gyfeiriad e-bost dilys", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Ychwanegu cyfeireb", //text for add rubric button
 	"rubrics.btnCreateNew": "Creu Un Newydd", //Text for create new dropdown

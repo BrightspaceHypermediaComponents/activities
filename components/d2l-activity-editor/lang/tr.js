@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "İptal", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Araç çubuğuna giriş yapmak için ALT+F10 tuşlarına basın, araç çubuğundayken çıkış yapmak için ESC tuşuna basın.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Notlar Arasından Seç", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubrikler", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Başlangıç Tarihi, Bitiş Tarihinden önce olmalıdır",
 	"editor.dueBetweenStartEndDate": "Sona Erme Tarihi, Başlangıç Tarihinden sonra ve Bitiş Tarihinden önce veya bu tarihle aynı olmalıdır",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "Hayır",
 	"editor.notificationEmailLabel": "Bildirim E-postası", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Lütfen geçerli bir e-posta adresi girin", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Rubrik ekle", //text for add rubric button
 	"rubrics.btnCreateNew": "Yeni Oluştur", //Text for create new dropdown
@@ -130,5 +135,5 @@ export default {
 	"content.invalidLink": "Lütfen geçerli bir URL girin.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Yalnızca \"https\" protokolünü kullanan bağlantılar gömülebilir.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Bu site gömülemez.", //Error message shown on link tooltip when the link cannot be embedded
-	"content.previewLabel": "Preview", // The label text for the link preview
+	"content.previewLabel": "Önizle", // The label text for the link preview
 };

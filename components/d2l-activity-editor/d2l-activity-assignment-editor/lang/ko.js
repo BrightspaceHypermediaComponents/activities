@@ -45,5 +45,6 @@ export default {
 	"hdrSpecialAccess": "특별 접근", // special access heading
 	"hlpSpecialAccess": "특별 접근을 사용하면 특정 사용자 그룹 또는 특정 사용자의 개별 기한에만 과제를 사용할 수 있습니다.", // special access help
 	"assignmentLocked": "제출 항목이 수신되어 일부 설정이 잠겼습니다.",
-	"hlpSubmissionNotificationEmail": "과제가 제출되었을 때 알림을 받으려면 이메일 또는 여러 이메일을 쉼표로 구분하여 입력하십시오."
+	"hlpSubmissionNotificationEmail": "과제가 제출되었을 때 알림을 받으려면 이메일 또는 여러 이메일을 쉼표로 구분하여 입력하십시오.",
+	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 };

@@ -45,6 +45,7 @@ export default {
 	"editor.cancel": "取消", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "按 ALT-F10 可调用工具栏；按 ESC 可退出正在使用的工具栏。", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "从成绩中选择", // Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "量规", //Header for the rubrics section
 	"editor.startBeforeEndDate": "开始日期必须早于结束日期",
 	"editor.dueBetweenStartEndDate": "截止日期必须晚于开始日期且早于或等于结束日期",
@@ -77,6 +78,10 @@ export default {
 	"editor.noLabel": "否",
 	"editor.notificationEmailLabel": "通知电子邮件", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "请输入一个有效的电子邮件地址", // error shown on tooltip when notification email is invalid
+	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "添加量规", //text for add rubric button
 	"rubrics.btnCreateNew": "新建", //Text for create new dropdown

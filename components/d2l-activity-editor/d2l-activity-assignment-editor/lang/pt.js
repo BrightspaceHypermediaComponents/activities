@@ -45,5 +45,6 @@ export default {
 	"hdrSpecialAccess": "Acesso especial", // special access heading
 	"hlpSpecialAccess": "O acesso especial permite que a ferramenta de envio de atividades esteja disponível apenas para um grupo selecionado de usuários ou em datas de entrega personalizadas para determinados usuários.", // special access help
 	"assignmentLocked": "Algumas configurações estão bloqueadas porque atividades foram recebidas.",
-	"hlpSubmissionNotificationEmail": "Informe um e-mail ou digite vários e-mails separados por vírgula para receber notificações quando uma atividade for enviada."
+	"hlpSubmissionNotificationEmail": "Informe um e-mail ou digite vários e-mails separados por vírgula para receber notificações quando uma atividade for enviada.",
+	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 };

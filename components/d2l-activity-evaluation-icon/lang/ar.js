@@ -1,5 +1,5 @@
 /* eslint quotes: 0 */
 
 export default {
-   "draftInfo" : "تم حفظ التقييم كمسودة"
+  "draftInfo" : "تم حفظ التقييم كمسودة"
 }

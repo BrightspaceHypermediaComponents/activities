@@ -1,5 +1,5 @@
 /* eslint quotes: 0 */
 
 export default {
-   "draftInfo" : "Evaluatie opgeslagen als concept"
+  "draftInfo" : "Evaluatie opgeslagen als concept"
 }

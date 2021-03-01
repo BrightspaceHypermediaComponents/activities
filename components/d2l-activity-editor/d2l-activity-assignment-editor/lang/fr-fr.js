@@ -45,5 +45,6 @@ export default {
 	"hdrSpecialAccess": "Accès spécial", // special access heading
 	"hlpSpecialAccess": "L’accès spécial permet d’attribuer des devoirs uniquement à un groupe d’utilisateurs sélectionné ou à des dates d’échéance personnalisées pour certains utilisateurs.", // special access help
 	"assignmentLocked": "Certains paramètres sont verrouillés, car des soumissions ont été reçues.",
-	"hlpSubmissionNotificationEmail": "Saisissez une ou plusieurs adresses e-mails séparées par une virgule pour recevoir des notifications lors de la soumission d’un devoir."
+	"hlpSubmissionNotificationEmail": "Saisissez une ou plusieurs adresses e-mails séparées par une virgule pour recevoir des notifications lors de la soumission d’un devoir.",
+	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 };

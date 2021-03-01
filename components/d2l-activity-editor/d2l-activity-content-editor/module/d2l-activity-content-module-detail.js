@@ -68,7 +68,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						.ariaLabel="content-description"
 						.key="content-description"
 						.value="${descriptionRichText}"
-						@d2l-activity-html-editor-change="${this._onRichtextChange}"
+						@d2l-activity-text-editor-change="${this._onRichtextChange}"
 						.richtextEditorConfig="${{}}"
 					>
 					</d2l-activity-text-editor>
@@ -106,6 +106,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			return;
 		}
 
+		this._saveOnChange('description');
 		await moduleEntity.save();
 	}
 
@@ -132,6 +133,10 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			return;
 		}
 		moduleEntity.setDescription(richText);
+	}
+
+	_saveOnChange(jobName) {
+		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 }
 customElements.define('d2l-activity-content-module-detail', ContentModuleDetail);

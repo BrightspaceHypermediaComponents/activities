@@ -45,5 +45,6 @@ export default {
 	"hdrSpecialAccess": "Specialåtkomst", // special access heading
 	"hlpSpecialAccess": "Med specialåtkomst kan uppgifter endast vara tillgängliga för en utvald grupp användare eller ha individuella förfallodatum för vissa användare.", // special access help
 	"assignmentLocked": "Vissa inställningar är låsta eftersom inlämningar har tagits emot.",
-	"hlpSubmissionNotificationEmail": "Ange en e-postadress eller flera e-postadresser avgränsade med kommatecken för att få aviseringar när en uppgift skickas."
+	"hlpSubmissionNotificationEmail": "Ange en e-postadress eller flera e-postadresser avgränsade med kommatecken för att få aviseringar när en uppgift skickas.",
+	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 };

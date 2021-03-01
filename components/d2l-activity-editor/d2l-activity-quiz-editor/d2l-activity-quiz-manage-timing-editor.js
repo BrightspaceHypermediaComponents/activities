@@ -1,4 +1,5 @@
 import '@brightspace-ui/core/components/inputs/input-number.js';
+import '@brightspace-ui/core/components/inputs/input-radio-spacer.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
@@ -28,6 +29,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 					width: auto;
 				}
 				.d2l-input-radio-label {
+					align-items: start;
 					padding-right: 1rem;
 				}
 				.d2l-input-radio-label:last-of-type {
@@ -37,10 +39,6 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 					line-height: 2rem;
 					margin-left: 0.2rem;
 					margin-right: 0.2rem;
-				}
-				.d2l-time-menu-container {
-					margin-left: 1.7rem;
-					margin-right: 1.7rem;
 				}
 				.d2l-manage-timing-editor-timing-type-title {
 					margin-bottom: 0.8rem;
@@ -100,7 +98,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 	}
 
 	_isInputTimeInvalid(data, min, max) {
-		return data < min || data > max;
+		return data !== undefined && (data < min || data > max);
 	}
 
 	_renderExtendedDeadline(entity) {
@@ -112,7 +110,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 		} = entity || {};
 
 		return isAutomaticZero ? html`
-			<div class="d2l-time-menu-container">
+			<d2l-input-radio-spacer>
 				<label>
 					<span class="d2l-input-label">${this.localize('extendedDeadlineLabel')}</span>
 					${canEditExtendedDeadline ? html`
@@ -123,7 +121,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 					` : html`<span>${extendedDeadline}</span>`}
 					<span class='d2l-input-number-label'>${this.localize('extendedDeadlineInputLabel')}</span>
 				</label>
-			</div> ` : null;
+			</d2l-input-radio-spacer> ` : null;
 	}
 
 	_renderRecommendedTimeLimitMenu(entity) {
@@ -138,11 +136,11 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 		const hideMinutesLabel = true;
 		const inputValueRequired = true;
 		return html`
-			<div class="d2l-time-menu-container">
+			<d2l-input-radio-spacer>
 				<div class="d2l-time-enforcement-input-container">
 					<d2l-input-number
-						label=${this.localize('minutesLabel')}
-						title=${this.localize('minutesLabel')}
+						label=${recommendedTimeLimit.title}
+						title=${recommendedTimeLimit.title}
 						?label-hidden=${hideMinutesLabel}
 						value=${recommendedTimeLimit.value}
 						min=${minRecommendedTimeLimit}
@@ -163,7 +161,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 						</d2l-input-checkbox>
 					</label>
 				</div>
-			</div>
+			</d2l-input-radio-spacer>
 		`;
 	}
 	_renderTimeEnforcedMenu(entity) {
@@ -189,7 +187,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 		timeEnforcementProperties.push(graceLimit);
 
 		return html`
-			<div class="d2l-time-menu-container">
+			<d2l-input-radio-spacer>
 				<div class="d2l-time-enforcement-input-container">
 					${timeEnforcementProperties.map((type) => html`
 					<d2l-input-number
@@ -221,7 +219,7 @@ class ActivityQuizManageTimingEditor extends ActivityEditorMixin(RtlMixin(Locali
 					<div class="d2l-manage-timing-editor-submission-late-type-id-title">${submissionLateTypeIdTitle}</div>
 				`}
 				${this._renderExtendedDeadline(entity)}
-			</div>
+			</d2l-input-radio-spacer>
 		`;
 	}
 	_renderTimeEnforcementOptions(entity) {

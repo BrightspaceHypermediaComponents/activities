@@ -30,10 +30,6 @@ class ActivityQuizManageTimingContainer extends ActivityEditorWorkingCopyDialogM
     	`;
 	}
 
-	_checkinDialog(e) {
-		this.checkinDialog(e);
-	}
-
 	_renderDialog() {
 		const showSpinnerWhenLoading = true;
 		const width = 900;
@@ -46,7 +42,7 @@ class ActivityQuizManageTimingContainer extends ActivityEditorWorkingCopyDialogM
 				width="${width}"
 				title-text=${this.localize('subHdrTimingTools') }>
 					<div id="manage-timing-dialog-timing-editor">${this._renderQuizTimingEditor()}</div>
-					<d2l-button slot="footer" primary @click="${this._checkinDialog}">${this.localize('manageTimingDialogConfirmationText')}</d2l-button>
+					<d2l-button slot="footer" primary @click="${this.checkinDialog}">${this.localize('manageTimingDialogConfirmationText')}</d2l-button>
 					<d2l-button slot="footer" data-dialog-action>${this.localize('manageTimingDialogCancelText')}</d2l-button>
 			</d2l-dialog>
 		`;

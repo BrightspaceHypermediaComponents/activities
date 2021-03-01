@@ -1,6 +1,6 @@
 /* eslint quotes: 0 */
 
 export default {
-   "course" : "Kurs",
-   "learning-path" : "Inlärningsväg"
+  "course" : "Kurs",
+  "learning-path" : "Inlärningsväg"
 }

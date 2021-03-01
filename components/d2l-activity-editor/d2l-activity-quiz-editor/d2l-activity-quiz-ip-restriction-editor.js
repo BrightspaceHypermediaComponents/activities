@@ -60,7 +60,7 @@ class ActivityQuizIpRestrictionEditor
 			ipRestrictionsHref
 		} = entity || {};
 
-		this.ipRestrictionsHref = ipRestrictionsHref;
+		this.ipRestrictionsHref = ipRestrictionsHref || '';
 
 		return html`
 			${this._renderDialog()}

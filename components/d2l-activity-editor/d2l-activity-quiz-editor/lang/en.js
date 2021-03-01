@@ -90,7 +90,7 @@ export default {
 	"ipRestrictionsTableStartRangeHdr": "IP Range Start", // text for IP restrictions table header start
 	"ipRestrictionsTableEndRangeHdr": "IP Range End", // text for IP restrictions table header end
 	"ipRestrictionsTableDeleteRangeHdr": "Delete", // text for IP restrictions table header delete
-	"ipRestrictionsValidationError": "Invalid IP address format. Please correct outlined fields.", // error message for invalid IP addresses
+	"ipRestrictionsValidationError": "Invalid IP address format. Please correct outlined fields. Example IP address: 155.55.5.15.", // error message for invalid IP addresses
 	"ipRestrictions500Error": "Something went wrong. Please try again.", // error message for IP restrictions 500 response
 	"ipRestrictionsHelpTxtConfirmation": "OK", // confirmation text on IP restrictions help dialog
 	"hdrIpRestrictionsHelpDialog": "Information: IP Restrictions (IPv4)", // timing/display accordion header

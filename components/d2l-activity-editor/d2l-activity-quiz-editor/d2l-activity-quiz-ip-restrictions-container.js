@@ -148,7 +148,7 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 						<d2l-input-text
 							class="d2l-ip-input"
 							@input="${this._generateHandler(this._handleChange, index)}"
-							value="${start}"
+							value="${start || ''}"
 							name="start">
 						</d2l-input-text>
 
@@ -158,7 +158,7 @@ class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEd
 						<d2l-input-text
 							class="d2l-ip-input"
 							@input="${this._generateHandler(this._handleChange, index)}"
-							value="${end}"
+							value="${end || ''}"
 							name="end">
 						</d2l-input-text>
 

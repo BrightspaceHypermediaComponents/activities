@@ -131,7 +131,10 @@ class ActivityQuizIpRestrictionEditor
 			return;
 		}
 
-		return errors.map((error) => {
+		// using a set to filter out duplicate error messages
+		const uniqueErrors = Array.from(new Set(errors));
+
+		return uniqueErrors.map((error) => {
 
 			if (error === 500 || !error) {
 				error = this.localize('ipRestrictions500Error');

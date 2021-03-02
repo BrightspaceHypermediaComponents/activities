@@ -224,7 +224,9 @@ class ActivityQuizIpRestrictionEditor
 			return true;
 		}
 
-		const isValid = !restriction.formValue || validateIp(restriction.formValue);
+		const isEnd = restriction.name === 'end'; // end values can be empty
+
+		const isValid = isEnd && !restriction.formValue || validateIp(restriction.formValue);
 
 		restriction.setAttribute('aria-invalid', !isValid);
 

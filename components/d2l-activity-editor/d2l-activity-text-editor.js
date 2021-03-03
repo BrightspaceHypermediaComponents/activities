@@ -9,7 +9,8 @@ class ActivityTextEditor extends LitElement {
 			richtextEditorConfig: { type: Object },
 			disabled: { type: Boolean },
 			ariaLabel: { type: String },
-			key: { type: String }
+			key: { type: String },
+			htmlEditorHeight: { type: String }
 		};
 	}
 
@@ -42,7 +43,8 @@ class ActivityTextEditor extends LitElement {
 						value="${this.value}"
 						ariaLabel="${this.ariaLabel}"
 						?disabled="${this.disabled}"
-						@d2l-activity-html-editor-change="${this._onRichtextChange}">
+						@d2l-activity-html-editor-change="${this._onRichtextChange}"
+						htmlEditorHeight="${this.htmlEditorHeight}">
 					</d2l-activity-html-new-editor>
 				`;
 			} else {

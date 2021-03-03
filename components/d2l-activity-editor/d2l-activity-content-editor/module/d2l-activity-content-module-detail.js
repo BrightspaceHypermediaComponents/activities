@@ -29,7 +29,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 					margin-bottom: 7px;
 				}
 				#html-editor-container {
-					min-height: 300px;
+					min-height: 325px;
 				}
 			`
 		];
@@ -73,8 +73,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						.value="${descriptionRichText}"
 						@d2l-activity-text-editor-change="${this._onRichtextChange}"
 						.richtextEditorConfig="${{}}"
-						htmlEditorHeight="325px"
-					>
+						htmlEditorHeight="325px">
 					</d2l-activity-text-editor>
 				</div>
 			</div>

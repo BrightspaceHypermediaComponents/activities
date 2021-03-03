@@ -25,11 +25,14 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			labelStyles,
 			activityContentEditorStyles,
 			css`
+				:host([skeleton]) .d2l-skeletize::before {
+					z-index: 3;
+				}
 				.d2l-activity-label-container {
 					margin-bottom: 7px;
 				}
 				#html-editor-container {
-					min-height: 325px;
+					min-height: 100px;
 				}
 			`
 		];

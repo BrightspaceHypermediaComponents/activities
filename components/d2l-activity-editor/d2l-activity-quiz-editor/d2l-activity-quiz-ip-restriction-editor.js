@@ -51,6 +51,8 @@ class ActivityQuizIpRestrictionEditor
 
 	constructor() {
 		super(store);
+
+		this._scrollToAlert = this._scrollToAlert.bind(this);
 	}
 
 	render() {
@@ -181,6 +183,7 @@ class ActivityQuizIpRestrictionEditor
 		const hasValidationError = this._validate();
 
 		if (hasValidationError) {
+			this._scrollToAlert();
 			return;
 		}
 
@@ -188,6 +191,16 @@ class ActivityQuizIpRestrictionEditor
 
 		if (!entity.errors || !entity.errors.length) {
 			this.checkinDialog(e);
+			return;
+		}
+
+		this._scrollToAlert();
+	}
+
+	_scrollToAlert() {
+		const el = this.shadowRoot.querySelector('d2l-alert');
+		if (el && el.scrollIntoView) {
+			el.scrollIntoView();
 		}
 	}
 

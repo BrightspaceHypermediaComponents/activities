@@ -8,3 +8,14 @@ export const validateIp = (ip) => {
 
 	return ipRegExp.test(ip.trim());
 };
+
+export const ipToInt = (ip) => {
+	let numericIp = 0;
+
+	ip.split('.').forEach((octet) => {
+		numericIp <<= 8;
+		numericIp += parseInt(octet);
+	});
+
+	return (numericIp >>> 0);
+};

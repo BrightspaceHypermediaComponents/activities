@@ -112,5 +112,7 @@ export default {
 	"percentageRangeText": "%", // copy on Attempts Condition range editor on Attempts Dialog
 	"quizTimingValidationError": "Timing cannot be changed, please correct the outlined fields", // Appears in error alert when validation fails in Manage Timing dialog
 	"quizTimingServerError": "Something went wrong. Please try again.", // Timing save server error alert message
-	"quizTimingSummary": "{timingType} ({numMinutes, plural, =1 {1 minute} other {{numMinutes} minutes}})" // Timing type followed by (x minute) or (x minutes). e.g. Recommended time limit (120 minutes)
+	"quizTimingSummary": "{timingType} ({numMinutes, plural, =1 {1 minute} other {{numMinutes} minutes}})", // Timing type followed by (x minute) or (x minutes). e.g. Recommended time limit (120 minutes)
+	"ipRestrictionsDuplicateError": "Duplicate IP range start address. Each IP range start value must be unique.", // Error for duplicate IP
+	"ipRestrictionsRangeError": "Invalid IP address range provided. Please ensure ranges are correctly formatted." // Error for invalid IP ranges
 };

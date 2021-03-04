@@ -1,186 +1,357 @@
-import '@brightspace-ui/core/components/dialog/dialog.js';
-import 'd2l-table/d2l-table';
-import 'd2l-table/d2l-tr';
-import 'd2l-table/d2l-th';
-import 'd2l-table/d2l-table-style.js';
-import 'd2l-table/d2l-tbody';
-import 'd2l-table/d2l-thead';
-import { css, html } from 'lit-element/lit-element';
-import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin';
-import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
-import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
+import '@brightspace-ui/core/components/button/button-subtle.js';
+import './d2l-activity-quiz-ip-restrictions-editor.js';
+import './d2l-activity-quiz-ip-restrictions-help-dialog.js';
+import 'd2l-inputs/d2l-input-text.js';
+import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
+import { css, html } from 'lit-element/lit-element.js';
+import { sharedIpRestrictions as ipStore, shared as store } from './state/quiz-store.js';
+import { ipToInt, validateIp } from './helpers/ip-validation-helper.js';
+import { ActivityEditorWorkingCopyDialogMixin } from '../mixins/d2l-activity-editor-working-copy-dialog-mixin';
+import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
-import { sharedIpRestrictions as store } from './state/quiz-store.js';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 
-class ActivityQuizIpRestrictionsContainer extends ActivityEditorMixin(ActivityEditorContainerMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
+class ActivityQuizIpRestrictionsContainer
+	extends ActivityEditorWorkingCopyDialogMixin(RtlMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
+
+	static get properties() {
+
+		return {
+			href: { type: String },
+			token: { type: Object },
+			ipRestrictionsHref: { type: String },
+
+		};
+	}
 
 	static get styles() {
-		return css`
+
+		return [
+			bodyCompactStyles,
+			bodySmallStyles,
+			labelStyles,
+			css`
 				:host {
 					display: block;
 				}
+
 				:host([hidden]) {
 					display: none;
 				}
-				d2l-button-subtle {
-					margin-top: 0.5rem;
-				}
-				d2l-thead {
-					font-weight: 700;
-				}
-				d2l-button {
+
+				d2l-alert {
 					margin: 1rem 0;
 				}
-			`;
+
+				#ip-container {
+					height: 250px;
+				}
+
+				#ip-summary {
+					margin-top: 0.55rem;
+				}
+			`
+		];
 	}
 
 	constructor() {
 		super(store);
 
-		this._deleteIp = this._deleteIpRestriction.bind(this);
-		this._handleChange = this._handleChange.bind(this);
+		this._scrollToAlert = this._scrollToAlert.bind(this);
 	}
 
 	render() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return html``;
-		}
+		const entity = store.get(this.dialogHref);
+
+		const {
+			ipRestrictionsHref
+		} = entity || {};
+
+		this.ipRestrictionsHref = ipRestrictionsHref || '';
 
 		return html`
-			${this._renderIpRestrictionTable()}
-			${this._renderAddRowButton()}
-    	`;
+			${this._renderDialog()}
+			${this._renderDialogOpener()}
+		`;
 	}
 
-	_addRow() {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return;
+	async _handleClose(e) {
+		await this.checkinDialog(e);
+
+		const checkedOutQuizEntity = this.checkedOutHref && store.get(this.checkedOutHref);
+		if (!checkedOutQuizEntity) return;
+
+		const { ipRestrictionsHref: checkedOutIpHref } = checkedOutQuizEntity;
+		if (!checkedOutIpHref) return;
+
+		const dialogQuizEntity = this.dialogHref && store.get(this.dialogHref);
+		if (!dialogQuizEntity) return;
+
+		const { ipRestrictionsHref: dialogIpHref } = dialogQuizEntity;
+
+		const dialogIpEntity = ipStore.get(dialogIpHref);
+		const checkedOutIpEntity = ipStore.get(checkedOutIpHref);
+
+		// Replace checkedOut ip entity with dialog ip entity to immediately update summarizer.
+		checkedOutIpEntity.load(dialogIpEntity._entity);
+
+		// Refetch checkedOut timing entity to ensure we display the correct timing summary.
+		checkedOutIpEntity.fetch(true);
+	}
+
+	_handleValidationError(errorKey) {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity) return;
+
+		const errorMsg = this.localize(errorKey);
+		entity.setErrors([errorMsg]);
+		return true;
+	}
+
+	_hasDuplicates() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity || !entity.ipRestrictions || !entity.ipRestrictions.length) {
+			return false;
+		}
+		const startRanges = entity.ipRestrictions.map(restriction => restriction.start);
+
+		return new Set(startRanges).size !== startRanges.length;
+	}
+
+	_hasValidInputs() {
+		const ipRestrictionsEditor = this.shadowRoot.querySelector('d2l-activity-quiz-ip-restrictions-editor');
+
+		if (!ipRestrictionsEditor) return;
+
+		const inputs = ipRestrictionsEditor.shadowRoot.querySelectorAll('.d2l-ip-input');
+
+		const isInitialState = inputs.length === 2 && inputs[0].formValue === '' && inputs[1].formValue === '';
+
+		if (isInitialState) {
+			return true;
 		}
 
-		entity.addRestriction();
-	}
+		let areInputsValid = true;
 
-	async _deleteIpRestriction(_, index) {
-		const entity = store.get(this.href);
-		if (!entity) {
-			return;
+		for (const input of inputs) {
+			if (!this._validateRestriction(input)) {
+				areInputsValid = false;
+			}
 		}
 
-		if (entity.ipRestrictions.length > 1) {
-			this._sendResizeEvent();
+		return areInputsValid;
+	}
+
+	_hasValidRanges() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity || !entity.ipRestrictions || !entity.ipRestrictions.length) {
+			return true;
 		}
 
-		entity.deleteIpRestriction(index);
+		for (const range of entity.ipRestrictions) {
 
-		await this.updateComplete;
-		this._sendDeleteEvent();
-	}
+			if (!range.end) continue;
 
-	_generateHandler(handler, rowindex) {
-		return (e) => handler(e, rowindex);
-	}
-
-	_handleChange(e, index) {
-		const { name, value } = e.target;
-
-		const entity = store.get(this.href);
-		if (!entity) {
-			return;
+			if (ipToInt(range.start) > ipToInt(range.end)) {
+				return false;
+			}
 		}
 
-		entity.setIpRestriction(index, name, value);
+		return true;
 	}
 
-	_renderAddRowButton() {
+	_renderActionButtons() {
 		return html`
+			<div slot="footer" id="d2l-actions-container">
+				<d2l-button ?disabled="${this.isSaving}" primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
+				<d2l-button ?disabled="${this.isSaving}" data-dialog-action>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
+			</div>
+		`;
+	}
+
+	_renderDialog() {
+		return html`
+			<d2l-dialog
+				async
+				?opened="${this.opened}"
+				@d2l-dialog-close="${this.closeDialog}"
+				title-text="${this.localize('hdrIpRestrictionDialog')}">
+
+				<div id="ip-container">
+					${this._renderErrors()}
+					${this._renderHelpDialog()}
+					${this._renderIpRestrictionsEditor()}
+				</div>
+
+				${this._renderActionButtons()}
+
+			</d2l-dialog>
+		`;
+	}
+
+	_renderDialogOpener() {
+		const entity = store.get(this.href);
+		if (!entity) {
+			return;
+		}
+
+		// this is a hack so we don't have to fetch the IP restrictions entity just to determine this permission
+		const canEditIpRestrictions = entity.canEditName;
+
+		return html`
+			<div class="d2l-label-text">
+				${this.localize('ipRestrictionLabel')}
+			</div>
+
+			${this._renderSummary()}
+
 			<d2l-button-subtle
-				text=${this.localize('ipRestrictionsDialogAddNewRange')}
+				?disabled=${!canEditIpRestrictions}
+				text="${this.localize('btnOpenIpRestrictionDialog')}"
 				h-align="text"
-				icon="tier1:plus-large"
-				@click="${this._addRow}">
+				@click="${this.openDialog}">
 			</d2l-button-subtle>
 		`;
 	}
 
-	_renderIpRestrictionTable() {
-		return html`
-			<custom-style>
-				<style include="d2l-table-style">
-					:host {
-						display: block;
-					}
-				</style>
-			</custom-style>
-
-			<d2l-table id="ip-restrictions-table">
-			 	<d2l-thead>
-			 		<d2l-tr>
-			 			<d2l-th class="title">${this.localize('ipRestrictionsTableStartRangeHdr')}</d2l-th>
-			 			<d2l-th>${this.localize('ipRestrictionsTableEndRangeHdr')}</d2l-th>
-			 			<d2l-th>${this.localize('ipRestrictionsTableDeleteRangeHdr')}</d2l-th>
-			 		</d2l-tr>
-				</d2l-thead>
-				<d2l-tbody>
-
-					${this._renderRestrictionRows()}
-
-				</d2l-tbody>
-
-			</d2l-table>
-		`;
-	}
-
-	_renderRestrictionRows() {
-		const entity = store.get(this.href);
-		if (!entity || !entity.ipRestrictions || !entity.ipRestrictions.length) {
-			return html``;
+	_renderErrors() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity) {
+			return;
 		}
 
-		return entity.ipRestrictions.map((restriction, index) => {
-			const { start, end } = restriction;
+		const { errors } = entity || {};
+
+		if (!errors || !errors.length) {
+			return;
+		}
+
+		// using a set to filter out duplicate error messages
+		const uniqueErrors = Array.from(new Set(errors));
+
+		return uniqueErrors.map((error) => {
+
+			if (error === 500 || !error) {
+				error = this.localize('ipRestrictions500Error');
+			}
 
 			return html`
-				<d2l-tr>
-					<d2l-th>
-
-						<d2l-input-text
-							class="d2l-ip-input"
-							@input="${this._generateHandler(this._handleChange, index)}"
-							value="${start || ''}"
-							name="start">
-						</d2l-input-text>
-
-					</d2l-th>
-					<d2l-th>
-
-						<d2l-input-text
-							class="d2l-ip-input"
-							@input="${this._generateHandler(this._handleChange, index)}"
-							value="${end || ''}"
-							name="end">
-						</d2l-input-text>
-
-					</d2l-th>
-					<d2l-th>
-						<d2l-button-icon
-						icon="d2l-tier1:delete"
-						aria-label="delete"
-						@click="${this._generateHandler(this._deleteIp, index)}">
-						</d2l-button-icon>
-					</d2l-th>
-				</d2l-tr>
+				<d2l-alert type="warning">${error}</d2l-alert>
 			`;
 		});
 	}
 
-	_sendDeleteEvent() {
-		this.dispatchEvent(new CustomEvent('ip-restriction-deleted', { bubbles: true, composed: true }));
+	_renderHelpDialog() {
+		return html`
+			<d2l-activity-quiz-ip-restrictions-help-dialog
+				href="${this.ipRestrictionsHref}"
+				.token="${this.token}">
+			</d2l-activity-quiz-ip-restrictions-help-dialog>
+		`;
 	}
 
-	_sendResizeEvent() {
-		this.dispatchEvent(new CustomEvent('restrictions-resize-dialog', { bubbles: true, composed: true }));
+	_renderIpRestrictionsEditor() {
+		return html`
+			<d2l-activity-quiz-ip-restrictions-editor
+				href="${this.ipRestrictionsHref}"
+				.token="${this.token}"
+				@restrictions-resize-dialog="${this._resizeDialog}"
+				@ip-restriction-deleted="${this._validate}">
+			</d2l-activity-quiz-ip-restrictions-editor>
+		`;
+	}
+
+	_renderSummary() {
+		const quizEntity = store.get(this.checkedOutHref);
+		if (!quizEntity) return;
+
+		const ipHref = quizEntity.ipRestrictionsHref;
+
+		const ipEntity = ipStore.get(ipHref);
+		if (!ipEntity) {
+			return;
+		}
+
+		if (!ipEntity.ipRestrictions || ipEntity.ipRestrictions.length === 0 || !ipEntity.ipRestrictions[0].start) {
+			return;
+		}
+
+		return html`<p id="ip-summary" class="d2l-body-small">
+						${this.localize('ipRestrictionsInnerSummary', 'count', ipEntity.ipRestrictions.length)}
+					</p>`;
+	}
+
+	_resizeDialog() {
+		const dialog = this.shadowRoot.querySelector('d2l-dialog');
+		dialog.resize();
+	}
+
+	async _saveRestrictions(e) {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+
+		if (!entity) {
+			return;
+		}
+		const hasValidationError = this._validate();
+		if (hasValidationError) {
+			this._scrollToAlert();
+			return;
+		}
+
+		await entity.saveRestrictions();
+
+		if (!entity.errors || !entity.errors.length) {
+			this._handleClose(e);
+			return;
+		}
+
+		this._scrollToAlert();
+	}
+
+	async _scrollToAlert() {
+		await this.updateComplete;
+
+		const el = this.shadowRoot.querySelector('d2l-alert');
+		if (el && el.scrollIntoView) {
+			el.scrollIntoView();
+		}
+	}
+
+	_validate() {
+		const entity = ipStore.get(this.ipRestrictionsHref);
+		if (!entity) return;
+
+		entity.setErrors([]);
+
+		if (!this._hasValidInputs()) {
+			return this._handleValidationError('ipRestrictionsValidationError');
+		}
+
+		if (this._hasDuplicates()) {
+			return this._handleValidationError('ipRestrictionsDuplicateError');
+		}
+
+		if (!this._hasValidRanges()) {
+			return this._handleValidationError('ipRestrictionsRangeError');
+		}
+
+		this._resizeDialog();
+
+		return false;
+	}
+
+	_validateRestriction(restriction) {
+		if (!restriction) {
+			return true;
+		}
+
+		const isEnd = restriction.name === 'end'; // end values can be empty
+
+		const isValid = isEnd && !restriction.formValue || validateIp(restriction.formValue);
+
+		restriction.setAttribute('aria-invalid', !isValid);
+
+		return isValid;
 	}
 }
 

@@ -6,7 +6,7 @@ import '../d2l-activity-usage-conditions-summary.js';
 import './d2l-activity-ip-restrictions-summary.js';
 import './d2l-activity-quiz-password-summary';
 import './d2l-activity-quiz-password-editor.js';
-import './d2l-activity-quiz-ip-restriction-editor';
+import './d2l-activity-quiz-ip-restrictions-container.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -119,10 +119,10 @@ class ActivityQuizAvailabilityEditor extends ActivityEditorMixin(AsyncContainerM
 	_renderIpRestrictionEditor() {
 
 		return html`
-			<d2l-activity-quiz-ip-restriction-editor
+			<d2l-activity-quiz-ip-restrictions-container
 				.href="${this.href}"
 				.token="${this.token}">
-			</d2l-activity-quiz-ip-restriction-editor>
+			</d2l-activity-quiz-ip-restrictions-container>
 		`;
 	}
 

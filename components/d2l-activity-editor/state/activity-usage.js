@@ -42,7 +42,8 @@ export class ActivityUsage {
 
 		await Promise.all([
 			this._loadSpecialAccess(entity),
-			this._loadCompetencyOutcomes(entity)
+			this._loadCompetencyOutcomes(entity),
+			this._loadScoreOutOf(entity)
 		]);
 	}
 
@@ -159,6 +160,14 @@ export class ActivityUsage {
 		});
 	}
 
+	async _loadScoreOutOf(entity) {
+		const linkedScoreOutOfEntity = entity.scoreOutOfHref();
+		if (linkedScoreOutOfEntity) {
+			const scoreOutOfEntity = await fetchEntity(entity.scoreOutOfHref(), this.token);
+			runInAction(() => this.scoreOutOf = scoreOutOfEntity.properties.scoreOutOf);
+		}
+	}
+
 	async _loadSpecialAccess(entity) {
 		const specialAccessHref = entity.specialAccessHref();
 		let specialAccess = null;
@@ -211,6 +220,7 @@ decorate(ActivityUsage, {
 	canEditCompetencies: observable,
 	competenciesDialogUrl: observable,
 	specialAccess: observable,
+	scoreOutOf: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

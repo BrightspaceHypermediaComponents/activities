@@ -10,30 +10,6 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { shared as store } from './state/quiz-store';
 
 class ActivityQuizManageHeaderFooterContainer extends ActivityEditorDialogMixin(RtlMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
-	static get styles() {
-		return [
-			bodySmallStyles,
-			labelStyles,
-			css`
-				#manage-header-footer-dialog-header-footer-editor {
-					height: 430px;
-				}
-				d2l-alert {
-					margin-bottom: 1rem;
-				}
-				.d2l-activity-quiz-manage-header-footer-container-dialog-summary {
-					margin: 0.5rem 0;
-				}
-				.d2l-activity-quiz-manage-header-footer-container-dialog-summary d2l-icon {
-					margin-right: 0.3rem;
-				}
-				:host([dir="rtl"]) .d2l-activity-quiz-manage-header-footer-container-dialog-summary d2l-icon {
-					margin-left: 0.3rem;
-					margin-right: 0;
-				}
-			`,
-		];
-	}
 
 	constructor() {
 		super(store);
@@ -41,8 +17,6 @@ class ActivityQuizManageHeaderFooterContainer extends ActivityEditorDialogMixin(
 
 	firstUpdated() {
 		super.firstUpdated();
-		this.serverErrorTerm = this.localize('quizHeaderFooterServerError');
-		this.validationErrorTerm = this.localize('quizHeaderFooterValidationError');
 	}
 
 	render() {
@@ -54,7 +28,6 @@ class ActivityQuizManageHeaderFooterContainer extends ActivityEditorDialogMixin(
 	}
 
 	_renderDialogLabel() {
-		console.log('Should see the label here');
 		return html`
 			<div id="manage-header-footer-editor-label" class="d2l-label-text">${this.localize('subHdrHeaderFooter')}</div>
 		`;
@@ -70,13 +43,9 @@ class ActivityQuizManageHeaderFooterContainer extends ActivityEditorDialogMixin(
 		const entity = store.get(this.dialogHref);
 		if (!entity) return html``;
 
-		const {
-			timingHref
-		} = entity || {};
-
 		return html`
 			<d2l-activity-quiz-manage-header-footer-editor
-				href="${timingHref}"
+				href="${this.href}"
 				.token="${this.token}">
 			</d2l-activity-quiz-manage-header-footer-editor>
 		`;

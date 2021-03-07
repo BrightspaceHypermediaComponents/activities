@@ -1,6 +1,6 @@
 {
-	"extends": "brightspace/polymer-3-config",
-	"env": {
+  "extends": "brightspace/polymer-3-config",
+  "env": {
     "es6": true,
     "jest": true
   },

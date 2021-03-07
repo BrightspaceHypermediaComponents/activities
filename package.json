@@ -6,8 +6,9 @@
   },
   "name": "d2l-activities",
   "scripts": {
-    "lint": "npm run lint:style && npm run lint:wc && npm run lint:js",
+    "lint": "npm run lint:style && npm run lint:wc && npm run lint:js && npm run lint:lang",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.html",
+    "lint:lang": "mfv -i untranslated -e",
     "lint:style": "stylelint \"**/*.js\"",
     "lint:wc": "polymer lint -i \"./*\" \"components\" \"demo\" \"test\"",
     "test:karma": "karma start",
@@ -47,6 +48,7 @@
     "karma": "^6.1.0",
     "karma-sauce-launcher": "^4",
     "lie": "^3.3.0",
+    "messageformat-validator": "^1.1.0",
     "mocha": "^7.1.0",
     "polymer-cli": "^1.9.2",
     "sinon": "^9.0.1",

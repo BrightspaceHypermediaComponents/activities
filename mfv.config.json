@@ -1,0 +1,6 @@
+{
+	"path": "components/*/lang/",
+	"source": "en",
+	"locales": "ar,cy-gb,cy,da,de,en,es-es,es,fr-ca,fr-fr,fr,ja,ko,nl,pt,sv,tr,zh-tw,zh",
+	"format": "js"
+}

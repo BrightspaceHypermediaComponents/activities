@@ -1,6 +1,7 @@
 import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { ActivityDates } from './activity-dates.js';
 import { ActivityScoreGrade } from './activity-score-grade.js';
+// import { ActivityScoreOutOfEntity } from 'siren-sdk/src/activities/ActivityScoreOutOfEntity.js';
 import { ActivitySpecialAccess } from './activity-special-access.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsHierarchicalEntity } from 'siren-sdk/src/alignments/AlignmentsHierarchicalEntity.js';
@@ -37,13 +38,13 @@ export class ActivityUsage {
 		this.isError = false;
 		this.dates = new ActivityDates(entity);
 		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
+		await this.scoreAndGrade.fetch(entity);
 		this.associationsHref = entity.getDirectRubricAssociationsHref();
 		this.specializationHref = entity.specializationHref();
 
 		await Promise.all([
 			this._loadSpecialAccess(entity),
 			this._loadCompetencyOutcomes(entity),
-			this._loadScoreOutOf(entity)
 		]);
 	}
 
@@ -159,15 +160,6 @@ export class ActivityUsage {
 			this.canUpdateAlignments = alignmentsHierarchical.canUpdateAlignments();
 		});
 	}
-
-	async _loadScoreOutOf(entity) {
-		const linkedScoreOutOfEntity = entity.scoreOutOfHref();
-		if (linkedScoreOutOfEntity) {
-			const scoreOutOfEntity = await fetchEntity(entity.scoreOutOfHref(), this.token);
-			runInAction(() => this.scoreOutOf = scoreOutOfEntity.properties.scoreOutOf);
-		}
-	}
-
 	async _loadSpecialAccess(entity) {
 		const specialAccessHref = entity.specialAccessHref();
 		let specialAccess = null;
@@ -220,7 +212,6 @@ decorate(ActivityUsage, {
 	canEditCompetencies: observable,
 	competenciesDialogUrl: observable,
 	specialAccess: observable,
-	scoreOutOf: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

@@ -32,8 +32,7 @@ class ActivityQuizEditorActionBar extends ActivityEditorMixin(SkeletonMixin(RtlM
 		if (!entity) {
 			return html``;
 		}
-
-		const { scoreOutOf } = entity || {};
+		const scoreOutOf = entity.scoreAndGrade && entity.scoreAndGrade.scoreOutOf;
 		return html`
             <div class='d2l-action-bar-container d2l-skeletize'>
                 ${scoreOutOf ? html`<div class='d2l-body-standard'>${this.localize('totalPoints', { scoreOutOf })}</div>` : null }

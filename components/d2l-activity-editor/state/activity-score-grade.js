@@ -1,14 +1,23 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { fetchEntity } from './fetch-entity.js';
 import { GradeCandidateCollection } from '../d2l-activity-grades/state/grade-candidate-collection.js';
 
 configureMobx({ enforceActions: 'observed' });
 
 export class ActivityScoreGrade {
 
-	constructor(entity, token) {
+	constructor(token) {
+		this.token = token;
+	}
+
+	addToGrades() {
+		this.inGrades = true;
+	}
+
+	async fetch(entity) {
+		await entity.fetchLinkedScoreOutOfEntity(fetchEntity);
 		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
 		this.scoreOutOfError = null;
-		this.token = token;
 		this.inGrades = entity.inGrades();
 		this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
 		this.isUngraded = !this.inGrades && !this.scoreOutOf;
@@ -22,9 +31,6 @@ export class ActivityScoreGrade {
 		this.newGradeCandidatesCollection = null;
 	}
 
-	addToGrades() {
-		this.inGrades = true;
-	}
 	async fetchGradeCandidates() {
 		if (this.gradeCandidateCollection) {
 			return;

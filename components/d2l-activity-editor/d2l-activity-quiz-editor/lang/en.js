@@ -65,9 +65,6 @@ export default {
 	"description": "Description", // Description label for the Description text input box
 	"showClockTitle": "Show clock", // Title for show clock
 	"description": "Description", // Description label for the Description text input box,
-	"btnOpenIpRestrictionDialog": "Manage IP restrictions", // Button text for opening IP restriction dialog
-	"hdrIpRestrictionDialog": "IP Restrictions (IPv4)", // timing/display accordion header
-	"ipRestrictionLabel": "IP Restrictions", // Label for IP restrictions editor
 	"manageAttemptsDialogConfirmationText": "OK", // copy that appears on the Attempts dialog confirmation button
 	"manageAttemptsDialogCancelText": "Cancel", // copy that appears on the Attempts dialog cancel button
 	"subHdrAttemptsTools": "Attempts", // Title for attempts tools
@@ -111,10 +108,14 @@ export default {
 	"maxLabel": "Max:", // label for Max input on Attempts Conditions range editor on Attempts Dialog
 	"andRangeText": "and", // copy on Attempts Condition range editor on Attempts Dialog
 	"percentageRangeText": "%", // copy on Attempts Condition range editor on Attempts Dialog
+	"ipRestrictionsSummary": "IP restrictions", // summary to be displayed when a quiz has ip restrictions
+	"ipRestrictionsInnerSummary" : "{count, plural, =1 {1 restriction} other {{count} restrictions}}", // summary to be displayed when accordion is expanded
 	"quizTimingValidationError": "Timing cannot be changed, please correct the outlined fields.", // Appears in error alert when validation fails in Manage Timing dialog
 	"quizTimingServerError": "Something went wrong. Please try again.", // Timing save server error alert message
 	"quizTimingSummary": "{timingType} ({numMinutes, plural, =1 {1 minute} other {{numMinutes} minutes}})", // Timing type followed by (x minute) or (x minutes). e.g. Recommended time limit (120 minutes)
 	"ipRestrictionsDuplicateError": "Duplicate IP range start address. Each IP range start value must be unique.", // Error for duplicate IP
 	"ipRestrictionsRangeError": "Invalid IP address range provided. Please ensure ranges are correctly formatted.", // Error for invalid IP ranges
-	"totalPoints": "Total Points {scoreOutOf}" // Total points text that appears on quiz editor above list of questions
+	"totalPoints": "Total Points {scoreOutOf}", // Total points text that appears on quiz editor above list of questions
+	"subHdrHeaderFooter": "Header and Footer", // Header and Footer accordion header
+	"manageHeaderFooter": "Manage Header and Footer" // Label for button to launch Header and Footer dialog
 };

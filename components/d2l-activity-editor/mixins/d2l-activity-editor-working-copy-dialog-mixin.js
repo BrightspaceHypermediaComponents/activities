@@ -42,9 +42,11 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 	}
 
 	async checkinDialog(e) {
-		this.isSaving = true;
 		const entity = this.store.get(this.dialogHref);
 		if (!entity) return;
+
+		this.isSaving = true;
+		this.isError = false;
 
 		const inputsValid = await this._verifyAllInputsValid();
 		if (!inputsValid) {
@@ -59,9 +61,8 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 		} catch (e) {
 			this.isError = true;
 			this.errorTerm = this.serverErrorTerm;
-			return;
-		} finally {
 			this.isSaving = false;
+			return;
 		}
 
 		this.closeDialog(e);
@@ -87,7 +88,7 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 		const entity = this.store.get(this.checkedOutHref);
 		if (!entity) return;
 
-		await entity.checkin(this.store);
+		await entity.checkin(this.store, true);
 	}
 
 	async _focusOnInvalid() {

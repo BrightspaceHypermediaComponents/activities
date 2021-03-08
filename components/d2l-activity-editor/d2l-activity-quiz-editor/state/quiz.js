@@ -12,7 +12,7 @@ export class Quiz {
 		this._checkedOut = null;
 	}
 
-	async checkin(quizStore) {
+	async checkin(quizStore, refetch) {
 		if (!this._entity) {
 			return;
 		}
@@ -36,6 +36,10 @@ export class Quiz {
 		const entity = new Quiz(href, this.token);
 		entity.load(sirenEntity);
 		quizStore.put(href, entity);
+
+		if (refetch) {
+			this.fetch(true);
+		}
 	}
 
 	checkout(quizStore, forcedCheckout) {
@@ -79,8 +83,8 @@ export class Quiz {
 		return isQuizDirty || isCheckedOutEntityDirty;
 	}
 
-	async fetch() {
-		const sirenEntity = await fetchEntity(this.href, this.token);
+	async fetch(bypassCache) {
+		const sirenEntity = await fetchEntity(this.href, this.token, bypassCache);
 		if (sirenEntity) {
 			const entity = new QuizEntity(sirenEntity, this.token, {
 				remove: () => { },

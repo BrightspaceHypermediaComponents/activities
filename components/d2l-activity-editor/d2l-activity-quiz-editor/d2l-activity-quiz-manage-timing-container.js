@@ -58,7 +58,7 @@ class ActivityQuizManageTimingContainer extends ActivityEditorWorkingCopyDialogM
 	async _checkinDialog(e) {
 		await this.checkinDialog(e);
 
-		if (!this.isError) {
+		if (!this.opened) {
 			// Dialog successfully checked in
 			const checkedOutQuizEntity = this.checkedOutHref && store.get(this.checkedOutHref);
 			if (!checkedOutQuizEntity) return;

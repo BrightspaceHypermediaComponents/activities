@@ -11,6 +11,7 @@ import './d2l-activity-quiz-shuffle-editor.js';
 import './d2l-activity-quiz-shuffle-summary.js';
 import './d2l-activity-quiz-manage-timing-container';
 import './d2l-activity-quiz-timing-summary';
+import './d2l-activity-quiz-manage-header-footer-container';
 import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
@@ -100,6 +101,10 @@ class ActivityQuizTimingAndDisplayEditor extends ActivityEditorMixin(AsyncContai
 					${this._renderDisablePagerAndAlertsEditor()}
 				</div>
 
+				<div class="d2l-editors" slot="components">
+					${this._renderManageHeaderFooterContainer()}
+				</div>
+
 			</d2l-activity-accordion-collapse>
 		`;
 	}
@@ -161,6 +166,16 @@ class ActivityQuizTimingAndDisplayEditor extends ActivityEditorMixin(AsyncContai
 			</d2l-activity-quiz-hints-editor>
 		`;
 	}
+
+	_renderManageHeaderFooterContainer() {
+		return html`
+			<d2l-activity-quiz-manage-header-footer-container
+				href="${this.href}"
+				.token="${this.token}">
+			</d2l-activity-quiz-manage-header-footer-container>
+		`;
+	}
+
 	_renderManageTimingContainer() {
 		return html`
 			<d2l-activity-quiz-manage-timing-container

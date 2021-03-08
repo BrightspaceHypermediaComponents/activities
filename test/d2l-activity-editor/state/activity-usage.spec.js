@@ -52,7 +52,8 @@ describe('Activity Usage', function() {
 			unevaluatedCompetenciesCount: () => unevaluatedCompetenciesCount,
 			competenciesDialogUrl: () => competenciesDialogUrl,
 			specialAccessHref: () => null,
-			specializationHref: () => null
+			specializationHref: () => null,
+			fetchLinkedScoreOutOfEntity: () => null
 		};
 	}
 

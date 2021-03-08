@@ -39,23 +39,24 @@ describe('Activity Score Grade', function() {
 			gradeHref: () => 'http://test-grade-href',
 			gradeCandidatesHref: () => 'http://grade-candidate-collection-href',
 			newGradeCandidatesHref: () => undefined,
-			isNewGradeCandidate: () => false
+			isNewGradeCandidate: () => false,
+			fetchLinkedScoreOutOfEntity: () => null
 		};
 	});
 
 	describe('fetching', () => {
 
 		it('initializes with score and in grades', async() => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
-
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			expect(activity.isUngraded).to.be.false;
 		});
 
 		it('initializes with score only', async() => {
 			defaultEntityMock.inGrades = () => false;
 
-			const activity = new ActivityScoreGrade(defaultEntityMock);
-
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			expect(activity.isUngraded).to.be.false;
 		});
 
@@ -63,13 +64,14 @@ describe('Activity Score Grade', function() {
 			defaultEntityMock.scoreOutOf = () => '';
 			defaultEntityMock.inGrades = () => false;
 
-			const activity = new ActivityScoreGrade(defaultEntityMock);
-
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			expect(activity.isUngraded).to.be.true;
 		});
 
 		it('initializes with correct createNewGrade', async() => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 
 			expect(activity.createNewGrade).to.be.false;
 		});
@@ -78,7 +80,8 @@ describe('Activity Score Grade', function() {
 	describe('updating', () => {
 
 		it('reacts to ungraded', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 
 			when(
 				() => activity.isUngraded,
@@ -93,7 +96,8 @@ describe('Activity Score Grade', function() {
 		});
 
 		it('reacts to graded', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setUngraded();
 
 			when(
@@ -107,7 +111,8 @@ describe('Activity Score Grade', function() {
 		});
 
 		it('reacts to remove from grades', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 
 			when(
 				() => !activity.inGrades,
@@ -120,7 +125,8 @@ describe('Activity Score Grade', function() {
 		});
 
 		it('reacts to set score', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 
 			when(
 				() => activity.scoreOutOf === '99',
@@ -131,7 +137,8 @@ describe('Activity Score Grade', function() {
 		});
 
 		it('reacts to set new grade name', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 
 			when(
 				() => activity.newGradeName === 'a new grade name',
@@ -142,7 +149,8 @@ describe('Activity Score Grade', function() {
 		});
 
 		it('reacts to link to new grade', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 
 			when(
 				() => activity.createNewGrade,
@@ -191,7 +199,8 @@ describe('Activity Score Grade', function() {
 
 			it('sets scoreOutOf when scoreOutOf is empty', async(done) => {
 				defaultEntityMock.scoreOutOf = () => '';
-				const activity = new ActivityScoreGrade(defaultEntityMock, 'token');
+				const activity = new ActivityScoreGrade('token');
+				await activity.fetch(defaultEntityMock);
 				await activity.fetchGradeCandidates();
 
 				when(
@@ -204,7 +213,7 @@ describe('Activity Score Grade', function() {
 
 			it('links and sets scoreOutOf when coming from ungraded with create new and link selected', async(done) => {
 
-				const activity = new ActivityScoreGrade(defaultEntityMock, 'token');
+				const activity = new ActivityScoreGrade('token');
 				activity.linkToNewGrade();
 				activity.setUngraded();
 
@@ -223,7 +232,8 @@ describe('Activity Score Grade', function() {
 			});
 
 			it('links and sets scoreOutOf', async(done) => {
-				const activity = new ActivityScoreGrade(defaultEntityMock, 'token');
+				const activity = new ActivityScoreGrade('token');
+				await activity.fetch(defaultEntityMock);
 
 				await activity.fetchGradeCandidates();
 
@@ -242,25 +252,28 @@ describe('Activity Score Grade', function() {
 	});
 
 	describe('validating', () => {
-		it('validates empty score when graded', () => {
+		it('validates empty score when graded', async() => {
 			defaultEntityMock.scoreOutOf = () => '';
 			defaultEntityMock.inGrades = () => false;
 
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setGraded();
 
 			expect(activity.validate()).to.be.false;
 			expect(activity.scoreOutOfError).to.equal('emptyScoreOutOfError');
 		});
 
-		it('validates invalid score', () => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+		it('validates invalid score', async() => {
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setScoreOutOf('abc');
 			expect(activity.scoreOutOfError).to.equal('invalidScoreOutOfError');
 		});
 
-		it('resets empty score error when remove from grades', () => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+		it('resets empty score error when remove from grades', async() => {
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setScoreOutOf('');
 			expect(activity.scoreOutOfError).to.equal('emptyScoreOutOfError');
 
@@ -268,8 +281,9 @@ describe('Activity Score Grade', function() {
 			expect(activity.scoreOutOfError).to.be.null;
 		});
 
-		it('does not reset invalid score error when remove from grades', () => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+		it('does not reset invalid score error when remove from grades', async() => {
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setScoreOutOf('abc');
 			expect(activity.scoreOutOfError).to.equal('invalidScoreOutOfError');
 
@@ -277,8 +291,9 @@ describe('Activity Score Grade', function() {
 			expect(activity.scoreOutOfError).to.equal('invalidScoreOutOfError');
 		});
 
-		it('resets score and invalid error when set ungraded', () => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+		it('resets score and invalid error when set ungraded', async() => {
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setScoreOutOf('abc');
 			expect(activity.scoreOutOfError).to.equal('invalidScoreOutOfError');
 
@@ -288,8 +303,9 @@ describe('Activity Score Grade', function() {
 			expect(activity.scoreOutOfError).to.be.null;
 		});
 
-		it('resets score and empty error when set ungraded', () => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+		it('resets score and empty error when set ungraded', async() => {
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			activity.setScoreOutOf('');
 			expect(activity.scoreOutOfError).to.equal('emptyScoreOutOfError');
 
@@ -300,7 +316,8 @@ describe('Activity Score Grade', function() {
 		});
 
 		it('reacts to score error', async(done) => {
-			const activity = new ActivityScoreGrade(defaultEntityMock);
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
 			when(
 				() => !activity.scoreOutOfError,
 				done

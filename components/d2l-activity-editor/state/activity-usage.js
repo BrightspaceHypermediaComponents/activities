@@ -36,14 +36,14 @@ export class ActivityUsage {
 		this.canEditDraft = entity.canEditDraft();
 		this.isError = false;
 		this.dates = new ActivityDates(entity);
-		this.scoreAndGrade = new ActivityScoreGrade(entity, this.token);
-		await this.scoreAndGrade.fetch(entity);
+		this.scoreAndGrade = new ActivityScoreGrade(this.token);
 		this.associationsHref = entity.getDirectRubricAssociationsHref();
 		this.specializationHref = entity.specializationHref();
 
 		await Promise.all([
 			this._loadSpecialAccess(entity),
-			this._loadCompetencyOutcomes(entity)
+			this._loadCompetencyOutcomes(entity),
+			this.scoreAndGrade.fetch(entity)
 		]);
 	}
 

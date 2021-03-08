@@ -1,7 +1,6 @@
 import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { ActivityDates } from './activity-dates.js';
 import { ActivityScoreGrade } from './activity-score-grade.js';
-// import { ActivityScoreOutOfEntity } from 'siren-sdk/src/activities/ActivityScoreOutOfEntity.js';
 import { ActivitySpecialAccess } from './activity-special-access.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsHierarchicalEntity } from 'siren-sdk/src/alignments/AlignmentsHierarchicalEntity.js';
@@ -44,7 +43,7 @@ export class ActivityUsage {
 
 		await Promise.all([
 			this._loadSpecialAccess(entity),
-			this._loadCompetencyOutcomes(entity),
+			this._loadCompetencyOutcomes(entity)
 		]);
 	}
 

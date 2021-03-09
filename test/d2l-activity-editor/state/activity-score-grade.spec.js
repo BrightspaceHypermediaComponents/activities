@@ -75,6 +75,15 @@ describe('Activity Score Grade', function() {
 
 			expect(activity.createNewGrade).to.be.false;
 		});
+
+		it('initializes scoreOutOf with value provided by fetchLinkedScoreOutOfEntity', async() => {
+			defaultEntityMock.fetchLinkedScoreOutOfEntity = () => {
+				defaultEntityMock.scoreOutOf = () => '1234';
+			};
+			const activity = new ActivityScoreGrade('token');
+			await activity.fetch(defaultEntityMock);
+			expect(activity.scoreOutOf).to.equal('1234');
+		});
 	});
 
 	describe('updating', () => {
@@ -214,6 +223,7 @@ describe('Activity Score Grade', function() {
 			it('links and sets scoreOutOf when coming from ungraded with create new and link selected', async(done) => {
 
 				const activity = new ActivityScoreGrade('token');
+				await activity.fetch(defaultEntityMock);
 				activity.linkToNewGrade();
 				activity.setUngraded();
 

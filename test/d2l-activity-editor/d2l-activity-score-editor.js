@@ -17,7 +17,8 @@ describe('d2l-activity-score-editor', function() {
 	let el, href, activity, score;
 
 	beforeEach(async() => {
-		score = new ActivityScoreGrade({
+		score = new ActivityScoreGrade('token');
+		await score.fetch({
 			scoreOutOf: () => 50,
 			inGrades: () => true,
 			gradeType: () => 'Points',
@@ -27,7 +28,8 @@ describe('d2l-activity-score-editor', function() {
 			gradeHref: () => '',
 			gradeCandidatesHref: () => '',
 			newGradeCandidatesHref: () => undefined,
-			isNewGradeCandidate: () => false
+			isNewGradeCandidate: () => false,
+			fetchLinkedScoreOutOfEntity: () => null
 		});
 		href = 'http://activity/1';
 

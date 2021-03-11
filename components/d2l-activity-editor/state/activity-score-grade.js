@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { fetchEntity } from './fetch-entity.js';
 import { GradeCandidateCollection } from '../d2l-activity-grades/state/grade-candidate-collection.js';
 
@@ -16,19 +16,21 @@ export class ActivityScoreGrade {
 
 	async fetch(entity) {
 		await entity.fetchLinkedScoreOutOfEntity(fetchEntity);
-		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
-		this.scoreOutOfError = null;
-		this.inGrades = entity.inGrades();
-		this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
-		this.isUngraded = !this.inGrades && !this.scoreOutOf;
-		this.canEditScoreOutOf = entity.canEditScoreOutOf();
-		this.canSeeGrades = entity.canSeeGrades();
-		this.canEditGrades = entity.canEditGrades();
-		this.gradeCandidatesHref = entity.gradeCandidatesHref();
-		this.gradeCandidateCollection = null;
-		this.createNewGrade = !entity.gradeHref();
-		this.newGradeCandidatesHref = entity.newGradeCandidatesHref();
-		this.newGradeCandidatesCollection = null;
+		runInAction(() => {
+			this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
+			this.scoreOutOfError = null;
+			this.inGrades = entity.inGrades();
+			this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
+			this.isUngraded = !this.inGrades && !this.scoreOutOf;
+			this.canEditScoreOutOf = entity.canEditScoreOutOf();
+			this.canSeeGrades = entity.canSeeGrades();
+			this.canEditGrades = entity.canEditGrades();
+			this.gradeCandidatesHref = entity.gradeCandidatesHref();
+			this.gradeCandidateCollection = null;
+			this.createNewGrade = !entity.gradeHref();
+			this.newGradeCandidatesHref = entity.newGradeCandidatesHref();
+			this.newGradeCandidatesCollection = null;
+		});
 	}
 
 	async fetchGradeCandidates() {

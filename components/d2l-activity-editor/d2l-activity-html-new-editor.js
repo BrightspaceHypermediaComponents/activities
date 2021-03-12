@@ -44,6 +44,13 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		`;
 	}
 
+	save() {
+		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
+		if (editor.files && editor.files.length) {
+			// upload files to content
+		}
+	}
+
 	_isPasteAllowed() {
 		const context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 

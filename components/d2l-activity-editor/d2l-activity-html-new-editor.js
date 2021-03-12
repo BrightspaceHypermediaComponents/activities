@@ -1,8 +1,8 @@
 import '@brightspace-ui/htmleditor/htmleditor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
-
-class ActivityHtmlNewEditor extends LocalizeActivityEditorMixin(LitElement) {
+class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(LitElement)) {
 
 	static get properties() {
 		return {
@@ -29,6 +29,8 @@ class ActivityHtmlNewEditor extends LocalizeActivityEditorMixin(LitElement) {
 	}
 
 	render() {
+		const allowPaste = this._isPasteAllowed();
+
 		return html`
 			<d2l-htmleditor
 				html="${this.value}"
@@ -36,9 +38,16 @@ class ActivityHtmlNewEditor extends LocalizeActivityEditorMixin(LitElement) {
 				label-hidden
 				?disabled="${this.disabled}"
 				height="${this.htmlEditorHeight}"
+				paste-local-images="${allowPaste}"
 				@d2l-htmleditor-blur="${this._onContentChange}">
 			</d2l-htmleditor>
 		`;
+	}
+
+	_isPasteAllowed() {
+		const context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
+
+		return context.uploadFiles && context.viewFiles;
 	}
 
 	_onContentChange() {

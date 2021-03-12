@@ -26,6 +26,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	constructor() {
 		super();
 		this.htmlEditorHeight = '10rem';
+		this.context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 	}
 
 	render() {
@@ -44,17 +45,24 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		`;
 	}
 
-	save() {
+	async save() {
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
 		if (editor.files && editor.files.length) {
-			// upload files to content
+
+			const { orgUnitId, orgUnitPath, maxFileSize } = this.context;
+
+			const promises = editor.files.map(file => this._uploadFile(file, orgUnitId, orgUnitPath, maxFileSize));
+
+			try {
+				await Promise.all(promises);
+			} catch (e) {
+				// Do something with error?
+			}
 		}
 	}
 
 	_isPasteAllowed() {
-		const context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
-
-		return context.uploadFiles && context.viewFiles;
+		return this.context.uploadFiles && this.context.viewFiles;
 	}
 
 	_onContentChange() {
@@ -66,6 +74,27 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				content: content
 			}
 		}));
+	}
+
+	_uploadFile(file, orgUnitId, orgUnitPath, maxFileSize) {
+		file.name = file.FileName;
+
+		return new Promise((resolve, reject) => {
+
+			D2L.LP.Web.UI.Html.Files.FileUpload.XmlHttpRequest.UploadFiles(
+				[file],
+				{
+					UploadLocation: new D2L.LP.Web.Http.UrlLocation(
+						`/d2l/lp/fileupload${orgUnitPath}${orgUnitId}?maxFileSize=${maxFileSize}`
+					),
+					OnFileComplete: uploadedFile => resolve(uploadedFile),
+					OnAbort: errorResponse => reject(errorResponse),
+					OnError: errorResponse => reject(errorResponse),
+					OnProgress: () => { }
+				}
+			);
+
+		});
 	}
 }
 

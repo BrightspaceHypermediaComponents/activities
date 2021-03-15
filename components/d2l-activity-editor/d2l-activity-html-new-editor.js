@@ -49,16 +49,32 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
 		if (editor.files && editor.files.length) {
 
-			const { orgUnitId, orgUnitPath, maxFileSize } = this.context;
+			const fileBlobs = await this._getFileBlobs(editor.files);
 
-			const promises = editor.files.map(file => this._uploadFile(file, orgUnitId, orgUnitPath, maxFileSize));
+			if (!fileBlobs) return;
 
-			try {
-				await Promise.all(promises);
-			} catch (e) {
-				// Do something with error?
-			}
+			const uploadFilePromises = fileBlobs.map(blob => this._uploadFile(blob));
+
+			await Promise.all(uploadFilePromises).catch(() => { });
 		}
+	}
+
+	_getFile(src, name) {
+		return window.fetch(src).then(async(response) => {
+			if (!response.ok) return;
+
+			const blob = await response.blob();
+
+			blob.name = name;
+
+			return blob;
+		});
+	}
+
+	async _getFileBlobs(files) {
+		const filteredPromises = files.filter(file => file.FileSystemType === 'Temp').map(file => this._getFile(file.Location, file.FileName));
+
+		return await Promise.all(filteredPromises).catch(() => null);
 	}
 
 	_isPasteAllowed() {
@@ -76,8 +92,8 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		}));
 	}
 
-	_uploadFile(file, orgUnitId, orgUnitPath, maxFileSize) {
-		file.name = file.FileName;
+	_uploadFile(file) {
+		const { orgUnitId, orgUnitPath, maxFileSize } = this.context;
 
 		return new Promise((resolve, reject) => {
 
@@ -96,6 +112,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 		});
 	}
+
 }
 
 customElements.define('d2l-activity-html-new-editor', ActivityHtmlNewEditor);

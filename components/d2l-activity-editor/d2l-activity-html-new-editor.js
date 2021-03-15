@@ -26,7 +26,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	constructor() {
 		super();
 		this.htmlEditorHeight = '10rem';
-		this.context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
+		this._context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 	}
 
 	render() {
@@ -61,7 +61,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	}
 
 	_isPasteAllowed() {
-		return this.context.uploadFiles && this.context.viewFiles;
+		return this._context.uploadFiles && this._context.viewFiles;
 	}
 
 	_onContentChange() {
@@ -76,7 +76,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	}
 
 	_uploadFile(file) {
-		const { orgUnitId } = this.context;
+		const { orgUnitId } = this._context;
 
 		return new Promise((resolve, reject) => {
 			D2L.LP.Web.UI.Rpc.Connect(D2L.LP.Web.UI.Rpc.Verbs.POST,

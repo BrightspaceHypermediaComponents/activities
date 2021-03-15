@@ -49,11 +49,11 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
 		if (editor.files && editor.files.length) {
 
-			const fileBlobs = await this._getFileBlobs(editor.files);
+			const tempFiles = editor.files.filter(file => file.FileSystemType === 'Temp');
 
-			if (!fileBlobs) return;
+			if (!tempFiles || !tempFiles.length) return;
 
-			const uploadFilePromises = fileBlobs.map(blob => this._uploadFile(blob));
+			const uploadFilePromises = tempFiles.map(blob => this._uploadFile(blob));
 
 			await Promise.all(uploadFilePromises).catch(() => { });
 		}
@@ -69,12 +69,6 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 			return blob;
 		});
-	}
-
-	async _getFileBlobs(files) {
-		const filteredPromises = files.filter(file => file.FileSystemType === 'Temp').map(file => this._getFile(file.Location, file.FileName));
-
-		return await Promise.all(filteredPromises).catch(() => null);
 	}
 
 	_isPasteAllowed() {
@@ -93,26 +87,18 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	}
 
 	_uploadFile(file) {
-		const { orgUnitId, orgUnitPath, maxFileSize } = this.context;
+		const { orgUnitId } = this.context;
 
 		return new Promise((resolve, reject) => {
-
-			D2L.LP.Web.UI.Html.Files.FileUpload.XmlHttpRequest.UploadFiles(
-				[file],
+			D2L.LP.Web.UI.Rpc.Connect(D2L.LP.Web.UI.Rpc.Verbs.POST,
+				new D2L.LP.Web.Http.UrlLocation('/d2l/lp/htmleditor/tinymce/moveUploadedFile'),
+				{ orgUnitId: orgUnitId, fileId: file.Id },
 				{
-					UploadLocation: new D2L.LP.Web.Http.UrlLocation(
-						`/d2l/lp/fileupload${orgUnitPath}${orgUnitId}?maxFileSize=${maxFileSize}`
-					),
-					OnFileComplete: uploadedFile => resolve(uploadedFile),
-					OnAbort: errorResponse => reject(errorResponse),
-					OnError: errorResponse => reject(errorResponse),
-					OnProgress: () => { }
-				}
-			);
-
+					success: success => resolve(success),
+					failure: error => reject(error)
+				});
 		});
 	}
-
 }
 
 customElements.define('d2l-activity-html-new-editor', ActivityHtmlNewEditor);

@@ -54,7 +54,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 			if (!tempFiles || !tempFiles.length) return;
 
-			const uploadFilePromises = tempFiles.map(blob => this._uploadFile(blob));
+			const uploadFilePromises = tempFiles.map(file => this._uploadFile(file));
 
 			await Promise.all(uploadFilePromises).catch(() => { });
 		}

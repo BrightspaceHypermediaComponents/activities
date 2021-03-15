@@ -47,7 +47,8 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 	async save() {
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
-		if (editor.files && editor.files.length) {
+
+		if (editor && editor.files && editor.files.length) {
 
 			const tempFiles = editor.files.filter(file => file.FileSystemType === 'Temp');
 
@@ -57,18 +58,6 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 			await Promise.all(uploadFilePromises).catch(() => { });
 		}
-	}
-
-	_getFile(src, name) {
-		return window.fetch(src).then(async(response) => {
-			if (!response.ok) return;
-
-			const blob = await response.blob();
-
-			blob.name = name;
-
-			return blob;
-		});
 	}
 
 	_isPasteAllowed() {

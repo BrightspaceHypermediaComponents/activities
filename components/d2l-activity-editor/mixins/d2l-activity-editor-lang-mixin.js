@@ -15,8 +15,8 @@ export const LocalizeActivityEditorMixin = superclass => class extends LocalizeM
 				case 'ar':
 					translations = await import('../lang/ar.js');
 					break;
-				case 'da-dk':
-					translations = await import('../lang/da-dk.js');
+				case 'da':
+					translations = await import('../lang/da.js');
 					break;
 				case 'de':
 					translations = await import('../lang/de.js');
@@ -48,11 +48,11 @@ export const LocalizeActivityEditorMixin = superclass => class extends LocalizeM
 				case 'tr':
 					translations = await import('../lang/tr.js');
 					break;
+				case 'zh-cn':
+					translations = await import('../lang/zh-cn.js');
+					break;
 				case 'zh-tw':
 					translations = await import('../lang/zh-tw.js');
-					break;
-				case 'zh':
-					translations = await import('../lang/zh.js');
 					break;
 			}
 			if (translations && translations.default) {

@@ -1,7 +1,7 @@
 import 'd2l-localize-behavior/d2l-localize-behavior.js';
 import ar from './lang/ar.js';
-import cygb from './lang/cy-gb.js';
-import dadk from './lang/da-dk.js';
+import cy from './lang/cy.js';
+import da from './lang/da.js';
 import de from './lang/de.js';
 import en from './lang/en.js';
 import es from './lang/es.js';
@@ -15,7 +15,7 @@ import nl from './lang/nl.js';
 import pt from './lang/pt.js';
 import sv from './lang/sv.js';
 import tr from './lang/tr.js';
-import zh from './lang/zh.js';
+import zhcn from './lang/zh-cn.js';
 import zhtw from './lang/zh-tw.js';
 
 // eslint-disable-next-line sort-imports
@@ -32,8 +32,8 @@ const ActivityCardImpl = (superClass) => {
 						return {
 							'en': en,
 							'ar': ar,
-							'cy-gb': cygb,
-							'da-dk': dadk,
+							'cy': cy,
+							'da': da,
 							'de': de,
 							'es': es,
 							'es-es': eses,

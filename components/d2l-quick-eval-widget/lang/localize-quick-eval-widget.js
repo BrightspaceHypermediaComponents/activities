@@ -9,8 +9,8 @@ export const LocalizeQuickEvalWidget = superclass => class extends LocalizeMixin
 				case 'ar':
 					translations = await import('./ar.js');
 					break;
-				case 'cy-gb':
-					translations = await import('./cy-gb.js');
+				case 'cy':
+					translations = await import('./cy.js');
 					break;
 				case 'da':
 					translations = await import('./da.js');
@@ -54,8 +54,8 @@ export const LocalizeQuickEvalWidget = superclass => class extends LocalizeMixin
 				case 'zh-tw':
 					translations = await import('./zh-tw.js');
 					break;
-				case 'zh':
-					translations = await import('./zh.js');
+				case 'zh-cn':
+					translations = await import('./zh-cn.js');
 					break;
 			}
 			if (translations && translations.default) {

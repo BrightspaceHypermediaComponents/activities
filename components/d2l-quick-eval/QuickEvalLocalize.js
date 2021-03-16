@@ -32,8 +32,8 @@ const QuickEvalLocalizeImpl = (superClass) => {
 						return {
 							'en': en,
 							'ar': ar,
-							'cy': cygb,
-							'da': dadk,
+							'cy': cy,
+							'da': da,
 							'de': de,
 							'es': es,
 							'es-es': eses,
@@ -91,9 +91,6 @@ export const LitQuickEvalLocalize = superclass => class extends LocalizeMixin(su
 					break;
 				case 'es-es':
 					translations = eses;
-					break;
-				case 'fi':
-					translations = fi;
 					break;
 				case 'fr':
 					translations = fr;

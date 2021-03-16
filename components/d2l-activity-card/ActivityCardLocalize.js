@@ -6,7 +6,6 @@ import de from './lang/de.js';
 import en from './lang/en.js';
 import es from './lang/es.js';
 import eses from './lang/es-es.js';
-import fi from './lang/fi.js';
 import fr from './lang/fr.js';
 import frfr from './lang/fr-fr.js';
 import ja from './lang/ja.js';
@@ -37,7 +36,6 @@ const ActivityCardImpl = (superClass) => {
 							'de': de,
 							'es': es,
 							'es-es': eses,
-							'fi': fi,
 							'fr': fr,
 							'fr-fr': frfr,
 							'ja': ja,
@@ -46,7 +44,7 @@ const ActivityCardImpl = (superClass) => {
 							'pt': pt,
 							'sv': sv,
 							'tr': tr,
-							'zh': zh,
+							'zh-cn': zhcn,
 							'zh-tw': zhtw
 						};
 					}

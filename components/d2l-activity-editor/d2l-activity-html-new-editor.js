@@ -9,7 +9,8 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 			value: { type: String },
 			ariaLabel: { type: String },
 			disabled: { type: Boolean },
-			htmlEditorHeight: { type: String }
+			htmlEditorHeight: { type: String },
+			_filesToReplace: { type: Object }
 		};
 	}
 
@@ -27,6 +28,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		super();
 		this.htmlEditorHeight = '10rem';
 		this._context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
+		this._filesToReplace = {};
 	}
 
 	render() {
@@ -39,8 +41,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				label-hidden
 				?disabled="${this.disabled}"
 				height="${this.htmlEditorHeight}"
-				paste-local-images="${allowPaste}"
-				@d2l-htmleditor-blur="${this._onContentChange}">
+				paste-local-images="${allowPaste}">
 			</d2l-htmleditor>
 		`;
 	}
@@ -57,15 +58,12 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 			const uploadFilePromises = tempFiles.map(file => this._uploadFile(file));
 
 			await Promise.all(uploadFilePromises).catch(() => { });
+
+			this._parseHtml();
 		}
 	}
 
-	_isPasteAllowed() {
-		return this._context.uploadFiles && this._context.viewFiles;
-	}
-
-	_onContentChange() {
-		const content = this.shadowRoot.querySelector('d2l-htmleditor').html;
+	_dispatchChangeEvent(content) {
 		this.dispatchEvent(new CustomEvent('d2l-activity-html-editor-change', {
 			bubbles: true,
 			composed: true,
@@ -73,6 +71,23 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				content: content
 			}
 		}));
+	}
+
+	_isPasteAllowed() {
+		return this._context.uploadFiles && this._context.viewFiles;
+	}
+
+	_parseHtml() {
+		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
+		if (!editor) return;
+
+		const currentHtml = editor.html;
+
+		const regex = new RegExp(Object.keys(this._filesToReplace).join('|'), 'gi');
+
+		editor.html = currentHtml.replace(regex, (matched) => this._filesToReplace[matched]);
+
+		this._dispatchChangeEvent(editor.html);
 	}
 
 	_uploadFile(file) {
@@ -83,8 +98,13 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				new D2L.LP.Web.Http.UrlLocation('/d2l/lp/htmleditor/tinymce/moveUploadedFile'),
 				{ orgUnitId: orgUnitId, fileId: file.Id },
 				{
-					success: success => resolve(success),
-					failure: error => reject(error)
+					success: result => {
+						this._filesToReplace[file.Location] = result.FileUrl;
+						resolve(result);
+					},
+					failure: error => {
+						reject(error);
+					}
 				});
 		});
 	}

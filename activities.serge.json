@@ -9,18 +9,17 @@
     "output_file_path": "components/d2l-activity-evaluation-icon/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "activityCard",
@@ -32,18 +31,17 @@
     "output_file_path": "components/d2l-activity-card/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "activityDate",
@@ -55,18 +53,17 @@
     "output_file_path": "components/d2l-activity-date/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "listItem",
@@ -78,18 +75,17 @@
     "output_file_path": "components/d2l-activity-list-item/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "quickEval",
@@ -101,18 +97,17 @@
     "output_file_path": "components/d2l-quick-eval/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "activityEditor",
@@ -124,18 +119,17 @@
     "output_file_path": "components/d2l-activity-editor/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "activityCollectionEditor",
@@ -147,18 +141,17 @@
     "output_file_path": "components/d2l-activity-collection-editor/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "assignmentActivityEditor",
@@ -170,18 +163,17 @@
     "output_file_path": "components/d2l-activity-editor/d2l-activity-assignment-editor/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
+      "da-dk da",
       "de-de de",
       "es-mx es",
-      "fi-FI fi",
       "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "quickEvalWidget",
@@ -193,21 +185,17 @@
     "output_file_path": "components/d2l-quick-eval-widget/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
       "da-dk da",
       "de-de de",
       "es-mx es",
-      "fr-ca fr-ca",
-      "fr-fr fr",
-      "es-es es",
-      "cy-gb cy",
+      "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   },{
     "name": "workToDo",
@@ -219,21 +207,17 @@
     "output_file_path": "components/d2l-work-to-do/lang/%LANG%.js",
     "output_lang_rewrite": [
       "ar-sa ar",
+      "cy-gb cy",
       "da-dk da",
       "de-de de",
       "es-mx es",
-      "fr-ca fr-ca",
-      "fr-fr fr",
-      "es-es es",
-      "cy-gb cy",
+      "fr-ca fr",
       "ja-jp ja",
       "ko-kr ko",
       "nl-nl nl",
       "pt-br pt",
       "sv-se sv",
-      "tr-tr tr",
-      "zh-cn zh",
-      "zh-tw zh-tw"
+      "tr-tr tr"
     ]
   }
 ]

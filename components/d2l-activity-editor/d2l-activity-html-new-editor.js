@@ -83,6 +83,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 		const currentHtml = editor.html;
 
+		// Dynamically generates regex like: /oldLocation1|oldLocation2|oldLocation3/gi
 		const regex = new RegExp(Object.keys(this._filesToReplace).join('|'), 'gi');
 
 		editor.html = currentHtml.replace(regex, (matched) => this._filesToReplace[matched]);

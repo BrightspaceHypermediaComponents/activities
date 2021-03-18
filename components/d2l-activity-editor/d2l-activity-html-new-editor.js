@@ -29,6 +29,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		this.htmlEditorHeight = '10rem';
 		this._context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 		this._filesToReplace = {};
+		this.saveOrder = 500;
 	}
 
 	render() {

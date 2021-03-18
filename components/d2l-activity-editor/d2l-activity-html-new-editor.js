@@ -42,7 +42,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				label-hidden
 				?disabled="${this.disabled}"
 				height="${this.htmlEditorHeight}"
-				paste-local-images="${allowPaste}">
+				?paste-local-images="${allowPaste}">
 			</d2l-htmleditor>
 		`;
 	}

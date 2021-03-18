@@ -50,18 +50,15 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 	async save() {
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
 
-		if (editor && editor.files && editor.files.length) {
+		if (!editor || !editor.files || !editor.files.length) return;
 
-			const tempFiles = editor.files.filter(file => file.FileSystemType === 'Temp');
+		const tempFiles = editor.files.filter(file => file.FileSystemType === 'Temp');
+		if (!tempFiles || !tempFiles.length) return;
 
-			if (!tempFiles || !tempFiles.length) return;
+		const uploadFilePromises = tempFiles.map(file => this._uploadFile(file));
+		await Promise.all(uploadFilePromises).catch(() => { });
 
-			const uploadFilePromises = tempFiles.map(file => this._uploadFile(file));
-
-			await Promise.all(uploadFilePromises).catch(() => { });
-
-			this._parseHtml();
-		}
+		this._parseHtml();
 	}
 
 	_dispatchChangeEvent(content) {

@@ -49,14 +49,13 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 	async save() {
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
-
-		if (!editor || !editor.files || !editor.files.length) return;
+		if (!editor || !editor.files || !editor.files.length || !editor.isDirty) return;
 
 		const tempFiles = editor.files.filter(file => file.FileSystemType === 'Temp');
 		if (!tempFiles || !tempFiles.length) return;
 
-		const uploadFilePromises = tempFiles.map(file => this._uploadFile(file));
-		await Promise.all(uploadFilePromises).catch(() => { });
+		const moveFilePromises = tempFiles.map(file => this._moveFile(file));
+		await Promise.all(moveFilePromises).catch(() => { });
 
 		this._parseHtml();
 	}
@@ -75,21 +74,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		return this._context.uploadFiles && this._context.viewFiles;
 	}
 
-	_parseHtml() {
-		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
-		if (!editor) return;
-
-		const currentHtml = editor.html;
-
-		// Dynamically generates regex like: /oldLocation1|oldLocation2|oldLocation3/gi
-		const regex = new RegExp(Object.keys(this._filesToReplace).join('|'), 'gi');
-
-		editor.html = currentHtml.replace(regex, (matched) => this._filesToReplace[matched]);
-
-		this._dispatchChangeEvent(editor.html);
-	}
-
-	_uploadFile(file) {
+	_moveFile(file) {
 		const { orgUnitId } = this._context;
 
 		return new Promise((resolve, reject) => {
@@ -106,6 +91,20 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 					}
 				});
 		});
+	}
+
+	_parseHtml() {
+		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
+		if (!editor) return;
+
+		const currentHtml = editor.html;
+
+		// Dynamically generates regex like: /oldLocation1|oldLocation2|oldLocation3/gi
+		const regex = new RegExp(Object.keys(this._filesToReplace).join('|'), 'gi');
+
+		editor.html = currentHtml.replace(regex, (matched) => this._filesToReplace[matched]);
+
+		this._dispatchChangeEvent(editor.html);
 	}
 }
 

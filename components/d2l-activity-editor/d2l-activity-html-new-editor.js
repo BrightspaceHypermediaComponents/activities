@@ -9,7 +9,9 @@ class ActivityHtmlNewEditor extends LocalizeActivityEditorMixin(LitElement) {
 			value: { type: String },
 			ariaLabel: { type: String },
 			disabled: { type: Boolean },
-			htmlEditorHeight: { type: String }
+			htmlEditorHeight: { type: String },
+			fullPage: { type: Boolean },
+			fullPageFontSize: { type: String }
 		};
 	}
 
@@ -23,11 +25,6 @@ class ActivityHtmlNewEditor extends LocalizeActivityEditorMixin(LitElement) {
 		];
 	}
 
-	constructor() {
-		super();
-		this.htmlEditorHeight = '10rem';
-	}
-
 	render() {
 		return html`
 			<d2l-htmleditor
@@ -36,6 +33,8 @@ class ActivityHtmlNewEditor extends LocalizeActivityEditorMixin(LitElement) {
 				label-hidden
 				?disabled="${this.disabled}"
 				height="${this.htmlEditorHeight}"
+				full-page="${this.fullPage}"
+				full-page-font-size="${this.fullPageFontSize}"
 				@d2l-htmleditor-blur="${this._onContentChange}">
 			</d2l-htmleditor>
 		`;

@@ -10,7 +10,18 @@ class ActivityTextEditor extends LitElement {
 			disabled: { type: Boolean },
 			ariaLabel: { type: String },
 			key: { type: String },
-			htmlEditorHeight: { type: String }
+			htmlEditorHeight: {
+				type: String,
+				value: '10rem'
+			},
+			fullPage: {
+				type: Boolean,
+				value: false
+			},
+			fullPageFontSize: {
+				type: String,
+				value: '14pt'
+			}
 		};
 	}
 
@@ -44,7 +55,9 @@ class ActivityTextEditor extends LitElement {
 						ariaLabel="${this.ariaLabel}"
 						?disabled="${this.disabled}"
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"
-						htmlEditorHeight="${this.htmlEditorHeight}">
+						htmlEditorHeight="${this.htmlEditorHeight}"
+						fullPage="${this.fullPage}"
+						fullPageFontSize="${this.fullPageFontSize}">
 					</d2l-activity-html-new-editor>
 				`;
 			} else {

@@ -45,7 +45,6 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				height="${this.htmlEditorHeight}"
 				full-page="${this.fullPage}"
 				full-page-font-size="${this.fullPageFontSize}"
-				@d2l-htmleditor-blur="${this._onContentChange}"
 				?paste-local-images="${allowPaste}">
 			</d2l-htmleditor>
 		`;

@@ -42,13 +42,16 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				label-hidden
 				?disabled="${this.disabled}"
 				height="${this.htmlEditorHeight}"
-				paste-local-images="${allowPaste}">
+				?paste-local-images="${allowPaste}">
 			</d2l-htmleditor>
 		`;
 	}
 
 	async save() {
 		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
+
+		this._dispatchChangeEvent(editor.html);
+
 		if (!editor || !editor.files || !editor.files.length || !editor.isDirty) return;
 
 		const tempFiles = editor.files.filter(file => file.FileSystemType === 'Temp');

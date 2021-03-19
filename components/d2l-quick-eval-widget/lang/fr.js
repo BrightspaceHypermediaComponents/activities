@@ -1,8 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
-	"CaughtUp": "Vous êtes à jour !",
-	"Error": "Oups ! Une erreur s’est produite et les éléments n’ont pas pu être téléchargés. Actualisez la page ou réessayez ultérieurement.",
-	"NoSubmissions": "Vous n’avez aucune soumission qui nécessite une évaluation. Vérifiez plus tard si vous avez de nouvelles soumissions de devoirs.",
+	"CaughtUp": "Vous avez terminé!",
+	"Error": "Oups! Un problème est survenu et les éléments n'ont pu être chargés. Veuillez rafraîchir la page ou réessayer plus tard.",
+	"NoSubmissions": "Aucune soumission ne requiert d'évaluations. Revenez plus tard pour de nouvelles soumissions.",
 	"ViewAllActivities": "Afficher toutes les activités",
 };

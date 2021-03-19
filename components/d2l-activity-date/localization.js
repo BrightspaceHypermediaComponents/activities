@@ -33,11 +33,11 @@ export const LocalizeActivityDateMixin = superclass => class extends LocalizeMix
 				case 'tr':
 					translations = await import('./lang/tr.js');
 					break;
+				case 'zh-cn':
+					translations = await import('./lang/zh-cn.js');
+					break;
 				case 'zh-tw':
 					translations = await import('./lang/zh-tw.js');
-					break;
-				case 'zh':
-					translations = await import('./lang/zh.js');
 					break;
 			}
 			if (translations && translations.val) {

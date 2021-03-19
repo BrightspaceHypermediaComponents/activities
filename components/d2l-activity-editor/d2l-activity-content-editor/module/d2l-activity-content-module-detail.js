@@ -29,7 +29,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 					margin-bottom: 7px;
 				}
 				.d2l-new-html-editor-container {
-					flex-grow: 1;
+					flex: 1;
 					min-height: 300px;
 				}
 				#content-description-container {

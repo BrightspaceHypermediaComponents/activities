@@ -27,7 +27,6 @@ export class ActivityScoreGrade {
 		this.gradeCandidateCollection = new GradeCandidateCollection(this.gradeCandidatesHref, this.token);
 		await this.gradeCandidateCollection.fetch();
 	}
-
 	async fetchNewGradeCandidates() {
 		if (this.newGradeCandidatesCollection) {
 			return;
@@ -35,6 +34,10 @@ export class ActivityScoreGrade {
 
 		this.newGradeCandidatesCollection = new GradeCandidateCollection(this.newGradeCandidatesHref, this.token);
 		await this.newGradeCandidatesCollection.fetch();
+	}
+	async fetchUpdatedScoreOutOf(entity, bypassCache) {
+		await entity.fetchLinkedScoreOutOfEntity(fetchEntity, bypassCache);
+		this.loadScoreOutOf(entity);
 	}
 
 	getAssociatedGradeEntity() {
@@ -86,7 +89,9 @@ export class ActivityScoreGrade {
 		this.newGradeCandidatesHref = entity.newGradeCandidatesHref();
 		this.newGradeCandidatesCollection = null;
 	}
-
+	loadScoreOutOf(entity) {
+		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
+	}
 	async primeGradeSave() {
 		if (this.inGrades && this.createNewGrade) {
 			await this.fetchNewGradeCandidates();
@@ -98,12 +103,10 @@ export class ActivityScoreGrade {
 			this.scoreOutOfError = null;
 		}
 	}
-
 	setGraded() {
 		this.inGrades = true;
 		this.isUngraded = false;
 	}
-
 	setNewGradeName(name) {
 		this.newGradeName = name;
 	}
@@ -112,13 +115,11 @@ export class ActivityScoreGrade {
 		this.scoreOutOfError = null;
 		this.validate();
 	}
-
 	setUngraded() {
 		this.inGrades = false;
 		this.isUngraded = true;
 		this.setScoreOutOf('');
 	}
-
 	validate() {
 		// This validation was hardcoded in the original UI implementation.
 		// It might have been better to come up with a way to represent this in the Siren representation
@@ -165,5 +166,6 @@ decorate(ActivityScoreGrade, {
 	linkToNewGrade: action,
 	setNewGradeName: action,
 	primeGradeSave: action,
-	load: action
+	load: action,
+	loadScoreOutOf: action
 });

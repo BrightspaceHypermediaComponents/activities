@@ -88,7 +88,7 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 	_handleQuestionUpdated() {
 		const activity = store.get(this.href);
 		if (activity) {
-			activity.fetchUpdatedScoreAndGrade(true);
+			activity.fetchScoreAndGradeScoreOutOf(true);
 		}
 	}
 }

@@ -53,7 +53,7 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				?isnew="${this.isNew}"
 				?html-editor-enabled="${this.htmlEditorEnabled}"
 				?html-new-editor-enabled="${this.htmlNewEditorEnabled}"
-				@update-total-quiz-points="${this._updateTotalQuizPoints}">
+				@d2l-question-updated="${this._updateTotalQuizPoints}">
 
 				${this._editorTemplate}
 

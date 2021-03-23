@@ -28,11 +28,7 @@ export class ActivityUsage {
 		return this;
 	}
 	async fetchScoreAndGradeScoreOutOf(bypassCache) {
-		const sirenEntity = await fetchEntity(this.href, this.token);
-		if (sirenEntity) {
-			const entity = new ActivityUsageEntity(sirenEntity, this.token, { remove: () => { } });
-			await this.scoreAndGrade.fetchUpdatedScoreOutOf(entity, bypassCache);
-		}
+		await this.scoreAndGrade.fetchUpdatedScoreOutOf(this._entity, bypassCache);
 	}
 
 	async load(entity) {

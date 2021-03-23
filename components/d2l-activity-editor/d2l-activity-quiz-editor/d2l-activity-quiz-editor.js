@@ -53,7 +53,7 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				?isnew="${this.isNew}"
 				?html-editor-enabled="${this.htmlEditorEnabled}"
 				?html-new-editor-enabled="${this.htmlNewEditorEnabled}"
-				@d2l-question-updated="${this._updateTotalQuizPoints}">
+				@d2l-question-updated="${this._handleQuestionUpdated}">
 
 				${this._editorTemplate}
 
@@ -85,7 +85,7 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 			</div>
 		`;
 	}
-	_updateTotalQuizPoints() {
+	_handleQuestionUpdated() {
 		const activity = store.get(this.href);
 		if (activity) {
 			activity.fetchUpdatedScoreAndGrade(true);

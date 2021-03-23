@@ -9,8 +9,8 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 			value: { type: String },
 			ariaLabel: { type: String },
 			disabled: { type: Boolean },
-			htmlEditorHeight: { type: String },
 			_filesToReplace: { type: Object },
+			htmlEditorHeight: { type: String },
 			fullPage: { type: Boolean },
 			fullPageFontSize: { type: String }
 		};
@@ -43,7 +43,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				label-hidden
 				?disabled="${this.disabled}"
 				height="${this.htmlEditorHeight}"
-				full-page="${this.fullPage}"
+				?full-page="${this.fullPage}"
 				full-page-font-size="${this.fullPageFontSize}"
 				?paste-local-images="${allowPaste}">
 			</d2l-htmleditor>

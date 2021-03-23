@@ -34,6 +34,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		this._filesToReplace = {};
 		this.saveOrder = 500;
 		this.fullPage = false;
+		this.htmlEditorHeight = '10rem';
 	}
 
 	render() {

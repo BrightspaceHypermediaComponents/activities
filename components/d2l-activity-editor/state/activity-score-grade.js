@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
+import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { fetchEntity } from './fetch-entity.js';
 import { GradeCandidateCollection } from '../d2l-activity-grades/state/grade-candidate-collection.js';
 
@@ -14,23 +14,9 @@ export class ActivityScoreGrade {
 		this.inGrades = true;
 	}
 
-	async fetch(entity) {
-		await entity.fetchLinkedScoreOutOfEntity(fetchEntity);
-		runInAction(() => {
-			this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
-			this.scoreOutOfError = null;
-			this.inGrades = entity.inGrades();
-			this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
-			this.isUngraded = !this.inGrades && !this.scoreOutOf;
-			this.canEditScoreOutOf = entity.canEditScoreOutOf();
-			this.canSeeGrades = entity.canSeeGrades();
-			this.canEditGrades = entity.canEditGrades();
-			this.gradeCandidatesHref = entity.gradeCandidatesHref();
-			this.gradeCandidateCollection = null;
-			this.createNewGrade = !entity.gradeHref();
-			this.newGradeCandidatesHref = entity.newGradeCandidatesHref();
-			this.newGradeCandidatesCollection = null;
-		});
+	async fetch(entity, bypassCache) {
+		await entity.fetchLinkedScoreOutOfEntity(fetchEntity, bypassCache);
+		this.load(entity);
 	}
 
 	async fetchGradeCandidates() {
@@ -85,6 +71,22 @@ export class ActivityScoreGrade {
 		this.createNewGrade = true;
 		this.setGraded();
 	}
+	load(entity) {
+		this.scoreOutOf = entity.scoreOutOf() ? entity.scoreOutOf().toString() : '';
+		this.scoreOutOfError = null;
+		this.inGrades = entity.inGrades();
+		this.gradeType = (entity.gradeType() || entity.numericGradeTypeTitle()).toLowerCase();
+		this.isUngraded = !this.inGrades && !this.scoreOutOf;
+		this.canEditScoreOutOf = entity.canEditScoreOutOf();
+		this.canSeeGrades = entity.canSeeGrades();
+		this.canEditGrades = entity.canEditGrades();
+		this.gradeCandidatesHref = entity.gradeCandidatesHref();
+		this.gradeCandidateCollection = null;
+		this.createNewGrade = !entity.gradeHref();
+		this.newGradeCandidatesHref = entity.newGradeCandidatesHref();
+		this.newGradeCandidatesCollection = null;
+	}
+
 	async primeGradeSave() {
 		if (this.inGrades && this.createNewGrade) {
 			await this.fetchNewGradeCandidates();
@@ -162,5 +164,6 @@ decorate(ActivityScoreGrade, {
 	fetchNewGradeCandidates: action,
 	linkToNewGrade: action,
 	setNewGradeName: action,
-	primeGradeSave: action
+	primeGradeSave: action,
+	load: action
 });

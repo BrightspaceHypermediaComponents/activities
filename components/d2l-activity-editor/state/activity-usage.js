@@ -27,6 +27,13 @@ export class ActivityUsage {
 		}
 		return this;
 	}
+	async fetchUpdatedScoreAndGrade(bypassCache) {
+		const sirenEntity = await fetchEntity(this.href, this.token);
+		if (sirenEntity) {
+			const entity = new ActivityUsageEntity(sirenEntity, this.token, { remove: () => { } });
+			await this.scoreAndGrade.fetch(entity, bypassCache);
+		}
+	}
 
 	async load(entity) {
 		this._entity = entity;
@@ -43,7 +50,7 @@ export class ActivityUsage {
 		await Promise.all([
 			this._loadSpecialAccess(entity),
 			this._loadCompetencyOutcomes(entity),
-			this.scoreAndGrade.fetch(entity)
+			this.scoreAndGrade.fetch(entity, false)
 		]);
 	}
 

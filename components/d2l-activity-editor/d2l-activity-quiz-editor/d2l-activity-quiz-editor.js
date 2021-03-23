@@ -52,7 +52,8 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				error-term="${this.localize('quizSaveError')}"
 				?isnew="${this.isNew}"
 				?html-editor-enabled="${this.htmlEditorEnabled}"
-				?html-new-editor-enabled="${this.htmlNewEditorEnabled}">
+				?html-new-editor-enabled="${this.htmlNewEditorEnabled}"
+				@update-total-quiz-points="${this._updateTotalQuizPoints}">
 
 				${this._editorTemplate}
 
@@ -83,6 +84,12 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				</d2l-activity-quiz-editor-secondary>
 			</div>
 		`;
+	}
+	_updateTotalQuizPoints() {
+		const activity = store.get(this.href);
+		if (activity) {
+			activity.fetchUpdatedScoreAndGrade(true);
+		}
 	}
 }
 customElements.define('d2l-activity-quiz-editor', QuizEditor);

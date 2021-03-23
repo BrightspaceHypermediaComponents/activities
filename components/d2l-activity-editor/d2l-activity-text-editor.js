@@ -17,6 +17,11 @@ class ActivityTextEditor extends LitElement {
 		};
 	}
 
+	constructor() {
+		super();
+		this.fullPage = false;
+	}
+
 	render() {
 		const editorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-editor-enabled' },

@@ -91,7 +91,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						@d2l-activity-text-editor-change="${this._onRichtextChange}"
 						.richtextEditorConfig="${{}}"
 						html-editor-height="100%"
-						full-page="true"
+						full-page
 						full-page-font-size="12pt"
 					>
 					</d2l-activity-text-editor>

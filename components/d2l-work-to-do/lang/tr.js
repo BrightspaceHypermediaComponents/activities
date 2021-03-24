@@ -7,7 +7,7 @@ export const val = {
   comeBackNoFutureActivities: "Üzerinde çalışacağınız bir iş olup olmadığını görmek için daha sonra tekrar ziyaret edin.", // 'Empty state' - When there are no activities in full page view
   content: "İçerik", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   course: "Ders", // Meta-data descriptor that informs which type of activity is being displayed on a line item
-  dateHeader: "{startday} {startMonth} - {endday} {endMonth}", // Indicates that the below list of activities are due/end within the listed date range
+  dateHeader: "{startDay} {startMonth} - {endDay} {endMonth}", // Indicates that the below list of activities are due/end within the listed date range
   discussion: "Tartışma", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   fullViewLink: "Tüm çalışmaları görüntüle", // Link text displayed in "Activities View", where the user can navigate to the full page view to see all work
   goToDiscover: "Keşfet'e Git", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget

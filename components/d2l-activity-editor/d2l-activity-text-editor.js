@@ -1,5 +1,6 @@
 import 'd2l-inputs/d2l-input-textarea';
 import { html, LitElement } from 'lit-element/lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined';
 
 class ActivityTextEditor extends LitElement {
 
@@ -10,8 +11,15 @@ class ActivityTextEditor extends LitElement {
 			disabled: { type: Boolean },
 			ariaLabel: { type: String },
 			key: { type: String },
-			htmlEditorHeight: { type: String }
+			htmlEditorHeight: { type: String, attribute: 'html-editor-height' },
+			fullPage: { type: Boolean, attribute: 'full-page' },
+			fullPageFontSize: { type: String, attribute: 'full-page-font-size' }
 		};
+	}
+
+	constructor() {
+		super();
+		this.fullPage = false;
 	}
 
 	render() {
@@ -44,7 +52,9 @@ class ActivityTextEditor extends LitElement {
 						ariaLabel="${this.ariaLabel}"
 						?disabled="${this.disabled}"
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"
-						htmlEditorHeight="${this.htmlEditorHeight}">
+						html-editor-height=${ifDefined(this.htmlEditorHeight)}
+						?full-page="${this.fullPage}"
+						full-page-font-size="${ifDefined(this.fullPageFontSize)}">
 					</d2l-activity-html-new-editor>
 				`;
 			} else {

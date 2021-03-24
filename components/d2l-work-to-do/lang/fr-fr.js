@@ -24,5 +24,5 @@ export const val = {
   survey: "Sondage", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   upcoming: "Travail à venir", // Indicates that the below list of activites are upcoming (have a due due or end date that is in the future)
   viewAllWork: "Afficher tout le travail", // Button text displayed in 'Empty View' when user can navigate to full page view to see all work
-  xWeeksClear: "{num, plural, =1 {1 semaine} other {{count} semaines}} terminée(s) !" // 'Empty state' - Header when widget has no activities to display within the next x weeks
+  xWeeksClear: "{count, plural, =1 {1 semaine terminée} other {{count} semaines terminées}} terminée(s) !" // 'Empty state' - Header when widget has no activities to display within the next x weeks
 }

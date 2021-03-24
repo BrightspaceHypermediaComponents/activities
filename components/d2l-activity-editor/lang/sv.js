@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "Avbryt", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Tryck ALT-F10 för verktygsfält och ESC för att avsluta verktygsfältet när du är i det.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Välj betyg", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Redigera eller länka till befintlig", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubriceringar", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Startdatumet måste vara före slutdatumet",
 	"editor.dueBetweenStartEndDate": "Förfallodatum måste vara efter startdatumet och före eller på slutdatumet",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "Nej",
 	"editor.notificationEmailLabel": "E-postmeddelande", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Ange en giltig e-postadress", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "Betyg av", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "I betygsboken", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Inte i betygsboken", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Lägg till i betygsboken", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Lägg till rubricering", //text for add rubric button
 	"rubrics.btnCreateNew": "Skapa ny", //Text for create new dropdown

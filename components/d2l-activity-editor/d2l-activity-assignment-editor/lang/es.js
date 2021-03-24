@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "El acceso especial permite que las asignaciones estén disponibles solo para un grupo selecto de usuarios o fechas de vencimiento personalizadas para ciertos usuarios.", // special access help
 	"assignmentLocked": "Algunas opciones de configuración están bloqueadas debido a que se recibieron los envíos.",
 	"hlpSubmissionNotificationEmail": "Ingrese uno o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una asignación.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "Calificación de", // Label for the grade-out-of field when creating/editing an activity
 };

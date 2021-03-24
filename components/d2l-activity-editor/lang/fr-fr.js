@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "Annuler", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Appuyez sur Alt-F10 pour accéder à la barre d’outils. Pour quitter cette barre d’outils, appuyez sur Échap.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Choisir parmi les Notes", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Modifier ou lier à l’existant", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Grilles d’évaluation", //Header for the rubrics section
 	"editor.startBeforeEndDate": "La date de début doit être antérieure à la date de fin",
 	"editor.dueBetweenStartEndDate": "La date d’échéance doit être postérieure à la date de début et antérieure ou égale à la date de fin",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "Non",
 	"editor.notificationEmailLabel": "E-mail de notification", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Veuillez saisir une adresse e-mail valide.", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "Note sur", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "Dans le livret de notes", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Pas dans le livret de notes", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Ajouter au livret de notes", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Ajouter une grille d’évaluation", //text for add rubric button
 	"rubrics.btnCreateNew": "Créer", //Text for create new dropdown

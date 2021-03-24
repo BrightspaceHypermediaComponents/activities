@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "キャンセル", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "ツールバーを表示するには ALT-F10 キーを、ツールバーを終了するにはツールバーにカーソルを置いた状態で ESC キーを押します。", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "成績から選択", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "既存の項目の編集またはリンク", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "注釈", //Header for the rubrics section
 	"editor.startBeforeEndDate": "開始日は終了日の前である必要があります",
 	"editor.dueBetweenStartEndDate": "期限は開始日の後および終了日以前である必要があります",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "いいえ",
 	"editor.notificationEmailLabel": "通知電子メール", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "有効な電子メールアドレスを入力してください", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "満点の成績", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "グレードブック（成績表）中にあり", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "グレードブック（成績表）中になし", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "グレードブック（成績表）に追加", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
 	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown

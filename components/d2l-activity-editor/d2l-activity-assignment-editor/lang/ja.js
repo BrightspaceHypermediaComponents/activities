@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "特殊なアクセスを使用すると、ユーザーの選択グループまたは特定のユーザーの個別の期限に対してのみ課題を使用可能にすることができます。", // special access help
 	"assignmentLocked": "送信物を受信したため、一部の設定がロックされています。",
 	"hlpSubmissionNotificationEmail": "課題が送信されたときに通知を受け取るには、1 つの電子メールを入力するか、複数の電子メールをカンマで区切って入力します。",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "満点の成績", // Label for the grade-out-of field when creating/editing an activity
 };

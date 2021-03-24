@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "Særlig adgang gør, at opgaver kan være tilgængelige for kun en udvalgt gruppe brugere, og muliggør individualiserede forfaldsdatoer for visse brugere.", // special access help
 	"assignmentLocked": "Nogle indstillinger er låst, fordi der er modtaget afleveringer.",
 	"hlpSubmissionNotificationEmail": "Indtast en e-mail eller flere e-mails adskilt af et komma for at modtage meddelelser, når en opgave afleveres.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "Karakter ud af", // Label for the grade-out-of field when creating/editing an activity
 };

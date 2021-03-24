@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "L’accès spécial permet aux travaux de n’être accessibles qu’à un groupe d’utilisateurs en particulier ou permet de définir des dates d’échéance individualisées pour certains utilisateurs.", // special access help
 	"assignmentLocked": "Certains réglages sont verrouillés car des soumissions ont été reçues.",
 	"hlpSubmissionNotificationEmail": "Saisissez une adresse courriel ou plusieurs adresses courriel séparées par une virgule pour recevoir des notifications à la soumission d’un travail.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "Note d'appréciation sur", // Label for the grade-out-of field when creating/editing an activity
 };

@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "Annuleren", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Druk op ALT+F10 om de taakbalk te tonen en druk op Esc om de taakbalk vervolgens te sluiten.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Uit scores kiezen", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Bewerken of koppelen aan bestaande", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubrics", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Startdatum moet eerder zijn dan einddatum",
 	"editor.dueBetweenStartEndDate": "Uiterste datum moet later zijn dan startdatum en eerder zijn dan of tegelijk zijn met einddatum",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "Nee",
 	"editor.notificationEmailLabel": "E-mailmelding", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Voer een geldig e-mailadres in", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "Score", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "In Scorerapport", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Niet in Scorerapport", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Toevoegen aan Scorerapport", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Rubric toevoegen", //text for add rubric button
 	"rubrics.btnCreateNew": "Nieuwe maken", //Text for create new dropdown

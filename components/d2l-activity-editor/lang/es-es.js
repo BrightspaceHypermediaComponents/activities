@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "Cancelar", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Pulse ALT-F10 para ver la barra de herramientas y ESC para salir de la barra de herramientas.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Elegir entre las calificaciones", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Editar o vincular a existente", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rúbricas", //Header for the rubrics section
 	"editor.startBeforeEndDate": "La fecha de inicio debe ser anterior a la fecha final",
 	"editor.dueBetweenStartEndDate": "La fecha de vencimiento debe ser posterior a la fecha de inicio y anterior o igual a la fecha final",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "No",
 	"editor.notificationEmailLabel": "Correo electrónico de notificación", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Introduzca una dirección de correo electrónico válida", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "Calificación de", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "En libro de calificaciones", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "No disponible en el libro de calificaciones", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Agregar al libro de calificaciones", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Agregar rúbrica", //text for add rubric button
 	"rubrics.btnCreateNew": "Crear nuevo", //Text for create new dropdown

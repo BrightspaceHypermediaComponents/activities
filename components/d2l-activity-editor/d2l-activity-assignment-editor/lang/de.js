@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "Mit beschränktem Zugriff können Übungen nur für eine ausgewählte Benutzergruppe oder individuelle Abgabetermine für bestimmte Benutzer verfügbar gemacht werden.", // special access help
 	"assignmentLocked": "Einige Einstellungen sind gesperrt, da Abgaben eingetroffen sind.",
 	"hlpSubmissionNotificationEmail": "Geben Sie eine oder mehrere E-Mail-Adresse(n) durch Kommas getrennt ein, um Benachrichtigungen zu erhalten, sobald eine Übung abgegeben wurde.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "Note aus", // Label for the grade-out-of field when creating/editing an activity
 };

@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "إلغاء", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "اضغط على ALT-F10 لفتح شريط الأدوات، واضغط على ESC للخروج من شريط الأدوات عندما يكون مفتوحًا.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "اختيار من العلامات", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "تحرير المادة الحالية التي سيتم وضع علامة عليها أو ربطها", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "آليات التقييم", //Header for the rubrics section
 	"editor.startBeforeEndDate": "يجب أن يقع تاريخ البدء قبل تاريخ النهاية",
 	"editor.dueBetweenStartEndDate": "يجب أن يقع تاريخ الاستحقاق بعد تاريخ البدء ويوم تاريخ النهاية أو قبله",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "لا",
 	"editor.notificationEmailLabel": "بريد إلكتروني للإعلام", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "يُرجى إدخال عنوان بريد الكتروني صالح", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "إجمالي النقاط المحتملة للمادة التي سيتم وضع علامة عليها", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "مرتبط بدفتر العلامات", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "غير مرتبط بدفتر العلامات", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "إضافة إلى دفتر العلامات", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "إضافة آلية تقييم", //text for add rubric button
 	"rubrics.btnCreateNew": "إنشاء جديد", //Text for create new dropdown

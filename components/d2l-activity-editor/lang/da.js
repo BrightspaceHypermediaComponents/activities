@@ -45,7 +45,7 @@ export default {
 	"editor.cancel": "Annuller", // Text of dialog button to cancel action
 	"editor.ariaToolbarShortcutInstructions": "Tryk på Alt-F10 for værktøjslinjen, og tryk på ESC for at afslutte værktøjslinjen, når du er inde.", // Instructions for screenreader users on how to enter and exit the html editor toolbar
 	"editor.chooseFromGrades": "Vælg mellem karakterer", // Link text and dialog title for the edit grades dialog,
-	"editor.editLinkExisting": "Edit or Link to Existing", // New Link text and dialog title for the edit grades dialog,
+	"editor.editLinkExisting": "Rediger eller tilknyt til eksisterende", // New Link text and dialog title for the edit grades dialog,
 	"editor.hdrRubrics": "Rubrikker", //Header for the rubrics section
 	"editor.startBeforeEndDate": "Startdato skal være før slutdato",
 	"editor.dueBetweenStartEndDate": "Forfaldsdato skal være efter startdato og før eller lig med slutdato",
@@ -78,10 +78,10 @@ export default {
 	"editor.noLabel": "Nej",
 	"editor.notificationEmailLabel": "Meddelelses-e-mail", // Label for notification email input field
 	"editor.invalidNotificationEmailError": "Angiv en gyldig e-mailadresse", // error shown on tooltip when notification email is invalid
-	"editor.gradeOutOf": "Grade Out Of", // ARIA label for the grade out of field, when creating/editing an activity
-	"editor.inGradebook": "In Gradebook", // New state of the grades field when there is a score, and an associated grade item
-	"editor.notInGradebook": "Not in Gradebook", // New state of the grades field when there is a score, but no associated grade item
-	"editor.addToGradebook": "Add to Gradebook", // New menu item for adding grade association
+	"editor.gradeOutOf": "Karakter ud af", // ARIA label for the grade out of field, when creating/editing an activity
+	"editor.inGradebook": "I karakterbog", // New state of the grades field when there is a score, and an associated grade item
+	"editor.notInGradebook": "Ikke i karakterbog", // New state of the grades field when there is a score, but no associated grade item
+	"editor.addToGradebook": "Tilføj til karakterbog", // New menu item for adding grade association
 
 	"rubrics.btnAddRubric": "Tilføj rubrik", //text for add rubric button
 	"rubrics.btnCreateNew": "Opret ny", //Text for create new dropdown

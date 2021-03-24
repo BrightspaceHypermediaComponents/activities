@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "Mae Mynediad Arbennig yn caniatáu i aseiniadau fod ar gael i grŵp dethol o ddefnyddwyr yn unig neu ddyddiadau dyledus unigol ar gyfer defnyddwyr penodol.", // special access help
 	"assignmentLocked": "Mae rhai gosodiadau wedi'u cloi oherwydd bod cyflwyniadau wedi'u derbyn.",
 	"hlpSubmissionNotificationEmail": "Rhowch e-bost neu fwy nag un e-bost sydd wedi'u gwahanu gan atalnodau, i dderbyn hysbysiadau pan gyflwynir aseiniad.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "Gradd Allan O", // Label for the grade-out-of field when creating/editing an activity
 };

@@ -4,7 +4,7 @@ export const val = {
   assignment: "Uppgift",  // Meta-data descriptor that informs which type of activity is being displayed on a line item
   backToD2L: "Tillbaka till hemsida", // Displayed in the immersive navbar to escape out of fullscreen view
   checklist: "Checklista", // Meta-data descriptor that informs which type of activity is being displayed on a line item
-  comeBackNoFutureActivities: "Kom tillbaka senare för att se om du har jobb att göra.", // 'Empty state' - When there are no activities in full page view
+  comeBackNoFutureActivities: "Kom tillbaka senare för att se om du har arbete att göra.", // 'Empty state' - When there are no activities in full page view
   content: "Innehåll", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   course: "Kurs", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   dateHeader: "{startMonth} {startDay}–{endMonth} {endDay}", // Indicates that the below list of activities are due/end within the listed date range
@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "Gå till Upptäck", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "Läs in fler", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "Visa fler tilldelade aktiviteter", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "Mina jobb att göra", // Widget title
+  workToDo: "Arbete att göra", // Widget title
   noActivities: "Du har inga ofullständiga aktiviteter med tillgängliga förfallodatum eller slutdatum.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Du har inga ofullständiga aktiviteter som förfaller eller slutar snart. Kom tillbaka senare eller Visa alla jobb för att se vad som kommer härnäst.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "Du har inga ofullständiga aktiviteter med tillgängliga förfallodatum eller slutdatum. Kom tillbaka senare för att se om du har arbete att göra.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

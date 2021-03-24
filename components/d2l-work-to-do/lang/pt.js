@@ -1,5 +1,5 @@
 export const val = {
-  activitiesAvailable: "As atividades com vencimento ou encerramento em duas semanas estão concluídas! Marque Exibir todos os trabalhos para ver o que está por vir.", // 'Empty View' - When widget has no activities to display within the next two weeks, but there are more activities further into the future that can be shown on the full screen view
+  activitiesAvailable: "As atividades que vencem ou encerram em duas semanas estão concluídas! Marque Exibir todos os trabalhos para ver o que está por vir.", // 'Empty View' - When widget has no activities to display within the next two weeks, but there are more activities further into the future that can be shown on the full screen view
   allClear: "Tudo certo por enquanto!", // Displayed as header line in widget text when there are no activities
   assignment: "Atividade",  // Meta-data descriptor that informs which type of activity is being displayed on a line item
   backToD2L: "Voltar ao Início", // Displayed in the immersive navbar to escape out of fullscreen view
@@ -7,7 +7,7 @@ export const val = {
   comeBackNoFutureActivities: "Volte mais tarde para verificar se você tem trabalho pendente.", // 'Empty state' - When there are no activities in full page view
   content: "Conteúdo", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   course: "Curso", // Meta-data descriptor that informs which type of activity is being displayed on a line item
-  dateHeader: "{startMonth} {startDay} – {endMonth} {endDay}", // Indicates that the below list of activities are due/end within the listed date range
+  dateHeader: "{startDay} de {startMonth} – {endDay} de {endMonth}", // Indicates that the below list of activities are due/end within the listed date range
   discussion: "Discussão", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   fullViewLink: "Exibir todos os trabalhos", // Link text displayed in "Activities View", where the user can navigate to the full page view to see all work
   goToDiscover: "Ir para o Discover", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget

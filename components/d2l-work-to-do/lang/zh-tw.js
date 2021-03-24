@@ -13,7 +13,7 @@ export const val = {
   goToDiscover: "前往「探索」", // Button text displayed in 'Empty View' when user can navigate to discover homepage from the widget
   loadMore: "載入更多", // Button text displayed in 'Fullscreen View' that allows the user to access the next page of activities which will append to the bottom of the list currently shown
   loadMoreDescription: "顯示更多已指派的活動", // Additional description text to accompany the load more button for additional clarity for the user
-  workToDo: "我的待做作業", // Widget title
+  workToDo: "待做作業", // Widget title
   noActivities: "您沒有具有截止日期或結束日期的未完成活動。", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "您沒有即將截止的未完成活動。請稍後再回來，或透過「檢視所有工作」來瞭解接下來的活動。",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
   noActivitiesNoFutureActivities: "您沒有具有截止日期或結束日期的未完成活動。請稍後再回來看看是否有工作要進行。", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future

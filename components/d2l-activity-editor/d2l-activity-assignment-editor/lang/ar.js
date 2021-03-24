@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "يسمح الوصول الخاص بتوفير الفروض لمجموعة محددة من المستخدمين فقط أو تواريخ استحقاق فردية لمستخدمين معيّنين.", // special access help
 	"assignmentLocked": "تم تأمين بعض الإعدادات بسبب تلقي عمليات الإرسال.",
 	"hlpSubmissionNotificationEmail": "أدخل عنوان بريد إلكتروني أو عناوين بريد إلكتروني متعددة مفصولة بفاصلة لتلقي إعلامات عند إرسال فرض.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "العلامة من أصل", // Label for the grade-out-of field when creating/editing an activity
 };

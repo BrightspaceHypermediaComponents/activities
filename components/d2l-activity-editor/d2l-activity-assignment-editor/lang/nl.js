@@ -46,5 +46,5 @@ export default {
 	"hlpSpecialAccess": "Met Speciale toegang kunnen toewijzingen alleen beschikbaar zijn voor een geselecteerde groep gebruikers of voor individuele uiterste datums voor bepaalde gebruikers.", // special access help
 	"assignmentLocked": "Sommige instellingen zijn vergrendeld omdat er inzendingen zijn ontvangen.",
 	"hlpSubmissionNotificationEmail": "Voer een e-mailadres of meerdere e-mailadressen in, gescheiden door een komma, om meldingen te ontvangen wanneer een opdracht is ingezonden.",
-	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
+	"gradeOutOf": "Score", // Label for the grade-out-of field when creating/editing an activity
 };

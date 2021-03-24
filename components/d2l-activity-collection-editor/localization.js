@@ -42,8 +42,8 @@ export const LocalizeActivityCollectionEditor = superclass => class extends Loca
 				case 'zh-tw':
 					translations = await import('./lang/zh-tw.js');
 					break;
-				case 'zh':
-					translations = await import('./lang/zh.js');
+				case 'zh-cn':
+					translations = await import('./lang/zh-cn.js');
 					break;
 			}
 			if (translations && translations.default) {

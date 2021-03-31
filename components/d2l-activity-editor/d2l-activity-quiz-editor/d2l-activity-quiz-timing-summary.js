@@ -17,9 +17,10 @@ class ActivityQuizTimingSummary
 		if (!entity) {
 			return html``;
 		}
-		const { isTimingEnforced, recommendedTimeLimit, enforcedTimeLimit, timingType } = entity;
+		const { isTimingEnforced, recommendedTimeLimit, enforcedTimeLimit } = entity;
 		const timeLimit = isTimingEnforced ? enforcedTimeLimit.value : recommendedTimeLimit.value;
-		return html`${this.localize('quizTimingSummary', 'timingType', timingType.title, 'numMinutes', timeLimit)}`;
+		const quizTimingSummary = isTimingEnforced ? 'quizTimingEnforcedSummary' : 'quizTimingRecommendedSummary';
+		return html`${this.localize(quizTimingSummary, 'numMinutes', timeLimit)}`;
 	}
 }
 

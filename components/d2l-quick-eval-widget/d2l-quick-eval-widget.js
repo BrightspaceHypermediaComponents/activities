@@ -118,10 +118,10 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 		}
 		return Promise.all(
 			unassessedActivityCollection.entities
-				.slice(0, this.count)
 				.filter( activityUsage => {
 					return validateActivity(activityUsage);
 				})
+				.slice(0, this.count)
 				.map(async activityUsage => {
 					const submissionCount = await fetchSubmissionCount(activityUsage, token);
 

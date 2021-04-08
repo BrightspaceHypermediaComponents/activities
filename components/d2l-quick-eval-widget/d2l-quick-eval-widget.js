@@ -8,7 +8,6 @@ import { css, html, LitElement } from 'lit-element';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { fetchActivities, fetchEvaluationHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
 import { LocalizeQuickEvalWidget } from './lang/localize-quick-eval-widget.js';
-import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
 const errorState = 'error';
@@ -183,7 +182,7 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 					href="${activity.href}"
 					?skeleton=${this._loading || this.skeleton}
 					submission-count=${activity.submissionCount}
-					.token=${ifDefined(this.token)}
+					.token=${this.token}
 					@data-loaded=${this._itemLoaded}></d2l-work-to-do-activity-list-item-basic>`;
 		});
 		return html`

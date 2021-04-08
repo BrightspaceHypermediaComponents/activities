@@ -58,7 +58,7 @@ export async function setToggleState(href, toggleState) {
 
 export function validateActivity(activityUsageEntity) {
 	const expectedType = activityUsageEntity.class.some(activityClass => expectedClasses.includes(activityClass));
-	if(!expectedType) {
+	if (!expectedType) {
 		console.error('[%s] is not an expected activity class and will not be displayed.', activityUsageEntity.class.toString());
 		return false;
 	}

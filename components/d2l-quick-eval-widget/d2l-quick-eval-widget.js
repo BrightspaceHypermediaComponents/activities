@@ -118,7 +118,7 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 		}
 		return Promise.all(
 			unassessedActivityCollection.entities
-				.filter( activityUsage => {
+				.filter(activityUsage => {
 					return validateActivity(activityUsage);
 				})
 				.slice(0, this.count)

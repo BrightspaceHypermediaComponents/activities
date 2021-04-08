@@ -339,6 +339,15 @@
           "href": "../data/organization1.json"
         }
       ]
+    },
+    {
+      "class": [
+        "activity-usage",
+        "checkpoint-item"
+      ],
+      "rel": [
+        "https://activities.api.brightspace.com/rels/activity-usage"
+      ]
     }
   ],
   "links": [

@@ -6,7 +6,7 @@ import '../d2l-work-to-do/d2l-work-to-do-activity-list-item-basic.js';
 
 import { css, html, LitElement } from 'lit-element';
 import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { fetchActivities, fetchEvaluationHref, fetchSubmissionCount, setToggleState } from './d2l-quick-eval-widget-controller.js';
+import { fetchActivities, fetchEvaluationHref, fetchSubmissionCount, setToggleState, validateActivity } from './d2l-quick-eval-widget-controller.js';
 import { LocalizeQuickEvalWidget } from './lang/localize-quick-eval-widget.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
@@ -119,6 +119,9 @@ export class QuickEvalWidget extends LocalizeQuickEvalWidget(SkeletonMixin(LitEl
 		return Promise.all(
 			unassessedActivityCollection.entities
 				.slice(0, this.count)
+				.filter( activityUsage => {
+					return validateActivity(activityUsage);
+				})
 				.map(async activityUsage => {
 					const submissionCount = await fetchSubmissionCount(activityUsage, token);
 

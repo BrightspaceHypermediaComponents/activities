@@ -1,6 +1,8 @@
 import 'd2l-fetch/d2l-fetch.js';
 import 'd2l-polymer-siren-behaviors/store/entity-store.js';
 
+const expectedClasses = ['assignment-activity', 'discussion-activity', 'quiz-activity'];
+
 async function fetch(href, token) {
 	return (await window.D2L.Siren.EntityStore.fetch(href, token)).entity;
 }
@@ -52,4 +54,13 @@ export async function setToggleState(href, toggleState) {
 			}
 		)
 	);
+}
+
+export function validateActivity(activityUsageEntity) {
+	const expectedType = activityUsageEntity.class.some(activityClass => expectedClasses.includes(activityClass));
+	if(!expectedType) {
+		console.error('[%s] is not an expected activity class and will not be displayed.', activityUsageEntity.class.toString());
+		return false;
+	}
+	return true;
 }

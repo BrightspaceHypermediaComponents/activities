@@ -23,12 +23,16 @@ export class AssignmentCategories {
 	load(entity) {
 		this._entity = entity;
 		this.categories = entity.getCategories();
+		this.canEditCategories = entity.canEditCategories();
+		this.selectedCategory = entity.getSelectedCategory();
 	}
 }
 
 decorate(AssignmentCategories, {
 	// props
 	categories: observable,
+	selectedCategory: observable,
+	canEditCategories: observable,
 	// actions
 	load: action
 });

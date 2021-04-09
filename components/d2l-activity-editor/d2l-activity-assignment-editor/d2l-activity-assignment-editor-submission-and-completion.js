@@ -362,9 +362,11 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 
 		return html`
 			<div id="categories-editor-container">
+
 				<label class="d2l-label-text">
 					${this.localize('txtCategoriesLabel')}
 				</label>
+
 				<d2l-activity-assignment-categories-editor
 					href="${assignment.categoriesLink}"
 					.token="${this.token}">

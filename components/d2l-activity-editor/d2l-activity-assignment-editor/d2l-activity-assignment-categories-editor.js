@@ -1,5 +1,6 @@
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
+import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -11,6 +12,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 	static get styles() {
 		return [
 			selectStyles,
+			bodyCompactStyles,
 			css`
 				:host {
 					display: block;
@@ -39,10 +41,17 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 			return html``;
 		}
 
+		if (!categoriesStore.canEditCategories) {
+			const name = categoriesStore.selectedCategory?.properties.name ?? this.localize('noCategoryLabel');
+			return html`<div class="d2l-body-compact">${name}</div>`;
+		}
+
 		return html`
 			<select
 				class="d2l-input-select d2l-block-select"
 				@change="${this._updateCategory}">
+
+				<option ?selected=${!categoriesStore.selectedCategory}>${this.localize('noCategoryLabel')}</option>
 
 				${categoriesStore.categories.map(this._formatOption)}
 

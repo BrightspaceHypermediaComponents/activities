@@ -42,7 +42,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 		}
 
 		if (!categoriesStore.canEditCategories) {
-			const name = categoriesStore.selectedCategory?.properties.name ?? this.localize('noCategoryLabel');
+			const name = categoriesStore.selectedCategory ? categoriesStore.selectedCategory.properties.name : this.localize('noCategoryLabel');
 			return html`<div class="d2l-body-compact">${name}</div>`;
 		}
 

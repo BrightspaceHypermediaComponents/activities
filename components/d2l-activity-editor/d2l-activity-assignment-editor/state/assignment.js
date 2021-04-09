@@ -89,6 +89,8 @@ export class Assignment {
 		this.canEditFilesSubmissionLimit = entity.canEditFilesSubmissionLimit();
 		this.filesSubmissionLimit = entity.filesSubmissionLimit() || 'unlimited';
 
+		this.categoriesLink = entity.getCategoriesLink();
+
 		this.assignmentTypeProps = new AssignmentTypeProps({
 			isGroupAssignmentTypeDisabled: entity.isGroupAssignmentTypeDisabled(),
 			isIndividualAssignmentType: entity.isIndividualAssignmentType(),

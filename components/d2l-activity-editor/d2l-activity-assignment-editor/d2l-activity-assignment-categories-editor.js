@@ -37,7 +37,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 	render() {
 		const categoriesStore = store.get(this.href);
 
-		if (!categoriesStore || !categoriesStore.categories || !categoriesStore.categories.length) {
+		if (!categoriesStore || !categoriesStore.categories) {
 			return html``;
 		}
 

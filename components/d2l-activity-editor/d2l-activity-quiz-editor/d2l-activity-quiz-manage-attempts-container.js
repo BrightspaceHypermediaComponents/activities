@@ -66,6 +66,8 @@ class ActivityQuizManageAttemptsContainer extends ActivityEditorWorkingCopyDialo
 	}
 
 	_renderDialog() {
+		if (!this.opened) return html ``; // remove the dialog to prevent quiz question authoring dialog-fullscreen causing asyncMixin problems that stops the dialog from rendering properly
+
 		const showSpinnerWhenLoading = true;
 		const width = 850;
 		return html`

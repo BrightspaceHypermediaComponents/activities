@@ -47,8 +47,8 @@ export class AssignmentCategories {
 		await this.fetch();
 	}
 
-	setSelectedCategory(id) {
-		this.selectedCategory = id;
+	setSelectedCategory(category) {
+		this.selectedCategory = category;
 	}
 
 	_makeCategoriesData() {

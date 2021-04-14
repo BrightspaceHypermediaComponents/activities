@@ -47,7 +47,6 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 		}
 
 		const unselectedId = 0; // API expects 0 to unselect an ID
-
 		return html`
 			<select
 				class="d2l-input-select d2l-block-select"
@@ -76,7 +75,12 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 	}
 
 	_formatOption(category) {
-		return html`<option value=${category.categoryId} ?selected=${category.selected}>${category.name}</option>`;
+		return html`
+			<option
+				value=${category.properties.categoryId}
+				?selected=${category.hasClass('selected')}>
+					${category.properties.name}
+			</option>`;
 	}
 
 	_updateCategory(e) {

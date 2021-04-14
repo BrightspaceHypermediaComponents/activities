@@ -11,6 +11,10 @@ export class AssignmentCategories {
 		this.token = token;
 	}
 
+	get dirty() {
+		return !this._entity.equals(this._makeCategoriesData());
+	}
+
 	async fetch() {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
@@ -26,6 +30,32 @@ export class AssignmentCategories {
 		this.canEditCategories = entity.canEditCategories();
 		this.selectedCategory = entity.getSelectedCategory();
 	}
+
+	async save() {
+		if (!this._entity) {
+			return;
+		}
+
+		if (this._saving) {
+			return this._saving;
+		}
+
+		this._saving = this._entity.save(this._makeCategoriesData());
+		await this._saving;
+		this._saving = null;
+
+		await this.fetch();
+	}
+
+	setSelectedCategory(id) {
+		this.selectedCategory = id;
+	}
+
+	_makeCategoriesData() {
+		return {
+			categoryId: this.selectedCategory
+		};
+	}
 }
 
 decorate(AssignmentCategories, {
@@ -34,5 +64,6 @@ decorate(AssignmentCategories, {
 	selectedCategory: observable,
 	canEditCategories: observable,
 	// actions
-	load: action
+	load: action,
+	setSelectedCategory: action
 });

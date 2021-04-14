@@ -46,12 +46,14 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 			return html`<div class="d2l-body-compact">${name}</div>`;
 		}
 
+		const unselectedId = 0; // API expects 0 to unselect an ID
+
 		return html`
 			<select
 				class="d2l-input-select d2l-block-select"
 				@change="${this._updateCategory}">
 
-				<option ?selected=${!categoriesStore.selectedCategory}>${this.localize('noCategoryLabel')}</option>
+				<option value=${unselectedId} ?selected=${!categoriesStore.selectedCategory}>${this.localize('noCategoryLabel')}</option>
 
 				${categoriesStore.categories.map(this._formatOption)}
 
@@ -59,12 +61,29 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 		`;
 	}
 
-	_formatOption(category) {
-		return html`<option value=${category.index} ?selected=${category.selected}>${category.name}</option>`;
+	hasPendingChanges() {
+		const categoriesStore = store.get(this.href);
+		if (!categoriesStore) return;
+
+		return categoriesStore.dirty;
 	}
 
-	_updateCategory() {
-		// do something
+	save() {
+		const categoriesStore = store.get(this.href);
+		if (!categoriesStore) return;
+
+		categoriesStore.save();
+	}
+
+	_formatOption(category) {
+		return html`<option value=${category.categoryId} ?selected=${category.selected}>${category.name}</option>`;
+	}
+
+	_updateCategory(e) {
+		const categoriesStore = store.get(this.href);
+		if (!categoriesStore) return;
+
+		categoriesStore.setSelectedCategory(e.target.value);
 	}
 }
 customElements.define('d2l-activity-assignment-categories-editor', AssignmentCategoriesEditor);

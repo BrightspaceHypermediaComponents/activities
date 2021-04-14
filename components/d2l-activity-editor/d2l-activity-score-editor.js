@@ -11,24 +11,25 @@ import '@brightspace-ui/core/components/dropdown/dropdown-menu.js';
 import '@brightspace-ui/core/components/menu/menu.js';
 import '@brightspace-ui/core/components/menu/menu-item.js';
 import 'd2l-tooltip/d2l-tooltip';
+import { sharedAssociateGrade as associateGradeStore, shared as store } from './state/activity-store.js';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
+//import { GradebookStatus } from './state/associate-grade.js';
 import { inputStyles } from '@brightspace-ui/core/components/inputs/input-styles.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-import { shared as store } from './state/activity-store.js';
-
-class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
+class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)))) {
 
 	static get properties() {
 		return {
 			activityName: { type: String },
 			_focusUngraded: { type: Boolean },
-			_createSelectboxGradeItemEnabled: { type: Boolean }
+			_createSelectboxGradeItemEnabled: { type: Boolean },
+			_associateGradeHref: { type: String }
 		};
 	}
 
@@ -163,6 +164,7 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 
 	constructor() {
 		super(store);
+		this.checkoutOnLoad = true;
 	}
 
 	connectedCallback() {
@@ -265,17 +267,29 @@ class ActivityScoreEditor extends SkeletonMixin(ActivityEditorMixin(LocalizeActi
 			</div>
 		`;
 	}
+
 	updated(changedProperties) {
 		super.updated(changedProperties);
 
 		if ((changedProperties.has('href') || changedProperties.has('token')) &&
 			this.href && this.token) {
+
 			this.store && this._fetch(() => {
 				const fetch = this.store.fetch(this.href, this.token);
 				fetch.then(() => {
 					this._setNewGradeName(this.activityName);
 				});
 			});
+		}
+
+		if (changedProperties.has('checkedOutHref') && associateGradeStore) {
+			const checkedOutEntity = store.get(this.checkedOutHref);
+			if (checkedOutEntity && checkedOutEntity.associateGradeHref) {
+				this._associateGradeHref = checkedOutEntity.associateGradeHref;
+				this._fetch(() => {
+					return associateGradeStore.fetch(this._associateGradeHref, this.token);
+				});
+			}
 		}
 
 		changedProperties.forEach((oldValue, propName) => {

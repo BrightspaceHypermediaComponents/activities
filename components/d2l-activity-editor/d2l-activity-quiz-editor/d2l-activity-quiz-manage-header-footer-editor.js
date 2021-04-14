@@ -52,22 +52,7 @@ class ActivityQuizManageHeaderFooterEditor extends ActivityEditorMixin(RtlMixin(
 	}
 
 	reset() {
-		const quiz = store.get(this.href);
-
-		const {
-			header
-		} = quiz || {};
-
-		const el = this.shadowRoot.querySelector('d2l-activity-text-editor');
-		const newEd = el.shadowRoot.querySelector('d2l-activity-html-new-editor');
-
-		if (newEd) {
-			const htmlEd = newEd.shadowRoot.querySelector('d2l-htmleditor');
-			htmlEd.html = header;
-		} else {
-			const ed = el.shadowRoot.querySelector('d2l-input-textarea');
-			ed.value = header;
-		}
+		this.shadowRoot.querySelector('d2l-activity-text-editor').reset();
 	}
 
 	save() {

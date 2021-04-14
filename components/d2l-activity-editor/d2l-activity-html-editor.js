@@ -87,6 +87,7 @@ class ActivityHtmlEditor extends LocalizeActivityEditorMixin(LitElement) {
 				</div>
 			</d2l-html-editor>`;
 	}
+
 	updated(changedProperties) {
 		super.updated(changedProperties);
 		// This is acknowledged to be non-idiomatic (manipulating DOM outside render), but this
@@ -105,6 +106,14 @@ class ActivityHtmlEditor extends LocalizeActivityEditorMixin(LitElement) {
 			}
 		}
 	}
+
+	reset() {
+		const editorContainer = this.shadowRoot.querySelector('d2l-html-editor > .d2l-html-editor-container');
+		if (editorContainer) {
+			editorContainer.innerHTML = this.value;
+		}
+	}
+
 	_onContentChange() {
 		const content = this.shadowRoot.querySelector('d2l-html-editor').getContent();
 		this.dispatchEvent(new CustomEvent('d2l-activity-html-editor-change', {

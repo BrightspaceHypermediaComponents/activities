@@ -6,27 +6,18 @@ import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntit
 import { AlignmentsHierarchicalEntity } from 'siren-sdk/src/alignments/AlignmentsHierarchicalEntity.js';
 import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
 import { fetchEntity } from '../state/fetch-entity.js';
+import { WorkingCopy } from './working-copy.js';
 
 configureMobx({ enforceActions: 'observed' });
 
-export class ActivityUsage {
+export class ActivityUsage extends WorkingCopy {
 
 	constructor(href, token) {
+		super(ActivityUsage, ActivityUsageEntity);
 		this.href = href;
 		this.token = token;
 	}
 
-	async dirty() {
-		return !this._entity.equals(this._makeUsageData());
-	}
-	async fetch() {
-		const sirenEntity = await fetchEntity(this.href, this.token);
-		if (sirenEntity) {
-			const entity = new ActivityUsageEntity(sirenEntity, this.token, { remove: () => { } });
-			await this.load(entity);
-		}
-		return this;
-	}
 	async fetchScoreAndGradeScoreOutOf(bypassCache) {
 		await this.scoreAndGrade.fetchUpdatedScoreOutOf(this._entity, bypassCache);
 	}
@@ -42,6 +33,7 @@ export class ActivityUsage {
 		this.scoreAndGrade = new ActivityScoreGrade(this.token);
 		this.associationsHref = entity.getDirectRubricAssociationsHref();
 		this.specializationHref = entity.specializationHref();
+		this.associateGradeHref = entity.associateGradeHref();
 
 		await Promise.all([
 			this._loadSpecialAccess(entity),
@@ -72,9 +64,7 @@ export class ActivityUsage {
 
 		await this.scoreAndGrade.primeGradeSave();
 
-		await this._entity.save(this._makeUsageData());
-
-		await this.fetch();
+		super.save();
 	}
 	setAlignmentsHref(value) {
 		this.alignmentsHref = value;
@@ -174,7 +164,7 @@ export class ActivityUsage {
 		runInAction(() => this.specialAccess = specialAccess);
 	}
 
-	_makeUsageData() {
+	_makeEntityData() {
 		return {
 			isDraft: this.isDraft,
 			dates: {
@@ -214,6 +204,7 @@ decorate(ActivityUsage, {
 	canEditCompetencies: observable,
 	competenciesDialogUrl: observable,
 	specialAccess: observable,
+	associateGradeHref: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

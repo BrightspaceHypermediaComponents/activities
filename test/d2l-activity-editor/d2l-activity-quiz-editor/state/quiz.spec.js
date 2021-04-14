@@ -52,7 +52,8 @@ describe('Quiz', function() {
 				headerEditorHtml: () => 'This is an header',
 				headerIsDisplayed: () => true,
 				canEditHeader: () => true,
-				headerRichTextEditorConfig: () => {},
+				headerRichTextEditorConfig: () => { },
+				originalHeaderIsEmpty: () => false,
 				introIsAppendedToDescription: () => {},
 			};
 		});
@@ -90,6 +91,7 @@ describe('Quiz', function() {
 		expect(quiz.description).to.equal('This is a description');
 		expect(quiz.descriptionIsDisplayed).to.equal(true);
 		expect(quiz.header).to.equal('This is an header');
+		expect(quiz.originalHeaderIsEmpty).to.equal(false);
 	});
 
 	it('setName', async() => {

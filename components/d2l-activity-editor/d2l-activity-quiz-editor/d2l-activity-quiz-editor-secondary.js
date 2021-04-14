@@ -47,7 +47,7 @@ class QuizEditorSecondary extends AsyncContainerMixin(SkeletonMixin(RtlMixin(Lit
 	}
 
 	render() {
-		const availabilityAccordian = html`
+		const availabilityAccordion = html`
 			<d2l-activity-quiz-availability-editor
 				.activityUsageHref="${this.activityUsageHref}"
 				.href="${this.href}"
@@ -81,7 +81,7 @@ class QuizEditorSecondary extends AsyncContainerMixin(SkeletonMixin(RtlMixin(Lit
 		`;
 
 		return html`
-			${availabilityAccordian}
+			${availabilityAccordion}
 			${timingAndDisplayAccordion}
 			${attemptsAndCompletionAccordion}
 			${evaluationAndFeedbackAccordion}

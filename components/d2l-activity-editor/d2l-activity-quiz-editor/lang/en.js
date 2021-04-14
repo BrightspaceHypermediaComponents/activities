@@ -71,6 +71,7 @@ export default {
 	"textIsDisplayedSingularPart2": "The {field} field appears to learners when the quiz is saved.", // Second sentence of alert warning that text fields will be visible, when there is only one field
 	"introMovedToDescription": "Quizzes no longer support Introductions. Existing content in the Introduction field now appears in the Description field.", // Alert warning that existing quiz introduction has been removed and that the text in the introduction has been put into the quiz description
 	"attemptsAllowed": "Attempts Allowed", // Title for Attempts Allowed select in Attempts dialog
+	"quizAttemptsAllowedSummary": "{numAttemptsAllowed, plural, =1 {1 attempt allowed} other {{numAttemptsAllowed} attempts allowed}}", //
 	"overallGradeCalculation": "Overall Grade Calculation", // Title for Overall Grade Calculation select in Attempts dialog
 	"retakeIncorrectQuestionsOnly": "Retake Incorrect Questions Only", // Title for RIO checkbox in Attempts dialog
 	"rioCheckboxLabel": "On new attempts, only allow answers for previously incorrect questions", // Label for RIO checkbox in Attempts dialog

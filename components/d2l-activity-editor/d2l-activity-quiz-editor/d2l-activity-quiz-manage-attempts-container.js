@@ -17,21 +17,13 @@ class ActivityQuizManageAttemptsContainer extends ActivityEditorWorkingCopyDialo
 			labelStyles,
 			css`
 			#manage-attempts-dialog-attempts-editor {
-				height: 830px;
+				height: 430px;
 			}
-
 			d2l-alert {
 				margin-bottom: 1rem;
 			}
-			.d2l-activity-quiz-manage-attempts-container-dialog-summary {
+			.d2l-activity-quiz-manage-attempts-dialog-summary {
 				margin: 0.5rem 0;
-			}
-			.d2l-activity-quiz-manage-attempts-container-dialog-summary d2l-icon {
-				margin-right: 0.3rem;
-			}
-			:host([dir="rtl"]) .d2l-activity-quiz-manage-attempts-container-dialog-summary d2l-icon {
-				margin-left: 0.3rem;
-				margin-right: 0;
 			}
 			`,
 		];
@@ -69,7 +61,7 @@ class ActivityQuizManageAttemptsContainer extends ActivityEditorWorkingCopyDialo
 		await this.checkinDialog(e);
 
 		if (!this.opened) { // Dialog successfully checked in
-			// this._updateSummary();
+			this._updateSummary();
 		}
 	}
 
@@ -113,18 +105,17 @@ class ActivityQuizManageAttemptsContainer extends ActivityEditorWorkingCopyDialo
 	_renderDialogSummary() {
 		const entity = this.checkedOutHref && store.get(this.checkedOutHref);
 		if (!entity) return html``;
-		return html``;
-		// const { attemptsHref } = entity;
-		// TODO: add attempts summary details
-		// return html`
-		// 	<div class="d2l-activity-quiz-manage-attempts-container-dialog-summary d2l-body-small">
-		// 		<d2l-icon icon="tier1:time"></d2l-icon>
-		// 		<d2l-activity-quiz-attempts-summary
-		// 			href="${attemptsHref}"
-		// 			.token="${this.token}">
-		// 		</d2l-activity-quiz-attempts-summary>
-		// 	</div>
-		// `;
+		const { attemptsHref } = entity || {};
+		if (!attemptsHref) return html``;
+
+		return html`
+			<div class="d2l-activity-quiz-manage-attempts-dialog-summary d2l-body-small">
+				<d2l-activity-quiz-attempts-summary
+					href="${attemptsHref}"
+					.token="${this.token}">
+				</d2l-activity-quiz-attempts-summary>
+			</div>
+		`;
 	}
 
 	_renderQuizAttemptsEditor() {

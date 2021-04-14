@@ -2,6 +2,7 @@ import '@brightspace-ui/htmleditor/htmleditor.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { ifDefined } from 'lit-html/directives/if-defined';
+import { live } from 'lit-html/directives/live.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 
 class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMixin(LitElement)) {
@@ -42,7 +43,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 
 		return html`
 			<d2l-htmleditor
-				html="${this.value}"
+				.html="${live(this.value)}"
 				label="${this.ariaLabel}"
 				label-hidden
 				?disabled="${this.disabled}"
@@ -52,6 +53,10 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				?paste-local-images="${allowPaste}">
 			</d2l-htmleditor>
 		`;
+	}
+
+	reset() {
+		this.requestUpdate();
 	}
 
 	async save() {

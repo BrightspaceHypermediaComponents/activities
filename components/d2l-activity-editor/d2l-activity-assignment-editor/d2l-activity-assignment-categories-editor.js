@@ -46,7 +46,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(RtlMixin(LocalizeAc
 			return html`<div class="d2l-body-compact">${name}</div>`;
 		}
 
-		const unselectedId = 0; // API expects 0 to unselect an ID
+		const unselectedId = '0'; // API expects 0 to unselect an ID
 		return html`
 			<select
 				class="d2l-input-select d2l-block-select"

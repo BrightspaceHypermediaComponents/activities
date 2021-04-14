@@ -15,8 +15,8 @@ export class AssignmentCategories {
 		return !this._entity.equals(this._makeCategoriesData());
 	}
 
-	async fetch() {
-		const sirenEntity = await fetchEntity(this.href, this.token);
+	async fetch(bypassCache) {
+		const sirenEntity = await fetchEntity(this.href, this.token, bypassCache);
 		if (sirenEntity) {
 			const entity = new CategoriesEntity(sirenEntity, this.token, { remove: () => { } });
 			this.load(entity);
@@ -44,7 +44,7 @@ export class AssignmentCategories {
 		await this._saving;
 		this._saving = null;
 
-		await this.fetch();
+		await this.fetch(true);
 	}
 
 	setSelectedCategory(category) {

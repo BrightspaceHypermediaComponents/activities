@@ -11,10 +11,10 @@ class AssignmentCategoriesSummary extends ActivityEditorMixin(RtlMixin(LocalizeA
 		return css`
 			:host {
 				display: block;
-				width: 100%;
-				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
+				white-space: nowrap;
+				width: 100%;
 			}
 			:host([hidden]) {
 				display: none;

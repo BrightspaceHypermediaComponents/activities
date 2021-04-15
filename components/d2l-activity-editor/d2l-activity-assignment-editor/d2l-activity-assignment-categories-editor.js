@@ -41,7 +41,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 					width: 100%;
 				}
 
-				d2l-input-text{
+				d2l-input-text {
 					padding: 20px 0;
 				}
 			`

@@ -48,5 +48,10 @@ export default {
 	"hlpSubmissionNotificationEmail": "Enter an email or multiple emails separated by a comma, to receive notifications when an assignment is submitted.",
 	"gradeOutOf": "Grade Out Of", // Label for the grade-out-of field when creating/editing an activity
 	"txtCategoriesLabel": "Categories", // Label for categories dropdown
-	"noCategoryLabel": "No Category", // Label for when there are no categories
+	"noCategoryLabel": "No category", // Label for when there are no categories
+	"newCategoryLabel": "New category", // Label for adding a new category
+	"newAssignmentCategory": "New Assignment Category", // Title for category dialog
+	"btnAssignmentCategoryCreate": "Create", // Categories create button
+	"btnAssignmentCategoryCancel": "Cancel", // Categories cancel button
+	"inputCategoryLabel": "Name *", // Label for new category input
 };

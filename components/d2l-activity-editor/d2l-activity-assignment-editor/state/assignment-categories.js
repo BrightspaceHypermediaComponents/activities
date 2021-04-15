@@ -29,6 +29,8 @@ export class AssignmentCategories {
 		this.categories = entity.getCategories();
 		this.canEditCategories = entity.canEditCategories();
 		this.selectedCategory = entity.getSelectedCategory();
+		this.selectedCategoryId = this.selectedCategory && this.selectedCategory.properties.categoryId;
+		this.categoryName = '';
 	}
 
 	async save() {
@@ -47,13 +49,18 @@ export class AssignmentCategories {
 		await this.fetch(true);
 	}
 
-	setSelectedCategory(category) {
-		this.selectedCategory = category;
+	setNewCategoryName(name) {
+		this.categoryName = name;
+	}
+
+	setSelectedCategoryId(categoryId) {
+		this.selectedCategoryId = categoryId;
 	}
 
 	_makeCategoriesData() {
 		return {
-			categoryId: this.selectedCategory
+			categoryId: this.selectedCategoryId,
+			categoryName: this.categoryName
 		};
 	}
 }
@@ -63,7 +70,11 @@ decorate(AssignmentCategories, {
 	categories: observable,
 	selectedCategory: observable,
 	canEditCategories: observable,
+	selectedCategoryId: observable,
+	categoryName: observable,
 	// actions
 	load: action,
-	setSelectedCategory: action
+	setSelectedCategory: action,
+	setSelectedCategoryId: action,
+	setNewCategoryName: action
 });

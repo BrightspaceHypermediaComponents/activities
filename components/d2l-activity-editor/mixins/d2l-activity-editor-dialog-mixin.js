@@ -13,11 +13,11 @@ export const ActivityEditorDialogMixin = superclass => class extends superclass 
 
 	handleClose(e) {
 		this.opened = false;
-		e.stopPropagation();
+		e && e.stopPropagation();
 	}
 
 	open(event) {
-		event.preventDefault();
+		event && event.preventDefault();
 		this.opened = true;
 	}
 };

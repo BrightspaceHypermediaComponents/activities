@@ -95,7 +95,18 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			return;
 		}
 
-		await webLinkEntity.save();
+		const originalActivityUsageHref = webLinkEntity.activityUsageHref;
+		const updatedEntity = await webLinkEntity.save();
+		const event = new CustomEvent('d2l-content-activity-update', {
+			detail: {
+				originalActivityUsageHref: originalActivityUsageHref,
+				updatedActivityUsageHref: updatedEntity.getActivityUsageHref()
+			},
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		await this.dispatchEvent(event);
 	}
 
 	saveLink(link, isExternal) {

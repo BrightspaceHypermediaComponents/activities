@@ -12,6 +12,7 @@ export class ContentWebLink {
 		this.title = '';
 		this.link = '';
 		this.isExternalResource = false;
+		this.activityUsageHref = '';
 	}
 
 	async cancelCreate() {
@@ -34,9 +35,11 @@ export class ContentWebLink {
 
 	load(webLinkEntity) {
 		this._contentWebLink = webLinkEntity;
+		this.href = webLinkEntity.self();
 		this.title = webLinkEntity.title();
 		this.link = webLinkEntity.url();
 		this.isExternalResource = webLinkEntity.isExternalResource();
+		this.activityUsageHref = webLinkEntity.getActivityUsageHref();
 	}
 
 	async save() {
@@ -49,7 +52,8 @@ export class ContentWebLink {
 		await this._contentWebLink.setWebLinkExternalResource(this.isExternalResource);
 		const committedWebLinkEntity = await this._commit(this._contentWebLink);
 		const editableWebLinkEntity = await this._checkout(committedWebLinkEntity);
-		await this.load(editableWebLinkEntity);
+		this.load(editableWebLinkEntity);
+		return this._contentWebLink;
 	}
 
 	setExternalResource(value) {

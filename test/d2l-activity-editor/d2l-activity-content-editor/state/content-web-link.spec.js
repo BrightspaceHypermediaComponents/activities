@@ -29,6 +29,8 @@ describe('Content Web Link', function() {
 				title: () => 'Test Web Link Title',
 				url: () => 'http://test.com',
 				isExternalResource: () => false,
+				self: () => 'http://test-web-link-href.com',
+				getActivityUsageHref: () => 'http://test-activity-usage-link-href.com',
 				checkoutWebLink: checkoutWebLinkMock
 			};
 		});

@@ -57,8 +57,10 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		super.connectedCallback();
 		this.addEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
 		this.addEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
+		this.addEventListener('d2l-content-activity-update', this._contentActivityUpdated);
 	}
 	disconnectedCallback() {
+		this.removeEventListener('d2l-content-activity-update', this._contentActivityUpdated);
 		this.removeEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
 		this.removeEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
 		super.disconnectedCallback();
@@ -90,6 +92,14 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 			this.href && this.token) {
 			super._fetch(() => store.fetchContentActivity(this.href, this.token));
 			super._fetch(() => activityStore.fetch(this.href, this.token));
+		}
+	}
+
+	_contentActivityUpdated(e) {
+		const { originalActivityUsageHref, updatedActivityUsageHref } = e.detail;
+		if (originalActivityUsageHref === this.href &&
+			originalActivityUsageHref !== updatedActivityUsageHref) {
+			this.href = updatedActivityUsageHref;
 		}
 	}
 
@@ -137,9 +147,18 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 	}
 
 	_redirectOnSaveComplete() {
-		if (this.saveHref) {
-			window.location.href = this.saveHref;
-		}
+		let redirectLocation = this.saveHref;
+		store.fetchContentActivity(this.href, this.token)
+			.then((contentActivity) => {
+				if (contentActivity && contentActivity.lessonViewPageHref) {
+					redirectLocation = contentActivity.lessonViewPageHref;
+				}
+			})
+			.finally(() => {
+				if (redirectLocation) {
+					window.location.href = redirectLocation;
+				}
+			});
 	}
 }
 customElements.define('d2l-activity-content-editor', ContentEditor);

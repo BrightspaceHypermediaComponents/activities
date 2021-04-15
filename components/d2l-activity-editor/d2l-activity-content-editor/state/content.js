@@ -14,6 +14,7 @@ export class Content {
 		this.token = token;
 		this.entityType = null;
 		this.contentActivityHref = '';
+		this.lessonViewPageHref = '';
 	}
 
 	async fetch() {
@@ -39,6 +40,8 @@ export class Content {
 			this.contentActivityHref = contentEntity.getLTILinkHref();
 			ltiLinkStore.fetchContentLTILinkActivity(this.contentActivityHref, this.token);
 		}
+
+		this.lessonViewPageHref = contentEntity.getLessonViewPageHref();
 	}
 }
 decorate(Content, {

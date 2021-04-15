@@ -74,7 +74,6 @@ decorate(AssignmentCategories, {
 	categoryName: observable,
 	// actions
 	load: action,
-	setSelectedCategory: action,
 	setSelectedCategoryId: action,
 	setNewCategoryName: action
 });

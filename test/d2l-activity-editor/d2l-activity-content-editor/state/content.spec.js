@@ -32,7 +32,8 @@ describe('Content', function() {
 				getModuleHref: () => 'http://test-module-href.com',
 				getWebLinkHref: () => '',
 				getLTILinkHref: () => '',
-				getEntityType: () => 'module'
+				getEntityType: () => 'module',
+				getLessonViewPageHref: () => 'http://lessons/topic/1'
 			};
 		});
 

@@ -3,6 +3,7 @@ import './d2l-activity-assignment-submission-email-notification-summary.js';
 import './d2l-activity-assignment-type-editor.js';
 import './d2l-activity-assignment-categories-editor.js';
 import './d2l-activity-assignment-type-summary.js';
+import './d2l-activity-assignment-categories-summary.js';
 import '../d2l-activity-notification-email-editor';
 import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -77,6 +78,8 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 				<li slot="summary-items">${this._renderAssignmentSubmissionTypeSummary(assignment)}</li>
 				<li slot="summary-items">${this._renderAssignmentCompletionTypeSummary()}</li>
 				<li slot="summary-items">${this._renderSubmissionEmailNotificationSummary(assignment)}</li>
+				<li slot="summary-items">${this._renderCategoriesSummary(assignment)}</li>
+
 				<span slot="components">
 					${this._renderAssignmentType()}
 					${this._renderCategoriesDropdown(assignment)}
@@ -373,6 +376,17 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 				</d2l-activity-assignment-categories-editor>
 			</div>
 	`;
+	}
+
+	_renderCategoriesSummary(assignment) {
+		if (!assignment || !assignment.categoriesLink) return;
+
+		return html`
+			<d2l-activity-assignment-categories-summary
+				href="${assignment.categoriesLink}"
+				.token="${this.token}">
+			</d2l-activity-assignment-categories-summary>
+		`;
 	}
 
 	_renderSubmissionEmailNotificationSummary(assignment) {

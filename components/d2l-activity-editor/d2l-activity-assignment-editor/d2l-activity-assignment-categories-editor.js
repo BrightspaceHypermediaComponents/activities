@@ -1,12 +1,12 @@
-import { css, html } from '../../../../lit-element/lit-element.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorDialogMixin } from '../mixins/d2l-activity-editor-dialog-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { bodyCompactStyles } from '../../../../@brightspace-ui/core/components/typography/styles.js';
-import { inputLabelStyles } from '../../../../@brightspace-ui/core/components/inputs/input-label-styles.js';
+import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
-import { MobxLitElement } from '../../../../@adobe/lit-mobx/lit-mobx.js';
-import { RtlMixin } from '../../../../@brightspace-ui/core/mixins/rtl-mixin.js';
-import { selectStyles } from '../../../../@brightspace-ui/core/components/inputs/input-select-styles.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles.js';
 import { sharedCategories as store } from './state/assignment-store.js';
 
 const NEW_CATEGORY = 'new category';

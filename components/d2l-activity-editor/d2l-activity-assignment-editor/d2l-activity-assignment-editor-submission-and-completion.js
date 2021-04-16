@@ -364,17 +364,12 @@ class ActivityAssignmentSubmissionAndCompletionEditor extends SkeletonMixin(Acti
 		if (!assignment || !assignment.categoriesLink) return;
 
 		return html`
-			<div id="categories-editor-container">
-
-				<label class="d2l-label-text">
-					${this.localize('txtCategoriesLabel')}
-				</label>
-
-				<d2l-activity-assignment-categories-editor
-					href="${assignment.categoriesLink}"
-					.token="${this.token}">
-				</d2l-activity-assignment-categories-editor>
-			</div>
+		<div id="container">
+			<d2l-activity-assignment-categories-editor
+				href="${assignment.categoriesLink}"
+				.token="${this.token}">
+			</d2l-activity-assignment-categories-editor>
+		</div>
 	`;
 	}
 

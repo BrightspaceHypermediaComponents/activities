@@ -1,7 +1,7 @@
+import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorDialogMixin } from '../mixins/d2l-activity-editor-dialog-mixin.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { bodyCompactStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -27,6 +27,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 			selectStyles,
 			bodyCompactStyles,
 			inputLabelStyles,
+			labelStyles,
 			css`
 				:host {
 					display: block;
@@ -43,6 +44,11 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 
 				d2l-input-text {
 					padding: 20px 0;
+				}
+
+				.d2l-label-text {
+					display: inline-block;
+					margin-bottom: 10px;
 				}
 			`
 		];
@@ -67,7 +73,12 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		return html`
 			${this._renderDialog(categoriesStore)}
 
+			<label class="d2l-label-text" for="categories-editor">
+				${this.localize('txtCategoriesLabel')}
+			</label>
+
 			<select
+				id="categories-editor"
 				class="d2l-input-select d2l-block-select"
 				@change="${this._updateCategory}">
 

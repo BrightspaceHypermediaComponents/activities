@@ -150,7 +150,7 @@ describe('d2l-activity-assignment-editor-submission-and-completion', function() 
 		it('has a summary', async() => {
 			const el = await loadComponent();
 			const summary = el.shadowRoot.querySelectorAll('d2l-activity-accordion-collapse > li[slot="summary-items"]');
-			expect(summary.length).to.equal(4);
+			expect(summary.length).to.equal(5);
 		});
 
 		it('handles click event', async() => {

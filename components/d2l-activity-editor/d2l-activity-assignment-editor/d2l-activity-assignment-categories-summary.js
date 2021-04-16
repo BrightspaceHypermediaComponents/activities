@@ -31,7 +31,7 @@ class AssignmentCategoriesSummary extends ActivityEditorMixin(RtlMixin(LocalizeA
 		if (categories) {
 			const categoryName = categories.selectedCategory && categories.selectedCategory.properties.name;
 
-			return html`${categoryName}`;
+			return html`${this.localize('categorySummaryPrefix')}: ${categoryName}`;
 		}
 	}
 }

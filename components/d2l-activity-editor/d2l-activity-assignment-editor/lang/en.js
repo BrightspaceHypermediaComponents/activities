@@ -53,7 +53,7 @@ export default {
 	"newAssignmentCategory": "New Assignment Category", // Title for category dialog
 	"btnAssignmentCategoryCreate": "Create", // Categories create button
 	"btnAssignmentCategoryCancel": "Cancel", // Categories cancel button
-	"inputCategoryLabel": "Name *", // Label for new category input
+	"inputCategoryLabel": "Name", // Label for new category input
 	"categorySummaryPrefix": "Category", // Label for new category input
 
 };

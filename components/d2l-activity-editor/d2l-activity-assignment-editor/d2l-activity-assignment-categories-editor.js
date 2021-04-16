@@ -133,6 +133,8 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 						value="${store.categoryName}"
 						label="${this.localize('inputCategoryLabel')}"
 						maxlength="128"
+						novalidate
+						required
 						@input="${this._setNewCategoryName}"
 						skip-alert>
 					</d2l-input-text>

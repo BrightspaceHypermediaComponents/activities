@@ -1,5 +1,5 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { CategoriesEntity } from 'siren-sdk/src/activities/CategoriesEntity.js';
+import { CategoriesEntity } from 'siren-sdk/src/activities/assignments/CategoriesEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
 configureMobx({ enforceActions: 'observed' });
@@ -58,10 +58,22 @@ export class AssignmentCategories {
 	}
 
 	_makeCategoriesData() {
-		return {
-			categoryId: this.selectedCategoryId,
-			categoryName: this.categoryName
-		};
+		const data = {};
+
+		if (this.categoryName) {
+			data.categoryName = this.categoryName;
+		}
+
+		if (this.selectedCategoryId) {
+			const initialId = this.selectedCategory && this.selectedCategory.properties.categoryId;
+			const shouldUpdateCategoryId = this.selectedCategoryId !== initialId;
+
+			if (shouldUpdateCategoryId) {
+				data.categoryId = this.selectedCategoryId;
+			}
+		}
+
+		return data;
 	}
 }
 

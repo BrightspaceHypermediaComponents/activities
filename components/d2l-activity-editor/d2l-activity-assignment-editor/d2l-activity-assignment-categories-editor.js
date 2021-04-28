@@ -122,11 +122,14 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 	}
 
 	async _handleClose(e) {
-		if (e && e.detail && e.detail.action === 'save') {
-			const categoriesStore = store.get(this.href);
-			if (!categoriesStore) return;
+		const categoriesStore = store.get(this.href);
+		if (!categoriesStore) return;
 
+		if (e && e.detail && e.detail.action === 'save') {
 			await categoriesStore.save();
+		} else {
+			// reset category to prevent it from saving
+			categoriesStore.setNewCategoryName(null);
 		}
 
 		this.handleClose();

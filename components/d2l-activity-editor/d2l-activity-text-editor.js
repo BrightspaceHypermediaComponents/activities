@@ -79,7 +79,8 @@ class ActivityTextEditor extends LitElement {
 					?disabled="${this.disabled}"
 					@change="${this._onPlaintextChange}"
 					@input="${this._onPlaintextChange}"
-					aria-label="${this.ariaLabel}">
+					label="${this.ariaLabel}"
+					label-hidden>
 				</d2l-input-textarea>
 			`;
 		}

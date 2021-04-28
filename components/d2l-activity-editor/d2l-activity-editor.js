@@ -65,7 +65,9 @@ class ActivityEditor extends ActivityEditorContainerMixin(ActivityEditorTelemetr
 		super();
 		// Only show the scrollbar when necessary
 		document.body.style.overflow = 'auto';
-		document.documentElement.style.overflow = 'auto'; // needed for FF bug
+		// The following line introduces a worse bug, where typing into a text input on Android causes
+		// the cursor to go to the beginning every time a space is entered
+		//document.documentElement.style.overflow = 'auto'; // needed for FF bug
 
 		this._backdropShown = false;
 		this._saveToastVisible = null;

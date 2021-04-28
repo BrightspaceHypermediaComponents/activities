@@ -53,18 +53,24 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		super(store);
 		this.preCommitHref = null;
 		this.postCommitHref = null;
+		this.onSaveComplete = null;
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.addEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
+		// storing onSaveComplete handler in property in order to have 'this' work as expected,
+		// see https://lit.dev/docs/components/events/#understanding-this-in-event-listeners and
+		this.onSaveComplete = ({ detail: { saveInPlace } }) =>
+			(saveInPlace ? this._updateUsageHrefPostCommit() : this._redirectOnSaveComplete());
+
+		this.addEventListener('d2l-activity-editor-save-complete', this.onSaveComplete);
 		this.addEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
 		this.addEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
 	}
 	disconnectedCallback() {
-		this.removeEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
-		this.removeEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
+		this.removeEventListener('d2l-activity-editor-save-complete', this.onSaveComplete);
 		this.removeEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
+		this.removeEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
 		super.disconnectedCallback();
 	}
 
@@ -140,14 +146,6 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		if (e.detail.key === 'd2l-provider-trusted-site-fn') {
 			e.detail.provider = trustedSitesProviderFn(this.trustedSitesEndpoint);
 			e.stopPropagation();
-		}
-	}
-
-	_onSaveComplete({ detail: { saveInPlace } }) {
-		if (saveInPlace) {
-			this._updateUsageHrefPostCommit();
-		} else {
-			this._redirectOnSaveComplete();
 		}
 	}
 

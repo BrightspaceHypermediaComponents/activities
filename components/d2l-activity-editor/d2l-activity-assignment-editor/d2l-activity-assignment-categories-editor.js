@@ -182,7 +182,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 			return html``;
 		}
 
-		return html`<option value=${NEW_CATEGORY} >${this.localize('newCategoryLabel')}</option>`;
+		return html`<option value=${NEW_CATEGORY}>${this.localize('newCategoryLabel')}</option>`;
 	}
 
 	_renderReadonlyView(selectedCategory) {

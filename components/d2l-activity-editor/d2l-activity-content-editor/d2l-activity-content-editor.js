@@ -51,16 +51,18 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 
 	constructor() {
 		super(store);
+		this.preCommitHref = null;
+		this.postCommitHref = null;
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
 		this.addEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
 		this.addEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
-		this.addEventListener('d2l-content-activity-update', this._contentActivityUpdated);
+		this.addEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
 	}
 	disconnectedCallback() {
-		this.removeEventListener('d2l-content-activity-update', this._contentActivityUpdated);
+		this.removeEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
 		this.removeEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
 		this.removeEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
 		super.disconnectedCallback();
@@ -95,11 +97,12 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		}
 	}
 
-	_contentActivityUpdated(e) {
+	_contentWorkingCopyCommitted(e) {
 		const { originalActivityUsageHref, updatedActivityUsageHref } = e.detail;
 		if (originalActivityUsageHref === this.href &&
 			originalActivityUsageHref !== updatedActivityUsageHref) {
-			this.href = updatedActivityUsageHref;
+			this.preCommitHref = originalActivityUsageHref;
+			this.postCommitHref = updatedActivityUsageHref;
 		}
 	}
 
@@ -140,6 +143,14 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		}
 	}
 
+	_onSaveComplete({ detail: { saveInPlace } }) {
+		if (saveInPlace) {
+			this._updateUsageHrefPostCommit();
+		} else {
+			this._redirectOnSaveComplete();
+		}
+	}
+
 	_redirectOnCancelComplete() {
 		if (this.cancelHref) {
 			window.location.href = this.cancelHref;
@@ -159,6 +170,14 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 					window.location.href = redirectLocation;
 				}
 			});
+	}
+
+	_updateUsageHrefPostCommit() {
+		if (this.preCommitHref === this.href && this.postCommitHref) {
+			this.href = this.postCommitHref;
+			this.preCommitHref = null;
+			this.postCommitHref = null;
+		}
 	}
 }
 customElements.define('d2l-activity-content-editor', ContentEditor);

@@ -10,7 +10,7 @@ import { selectStyles } from '@brightspace-ui/core/components/inputs/input-selec
 import { sharedCategories as store } from './state/assignment-store.js';
 
 const NEW_CATEGORY = 'new category';
-const UNSELECTED_ID = '0'; // API expects 0 to unselect an ID
+const UNSELECTED_ID = '0'; // API expects 0 to unselect a category
 
 class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialogMixin(RtlMixin(LocalizeActivityAssignmentEditorMixin(MobxLitElement)))) {
 
@@ -132,6 +132,12 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		this.handleClose();
 	}
 
+	_handleNewCategory(categoriesStore) {
+		this.open();
+
+		return this._resetCategory(categoriesStore);
+	}
+
 	_renderDialog(store) {
 		return html`
 			<d2l-dialog
@@ -141,7 +147,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 				title-text="${this.localize('newAssignmentCategory')}">
 
 					<d2l-input-text
-						value="${store.categoryName}"
+						value="${store.newCategoryName}"
 						label="${this.localize('inputCategoryLabel')}"
 						maxlength="128"
 						novalidate
@@ -153,7 +159,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 					<d2l-button
 						data-dialog-action="save"
 						slot="footer"
-						?disabled="${!store.categoryName}"
+						?disabled="${!store.newCategoryName}"
 						primary>
 						${this.localize('btnAssignmentCategoryCreate')}
 					</d2l-button>
@@ -181,17 +187,30 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		categoriesStore.setNewCategoryName(e.target.value);
 	}
 
+	_setSelectedCategory(e, categoriesStore) {
+		const selectedCategoryIndex = e.target.selectedIndex;
+		const selectedCategory = e.target.options[selectedCategoryIndex];
+
+		const { value, text } = selectedCategory;
+
+		categoriesStore.setSelectedCategory(value, text);
+	}
+
 	_updateCategory(e) {
+		if (!e || !e.target || !e.target.value) return;
+
 		const categoriesStore = store.get(this.href);
 		if (!categoriesStore) return;
 
-		if (e && e.target && e.target.value === NEW_CATEGORY) {
-			this.open();
-
-			return this._resetCategory(categoriesStore);
+		if (e.target.value === NEW_CATEGORY) {
+			return this._handleNewCategory(categoriesStore);
 		}
 
-		categoriesStore.setSelectedCategoryId(e.target.value);
+		if (e.target.value === UNSELECTED_ID) {
+			return categoriesStore.setSelectedCategory(UNSELECTED_ID, '');
+		}
+
+		this._setSelectedCategory(e, categoriesStore);
 	}
 }
 customElements.define('d2l-activity-assignment-categories-editor', AssignmentCategoriesEditor);

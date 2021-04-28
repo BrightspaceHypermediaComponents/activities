@@ -28,10 +28,8 @@ class AssignmentCategoriesSummary extends ActivityEditorMixin(RtlMixin(LocalizeA
 
 	render() {
 		const categories = store.get(this.href);
-		if (categories && categories.selectedCategory) {
-			const categoryName =  categories.selectedCategory.properties.name;
-
-			return html`${this.localize('categorySummaryPrefix')}: ${categoryName}`;
+		if (categories && categories.selectedCategoryName) {
+			return html`${this.localize('categorySummaryPrefix')}: ${categories.selectedCategoryName}`;
 		}
 	}
 }

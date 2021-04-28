@@ -28,6 +28,7 @@ export class AssignmentCategories {
 		this._entity = entity;
 		this.categories = entity.getCategories();
 		this.canEditCategories = entity.canEditCategories();
+		this.canAddCategories = entity.canAddCategories();
 		this.selectedCategory = entity.getSelectedCategory();
 		this.selectedCategoryName = this.selectedCategory && this.selectedCategory.properties.name;
 		this.selectedCategoryId = this.selectedCategory && this.selectedCategory.properties.categoryId;
@@ -84,6 +85,7 @@ decorate(AssignmentCategories, {
 	categories: observable,
 	selectedCategory: observable,
 	canEditCategories: observable,
+	canAddCategories: observable,
 	selectedCategoryId: observable,
 	newCategoryName: observable,
 	selectedCategoryName: observable,

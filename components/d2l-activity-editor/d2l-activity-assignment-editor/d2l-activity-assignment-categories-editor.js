@@ -66,8 +66,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		}
 
 		if (!categoriesStore.canEditCategories) {
-			const name = categoriesStore.selectedCategory ? categoriesStore.selectedCategory.properties.name : this.localize('noCategoryLabel');
-			return html`<div class="d2l-body-compact">${name}</div>`;
+			return this._renderReadonlyView(categoriesStore.selectedCategory);
 		}
 
 		return html`
@@ -86,7 +85,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 
 				${categoriesStore.categories.map((category) => this._formatOption(category, this.href))}
 
-				<option value=${NEW_CATEGORY} >${this.localize('newCategoryLabel')}</option>
+				${this._renderNewCategoryOption()}
 
 			</select>
 		`;
@@ -175,6 +174,25 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 
 			</d2l-dialog>
 		`;
+	}
+
+	_renderNewCategoryOption() {
+		const categoriesStore = store.get(this.href);
+		if (!categoriesStore || !categoriesStore.canAddCategories) {
+			return html``;
+		}
+
+		return html`<option value=${NEW_CATEGORY} >${this.localize('newCategoryLabel')}</option>`;
+	}
+
+	_renderReadonlyView(selectedCategory) {
+		const name = selectedCategory ? selectedCategory.properties.name : this.localize('noCategoryLabel');
+		return html`
+			<label class="d2l-label-text" for="readonly-category">
+				${this.localize('txtCategoriesLabel')}
+			</label>
+
+			<div class="d2l-body-compact" id="readonly-category">${name}</div>`;
 	}
 
 	_resetCategory(categoriesStore) {

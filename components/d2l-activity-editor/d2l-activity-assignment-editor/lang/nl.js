@@ -47,4 +47,13 @@ export default {
 	"assignmentLocked": "Sommige instellingen zijn vergrendeld omdat er inzendingen zijn ontvangen.",
 	"hlpSubmissionNotificationEmail": "Voer een e-mailadres of meerdere e-mailadressen in, gescheiden door een komma, om meldingen te ontvangen wanneer een opdracht is ingezonden.",
 	"gradeOutOf": "Score", // Label for the grade-out-of field when creating/editing an activity
+	"txtCategoriesLabel": "Categorieën", // Label for categories dropdown
+	"noCategoryLabel": "Geen categorie", // Label for when there are no categories
+	"newCategoryLabel": "Nieuwe categorie", // Label for adding a new category
+	"newAssignmentCategory": "Nieuwe opdrachtcategorie", // Title for category dialog
+	"btnAssignmentCategoryCreate": "Maken", // Categories create button
+	"btnAssignmentCategoryCancel": "Annuleren", // Categories cancel button
+	"inputCategoryLabel": "Naam", // Label for new category input
+	"categorySummaryPrefix": "Categorie", // Label for new category input
+
 };

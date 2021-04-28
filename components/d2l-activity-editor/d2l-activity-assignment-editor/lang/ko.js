@@ -47,4 +47,13 @@ export default {
 	"assignmentLocked": "제출 항목이 수신되어 일부 설정이 잠겼습니다.",
 	"hlpSubmissionNotificationEmail": "과제가 제출되었을 때 알림을 받으려면 이메일 또는 여러 이메일을 쉼표로 구분하여 입력하십시오.",
 	"gradeOutOf": "평점 기준 만점", // Label for the grade-out-of field when creating/editing an activity
+	"txtCategoriesLabel": "범주", // Label for categories dropdown
+	"noCategoryLabel": "범주 없음", // Label for when there are no categories
+	"newCategoryLabel": "새 범주", // Label for adding a new category
+	"newAssignmentCategory": "새 할당 범주", // Title for category dialog
+	"btnAssignmentCategoryCreate": "생성", // Categories create button
+	"btnAssignmentCategoryCancel": "취소", // Categories cancel button
+	"inputCategoryLabel": "이름", // Label for new category input
+	"categorySummaryPrefix": "범주", // Label for new category input
+
 };

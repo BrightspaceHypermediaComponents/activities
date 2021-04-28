@@ -47,4 +47,13 @@ export default {
 	"assignmentLocked": "Algunas opciones de configuración están bloqueadas debido a que se recibieron los envíos.",
 	"hlpSubmissionNotificationEmail": "Ingrese uno o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una asignación.",
 	"gradeOutOf": "Calificación de", // Label for the grade-out-of field when creating/editing an activity
+	"txtCategoriesLabel": "Categorías", // Label for categories dropdown
+	"noCategoryLabel": "Ninguna categoría", // Label for when there are no categories
+	"newCategoryLabel": "Nueva categoría", // Label for adding a new category
+	"newAssignmentCategory": "Nueva categoría de asignaciones", // Title for category dialog
+	"btnAssignmentCategoryCreate": "Crear", // Categories create button
+	"btnAssignmentCategoryCancel": "Cancelar", // Categories cancel button
+	"inputCategoryLabel": "Nombre", // Label for new category input
+	"categorySummaryPrefix": "Categoría", // Label for new category input
+
 };

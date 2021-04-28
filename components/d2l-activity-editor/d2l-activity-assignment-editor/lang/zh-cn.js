@@ -47,4 +47,13 @@ export default {
 	"assignmentLocked": "由于已收到提交的内容，部分设置已锁定。",
 	"hlpSubmissionNotificationEmail": "输入一个或多个电子邮件地址（用逗号分隔），以在提交作业时接收通知。",
 	"gradeOutOf": "成绩超出", // Label for the grade-out-of field when creating/editing an activity
+	"txtCategoriesLabel": "类别", // Label for categories dropdown
+	"noCategoryLabel": "无类别", // Label for when there are no categories
+	"newCategoryLabel": "新类别", // Label for adding a new category
+	"newAssignmentCategory": "新作业类别", // Title for category dialog
+	"btnAssignmentCategoryCreate": "创建", // Categories create button
+	"btnAssignmentCategoryCancel": "取消", // Categories cancel button
+	"inputCategoryLabel": "名称", // Label for new category input
+	"categorySummaryPrefix": "类别", // Label for new category input
+
 };

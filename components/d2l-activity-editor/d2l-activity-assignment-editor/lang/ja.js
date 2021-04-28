@@ -47,4 +47,13 @@ export default {
 	"assignmentLocked": "送信物を受信したため、一部の設定がロックされています。",
 	"hlpSubmissionNotificationEmail": "課題が送信されたときに通知を受け取るには、1 つの電子メールを入力するか、複数の電子メールをカンマで区切って入力します。",
 	"gradeOutOf": "満点の成績", // Label for the grade-out-of field when creating/editing an activity
+	"txtCategoriesLabel": "カテゴリ", // Label for categories dropdown
+	"noCategoryLabel": "カテゴリなし", // Label for when there are no categories
+	"newCategoryLabel": "新規カテゴリ", // Label for adding a new category
+	"newAssignmentCategory": "新規課題カテゴリ", // Title for category dialog
+	"btnAssignmentCategoryCreate": "作成", // Categories create button
+	"btnAssignmentCategoryCancel": "キャンセル", // Categories cancel button
+	"inputCategoryLabel": "名前", // Label for new category input
+	"categorySummaryPrefix": "カテゴリ", // Label for new category input
+
 };

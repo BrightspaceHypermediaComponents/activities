@@ -47,4 +47,13 @@ export default {
 	"assignmentLocked": "由於已收到交件匣提交，因此某些設定已鎖定。",
 	"hlpSubmissionNotificationEmail": "輸入一個電子郵件或以逗點分隔的多個電子郵件，以便在作業提交至交件匣時收到通知。",
 	"gradeOutOf": "成績總分", // Label for the grade-out-of field when creating/editing an activity
+	"txtCategoriesLabel": "類別", // Label for categories dropdown
+	"noCategoryLabel": "無類別", // Label for when there are no categories
+	"newCategoryLabel": "新類別", // Label for adding a new category
+	"newAssignmentCategory": "新的作業類別", // Title for category dialog
+	"btnAssignmentCategoryCreate": "建立", // Categories create button
+	"btnAssignmentCategoryCancel": "取消", // Categories cancel button
+	"inputCategoryLabel": "名稱", // Label for new category input
+	"categorySummaryPrefix": "類別", // Label for new category input
+
 };

@@ -23,6 +23,13 @@ export const ActivityEditorTelemetryMixin = superclass => class extends supercla
 	async logTelemetryEvent(href, action, type, telemetryId) {
 		if (!href || !action || !type || !telemetryId) return;
 
+		let client;
+		try {
+			client = await D2L.Telemetry.CreateClient();
+		} catch (e) {
+			return;
+		}
+
 		const eventBody = new Events.EventBody()
 			.setAction(action)
 			.setObject(href, type);
@@ -31,7 +38,6 @@ export const ActivityEditorTelemetryMixin = superclass => class extends supercla
 			.setDate(new Date())
 			.setSourceId(telemetryId)
 			.setBody(eventBody);
-		const client = await D2L.Telemetry.CreateClient();
 		client.logUserEvent(event);
 	}
 

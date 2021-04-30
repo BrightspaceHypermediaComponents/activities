@@ -30,10 +30,6 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				:host {
 					display: block;
 				}
-				.d2l-quick-eval-table {
-					--d2l-table-body-background-color: transparent;
-					--d2l-table-light-header-background-color: transparent;
-				}
 				d2l-td {
 					font-size: 0.7rem;
 				}
@@ -152,7 +148,7 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 			<template is="dom-if" if="[[courseLevel]]">
 				<h2 title="[[courseLevelName]]" class="d2l-quick-eval-submissions-course-name-heading">[[courseLevelName]]</h2>
 			</template>
-			<d2l-table class="d2l-quick-eval-table" type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[headerColumns.length]]" aria-rowcount$="[[_data.length]]">
+			<d2l-table type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[headerColumns.length]]" aria-rowcount$="[[_data.length]]">
 				<d2l-thead>
 					<d2l-tr>
 						<dom-repeat items="[[headerColumns]]" as="headerColumn">

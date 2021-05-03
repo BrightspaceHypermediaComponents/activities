@@ -1,6 +1,5 @@
 import 'd2l-rubric/d2l-rubric';
 import '@brightspace-ui/core/components/dialog/dialog';
-import '@brightspace-ui/core/components/dialog/dialog-confirm';
 import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { shared as activityStore } from '../state/activity-store';
@@ -47,6 +46,10 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 				}
 				.d2l-association-box {
 					flex-grow: 1;
+				}
+
+				.detach-rubric-dialog-text {
+					margin-bottom: 1rem;
 				}
 			`
 		];
@@ -128,7 +131,6 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		if (shouldShowRubric) {
 			const canDeleteAssociation = association.entity.canDeleteAssociation() || association.isAssociating;
 
-			//Add langterm to confirm dialog!
 			return html`
 			<div class="d2l-association-container">
 				<d2l-rubric
@@ -147,14 +149,19 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 				></d2l-button-icon>
 			</div>
 
-			<d2l-dialog-confirm
+			<d2l-dialog
 				?opened="${this._confirmDetachDialogOpen}"
-				text="${this.localize('rubrics.txtConfirmDetachRubric')}"
 				@d2l-dialog-close="${(e) => { this._handleConfirmDetachDialogClose(e, association.rubricHref); }}"
 			>
+				<div class="detach-rubric-dialog-text">
+					${this.localize('rubrics.txtConfirmDetachRubric')}
+				</div>
+				<div class="detach-rubric-dialog-text-2">
+					${this.localize('rubrics.txtConfirmDetachRubric2')}
+				</div>
 				<d2l-button slot="footer" primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}">${this.localize('rubrics.btnDetach')}</d2l-button>
 				<d2l-button slot="footer" data-dialog-action>${this.localize('rubrics.btnCancel')}</d2l-button>
-			</d2l-dialog-confirm>
+			</d2l-dialog>
 			`;
 		} else {
 			return html``;

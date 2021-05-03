@@ -240,6 +240,20 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 		await assignment.save();
 	}
 
+	_debounce(debounceJobs, fn, interval) {
+		const isFirstChange = !debounceJobs;
+
+		debounceJobs = Debouncer.debounce(
+			debounceJobs,
+			timeOut.after(interval),
+			() => fn()
+		);
+
+		if (isFirstChange) {
+			debounceJobs.flush();
+		}
+	}
+
 	_onRequestProvider(e) {
 		// Provides orgUnitId for d2l-labs-attachment
 		// https://github.com/Brightspace/attachment/blob/74a66e85f03790aa9f4e6ec5025cd3c62cfb5264/mixins/attachment-mixin.js#L19
@@ -263,25 +277,26 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 
 	_saveInstructionsOnChange(e) {
 		const instructions = e.detail.content;
-
-		this._debounceJobs.instructions = Debouncer.debounce(
+		this._debounce(
 			this._debounceJobs.instructions,
-			timeOut.after(500),
-			() => this._saveInstructions(instructions)
+			() => this._saveInstructions(instructions),
+			500
 		);
 	}
+
 	_saveName(value) {
 		store.get(this.href).setName(value);
 	}
+
 	_saveNameOnInput(e) {
 		const name = e.target.value;
-
-		this._debounceJobs.name = Debouncer.debounce(
+		this._debounce(
 			this._debounceJobs.name,
-			timeOut.after(500),
-			() => this._saveName(name)
+			() => this._saveName(name),
+			500
 		);
 	}
+
 	_saveOnChange(jobName) {
 		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}

@@ -108,6 +108,17 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		this._confirmDetachDialogOpen = false;
 	}
 
+	_handleConfirmDetachDialogOpen(e) {
+		//Set default keyboard focus to the cancel button
+		const dialog = e.target;
+		console.log(dialog);
+		const closeButton = dialog.querySelector('.detach-rubric-dialog-cancel-button');
+		console.log(closeButton);
+		if(closeButton) {
+			closeButton.focus();
+		}
+	}
+
 	_onDeleteAssociationButtonClicked(e, association) {
 		const associationEntity = association.entity._entity;
 		const activityUsageLink = associationEntity.getSubEntityByClass('activity-usage');
@@ -151,6 +162,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 
 			<d2l-dialog
 				?opened="${this._confirmDetachDialogOpen}"
+				@d2l-dialog-open="${this._handleConfirmDetachDialogOpen}}"
 				@d2l-dialog-close="${(e) => { this._handleConfirmDetachDialogClose(e, association.rubricHref); }}"
 			>
 				<div class="detach-rubric-dialog-text">
@@ -159,8 +171,19 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 				<div class="detach-rubric-dialog-text-2">
 					${this.localize('rubrics.txtConfirmDetachRubric2')}
 				</div>
-				<d2l-button slot="footer" primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}">${this.localize('rubrics.btnDetach')}</d2l-button>
-				<d2l-button slot="footer" data-dialog-action>${this.localize('rubrics.btnCancel')}</d2l-button>
+				<d2l-button
+					slot="footer"
+					primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}"
+				>
+					${this.localize('rubrics.btnDetach')}
+				</d2l-button>
+				<d2l-button
+					slot="footer"
+					class="detach-rubric-dialog-cancel-button"
+					data-dialog-action
+				>
+					${this.localize('rubrics.btnCancel')}
+				</d2l-button>
 			</d2l-dialog>
 			`;
 		} else {

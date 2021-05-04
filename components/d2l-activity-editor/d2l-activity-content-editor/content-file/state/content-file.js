@@ -1,5 +1,6 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { ContentFileEntity } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
+import { FileEntity } from 'siren-sdk/src/files/FileEntity.js';
 import { fetchEntity } from '../../../state/fetch-entity.js';
 // TODO: Explore idea of using this shared WorkingCopy
 // import { WorkingCopy } from '../../../state/working-copy.js';
@@ -12,6 +13,7 @@ export class ContentFile {
 		this.href = href;
 		this.token = token;
 		this.title = '';
+		this.htmlContent = '';
 	}
 
 	async cancelCreate() {
@@ -27,14 +29,19 @@ export class ContentFile {
 		if (sirenEntity) {
 			let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 			entity = await this._checkout(entity);
-			this.load(entity);
+
+			const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
+			const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
+			const htmlContentResponse = await fetch(fileEntity.getFileLocationHref()); 
+			htmlContentResponse.text().then((htmlContent) => this.load(entity, htmlContent));
 		}
 		return this;
 	}
 
-	load(contentFileEntity) {
+	load(contentFileEntity, htmlContent) {
 		this._contentFile = contentFileEntity;
 		this.title = contentFileEntity.title();
+		this.htmlContent = htmlContent;
 	}
 
 	async save() {

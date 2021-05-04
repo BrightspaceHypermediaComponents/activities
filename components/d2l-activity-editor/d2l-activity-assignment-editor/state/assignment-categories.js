@@ -68,12 +68,7 @@ export class AssignmentCategories {
 		}
 
 		if (this.selectedCategoryId) {
-			const initialId = this.selectedCategory && this.selectedCategory.properties.categoryId;
-			const shouldUpdateCategoryId = this.selectedCategoryId !== initialId;
-
-			if (shouldUpdateCategoryId) {
-				data.categoryId = this.selectedCategoryId;
-			}
+			data.categoryId = this.selectedCategoryId;
 		}
 
 		return data;

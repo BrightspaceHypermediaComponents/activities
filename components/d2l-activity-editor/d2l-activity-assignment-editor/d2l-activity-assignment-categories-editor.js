@@ -128,7 +128,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 			await categoriesStore.save();
 		} else {
 			// reset category to prevent it from saving
-			categoriesStore.setNewCategoryName(null);
+			categoriesStore.setNewCategoryName('');
 		}
 
 		this.handleClose();

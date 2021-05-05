@@ -8,6 +8,7 @@ import es from './lang/es.js';
 import eses from './lang/es-es.js';
 import fr from './lang/fr.js';
 import frfr from './lang/fr-fr.js';
+import fron from './lang/fr-on.js';
 import ja from './lang/ja.js';
 import ko from './lang/ko.js';
 import nl from './lang/nl.js';
@@ -39,6 +40,7 @@ const QuickEvalLocalizeImpl = (superClass) => {
 							'es-es': eses,
 							'fr': fr,
 							'fr-fr': frfr,
+							'fr-on': fron,
 							'ja': ja,
 							'ko': ko,
 							'nl': nl,
@@ -97,6 +99,9 @@ export const LitQuickEvalLocalize = superclass => class extends LocalizeMixin(su
 					break;
 				case 'fr-fr':
 					translations = frfr;
+					break;
+				case 'fr-on':
+					translations = fron;
 					break;
 				case 'ja':
 					translations = ja;

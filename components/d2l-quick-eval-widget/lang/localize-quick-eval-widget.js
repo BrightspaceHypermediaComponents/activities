@@ -27,11 +27,14 @@ export const LocalizeQuickEvalWidget = superclass => class extends LocalizeMixin
 				case 'es':
 					translations = await import('./es.js');
 					break;
+				case 'fr':
+					translations = await import('./fr.js');
+					break;
 				case 'fr-fr':
 					translations = await import('./fr-fr.js');
 					break;
-				case 'fr':
-					translations = await import('./fr.js');
+				case 'fr-on':
+					translations = await import('./fr-on.js');
 					break;
 				case 'ja':
 					translations = await import('./ja.js');

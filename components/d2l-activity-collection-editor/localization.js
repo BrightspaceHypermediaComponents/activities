@@ -21,6 +21,9 @@ export const LocalizeActivityCollectionEditor = superclass => class extends Loca
 				case 'fr':
 					translations = await import('./lang/fr.js');
 					break;
+				case 'fr-on':
+					translations = await import('./lang/fr-on.js');
+					break;
 				case 'ja':
 					translations = await import('./lang/ja.js');
 					break;

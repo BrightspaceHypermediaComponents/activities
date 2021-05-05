@@ -2,7 +2,9 @@ import '../shared-components/d2l-activity-content-editor-title.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
+import { ContentEditorConstants } from '../constants';
 import { ContentFileEntity } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
+import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { shared as contentFileStore } from './state/content-file-store.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
@@ -12,6 +14,7 @@ import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-la
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
+import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
@@ -28,7 +31,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					flex: 1;
 					min-height: 300px;
 				}
-				#content-description-container {
+				#content-page-content-container {
 					display: flex;
 					flex-direction: column;
 					height: inherit;
@@ -52,10 +55,10 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 	render() {
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
-		let htmlContent = null;
+		let pageContent = null;
 		if (contentFileEntity) {
 			this.skeleton = false;
-			htmlContent = contentFileEntity.htmlContent;
+			pageContent = contentFileEntity.htmlContent;
 		}
 
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
@@ -75,15 +78,16 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			>
 			</d2l-activity-content-editor-title>
 			<slot name="due-date"></slot>
-			<div id="content-description-container">
+			<div id="content-page-content-container">
 				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
-					${this.localize('content.description')}
+					${this.localize('content.pageContent')}
 				</div>
 				<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 					<d2l-activity-text-editor
-						.ariaLabel="${this.localize('content.description')}"
-						.key="content-description"
-						.value="${htmlContent}"
+						.ariaLabel="${this.localize('content.pageContent')}"
+						.key="content-page-content"
+						.value="${pageContent}"
+						@d2l-activity-text-editor-change="${this._onPageContentChange}"
 						.richtextEditorConfig="${{}}"
 						html-editor-height="100%"
 						full-page
@@ -124,6 +128,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return;
 		}
 
+		this._saveOnChange('pageContent');
 		await contentFileActivity.save();
 	}
 
@@ -133,6 +138,27 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return;
 		}
 		contentFileActivity.setTitle(title);
+	}
+
+	_onPageContentChange(e) {
+		const pageContent = e.detail.content;
+		this._debounceJobs.description = Debouncer.debounce(
+			this._debounceJobs.description,
+			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
+			() => this._savePageContent(pageContent)
+		);
+	}
+
+	_savePageContent(pageContent) {
+		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
+		if (!contentFileEntity) {
+			return;
+		}
+		contentFileEntity.setPageContent(pageContent);
+	}
+
+	_saveOnChange(jobName) {
+		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 }
 

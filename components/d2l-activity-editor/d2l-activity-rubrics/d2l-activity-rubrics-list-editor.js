@@ -48,7 +48,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 					flex-grow: 1;
 				}
 
-				.detach-rubric-dialog-text {
+				.d2l-detach-rubric-dialog-text {
 					margin-bottom: 1rem;
 				}
 			`
@@ -111,10 +111,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 	_handleConfirmDetachDialogOpen(e) {
 		//Set default keyboard focus to the cancel button
 		const dialog = e.target;
-		console.log(dialog);
 		const closeButton = dialog.querySelector('.detach-rubric-dialog-cancel-button');
-		console.log(closeButton);
-		if(closeButton) {
+		if (closeButton) {
 			closeButton.focus();
 		}
 	}
@@ -137,16 +135,16 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 	}
 
 	_renderAssociation(association) {
-		const shouldShowRubric = (association.isAssociated || association.isAssociating)
-			&& !association.isDeleting;
+		const shouldShowRubric = (association.isAssociated || association.isAssociating);
 		if (shouldShowRubric) {
-			const canDeleteAssociation = association.entity.canDeleteAssociation() || association.isAssociating;
+			const canDeleteAssociation = (association.entity.canDeleteAssociation() || association.isAssociating) && !association.isDeleting;
 
 			return html`
 			<div class="d2l-association-container">
 				<d2l-rubric
 					class="d2l-association-box"
 					force-compact
+					?detached="${association.isDeleting}"
 					.href="${association.rubricHref}"
 					.token="${this.token}">
 				</d2l-rubric>
@@ -165,10 +163,10 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 				@d2l-dialog-open="${this._handleConfirmDetachDialogOpen}}"
 				@d2l-dialog-close="${(e) => { this._handleConfirmDetachDialogClose(e, association.rubricHref); }}"
 			>
-				<div class="detach-rubric-dialog-text">
+				<div class="d2l-detach-rubric-dialog-text">
 					${this.localize('rubrics.txtConfirmDetachRubric')}
 				</div>
-				<div class="detach-rubric-dialog-text-2">
+				<div class="d2l-detach-rubric-dialog-text-2">
 					${this.localize('rubrics.txtConfirmDetachRubric2')}
 				</div>
 				<d2l-button

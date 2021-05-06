@@ -14,7 +14,7 @@ export class ContentFile {
 		this.href = href;
 		this.token = token;
 		this.title = '';
-		this.htmlContent = null;
+		this.fileContent = null;
 	}
 
 	async cancelCreate() {
@@ -29,30 +29,23 @@ export class ContentFile {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
 			let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-
-			if (entity.getFileType() === FILE_TYPES.html) {
-				entity = new ContentHtmlFileEntity(entity, this.token, { remove: () => { } });
-				entity = await this._checkout(entity);
-	
+			entity = await this._checkout(entity);
+			
+			if(entity.getFileHref()) { //we need something like this to check if there is a new file; new files will not have the fileHref yet
 				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
 				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
-				const htmlContentFetchResponse = await fetch(fileEntity.getFileLocationHref()); 
-				const htmlContent = await htmlContentFetchResponse.text();
-				this.load(entity, htmlContent);
-			} else {
-				entity = await this._checkout(entity);
-				this.load(entity);
+				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref()); 
+				const fileContent = await fileContentFetchResponse.text();
 			}
+			this.load(entity, fileContent);
 		}
 		return this;
 	}
 
-	load(contentFileEntity, htmlContent = null) {
+	load(contentFileEntity, fileContent = null) {
 		this._contentFile = contentFileEntity;
 		this.title = contentFileEntity.title();
-		if (htmlContent && this._contentFile.getFileType() === FILE_TYPES.html) {
-			this.htmlContent = htmlContent;
-		}
+		this.fileContent = fileContent;
 	}
 
 	async save() {
@@ -63,7 +56,8 @@ export class ContentFile {
 		await this._contentFile.setFileTitle(this.title);
 		
 		if (this._contentFile.getFileType() === FILE_TYPES.html) {
-			await this._contentFile.setHtmlFileHtmlContent(this.htmlContent);
+			let htmlEntity = new ContentHtmlFileEntity(this._contentFile, this.token, { remove: () => { } });
+			await htmlEntity.setHtmlFileHtmlContent(this.htmlContent);
 		}
 
 		const committedContentFileEntity = await this._commit(this._contentFile);
@@ -90,9 +84,6 @@ export class ContentFile {
 		}
 		
 		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-		if (entity.getFileType() === FILE_TYPES.html) {
-			return new ContentHtmlFileEntity(sirenEntity, this.token, { remove: () => { } });
-		}
 		return entity;
 	}
 
@@ -107,9 +98,6 @@ export class ContentFile {
 		}
 		
 		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-		if (entity.getFileType() === FILE_TYPES.html) {
-			return new ContentHtmlFileEntity(sirenEntity, this.token, { remove: () => { } });
-		}
 		return entity;
 	}
 

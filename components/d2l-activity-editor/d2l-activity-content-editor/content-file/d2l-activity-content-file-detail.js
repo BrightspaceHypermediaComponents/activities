@@ -58,7 +58,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		let pageContent = null;
 		if (contentFileEntity) {
 			this.skeleton = false;
-			pageContent = contentFileEntity.htmlContent;
+			pageContent = contentFileEntity.fileContent;
 		}
 
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {

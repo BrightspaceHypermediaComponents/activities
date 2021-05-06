@@ -64,7 +64,7 @@ export class ActivityUsage extends WorkingCopy {
 
 		await this.scoreAndGrade.primeGradeSave();
 
-		super.save();
+		await super.save();
 	}
 	setAlignmentsHref(value) {
 		this.alignmentsHref = value;

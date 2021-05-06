@@ -56,6 +56,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	render() {
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = null;
+
 		if (contentFileEntity) {
 			this.skeleton = false;
 			pageContent = contentFileEntity.fileContent;
@@ -97,12 +98,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				</div>
 			</div>
 		`;
-	}
-
-	updated(changedProperties) {
-		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
-		}
 	}
 
 	async cancelCreate() {

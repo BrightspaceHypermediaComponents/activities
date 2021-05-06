@@ -29,14 +29,17 @@ export class ContentFile {
 		const sirenEntity = await fetchEntity(this.href, this.token);
 		if (sirenEntity) {
 			let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
+			let fileContent = '';
+
 			entity = await this._checkout(entity);
-			
-			if(entity.getFileHref()) { //we need something like this to check if there is a new file; new files will not have the fileHref yet
+
+			if(!this._isNewFile(entity)) { //this needs to die 
 				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
 				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
 				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref()); 
-				const fileContent = await fileContentFetchResponse.text();
+				fileContent = await fileContentFetchResponse.text();
 			}
+
 			this.load(entity, fileContent);
 		}
 		return this;
@@ -73,6 +76,11 @@ export class ContentFile {
 		this.htmlContent = pageContent;
 	}
 
+	_isNewFile(entity) { //ewwwwwwwwwwwwwwwwwww
+		let url = new URL(entity.self());
+		return url.pathname.includes('-1');
+	}
+	
 	async _checkout(contentFileEntity) {
 		if (!contentFileEntity) {
 			return;

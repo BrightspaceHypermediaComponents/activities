@@ -14,7 +14,6 @@ export class ContentFile {
 		this.href = href;
 		this.token = token;
 		this.title = '';
-		this.fileType = null;
 		this.htmlContent = null;
 	}
 
@@ -31,7 +30,7 @@ export class ContentFile {
 		if (sirenEntity) {
 			let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 
-			if (entity.getFileType() === "html") {
+			if (entity.getFileType() === FILE_TYPES.html) {
 				entity = new ContentHtmlFileEntity(entity, this.token, { remove: () => { } });
 				entity = await this._checkout(entity);
 	
@@ -41,6 +40,7 @@ export class ContentFile {
 				const htmlContent = await htmlContentFetchResponse.text();
 				this.load(entity, htmlContent);
 			} else {
+				entity = await this._checkout(entity);
 				this.load(entity);
 			}
 		}
@@ -50,7 +50,9 @@ export class ContentFile {
 	load(contentFileEntity, htmlContent = null) {
 		this._contentFile = contentFileEntity;
 		this.title = contentFileEntity.title();
-		this.htmlContent = htmlContent;
+		if (htmlContent && this._contentFile.getFileType() === FILE_TYPES.html) {
+			this.htmlContent = htmlContent;
+		}
 	}
 
 	async save() {
@@ -59,8 +61,10 @@ export class ContentFile {
 		}
 
 		await this._contentFile.setFileTitle(this.title);
-		await this._contentFile.setHtmlFileHtmlContent(this.htmlContent);
 		
+		if (this._contentFile.getFileType() === FILE_TYPES.html) {
+			await this._contentFile.setHtmlFileHtmlContent(this.htmlContent);
+		}
 
 		const committedContentFileEntity = await this._commit(this._contentFile);
 		const editableContentFileEntity = await this._checkout(committedContentFileEntity);
@@ -84,7 +88,12 @@ export class ContentFile {
 		if (!sirenEntity) {
 			return contentFileEntity;
 		}
-		return new ContentHtmlFileEntity(sirenEntity, this.token, { remove: () => { } });
+		
+		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
+		if (entity.getFileType() === FILE_TYPES.html) {
+			return new ContentHtmlFileEntity(sirenEntity, this.token, { remove: () => { } });
+		}
+		return entity;
 	}
 
 	async _commit(contentFileEntity) {
@@ -97,7 +106,11 @@ export class ContentFile {
 			return contentFileEntity;
 		}
 		
-		return new ContentHtmlFileEntity(sirenEntity, this.token, { remove: () => { } });
+		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
+		if (entity.getFileType() === FILE_TYPES.html) {
+			return new ContentHtmlFileEntity(sirenEntity, this.token, { remove: () => { } });
+		}
+		return entity;
 	}
 
 	_makeContentFileData() {

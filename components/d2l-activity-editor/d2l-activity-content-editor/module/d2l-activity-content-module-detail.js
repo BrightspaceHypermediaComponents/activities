@@ -56,7 +56,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 
 	render() {
 		const moduleEntity = moduleStore.getContentModuleActivity(this.href);
-		let descriptionRichText = undefined;
+		let descriptionRichText = '';
 
 		if (moduleEntity) {
 			this.skeleton = false;

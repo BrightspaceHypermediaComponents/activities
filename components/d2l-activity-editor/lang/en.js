@@ -97,8 +97,7 @@ export default {
 	"rubrics.btnClose": "Close", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed
-	"rubrics.txtConfirmDetachRubric": "Once the rubric is detached, all previous assessments of the rubric in this activity will be deleted.", //Text for the dialog to confirm detaching a rubric from an evaluated activity
-	"rubrics.txtConfirmDetachRubric2": "Confirm detaching the rubric?", // Second half of the text for the dialog to confirm detaching an evaluated rubric
+	"rubrics.txtConfirmDetachRubric": "Once the rubric is detached, all previous assessments of the rubric in this activity will be deleted. Confirm detaching the rubric?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Default Scoring Rubric", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "No default selected", // option in default scoring rubric when no default scoring rubric selected
 

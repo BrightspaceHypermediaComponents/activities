@@ -1,5 +1,5 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
-import { ContentFileEntity } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
+import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
 import { ContentHtmlFileEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileEntity.js';
 import { FileEntity } from 'siren-sdk/src/files/FileEntity.js';
 import { fetchEntity } from '../../../state/fetch-entity.js';

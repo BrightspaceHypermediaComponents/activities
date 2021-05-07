@@ -124,7 +124,20 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		}
 
 		this._saveOnChange('pageContent');
-		await contentFileActivity.save();
+
+		const originalActivityUsageHref = contentFileActivity.activityUsageHref;
+		
+		const updatedEntity = await contentFileActivity.save();
+		const event = new CustomEvent('d2l-content-activity-update', {
+			detail: {
+				originalActivityUsageHref: originalActivityUsageHref,
+				updatedActivityUsageHref: updatedEntity.getActivityUsageHref()
+			},
+			bubbles: true,
+			composed: true,
+			cancelable: true
+		});
+		await this.dispatchEvent(event);
 	}
 
 	saveTitle(title) {

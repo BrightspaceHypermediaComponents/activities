@@ -14,6 +14,7 @@ export class ContentFile {
 		this.href = href;
 		this.token = token;
 		this.title = '';
+		this.activityUsageHref = '';
 		this.fileContent = null;
 	}
 
@@ -47,6 +48,8 @@ export class ContentFile {
 
 	load(contentFileEntity, fileContent = null) {
 		this._contentFile = contentFileEntity;
+		this.href = contentFileEntity.self();
+		this.activityUsageHref = contentFileEntity.getActivityUsageHref();
 		this.title = contentFileEntity.title();
 		this.fileContent = fileContent;
 	}
@@ -66,6 +69,7 @@ export class ContentFile {
 		const committedContentFileEntity = await this._commit(this._contentFile);
 		const editableContentFileEntity = await this._checkout(committedContentFileEntity);
 		this.load(editableContentFileEntity);
+		return this._contentFile;
 	}
 
 	setTitle(value) {

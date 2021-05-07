@@ -15,6 +15,7 @@ export class ContentFile {
 		this.token = token;
 		this.title = '';
 		this.fileContent = null;
+		this.fileType = null;
 	}
 
 	async cancelCreate() {
@@ -49,6 +50,7 @@ export class ContentFile {
 		this._contentFile = contentFileEntity;
 		this.title = contentFileEntity.title();
 		this.fileContent = fileContent;
+		this.fileType = contentFileEntity.getFileType();
 	}
 
 	async save() {

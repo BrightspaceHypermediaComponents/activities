@@ -16,6 +16,7 @@ export class ContentFile {
 		this.title = '';
 		this.activityUsageHref = '';
 		this.fileContent = null;
+		this.fileType = null;
 	}
 
 	async cancelCreate() {
@@ -52,6 +53,7 @@ export class ContentFile {
 		this.activityUsageHref = contentFileEntity.getActivityUsageHref();
 		this.title = contentFileEntity.title();
 		this.fileContent = fileContent;
+		this.fileType = contentFileEntity.getFileType();
 	}
 
 	async save() {

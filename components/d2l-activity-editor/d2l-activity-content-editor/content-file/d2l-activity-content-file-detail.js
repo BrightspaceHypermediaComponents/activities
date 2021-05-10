@@ -72,7 +72,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				.onSave=${this.saveTitle}
 			>
 			</d2l-activity-content-editor-title>
-			<slot name="due-date"></slot> 
+			<slot name="due-date"></slot>
 			<div id="content-page-content-container">
 				${pageRenderer}
 			</div>

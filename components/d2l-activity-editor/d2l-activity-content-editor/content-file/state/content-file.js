@@ -35,7 +35,7 @@ export class ContentFile {
 
 			entity = await this._checkout(entity);
 
-			if(!this._isNewFile(entity)) { //this needs to die 
+			if(!this._isNewFile(entity)) {
 				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
 				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
 				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref()); 
@@ -82,7 +82,7 @@ export class ContentFile {
 		this.htmlContent = pageContent;
 	}
 
-	_isNewFile(entity) { //ewwwwwwwwwwwwwwwwwww
+	_isNewFile(entity) {
 		let url = new URL(entity.self());
 		return url.pathname.includes('-1');
 	}
@@ -97,8 +97,7 @@ export class ContentFile {
 			return contentFileEntity;
 		}
 		
-		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-		return entity;
+		return new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 	}
 
 	async _commit(contentFileEntity) {
@@ -111,8 +110,7 @@ export class ContentFile {
 			return contentFileEntity;
 		}
 		
-		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-		return entity;
+		return new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 	}
 
 	_makeContentFileData() {

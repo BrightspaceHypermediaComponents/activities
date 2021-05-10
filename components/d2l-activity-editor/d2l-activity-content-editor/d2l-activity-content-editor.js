@@ -60,6 +60,7 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		super.connectedCallback();
 		// storing onSaveComplete handler in property in order to have 'this' work as expected,
 		// see https://lit.dev/docs/components/events/#understanding-this-in-event-listeners and
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
 		this.onSaveComplete = ({ detail: { saveInPlace } }) =>
 			(saveInPlace ? this._updateUsageHrefPostCommit() : this._redirectOnSaveComplete());
 

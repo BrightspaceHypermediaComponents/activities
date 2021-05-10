@@ -97,8 +97,7 @@ export class ContentFile {
 			return contentFileEntity;
 		}
 		
-		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-		return entity;
+		return new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 	}
 
 	async _commit(contentFileEntity) {
@@ -111,8 +110,7 @@ export class ContentFile {
 			return contentFileEntity;
 		}
 		
-		let entity = new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-		return entity;
+		return ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 	}
 
 	_makeContentFileData() {

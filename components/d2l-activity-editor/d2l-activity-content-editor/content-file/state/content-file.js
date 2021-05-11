@@ -35,6 +35,7 @@ export class ContentFile {
 	load(contentFileEntity) {
 		this._contentFile = contentFileEntity;
 		this.title = contentFileEntity.title();
+		this.fileHref = contentFileEntity.getFileHref();
 	}
 
 	async save() {
@@ -82,6 +83,7 @@ export class ContentFile {
 		*/
 		return {
 			title: this.title,
+			fileHref: this.fileHref,
 		};
 	}
 }

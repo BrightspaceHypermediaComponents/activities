@@ -91,6 +91,7 @@ export class ContentFile {
 decorate(ContentFile, {
 	// props
 	title: observable,
+	fileHref: observable,
 	// actions
 	load: action,
 	setTitle: action,

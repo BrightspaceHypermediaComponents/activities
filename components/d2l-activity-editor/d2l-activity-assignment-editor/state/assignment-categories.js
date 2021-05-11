@@ -30,9 +30,18 @@ export class AssignmentCategories {
 		this.canEditCategories = entity.canEditCategories();
 		this.canAddCategories = entity.canAddCategories();
 		this.selectedCategory = entity.getSelectedCategory();
+		this.initialCategory = this.initialCategory || this.selectedCategory;
 		this.selectedCategoryName = this.selectedCategory && this.selectedCategory.properties.name;
 		this.selectedCategoryId = this.selectedCategory && this.selectedCategory.properties.categoryId;
 		this.newCategoryName = '';
+	}
+
+	async reset() {
+		if (!this._entity) {
+			return;
+		}
+
+		this.initialCategory && await this._entity.save({ categoryId: this.initialCategory.properties.categoryId });
 	}
 
 	async save() {

@@ -65,8 +65,15 @@ export const ActivityEditorContainerMixin = superclass => class extends Activity
 		if (this.isNew) {
 			await this._cancelCreate();
 		}
+		await this._cancelChanges();
 
 		this.dispatchEvent(this.cancelCompleteEvent);
+	}
+
+	async _cancelChanges() {
+		return Promise.all(
+			Array.from(this._editors).map(editor => editor.cancelChanges && editor.cancelChanges())
+		);
 	}
 
 	async _cancelCreate() {

@@ -15,7 +15,7 @@ export class ContentFile {
 		this.token = token;
 		this.title = '';
 		this.activityUsageHref = '';
-		this.fileContent = null;
+		this.fileContent = '';
 		this.fileType = null;
 	}
 
@@ -35,11 +35,13 @@ export class ContentFile {
 
 			entity = await this._checkout(entity);
 
-			if(!this._isNewFile(entity)) {
+			if(!this._isNewFile(entity) && entity.getFileType() === FILE_TYPES.html) {
 				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
 				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
 				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref()); 
-				fileContent = await fileContentFetchResponse.text();
+				if (fileContentFetchResponse.ok) {
+					fileContent = await fileContentFetchResponse.text();
+				}
 			}
 
 			this.load(entity, fileContent);
@@ -47,7 +49,7 @@ export class ContentFile {
 		return this;
 	}
 
-	load(contentFileEntity, fileContent = null) {
+	load(contentFileEntity, fileContent) {
 		this._contentFile = contentFileEntity;
 		this.href = contentFileEntity.self();
 		this.activityUsageHref = contentFileEntity.getActivityUsageHref();

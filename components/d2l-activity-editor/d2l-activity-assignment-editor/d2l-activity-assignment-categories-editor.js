@@ -109,7 +109,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		const categoriesStore = store.get(this.href);
 		if (!categoriesStore) return;
 
-		categoriesStore.save();
+		categoriesStore.save(true);
 	}
 
 	_formatOption(category, href) {

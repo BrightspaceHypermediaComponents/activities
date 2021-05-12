@@ -2,6 +2,8 @@ import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { CategoriesEntity } from 'siren-sdk/src/activities/assignments/CategoriesEntity.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 
+const UNSELECTED_ID = '0'; // API expects 0 to unselect a category
+
 configureMobx({ enforceActions: 'observed' });
 
 export class AssignmentCategories {
@@ -30,7 +32,7 @@ export class AssignmentCategories {
 		this.canEditCategories = entity.canEditCategories();
 		this.canAddCategories = entity.canAddCategories();
 		this.selectedCategory = entity.getSelectedCategory();
-		this.initialCategory = this.initialCategory || this.selectedCategory;
+		this.initialCategory = this.initialCategory || this.selectedCategory || UNSELECTED_ID;
 		this.selectedCategoryName = this.selectedCategory && this.selectedCategory.properties.name;
 		this.selectedCategoryId = this.selectedCategory && this.selectedCategory.properties.categoryId;
 		this.newCategoryName = '';
@@ -41,10 +43,14 @@ export class AssignmentCategories {
 			return;
 		}
 
+		if (this.initialCategory === UNSELECTED_ID) {
+			await this._entity.save({ categoryId: UNSELECTED_ID });
+		}
+
 		this.initialCategory && await this._entity.save({ categoryId: this.initialCategory.properties.categoryId });
 	}
 
-	async save() {
+	async save(shouldReset) {
 		if (!this._entity) {
 			return;
 		}
@@ -57,7 +63,7 @@ export class AssignmentCategories {
 		await this._saving;
 		this._saving = null;
 
-		this._resetInitalCategory();
+		shouldReset && this._resetInitalCategory();
 
 		await this.fetch(true);
 	}

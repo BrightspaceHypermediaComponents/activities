@@ -108,15 +108,6 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		this._confirmDetachDialogOpen = false;
 	}
 
-	_handleConfirmDetachDialogOpen(e) {
-		//Set default keyboard focus to the cancel button
-		const dialog = e.target;
-		const closeButton = dialog.querySelector('.detach-rubric-dialog-cancel-button');
-		if (closeButton) {
-			closeButton.focus();
-		}
-	}
-
 	_onDeleteAssociationButtonClicked(e, association) {
 		const associationEntity = association.entity._entity;
 		const activityUsageLink = associationEntity.getSubEntityByClass('activity-usage');
@@ -159,28 +150,27 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 					@click="${deleteButtonClickedFunc}"
 					text=${this.localize('rubrics.txtDeleteRubric')}
 				></d2l-button-icon>
-			</div>
 
-			<d2l-dialog-confirm
-				?opened="${this._confirmDetachDialogOpen}"
-				text="${this.localize('rubrics.txtConfirmDetachRubric')}"
-				@d2l-dialog-open="${this._handleConfirmDetachDialogOpen}}"
-				@d2l-dialog-close="${deleteConfirmDialogClosedFunc}"
-			>
-				<d2l-button
-					slot="footer"
-					primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}"
+				<d2l-dialog-confirm
+					text="${this.localize('rubrics.detachRubricQuestion')}"
+					?opened="${this._confirmDetachDialogOpen}"
+					@d2l-dialog-close="${deleteConfirmDialogClosedFunc}"
 				>
-					${this.localize('rubrics.btnDetach')}
-				</d2l-button>
-				<d2l-button
-					slot="footer"
-					class="detach-rubric-dialog-cancel-button"
-					data-dialog-action
-				>
-					${this.localize('rubrics.btnCancel')}
-				</d2l-button>
-			</d2l-dialog-confirm>
+					<d2l-button
+						slot="footer"
+						primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}"
+					>
+						${this.localize('rubrics.btnDetach')}
+					</d2l-button>
+					<d2l-button
+						slot="footer"
+						data-dialog-action
+						autofocus
+					>
+						${this.localize('rubrics.btnCancel')}
+					</d2l-button>
+				</d2l-dialog-confirm>
+			</div>
 			`;
 		} else {
 			return html``;

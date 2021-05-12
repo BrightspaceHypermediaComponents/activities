@@ -4,3 +4,5 @@ package-lock.json
 /test/**/screenshots/golden/
 .DS_Store
 debug.log
+.vs
+.vscode

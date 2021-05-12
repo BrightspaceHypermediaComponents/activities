@@ -57,6 +57,8 @@ export class AssignmentCategories {
 		await this._saving;
 		this._saving = null;
 
+		this._resetInitalCategory();
+
 		await this.fetch(true);
 	}
 
@@ -81,6 +83,10 @@ export class AssignmentCategories {
 		}
 
 		return data;
+	}
+
+	_resetInitalCategory() {
+		this.initialCategory = null;
 	}
 }
 

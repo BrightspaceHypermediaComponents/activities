@@ -1,8 +1,8 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
 import { ContentHtmlFileEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileEntity.js';
-import { FileEntity } from 'siren-sdk/src/files/FileEntity.js';
 import { fetchEntity } from '../../../state/fetch-entity.js';
+import { FileEntity } from 'siren-sdk/src/files/FileEntity.js';
 // TODO: Explore idea of using this shared WorkingCopy
 // import { WorkingCopy } from '../../../state/working-copy.js';
 
@@ -35,10 +35,10 @@ export class ContentFile {
 
 			entity = await this._checkout(entity);
 
-			if(!this._isNewFile(entity) && entity.getFileType() === FILE_TYPES.html) {
+			if (!this._isNewFile(entity) && entity.getFileType() === FILE_TYPES.html) {
 				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
 				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
-				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref()); 
+				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref());
 				if (fileContentFetchResponse.ok) {
 					fileContent = await fileContentFetchResponse.text();
 				}
@@ -64,9 +64,9 @@ export class ContentFile {
 		}
 
 		await this._contentFile.setFileTitle(this.title);
-		
+
 		if (this._contentFile.getFileType() === FILE_TYPES.html) {
-			let htmlEntity = new ContentHtmlFileEntity(this._contentFile, this.token, { remove: () => { } });
+			const htmlEntity = new ContentHtmlFileEntity(this._contentFile, this.token, { remove: () => { } });
 			await htmlEntity.setHtmlFileHtmlContent(this.htmlContent);
 		}
 
@@ -76,19 +76,14 @@ export class ContentFile {
 		return this._contentFile;
 	}
 
-	setTitle(value) {
-		this.title = value;
-	}
-
 	setPageContent(pageContent) {
 		this.htmlContent = pageContent;
 	}
 
-	_isNewFile(entity) {
-		let url = new URL(entity.self());
-		return url.pathname.includes('-1');
+	setTitle(value) {
+		this.title = value;
 	}
-	
+
 	async _checkout(contentFileEntity) {
 		if (!contentFileEntity) {
 			return;
@@ -98,7 +93,7 @@ export class ContentFile {
 		if (!sirenEntity) {
 			return contentFileEntity;
 		}
-		
+
 		return new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
 	}
 
@@ -111,8 +106,13 @@ export class ContentFile {
 		if (!sirenEntity) {
 			return contentFileEntity;
 		}
-		
+
 		return new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
+	}
+
+	_isNewFile(entity) {
+		const url = new URL(entity.self());
+		return url.pathname.includes('-1');
 	}
 
 	_makeContentFileData() {

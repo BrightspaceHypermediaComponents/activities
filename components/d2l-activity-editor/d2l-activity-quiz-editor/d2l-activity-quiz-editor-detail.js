@@ -175,7 +175,8 @@ class QuizEditorDetail extends ActivityQuizEditorTelemetryMixin(ActivityEditorMi
 			<d2l-activity-quiz-editor-action-bar
 				?skeleton="${this.skeleton}"
 				href="${this.activityUsageHref}"
-				.token="${this.token}">
+				.token="${this.token}"
+				quiz-href="${this.href}">
 			</d2l-activity-quiz-editor-action-bar>
 			<d2l-activity-quiz-question-editor href="${this.activityUsageHref}" .token="${this.token}">
 			</d2l-activity-quiz-question-editor>

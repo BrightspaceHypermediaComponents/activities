@@ -50,8 +50,10 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			this.skeleton = false;
 			pageContent = contentFileEntity.fileContent;
 
-			if (contentFileEntity.fileType === FILE_TYPES.html) {
-				pageRenderer = this._renderHtmlEditor(pageContent);
+			switch (contentFileEntity.fileType) {
+				case FILE_TYPES.html:
+					pageRenderer = this._renderHtmlEditor(pageContent);
+					break;
 			}
 		}
 

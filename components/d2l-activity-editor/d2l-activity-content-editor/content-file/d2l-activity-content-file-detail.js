@@ -33,7 +33,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this._debounceJobs = {};
 		this._setEntityType(ContentFileEntity);
 		this.skeleton = true;
-		this.saveOrder = 2000;
+		this.saveOrder = 500;
 	}
 
 	connectedCallback() {

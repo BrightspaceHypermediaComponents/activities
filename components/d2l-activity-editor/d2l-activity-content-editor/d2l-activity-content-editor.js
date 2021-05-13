@@ -51,18 +51,27 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 
 	constructor() {
 		super(store);
+		this.preCommitHref = null;
+		this.postCommitHref = null;
+		this.onSaveComplete = null;
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.addEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
+		// storing onSaveComplete handler in property in order to have 'this' work as expected,
+		// see https://lit.dev/docs/components/events/#understanding-this-in-event-listeners and
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this
+		this.onSaveComplete = ({ detail: { saveInPlace } }) =>
+			(saveInPlace ? this._updateUsageHrefPostCommit() : this._redirectOnSaveComplete());
+
+		this.addEventListener('d2l-activity-editor-save-complete', this.onSaveComplete);
 		this.addEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
-		this.addEventListener('d2l-content-activity-update', this._contentActivityUpdated);
+		this.addEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
 	}
 	disconnectedCallback() {
-		this.removeEventListener('d2l-content-activity-update', this._contentActivityUpdated);
-		this.removeEventListener('d2l-activity-editor-save-complete', this._redirectOnSaveComplete);
+		this.removeEventListener('d2l-activity-editor-save-complete', this.onSaveComplete);
 		this.removeEventListener('d2l-activity-editor-cancel-complete', this._redirectOnCancelComplete);
+		this.removeEventListener('d2l-content-working-copy-committed', this._contentWorkingCopyCommitted);
 		super.disconnectedCallback();
 	}
 
@@ -95,11 +104,12 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 		}
 	}
 
-	_contentActivityUpdated(e) {
+	_contentWorkingCopyCommitted(e) {
 		const { originalActivityUsageHref, updatedActivityUsageHref } = e.detail;
 		if (originalActivityUsageHref === this.href &&
 			originalActivityUsageHref !== updatedActivityUsageHref) {
-			this.href = updatedActivityUsageHref;
+			this.preCommitHref = originalActivityUsageHref;
+			this.postCommitHref = updatedActivityUsageHref;
 		}
 	}
 
@@ -159,6 +169,14 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 					window.location.href = redirectLocation;
 				}
 			});
+	}
+
+	_updateUsageHrefPostCommit() {
+		if (this.preCommitHref === this.href && this.postCommitHref) {
+			this.href = this.postCommitHref;
+			this.preCommitHref = null;
+			this.postCommitHref = null;
+		}
 	}
 }
 customElements.define('d2l-activity-content-editor', ContentEditor);

@@ -127,6 +127,8 @@ export default {
 	"header": "Header", // Header label for the header text box.
 	"headerAdded": "Header added", // Header added summary text for Timing and Display accordion.
 	"footerAdded": "Footer added", // Footer added summary text for Timing and Display accordion.
-	"headerAndFooter": "Header and footer added" // Header and footer summary text for closed accordion
-
+	"headerAndFooter": "Header and footer added", // Header and footer summary text for closed accordion
+	"createNewLabel": "Create New", // Label for button to open menu for adding new items to the quiz.
+	"addExistingLabel": "Add Existing", // Label for button to open menu for adding pre-existing items to the quiz.
+	"addQuestionsLabel": "New Question" // Label for button to open menu for adding new questions to the quiz.
 };

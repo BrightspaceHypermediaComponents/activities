@@ -97,7 +97,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 		const originalActivityUsageHref = webLinkEntity.activityUsageHref;
 		const updatedEntity = await webLinkEntity.save();
-		const event = new CustomEvent('d2l-content-activity-update', {
+		const event = new CustomEvent('d2l-content-working-copy-committed', {
 			detail: {
 				originalActivityUsageHref: originalActivityUsageHref,
 				updatedActivityUsageHref: updatedEntity.getActivityUsageHref()

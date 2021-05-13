@@ -15,7 +15,7 @@ export class Quiz extends WorkingCopy {
 		return this._entity.delete();
 	}
 
-	load(entity) {
+	async load(entity) {
 		this._entity = entity;
 		this.name = entity.name();
 		this.canEditName = entity.canEditName();
@@ -51,6 +51,7 @@ export class Quiz extends WorkingCopy {
 		this.headerRichTextEditorConfig = entity.headerRichTextEditorConfig();
 		this.originalHeaderIsEmpty = entity.originalHeaderIsEmpty();
 		this.ipRestrictionsHref = entity.ipRestrictionsHref();
+		this.activityTypes = await entity.activityTypes();
 	}
 
 	setAutoSetGraded(isEnabled) {
@@ -153,6 +154,7 @@ decorate(Quiz, {
 	canEditHeader: observable,
 	headerRichTextEditorConfig: observable,
 	originalHeaderIsEmpty: observable,
+	activityTypes: observable,
 	// actions
 	load: action,
 	setName: action,

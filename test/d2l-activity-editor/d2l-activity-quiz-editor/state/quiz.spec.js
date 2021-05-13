@@ -55,6 +55,7 @@ describe('Quiz', function() {
 				headerRichTextEditorConfig: () => { },
 				originalHeaderIsEmpty: () => false,
 				introIsAppendedToDescription: () => {},
+				activityTypes: () => []
 			};
 		});
 

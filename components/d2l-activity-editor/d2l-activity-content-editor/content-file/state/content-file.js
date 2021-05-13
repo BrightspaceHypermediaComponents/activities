@@ -35,10 +35,10 @@ export class ContentFile {
 
 			entity = await this._checkout(entity);
 
-			// TODO: This will have to change once the BE changes (US128070)
-			if (!this._isNewFile(entity) && entity.getFileType() === FILE_TYPES.html) {
-				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
-				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
+			const fileEntityHref = entity.getFileHref();
+			if (entity.getFileType() === FILE_TYPES.html && fileEntityHref) {
+				const fileEntityResponse = await fetchEntity(fileEntityHref, this.token);
+				const fileEntity = new FileEntity(fileEntityResponse, this.token, { remove: () => { } });
 				const fileContentFetchResponse = await fetch(fileEntity.getFileLocationHref());
 				if (fileContentFetchResponse.ok) {
 					fileContent = await fileContentFetchResponse.text();
@@ -110,11 +110,6 @@ export class ContentFile {
 		}
 
 		return new ContentFileEntity(sirenEntity, this.token, { remove: () => { } });
-	}
-
-	_isNewFile(entity) {
-		const url = new URL(entity.self());
-		return url.pathname.includes('-1');
 	}
 
 	_makeContentFileData() {

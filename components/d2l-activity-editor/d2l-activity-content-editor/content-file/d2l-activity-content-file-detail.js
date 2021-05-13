@@ -104,7 +104,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 		const originalActivityUsageHref = contentFileActivity.activityUsageHref;
 		const updatedEntity = await contentFileActivity.save();
-		const event = new CustomEvent('d2l-content-activity-update', {
+		const event = new CustomEvent('d2l-content-working-copy-committed', {
 			detail: {
 				originalActivityUsageHref: originalActivityUsageHref,
 				updatedActivityUsageHref: updatedEntity.getActivityUsageHref()

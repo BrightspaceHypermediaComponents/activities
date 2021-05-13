@@ -16,6 +16,10 @@ const editor = defineCE(
 			this.saveOrder = 1;
 		}
 
+		cancelChanges() {
+			this.cancelChangesCalled = true;
+		}
+
 		hasPendingChanges() {
 			this.hasPendingChangesCalled = true;
 		}
@@ -37,6 +41,10 @@ const editor2 = defineCE(
 		constructor() {
 			super();
 			this.saveOrder = 2;
+		}
+
+		cancelChanges() {
+			this.cancelChangesCalled = true;
 		}
 
 		hasPendingChanges() {
@@ -119,6 +127,8 @@ describe('d2l-activity-editor-container-mixin', function() {
 		await nextFrame();
 
 		expect(childEditor.hasPendingChangesCalled, 'hasPendingChanges should be called').to.be.true;
+		expect(childEditor.cancelChangesCalled, 'cancelChanges should be called').to.be.true;
+
 	});
 
 	it('does not save on validation fail', async() => {

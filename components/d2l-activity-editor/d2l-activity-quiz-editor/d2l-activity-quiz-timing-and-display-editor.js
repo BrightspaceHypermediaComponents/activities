@@ -76,32 +76,32 @@ class ActivityQuizTimingAndDisplayEditor extends ActivityEditorMixin(AsyncContai
 				</div>
 
 				<div class="d2l-editor" slot="components">
-					<label class="d2l-label-text">
+					<div class="d2l-label-text">
 						${this.localize('subHdrPagingTools')}
-					</label>
+					</div>
 					${this._renderPreventMovingBackwardsEditor()}
 				</div>
 
 				<div class="d2l-editor" slot="components">
-					<label class="d2l-label-text">
+					<div class="d2l-label-text">
 						${this.localize('subHdrShuffleQuiz')}
-					</label>
+					</div>
 					${this._renderShuffleEditor()}
 				</div>
 
 				<div class="d2l-editor" slot="components">
-					<label class="d2l-label-text">
+					<div class="d2l-label-text">
 						${this.localize('subHdrDisplayTools')}
-					</label>
+					</div>
 					${this._renderHintsEditor()}
 					${this._renderDisableRightClickEditor()}
 					${this._renderDisablePagerAndAlertsEditor()}
 				</div>
 
 				<div class="d2l-editor" slot="components">
-					<label class="d2l-label-text">
+					<div class="d2l-label-text">
 						${this.localize('subHdrHeaderFooter')}
-					</label>
+					</div>
 					${this._renderManageHeaderFooterContainer()}
 				</div>
 

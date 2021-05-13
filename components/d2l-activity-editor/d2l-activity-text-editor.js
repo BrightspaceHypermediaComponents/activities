@@ -49,7 +49,7 @@ class ActivityTextEditor extends LitElement {
 				import('./d2l-activity-html-new-editor');
 				return html`
 					<d2l-activity-html-new-editor
-						value="${live(this.value)}"
+						.value="${live(this.value)}"
 						ariaLabel="${this.ariaLabel}"
 						?disabled="${this.disabled}"
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"

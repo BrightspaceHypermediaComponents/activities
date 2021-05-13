@@ -1,4 +1,5 @@
 import { css, html } from 'lit-element/lit-element.js';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { checkboxStyles } from '../styles/checkbox-styles.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
@@ -15,6 +16,7 @@ class ActivityAssignmentAnnotationsEditor
 		return [
 			labelStyles,
 			checkboxStyles,
+			accordionStyles,
 			css`
 				d2l-input-checkbox {
 					margin: 0;
@@ -36,9 +38,9 @@ class ActivityAssignmentAnnotationsEditor
 		}
 
 		return html`
-			<label class="d2l-label-text">
+			<div class="d2l-label-text">
 				${this.localize('annotationTools')}
-			</label>
+			</div>
 			<d2l-input-checkbox
 				@change="${this._toggleAnnotationToolsAvailability}"
 				?checked="${entity.annotationToolsAvailable}"

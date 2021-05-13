@@ -7,11 +7,11 @@ import './d2l-activity-ip-restrictions-summary.js';
 import './d2l-activity-quiz-password-summary';
 import './d2l-activity-quiz-password-editor.js';
 import './d2l-activity-quiz-ip-restrictions-container.js';
-import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { AsyncContainerMixin } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
-import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { html } from 'lit-element/lit-element.js';
+import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { shared as quizStore } from './state/quiz-store';
@@ -33,13 +33,8 @@ class ActivityQuizAvailabilityEditor extends ActivityEditorMixin(AsyncContainerM
 
 		return [
 			super.styles,
-			heading4Styles,
-			accordionStyles,
-			css`
-				.d2l-heading-4 {
-					margin: 0 0 0.6rem 0;
-				}
-			`
+			labelStyles,
+			accordionStyles
 		];
 	}
 
@@ -157,9 +152,9 @@ class ActivityQuizAvailabilityEditor extends ActivityEditorMixin(AsyncContainerM
 
 		return html`
 			<div class="d2l-editor">
-				<h3 class="d2l-heading-4">
+				<div class="d2l-label-text">
 					${this.localize('hdrReleaseConditions')}
-				</h3>
+				</div>
 				<d2l-activity-usage-conditions-editor
 					description="${this.localize('hlpReleaseConditions')}"
 					href="${this.activityUsageHref}"

@@ -5,10 +5,10 @@ import '../d2l-activity-usage-conditions-summary.js';
 import '../d2l-activity-special-access-editor.js';
 import '../d2l-activity-special-access-summary.js';
 import '../d2l-activity-accordion-collapse.js';
-import { css, html } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { html } from 'lit-element/lit-element.js';
+import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
@@ -28,13 +28,8 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(LocalizeActivit
 
 		return [
 			super.styles,
-			heading4Styles,
-			accordionStyles,
-			css`
-				.d2l-heading-4 {
-					margin: 0 0 0.6rem 0;
-				}
-			`
+			labelStyles,
+			accordionStyles
 		];
 	}
 
@@ -96,9 +91,9 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(LocalizeActivit
 	_renderReleaseConditionEditor() {
 		return html`
 			<div class="d2l-editor">
-				<h3 class="d2l-heading-4">
+				<div class="d2l-label-text">
 					${this.localize('hdrReleaseConditions')}
-				</h3>
+				</div>
 				<d2l-activity-usage-conditions-editor
 					description="${this.localize('hlpReleaseConditions')}"
 					href="${this.href}"
@@ -125,9 +120,9 @@ class ActivityAssignmentAvailabilityEditor extends SkeletonMixin(LocalizeActivit
 
 		return html`
 			<div class="d2l-editor">
-				<h3 class="d2l-heading-4">
+				<div class="d2l-label-text">
 					${this.localize('hdrSpecialAccess')}
-				</h3>
+				</div>
 				<d2l-activity-special-access-editor
 					description="${this.localize('hlpSpecialAccess')}"
 					href="${this.href}"

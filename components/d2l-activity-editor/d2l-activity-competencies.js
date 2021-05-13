@@ -2,6 +2,7 @@ import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
+import { accordionStyles } from './styles/accordion-styles';
 import { ActivityEditorMixin } from './mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -21,13 +22,8 @@ class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		return [
 			bodySmallStyles,
 			labelStyles,
+			accordionStyles,
 			css`
-				:host {
-					display: block;
-				}
-				:host([hidden]) {
-					display: none;
-				}
 				.d2l-competencies-icon {
 					margin-right: 0.6rem;
 				}
@@ -74,7 +70,7 @@ class ActivityCompetencies extends ActivityEditorMixin(RtlMixin(LocalizeActivity
 		} = activity;
 
 		return html`
-			<label class="d2l-label-text">${this.localize('editor.competencies')}</label>
+			<div class="d2l-label-text">${this.localize('editor.competencies')}</div>
 			<div class="d2l-competencies-count-container">
 				${this._renderCountText(count)}
 			</div>

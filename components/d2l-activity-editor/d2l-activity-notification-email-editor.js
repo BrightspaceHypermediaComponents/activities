@@ -2,6 +2,7 @@ import 'd2l-inputs/d2l-input-text.js';
 import 'd2l-tooltip/d2l-tooltip';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { accordionStyles } from './styles/accordion-styles';
 import { ErrorHandlingMixin } from './error-handling-mixin.js';
 import { LocalizeActivityEditorMixin } from './mixins/d2l-activity-editor-lang-mixin.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -22,14 +23,8 @@ class ActivityNotificationEmailEditor
 		return [
 			labelStyles,
 			bodySmallStyles,
+			accordionStyles,
 			css`
-				:host {
-					display: block;
-				}
-
-				:host([hidden]) {
-					display: none;
-				}
 
 				#notification-email {
 					margin-bottom: 2px;

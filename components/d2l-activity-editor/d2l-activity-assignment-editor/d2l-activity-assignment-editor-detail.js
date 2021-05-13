@@ -10,12 +10,9 @@ import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/as
 import { css, html } from 'lit-element/lit-element.js';
 
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { shared as attachmentCollectionStore } from '../d2l-activity-attachments/state/attachment-collections-store.js';
-import { shared as attachmentStore } from '../d2l-activity-attachments/state/attachment-store.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { editorLayoutStyles } from '../styles/activity-editor-styles';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { LinksInMessageProcessor } from '@d2l/d2l-attachment/helpers/links-in-message-processor.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -28,7 +25,6 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 
 	static get properties() {
 		return {
-			_linksProcessor: { type: Object },
 			activityUsageHref: { type: String, attribute: 'activity-usage-href' },
 			_createSelectboxGradeItemEnabled: { type: Boolean }
 		};
@@ -86,7 +82,6 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 	constructor() {
 		super(store);
 		this._debounceJobs = {};
-		this._linksProcessor = new LinksInMessageProcessor();
 		this.skeleton = true;
 		this.saveOrder = 2000;
 	}
@@ -208,14 +203,6 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 			this.skeleton = this.asyncState !== asyncStates.complete;
 		}
 	}
-	addLinks(links) {
-		const attachmentsHref = store.get(this.href).attachmentsHref;
-		const collection = attachmentCollectionStore.get(attachmentsHref);
-		links = links || [];
-		links.forEach(element => {
-			collection.addAttachment(attachmentStore.createLink(element.name, element.url));
-		});
-	}
 
 	async cancelCreate() {
 		const assignment = store.get(this.href);
@@ -268,11 +255,6 @@ class AssignmentEditorDetail extends AsyncContainerMixin(SkeletonMixin(SaveStatu
 
 	_saveInstructions(value) {
 		store.get(this.href).setInstructions(value);
-		this._debounceJobs.value = Debouncer.debounce(
-			this._debounceJobs.value,
-			timeOut.after(2000),
-			() => this._linksProcessor.process(value, linkAttachments => this.addLinks(linkAttachments))
-		);
 	}
 
 	_saveInstructionsOnChange(e) {

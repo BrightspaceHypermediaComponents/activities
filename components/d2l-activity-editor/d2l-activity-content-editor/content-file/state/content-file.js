@@ -56,6 +56,7 @@ export class ContentFile {
 		this.title = contentFileEntity.title();
 		this.fileContent = fileContent;
 		this.fileType = contentFileEntity.getFileType();
+		this.fileHref = contentFileEntity.getFileHref();
 	}
 
 	async save() {
@@ -121,6 +122,7 @@ export class ContentFile {
 		*/
 		return {
 			title: this.title,
+			fileHref: this.fileHref,
 		};
 	}
 }
@@ -128,6 +130,7 @@ export class ContentFile {
 decorate(ContentFile, {
 	// props
 	title: observable,
+	fileHref: observable,
 	// actions
 	load: action,
 	setTitle: action,

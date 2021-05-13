@@ -91,6 +91,13 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		`;
 	}
 
+	cancelChanges() {
+		const categoriesStore = store.get(this.href);
+		if (!categoriesStore) return;
+
+		categoriesStore.reset();
+	}
+
 	hasPendingChanges() {
 		const categoriesStore = store.get(this.href);
 		if (!categoriesStore) return;
@@ -102,7 +109,7 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		const categoriesStore = store.get(this.href);
 		if (!categoriesStore) return;
 
-		categoriesStore.save();
+		categoriesStore.save(true);
 	}
 
 	_formatOption(category, href) {
@@ -125,10 +132,12 @@ class AssignmentCategoriesEditor extends ActivityEditorMixin(ActivityEditorDialo
 		if (!categoriesStore) return;
 
 		if (e && e.detail && e.detail.action === 'save') {
+
+			categoriesStore.setSelectedCategory(null); // explicitly set to null in case it was previously set
 			await categoriesStore.save();
+
 		} else {
-			// reset category to prevent it from saving
-			categoriesStore.setNewCategoryName('');
+			categoriesStore.setNewCategoryName(''); // reset category to prevent it from saving
 		}
 
 		this.handleClose();

@@ -2,6 +2,7 @@ import 'd2l-inputs/d2l-input-checkbox.js';
 import 'd2l-inputs/d2l-input-checkbox-spacer.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { checkboxStyles } from '@brightspace-ui/core/components/inputs/input-checkbox';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
@@ -18,6 +19,7 @@ class ActivityAssignmentAnonymousMarkingEditor
 			bodySmallStyles,
 			labelStyles,
 			checkboxStyles,
+			accordionStyles,
 			css`
 			.d2l-body-small {
 				margin: 0 0 0.3rem 0;
@@ -52,9 +54,9 @@ class ActivityAssignmentAnonymousMarkingEditor
 		}
 
 		return html`
-			<label class="d2l-label-text">
+			<div class="d2l-label-text">
 				${this.localize('lblAnonymousMarking')}
-			</label>
+			</div>
 			<d2l-input-checkbox
 				@change="${this._saveAnonymousMarking}"
 				?checked="${entity.anonymousMarkingProps.isAnonymousMarkingEnabled}"

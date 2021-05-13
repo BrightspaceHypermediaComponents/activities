@@ -1,6 +1,7 @@
 import 'd2l-inputs/d2l-input-text.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html } from 'lit-element/lit-element.js';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -23,22 +24,11 @@ class ActivityQuizPasswordEditor
 		return [
 			labelStyles,
 			bodySmallStyles,
+			accordionStyles,
 			css`
-				:host {
-					display: block;
-				}
-
-				:host([hidden]) {
-					display: none;
-				}
-
 				#password-input {
 					margin-bottom: 2px;
 					margin-top: 10px;
-				}
-
-				#password-editor-label {
-					margin-bottom: 10px;
 				}
 			`
 		];
@@ -56,7 +46,7 @@ class ActivityQuizPasswordEditor
 		}
 
 		return html`
-			<div id="password-editor-label" class="d2l-label-text">
+			<div class="d2l-label-text">
 				${this.localize('passwordLabel')}
 			</div>
 			<p class="d2l-body-small">

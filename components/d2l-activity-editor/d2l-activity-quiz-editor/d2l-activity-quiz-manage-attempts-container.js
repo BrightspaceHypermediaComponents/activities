@@ -5,6 +5,7 @@ import '@brightspace-ui/core/components/icons/icon.js';
 import { sharedAttempts as attemptsStore, shared as store } from './state/quiz-store';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html } from 'lit-element/lit-element';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorWorkingCopyDialogMixin } from '../mixins/d2l-activity-editor-working-copy-dialog-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -15,6 +16,7 @@ class ActivityQuizManageAttemptsContainer extends ActivityEditorWorkingCopyDialo
 		return [
 			bodySmallStyles,
 			labelStyles,
+			accordionStyles,
 			css`
 			#manage-attempts-dialog-attempts-editor {
 				height: 430px;
@@ -86,7 +88,7 @@ class ActivityQuizManageAttemptsContainer extends ActivityEditorWorkingCopyDialo
 
 	_renderDialogLabel() {
 		return html`
-			<div id="manage-attempts-editor-label" class="d2l-label-text">
+			<div class="d2l-label-text">
 				${this.localize('subHdrAttemptsTools')}
 			</div>
 		`;

@@ -1,7 +1,8 @@
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/icons/icon.js';
-import { bodySmallStyles, heading4Styles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityAssignmentEditorMixin } from './mixins/d2l-activity-assignment-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -14,12 +15,9 @@ class AssignmentTurnitinEditor
 
 		return [
 			bodySmallStyles,
-			heading4Styles,
+			labelStyles,
+			accordionStyles,
 			css`
-			.d2l-heading-4 {
-				margin: 0 0 0.6rem 0;
-			}
-
 			.d2l-help-text {
 				margin: 0 0 0.3rem 0;
 			}
@@ -100,7 +98,7 @@ class AssignmentTurnitinEditor
 
 		return html`
 			<div id="assignment-turnitin-container" ?hidden="${!canEditTurnitin}">
-				<h4 class="d2l-heading-4">${this.localize('hdrTurnitin')}</h4>
+				<div class="d2l-label-text">${this.localize('hdrTurnitin')}</div>
 				<p class="d2l-help-text d2l-body-small">${this.localize('hlpTurnitin')}</p>
 				${featureSummary}
 				<d2l-button-subtle

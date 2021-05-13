@@ -11,12 +11,13 @@ import '@brightspace-ui/core/components/menu/menu-item.js';
 import '@brightspace-ui/core/components/button/floating-buttons.js';
 import '@brightspace-ui/core/components/button/button.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { heading4Styles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { shared as assignmentStore } from '../../d2l-activity-editor/d2l-activity-assignment-editor/state/assignment-store.js';
 import { Association } from 'siren-sdk/src/activities/Association.js';
 import associationStore from './state/association-collection-store.js';
+import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -34,34 +35,13 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 	static get styles() {
 		return [
-			heading4Styles,
 			labelStyles,
 			selectStyles,
+			accordionStyles,
 			css`
-				:host {
-					display: block;
-				}
-				:host([hidden]) {
-					display: none;
-				}
-				.d2l-heading-4 {
-					margin: 0 0 0 0;
-				}
 				d2l-dropdown-button-subtle {
+					margin-bottom: 0.6rem;
 					margin-left: -0.6rem;
-				}
-				.d2l-rubric-heading-container {
-					align-items: center;
-					display: flex;
-					margin: 0 0 0.6rem 0;
-				}
-				.d2l-default-scoring-rubric-heading-container {
-					align-items: center;
-					display: flex;
-					margin: 0.6rem 0 0.6rem 0;
-				}
-				.d2l-rubric-heading-title {
-					flex-grow: 1;
 				}
 			`
 		];
@@ -81,17 +61,15 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 
 		return html`
-			<div class="d2l-rubric-heading-container">
-				<h3 class="d2l-heading-4 d2l-rubric-heading-title">
-					${this.localize('rubrics.hdrRubrics')}
-				</h3>
-				</div>
-				<d2l-activity-rubrics-list-editor
-					href="${this.href}"
-					.activityUsageHref=${this.activityUsageHref}
-					.token=${this.token}
-					.assignmentHref=${this.assignmentHref}
-				>
+			<div class="d2l-label-text">
+				${this.localize('rubrics.hdrRubrics')}
+			</div>
+			<d2l-activity-rubrics-list-editor
+				href="${this.href}"
+				.activityUsageHref=${this.activityUsageHref}
+				.token=${this.token}
+				.assignmentHref=${this.assignmentHref}
+			>
 			</d2l-activity-rubrics-list-editor>
 
 			${this._renderAddRubricDropdown(entity)}
@@ -239,13 +217,12 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 
 		return html`
-			<div class="d2l-default-scoring-rubric-heading-container">
-				<label class="d2l-label-text" for="assignment-default-scoring-rubric">
-					${this.localize('rubrics.defaultScoringRubric')}
-				</label>
+			<div class="d2l-label-text" id="assignment-default-scoring-rubric-label">
+				${this.localize('rubrics.defaultScoringRubric')}
 			</div>
 			<select
 				id="assignment-default-scoring-rubric"
+				aria-labelledby="assignment-default-scoring-rubric-label"
 				class="d2l-input-select block-select"
 				@change="${this._saveDefaultScoringRubricOnChange}"
 				?disabled=${isReadOnly}>

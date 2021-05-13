@@ -6,6 +6,7 @@ import { bodyCompactStyles, bodySmallStyles, labelStyles } from '@brightspace-ui
 import { css, html } from 'lit-element/lit-element.js';
 import { sharedIpRestrictions as ipStore, shared as store } from './state/quiz-store.js';
 import { ipToInt, validateIp } from './helpers/ip-validation-helper.js';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorWorkingCopyDialogMixin } from '../mixins/d2l-activity-editor-working-copy-dialog-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -30,15 +31,8 @@ class ActivityQuizIpRestrictionsContainer
 			bodyCompactStyles,
 			bodySmallStyles,
 			labelStyles,
+			accordionStyles,
 			css`
-				:host {
-					display: block;
-				}
-
-				:host([hidden]) {
-					display: none;
-				}
-
 				d2l-alert {
 					margin: 1rem 0;
 				}

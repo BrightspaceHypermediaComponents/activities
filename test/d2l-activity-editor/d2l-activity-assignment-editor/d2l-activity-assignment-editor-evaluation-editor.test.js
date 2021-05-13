@@ -266,7 +266,7 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 			const turnItInContainer = turnItInEditor.shadowRoot.querySelectorAll('#assignment-turnitin-container');
 			expect(turnItInContainer.hidden).to.be.undefined;
 
-			const heading = turnItInEditor.shadowRoot.querySelectorAll('.d2l-heading-4')[0];
+			const heading = turnItInEditor.shadowRoot.querySelectorAll('.d2l-label-text')[0];
 			expect(heading.innerText).to.equal(langTerms.hdrTurnitin);
 
 			const button = turnItInEditor.shadowRoot.querySelectorAll('d2l-button-subtle')[0];

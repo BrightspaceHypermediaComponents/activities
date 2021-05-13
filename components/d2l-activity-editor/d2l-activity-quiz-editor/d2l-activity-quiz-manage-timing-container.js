@@ -5,6 +5,7 @@ import '@brightspace-ui/core/components/icons/icon.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles';
 import { css, html } from 'lit-element/lit-element';
 import { shared as store, sharedTiming as timingStore } from './state/quiz-store';
+import { accordionStyles } from '../styles/accordion-styles';
 import { ActivityEditorWorkingCopyDialogMixin } from '../mixins/d2l-activity-editor-working-copy-dialog-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -15,6 +16,7 @@ class ActivityQuizManageTimingContainer extends ActivityEditorWorkingCopyDialogM
 		return [
 			bodySmallStyles,
 			labelStyles,
+			accordionStyles,
 			css`
 				#manage-timing-dialog-timing-editor {
 					height: 430px;
@@ -92,7 +94,7 @@ class ActivityQuizManageTimingContainer extends ActivityEditorWorkingCopyDialogM
 
 	_renderDialogLabel() {
 		return html`
-			<div id="manage-timing-editor-label" class="d2l-label-text">${this.localize('subHdrTimingTools')}</div>
+			<div class="d2l-label-text">${this.localize('subHdrTimingTools')}</div>
 		`;
 	}
 

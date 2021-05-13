@@ -150,27 +150,26 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 					@click="${deleteButtonClickedFunc}"
 					text=${this.localize('rubrics.txtDeleteRubric')}
 				></d2l-button-icon>
-
-				<d2l-dialog-confirm
-					text="${this.localize('rubrics.detachRubricQuestion')}"
-					?opened="${this._confirmDetachDialogOpen}"
-					@d2l-dialog-close="${deleteConfirmDialogClosedFunc}"
-				>
-					<d2l-button
-						slot="footer"
-						primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}"
-					>
-						${this.localize('rubrics.btnDetach')}
-					</d2l-button>
-					<d2l-button
-						slot="footer"
-						data-dialog-action
-						autofocus
-					>
-						${this.localize('rubrics.btnCancel')}
-					</d2l-button>
-				</d2l-dialog-confirm>
 			</div>
+
+			<d2l-dialog-confirm
+				text="${this.localize('rubrics.detachRubricQuestion')}"
+				?opened="${this._confirmDetachDialogOpen}"
+				@d2l-dialog-close="${deleteConfirmDialogClosedFunc}"
+			>
+				<d2l-button
+					slot="footer"
+					primary data-dialog-action="${DELETE_ASSOCIATION_ACTION}"
+				>
+					${this.localize('rubrics.btnDetach')}
+				</d2l-button>
+				<d2l-button
+					slot="footer"
+					data-dialog-action
+				>
+					${this.localize('rubrics.btnCancel')}
+				</d2l-button>
+			</d2l-dialog-confirm>
 			`;
 		} else {
 			return html``;

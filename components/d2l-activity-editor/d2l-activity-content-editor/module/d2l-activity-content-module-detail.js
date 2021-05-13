@@ -1,14 +1,15 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import '../../d2l-activity-text-editor.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
-import { css, html } from 'lit-element/lit-element.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
+import { activityHtmlEditorStyles } from '../shared-components/d2l-activity-html-editor-styles.js';
 import { ContentEditorConstants } from '../constants';
 import { ContentModuleEntity } from 'siren-sdk/src/activities/content/ContentModuleEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
+import { html } from 'lit-element/lit-element.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -24,20 +25,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			super.styles,
 			labelStyles,
 			activityContentEditorStyles,
-			css`
-				.d2l-activity-label-container {
-					margin-bottom: 7px;
-				}
-				.d2l-new-html-editor-container {
-					flex: 1;
-					min-height: 300px;
-				}
-				#content-description-container {
-					display: flex;
-					flex-direction: column;
-					height: inherit;
-				}
-			`
+			activityHtmlEditorStyles
 		];
 	}
 

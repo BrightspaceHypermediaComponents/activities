@@ -20,11 +20,11 @@ export class ContentFile {
 	}
 
 	async cancelCreate() {
-		await this._contentFile.deleteFile();
+		await this._contentFileEntity.deleteFile();
 	}
 
 	get dirty() {
-		return !this._contentFile.equals(this._makeContentFileData());
+		return !this._contentFileEntity.equals(this._makeContentFileData());
 	}
 
 	async fetch() {
@@ -35,6 +35,7 @@ export class ContentFile {
 
 			entity = await this._checkout(entity);
 
+			// TODO: This will have to change once the BE changes (US128070)
 			if (!this._isNewFile(entity) && entity.getFileType() === FILE_TYPES.html) {
 				const fileEntityHref = await fetchEntity(entity.getFileHref(), this.token);
 				const fileEntity = new FileEntity(fileEntityHref, this.token, { remove: () => { } });
@@ -50,7 +51,7 @@ export class ContentFile {
 	}
 
 	load(contentFileEntity, fileContent) {
-		this._contentFile = contentFileEntity;
+		this._contentFileEntity = contentFileEntity;
 		this.href = contentFileEntity.self();
 		this.activityUsageHref = contentFileEntity.getActivityUsageHref();
 		this.title = contentFileEntity.title();
@@ -60,21 +61,21 @@ export class ContentFile {
 	}
 
 	async save() {
-		if (!this._contentFile) {
+		if (!this._contentFileEntity) {
 			return;
 		}
 
-		await this._contentFile.setFileTitle(this.title);
+		await this._contentFileEntity.setFileTitle(this.title);
 
-		if (this._contentFile.getFileType() === FILE_TYPES.html) {
-			const htmlEntity = new ContentHtmlFileEntity(this._contentFile, this.token, { remove: () => { } });
+		if (this._contentFileEntity.getFileType() === FILE_TYPES.html) {
+			const htmlEntity = new ContentHtmlFileEntity(this._contentFileEntity, this.token, { remove: () => { } });
 			await htmlEntity.setHtmlFileHtmlContent(this.htmlContent);
 		}
 
-		const committedContentFileEntity = await this._commit(this._contentFile);
+		const committedContentFileEntity = await this._commit(this._contentFileEntity);
 		const editableContentFileEntity = await this._checkout(committedContentFileEntity);
 		this.load(editableContentFileEntity);
-		return this._contentFile;
+		return this._contentFileEntity;
 	}
 
 	setPageContent(pageContent) {

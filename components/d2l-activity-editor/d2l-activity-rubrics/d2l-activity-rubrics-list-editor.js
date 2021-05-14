@@ -108,6 +108,10 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		this._confirmDetachDialogOpen = false;
 	}
 
+	_handleConfirmDetachDialogOpen() {
+		// stub (use autofocus from dialog-mixin)
+	}
+
 	_onDeleteAssociationButtonClicked(e, association) {
 		const associationEntity = association.entity._entity;
 		const activityUsageLink = associationEntity.getSubEntityByClass('activity-usage');
@@ -153,8 +157,9 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 			</div>
 
 			<d2l-dialog-confirm
-				text="${this.localize('rubrics.detachRubricQuestion')}"
 				?opened="${this._confirmDetachDialogOpen}"
+				text="${this.localize('rubrics.txtConfirmDetachRubric')}"
+				@d2l-dialog-open="${this._handleConfirmDetachDialogOpen}"
 				@d2l-dialog-close="${deleteConfirmDialogClosedFunc}"
 			>
 				<d2l-button

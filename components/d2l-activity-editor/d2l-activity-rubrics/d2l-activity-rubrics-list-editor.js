@@ -108,13 +108,8 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		this._confirmDetachDialogOpen = false;
 	}
 
-	_handleConfirmDetachDialogOpen(e) {
-		//Set default keyboard focus to the cancel button
-		const dialog = e.target;
-		const closeButton = dialog.querySelector('.detach-rubric-dialog-cancel-button');
-		if (closeButton) {
-			closeButton.focus();
-		}
+	_handleConfirmDetachDialogOpen() {
+		// stub (use autofocus from dialog-mixin)
 	}
 
 	_onDeleteAssociationButtonClicked(e, association) {

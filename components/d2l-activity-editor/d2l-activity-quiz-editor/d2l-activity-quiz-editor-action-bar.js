@@ -26,7 +26,18 @@ class ActivityQuizEditorActionBar extends ActivityEditorMixin(SkeletonMixin(RtlM
 					justify-content: space-between;
 					margin-bottom: 1rem;
 					margin-top: 1rem;
-				}`
+				}
+				@media only screen and (max-width: 767px) {
+					.d2l-action-bar-container {
+						flex-direction: column;
+					}
+					.d2l-quiz-score-out-of {
+						display: flex;
+						justify-content: flex-end;
+						margin-top: 0.75rem;
+					}
+				}
+			`
 		];
 	}
 
@@ -46,11 +57,10 @@ class ActivityQuizEditorActionBar extends ActivityEditorMixin(SkeletonMixin(RtlM
 					href="${this.quizHref}"
 					.token="${this.token}"
 				></d2l-activity-quiz-add-activity-menu>
-				${scoreOutOf ? html`<div class='d2l-body-standard'>${this.localize('totalPoints', { scoreOutOf })}</div>` : null }
+				${scoreOutOf ? html`<div class='d2l-body-standard d2l-quiz-score-out-of'>${this.localize('totalPoints', { scoreOutOf })}</div>` : null }
 			</div>
 		`;
 	}
-
 }
 
 customElements.define(

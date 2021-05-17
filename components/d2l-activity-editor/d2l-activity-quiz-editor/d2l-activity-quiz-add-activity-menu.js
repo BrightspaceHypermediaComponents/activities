@@ -44,6 +44,30 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		`;
 	}
 
+	_onSelect(e) {
+		if (!e || !e.target) {
+			return;
+		}
+
+		const type = e.target.getAttribute('type');
+		if (!type) {
+			return;
+		}
+
+		const url = new D2L.LP.Web.Http.UrlLocation(`/d2l/lms/question/new/${type}`);
+		D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
+			/*             location: */ url,
+			/*          srcCallback: */ 'SrcCallBack',
+			/*      responseDataKey: */ 'result',
+			/*              buttons: */ [],
+			/* forceTriggerOnCancel: */ false,
+			/*            titleText: */ ''
+		);
+
+		// "Save" handler
+		// delayedResult.AddListener(result => console.log(result));
+	}
+
 	_renderActivityType(activityType) {
 		return html`
 			<d2l-menu-item
@@ -80,7 +104,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 			<d2l-dropdown-button text="${label}" ?primary="${primary}" ?disabled="${disabled}">
 				${disabled ? null : html`
 					<d2l-dropdown-menu>
-						<d2l-menu label="${label}">
+						<d2l-menu label="${label}" @d2l-menu-item-select="${this._onSelect}">
 							${content}
 						</d2l-menu>
 					</d2l-dropdown-menu>

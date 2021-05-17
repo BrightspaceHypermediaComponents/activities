@@ -26,13 +26,12 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 					:host() {
 						display: flex;
 						flex-direction: column;
-						width: 100%;
 					}
 					.d2l-quiz-add-primary {
-						flex-grow: 1;
 						margin: 0 0 0.5rem 0;
+						width: 100%;
 					}
-					d2l-button {
+					.d2l-quiz-add-secondary {
 						width: 100%;
 					}
 				}
@@ -97,7 +96,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 				?primary="${primary}"
 				?disabled="${disabled}">
 				${disabled ? null : html`
-					<d2l-dropdown-menu>
+					<d2l-dropdown-menu align="start" min-width="260">
 						<d2l-menu label="${label}">
 							${content}
 						</d2l-menu>

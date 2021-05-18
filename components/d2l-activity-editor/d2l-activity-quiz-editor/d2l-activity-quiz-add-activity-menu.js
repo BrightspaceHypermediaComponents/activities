@@ -14,13 +14,26 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		return [
 			super.styles,
 			css`
-				d2l-dropdown-button:first-of-type {
+				.d2l-quiz-add-primary {
 					margin-left: 0;
 					margin-right: 0.75rem;
 				}
-				:host([dir="rtl"]) d2l-dropdown-button:first-of-type {
+				:host([dir="rtl"]) .d2l-quiz-add-primary {
 					margin-left: 0.75rem;
 					margin-right: 0;
+				}
+				@media only screen and (max-width: 767px) {
+					:host() {
+						display: flex;
+						flex-direction: column;
+					}
+					.d2l-quiz-add-primary {
+						margin: 0 0 0.5rem 0;
+						width: 100%;
+					}
+					.d2l-quiz-add-secondary {
+						width: 100%;
+					}
 				}
 			`
 		];
@@ -101,9 +114,13 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		const label = this.localize(labelKey);
 
 		return html`
-			<d2l-dropdown-button text="${label}" ?primary="${primary}" ?disabled="${disabled}">
+			<d2l-dropdown-button
+				text="${label}"
+				class="${primary ? 'd2l-quiz-add-primary' : 'd2l-quiz-add-secondary'}"
+				?primary="${primary}"
+				?disabled="${disabled}">
 				${disabled ? null : html`
-					<d2l-dropdown-menu>
+					<d2l-dropdown-menu align="start" min-width="260">
 						<d2l-menu label="${label}" @d2l-menu-item-select="${this._onSelect}">
 							${content}
 						</d2l-menu>

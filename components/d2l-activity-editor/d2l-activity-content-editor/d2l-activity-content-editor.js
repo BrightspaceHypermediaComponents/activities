@@ -157,18 +157,9 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 	}
 
 	_redirectOnSaveComplete() {
-		let redirectLocation = this.saveHref;
-		store.fetchContentActivity(this.href, this.token)
-			.then((contentActivity) => {
-				if (contentActivity && contentActivity.lessonViewPageHref) {
-					redirectLocation = contentActivity.lessonViewPageHref;
-				}
-			})
-			.finally(() => {
-				if (redirectLocation) {
-					window.location.href = redirectLocation;
-				}
-			});
+		if (this.saveHref) {
+			window.location.href = this.saveHref;
+		}
 	}
 
 	_updateUsageHrefPostCommit() {

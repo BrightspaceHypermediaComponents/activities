@@ -1,4 +1,4 @@
-import { action, configure as configureMobx, decorate, observable } from 'mobx';
+import { action, configure as configureMobx, decorate, observable, runInAction } from 'mobx';
 import { QuizEntity } from 'siren-sdk/src/activities/quizzes/QuizEntity.js';
 import { WorkingCopy } from '../../state/working-copy.js';
 
@@ -51,7 +51,11 @@ export class Quiz extends WorkingCopy {
 		this.headerRichTextEditorConfig = entity.headerRichTextEditorConfig();
 		this.originalHeaderIsEmpty = entity.originalHeaderIsEmpty();
 		this.ipRestrictionsHref = entity.ipRestrictionsHref();
-		this.activityTypes = await entity.activityTypes();
+
+		const types = await entity.activityTypes();
+		runInAction(() => {
+			this.activityTypes = types;
+		});
 	}
 
 	setAutoSetGraded(isEnabled) {

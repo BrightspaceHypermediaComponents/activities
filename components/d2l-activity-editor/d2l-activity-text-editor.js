@@ -14,7 +14,8 @@ class ActivityTextEditor extends LitElement {
 			key: { type: String },
 			htmlEditorHeight: { type: String, attribute: 'html-editor-height' },
 			fullPage: { type: Boolean, attribute: 'full-page' },
-			fullPageFontSize: { type: String, attribute: 'full-page-font-size' }
+			fullPageFontSize: { type: String, attribute: 'full-page-font-size' },
+			fullPageFontFamily: { type: String, attribute: 'full-page-font-family' }
 		};
 	}
 
@@ -55,7 +56,8 @@ class ActivityTextEditor extends LitElement {
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"
 						html-editor-height=${ifDefined(this.htmlEditorHeight)}
 						?full-page="${this.fullPage}"
-						full-page-font-size="${ifDefined(this.fullPageFontSize)}">
+						full-page-font-size="${ifDefined(this.fullPageFontSize)}"
+						full-page-font-family="${ifDefined(this.fullPageFontFamily)}">
 					</d2l-activity-html-new-editor>
 				`;
 			} else {

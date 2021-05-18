@@ -15,7 +15,8 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 			_filesToReplace: { type: Object },
 			htmlEditorHeight: { type: String, attribute: 'html-editor-height' },
 			fullPage: { type: Boolean, attribute: 'full-page' },
-			fullPageFontSize: { type: String, attribute: 'full-page-font-size' }
+			fullPageFontSize: { type: String, attribute: 'full-page-font-size' },
+			fullPageFontFamily: { type: String, attribute: 'full-page-font-family' }
 		};
 	}
 
@@ -50,6 +51,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				height=${ifDefined(this.htmlEditorHeight)}
 				?full-page="${this.fullPage}"
 				full-page-font-size="${ifDefined(this.fullPageFontSize)}"
+				full-page-font-family="${ifDefined(this.fullPageFontFamily)}"
 				?paste-local-images="${allowPaste}">
 			</d2l-htmleditor>
 		`;

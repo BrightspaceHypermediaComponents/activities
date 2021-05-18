@@ -81,7 +81,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						html-editor-height="100%"
 						full-page
 						full-page-font-size="12pt"
-						full-page-font-family="Verdana"
+						full-page-font-family="Lato"
 					>
 					</d2l-activity-text-editor>
 				</div>

@@ -34,7 +34,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		super();
 		this._context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 		this._filesToReplace = {};
-		this.saveOrder = 500;
+		this.saveOrder = 400;
 		this.fullPage = false;
 		this.htmlEditorHeight = '10rem';
 	}
@@ -52,7 +52,8 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				?full-page="${this.fullPage}"
 				full-page-font-size="${ifDefined(this.fullPageFontSize)}"
 				full-page-font-family="${ifDefined(this.fullPageFontFamily)}"
-				?paste-local-images="${allowPaste}">
+				?paste-local-images="${allowPaste}"
+				@d2l-htmleditor-blur="${this._onBlur}">
 			</d2l-htmleditor>
 		`;
 	}
@@ -108,6 +109,11 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 					}
 				});
 		});
+	}
+
+	_onBlur() {
+		const editor = this.shadowRoot.querySelector('d2l-htmleditor');
+		this._dispatchChangeEvent(editor.html);
 	}
 
 	_parseHtml() {

@@ -100,7 +100,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return;
 		}
 
-		this._saveOnChange('pageContent');
+		this._saveOnChange('htmlContent');
 
 		const originalActivityUsageHref = contentFileActivity.activityUsageHref;
 		const updatedEntity = await contentFileActivity.save();
@@ -127,8 +127,8 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 	_onPageContentChange(e) {
 		const pageContent = e.detail.content;
-		this._debounceJobs.description = Debouncer.debounce(
-			this._debounceJobs.description,
+		this._debounceJobs.htmlContent = Debouncer.debounce(
+			this._debounceJobs.htmlContent,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this._savePageContent(pageContent)
 		);

@@ -120,7 +120,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 				?primary="${primary}"
 				?disabled="${disabled}">
 				${disabled ? null : html`
-					<d2l-dropdown-menu align="start" min-width="260">
+					<d2l-dropdown-menu align="start" no-pointer min-width="260">
 						<d2l-menu label="${label}" @d2l-menu-item-select="${this._onSelect}">
 							${content}
 						</d2l-menu>

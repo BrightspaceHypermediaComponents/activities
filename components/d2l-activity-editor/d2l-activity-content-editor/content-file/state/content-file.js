@@ -69,7 +69,7 @@ export class ContentFile {
 
 		if (this._contentFileEntity.getFileType() === FILE_TYPES.html) {
 			const htmlEntity = new ContentHtmlFileEntity(this._contentFileEntity, this.token, { remove: () => { } });
-			await htmlEntity.setHtmlFileHtmlContent(this.htmlContent);
+			await htmlEntity.setHtmlFileHtmlContent(this.fileContent);
 		}
 
 		const committedContentFileEntity = await this._commit(this._contentFileEntity);
@@ -79,7 +79,7 @@ export class ContentFile {
 	}
 
 	setPageContent(pageContent) {
-		this.htmlContent = pageContent;
+		this.fileContent = pageContent;
 	}
 
 	setTitle(value) {

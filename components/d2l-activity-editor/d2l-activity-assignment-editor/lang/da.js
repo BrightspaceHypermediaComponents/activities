@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Nogle indstillinger er låst, fordi der er modtaget afleveringer.",
 	"hlpSubmissionNotificationEmail": "Indtast en e-mail eller flere e-mails adskilt af et komma for at modtage meddelelser, når en opgave afleveres.",
 	"gradeOutOf": "Karakter ud af", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Kategorier", // Label for categories dropdown
+	"txtCategoriesLabel": "Kategori", // Label for categories dropdown
 	"noCategoryLabel": "Ingen kategori", // Label for when there are no categories
 	"newCategoryLabel": "Ny kategori", // Label for adding a new category
 	"newAssignmentCategory": "Ny opgavekategori", // Title for category dialog

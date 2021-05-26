@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Ajouter une grille d’évaluation", //text for add rubric button
 	"rubrics.btnCreateNew": "Créer", //Text for create new dropdown
+	"rubrics.btnDetach": "Détacher", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Ajouter un élément existant", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Grilles d’évaluation", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Joindre la grille d’évaluation", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Fermer", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Grille d’évaluation ajoutée", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Grille d’évaluation supprimée", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Une fois la grille d’évaluation détachée, toutes les évaluations précédentes de la rubrique dans cette activité seront supprimées. Confirmer le détachement de la grille d’évaluation ?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Grille d’évaluation d’attribution de note par défaut", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Aucune valeur par défaut sélectionnée", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Nom", // Text label for name input field
 	"content.emptyNameField": "Le nom est obligatoire.", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
+	"content.pageContent": "Contenu de la page", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Dates de disponibilité", // availability header
 	"content.saveError": "Votre élément de contenu n’a pas été enregistré. Corrigez les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Ajouter la date d’échéance", // Text label for name input field

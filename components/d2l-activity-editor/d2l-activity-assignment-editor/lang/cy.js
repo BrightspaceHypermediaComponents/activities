@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Mae rhai gosodiadau wedi'u cloi oherwydd bod cyflwyniadau wedi'u derbyn.",
 	"hlpSubmissionNotificationEmail": "Rhowch e-bost neu fwy nag un e-bost sydd wedi'u gwahanu gan atalnodau, i dderbyn hysbysiadau pan gyflwynir aseiniad.",
 	"gradeOutOf": "Gradd Allan O", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Categorïau", // Label for categories dropdown
+	"txtCategoriesLabel": "Categori", // Label for categories dropdown
 	"noCategoryLabel": "Dim categori", // Label for when there are no categories
 	"newCategoryLabel": "Categori newydd", // Label for adding a new category
 	"newAssignmentCategory": "Categori Aseiniad Newydd", // Title for category dialog

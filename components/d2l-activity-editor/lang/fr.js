@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Ajouter une rubrique", //text for add rubric button
 	"rubrics.btnCreateNew": "Créer", //Text for create new dropdown
+	"rubrics.btnDetach": "Retrait", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Ajouter existant", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubriques", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Joindre la rubrique", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Fermer", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubrique ajoutée", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubrique supprimée", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Quand la rubrique sera retirée, toutes les évaluations précédentes de la rubrique dans cette activité seront supprimées. Confirmer le retrait de la rubrique?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Rubrique de notation par défaut", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Aucune valeur par défaut sélectionnée", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Nom", // Text label for name input field
 	"content.emptyNameField": "Le nom est obligatoire.", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
+	"content.pageContent": "Contenu de la page", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Dates de disponibilité", // availability header
 	"content.saveError": "Votre élément de contenu n’a pas été enregistré. Veuillez corriger les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Ajouter la date d’échéance", // Text label for name input field

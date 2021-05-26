@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Rubric toevoegen", //text for add rubric button
 	"rubrics.btnCreateNew": "Nieuwe maken", //Text for create new dropdown
+	"rubrics.btnDetach": "Loskoppelen", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Bestaand toevoegen", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrics", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Rubric bijvoegen", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Sluiten", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubric toegevoegd", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubric verwijderd", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Zodra de rubric is losgekoppeld, worden alle eerdere evaluaties van de rubric in deze activiteit verwijderd. Wilt u het loskoppelen van de rubric bevestigen?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Standaardscorerubric", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Geen standaard geselecteerd", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Naam", // Text label for name input field
 	"content.emptyNameField": "Naam is vereist.", // Error text that appears below name field when it is left empty
 	"content.description": "Beschrijving", // Text label for description input field
+	"content.pageContent": "Pagina-inhoud", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Beschikbare data", // availability header
 	"content.saveError": "Uw inhoudsitem is niet opgeslagen. Corrigeer de rood omlijnde velden.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Uiterste datum toevoegen", // Text label for name input field

@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Certains réglages sont verrouillés car des soumissions ont été reçues.",
 	"hlpSubmissionNotificationEmail": "Saisissez une adresse courriel ou plusieurs adresses courriel séparées par une virgule pour recevoir des notifications à la soumission d’un travail.",
 	"gradeOutOf": "Note d'appréciation sur", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Catégories", // Label for categories dropdown
+	"txtCategoriesLabel": "Catégorie", // Label for categories dropdown
 	"noCategoryLabel": "Aucune catégorie", // Label for when there are no categories
 	"newCategoryLabel": "Nouvelle catégorie", // Label for adding a new category
 	"newAssignmentCategory": "Catégorie de nouveau travail", // Title for category dialog

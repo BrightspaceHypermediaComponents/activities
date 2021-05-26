@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Lägg till rubricering", //text for add rubric button
 	"rubrics.btnCreateNew": "Skapa ny", //Text for create new dropdown
+	"rubrics.btnDetach": "Ta bort", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Lägg till befintligt", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubriceringar", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Bifoga rubrik", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Stäng", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubriken har lagts till", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubriken har tagits bort", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "När rubriceringen har tagits bort tas alla tidigare bedömningar av rubriceringen i den här aktiviteten bort. Bekräfta borttagning av rubricering?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Standardresultatrubricering", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Ingen standard vald", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Namn", // Text label for name input field
 	"content.emptyNameField": "Namn krävs.", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivning", // Text label for description input field
+	"content.pageContent": "Sidoinnehåll", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Tillgänglighetsdatum", // availability header
 	"content.saveError": "Ditt innehållsobjekt sparades inte. Korrigera de fält som är markerade med rött.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Lägg till slutdatum", // Text label for name input field

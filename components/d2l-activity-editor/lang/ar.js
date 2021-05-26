@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "إضافة آلية تقييم", //text for add rubric button
 	"rubrics.btnCreateNew": "إنشاء جديد", //Text for create new dropdown
+	"rubrics.btnDetach": "فصل", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "إضافة موجود", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "آليات التقييم", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "إرفاق آلية تقييم", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "إغلاق", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "تمت إضافة آلية تقييم", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "تمت إزالة آلية تقييم", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "بعد فصل آلية التقييم، سيتم حذف كل التقييمات السابقة لآلية التقييم في هذا النشاط. هل تريد تأكيد فصل آلية التقييم؟", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "آلية تقييم مجموع الدرجات الافتراضية", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "لم يتم تحديد آلية تقييم مجموع الدرجات الافتراضية", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "الاسم", // Text label for name input field
 	"content.emptyNameField": "الاسم مطلوب.", // Error text that appears below name field when it is left empty
 	"content.description": "وصف", // Text label for description input field
+	"content.pageContent": "محتوى الصفحة", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "تواريخ إمكانية التوفّر", // availability header
 	"content.saveError": "لم يتم حفظ مادة المحتوى الخاصة بك. يُرجى تصحيح الحقول الموضّحة باللون الأحمر.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "إضافة تاريخ الاستحقاق", // Text label for name input field

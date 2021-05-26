@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Algumas configurações estão bloqueadas porque atividades foram recebidas.",
 	"hlpSubmissionNotificationEmail": "Informe um e-mail ou digite vários e-mails separados por vírgula para receber notificações quando uma atividade for enviada.",
 	"gradeOutOf": "Nota de", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Categorias", // Label for categories dropdown
+	"txtCategoriesLabel": "Categoria", // Label for categories dropdown
 	"noCategoryLabel": "Nenhuma categoria", // Label for when there are no categories
 	"newCategoryLabel": "Nova categoria", // Label for adding a new category
 	"newAssignmentCategory": "Nova categoria de ferramenta de envio de atividades", // Title for category dialog

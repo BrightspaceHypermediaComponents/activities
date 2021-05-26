@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Ychwanegu cyfeireb", //text for add rubric button
 	"rubrics.btnCreateNew": "Creu Un Newydd", //Text for create new dropdown
+	"rubrics.btnDetach": "Datgysylltu", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Ychwanegu’r Presennol", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Cyfeirebau", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Atodi Cyfeireb", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Cau", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Wedi ychwanegu cyfeireb", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Wedi tynnu cyfeireb", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Unwaith y bydd y gyfeireb wedi’i datgysylltu, bydd yr holl asesiadau blaenorol o'r gyfeireb yn y gweithgaredd hwn yn cael eu dileu. Cadarnhau datgysylltu'r gyfeireb?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Cyfeireb Sgorio Ddiofyn", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Ni ddewiswyd modd diofyn", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Enw", // Text label for name input field
 	"content.emptyNameField": "Mae angen enw.", // Error text that appears below name field when it is left empty
 	"content.description": "Disgrifiad", // Text label for description input field
+	"content.pageContent": "Cynnwys y Dudalen", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Dyddiadau Argaeledd", // availability header
 	"content.saveError": "Ni chadwyd eich eitem cynnwys. Cywirwch y meysydd a amlinellir mewn coch.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Ychwanegu Dyddiad Cyflwyno", // Text label for name input field

@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "新增量規", //text for add rubric button
 	"rubrics.btnCreateNew": "建立新的", //Text for create new dropdown
+	"rubrics.btnDetach": "中斷連結", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "新增現有的", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "量規", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "附加量規", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "關閉", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "量規已新增", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "量規已移除", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "中斷連結量規後，系統將刪除此活動中所有之前的量規評量。確認中斷連結量規？", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "預設的評分量規", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "未選取預設", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "名稱", // Text label for name input field
 	"content.emptyNameField": "名稱為必填。", // Error text that appears below name field when it is left empty
 	"content.description": "說明", // Text label for description input field
+	"content.pageContent": "頁面內容", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "可用情況日期", // availability header
 	"content.saveError": "您的內容項目尚未儲存。請修正以紅色顯示的欄位。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "新增截止日期", // Text label for name input field

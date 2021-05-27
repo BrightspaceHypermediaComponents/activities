@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Vissa inställningar är låsta eftersom inlämningar har tagits emot.",
 	"hlpSubmissionNotificationEmail": "Ange en e-postadress eller flera e-postadresser avgränsade med kommatecken för att få aviseringar när en uppgift skickas.",
 	"gradeOutOf": "Betyg av", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Kategorier", // Label for categories dropdown
+	"txtCategoriesLabel": "Kategori", // Label for categories dropdown
 	"noCategoryLabel": "Ingen kategori", // Label for when there are no categories
 	"newCategoryLabel": "Ny kategori", // Label for adding a new category
 	"newAssignmentCategory": "Ny uppgiftskategori", // Title for category dialog

@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Einige Einstellungen sind gesperrt, da Abgaben eingetroffen sind.",
 	"hlpSubmissionNotificationEmail": "Geben Sie eine oder mehrere E-Mail-Adresse(n) durch Kommas getrennt ein, um Benachrichtigungen zu erhalten, sobald eine Übung abgegeben wurde.",
 	"gradeOutOf": "Note aus", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Kategorien", // Label for categories dropdown
+	"txtCategoriesLabel": "Kategorie", // Label for categories dropdown
 	"noCategoryLabel": "Keine Kategorie", // Label for when there are no categories
 	"newCategoryLabel": "Neue Kategorie", // Label for adding a new category
 	"newAssignmentCategory": "Neue Aufgabenkategorie", // Title for category dialog

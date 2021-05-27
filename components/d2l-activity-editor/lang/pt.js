@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Adicionar rubrica", //text for add rubric button
 	"rubrics.btnCreateNew": "Criar novo", //Text for create new dropdown
+	"rubrics.btnDetach": "Desanexar", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Adicionar existente", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubricas", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Anexar rubrica", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Fechar", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubrica adicionada", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubrica removida", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Depois que a rubrica for desanexada, todas as avaliações anteriores da rubrica na atividade serão excluídas. Confirmar a exclusão da rubrica?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Rubrica de pontuação padrão", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Nenhum padrão selecionado", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Nome", // Text label for name input field
 	"content.emptyNameField": "O nome é obrigatório.", // Error text that appears below name field when it is left empty
 	"content.description": "Descrição", // Text label for description input field
+	"content.pageContent": "Conteúdo da página", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Datas de disponibilidade", // availability header
 	"content.saveError": "Seu item de conteúdo não foi salvo. Corrija os campos destacados em vermelho.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Adicionar prazo", // Text label for name input field

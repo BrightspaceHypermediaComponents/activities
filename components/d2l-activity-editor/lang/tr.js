@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Rubrik ekle", //text for add rubric button
 	"rubrics.btnCreateNew": "Yeni Oluştur", //Text for create new dropdown
+	"rubrics.btnDetach": "Ayır", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Mevcut Olanı Ekle", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrikler", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Rubrik Ekle", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Kapat", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubrik eklendi", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubrik kaldırıldı", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Rubrik ayrıldıktan sonra, bu etkinlikteki rubrik ile ilgili önceki tüm değerlendirmeler silinecektir. Rubrik sökülmesini onaylıyor musunuz?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Varsayılan Puanlama Rubriği", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Seçili varsayılan yok", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Ad", // Text label for name input field
 	"content.emptyNameField": "Ad gerekli.", // Error text that appears below name field when it is left empty
 	"content.description": "Açıklama", // Text label for description input field
+	"content.pageContent": "Sayfa İçeriği", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Geçerlilik Tarihleri", // availability header
 	"content.saveError": "İçerik öğeniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Bitiş Tarihi Ekle", // Text label for name input field

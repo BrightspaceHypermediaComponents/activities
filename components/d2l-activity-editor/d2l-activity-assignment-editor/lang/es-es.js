@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Algunas configuraciones están bloqueadas porque se han recibido entregas.",
 	"hlpSubmissionNotificationEmail": "Introduzca un correo electrónico o varios correos electrónicos separados por una coma para recibir notificaciones cuando se envíe una tarea.",
 	"gradeOutOf": "Calificación de", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Categorías", // Label for categories dropdown
+	"txtCategoriesLabel": "Categoría", // Label for categories dropdown
 	"noCategoryLabel": "Ninguna categoría", // Label for when there are no categories
 	"newCategoryLabel": "Nueva categoría", // Label for adding a new category
 	"newAssignmentCategory": "Nueva categoría de tarea", // Title for category dialog

@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "تم تأمين بعض الإعدادات بسبب تلقي عمليات الإرسال.",
 	"hlpSubmissionNotificationEmail": "أدخل عنوان بريد إلكتروني أو عناوين بريد إلكتروني متعددة مفصولة بفاصلة لتلقي إعلامات عند إرسال فرض.",
 	"gradeOutOf": "العلامة من أصل", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "الفئات", // Label for categories dropdown
+	"txtCategoriesLabel": "الفئة", // Label for categories dropdown
 	"noCategoryLabel": "ما من فئات", // Label for when there are no categories
 	"newCategoryLabel": "فئة جديدة", // Label for adding a new category
 	"newAssignmentCategory": "فئة الفروض الجديدة", // Title for category dialog

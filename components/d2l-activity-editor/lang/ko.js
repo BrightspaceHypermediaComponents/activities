@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "루브릭 추가", //text for add rubric button
 	"rubrics.btnCreateNew": "새로 만들기", //Text for create new dropdown
+	"rubrics.btnDetach": "분리", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "기존 항목 추가", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "루브릭", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "루브릭 부착", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "닫기", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "루브릭 추가됨", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "루브릭 제거됨", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "루브릭이 분리되면 이 활동에서 루브릭에 대한 이전의 모든 평가가 삭제됩니다. 루브릭을 분리하시겠습니까?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "기본 점수 산정 루브릭", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "기본값이 선택되지 않았습니다", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "이름", // Text label for name input field
 	"content.emptyNameField": "이름이 필요합니다.", // Error text that appears below name field when it is left empty
 	"content.description": "설명", // Text label for description input field
+	"content.pageContent": "페이지 콘텐츠", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "사용 가능 날짜", // availability header
 	"content.saveError": "콘텐츠 항목이 저장되지 않았습니다. 빨간색으로 표시된 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "기한 추가", // Text label for name input field

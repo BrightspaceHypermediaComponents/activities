@@ -47,7 +47,7 @@ export default {
 	"assignmentLocked": "Gönderimler alındığı için bazı ayarlar kilitlendi.",
 	"hlpSubmissionNotificationEmail": "Bir ödev gönderildiğinde bildirim almak için bir e-posta adresi veya virgülle ayırarak birden çok e-posta adresini girin.",
 	"gradeOutOf": "Şu Not Üzerinden Not:", // Label for the grade-out-of field when creating/editing an activity
-	"txtCategoriesLabel": "Kategoriler", // Label for categories dropdown
+	"txtCategoriesLabel": "Kategori", // Label for categories dropdown
 	"noCategoryLabel": "Kategori yok", // Label for when there are no categories
 	"newCategoryLabel": "Yeni kategori", // Label for adding a new category
 	"newAssignmentCategory": "Yeni Ödev Kategorisi", // Title for category dialog

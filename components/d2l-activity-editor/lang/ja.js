@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
 	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown
+	"rubrics.btnDetach": "取り外し", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "既存の追加", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "注釈", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "注釈の添付", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "閉じる", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "注釈が追加されました", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "注釈が削除されました", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "注釈を取り外すと、このアクティビティの注釈の以前の評価はすべて削除されます。注釈を取り外しますか？", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "デフォルトのスコア注釈", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "デフォルトが選択されていません", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "名前", // Text label for name input field
 	"content.emptyNameField": "名前は必須です。", // Error text that appears below name field when it is left empty
 	"content.description": "説明", // Text label for description input field
+	"content.pageContent": "ページコンテンツ", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "使用可能日", // availability header
 	"content.saveError": "コンテンツ項目は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "期限の追加", // Text label for name input field

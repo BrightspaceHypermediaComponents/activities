@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Tilføj rubrik", //text for add rubric button
 	"rubrics.btnCreateNew": "Opret ny", //Text for create new dropdown
+	"rubrics.btnDetach": "Fjern", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Tilføj eksisterende", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrikker", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Vedhæft rubrik", //Button for the attach new rubric overlay
@@ -96,6 +97,7 @@ export default {
 	"rubrics.btnClose": "Luk", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubrik tilføjet", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubrik fjernet", // Text for notifying screenreader rubric was removed
+	"rubrics.txtConfirmDetachRubric": "Når rubrikken er fjernet, slettes alle tidligere vurderinger af rubrikken i denne aktivitet. Bekræft fjernelse af rubrikken?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Standardscoringsrubrik", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Ingen standard valgt", // option in default scoring rubric when no default scoring rubric selected
 
@@ -125,6 +127,7 @@ export default {
 	"content.name": "Navn", // Text label for name input field
 	"content.emptyNameField": "Navn er påkrævet.", // Error text that appears below name field when it is left empty
 	"content.description": "Beskrivelse", // Text label for description input field
+	"content.pageContent": "Sideindhold", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
 	"content.saveError": "Dit indholdselement blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Tilføj forfaldsdato", // Text label for name input field

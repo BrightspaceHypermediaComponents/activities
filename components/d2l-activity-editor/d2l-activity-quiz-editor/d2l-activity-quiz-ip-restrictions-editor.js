@@ -1,21 +1,16 @@
 import '@brightspace-ui/core/components/dialog/dialog.js';
-import 'd2l-table/d2l-table';
-import 'd2l-table/d2l-tr';
-import 'd2l-table/d2l-th';
-import 'd2l-table/d2l-table-style.js';
-import 'd2l-table/d2l-tbody';
-import 'd2l-table/d2l-thead';
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorContainerMixin } from '../mixins/d2l-activity-editor-container-mixin';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { sharedIpRestrictions as store } from './state/quiz-store.js';
+import { tableStyles } from '@brightspace-ui/core/components/table/table-wrapper.js';
 
 class ActivityQuizIpRestrictionsEditor extends ActivityEditorMixin(ActivityEditorContainerMixin(LocalizeActivityQuizEditorMixin(MobxLitElement))) {
 
 	static get styles() {
-		return css`
+		return [tableStyles, css`
 				:host {
 					display: block;
 				}
@@ -25,13 +20,10 @@ class ActivityQuizIpRestrictionsEditor extends ActivityEditorMixin(ActivityEdito
 				d2l-button-subtle {
 					margin-top: 0.5rem;
 				}
-				d2l-thead {
-					font-weight: 700;
-				}
 				d2l-button {
 					margin: 1rem 0;
 				}
-			`;
+			`];
 	}
 
 	constructor() {
@@ -106,29 +98,18 @@ class ActivityQuizIpRestrictionsEditor extends ActivityEditorMixin(ActivityEdito
 
 	_renderIpRestrictionTable() {
 		return html`
-			<custom-style>
-				<style include="d2l-table-style">
-					:host {
-						display: block;
-					}
-				</style>
-			</custom-style>
-
-			<d2l-table id="ip-restrictions-table">
-			 	<d2l-thead>
-			 		<d2l-tr>
-			 			<d2l-th class="title">${this.localize('ipRestrictionsTableStartRangeHdr')}</d2l-th>
-			 			<d2l-th>${this.localize('ipRestrictionsTableEndRangeHdr')}</d2l-th>
-			 			<d2l-th>${this.localize('ipRestrictionsTableDeleteRangeHdr')}</d2l-th>
-			 		</d2l-tr>
-				</d2l-thead>
-				<d2l-tbody>
-
-					${this._renderRestrictionRows()}
-
-				</d2l-tbody>
-
-			</d2l-table>
+			<d2l-table-wrapper>
+				<table class="d2l-table">
+					<thead>
+			 			<tr>
+							<th>${this.localize('ipRestrictionsTableStartRangeHdr')}</th>
+							<th>${this.localize('ipRestrictionsTableEndRangeHdr')}</th>
+							<th>${this.localize('ipRestrictionsTableDeleteRangeHdr')}</th>
+						</tr>
+					</thead>
+					<tbody>${this._renderRestrictionRows()}</tbody>
+				</table>
+			</d2l-table-wrapper>
 		`;
 	}
 
@@ -142,35 +123,31 @@ class ActivityQuizIpRestrictionsEditor extends ActivityEditorMixin(ActivityEdito
 			const { start, end } = restriction;
 
 			return html`
-				<d2l-tr>
-					<d2l-th>
-
+				<tr>
+					<td>
 						<d2l-input-text
 							class="d2l-ip-input"
 							@input="${this._generateHandler(this._handleChange, index)}"
 							value="${start || ''}"
 							name="start">
 						</d2l-input-text>
-
-					</d2l-th>
-					<d2l-th>
-
+					</td>
+					<td>
 						<d2l-input-text
 							class="d2l-ip-input"
 							@input="${this._generateHandler(this._handleChange, index)}"
 							value="${end || ''}"
 							name="end">
 						</d2l-input-text>
-
-					</d2l-th>
-					<d2l-th>
+					</td>
+					<td>
 						<d2l-button-icon
-						icon="d2l-tier1:delete"
-						aria-label="delete"
-						@click="${this._generateHandler(this._deleteIp, index)}">
+							icon="d2l-tier1:delete"
+							aria-label="delete"
+							@click="${this._generateHandler(this._deleteIp, index)}">
 						</d2l-button-icon>
-					</d2l-th>
-				</d2l-tr>
+					</td>
+				</tr>
 			`;
 		});
 	}

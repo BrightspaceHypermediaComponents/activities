@@ -3,7 +3,7 @@ import { QuickEvalLocalize } from './QuickEvalLocalize.js';
 import { QuickEvalLogging } from './QuickEvalLogging.js';
 import 'd2l-alert/d2l-alert.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
-import 'd2l-table/d2l-table.js';
+import 'd2l-table/d2l-table-wrapper.js';
 import 'd2l-button/d2l-button.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import 'd2l-polymer-behaviors/d2l-dom-focus.js';
@@ -30,11 +30,10 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				:host {
 					display: block;
 				}
-				d2l-td {
+				td:not(.d2l-username-column) {
 					font-size: 0.7rem;
 				}
-				d2l-td.d2l-username-column {
-					font-size: 0.8rem;
+				td.d2l-username-column {
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
@@ -46,10 +45,6 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 				:host(:dir(rtl)) .d2l-user-badge-image {
 					padding-right: 0;
 					padding-left: 0.6rem;
-				}
-				/* Needed for Edge */
-				d2l-table-col-sort-button span {
-					color: var(--d2l-color-ferrite);
 				}
 				d2l-alert {
 					margin: auto;
@@ -148,87 +143,81 @@ class D2LQuickEvalSubmissionsTable extends QuickEvalLogging(QuickEvalLocalize(Po
 			<template is="dom-if" if="[[courseLevel]]">
 				<h2 title="[[courseLevelName]]" class="d2l-quick-eval-submissions-course-name-heading">[[courseLevelName]]</h2>
 			</template>
-			<d2l-table type="light" hidden$="[[showLoadingSkeleton]]" aria-describedby$="[[_tableDescriptionId]]" aria-colcount$="[[headerColumns.length]]" aria-rowcount$="[[_data.length]]">
-				<d2l-thead>
-					<d2l-tr>
-						<dom-repeat items="[[headerColumns]]" as="headerColumn">
-							<template>
-								<d2l-th class$=[[_getWidthCssClass(headerColumn.widthOverride)]]>
-									<dom-repeat items="[[headerColumn.headers]]" as="header">
-										<template>
-											<template is="dom-if" if="[[header.canSort]]">
-												<d2l-table-col-sort-button
-													nosort$="[[!header.sorted]]"
-													desc$="[[header.desc]]"
-													on-click="_dispatchSortRequestedEvent"
-													id="[[header.key]]"
-													title="[[_localizeSortText(header.key)]]"
-													aria-label$="[[_localizeSortText(header.key)]]"
-													aria-live="assertive"
-												>
-													<span hidden="true" aria-hidden="[[!header.nameColumn]]">[[_localizeSortText(header.key)]]</span>
-													<span aria-hidden="true">[[localize(header.key)]]</span>
-												</d2l-table-col-sort-button>
-												<template is="dom-if" if="[[header.suffix]]">
-													<span>[[header.suffix]]&nbsp;</span>
-												</template>
-											</template>
-											<template is="dom-if" if="[[!header.canSort]]">
-												<span>[[localize(header.key)]]</span>
-												<template is="dom-if" if="[[header.suffix]]">
-													<span>[[header.suffix]]&nbsp;</span>
-												</template>
+			<d2l-table-wrapper type="light" hidden$="[[showLoadingSkeleton]]">
+				<table class="d2l-table" aria-describedby$="[[_tableDescriptionId]]">
+					<thead>
+						<tr>
+							<template is="dom-repeat" items="[[headerColumns]]" as="headerColumn">
+								<th class$=[[_getWidthCssClass(headerColumn.widthOverride)]]>
+									<template is="dom-repeat" items="[[headerColumn.headers]]" as="header">
+										<template is="dom-if" if="[[header.canSort]]">
+											<d2l-table-col-sort-button
+												nosort$="[[!header.sorted]]"
+												desc$="[[header.desc]]"
+												on-click="_dispatchSortRequestedEvent"
+												id="[[header.key]]"
+												title="[[_localizeSortText(header.key)]]"
+												aria-label$="[[_localizeSortText(header.key)]]"
+												aria-live="assertive"
+											>
+												<span hidden="true" aria-hidden="[[!header.nameColumn]]">[[_localizeSortText(header.key)]]</span>
+												<span aria-hidden="true">[[localize(header.key)]]</span>
+											</d2l-table-col-sort-button>
+											<template is="dom-if" if="[[header.suffix]]">
+												<span>[[header.suffix]]&nbsp;</span>
 											</template>
 										</template>
-									</dom-repeat>
-								</d2l-th>
-							</template>
-						</dom-repeat>
-					</d2l-tr>
-				</d2l-thead>
-				<d2l-tbody>
-					<dom-repeat items="[[_data]]" as="s">
-						<template>
-							<d2l-tr>
-								<dom-repeat items="[[headerColumns]]" as="c">
-									<template>
-										<template is="dom-if" if="[[_isColumn(c, 'user')]]">
-											<d2l-td class="d2l-quick-eval-truncated-column d2l-username-column">
-												<template is="dom-if" if="[[s.userHref]]">
-													<d2l-profile-image
-														class="d2l-user-badge-image"
-														href="[[s.userHref]]"
-														token="[[token]]"
-														small
-														aria-hidden="true">
-													</d2l-profile-image>
-												</template>
-												<d2l-link
-													title="[[_localizeEvaluationText(s, c.meta.firstThenLast)]]"
-													href="[[s.activityLink]]"
-													aria-label$="[[_localizeEvaluationText(s, c.meta.firstThenLast)]]"
-													class="d2l-quick-eval-submissions-table-name-link"
-												>[[_formatDisplayName(s, c.meta.firstThenLast)]]</d2l-link>
-												<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
-											</d2l-td>
-										</template>
-										<template is="dom-if" if="[[_isColumn(c, 'activity-name')]]">
-											<d2l-td  class$="[[_computeTruncateClass(c.truncated)]]">
-												<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
-											</d2l-td>
-										</template>
-										<template is="dom-if" if="[[_isColumn(c, 'none')]]">
-											<d2l-td class$="[[_computeTruncateClass(c.truncated)]] d2l-quick-eval-submissions-overflow-hidden">
-												<span title="[[_computeColumnText(s, c)]]">[[_computeColumnText(s, c)]]</span>
-											</d2l-td>
+										<template is="dom-if" if="[[!header.canSort]]">
+											<span>[[localize(header.key)]]</span>
+											<template is="dom-if" if="[[header.suffix]]">
+												<span>[[header.suffix]]&nbsp;</span>
+											</template>
 										</template>
 									</template>
-								<dom-repeat>
-							</d2l-tr>
+								</th>
+							</template>
+						</tr>
+					</thead>
+					<tbody>
+						<template is="dom-repeat" items="[[_data]]" as="s">
+							<tr>
+								<template is="dom-repeat" items="[[headerColumns]]" as="c">
+									<template is="dom-if" if="[[_isColumn(c, 'user')]]">
+										<td class="d2l-quick-eval-truncated-column d2l-username-column">
+											<template is="dom-if" if="[[s.userHref]]">
+												<d2l-profile-image
+													class="d2l-user-badge-image"
+													href="[[s.userHref]]"
+													token="[[token]]"
+													small
+													aria-hidden="true">
+												</d2l-profile-image>
+											</template>
+											<d2l-link
+												title="[[_localizeEvaluationText(s, c.meta.firstThenLast)]]"
+												href="[[s.activityLink]]"
+												aria-label$="[[_localizeEvaluationText(s, c.meta.firstThenLast)]]"
+												class="d2l-quick-eval-submissions-table-name-link"
+											>[[_formatDisplayName(s, c.meta.firstThenLast)]]</d2l-link>
+											<d2l-activity-evaluation-icon-base draft$="[[s.isDraft]]"></d2l-activity-evaluation-icon-base>
+										</td>
+									</template>
+									<template is="dom-if" if="[[_isColumn(c, 'activity-name')]]">
+										<td  class$="[[_computeTruncateClass(c.truncated)]]">
+											<d2l-activity-name href="[[s.activityNameHref]]" token="[[token]]"></d2l-activity-name>
+										</td>
+									</template>
+									<template is="dom-if" if="[[_isColumn(c, 'none')]]">
+										<td class$="[[_computeTruncateClass(c.truncated)]] d2l-quick-eval-submissions-overflow-hidden">
+											<span title="[[_computeColumnText(s, c)]]">[[_computeColumnText(s, c)]]</span>
+										</td>
+									</template>
+								</template>
+							</tr>
 						</template>
-					</dom-repeat>
-				</d2l-tbody>
-			</d2l-table>
+					</tbody>
+				</table>
+			</d2l-table-wrapper>
 			<d2l-alert class="list-alert" type="critical" hidden$="[[_health.isHealthy]]">
 				[[localize(_health.errorMessage)]]
 			</d2l-alert>

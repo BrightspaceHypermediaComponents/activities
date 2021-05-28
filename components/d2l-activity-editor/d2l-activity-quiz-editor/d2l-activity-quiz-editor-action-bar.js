@@ -54,7 +54,7 @@ class ActivityQuizEditorActionBar extends ActivityEditorMixin(SkeletonMixin(RtlM
 		return html`
 			<div class='d2l-action-bar-container d2l-skeletize'>
 				<d2l-activity-quiz-add-activity-menu
-					href="${this.quizHref}"
+					href="${this.href}"
 					.token="${this.token}"
 				></d2l-activity-quiz-add-activity-menu>
 				${scoreOutOf ? html`<div class='d2l-body-standard d2l-quiz-score-out-of'>${this.localize('totalPoints', { scoreOutOf })}</div>` : null }

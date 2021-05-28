@@ -4,9 +4,10 @@ import { css, html } from 'lit-element/lit-element.js';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
 import { LocalizeActivityQuizEditorMixin } from './mixins/d2l-activity-quiz-lang-mixin';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { shared as quizStore } from './state/quiz-store.js';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
-import { shared as store } from './state/quiz-store.js';
+import { shared as store } from '../state/activity-store.js';
 
 class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(LocalizeActivityQuizEditorMixin(RtlMixin(MobxLitElement)))) {
 
@@ -44,7 +45,14 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 	}
 
 	render() {
-		const quiz = store.get(this.href) || {};
+		const activity = store.get(this.href) || {};
+		const { specializationHref } = activity;
+
+		if (!specializationHref) {
+			return html``;
+		}
+
+		const quiz = quizStore.get(specializationHref) || {};
 		const types = quiz.activityTypes;
 
 		if (!types) {
@@ -55,6 +63,15 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 			${this._renderAddExisting(types)}
 			${this._renderCreateNew(types)}
 		`;
+	}
+
+	async _addExistingQuestions(questions) {
+		const activity = store.get(this.href) || {};
+		const candidates = await activity.startAddExisting();
+		if (!candidates) return;
+
+		const addItems = questions.map(q => candidates.addActionItemByHref(q.href));
+		await Promise.all(addItems);
 	}
 
 	_onSelect(e) {
@@ -68,7 +85,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		}
 
 		const url = new D2L.LP.Web.Http.UrlLocation(`/d2l/lms/question/new/${type}`);
-		D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
+		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
 			/*             location: */ url,
 			/*          srcCallback: */ 'SrcCallBack',
 			/*      responseDataKey: */ 'result',
@@ -78,7 +95,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		);
 
 		// "Save" handler
-		// delayedResult.AddListener(result => console.log(result));
+		delayedResult.AddListener(questions => this._addExistingQuestions(questions));
 	}
 
 	_renderActivityType(activityType) {

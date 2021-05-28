@@ -61,6 +61,10 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 		this.dispatchEvent(newEditorEvent);
 		const htmlNewEditorEnabled = newEditorEvent.detail.provider;
 
+		//@d2l-activity-text-editor-change for the new editor is on blur, while the old editor is on change
+		//we don't want the debouncer on the new editor in case the user clicks directly onto a button from the editor
+		const activityTextEditorChange = htmlNewEditorEnabled ? this._onRichtextChange : this._onRichtextChangeDebounced;
+
 		return html`
 			<d2l-activity-content-editor-title
 				.entity=${moduleEntity}
@@ -76,7 +80,7 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 						.ariaLabel="${this.localize('content.description')}"
 						.key="content-description"
 						.value="${descriptionRichText}"
-						@d2l-activity-text-editor-change="${this._onRichtextChange}"
+						@d2l-activity-text-editor-change="${activityTextEditorChange}"
 						.richtextEditorConfig="${{}}"
 						html-editor-height="100%"
 						full-page
@@ -131,6 +135,11 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 	}
 
 	_onRichtextChange(e) {
+		const descriptionRichText = e.detail.content;
+		this._saveDescription(descriptionRichText);
+	}
+
+	_onRichtextChangeDebounced(e) {
 		const descriptionRichText = e.detail.content;
 		this._debounceJobs.description = Debouncer.debounce(
 			this._debounceJobs.description,

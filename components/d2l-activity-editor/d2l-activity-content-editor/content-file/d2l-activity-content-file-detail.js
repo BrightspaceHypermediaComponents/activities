@@ -127,8 +127,13 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 	_onPageContentChange(e) {
 		const pageContent = e.detail.content;
-		this._debounceJobs.htmlContent = Debouncer.debounce(
-			this._debounceJobs.htmlContent,
+		this._savePageContent(pageContent);
+	}
+
+	_onPageContentChangeDebounced(e) {
+		const pageContent = e.detail.content;
+		this._debounceJobs.description = Debouncer.debounce(
+			this._debounceJobs.description,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this._savePageContent(pageContent)
 		);
@@ -145,6 +150,10 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this.dispatchEvent(newEditorEvent);
 		const htmlNewEditorEnabled = newEditorEvent.detail.provider;
 
+		//@d2l-activity-text-editor-change for the new editor is on blur, while the old editor is on change
+		//we don't want the debouncer on the new editor in case the user clicks directly onto a button from the editor
+		const activityTextEditorChange = htmlNewEditorEnabled ? this._onPageContentChange : this._onPageContentChangeDebounced;
+
 		return html`
 			<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
 				${this.localize('content.pageContent')}
@@ -154,7 +163,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					.ariaLabel="${this.localize('content.pageContent')}"
 					.key="content-page-content"
 					.value="${pageContent}"
-					@d2l-activity-text-editor-change="${this._onPageContentChange}"
+					@d2l-activity-text-editor-change="${activityTextEditorChange}"
 					.richtextEditorConfig="${{}}"
 					html-editor-height="100%"
 					full-page

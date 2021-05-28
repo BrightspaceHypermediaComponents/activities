@@ -15,6 +15,7 @@ export class ContentFile {
 		this.token = token;
 		this.title = '';
 		this.activityUsageHref = '';
+		this.persistedFileContent = '';
 		this.fileContent = '';
 		this.fileType = null;
 	}
@@ -24,7 +25,7 @@ export class ContentFile {
 	}
 
 	get dirty() {
-		return !this._contentFileEntity.equals(this._makeContentFileData());
+		return !(this._contentFileEntity.equals(this._makeContentFileData()) && this.persistedFileContent === this.fileContent);
 	}
 
 	async fetch() {
@@ -55,6 +56,7 @@ export class ContentFile {
 		this.href = contentFileEntity.self();
 		this.activityUsageHref = contentFileEntity.getActivityUsageHref();
 		this.title = contentFileEntity.title();
+		this.persistedFileContent = fileContent;
 		this.fileContent = fileContent;
 		this.fileType = contentFileEntity.getFileType();
 		this.fileHref = contentFileEntity.getFileHref();
@@ -66,15 +68,17 @@ export class ContentFile {
 		}
 
 		await this._contentFileEntity.setFileTitle(this.title);
+		let fileContent = '';
 
 		if (this._contentFileEntity.getFileType() === FILE_TYPES.html) {
 			const htmlEntity = new ContentHtmlFileEntity(this._contentFileEntity, this.token, { remove: () => { } });
-			await htmlEntity.setHtmlFileHtmlContent(this.htmlContent);
+			await htmlEntity.setHtmlFileHtmlContent(this.fileContent);
+			fileContent = this.fileContent;
 		}
 
 		const committedContentFileEntity = await this._commit(this._contentFileEntity);
 		const editableContentFileEntity = await this._checkout(committedContentFileEntity);
-		this.load(editableContentFileEntity);
+		this.load(editableContentFileEntity, fileContent);
 		return this._contentFileEntity;
 	}
 

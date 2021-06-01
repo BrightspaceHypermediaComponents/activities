@@ -3,7 +3,7 @@ import 'd2l-associations/add-associations.js';
 import 'd2l-rubric/d2l-rubric';
 import 'd2l-rubric/d2l-rubric-title';
 import 'd2l-rubric/editor/d2l-rubric-editor.js';
-import 'd2l-simple-overlay/d2l-simple-overlay.js';
+import '@brightspace-ui/core/components/dialog/dialog-fullscreen.js';
 import '@brightspace-ui/core/components/dropdown/dropdown.js';
 import '@brightspace-ui/core/components/dropdown/dropdown-content.js';
 import '@brightspace-ui/core/components/menu/menu.js';
@@ -76,13 +76,10 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 			${this._renderDefaultScoringRubric(entity)}
 
-			<d2l-simple-overlay
+			<d2l-dialog-fullscreen
 				id="create-new-association-dialog"
-				close-simple-overlay-alt-text="${this.localize('rubrics.btnClose')}"
 				no-cancel-on-outside-click
-				@d2l-simple-overlay-close-button-clicked="${this._clearNewRubricHref}"
-				@d2l-simple-overlay-canceled="${this._clearNewRubricHref}"
-			>
+				@d2l-dialog-close="${this._clearNewRubricHref}">
 				${this._renderRubricEditor()}
 				<d2l-floating-buttons always-float>
 					<d2l-button primary @click="${this._attachRubric}">
@@ -92,7 +89,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 						${this.localize('rubrics.btnCancel')}
 					</d2l-button>
 				</d2l-floating-buttons>
-			</d2l-simple-overlay>
+			</d2l-dialog-fullscreen>
 
 			<d2l-dialog
 				id="attach-rubric-dialog"
@@ -107,7 +104,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 					type="rubrics"
 					skipSave
 				></d2l-add-associations>
-			</d2l-dialog>
+			</d2l-dialog-fullscreen>
 		`;
 	}
 	_attachRubric() {
@@ -140,7 +137,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			this.shadowRoot.querySelector('#create-new-association-dialog');
 		if (editNewAssociationOverlay) {
 			this._clearNewRubricHref();
-			editNewAssociationOverlay.close();
+			editNewAssociationOverlay.opened = false;
 		}
 	}
 	async _createNewAssociation() {
@@ -165,7 +162,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 		const editNewAssociationOverlay = this.shadowRoot.querySelector('#create-new-association-dialog');
 		if (editNewAssociationOverlay) {
-			editNewAssociationOverlay.open();
+			editNewAssociationOverlay.opened = true;
 		}
 
 	}

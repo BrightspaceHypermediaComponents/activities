@@ -140,4 +140,5 @@ export default {
 	"content.notHttps": "Only links using \"https\" can be embedded.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "That site cannot be embedded.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Preview", // The label text for the link preview
+	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a weblink in a new window
 };

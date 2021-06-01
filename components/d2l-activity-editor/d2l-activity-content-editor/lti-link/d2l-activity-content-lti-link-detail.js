@@ -1,5 +1,6 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-lti-link-options.js';
+import './d2l-activity-content-lti-link-external-activity.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
@@ -57,6 +58,9 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 				.onSave=${this.saveLinkOptions}
 				>
 			</d2l-activity-content-lti-link-options>
+
+			<d2l-activity-content-lti-link-external-activity>
+			</d2l-activity-content-lti-link-external-activity>
 		`;
 	}
 

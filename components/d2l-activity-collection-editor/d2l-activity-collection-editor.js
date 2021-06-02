@@ -692,7 +692,7 @@ class CollectionEditor extends LocalizeActivityCollectionEditor(EntityMixinLit(L
 
 		const items = repeat(this._candidateItems, (candidate) => candidate.itemSelf, candidate => {
 			return html`
-				<d2l-list-item selectable ?disabled=${candidate.alreadyAdded} ?selected=${candidate.alreadyAdded || this._currentSelection[candidate.item.getActionState()]} key=${candidate.alreadyAdded ? ifDefined(undefined) : candidate.item.getActionState()}>
+				<d2l-list-item selectable label="${candidate.organization.name()}" ?disabled=${candidate.alreadyAdded} ?selected=${candidate.alreadyAdded || this._currentSelection[candidate.item.getActionState()]} key=${candidate.alreadyAdded ? ifDefined(undefined) : candidate.item.getActionState()}>
 					<div slot="illustration" class="d2l-activitiy-collection-list-item-illustration">
 						${this._renderCourseImageSkeleton()}
 						<d2l-organization-image

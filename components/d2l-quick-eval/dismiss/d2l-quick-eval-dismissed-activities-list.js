@@ -18,7 +18,7 @@ class D2LQuickEvalDismissedActivitiesList extends LitQuickEvalLocalize(LitElemen
 	render() {
 		return html`
 			<d2l-list separators="all">${this.dismissedActivities && this.dismissedActivities.length ? this.dismissedActivities.map((act, index) => html`
-				<d2l-list-item selectable key="${index}" @d2l-list-item-selected=${this._handleItemSelected}>
+				<d2l-list-item selectable key="${index}" label="${act.name}" @d2l-list-item-selected=${this._handleItemSelected}>
 					<d2l-icon slot="illustration" icon="${this._computeIcon(act.type)}" aria-label="${this.localize(act.type)}"></d2l-icon>
 					<d2l-list-item-content>
 						${act.name}

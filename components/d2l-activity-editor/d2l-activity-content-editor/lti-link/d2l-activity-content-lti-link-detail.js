@@ -56,10 +56,12 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			<d2l-activity-content-lti-link-options
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveLinkOptions}
-				>
+			>
 			</d2l-activity-content-lti-link-options>
 
-			<d2l-activity-content-lti-link-external-activity>
+			<d2l-activity-content-lti-link-external-activity
+				.entity=${ltiLinkEntity}
+			>
 			</d2l-activity-content-lti-link-external-activity>
 		`;
 	}

@@ -81,14 +81,12 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				no-cancel-on-outside-click
 				@d2l-dialog-close="${this._clearNewRubricHref}">
 				${this._renderRubricEditor()}
-				<d2l-floating-buttons always-float>
-					<d2l-button primary @click="${this._attachRubric}">
-						${this.localize('rubrics.btnAttachRubric')}
-					</d2l-button>
-					<d2l-button @click="${this._closeEditNewAssociationOverlay}">
-						${this.localize('rubrics.btnCancel')}
-					</d2l-button>
-				</d2l-floating-buttons>
+				<d2l-button slot="footer" primary  @click="${this._attachRubric}">
+					${this.localize('rubrics.btnAttachRubric')}
+				</d2l-button>
+				<d2l-button slot="footer" @click="${this._closeEditNewAssociationOverlay}">
+					${this.localize('rubrics.btnCancel')}
+				</d2l-button>
 			</d2l-dialog-fullscreen>
 
 			<d2l-dialog

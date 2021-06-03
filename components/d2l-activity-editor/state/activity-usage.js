@@ -2,6 +2,7 @@ import { action, configure as configureMobx, decorate, observable, runInAction }
 import { ActivityDates } from './activity-dates.js';
 import { ActivityScoreGrade } from './activity-score-grade.js';
 import { ActivitySpecialAccess } from './activity-special-access.js';
+import { ActivityUsageCollectionEntity } from 'siren-sdk/src/activities/ActivityUsageCollectionEntity.js';
 import { ActivityUsageEntity } from 'siren-sdk/src/activities/ActivityUsageEntity.js';
 import { AlignmentsHierarchicalEntity } from 'siren-sdk/src/alignments/AlignmentsHierarchicalEntity.js';
 import { CompetenciesEntity } from 'siren-sdk/src/competencies/CompetenciesEntity.js';
@@ -38,6 +39,7 @@ export class ActivityUsage extends WorkingCopy {
 		await Promise.all([
 			this._loadSpecialAccess(entity),
 			this._loadCompetencyOutcomes(entity),
+			this._loadActionCollection(entity),
 			this.scoreAndGrade.fetch(entity, false)
 		]);
 	}
@@ -90,6 +92,10 @@ export class ActivityUsage extends WorkingCopy {
 	setScoreAndGrade(val) {
 		this.scoreAndGrade = val;
 	}
+	async startAddExisting() {
+		if (!this.activityCollection) return;
+		return this.activityCollection.startAddExisting();
+	}
 	async validate() {
 		if (!this._entity) {
 			return;
@@ -119,6 +125,19 @@ export class ActivityUsage extends WorkingCopy {
 			throw new Error('Activity Usage validation failed');
 		}
 	}
+
+	async _loadActionCollection(entity) {
+		const activityCollectionHref = entity.activityCollectionHref();
+		if (!activityCollectionHref) {
+			return;
+		}
+
+		const activityCollection = await fetchEntity(activityCollectionHref, this.token);
+		runInAction(() => {
+			this.activityCollection = new ActivityUsageCollectionEntity(activityCollection);
+		});
+	}
+
 	async _loadCompetencyOutcomes(entity) {
 		/**
 		 * Legacy Competencies
@@ -205,6 +224,7 @@ decorate(ActivityUsage, {
 	competenciesDialogUrl: observable,
 	specialAccess: observable,
 	associateGradeHref: observable,
+	activityCollection: observable,
 	// actions
 	load: action,
 	setDraftStatus: action,

@@ -54,7 +54,8 @@ describe('Activity Usage', function() {
 			specialAccessHref: () => null,
 			specializationHref: () => null,
 			fetchLinkedScoreOutOfEntity: () => null,
-			associateGradeHref: () => null
+			associateGradeHref: () => null,
+			activityCollectionHref: () => undefined
 		};
 	}
 

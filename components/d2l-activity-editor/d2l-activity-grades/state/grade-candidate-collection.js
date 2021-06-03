@@ -8,18 +8,24 @@ configureMobx({ enforceActions: 'observed' });
 
 export class GradeCandidateCollection {
 
-	constructor(href, token) {
-		this.href = href;
+	constructor(hrefOrGradeCandidateCollectionEntity, token) {
+		if (hrefOrGradeCandidateCollectionEntity instanceof GradeCandidateCollectionEntity) {
+			this.gradeCandidateCollectionEntity = hrefOrGradeCandidateCollectionEntity;
+		} else {
+			this.href = hrefOrGradeCandidateCollectionEntity;
+		}
 		this.token = token;
 		this.gradeCandidates = [];
 		this.selected = null;
 	}
 
 	async fetch(bypassCache) {
-		const sirenEntity = await fetchEntity(this.href, this.token, bypassCache);
+		const sirenEntity = this.href && await fetchEntity(this.href, this.token, bypassCache);
 		if (sirenEntity) {
 			const entity = new GradeCandidateCollectionEntity(sirenEntity, this.token, { remove: () => { } });
 			await this.load(entity);
+		} else {
+			this.gradeCandidateCollectionEntity && await this.load(this.gradeCandidateCollectionEntity);
 		}
 		return this;
 	}

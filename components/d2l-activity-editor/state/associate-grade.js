@@ -1,6 +1,8 @@
 import { action, configure as configureMobx, decorate, observable } from 'mobx';
 import { AssociateGradeEntity } from 'siren-sdk/src/activities/associateGrade/AssociateGradeEntity.js';
 import { fetchEntity } from './fetch-entity.js';
+import { GradeCandidateCollection } from '../d2l-activity-grades/state/grade-candidate-collection.js';
+import { GradeCategoryCollection } from '../d2l-activity-grades/state/grade-category-collection.js';
 
 configureMobx({ enforceActions: 'observed' });
 
@@ -21,28 +23,41 @@ export class AssociateGrade {
 		return this;
 	}
 
+	async getGradeCandidates() {
+		const gradeCandidateCollectionEntity = await this._entity.getGradeCandidates();
+		if (!gradeCandidateCollectionEntity) return;
+		this.gradeCandidateCollection = new GradeCandidateCollection(gradeCandidateCollectionEntity, this.token);
+		await this.gradeCandidateCollection.fetch();
+	}
+
+	async getGradeCategories() {
+		const gradeCategoryCollectionEntity = await this._entity.getGradeCategories();
+		if (!gradeCategoryCollectionEntity) return;
+		this.gradeCategoryCollection = new GradeCategoryCollection(gradeCategoryCollectionEntity, this.token);
+		await this.gradeCategoryCollection.fetch();
+	}
+
 	load(entity) {
 		this._entity = entity;
 		this.gradebookStatus = entity.gradebookStatus();
 		this.gradeName = entity.gradeName();
 		this.maxPoints = entity.maxPoints();
 		this.gradeType = entity.gradeType();
+		this.gradeCategoryCollection = null;
+		this.gradeCandidateCollection = null;
 	}
 
-	setGradebookStatus(newStatus, gradeName, maxPoints) {
-		this.gradebookStatus = newStatus;
+	async setGradebookStatus(newStatus, gradeName, maxPoints) {
 		if (gradeName) this.gradeName = gradeName;
 		if (maxPoints) this.maxPoints = maxPoints;
-		this._updateProperty(() => this._entity.setGradebookStatus(newStatus, gradeName, maxPoints));
+		await this._updateProperty(() => this._entity.setGradebookStatus(newStatus, gradeName, maxPoints));
 	}
 
 	setGradeMaxPoints(maxPoints) {
-		this.maxPoints = maxPoints;
 		this._updateProperty(() => this._entity.setGradeMaxPoints(maxPoints));
 	}
 
 	setGradeName(gradeName) {
-		this.gradeName = gradeName;
 		this._updateProperty(() => this._entity.setGradeName(gradeName));
 	}
 
@@ -52,6 +67,7 @@ export class AssociateGrade {
 			this.fetch();
 			return;
 		}
+
 		this.load(entity);
 	}
 }
@@ -62,10 +78,12 @@ decorate(AssociateGrade, {
 	gradeName: observable,
 	maxPoints: observable,
 	gradeType: observable,
-	gradeCandidatesHref: observable,
+	gradeCategoryCollection: observable,
 	gradeCandidateCollection: observable,
 	// actions
 	load: action,
+	getGradeCategories: action,
+	getGradeCandidates: action,
 	setGradebookStatus: action,
 	setGradeMaxPoints: action,
 	setGradeName: action

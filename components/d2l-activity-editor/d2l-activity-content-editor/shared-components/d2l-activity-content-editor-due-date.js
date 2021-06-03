@@ -8,8 +8,8 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 
 	static get properties() {
 		return {
-			_hasDatePermissions: { type: Boolean },
-			_showAddDueDateBtn: { type: Boolean }
+			expanded: { type: Boolean },
+			_hasDatePermissions: { type: Boolean }
 		};
 	}
 
@@ -32,7 +32,6 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 	constructor() {
 		super();
 		this._hasDatePermissions = false;
-		this._showAddDueDateBtn = true;
 	}
 
 	render() {
@@ -48,14 +47,14 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 				<d2l-button-subtle
 					text="${this.localize('content.addDueDate')}"
 					@click="${this._showDueDate}"
-					?hidden="${!this._showAddDueDateBtn}"
+					?hidden="${this.expanded}"
 				>
 				</d2l-button-subtle>
 				<d2l-activity-due-date-editor
 					.href="${this.href}"
 					.token="${this.token}"
 					?skeleton="${this.skeleton}"
-					?hidden="${this._showAddDueDateBtn}"
+					?hidden="${!this.expanded}"
 				>
 				</d2l-activity-due-date-editor>
 			</div>
@@ -71,12 +70,12 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 		this._hasDatePermissions = dates.canEditDates;
 		// if due date exists on the activity, show the field
 		if (dates.dueDate) {
-			this._showAddDueDateBtn = false;
+			this.expanded = true;
 		}
 	}
 
 	_showDueDate() {
-		this._showAddDueDateBtn = false;
+		this.expanded = true;
 	}
 }
 customElements.define('d2l-activity-content-editor-due-date', ContentEditorDueDate);

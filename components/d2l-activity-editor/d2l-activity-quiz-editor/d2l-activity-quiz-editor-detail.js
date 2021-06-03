@@ -104,11 +104,14 @@ class QuizEditorDetail extends ActivityQuizEditorTelemetryMixin(ActivityEditorMi
 			originalDescriptionIsEmpty,
 			introIsAppendedToDescription,
 			headerIsDisplayed,
-			originalHeaderIsEmpty
+			originalHeaderIsEmpty,
+			footerIsDisplayed,
+			originalFooterIsEmpty
 		} = quiz || {};
 
 		const descriptionLang = this.localize('description');
 		const headerLang = this.localize('header');
+		const footerLang = this.localize('footer');
 
 		return html`
 			<d2l-alert has-close-button ?hidden=${this.skeleton || descriptionIsDisplayed || originalDescriptionIsEmpty}>
@@ -121,6 +124,10 @@ class QuizEditorDetail extends ActivityQuizEditorTelemetryMixin(ActivityEditorMi
 			<d2l-alert has-close-button ?hidden=${this.skeleton || headerIsDisplayed || originalHeaderIsEmpty}>
 				${this.localize('textIsDisplayedPart1')}
 				${this.localize('textIsDisplayedSingularPart2', 'field', headerLang)}
+			</d2l-alert>
+			<d2l-alert has-close-button ?hidden=${this.skeleton || footerIsDisplayed || originalFooterIsEmpty}>
+				${this.localize('textIsDisplayedPart1')}
+				${this.localize('textIsDisplayedSingularPart2', 'field', footerLang)}
 			</d2l-alert>
 			<div id="quiz-name-container">
 				<d2l-input-text

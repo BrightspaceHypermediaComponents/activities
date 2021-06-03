@@ -164,7 +164,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 
 	constructor() {
 		super(store);
-		this.checkoutOnLoad = true;
 	}
 
 	connectedCallback() {
@@ -179,6 +178,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 		this.dispatchEvent(event);
 
 		this._createSelectboxGradeItemEnabled = event.detail.provider;
+		this.checkoutOnLoad = event.detail.provider;
 	}
 
 	render() {
@@ -332,7 +332,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 		const scoreAndGrade = store.get(this.href).scoreAndGrade;
 
 		const associateGradeEntity = associateGradeStore.get(this._associateGradeHref);
-		associateGradeEntity.setGradebookStatus(gradebookStatus, scoreAndGrade.newGradeName, scoreAndGrade.scoreOutOf);
+		associateGradeEntity && associateGradeEntity.setGradebookStatus(gradebookStatus, scoreAndGrade.newGradeName, scoreAndGrade.scoreOutOf);
 	}
 	_associateGradeSetGradeName(name) {
 		const associateGradeEntity = associateGradeStore.get(this._associateGradeHref);
@@ -340,7 +340,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 	}
 	_associateGradeSetMaxPoints(maxPoints) {
 		const associateGradeEntity = associateGradeStore.get(this._associateGradeHref);
-		associateGradeEntity.setGradeMaxPoints(maxPoints);
+		associateGradeEntity && associateGradeEntity.setGradeMaxPoints(maxPoints);
 	}
 	_chooseFromGrades() {
 		const activityGradesElement = this.shadowRoot.querySelector('d2l-activity-grades-dialog');

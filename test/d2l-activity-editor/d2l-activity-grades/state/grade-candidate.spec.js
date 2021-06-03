@@ -2,13 +2,13 @@ import { expect } from 'chai';
 import { fetchEntity } from '../../../../components/d2l-activity-editor/state/fetch-entity.js';
 import { GradeCandidate } from '../../../../components/d2l-activity-editor/d2l-activity-grades/state/grade-candidate.js';
 import { GradeCandidateEntity } from 'siren-sdk/src/activities/GradeCandidateEntity.js';
-import { GradeCategoryEntity } from 'siren-sdk/src/activities/GradeCategoryEntity.js';
+import { GradeCategoryEntity } from 'siren-sdk/src/activities/associateGrade/GradeCategoryEntity.js';
 import { GradeEntity } from 'siren-sdk/src/activities/GradeEntity.js';
 import sinon from 'sinon';
 
 jest.mock('siren-sdk/src/activities/GradeEntity.js');
 jest.mock('siren-sdk/src/activities/GradeCandidateEntity.js');
-jest.mock('siren-sdk/src/activities/GradeCategoryEntity.js');
+jest.mock('siren-sdk/src/activities/associateGrade/GradeCategoryEntity.js');
 jest.mock('../../../../components/d2l-activity-editor/state/fetch-entity.js');
 
 describe('Grade Candidate', function() {

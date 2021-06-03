@@ -74,7 +74,10 @@ class ActivityQuizManageHeaderFooterEditor extends ActivityEditorMixin(RtlMixin(
 	}
 
 	reset() {
-		this.shadowRoot.querySelector('d2l-activity-text-editor').reset();
+		const headerEditor = this.shadowRoot.querySelector('#headerEditor');
+		const footerEditor = this.shadowRoot.querySelector('#footerEditor');
+		headerEditor.reset();
+		footerEditor.reset();
 	}
 
 	save() {

@@ -17,9 +17,9 @@ class ExternalActivity extends LocalizeActivityEditorMixin(RtlMixin(MobxLitEleme
 		return [
 			css`
 			.d2l-content-link-external-activity {
+				align-items: center;
 				display: flex;
 				justify-content: space-between;
-				align-items: center;
 			}
 			`,
 			labelStyles

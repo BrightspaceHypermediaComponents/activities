@@ -6,7 +6,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class ExternalActivity extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
+class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -24,8 +24,8 @@ class ExternalActivity extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixi
 				justify-content: space-between;
 			}
 			#external-activity-container {
-				padding-bottom: 20px;
 				margin-bottom: 20px;
+				padding-bottom: 20px;
 			}
 			`,
 			labelStyles
@@ -65,4 +65,4 @@ class ExternalActivity extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixi
 		window.open(this.entity.link, '_blank', 'height=200,width=200');
 	}
 }
-customElements.define('d2l-activity-content-lti-link-external-activity', ExternalActivity);
+customElements.define('d2l-activity-content-lti-link-external-activity', ActivityContentLTILinkExternalActivity);

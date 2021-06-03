@@ -4,8 +4,9 @@ import { labelStyles } from '@brightspace-ui/core/components/typography/styles.j
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class ExternalActivity extends LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)) {
+class ExternalActivity extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
@@ -15,20 +16,38 @@ class ExternalActivity extends LocalizeActivityEditorMixin(RtlMixin(MobxLitEleme
 
 	static get styles() {
 		return [
+			super.styles,
 			css`
 			.d2l-content-link-external-activity {
 				align-items: center;
 				display: flex;
 				justify-content: space-between;
 			}
+			#external-activity-container {
+				padding-bottom: 20px;
+				margin-bottom: 20px;
+			}
 			`,
 			labelStyles
 		];
 	}
 
+	constructor() {
+		super();
+		this.skeleton = true;
+	}
+
 	render() {
+		if (this.entity) {
+			this.skeleton = false;
+		}
+
+		if (this.skeleton) {
+			return html`<label id="external-activity-container" class="d2l-skeletize d2l-skeletize-20">&nbsp;</label>`;
+		}
+
 		return html`
-		<div class="d2l-content-link-external-activity">
+		<label class="d2l-content-link-external-activity">
 			<div class="d2l-label-text">
 				${this.localize('content.externalActivity')}
 			</div>
@@ -38,12 +57,12 @@ class ExternalActivity extends LocalizeActivityEditorMixin(RtlMixin(MobxLitEleme
 				@click="${this._onClick}"
 			>
             </d2l-button-subtle>
-		</div>
+		</label>
 		`;
 	}
 
 	_onClick() {
-		window.open(this.entity.link, '_blank');
+		window.open(this.entity.link, '_blank', 'height=200,width=200');
 	}
 }
 customElements.define('d2l-activity-content-lti-link-external-activity', ExternalActivity);

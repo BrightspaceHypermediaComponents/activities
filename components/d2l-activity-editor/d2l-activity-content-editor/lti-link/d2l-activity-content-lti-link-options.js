@@ -28,7 +28,7 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 			radioStyles,
 			activityContentEditorStyles,
 			css`
-				.display-options-text {
+				.d2l-display-options-text {
 					padding: 0 0 7px 0;
 				}
 				#open-new-tab-help-span {
@@ -55,7 +55,7 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 
 		return html`
 		<div id="content-link-options-container" class="d2l-skeletize">
-			<div class="d2l-label-text display-options-text">${this.localize('content.displayOptions')}</div>
+			<div class="d2l-label-text d2l-display-options-text">${this.localize('content.displayOptions')}</div>
 			<label class="d2l-input-radio-label">
 				<input
 					id="embed-on-page"

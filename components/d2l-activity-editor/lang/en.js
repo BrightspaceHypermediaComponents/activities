@@ -130,9 +130,11 @@ export default {
 	"content.pageContent": "Page Content", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Availability Dates", // availability header
 	"content.saveError": "Your content item wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Display Options", // Text label for display options
 	"content.addDueDate": "Add Due Date", // Text label for name input field
-	"content.embedOnPage": "Embed on the page (iframe)", // Text label for link radio button
-	"content.openNewTab": "Open in a new tab", // Text label for link radio button
+	"content.embedOnPage": "Embed on the page", // Text label for link radio button
+	"content.openNewTab": "Open in a new tab (recommended)", // Text label for link radio button
+	"content.openNewTabHelp": "Time on page is not tracked", // ARIA label for the help icon next to link radio button
 	"content.link": "Link", //Text label for link input field
 	"content.emptyLinkField": "Link is required.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Please enter a valid URL.", //Error message shown on link tooltip when the link is not formatted correctly

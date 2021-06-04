@@ -40,6 +40,12 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				:host > div {
 					padding-bottom: 20px;
 				}
+				.display-options-text {
+					padding: 0 0 7px 0;
+				}
+				#open-new-tab-help-span {
+					margin-left: 7px;
+				}
 			`
 		];
 	}
@@ -79,6 +85,7 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				${this._renderLinkTooltip()}
 			</div>
 			<div id="content-link-options-container" class="d2l-skeletize">
+				<div class="d2l-label-text display-options-text">${this.localize('content.displayOptions')}</div>
 				<label class="d2l-input-radio-label">
 					<input
 						id="embed-on-page"
@@ -98,6 +105,15 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 						?checked="${isExternalResource}"
 						@change="${this._saveLink}">
 						${this.localize('content.openNewTab')}
+						<span id="open-new-tab-help-span" tabindex="0">
+							<d2l-icon
+								icon="d2l-tier1:help">
+							</d2l-icon>
+							<d2l-tooltip
+								for="open-new-tab-help-span">
+								${this.localize('content.openNewTabHelp')}
+							</d2l-tooltip>
+						</span>
 				</label>
 			</div>
 		`;

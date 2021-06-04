@@ -24,6 +24,8 @@ To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-pro
 npm run lint
 ```
 
+*Note: You may likely run into memory issues when running the linter. To resolve this on Windows, add an environment variable called `NODE_OPTIONS` with value `--max_old_space_size=10240`. Then (re)start a Powershell Terminal as Admin, navigate to the root of this repo, and then run the lint command above. 
+
 To run unit tests locally using [Jest](https://jestjs.io/):
 
 ```shell

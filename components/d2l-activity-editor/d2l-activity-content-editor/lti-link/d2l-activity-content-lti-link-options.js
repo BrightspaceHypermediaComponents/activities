@@ -29,10 +29,10 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 			activityContentEditorStyles,
 			css`
 				.d2l-display-options-text {
-					padding: 0 0 7px 0;
+					margin-bottom: 7px;
 				}
 				#open-new-tab-help-span {
-					margin-left: 7px;
+					margin-left: 12px;
 				}
 			`
 		];
@@ -54,37 +54,39 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 		}
 
 		return html`
-		<div id="content-link-options-container" class="d2l-skeletize">
-			<div class="d2l-label-text d2l-display-options-text">${this.localize('content.displayOptions')}</div>
-			<label class="d2l-input-radio-label">
-				<input
-					id="embed-on-page"
-					type="radio"
-					name="link-display-group"
-					value="embed"
-                    ?checked="${!isExternalResource}"
-                    @change="${this._saveLinkOptions}">
-					${this.localize('content.embedOnPage')}
-			</label>
-			<label class="d2l-input-radio-label">
-				<input
-					id="open-new-tab"
-					type="radio"
-					name="link-display-group"
-					value="newTab"
-                    ?checked="${isExternalResource}"
-                    @change="${this._saveLinkOptions}">
-					${this.localize('content.openNewTab')}
-					<span id="open-new-tab-help-span" tabindex="0">
-						<d2l-icon
-							icon="d2l-tier1:help">
-						</d2l-icon>
-						<d2l-tooltip
-							for="open-new-tab-help-span">
-							${this.localize('content.openNewTabHelp')}
-						</d2l-tooltip>
-					</span>
-			</label>
+		<div id="content-link-options-container">
+			<div class="d2l-label-text d2l-display-options-text d2l-skeletize">${this.localize('content.displayOptions')}</div>
+			<div class="d2l-skeletize">
+				<label class="d2l-input-radio-label">
+					<input
+						id="embed-on-page"
+						type="radio"
+						name="link-display-group"
+						value="embed"
+						?checked="${!isExternalResource}"
+						@change="${this._saveLinkOptions}">
+						${this.localize('content.embedOnPage')}
+				</label>
+				<label class="d2l-input-radio-label">
+					<input
+						id="open-new-tab"
+						type="radio"
+						name="link-display-group"
+						value="newTab"
+						?checked="${isExternalResource}"
+						@change="${this._saveLinkOptions}">
+						${this.localize('content.openNewTab')}
+						<span id="open-new-tab-help-span" class="d2l-skeletize" tabindex="0">
+							<d2l-icon
+								icon="d2l-tier1:help">
+							</d2l-icon>
+							<d2l-tooltip
+								for="open-new-tab-help-span">
+								${this.localize('content.openNewTabHelp')}
+							</d2l-tooltip>
+						</span>
+				</label>
+			</div>
 		</div>
 		`;
 	}

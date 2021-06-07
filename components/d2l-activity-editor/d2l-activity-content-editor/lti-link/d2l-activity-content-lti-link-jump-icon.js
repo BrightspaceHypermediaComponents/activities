@@ -26,6 +26,7 @@ class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixi
 			.d2l-lti-jump-icon {
 				width: 50%;
 				height: 50%;
+			}
 			`
 		];
 	}

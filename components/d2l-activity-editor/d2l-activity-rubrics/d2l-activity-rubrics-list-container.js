@@ -78,7 +78,6 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 			<d2l-dialog-fullscreen
 				id="create-new-association-dialog"
-				no-cancel-on-outside-click
 				@d2l-dialog-close="${this._clearNewRubricHref}">
 				${this._renderRubricEditor()}
 				<d2l-button slot="footer" primary  @click="${this._attachRubric}">

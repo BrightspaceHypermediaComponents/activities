@@ -142,4 +142,5 @@ export default {
 	"content.previewLabel": "Preview", // The label text for the link preview
 	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a weblink in a new window
 	"content.externalActivity": "External Activity",
+	"content.externalActivityOpened": "This activity is open in a new window.",
 };

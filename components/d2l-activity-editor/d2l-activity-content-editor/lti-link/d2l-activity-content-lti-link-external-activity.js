@@ -1,4 +1,6 @@
+/* eslint-disable indent */
 import '@brightspace-ui/core/components/button/button-subtle.js';
+import './d2l-activity-content-lti-link-jump-icon.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
@@ -11,6 +13,8 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	static get properties() {
 		return {
 			entity: { type: Object },
+			clicked: { type: Boolean },
+			skeleton: { type: Boolean },
 		};
 	}
 
@@ -18,14 +22,18 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		return [
 			super.styles,
 			css`
+			.d2l-external-activity-outer-frame {
+				flex-direction: column;
+			}
 			.d2l-content-link-external-activity {
 				align-items: center;
 				display: flex;
 				justify-content: space-between;
 			}
-			#external-activity-container {
-				margin-bottom: 20px;
-				padding-bottom: 20px;
+			.d2l-external-activity-inner-frame {
+				display: flex;
+				margin-top: 18px;
+				padding-top: 18px;
 			}
 			`,
 			labelStyles
@@ -35,6 +43,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	constructor() {
 		super();
 		this.skeleton = true;
+		this.clicked = false;
 	}
 
 	render() {
@@ -42,27 +51,32 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 			this.skeleton = false;
 		}
 
-		if (this.skeleton) {
-			return html`<label id="external-activity-container" class="d2l-skeletize d2l-skeletize-20">&nbsp;</label>`;
-		}
-
 		return html`
-		<label class="d2l-content-link-external-activity">
-			<div class="d2l-label-text">
-				${this.localize('content.externalActivity')}
+		<div class="d2l-external-activity-outer-frame d2l-skeletize-container">
+			<div class="d2l-content-link-external-activity">
+				<label class="d2l-label-text d2l-skeletize">
+					${this.localize('content.externalActivity')}
+				</label>
+				<d2l-button-subtle
+					text="${this.localize('content.openInNewWindow')}"
+					icon="tier1:new-window"
+					@click="${this._onClick}"
+					class="d2l-skeletize"
+					?disabled="${this.clicked}"
+				>
+				</d2l-button-subtle>
 			</div>
-            <d2l-button-subtle
-				text="${this.localize('content.openInNewWindow')}"
-				icon="tier1:new-window"
-				@click="${this._onClick}"
-			>
-            </d2l-button-subtle>
-		</label>
+			${this.clicked ?
+				html`<d2l-activity-content-lti-link-jump-icon text="${this.localize('content.externalActivityOpened')}"></d2l-activity-content-lti-link-jump-icon>` :
+				html`<div class="d2l-external-activity-inner-frame d2l-skeletize">&nbsp;</div>`
+			}
+		</div>
 		`;
 	}
 
 	_onClick() {
-		window.open(this.entity.link, '_blank', 'height=200,width=200');
+		window.open(this.entity.link, '_blank', 'height=500, width=500');
+		this.clicked = true;
 	}
 }
 customElements.define('d2l-activity-content-lti-link-external-activity', ActivityContentLTILinkExternalActivity);

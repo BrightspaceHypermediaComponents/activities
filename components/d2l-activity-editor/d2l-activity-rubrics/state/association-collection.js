@@ -111,8 +111,8 @@ export class AssociationCollection {
 
 		return false;
 	}
-	async fetch() {
-		const sirenEntity = await fetchEntity(this.href, this.token);
+	async fetch(bypassCache = false) {
+		const sirenEntity = await fetchEntity(this.href, this.token, bypassCache);
 
 		if (sirenEntity) {
 			const entity = new Associations(sirenEntity, this.token);
@@ -185,11 +185,15 @@ export class AssociationCollection {
 		}
 	}
 
-	async save() {
+	async save(saveInPlace) {
 		const associations = this.associationsMap.values();
 
 		for await (const association of associations) {
 			await this._saveChanges(association);
+		}
+
+		if (saveInPlace) {
+			await this.fetch(true);
 		}
 	}
 

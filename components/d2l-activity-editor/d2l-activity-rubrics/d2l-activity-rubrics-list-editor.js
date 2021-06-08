@@ -76,24 +76,23 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		const entity = store.get(this.href);
 		return entity && entity.dirty;
 	}
-	async save() {
+	async save(saveInPlace) {
 		const entity = store.get(this.href);
 		if (!entity) {
 			return;
 		}
-		await entity.save();
+		await entity.save(saveInPlace);
 	}
 
-	_deleteAssociation(e, rubricHref = null) {
+	_deleteAssociation(rubricHref) {
+		if (!rubricHref) {
+			return;
+		}
+
 		const entity = store.get(this.href);
 		const assignment = assignmentStore.get(this.assignmentHref);
 
 		if (!entity || !assignment) {
-			return;
-		}
-
-		rubricHref = rubricHref || e.target.dataset.id;
-		if (!rubricHref) {
 			return;
 		}
 
@@ -103,12 +102,12 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 
 	_handleConfirmDetachDialogClose(e, rubricHref) {
 		if (e.detail.action === DELETE_ASSOCIATION_ACTION) {
-			this._deleteAssociation(e, rubricHref);
+			this._deleteAssociation(rubricHref);
 		}
 		this._confirmDetachDialogOpen = false;
 	}
 
-	_onDeleteAssociationButtonClicked(e, association) {
+	_onDeleteAssociationButtonClicked(association) {
 		const associationEntity = association.entity._entity;
 		const activityUsageLink = associationEntity.getSubEntityByClass('activity-usage');
 		const activityUsage = activityStore.get(activityUsageLink.href);
@@ -117,7 +116,7 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 		fetchEvaluationCount(activityUsageEntity, activityUsageEntity.token).then((evaluationCount) => {
 			const hasAssessments = (evaluationCount > 0);
 			if (!hasAssessments) {
-				this._deleteAssociation(e);
+				this._deleteAssociation(association.rubricHref);
 			}
 			else {
 				this._confirmDetachDialogOpen = true;
@@ -128,9 +127,22 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 	_renderAssociation(association) {
 		const shouldShowRubric = (association.isAssociated || association.isAssociating);
 		if (shouldShowRubric) {
-			const canDeleteAssociation = (association.entity.canDeleteAssociation() || association.isAssociating) && !association.isDeleting;
+			if (association.isDeleting) {
+				return html`
+					<div class="d2l-association-container">
+						<d2l-rubric
+							class="d2l-association-box"
+							force-compact
+							detached-view
+							.href="${association.rubricHref}"
+							.token="${this.token}">
+						</d2l-rubric>
+					</div>
+				`;
+			}
 
-			const deleteButtonClickedFunc = (e) => this._onDeleteAssociationButtonClicked(e, association);
+			const canDeleteAssociation = association.entity.canDeleteAssociation() || association.isAssociating;
+			const deleteButtonClickedFunc = () => this._onDeleteAssociationButtonClicked(association);
 			const deleteConfirmDialogClosedFunc = (e) => this._handleConfirmDetachDialogClose(e, association.rubricHref);
 
 			return html`
@@ -138,7 +150,6 @@ class ActivityRubricsListEditor extends ActivityEditorMixin(LocalizeActivityEdit
 				<d2l-rubric
 					class="d2l-association-box"
 					force-compact
-					?detached-view="${association.isDeleting}"
 					.href="${association.rubricHref}"
 					.token="${this.token}">
 				</d2l-rubric>

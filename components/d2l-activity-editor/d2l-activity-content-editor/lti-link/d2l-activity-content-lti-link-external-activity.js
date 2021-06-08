@@ -13,7 +13,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	static get properties() {
 		return {
 			entity: { type: Object },
-			clicked: { type: Boolean },
+			showIsOpened: { type: Boolean },
 			skeleton: { type: Boolean },
 		};
 	}
@@ -43,14 +43,14 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	constructor() {
 		super();
 		this.skeleton = true;
-		this.clicked = false;
+		this.showIsOpened = false;
+		this.activityWindowPopout = undefined;
 	}
 
 	render() {
 		if (this.entity) {
 			this.skeleton = false;
 		}
-
 		return html`
 		<div class="d2l-external-activity-outer-frame d2l-skeletize-container">
 			<div class="d2l-content-link-external-activity">
@@ -60,13 +60,12 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 				<d2l-button-subtle
 					text="${this.localize('content.openInNewWindow')}"
 					icon="tier1:new-window"
-					@click="${this._onClick}"
+					@click="${this._openPopout}"
 					class="d2l-skeletize"
-					?disabled="${this.clicked}"
 				>
 				</d2l-button-subtle>
 			</div>
-			${this.clicked ?
+			${this.showIsOpened ?
 				html`<d2l-activity-content-lti-link-jump-icon text="${this.localize('content.externalActivityOpened')}"></d2l-activity-content-lti-link-jump-icon>` :
 				html`<div class="d2l-external-activity-inner-frame d2l-skeletize">&nbsp;</div>`
 			}
@@ -74,9 +73,26 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		`;
 	}
 
-	_onClick() {
-		window.open(this.entity.link, '_blank', 'height=500, width=500');
-		this.clicked = true;
+	_closePopout() {
+		if (this.activityWindowPopout) {
+			this.activityWindowPopout.close();
+		}
+	}
+
+	_openPopout() {
+		if (this.activityWindowPopout) {
+			if (!this.activityWindowPopout.closed) {
+				this.activityWindowPopout.focus();
+				return;
+			}
+		}
+
+		this.activityWindowPopout = window.open(
+			this.entity.link,
+			'activityPopout',
+			'width=1000,height=1000,scrollbars=no,toolbar=no,screenx=0,screeny=0,location=no,titlebar=no,directories=no,status=no,menubar=no'
+		);
+
 	}
 }
 customElements.define('d2l-activity-content-lti-link-external-activity', ActivityContentLTILinkExternalActivity);

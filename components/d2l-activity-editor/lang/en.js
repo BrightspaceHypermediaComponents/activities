@@ -140,7 +140,7 @@ export default {
 	"content.notHttps": "Only links using \"https\" can be embedded.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "That site cannot be embedded.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Preview", // The label text for the link preview
-	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a weblink in a new window
-	"content.externalActivity": "External Activity",
-	"content.externalActivityOpened": "This activity is open in a new window.",
+	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "External Activity", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Open the activity in new window to view its content.", // Text for displaying underneath the LTI link jump logo
 };

@@ -17,27 +17,25 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 			super.styles,
 			css`
 				iframe {
-						height: 100%;
-						width: 100%;
-						border: none;
-						resize: vertical;
-						overflow: hidden;
-						flex-grow: 1;
+					border: none;
+					flex-grow: 1;
+					height: 100%;
+					overflow: hidden;
+					resize: vertical;
+					width: 100%;
 				}
-				.iframe-container {
-						/*
-						if remaining height in content block is less than 60% of viewport height,
-						iframe height should be 60% of viewport height,
-						otherwise use all the remaining height
-						*/
-						height: 100%;
-						min-height: 60vh;
-
-						display: flex;
-						flex-direction: column;
-
-						padding-top: 6px;
-						padding-bottom: 18px;
+				.d2l-lti-iframe-container {
+					/*
+					if remaining height in content block is less than 60% of viewport height,
+					iframe height should be 60% of viewport height,
+					otherwise use all the remaining height
+					*/
+					display: flex;
+					flex-direction: column;
+					height: 100%;
+					min-height: 60vh;
+					padding-bottom: 18px;
+					padding-top: 6px;
 				}
 			`,
 		];
@@ -52,7 +50,7 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 		let preview = html``;
 		if (this.entity) {
 			preview = html`
-				<div class='iframe-container d2l-skeletize'>
+				<div class='d2l-lti-iframe-container d2l-skeletize'>
 					<iframe src=${this.entity.link} @load=${this._onLoad} class='d2l-skeletize'></iframe>
 				</div>
 			`;

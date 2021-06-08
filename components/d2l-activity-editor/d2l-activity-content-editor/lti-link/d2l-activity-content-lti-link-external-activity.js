@@ -24,9 +24,9 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 			super.styles,
 			css`
 			.d2l-external-activity-outer-frame {
-				height: 100%;
 				display: flex;
 				flex-direction: column;
+				height: 100%;
 				justify-content: flex-start;
 			}
 			.d2l-content-link-external-activity {

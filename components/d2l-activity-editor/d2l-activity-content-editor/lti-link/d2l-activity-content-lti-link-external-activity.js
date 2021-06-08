@@ -52,24 +52,24 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 			this.skeleton = false;
 		}
 		return html`
-		<div class="d2l-external-activity-outer-frame d2l-skeletize-container">
-			<div class="d2l-content-link-external-activity">
-				<label class="d2l-label-text d2l-skeletize">
-					${this.localize('content.externalActivity')}
-				</label>
-				<d2l-button-subtle
-					text="${this.localize('content.openInNewWindow')}"
-					icon="tier1:new-window"
-					@click="${this._openPopout}"
-					class="d2l-skeletize"
-				>
-				</d2l-button-subtle>
+			<div class="d2l-external-activity-outer-frame d2l-skeletize-container">
+				<div class="d2l-content-link-external-activity">
+					<label class="d2l-label-text d2l-skeletize">
+						${this.localize('content.externalActivity')}
+					</label>
+					<d2l-button-subtle
+						text="${this.localize('content.openInNewWindow')}"
+						icon="tier1:new-window"
+						@click="${this._openPopout}"
+						class="d2l-skeletize"
+					>
+					</d2l-button-subtle>
+				</div>
+				${this.showIsOpened ?
+					html`<d2l-activity-content-lti-link-jump-icon text="${this.localize('content.externalActivityOpened')}"></d2l-activity-content-lti-link-jump-icon>` :
+					html`<div class="d2l-external-activity-inner-frame d2l-skeletize">&nbsp;</div>`
+				}
 			</div>
-			${this.showIsOpened ?
-				html`<d2l-activity-content-lti-link-jump-icon text="${this.localize('content.externalActivityOpened')}"></d2l-activity-content-lti-link-jump-icon>` :
-				html`<div class="d2l-external-activity-inner-frame d2l-skeletize">&nbsp;</div>`
-			}
-		</div>
 		`;
 	}
 
@@ -80,6 +80,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	}
 
 	_openPopout() {
+		this.showIsOpened = true;
 		if (this.activityWindowPopout) {
 			if (!this.activityWindowPopout.closed) {
 				this.activityWindowPopout.focus();

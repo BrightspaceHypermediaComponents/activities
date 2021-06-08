@@ -78,6 +78,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 			<d2l-dialog-fullscreen
 				id="create-new-association-dialog"
+				title-text = ${this.localize('rubrics.hdrCreateRubric')}
 				@d2l-dialog-close="${this._clearNewRubricHref}">
 				${this._renderRubricEditor()}
 				<d2l-button slot="footer" primary  @click="${this._attachRubric}">
@@ -232,7 +233,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 				<d2l-rubric-editor
 					.href="${this._newlyCreatedPotentialAssociationHref}"
 					.token="${this.token}"
-					title-dropdown-hidden>
+					title-dropdown-hidden
+					title-hidden>
 				</d2l-rubric-editor>`;
 		} else {
 			return html``;

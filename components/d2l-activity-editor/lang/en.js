@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Add rubric", //text for add rubric button
 	"rubrics.btnCreateNew": "Create New", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Create Rubric", // Header for creating a new rubric
 	"rubrics.btnDetach": "Detach", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Add Existing", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrics", //Header for the rubrics section

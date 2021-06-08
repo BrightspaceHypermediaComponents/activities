@@ -24,7 +24,10 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 			super.styles,
 			css`
 			.d2l-external-activity-outer-frame {
+				height: 100%;
+				display: flex;
 				flex-direction: column;
+				justify-content: flex-start;
 			}
 			.d2l-content-link-external-activity {
 				align-items: center;
@@ -35,12 +38,6 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 				display: flex;
 				margin-top: 36px;
 				padding-top: 36px;
-			}
-			.flex-container {
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-				justify-content: flex-start;
 			}
 			d2l-activity-content-lti-link-preview {
 				height: 100%;

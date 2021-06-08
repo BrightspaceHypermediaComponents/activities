@@ -52,7 +52,7 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 		let preview = html``;
 		if (this.entity) {
 			preview = html`
-				<div class='iframe-container d2l-skeletize-container'>
+				<div class='iframe-container d2l-skeletize'>
 					<iframe src=${this.entity.link} @load=${this._onLoad} class='d2l-skeletize'></iframe>
 				</div>
 			`;

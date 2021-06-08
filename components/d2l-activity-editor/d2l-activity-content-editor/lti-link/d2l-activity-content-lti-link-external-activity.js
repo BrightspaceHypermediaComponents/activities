@@ -44,7 +44,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		super();
 		this.skeleton = true;
 		this.showIsOpened = false;
-		this.activityWindowPopout = undefined;
+		this.activityWindowPopout = null;
 	}
 
 	render() {
@@ -61,7 +61,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 						text="${this.localize('content.openInNewWindow')}"
 						icon="tier1:new-window"
 						@click="${this._openPopout}"
-						class="d2l-skeletize"
+						skeleton=${this.skeleton}
 					>
 					</d2l-button-subtle>
 				</div>
@@ -76,16 +76,15 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	_closePopout() {
 		if (this.activityWindowPopout) {
 			this.activityWindowPopout.close();
+			this.showIsOpened = false;
 		}
 	}
 
 	_openPopout() {
 		this.showIsOpened = true;
-		if (this.activityWindowPopout) {
-			if (!this.activityWindowPopout.closed) {
-				this.activityWindowPopout.focus();
-				return;
-			}
+		if (this.activityWindowPopout && !this.activityWindowPopout.closed) {
+			this.activityWindowPopout.focus();
+			return;
 		}
 
 		this.activityWindowPopout = window.open(

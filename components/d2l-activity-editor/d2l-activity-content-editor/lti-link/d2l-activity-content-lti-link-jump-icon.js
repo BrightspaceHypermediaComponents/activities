@@ -1,5 +1,5 @@
 import { css, html } from 'lit-element/lit-element.js';
-import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyStandardStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -29,7 +29,7 @@ class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixi
 					width: 50%;
 				}
 			`,
-			labelStyles
+			bodyStandardStyles
 		];
 	}
 
@@ -54,7 +54,7 @@ class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixi
 					</svg>
 				</div>
 				<slot>
-					<p class="d2l-body-small">
+					<p class="d2l-body-standard">
 						${this.text}
 					</p>
 				</slot>

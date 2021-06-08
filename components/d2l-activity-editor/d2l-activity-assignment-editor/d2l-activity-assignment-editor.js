@@ -48,6 +48,14 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 			*/
 			browseOutcomesText: { type: String },
 			/**
+			* based on the config variable d2l.Languages.Terminology.LearningOutcomes
+			*/
+			alignOutcomesText: { type: String },
+			/**
+			* True if the outcomes tool integration config is on
+			*/
+			outcomesToolIntegrationEnabled: { type: Boolean },
+			/**
 			* Set the WidthType on the template to constrain page width if necessary
 			*/
 			widthType: { type: String, attribute: 'width-type' },
@@ -148,6 +156,18 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 
 		if (e.detail.key === 'd2l-provider-browse-outcomes-text') {
 			e.detail.provider = this.browseOutcomesText;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'd2l-provider-align-outcomes-text') {
+			e.detail.provider = this.alignOutcomesText;
+			e.stopPropagation();
+			return;
+		}
+
+		if (e.detail.key === 'outcomes-tool-integration-enabled') {
+			e.detail.provider = this.outcomesToolIntegrationEnabled;
 			e.stopPropagation();
 			return;
 		}

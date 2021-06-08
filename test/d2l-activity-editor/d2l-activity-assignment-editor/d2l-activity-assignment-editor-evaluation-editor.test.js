@@ -178,7 +178,6 @@ describe('d2l-activity-assignment-editor-evaluation-editor', function() {
 
 		it('handles click event', async() => {
 			const el = await loadComponent();
-			//TODO: make this check if accordion opens/closes? (maybe out of scope?)
 			setTimeout(() => el.click());
 			const { target } = await oneEvent(el, 'click');
 			expect(target).equals(el);

@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "추가된 루브릭 없음", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {루브릭 1개 추가} other {{count}개 루브릭 추가}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "루브릭 삭제", // Text for deleting rubric icon
-	"rubrics.btnClose": "닫기", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "루브릭 추가됨", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "루브릭 제거됨", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "루브릭이 분리되면 이 활동에서 루브릭에 대한 이전의 모든 평가가 삭제됩니다. 루브릭을 분리하시겠습니까?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

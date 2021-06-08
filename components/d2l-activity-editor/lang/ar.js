@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "لم تتم إضافة آلية تقييم", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {آلية تقييم واحدة مضافة} other {{count} من آليات التقييم المضافة}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "حذف آلية التقييم", // Text for deleting rubric icon
-	"rubrics.btnClose": "إغلاق", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "تمت إضافة آلية تقييم", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "تمت إزالة آلية تقييم", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "بعد فصل آلية التقييم، سيتم حذف كل التقييمات السابقة لآلية التقييم في هذا النشاط. هل تريد تأكيد فصل آلية التقييم؟", //Text for the dialog to confirm detaching a rubric from an evaluated activity

@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "Rubrik eklenmedi", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubrik eklendi} other {{count} rubrik eklendi}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Rubriği Sil", // Text for deleting rubric icon
-	"rubrics.btnClose": "Kapat", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubrik eklendi", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubrik kaldırıldı", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Rubrik ayrıldıktan sonra, bu etkinlikteki rubrik ile ilgili önceki tüm değerlendirmeler silinecektir. Rubrik sökülmesini onaylıyor musunuz?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

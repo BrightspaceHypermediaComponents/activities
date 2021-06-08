@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "Du har inte lagt till någon rubrik", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubrik har lagts till} other {{count} rubriker har lagts till}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Ta bort rubricering", // Text for deleting rubric icon
-	"rubrics.btnClose": "Stäng", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubriken har lagts till", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubriken har tagits bort", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "När rubriceringen har tagits bort tas alla tidigare bedömningar av rubriceringen i den här aktiviteten bort. Bekräfta borttagning av rubricering?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

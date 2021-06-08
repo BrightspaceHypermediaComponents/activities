@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "Ingen rubrik tilføjet", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubrik tilføjet} other {{count} rubrikker tilføjet}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Slet rubrik", // Text for deleting rubric icon
-	"rubrics.btnClose": "Luk", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubrik tilføjet", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubrik fjernet", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Når rubrikken er fjernet, slettes alle tidligere vurderinger af rubrikken i denne aktivitet. Bekræft fjernelse af rubrikken?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

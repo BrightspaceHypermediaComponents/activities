@@ -14,19 +14,19 @@ class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixi
 	static get styles() {
 		return [
 			css`
-			.d2l-jump-icon-outer-frame {
-				align-content: center;
-				align-items: flex-start;
-				display: flex;
-				flex-flow: column wrap;
-				flex-direction: column;
-				flex-wrap: wrap;
-				justify-content: center;
-			}
-			.d2l-lti-jump-icon {
-				height: 50%;
-				width: 50%;
-			}
+				.d2l-jump-icon-outer-frame {
+					align-content: center;
+					align-items: flex-start;
+					display: flex;
+					flex-flow: column wrap;
+					flex-direction: column;
+					flex-wrap: wrap;
+					justify-content: center;
+				}
+				.d2l-lti-jump-icon {
+					height: 50%;
+					width: 50%;
+				}
 			`
 		];
 	}

@@ -22,19 +22,19 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		return [
 			super.styles,
 			css`
-			.d2l-external-activity-outer-frame {
-				flex-direction: column;
-			}
-			.d2l-content-link-external-activity {
-				align-items: center;
-				display: flex;
-				justify-content: space-between;
-			}
-			.d2l-external-activity-inner-frame {
-				display: flex;
-				margin-top: 18px;
-				padding-top: 18px;
-			}
+				.d2l-external-activity-outer-frame {
+					flex-direction: column;
+				}
+				.d2l-content-link-external-activity {
+					align-items: center;
+					display: flex;
+					justify-content: space-between;
+				}
+				.d2l-external-activity-inner-frame {
+					display: flex;
+					margin-top: 18px;
+					padding-top: 18px;
+				}
 			`,
 			labelStyles
 		];

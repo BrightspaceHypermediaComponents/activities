@@ -61,7 +61,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 						text="${this.localize('content.openInNewWindow')}"
 						icon="tier1:new-window"
 						@click="${this._openPopout}"
-						skeleton=${this.skeleton}
+						?skeleton=${this.skeleton}
 					>
 					</d2l-button-subtle>
 				</div>

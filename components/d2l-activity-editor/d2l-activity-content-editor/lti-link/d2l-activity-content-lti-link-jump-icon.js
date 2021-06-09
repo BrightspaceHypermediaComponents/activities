@@ -19,7 +19,6 @@ class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixi
 					align-content: center;
 					align-items: flex-start;
 					display: flex;
-					flex-flow: column wrap;
 					flex-direction: column;
 					flex-wrap: wrap;
 					justify-content: center;

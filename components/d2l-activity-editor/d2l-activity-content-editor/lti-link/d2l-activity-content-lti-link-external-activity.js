@@ -73,13 +73,6 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		`;
 	}
 
-	_closePopout() {
-		if (this.activityWindowPopout) {
-			this.activityWindowPopout.close();
-			this.showIsOpened = false;
-		}
-	}
-
 	_openPopout() {
 		this.showIsOpened = true;
 		if (this.activityWindowPopout && !this.activityWindowPopout.closed) {

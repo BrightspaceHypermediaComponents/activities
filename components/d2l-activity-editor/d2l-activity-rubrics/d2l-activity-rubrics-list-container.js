@@ -79,7 +79,8 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 			<d2l-dialog-fullscreen
 				id="create-new-association-dialog"
 				title-text = ${this.localize('rubrics.hdrCreateRubric')}
-				@d2l-dialog-close="${this._clearNewRubricHref}">
+				@d2l-dialog-close="${this._clearNewRubricHref}"
+			>
 				${this._renderRubricEditor()}
 				<d2l-button slot="footer" primary  @click="${this._attachRubric}">
 					${this.localize('rubrics.btnAttachRubric')}

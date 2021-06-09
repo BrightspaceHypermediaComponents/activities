@@ -25,6 +25,7 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			css`
 				d2l-activity-content-lti-link-external-activity {
 					height: 100%;
+					margin-top: 36px;
 				}
 			`,
 		];

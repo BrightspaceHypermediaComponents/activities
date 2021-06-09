@@ -23,25 +23,23 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		return [
 			super.styles,
 			css`
-			.d2l-external-activity-outer-frame {
-				display: flex;
-				flex-direction: column;
-				height: 100%;
-				justify-content: flex-start;
-			}
-			.d2l-content-link-external-activity {
-				align-items: center;
-				display: flex;
-				justify-content: space-between;
-			}
-			.d2l-external-activity-inner-frame {
-				display: flex;
-				margin-top: 36px;
-				padding-top: 36px;
-			}
-			d2l-activity-content-lti-link-preview {
-				height: 100%;
-			}
+				.d2l-external-activity-outer-frame {
+					display: flex;
+					flex-direction: column;
+					height: 100%;
+					justify-content: flex-start;
+				}
+				.d2l-content-link-external-activity {
+					align-items: center;
+					display: flex;
+					justify-content: space-between;
+				}
+				.d2l-external-activity-inner-frame {
+					margin-top: 6px;
+				}
+				d2l-activity-content-lti-link-preview {
+					height: 100%;
+				}
 			`,
 			labelStyles,
 			bodyStandardStyles
@@ -75,7 +73,12 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 				</div>
 				<div class="d2l-external-activity-inner-frame">
 					${this.showIsOpened ?
-						html`<d2l-activity-content-lti-link-jump-icon text="${this.localize('content.externalActivityOpened')}"></d2l-activity-content-lti-link-jump-icon>` :
+						html`
+							<d2l-activity-content-lti-link-jump-icon>
+								<p class="d2l-body-standard">
+									${this.localize('content.externalActivityOpened')}
+								</p>
+							</d2l-activity-content-lti-link-jump-icon>` :
 						html`<d2l-activity-content-lti-link-preview .entity=${this.entity}></d2l-activity-content-lti-link-preview>`
 					}
 				</div>

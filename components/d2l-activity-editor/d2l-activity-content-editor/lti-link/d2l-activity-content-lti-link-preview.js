@@ -18,7 +18,6 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 			css`
 				iframe {
 					border: none;
-					flex-grow: 1;
 					height: 100%;
 					overflow: hidden;
 					resize: vertical;
@@ -30,12 +29,9 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 					iframe height should be 60% of viewport height,
 					otherwise use all the remaining height
 					*/
-					display: flex;
-					flex-direction: column;
 					height: 100%;
 					min-height: 60vh;
 					padding-bottom: 18px;
-					padding-top: 6px;
 				}
 			`,
 		];

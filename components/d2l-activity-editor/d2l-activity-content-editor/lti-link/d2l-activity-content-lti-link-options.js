@@ -29,7 +29,7 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 			activityContentEditorStyles,
 			css`
 				:host > div {
-					padding-bottom: 0px; /* undo the activity-content-editor-styles padding */
+					padding-bottom: 0; /* undo the activity-content-editor-styles padding */
 				}
 			`,
 		];

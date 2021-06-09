@@ -90,7 +90,6 @@ export default {
 	"rubrics.hdrRubrics": "Grilles d'évaluation", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Joindre la grille d'évaluation", //Button for the attach new rubric overlay
 	"rubrics.btnCancel": "Annuler", //Button for canceling out of the attach new rubric overlay
-	"rubrics.btnClose": "Fermer", // X button for exiting the create new rubric overlay
 	"rubrics.txtAddExisting": "En ajouter une existante", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "Aucune grille d'évaluation n’a été ajoutée", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 grille d'évaluation ajoutée} other {{count} grilles d'évaluation ajoutées}}", // count of asoociated rubrics

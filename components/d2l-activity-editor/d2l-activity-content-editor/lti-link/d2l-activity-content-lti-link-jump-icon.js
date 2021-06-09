@@ -7,12 +7,12 @@ class ActivityContentLTILinkJumpIcon extends RtlMixin(MobxLitElement) {
 		return [
 			css`
 				.d2l-jump-icon-outer-frame {
-					text-align: center;
 					align-items: center;
+					text-align: center;
 				}
 				.d2l-lti-jump-icon {
-					margin: 0 auto;
 					height: 50%;
+					margin: 0 auto;
 					width: 50%;
 				}
 			`

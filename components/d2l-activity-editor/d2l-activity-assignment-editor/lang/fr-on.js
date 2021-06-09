@@ -27,15 +27,15 @@ export default {
 	"scoreOutOf": "Note sur", // Label for the score-out-of field when creating/editing an activity
 	"anonymousGradingEnabled": "Attribution anonyme d’état", // Summary message for accordion when anonymous grading is enabled
 	"evaluationAndFeedback": "Évaluation et rétroaction", // Header text for the evaluation and feedback summarizer
-	"txtAssignmentType": "Type de travail", // Label for assignment type
-	"txtIndividual": "Travail individuel", // Label for individual assignment type
-	"txtGroup": "Travail de groupe", // Label for group assignment type,
+	"txtAssignmentType": "Type de tâche", // Label for assignment type
+	"txtIndividual": "Tâche individuel", // Label for individual assignment type
+	"txtGroup": "Tâche de groupe", // Label for group assignment type,
 	"txtGroupCategoryWithName": "Catégorie de groupe : {groupCategory}", //Label for the group category {groupCategory} is the name of the group category
 	"txtGroupCategory": "Catégorie de groupe", // Label for group category,
-	"txtGroupAssignmentSummary": "Travail de groupe", // Summary message for accordion when assignment type is set to group
+	"txtGroupAssignmentSummary": "Tâche de groupe", // Summary message for accordion when assignment type is set to group
 	"txtSubmissionEmailNotificationSummary": "Notification de soumission par courriel", // Summary message when submission notification by email option is enabled
 	"submissionCompletionAndCategorization": "Soumission et achèvement", // Label for the availability and dates summarizer
-	"assignmentSaveError": "Votre travail n’était pas enregistré. Veuillez corriger les champs indiqués.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
+	"assignmentSaveError": "Votre tâche n’était pas enregistré. Veuillez corriger les champs indiqués.", // Error message to inform the user that there was a problem saving the assignment, instructing them to correct invalid fields
 	"folderTypeNoGroups": "Aucun groupe n’existe. Créez des groupes dans l’outil Groupes.", // Folder type no groups
 	"folderTypeCreateGroups": "Créez des groupes dans l’outil Groupes.", // Folder type create groups
 	"filesSubmissionLimit": "Fichiers autorisés par soumission",
@@ -50,7 +50,7 @@ export default {
 	"txtCategoriesLabel": "Catégories", // Label for categories dropdown
 	"noCategoryLabel": "Aucune catégorie", // Label for when there are no categories
 	"newCategoryLabel": "Nouvelle catégorie", // Label for adding a new category
-	"newAssignmentCategory": "Catégorie de nouveau travail", // Title for category dialog
+	"newAssignmentCategory": "Catégorie de nouveau tâche", // Title for category dialog
 	"btnAssignmentCategoryCreate": "Créer", // Categories create button
 	"btnAssignmentCategoryCancel": "Annuler", // Categories cancel button
 	"inputCategoryLabel": "Nom", // Label for new category input

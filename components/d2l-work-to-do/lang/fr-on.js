@@ -1,10 +1,10 @@
 export const val = {
   activitiesAvailable: "Les activités qui viennent à échéance ou se terminent dans deux semaines ont été effectuées! Consultez Afficher tous les travaux pour voir ce qui vient ensuite.", // 'Empty View' - When widget has no activities to display within the next two weeks, but there are more activities further into the future that can be shown on the full screen view
   allClear: "Rien de plus pour l'instant!", // Displayed as header line in widget text when there are no activities
-  assignment: "Travail",  // Meta-data descriptor that informs which type of activity is being displayed on a line item
+  assignment: "Tâche",  // Meta-data descriptor that informs which type of activity is being displayed on a line item
   backToD2L: "Retour à l'accueil", // Displayed in the immersive navbar to escape out of fullscreen view
   checklist: "Liste des rappels", // Meta-data descriptor that informs which type of activity is being displayed on a line item
-  comeBackNoFutureActivities: "Revenez plus tard pour voir si vous avez du travail.", // 'Empty state' - When there are no activities in full page view
+  comeBackNoFutureActivities: "Revenez plus tard pour voir si vous avez du tâche.", // 'Empty state' - When there are no activities in full page view
   content: "Contenu", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   course: "Cours", // Meta-data descriptor that informs which type of activity is being displayed on a line item
   dateHeader: "{startMonth} {startDay} - {endMonth} {endDay}", // Indicates that the below list of activities are due/end within the listed date range
@@ -16,7 +16,7 @@ export const val = {
   workToDo: "Travaux à faire", // Widget title
   noActivities: "Vous n'avez pas d'activités non terminées avec les dates d'échéance ou de fin disponibles.", // 'Empty state' - When widget has no activities in full page view
   noActivitiesFutureActivities: "Vous n'avez aucune activité non terminée qui vient à échéance ou qui se termine bientôt. Revenez plus tard ou consultez Afficher tous les travaux pour voir ce qui vient ensuite.",  // 'Empty View' - When widget has no activities to display within the next few weeks & there are activities in the future
-  noActivitiesNoFutureActivities: "Vous n'avez pas d'activités non terminées avec les dates d'échéance ou de fin disponibles. Revenez plus tard pour voir si vous avez du travail.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future
+  noActivitiesNoFutureActivities: "Vous n'avez pas d'activités non terminées avec les dates d'échéance ou de fin disponibles. Revenez plus tard pour voir si vous avez du tâche.", // 'Empty View' - When widget has no activities to display within the next few weeks & there are no more activities in the future
   nothingHere: "Il n'y a rien ici…", // Displayed as header line in widget text when there are no activities within the provided time period
   overdue: "En retard", // Indicates that the below list of activities are overdue (have a due date that is in the past)
   quiz: "Questionnaire", // Meta-data descriptor that informs which type of activity is being displayed on a line item

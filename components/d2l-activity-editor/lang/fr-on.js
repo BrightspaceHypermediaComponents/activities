@@ -4,7 +4,7 @@ export default {
 	"editor.btnEditReleaseConditions": "Modifier les conditions de diffusion", // edit release conditions button
 	"editor.btnAddReleaseCondition": "Ajouter une condition de diffusion", // add release condition button
 	"editor.btnCreateNew": "Créer", // create new button
-	"editor.btnAddExisting": "Ajouter existant", // add existing button
+	"editor.btnAddExisting": "En ajouter une existante", // add existing button
 	"editor.btnRemoveCondition": "Supprimer la condition", // remove condition button
 	"editor.lblConditionsOperator": "Pour consulter cet article, les utilisateurs doivent respecter", // conditions operator label
 	"editor.txtConditionAdded": "Condition ajoutée : {title}",
@@ -86,17 +86,18 @@ export default {
 	"rubrics.btnAddRubric": "Ajouter une grille d'évaluation", //text for add rubric button
 	"rubrics.btnCreateNew": "Créer", //Text for create new dropdown
 	"rubrics.btnDetach": "Détacher", //Text for the button to confirm detaching a rubric
-	"rubrics.btnAddExisting": "Ajouter existant", //Text for Add Existing dropdown
+	"rubrics.btnAddExisting": "En ajouter une existante", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Grilles d'évaluation", //Header for the rubrics section
 	"rubrics.btnAttachRubric": "Joindre la grille d'évaluation", //Button for the attach new rubric overlay
 	"rubrics.btnCancel": "Annuler", //Button for canceling out of the attach new rubric overlay
-	"rubrics.txtAddExisting": "Ajouter existant", //Title for the attach rubrics dialog,
+	"rubrics.btnClose": "Fermer", // X button for exiting the create new rubric overlay
+	"rubrics.txtAddExisting": "En ajouter une existante", //Title for the attach rubrics dialog,
 	"rubrics.txtNoRubricAdded": "Aucune grille d'évaluation n’a été ajoutée", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 grille d'évaluation ajoutée} other {{count} grilles d'évaluation ajoutées}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Supprimer la grille d'évaluation", // Text for deleting rubric icon
 	"rubrics.txtRubricAdded": "Grille d'évaluation ajoutée", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Grille d'évaluation supprimée", // Text for notifying screenreader rubric was removed
-	"rubrics.txtConfirmDetachRubric": "Une fois la grille d’évaluation détachée, toutes les évaluations précédentes de la rubrique dans cette activité seront supprimées. Confirmer le détachement de la grille d’évaluation ?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
+	"rubrics.txtConfirmDetachRubric": "Une fois la grille d’évaluation détachée, toutes les évaluations précédentes de la grille d’évaluation dans cette activité seront supprimées. Confirmer le détachement de la grille d’évaluation ?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
 	"rubrics.defaultScoringRubric": "Grille d'évaluation de notation par défaut", // Sub heading for the default scoring rubric select dropdown
 	"rubrics.noDefaultScoringRubricSelected": "Aucune valeur par défaut sélectionnée", // option in default scoring rubric when no default scoring rubric selected
 

@@ -49,6 +49,10 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				#open-new-tab-help-span {
 					margin-left: 12px;
 				}
+				:host([dir='rtl']) #open-new-tab-help-span {
+					margin-left: 0;
+					margin-right: 12px;
+				}
 			`
 		];
 	}

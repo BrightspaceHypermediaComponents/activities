@@ -15,7 +15,6 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		return {
 			entity: { type: Object },
 			showIsOpened: { type: Boolean },
-			skeleton: { type: Boolean },
 		};
 	}
 
@@ -67,11 +66,11 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 						text="${this.localize('content.openInNewWindow')}"
 						icon="tier1:new-window"
 						@click="${this._openPopout}"
-						?skeleton=${this.skeleton}
+						class="d2l-skeletize"
 					>
 					</d2l-button-subtle>
 				</div>
-				<div class="d2l-external-activity-inner-frame">
+				<div class="d2l-external-activity-inner-frame d2l-skeletize">
 					${this.showIsOpened ?
 						html`
 							<d2l-activity-content-lti-link-jump-icon>

@@ -1,8 +1,8 @@
 /* eslint-disable indent */
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import './d2l-activity-content-lti-link-jump-icon.js';
+import { bodyStandardStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
-import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -31,12 +31,12 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 					justify-content: space-between;
 				}
 				.d2l-external-activity-inner-frame {
-					display: flex;
-					margin-top: 18px;
-					padding-top: 18px;
+					margin-top: 36px;
+					padding-top: 36px;
 				}
 			`,
-			labelStyles
+			labelStyles,
+			bodyStandardStyles
 		];
 	}
 
@@ -65,10 +65,12 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 					>
 					</d2l-button-subtle>
 				</div>
-				${this.showIsOpened ?
-					html`<d2l-activity-content-lti-link-jump-icon text="${this.localize('content.externalActivityOpened')}"></d2l-activity-content-lti-link-jump-icon>` :
-					html`<div class="d2l-external-activity-inner-frame d2l-skeletize">&nbsp;</div>`
-				}
+				<div class="d2l-external-activity-inner-frame">
+					${this.showIsOpened ?
+						html`<d2l-activity-content-lti-link-jump-icon><p class="d2l-body-standard">${this.localize('content.externalActivityOpened')}</p></d2l-activity-content-lti-link-jump-icon>` :
+						html`<div class="d2l-skeletize">&nbsp;</div>`
+					}
+				</div>
 			</div>
 		`;
 	}

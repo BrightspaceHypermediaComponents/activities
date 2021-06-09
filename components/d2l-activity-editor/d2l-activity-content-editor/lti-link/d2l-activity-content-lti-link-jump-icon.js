@@ -1,34 +1,21 @@
 import { css, html } from 'lit-element/lit-element.js';
-import { bodyStandardStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 
-class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixin(MobxLitElement)) {
-
-	static get properties() {
-		return {
-			text: { type: String },
-		};
-	}
-
+class ActivityContentLTILinkJumpIcon extends RtlMixin(MobxLitElement) {
 	static get styles() {
 		return [
 			css`
 				.d2l-jump-icon-outer-frame {
-					align-content: center;
-					align-items: flex-start;
-					display: flex;
-					flex-direction: column;
-					flex-wrap: wrap;
-					justify-content: center;
+					text-align: center;
+					align-items: center;
 				}
 				.d2l-lti-jump-icon {
+					margin: 0 auto;
 					height: 50%;
 					width: 50%;
 				}
-			`,
-			bodyStandardStyles
+			`
 		];
 	}
 
@@ -52,11 +39,7 @@ class ActivityContentLTILinkJumpIcon extends LocalizeActivityEditorMixin(RtlMixi
 						</g>
 					</svg>
 				</div>
-				<slot>
-					<p class="d2l-body-standard">
-						${this.text}
-					</p>
-				</slot>
+				<slot></slot>
 			</div>
 		`;
 	}

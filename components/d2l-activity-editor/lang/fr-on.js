@@ -127,6 +127,7 @@ export default {
 	"content.name": "Nom", // Text label for name input field
 	"content.emptyNameField": "Le nom est obligatoire.", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
+	"content.pageContent": "Contenu de la page", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Dates de disponibilité", // availability header
 	"content.saveError": "Votre élément de contenu n’a pas été enregistré. Veuillez corriger les champs indiqués en rouge.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.addDueDate": "Ajouter la date d’échéance", // Text label for name input field

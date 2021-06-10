@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "No se agregó ninguna rúbrica", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rúbrica agregada} other {{count} rúbricas agregadas}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Eliminar rúbrica", // Text for deleting rubric icon
-	"rubrics.btnClose": "Cerrar", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rúbrica agregada", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rúbrica eliminada", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Una vez que la rúbrica esté separada, se eliminarán todas las evaluaciones anteriores de la rúbrica en esta actividad. ¿Desea confirmar la separación de la rúbrica?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

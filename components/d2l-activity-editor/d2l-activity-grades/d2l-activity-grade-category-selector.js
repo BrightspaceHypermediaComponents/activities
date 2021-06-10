@@ -1,12 +1,13 @@
 import { css, html } from 'lit-element/lit-element';
 import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin.js';
-import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { inputLabelStyles } from '@brightspace-ui/core/components/inputs/input-label-styles.js';
 import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { selectStyles } from '@brightspace-ui/core/components/inputs/input-select-styles';
 import { shared as store } from '../state/activity-store.js';
 
-class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivityEditorMixin(MobxLitElement)) {
+class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
 	static get properties() {
 		return {
 			_showCategories: { type: Boolean },
@@ -16,7 +17,7 @@ class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivity
 
 	static get styles() {
 		return [
-			labelStyles,
+			inputLabelStyles,
 			selectStyles,
 			css`
 			:host {
@@ -26,7 +27,7 @@ class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivity
 			[hidden] {
 				display: none !important;
 			}
-			.d2l-label-text {
+			.d2l-input-label {
 				display: block;
 				margin-bottom: 8px;
 			}
@@ -55,6 +56,7 @@ class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivity
 		this.dispatchEvent(event);
 
 		this._createSelectboxGradeItemEnabled = event.detail.provider;
+		this.resetShowCategoriesProperty();
 	}
 
 	render() {
@@ -73,13 +75,12 @@ class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivity
 
 		return html`
 			<d2l-button-subtle
-				icon="tier1:plus-large"
-				?hidden="${this._showCategories || !this._createSelectboxGradeItemEnabled}"
-				text="${this.localize('grades.newGradeItemCategory')}"
-				@click="${this.setShowCategories}">
+				?hidden="${this._showCategories}"
+				text="${this.localize('grades.chooseNewGradeItemCategory')}"
+				@click="${this.showCategories}">
 			</d2l-button-subtle>
-			<div id="d2l-activity-grade-category-selector" ?hidden="${!this._showCategories && this._createSelectboxGradeItemEnabled}">
-				<label class="d2l-label-text">${this.localize('grades.newGradeItemCategory')}</label>
+			<div id="d2l-activity-grade-category-selector" ?hidden="${!this._showCategories}">
+				<label for="grade-categories" class="d2l-input-label">${this.localize('grades.newGradeItemCategory')}</label>
 				<select
 					id="grade-categories"
 					class="d2l-input-select"
@@ -94,8 +95,11 @@ class ActivityGradeCategorySelector extends ActivityEditorMixin(LocalizeActivity
 			</div>
 		`;
 	}
-	setShowCategories(value = true) {
-		this._showCategories = value;
+	resetShowCategoriesProperty() {
+		this._showCategories = !this._createSelectboxGradeItemEnabled;
+	}
+	showCategories() {
+		this._showCategories = true;
 	}
 	_setSelected(e) {
 		if (e.target && e.target.value) {

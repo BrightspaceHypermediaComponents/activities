@@ -3,18 +3,21 @@ import { css, html } from 'lit-element/lit-element.js';
 import { shared as activityStore } from '../../state/activity-store.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
+import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
+import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
+class ContentEditorDueDate extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(MobxLitElement))) {
 
 	static get properties() {
 		return {
-			_hasDatePermissions: { type: Boolean },
-			_showAddDueDateBtn: { type: Boolean }
+			expanded: { type: Boolean },
+			_hasDatePermissions: { type: Boolean }
 		};
 	}
 
 	static get styles() {
 		return  [
+			super.styles,
 			css`
 				:host {
 					display: block;
@@ -23,7 +26,7 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 					display: none;
 				}
 				#duedate-container {
-					padding-bottom: 20px;
+					margin-bottom: 20px;
 				}
 			`
 		];
@@ -32,12 +35,17 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 	constructor() {
 		super();
 		this._hasDatePermissions = false;
-		this._showAddDueDateBtn = true;
+		this.skeleton = true;
 	}
 
 	render() {
 		// TODO - replace with shared component from UI/core when one is created
 		this._getDueDateAndPermission();
+
+		if (this.skeleton)
+		{
+			return html `<div id="duedate-container" class="d2l-skeletize d2l-skeletize-20">&nbsp;</div>`;
+		}
 
 		if (!this._hasDatePermissions) {
 			return html ``;
@@ -48,14 +56,14 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 				<d2l-button-subtle
 					text="${this.localize('content.addDueDate')}"
 					@click="${this._showDueDate}"
-					?hidden="${!this._showAddDueDateBtn}"
+					?hidden="${this.expanded}"
 				>
 				</d2l-button-subtle>
 				<d2l-activity-due-date-editor
 					.href="${this.href}"
 					.token="${this.token}"
 					?skeleton="${this.skeleton}"
-					?hidden="${this._showAddDueDateBtn}"
+					?hidden="${!this.expanded}"
 				>
 				</d2l-activity-due-date-editor>
 			</div>
@@ -64,6 +72,11 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 
 	_getDueDateAndPermission() {
 		const entity = activityStore.get(this.href);
+
+		if (entity) {
+			this.skeleton = false;
+		}
+
 		if (!entity || !entity.dates) {
 			return;
 		}
@@ -71,12 +84,12 @@ class ContentEditorDueDate extends LocalizeActivityEditorMixin(MobxLitElement) {
 		this._hasDatePermissions = dates.canEditDates;
 		// if due date exists on the activity, show the field
 		if (dates.dueDate) {
-			this._showAddDueDateBtn = false;
+			this.expanded = true;
 		}
 	}
 
 	_showDueDate() {
-		this._showAddDueDateBtn = false;
+		this.expanded = true;
 	}
 }
 customElements.define('d2l-activity-content-editor-due-date', ContentEditorDueDate);

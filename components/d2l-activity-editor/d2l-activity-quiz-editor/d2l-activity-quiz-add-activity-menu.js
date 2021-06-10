@@ -67,7 +67,13 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 			return;
 		}
 
-		const url = new D2L.LP.Web.Http.UrlLocation(`/d2l/lms/question/new/${type}`);
+		let url;
+		if (type.includes('browse')) {
+			url = new D2L.LP.Web.Http.UrlLocation(`/d2l/lms/question/browse/${type}`);
+		} else {
+			url = new D2L.LP.Web.Http.UrlLocation(`/d2l/lms/question/new/${type}`);
+		}
+
 		D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
 			/*             location: */ url,
 			/*          srcCallback: */ 'SrcCallBack',

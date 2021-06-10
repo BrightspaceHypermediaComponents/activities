@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "Dim cyfeireb wedi’i hychwanegu", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric added} other {{count} rubrics added}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Dileu Cyfeireb", // Text for deleting rubric icon
-	"rubrics.btnClose": "Cau", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Wedi ychwanegu cyfeireb", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Wedi tynnu cyfeireb", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Unwaith y bydd y gyfeireb wedi’i datgysylltu, bydd yr holl asesiadau blaenorol o'r gyfeireb yn y gweithgaredd hwn yn cael eu dileu. Cadarnhau datgysylltu'r gyfeireb?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

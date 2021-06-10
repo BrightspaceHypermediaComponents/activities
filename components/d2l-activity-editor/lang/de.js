@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "Kein Bewertungsschema hinzugefügt", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 Rubrik hinzugefügt} other {{count} Rubriken hinzugefügt}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Bewertungsschema löschen", // Text for deleting rubric icon
-	"rubrics.btnClose": "Schließen", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Bewertungsschema hinzugefügt", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Bewertungsschema entfernt", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Sobald die Rubrik getrennt ist, werden alle vorherigen Bewertungen der Rubrik in dieser Aktivität gelöscht. Trennen der Rubrik bestätigen?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

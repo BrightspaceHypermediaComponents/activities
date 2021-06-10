@@ -41,7 +41,7 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 		this.isSaving = false;
 	}
 
-	async checkinDialog(e) {
+	async checkinDialog() {
 		const entity = this.store.get(this.dialogHref);
 		if (!entity) return;
 
@@ -68,7 +68,7 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 			return;
 		}
 
-		this.closeDialog(e);
+		this.closeDialog();
 	}
 
 	async closeDialog(e) {
@@ -80,10 +80,10 @@ export const ActivityEditorWorkingCopyDialogMixin = superclass => class extends 
 		dialog && dialog.resetAsyncState();
 		this._resetProps();
 
+		this.open(e);
+
 		const entity = this.store.get(this.checkedOutHref);
 		if (!entity) return;
-
-		this.open(e);
 		this.dialogHref = await entity.checkout(this.store, true);
 	}
 

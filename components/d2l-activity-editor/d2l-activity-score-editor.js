@@ -1,5 +1,5 @@
 import './d2l-activity-grades/d2l-activity-grade-candidate-selector';
-import './d2l-activity-grades-dialog.js';
+import './d2l-activity-grades/d2l-activity-grades-dialog.js';
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
@@ -178,7 +178,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 		this.dispatchEvent(event);
 
 		this._createSelectboxGradeItemEnabled = event.detail.provider;
-		this.checkoutOnLoad = event.detail.provider;
+		this.checkoutOnLoad = this._createSelectboxGradeItemEnabled;
 	}
 
 	render() {
@@ -260,8 +260,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 							</d2l-dropdown-menu>
 						</d2l-dropdown>
 						<d2l-activity-grades-dialog
-							href="${this.checkedOutHref}"
-							activity-usage-href="${this.href}"
+							href="${this.href}"
 							.token="${this.token}"></d2l-activity-grades-dialog>
 					</div>
 				` : null}
@@ -330,7 +329,6 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 	}
 	_associateGradeSetGradebookStatus(gradebookStatus) {
 		const scoreAndGrade = store.get(this.href).scoreAndGrade;
-
 		const associateGradeEntity = associateGradeStore.get(this._associateGradeHref);
 		associateGradeEntity && associateGradeEntity.setGradebookStatus(gradebookStatus, scoreAndGrade.newGradeName, scoreAndGrade.scoreOutOf);
 	}
@@ -345,7 +343,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 	_chooseFromGrades() {
 		const activityGradesElement = this.shadowRoot.querySelector('d2l-activity-grades-dialog');
 		if (activityGradesElement) {
-			activityGradesElement.open();
+			activityGradesElement.openGradesDialog();
 		}
 	}
 	_onScoreOutOfChanged() {

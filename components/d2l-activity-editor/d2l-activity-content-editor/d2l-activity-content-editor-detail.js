@@ -23,7 +23,7 @@ class ContentEditorDetail extends MobxLitElement {
 				d2l-loading-spinner {
 					width: 100%;
 				}
-				d2l-activity-content-module-detail, d2l-activity-content-file-detail {
+				d2l-activity-content-module-detail, d2l-activity-content-file-detail, d2l-activity-content-lti-link-detail {
 					display: flex;
 					flex-direction: column;
 					height: inherit;
@@ -63,7 +63,7 @@ class ContentEditorDetail extends MobxLitElement {
 					.href="${contentActivityHref}"
 					.token="${this.token}"
 				>
-					${this._renderDueDate()}
+					${this._renderDueDate(true)}
 				</d2l-activity-content-web-link-detail>
 			`;
 		}
@@ -74,7 +74,7 @@ class ContentEditorDetail extends MobxLitElement {
 					.href="${contentActivityHref}"
 					.token="${this.token}"
 				>
-					${this._renderDueDate()}
+					${this._renderDueDate(true)}
 				</d2l-activity-content-lti-link-detail>
 			`;
 		}
@@ -85,7 +85,7 @@ class ContentEditorDetail extends MobxLitElement {
 					.href="${contentActivityHref}"
 					.token="${this.token}"
 				>
-					${this._renderDueDate()}
+					${this._renderDueDate(true)}
 				</d2l-activity-content-file-detail>
 			`;
 		}
@@ -93,12 +93,13 @@ class ContentEditorDetail extends MobxLitElement {
 		return html``;
 	}
 
-	_renderDueDate() {
+	_renderDueDate(expanded) {
 		return html`
 			<div slot="due-date">
 				<d2l-activity-content-editor-due-date
 					.href="${this.href}"
 					.token="${this.token}"
+					.expanded="${expanded}"
 				>
 				</d2l-activity-content-editor-due-date>
 			</div>

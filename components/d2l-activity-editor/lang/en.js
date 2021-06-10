@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Add rubric", //text for add rubric button
 	"rubrics.btnCreateNew": "Create New", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Create Rubric", // Header for creating a new rubric
 	"rubrics.btnDetach": "Detach", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Add Existing", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrics", //Header for the rubrics section
@@ -94,7 +95,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "No rubric added", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 rubric added} other {{count} rubrics added}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Delete Rubric", // Text for deleting rubric icon
-	"rubrics.btnClose": "Close", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Rubric added", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Rubric removed", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Once the rubric is detached, all previous assessments of the rubric in this activity will be deleted. Confirm detaching the rubric?", //Text for the dialog to confirm detaching a rubric from an evaluated activity
@@ -104,6 +104,7 @@ export default {
 	"grades.points": "Points: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Weight: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Grade Item", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.chooseNewGradeItemCategory": "Choose Grade Category", // Label for add category button
 	"grades.newGradeItemCategory": "Grade Category", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "No Category", // Category dropdown text for not selecting a category
 
@@ -141,4 +142,7 @@ export default {
 	"content.notHttps": "Only links using \"https\" can be embedded.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "That site cannot be embedded.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Preview", // The label text for the link preview
+	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "External Activity", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Open the activity in new window to view its content.", // Text for displaying underneath the LTI link jump logo
 };

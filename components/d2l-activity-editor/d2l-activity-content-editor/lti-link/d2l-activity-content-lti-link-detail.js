@@ -1,12 +1,13 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-lti-link-options.js';
+import './d2l-activity-content-lti-link-external-activity.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentLTILinkEntity } from 'siren-sdk/src/activities/content/ContentLTILinkEntity.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
-import { html } from 'lit-element/lit-element.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { shared as ltiLinkStore } from './state/content-lti-link-store.js';
@@ -20,7 +21,13 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		return  [
 			super.styles,
 			labelStyles,
-			activityContentEditorStyles
+			activityContentEditorStyles,
+			css`
+				d2l-activity-content-lti-link-external-activity {
+					height: 100%;
+					margin-top: 36px;
+				}
+			`,
 		];
 	}
 
@@ -55,8 +62,13 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			<d2l-activity-content-lti-link-options
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveLinkOptions}
-				>
+			>
 			</d2l-activity-content-lti-link-options>
+
+			<d2l-activity-content-lti-link-external-activity
+				.entity=${ltiLinkEntity}
+			>
+			</d2l-activity-content-lti-link-external-activity>
 		`;
 	}
 

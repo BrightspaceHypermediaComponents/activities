@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "Aucune grille d’évaluation ajoutée", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 grille d’évaluation ajoutée} other {{count} grilles d’évaluation ajoutées}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "Supprimer la grille d’évaluation", // Text for deleting rubric icon
-	"rubrics.btnClose": "Fermer", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "Grille d’évaluation ajoutée", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "Grille d’évaluation supprimée", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "Une fois la grille d’évaluation détachée, toutes les évaluations précédentes de la rubrique dans cette activité seront supprimées. Confirmer le détachement de la grille d’évaluation ?", //Text for the dialog to confirm detaching a rubric from an evaluated activity

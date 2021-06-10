@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "未新增量規", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {已新增 1 個量規} other {已新增 {count} 個量規}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "刪除量規", // Text for deleting rubric icon
-	"rubrics.btnClose": "關閉", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "量規已新增", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "量規已移除", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "中斷連結量規後，系統將刪除此活動中所有之前的量規評量。確認中斷連結量規？", //Text for the dialog to confirm detaching a rubric from an evaluated activity

@@ -94,7 +94,6 @@ export default {
 	"rubrics.txtNoRubricAdded": "追加された注釈がありません", // rubric summary for no rubrics
 	"rubrics.txtRubricsAdded": "{count, plural, =1 {1 つの注釈が追加されました} other {{count} 個の注釈が追加されました}}", // count of asoociated rubrics
 	"rubrics.txtDeleteRubric": "注釈の削除", // Text for deleting rubric icon
-	"rubrics.btnClose": "閉じる", // X button for exiting the create new rubric overlay
 	"rubrics.txtRubricAdded": "注釈が追加されました", // Text for notifying screenreader rubric was added
 	"rubrics.txtRubricRemoved": "注釈が削除されました", // Text for notifying screenreader rubric was removed
 	"rubrics.txtConfirmDetachRubric": "注釈を取り外すと、このアクティビティの注釈の以前の評価はすべて削除されます。注釈を取り外しますか？", //Text for the dialog to confirm detaching a rubric from an evaluated activity

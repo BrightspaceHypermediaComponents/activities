@@ -53,7 +53,8 @@ class QuizEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityQuizEditor
 				?isnew="${this.isNew}"
 				?html-editor-enabled="${this.htmlEditorEnabled}"
 				?html-new-editor-enabled="${this.htmlNewEditorEnabled}"
-				@d2l-question-updated="${this._handleQuestionUpdated}">
+				@d2l-question-updated="${this._handleQuestionUpdated}"
+				resizable>
 
 				${this._editorTemplate}
 

@@ -41,7 +41,10 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 					margin-left: 0;
 					margin-right: 12px;
 				}
-			`
+				:host > div {
+					padding-bottom: 0; /* undo the activity-content-editor-styles padding */
+				}
+			`,
 		];
 	}
 

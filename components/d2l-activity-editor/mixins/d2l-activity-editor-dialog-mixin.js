@@ -13,7 +13,7 @@ export const ActivityEditorDialogMixin = superclass => class extends superclass 
 
 	handleClose(e) {
 		this.opened = false;
-		e && e.stopPropagation();
+		e && e.stopPropagation(); //https://github.com/BrightspaceHypermediaComponents/activities/pull/1476#pullrequestreview-585651698
 	}
 
 	open(event) {

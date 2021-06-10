@@ -18,9 +18,10 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 			css`
 				iframe {
 					border: none;
+					flex-grow: 1;
 					height: 100%;
+					min-height: 60vh;
 					overflow: hidden;
-					resize: vertical;
 					width: 100%;
 				}
 				.d2l-lti-iframe-container {
@@ -29,9 +30,15 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 					iframe height should be 60% of viewport height,
 					otherwise use all the remaining height
 					*/
+					display: flex;
+					flex-direction: column;
 					height: 100%;
 					min-height: 60vh;
-					padding-bottom: 18px;
+					overflow: hidden;
+					resize: vertical;
+				}
+				.d2l-margined-container {
+					margin-bottom: 18px;
 				}
 			`,
 		];
@@ -51,9 +58,11 @@ class ContentEditorLtiLinkPreview extends SkeletonMixin(LocalizeActivityEditorMi
 		}
 
 		return html`
+		<div class='d2l-margined-container'>
 			<div class='d2l-lti-iframe-container d2l-skeletize'>
 				${preview}
 			</div>
+		</div>
 		`;
 	}
 

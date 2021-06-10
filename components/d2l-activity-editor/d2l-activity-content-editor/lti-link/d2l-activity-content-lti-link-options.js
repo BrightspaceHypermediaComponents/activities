@@ -86,7 +86,7 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 					?checked="${isExternalResource}"
 					@change="${this._saveLinkOptions}">
 					${this.localize('content.openNewTab')}
-					<span id="open-new-tab-help-span" class="d2l-skeletize" tabindex="0">
+					<span id="open-new-tab-help-span" tabindex="0">
 						<d2l-icon
 							icon="d2l-tier1:help">
 						</d2l-icon>

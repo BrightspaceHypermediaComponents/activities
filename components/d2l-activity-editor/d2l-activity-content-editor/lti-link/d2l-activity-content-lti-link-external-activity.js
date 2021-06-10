@@ -14,7 +14,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	static get properties() {
 		return {
 			entity: { type: Object },
-			showIsOpened: { type: Boolean },
+			showInNewTab: { type: Boolean },
 		};
 	}
 
@@ -48,7 +48,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	constructor() {
 		super();
 		this.skeleton = true;
-		this.showIsOpened = false;
+		this.showInNewTab = false;
 		this.activityWindowPopout = null;
 	}
 
@@ -71,7 +71,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 					</d2l-button-subtle>
 				</div>
 				<div class="d2l-external-activity-inner-frame d2l-skeletize">
-					${this.showIsOpened ?
+					${this.showInNewTab ?
 						html`
 							<d2l-activity-content-lti-link-jump-icon>
 								<p class="d2l-body-standard">
@@ -82,12 +82,11 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 					}
 				</div>
 			</div>
-		</div>
 		`;
 	}
 
 	_openPopout() {
-		this.showIsOpened = true;
+		this.showInNewTab = true;
 		if (this.activityWindowPopout && !this.activityWindowPopout.closed) {
 			this.activityWindowPopout.focus();
 			return;

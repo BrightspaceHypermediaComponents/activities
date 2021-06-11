@@ -1,4 +1,5 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
+import './d2l-activity-content-file-loading.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
@@ -20,7 +21,7 @@ import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
 	static get styles() {
-		return  [
+		return [
 			super.styles,
 			labelStyles,
 			activityContentEditorStyles,
@@ -55,6 +56,8 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					pageRenderer = this._renderHtmlEditor(pageContent);
 					break;
 			}
+		} else {
+			pageRenderer = this._renderUnknownLoadingFileType();
 		}
 
 		return html`
@@ -172,6 +175,15 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				>
 				</d2l-activity-text-editor>
 			</div>`;
+	}
+
+	_renderUnknownLoadingFileType() {
+		return html`
+			<d2l-activity-content-file-loading
+				.href="${this.href}"
+				.token="${this.token}"
+			></d2l-activity-content-file-loading>
+		`;
 	}
 
 	_saveOnChange(jobName) {

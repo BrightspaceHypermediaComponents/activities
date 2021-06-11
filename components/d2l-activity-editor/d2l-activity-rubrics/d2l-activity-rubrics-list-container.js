@@ -102,7 +102,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 					type="rubrics"
 					skipSave
 				></d2l-add-associations>
-			</d2l-dialog-fullscreen>
+			</d2l-dialog>
 		`;
 	}
 	_attachRubric() {

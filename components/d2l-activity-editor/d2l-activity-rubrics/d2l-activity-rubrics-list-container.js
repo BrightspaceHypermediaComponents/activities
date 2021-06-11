@@ -78,13 +78,12 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 			<d2l-dialog-fullscreen
 				id="create-new-association-dialog"
-				title-text = ${this.localize('rubrics.hdrCreateRubric')}
-				@d2l-dialog-close="${this._clearNewRubricHref}">
+				title-text = ${this.localize('rubrics.hdrCreateRubric')}>
 				${this._renderRubricEditor()}
 				<d2l-button slot="footer" primary  @click="${this._attachRubric}">
 					${this.localize('rubrics.btnAttachRubric')}
 				</d2l-button>
-				<d2l-button slot="footer" @click="${this._closeEditNewAssociationOverlay}">
+				<d2l-button slot="footer" @click="${this._closeEditNewAssociationDialog}">
 					${this.localize('rubrics.btnCancel')}
 				</d2l-button>
 			</d2l-dialog-fullscreen>
@@ -114,7 +113,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 		entity.addAssociations([this._newlyCreatedPotentialAssociation]);
 
-		this._closeEditNewAssociationOverlay();
+		this._closeEditNewAssociationDialog();
 		announce(this.localize('rubrics.txtRubricAdded'));
 	}
 	_clearNewRubricHref() {
@@ -130,12 +129,12 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		}
 		this._toggleDialog(false);
 	}
-	_closeEditNewAssociationOverlay() {
-		const editNewAssociationOverlay =
+	_closeEditNewAssociationDialog() {
+		const editNewAssociationDialog =
 			this.shadowRoot.querySelector('#create-new-association-dialog');
-		if (editNewAssociationOverlay) {
+		if (editNewAssociationDialog) {
 			this._clearNewRubricHref();
-			editNewAssociationOverlay.opened = false;
+			editNewAssociationDialog.opened = false;
 		}
 	}
 	async _createNewAssociation() {
@@ -158,9 +157,13 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 		this._newlyCreatedPotentialAssociationHref = potentialAssociationEntity.getRubricLink();
 
-		const editNewAssociationOverlay = this.shadowRoot.querySelector('#create-new-association-dialog');
-		if (editNewAssociationOverlay) {
-			editNewAssociationOverlay.opened = true;
+		const editNewAssociationDialog = this.shadowRoot.querySelector('#create-new-association-dialog');
+		if (editNewAssociationDialog) {
+			editNewAssociationDialog.opened = true;
+			editNewAssociationDialog.addEventListener('d2l-dialog-close', (e) => {
+				// only update when the dialog closes, not any nested popups that bubble a close event
+				if(e.target == editNewAssociationDialog) this._clearNewRubricHref();
+			});
 		}
 
 	}

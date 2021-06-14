@@ -167,7 +167,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 	_onDialogClose(e) {
 		const editNewAssociationDialog = this.shadowRoot.querySelector('#create-new-association-dialog');
 		// only update when the dialog closes, not any nested popups that bubble a close event
-		if(e.target == editNewAssociationDialog) this._clearNewRubricHref();
+		if (e.target === editNewAssociationDialog) this._clearNewRubricHref();
 	}
 	_openAttachRubricDialog() {
 		this._toggleDialog(true);

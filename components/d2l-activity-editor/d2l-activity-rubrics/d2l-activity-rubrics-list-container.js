@@ -78,6 +78,7 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 
 			<d2l-dialog-fullscreen
 				id="create-new-association-dialog"
+				@d2l-dialog-close="${this._onDialogClose}"
 				title-text = ${this.localize('rubrics.hdrCreateRubric')}>
 				${this._renderRubricEditor()}
 				<d2l-button slot="footer" primary  @click="${this._attachRubric}">
@@ -160,12 +161,13 @@ class ActivityRubricsListContainer extends ActivityEditorMixin(RtlMixin(Localize
 		const editNewAssociationDialog = this.shadowRoot.querySelector('#create-new-association-dialog');
 		if (editNewAssociationDialog) {
 			editNewAssociationDialog.opened = true;
-			editNewAssociationDialog.addEventListener('d2l-dialog-close', (e) => {
-				// only update when the dialog closes, not any nested popups that bubble a close event
-				if(e.target == editNewAssociationDialog) this._clearNewRubricHref();
-			});
 		}
 
+	}
+	_onDialogClose(e) {
+		const editNewAssociationDialog = this.shadowRoot.querySelector('#create-new-association-dialog');
+		// only update when the dialog closes, not any nested popups that bubble a close event
+		if(e.target == editNewAssociationDialog) this._clearNewRubricHref();
 	}
 	_openAttachRubricDialog() {
 		this._toggleDialog(true);

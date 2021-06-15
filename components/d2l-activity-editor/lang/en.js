@@ -143,8 +143,8 @@ export default {
 	"content.addDueDate": "Add Due Date", // Text label for name input field
 	"content.embedOnPage": "Embed on the page", // Text label for link radio button
 	"content.openNewTab": "Open in a new tab (recommended)", // Text label for link radio button
-	"content.openNewTabRecommendation": "This option is recommended to prevent authentication issues to your resource.", // ARIA label for the help icon that explains reason for recommending new tab option
-	"content.openNewTabHelp": "Time on page is not tracked.", // ARIA label for the help icon next to link radio button
+	"content.openNewTabRecommendation": "This option is recommended to prevent authentication issues to your resource.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Time on page is not tracked.", // Text for the help icon next to link radio button
 	"content.link": "Link", //Text label for link input field
 	"content.emptyLinkField": "Link is required.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Please enter a valid URL.", //Error message shown on link tooltip when the link is not formatted correctly

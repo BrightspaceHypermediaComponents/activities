@@ -95,6 +95,7 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 						</d2l-icon>
 						<d2l-tooltip
 							for="open-new-tab-help-span">
+							${this.localize('content.openNewTabRecommendation')}
 							${this.localize('content.openNewTabHelp')}
 						</d2l-tooltip>
 					</span>

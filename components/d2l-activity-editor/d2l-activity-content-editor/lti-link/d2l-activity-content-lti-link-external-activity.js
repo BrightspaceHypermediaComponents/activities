@@ -2,7 +2,7 @@
 import '@brightspace-ui/core/components/button/button-subtle.js';
 import './d2l-activity-content-lti-link-jump-icon.js';
 import './d2l-activity-content-lti-link-preview.js';
-import { bodyStandardStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
+import { bodyCompactStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -15,6 +15,8 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		return {
 			entity: { type: Object },
 			showInNewTab: { type: Boolean },
+			canEmbedIframePromise: { type: Object },
+			showActivityPreview: { type: Boolean }
 		};
 	}
 
@@ -41,7 +43,7 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 				}
 			`,
 			labelStyles,
-			bodyStandardStyles
+			bodyCompactStyles
 		];
 	}
 
@@ -50,12 +52,17 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 		this.skeleton = true;
 		this.showInNewTab = false;
 		this.activityWindowPopout = null;
+		this.showActivityPreview = false;
 	}
 
 	render() {
 		if (this.entity) {
-			this.skeleton = false;
+			this.canEmbedIframePromise.then(canEmbedIframe => {
+				this.showActivityPreview = canEmbedIframe;
+				this.skeleton = false;
+			});
 		}
+
 		return html`
 			<div class="d2l-external-activity-outer-frame d2l-skeletize-container">
 				<div class="d2l-content-link-external-activity">
@@ -71,10 +78,10 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 					</d2l-button-subtle>
 				</div>
 				<div class="d2l-external-activity-inner-frame d2l-skeletize">
-					${this.showInNewTab ?
+					${this.showInNewTab || !this.showActivityPreview ?
 						html`
 							<d2l-activity-content-lti-link-jump-icon>
-								<p class="d2l-body-standard">
+								<p class="d2l-body-compact">
 									${this.localize('content.externalActivityOpened')}
 								</p>
 							</d2l-activity-content-lti-link-jump-icon>` :

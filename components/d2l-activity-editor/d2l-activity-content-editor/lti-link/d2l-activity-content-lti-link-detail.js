@@ -47,6 +47,8 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	render() {
 		const ltiLinkEntity = ltiLinkStore.getContentLTILinkActivity(this.href);
+		const canEmbedIframePromise = this._canEmbedIframe();
+
 		if (ltiLinkEntity) {
 			this.skeleton = false;
 		}
@@ -62,11 +64,13 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			<d2l-activity-content-lti-link-options
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveLinkOptions}
+				.canEmbedIframePromise=${canEmbedIframePromise}
 			>
 			</d2l-activity-content-lti-link-options>
 
 			<d2l-activity-content-lti-link-external-activity
 				.entity=${ltiLinkEntity}
+				.canEmbedIframePromise=${canEmbedIframePromise}
 			>
 			</d2l-activity-content-lti-link-external-activity>
 		`;
@@ -118,6 +122,15 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			return;
 		}
 		ltiLinkEntity.setTitle(title);
+	}
+
+	_canEmbedIframe() {
+		const ltiLinkEntity = ltiLinkStore.getContentLTILinkActivity(this.href);
+		if (!ltiLinkEntity) {
+			return;
+		}
+
+		return ltiLinkEntity.canEmbedIframe();
 	}
 }
 

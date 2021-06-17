@@ -145,4 +145,5 @@ export default {
 	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a LTI link in a new window
 	"content.externalActivity": "External Activity", // The label text for the external activity section on the LTI link page
 	"content.externalActivityOpened": "Open the activity in new window to view its content.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "This external activity does not support embedding. It can only be viewed by opening in a new window." // Text that replaces the LTI display options if embedding is not allowed
 };

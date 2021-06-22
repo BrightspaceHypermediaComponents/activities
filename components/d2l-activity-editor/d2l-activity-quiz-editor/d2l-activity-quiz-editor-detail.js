@@ -183,7 +183,8 @@ class QuizEditorDetail extends ActivityQuizEditorTelemetryMixin(ActivityEditorMi
 				?skeleton="${this.skeleton}"
 				href="${this.activityUsageHref}"
 				.token="${this.token}"
-				quiz-href="${this.href}">
+				quiz-href="${this.href}"
+				@d2l-question-activity-added="${this._onActivityAdded}">
 			</d2l-activity-quiz-editor-action-bar>
 			<d2l-activity-quiz-question-editor href="${this.activityUsageHref}" .token="${this.token}">
 			</d2l-activity-quiz-question-editor>
@@ -223,6 +224,15 @@ class QuizEditorDetail extends ActivityQuizEditorTelemetryMixin(ActivityEditorMi
 		}
 
 		await quiz.save();
+	}
+
+	async _onActivityAdded(e) {
+		if (e && e.detail && e.detail.activities && e.detail.activities.length) {
+			const editor = this.shadowRoot.querySelector('d2l-activity-quiz-question-editor');
+			await editor.addToCollection(e.detail.activities);
+			const actionBar = this.shadowRoot.querySelector('d2l-activity-quiz-editor-action-bar');
+			actionBar.refreshTotalPoints();
+		}
 	}
 
 	_openPreview() {

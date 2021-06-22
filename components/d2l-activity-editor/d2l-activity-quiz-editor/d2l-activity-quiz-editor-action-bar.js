@@ -61,6 +61,13 @@ class ActivityQuizEditorActionBar extends ActivityEditorMixin(SkeletonMixin(RtlM
 			</div>
 		`;
 	}
+
+	refreshTotalPoints() {
+		const entity = store.get(this.href);
+		if (entity) {
+			entity.fetchScoreAndGradeScoreOutOf(true);
+		}
+	}
 }
 
 customElements.define(

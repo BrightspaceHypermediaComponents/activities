@@ -20,6 +20,12 @@ const componentClass = class extends LitElement {
 			<d2l-activity-editor-main href="${this.href}" .token="${this.token}"></d2l-activity-editor-main>
 		`;
 	}
+	async addToCollection(activities) {
+		const editor = this.shadowRoot.querySelector('d2l-activity-collection-editor-quiz');
+		if (editor) {
+			await editor.addToCollection(activities);
+		}
+	}
 };
 
 customElements.define('d2l-activity-quiz-question-editor', componentClass);

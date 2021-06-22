@@ -57,6 +57,20 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		`;
 	}
 
+	_dispatchAddItemEvent(itemDetails) {
+		const eventInit = {
+			bubbles: true,
+			composed: true
+		};
+
+		if (itemDetails && itemDetails.length) {
+			const activityUsageHrefs = itemDetails.map(q => q.href);
+			eventInit.detail = { activities: activityUsageHrefs };
+		}
+
+		this.dispatchEvent(new CustomEvent('d2l-question-activity-added', eventInit));
+	}
+
 	_onSelect(e) {
 		if (!e || !e.target) {
 			return;
@@ -74,7 +88,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 			url = new D2L.LP.Web.Http.UrlLocation(`/d2l/lms/question/new/${type}`);
 		}
 
-		D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
+		const delayedResult = D2L.LP.Web.UI.Legacy.MasterPages.Dialog.OpenFullscreen(
 			/*             location: */ url,
 			/*          srcCallback: */ 'SrcCallBack',
 			/*      responseDataKey: */ 'result',
@@ -84,7 +98,7 @@ class ActivityQuizAddActivityMenu extends ActivityEditorMixin(SkeletonMixin(Loca
 		);
 
 		// "Save" handler
-		// delayedResult.AddListener(result => console.log(result));
+		delayedResult.AddListener(itemDetails => this._dispatchAddItemEvent(itemDetails));
 	}
 
 	_renderActivityType(activityType) {

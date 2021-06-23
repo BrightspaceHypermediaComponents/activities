@@ -4,7 +4,7 @@ export const getWeblinkError = (link, isExternalResource, isSubmitting = false) 
 		return isSubmitting ? 'content.emptyLinkField' : null;
 	}
 
-	const expression = /^(?:https?:\/\/)?(?:[a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9][a-zA-Z0-9-]*(?::\d+)?(?:$|[/?#].*$)/;
+	const expression = /^(?:https?:\/\/){1}(?:[a-zA-Z0-9][a-zA-Z0-9-]*\.)+[a-zA-Z0-9][a-zA-Z0-9-]*(?::\d+)?(?:$|[/?#].*$)/;
 	const urlRegExp = new RegExp(expression);
 
 	if (!urlRegExp.test(link)) {

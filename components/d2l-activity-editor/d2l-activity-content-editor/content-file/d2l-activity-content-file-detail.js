@@ -2,6 +2,7 @@ import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-file-loading.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
+import { css, html } from 'lit-element/lit-element.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { activityHtmlEditorStyles } from '../shared-components/d2l-activity-html-editor-styles.js';
@@ -10,7 +11,6 @@ import { shared as contentFileStore } from './state/content-file-store.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
-import { html } from 'lit-element/lit-element.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -25,7 +25,14 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			super.styles,
 			labelStyles,
 			activityContentEditorStyles,
-			activityHtmlEditorStyles
+			activityHtmlEditorStyles,
+			css`
+				.d2l-activity-label-container {
+					align-items: center;
+					display: flex;
+					justify-content: space-between;
+				}
+			`
 		];
 	}
 
@@ -160,6 +167,8 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		return html`
 			<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
 				${this.localize('content.pageContent')}
+				<d2l-dropdown-button-subtle text=${this.localize('content.selectTemplate')}>
+				</d2l-dropdown-button-subtle>
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 				<d2l-activity-text-editor

@@ -140,6 +140,7 @@ export default {
 	"content.emptyNameField": "Name is required.", // Error text that appears below name field when it is left empty
 	"content.description": "Description", // Text label for description input field
 	"content.pageContent": "Page Content", // Text label for page content input field (HTML files)
+	"content.selectTemplate": "Select Template", // The label text for the subtle-button for selecting an HTML template
 	"content.availabilityHeader": "Availability Dates", // availability header
 	"content.saveError": "Your content item wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.displayOptions": "Display Options", // Text label for display options

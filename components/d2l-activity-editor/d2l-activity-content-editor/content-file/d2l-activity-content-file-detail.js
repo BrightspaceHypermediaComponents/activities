@@ -203,21 +203,21 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				<label class="d2l-label-text d2l-skeletize">
 					${this.localize('content.pageContent')}
 				</label>
-				<d2l-dropdown-button-subtle 
-					style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+				<d2l-dropdown-button-subtle
+					style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}"
 					text=${this.localize('content.selectTemplate')}
 					class="d2l-skeletize"
 					@click=${this._handleClickSelectTemplateButton}
 				>
 					<d2l-dropdown-menu
-						style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+						style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}"
 					>
 						<d2l-menu label=${this.localize('content.htmlTemplatesLoading')}>
 							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
 							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
 						</d2l-menu>
 					</d2l-dropdown-menu>
-				</d2l-dropdown-button-subtle>	
+				</d2l-dropdown-button-subtle>
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 				<d2l-activity-text-editor

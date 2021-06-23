@@ -11,6 +11,7 @@ import { shared as contentFileStore } from './state/content-file-store.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
+import { fetchEntity } from '../../state/fetch-entity.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -182,6 +183,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					text=${this.localize('content.selectTemplate')}
 					class="d2l-skeletize"
 				>
+					${this._getHtmlTemplates(htmlTemplatesHref)}
 				</d2l-dropdown-button-subtle>
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
@@ -219,6 +221,21 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return;
 		}
 		contentFileEntity.setPageContent(pageContent);
+	}
+
+	async _getHtmlTemplates(htmlTemplatesHref) {
+		const htmlTemplatesEntity = await fetchEntity(htmlTemplatesHref, this.token);
+		const htmlTemplatesEntities = htmlTemplatesEntity && htmlTemplatesEntity.entities;
+
+		let d2lDropdownContentTemplates = '';
+		if (htmlTemplatesEntities) {
+			htmlTemplatesEntities.forEach(templateEntity => {
+				if (templateEntity.properties && templateEntity.properties.title) {
+					d2lDropdownContentTemplates += ('<d2l-dropdown-content>' + templateEntity.properties.title + '</d2l-dropdown-content>');
+				}
+			});
+			return html`${d2lDropdownContentTemplates}`;
+		}
 	}
 }
 

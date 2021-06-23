@@ -7,7 +7,7 @@ describe('UrlValidationHelper', () => {
 
 	// TODO: Finish writing tests for this
 	describe('getWeblinkError', () => {
-		describe('when url is embedded', () => {
+		describe('when url is not embedded', () => {
 			isExternalResource = true;
 
 			it('returns null on a valid url', () => {
@@ -27,7 +27,7 @@ describe('UrlValidationHelper', () => {
 			});
 		});
 
-		describe('when url is not embedded', () => {
+		describe('when url is embedded', () => {
 			isExternalResource = false;
 
 			it('returns content.invalidLink when missing protocol', () => {

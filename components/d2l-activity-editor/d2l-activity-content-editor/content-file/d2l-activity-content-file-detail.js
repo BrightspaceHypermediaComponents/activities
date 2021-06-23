@@ -259,6 +259,21 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		}
 		contentFileEntity.setPageContent(pageContent);
 	}
+
+	async _getHtmlTemplates(htmlTemplatesHref) {
+		const htmlTemplatesEntity = await fetchEntity(htmlTemplatesHref, this.token);
+		const htmlTemplatesEntities = htmlTemplatesEntity && htmlTemplatesEntity.entities;
+
+		let d2lDropdownContentTemplates = '';
+		if (htmlTemplatesEntities) {
+			htmlTemplatesEntities.forEach(templateEntity => {
+				if (templateEntity.properties && templateEntity.properties.title) {
+					d2lDropdownContentTemplates += ('<d2l-dropdown-content>' + templateEntity.properties.title + '</d2l-dropdown-content>');
+				}
+			});
+			return html`${d2lDropdownContentTemplates}`;
+		}
+	}
 }
 
 customElements.define('d2l-activity-content-file-detail', ContentFileDetail);

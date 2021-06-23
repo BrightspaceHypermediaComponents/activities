@@ -41,6 +41,9 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					justify-content: space-between;
 					margin-bottom: 6px;
 				}
+				.d2l-new-html-editor-container {
+					margin-top: 6px;
+				}
 			`
 		];
 	}
@@ -66,6 +69,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = undefined;
 		let pageRenderer = undefined;
+		let htmlTemplatesHref = null;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
@@ -75,7 +79,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent);
+					pageRenderer = this._renderHtmlEditor(pageContent, htmlTemplatesHref);
 					break;
 			}
 		} else {
@@ -183,7 +187,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		);
 	}
 
-	_renderHtmlEditor(pageContent) {
+	_renderHtmlEditor(pageContent, htmlTemplatesHref) {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,

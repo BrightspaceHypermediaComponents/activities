@@ -41,6 +41,9 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					justify-content: space-between;
 					margin-bottom: 6px;
 				}
+				.d2l-new-html-editor-container {
+					margin-top: 6px;
+				}
 			`
 		];
 	}
@@ -66,16 +69,23 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = undefined;
 		let pageRenderer = undefined;
+		let htmlTemplatesHref = null;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
 			pageContent = contentFileEntity.fileContent;
 
+<<<<<<< HEAD
 			this.htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
+=======
+			if (contentFileEntity.htmlTemplatesHref) {
+				htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
+			}
+>>>>>>> d361877c (Configure 'Select Template' subtle button to show dependent on wether 'contentFileEntity.htmlTemplatesHref' exists)
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent);
+					pageRenderer = this._renderHtmlEditor(pageContent, htmlTemplatesHref);
 					break;
 			}
 		} else {
@@ -183,7 +193,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		);
 	}
 
-	_renderHtmlEditor(pageContent) {
+	_renderHtmlEditor(pageContent, htmlTemplatesHref) {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,
@@ -203,6 +213,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				<label class="d2l-label-text d2l-skeletize">
 					${this.localize('content.pageContent')}
 				</label>
+<<<<<<< HEAD
 				<d2l-dropdown-button-subtle
 					style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}"
 					text=${this.localize('content.selectTemplate')}
@@ -217,6 +228,13 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
 						</d2l-menu>
 					</d2l-dropdown-menu>
+=======
+				<d2l-dropdown-button-subtle 
+					style="${htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+					text=${this.localize('content.selectTemplate')}
+					class="d2l-skeletize"
+				>
+>>>>>>> d361877c (Configure 'Select Template' subtle button to show dependent on wether 'contentFileEntity.htmlTemplatesHref' exists)
 				</d2l-dropdown-button-subtle>
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">

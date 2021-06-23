@@ -27,10 +27,13 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			activityContentEditorStyles,
 			activityHtmlEditorStyles,
 			css`
-				.d2l-activity-label-container {
+				.d2l-page-content-label-select-template-container {
 					align-items: center;
 					display: flex;
 					justify-content: space-between;
+				}
+				.d2l-new-html-editor-container {
+					margin-top: 6px;
 				}
 			`
 		];
@@ -53,14 +56,19 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = undefined;
 		let pageRenderer = undefined;
+		let htmlTemplatesHref = null;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
 			pageContent = contentFileEntity.fileContent;
 
+			if (contentFileEntity.htmlTemplatesHref) {
+				htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
+			}
+
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent);
+					pageRenderer = this._renderHtmlEditor(pageContent, htmlTemplatesHref);
 					break;
 			}
 		} else {
@@ -149,7 +157,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		);
 	}
 
-	_renderHtmlEditor(pageContent) {
+	_renderHtmlEditor(pageContent, htmlTemplatesHref) {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,
@@ -165,9 +173,15 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const activityTextEditorChange = htmlNewEditorEnabled ? this._onPageContentChange : this._onPageContentChangeDebounced;
 
 		return html`
-			<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
-				${this.localize('content.pageContent')}
-				<d2l-dropdown-button-subtle text=${this.localize('content.selectTemplate')}>
+			<div class="d2l-page-content-label-select-template-container">
+				<label class="d2l-label-text d2l-skeletize">
+					${this.localize('content.pageContent')}
+				</label>
+				<d2l-dropdown-button-subtle 
+					style="${htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+					text=${this.localize('content.selectTemplate')}
+					class="d2l-skeletize"
+				>
 				</d2l-dropdown-button-subtle>
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">

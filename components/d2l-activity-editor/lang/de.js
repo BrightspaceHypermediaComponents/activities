@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Bewertungsschema hinzufügen", //text for add rubric button
 	"rubrics.btnCreateNew": "Neu erstellen", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Bewertungsschema erstellen", // Header for creating a new rubric
 	"rubrics.btnDetach": "Trennen", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Vorhandene hinzufügen", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Bewertungsschemas", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "{points} Punkte", // Text label for displaying points of a grade
 	"grades.weight": "{weight} Gewicht", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Benotungsgegenstand", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "Punkte", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "Notenkategorie auswählen", // Label for add category button
 	"grades.newGradeItemCategory": "Notenkategorie", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Keine Kategorie", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "Notentyp und -schema ändern", // Label for change type and scheme button
+	"grades.newGradeType": "Notentyp", // Label for the grade type
+	"grades.newGradeTypeNumeric": "Numerisch", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "Auswahlfeld", // Label for selectbox grade type radio option
+	"grades.numericDescription": "Benoten Sie Benutzer durch Zuweisen eines Werts aus einer festgelegten Gesamtpunktzahl.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "Beispiel: 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "Benoten Sie Benutzer durch Auswahl einer Notenskalenebene, die ihre Leistung am besten widerspiegelt.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "Beispiel: „sehr gut“ oder „B+“", // Example of selectbox grade type
+	"grades.newGradeScheme": "Notenskala", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--Standard-- ({schemaName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Anlage aus Google Drive hinzufügen", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Datei-Upload", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "Seiteninhalt", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Verfügbarkeitsdaten", // availability header
 	"content.saveError": "Ihr Inhaltselement wurde nicht gespeichert. Korrigieren Sie die rot umrandeten Felder.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Anzeigeoptionen", // Text label for display options
 	"content.addDueDate": "Abgabetermin hinzufügen", // Text label for name input field
-	"content.embedOnPage": "Auf Seite einbinden (iframe)", // Text label for link radio button
-	"content.openNewTab": "In neuer Registerkarte öffnen", // Text label for link radio button
+	"content.embedOnPage": "Auf der Seite eingebettet", // Text label for link radio button
+	"content.openNewTab": "In neuer Registerkarte öffnen (empfohlen)", // Text label for link radio button
+	"content.openNewTabRecommendation": "Diese Option wird empfohlen, um Authentifizierungsprobleme bei Ihrer Ressource zu vermeiden.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Zeit auf Seite wird nicht erfasst.", // Text for the help icon next to link radio button
 	"content.link": "Link", //Text label for link input field
 	"content.emptyLinkField": "Link ist erforderlich.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Bitte geben Sie eine gültige URL ein.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Nur Links, die mit „https“ beginnen, können eingebunden werden.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Die Site kann nicht eingebunden werden.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Vorschau", // The label text for the link preview
+	"content.openInNewWindow": "In neuem Fenster öffnen", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "Externe Aktivität", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Öffnen Sie die Aktivität in einem neuen Fenster, um ihren Inhalt anzuzeigen.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "Diese externe Aktivität unterstützt das Einbetten nicht. Sie kann nur durch Öffnen in einem neuen Fenster angezeigt werden." // Text that replaces the LTI display options if embedding is not allowed
 };

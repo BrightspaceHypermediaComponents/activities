@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "루브릭 추가", //text for add rubric button
 	"rubrics.btnCreateNew": "새로 만들기", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "루브릭 생성", // Header for creating a new rubric
 	"rubrics.btnDetach": "분리", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "기존 항목 추가", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "루브릭", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "점수: {points}", // Text label for displaying points of a grade
 	"grades.weight": "가중치: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "평점 항목", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "점수", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "평점 범주 선택", // Label for add category button
 	"grades.newGradeItemCategory": "평점 범주", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "범주 없음", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "평점 유형 및 제도 변경", // Label for change type and scheme button
+	"grades.newGradeType": "평점 유형", // Label for the grade type
+	"grades.newGradeTypeNumeric": "숫자", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "선택란", // Label for selectbox grade type radio option
+	"grades.numericDescription": "지정된 점수 합계에서 일정 값을 할당하여 사용자의 평점을 산정합니다.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "예: 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "사용자의 성취와 가장 일치하는 평점 제도 수준을 선택하여 사용자의 평점을 산정합니다.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "예: \"매우 좋음\" 또는 \"B+\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "평점 제도", // Label for the grade scheme
+	"grades.defaultGradeScheme": "-- 기본값 --({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Google Drive에서 첨부", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "파일 업로드", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "페이지 콘텐츠", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "사용 가능 날짜", // availability header
 	"content.saveError": "콘텐츠 항목이 저장되지 않았습니다. 빨간색으로 표시된 필드를 수정하십시오.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "표시 옵션", // Text label for display options
 	"content.addDueDate": "기한 추가", // Text label for name input field
-	"content.embedOnPage": "페이지에 임베드됨(iframe)", // Text label for link radio button
-	"content.openNewTab": "새 탭에서 열기", // Text label for link radio button
+	"content.embedOnPage": "페이지에 임베드됨", // Text label for link radio button
+	"content.openNewTab": "새 탭에서 열기(권장)", // Text label for link radio button
+	"content.openNewTabRecommendation": "리소스에 대한 인증 문제를 방지하려면 이 옵션을 사용하는 것이 좋습니다.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "페이지의 시간은 추적되지 않습니다.", // Text for the help icon next to link radio button
 	"content.link": "링크", //Text label for link input field
 	"content.emptyLinkField": "링크가 필요합니다.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "유효한 URL을 입력하십시오.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "\"https\"를 사용한 링크만 임베드됩니다.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "해당 사이트는 임베드할 수 없습니다.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "미리 보기", // The label text for the link preview
+	"content.openInNewWindow": "새 창에서 열기", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "외부 활동", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "콘텐츠를 보려면 새 창에서 활동을 엽니다.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "이 외부 활동은 임베드 기능을 지원하지 않습니다. 새 창에서 열기만 하면 볼 수 있습니다." // Text that replaces the LTI display options if embedding is not allowed
 };

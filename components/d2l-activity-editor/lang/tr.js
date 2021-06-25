@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Rubrik ekle", //text for add rubric button
 	"rubrics.btnCreateNew": "Yeni Oluştur", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Rubrik Oluştur", // Header for creating a new rubric
 	"rubrics.btnDetach": "Ayır", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Mevcut Olanı Ekle", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrikler", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "Puan: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Ağırlık: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Not Öğesi", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "puan", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "Not Kategorisi Seç", // Label for add category button
 	"grades.newGradeItemCategory": "Not Kategorisi", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Kategori Yok", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "Notlandırma Türünü ve Düzenini Değiştir", // Label for change type and scheme button
+	"grades.newGradeType": "Not Türü", // Label for the grade type
+	"grades.newGradeTypeNumeric": "Sayısal", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "Seçim Kutusu", // Label for selectbox grade type radio option
+	"grades.numericDescription": "Belirlenen bir toplam puan sayısı içinden bir değer atayarak kullanıcıları notlandırın.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "Örn. 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "Başarılarına en iyi uyan not planı seviyesini seçerek kullanıcıları notlandırın.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "Örn: \"Çok İyi\" veya \"B+\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "Not Planı", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--Varsayılan-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Google Drive'dan Ekle", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Dosya Yükleme", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "Sayfa İçeriği", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Geçerlilik Tarihleri", // availability header
 	"content.saveError": "İçerik öğeniz kaydedilmedi. Lütfen kırmızı ile gösterilen alanları düzeltin.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Görüntüleme Seçenekleri", // Text label for display options
 	"content.addDueDate": "Bitiş Tarihi Ekle", // Text label for name input field
-	"content.embedOnPage": "Sayfaya göm (iframe)", // Text label for link radio button
-	"content.openNewTab": "Yeni bir sekmede aç", // Text label for link radio button
+	"content.embedOnPage": "Sayfaya göm", // Text label for link radio button
+	"content.openNewTab": "Yeni pencerede aç (önerilen)", // Text label for link radio button
+	"content.openNewTabRecommendation": "Bu seçenek, kaynağınızda kimlik doğrulama sorunlarını önlemek için önerilir.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Sayfadaki süre izlenmez.", // Text for the help icon next to link radio button
 	"content.link": "Bağlantı", //Text label for link input field
 	"content.emptyLinkField": "Bağlantı gerekli.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Lütfen geçerli bir URL girin.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Yalnızca \"https\" protokolünü kullanan bağlantılar gömülebilir.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Bu site gömülemez.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Önizle", // The label text for the link preview
+	"content.openInNewWindow": "Yeni Pencerede Aç", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "Harici Etkinlik", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "İçeriğini görüntülemek için etkinliği yeni pencerede açın.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "Bu harici etkinlik, içerik yerleştirmeyi desteklemiyor. Yalnızca yeni bir pencerede açılarak görüntülenebilir." // Text that replaces the LTI display options if embedding is not allowed
 };

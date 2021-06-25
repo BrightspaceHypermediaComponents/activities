@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Rubric toevoegen", //text for add rubric button
 	"rubrics.btnCreateNew": "Nieuwe maken", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Rubric maken", // Header for creating a new rubric
 	"rubrics.btnDetach": "Loskoppelen", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Bestaand toevoegen", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrics", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "Punten: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Zwaarte: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Score-onderdeel", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "punten", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "Scorecategorie kiezen", // Label for add category button
 	"grades.newGradeItemCategory": "Scorecategorie", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Geen categorie", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "Scoretype en schema wijzigen", // Label for change type and scheme button
+	"grades.newGradeType": "Scoretype", // Label for the grade type
+	"grades.newGradeTypeNumeric": "Numeriek", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "Selectievakje", // Label for selectbox grade type radio option
+	"grades.numericDescription": "Beoordeel gebruikers door een specifieke waarde toe te kennen van een bepaald totaal aantal punten.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "Bijv. 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "Geef gebruikers een score door uit het scoreschema het niveau te selecteren dat het best overeenkomt met hun prestaties.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "Bijv. \"Zeer goed\" of \"B+\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "Scoreschema", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--Standaard- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Toevoegen vanuit Google Drive", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Bestand uploaden", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "Pagina-inhoud", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Beschikbare data", // availability header
 	"content.saveError": "Uw inhoudsitem is niet opgeslagen. Corrigeer de rood omlijnde velden.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Weergaveopties", // Text label for display options
 	"content.addDueDate": "Uiterste datum toevoegen", // Text label for name input field
-	"content.embedOnPage": "Invoegen op de pagina (iframe)", // Text label for link radio button
-	"content.openNewTab": "Openen in een nieuw tabblad", // Text label for link radio button
+	"content.embedOnPage": "Invoegen op de pagina", // Text label for link radio button
+	"content.openNewTab": "Openen in een nieuw tabblad (aanbevolen)", // Text label for link radio button
+	"content.openNewTabRecommendation": "Deze optie wordt aanbevolen om verificatieproblemen met uw bron te voorkomen.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Tijd op pagina wordt niet bijgehouden.", // Text for the help icon next to link radio button
 	"content.link": "Koppeling", //Text label for link input field
 	"content.emptyLinkField": "Koppeling is vereist.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Voer een geldige URL in.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Er kunnen koppelingen met 'https' worden ingevoegd.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Die website kan niet worden ingevoegd.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Voorbeeldweergave", // The label text for the link preview
+	"content.openInNewWindow": "Openen in nieuw venster", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "Externe activiteit", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Open de activiteit in nieuw venster om de inhoud ervan te bekijken.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "Deze externe activiteit kan niet worden ingesloten. U kunt de activiteit alleen bekijken door deze in een nieuw venster te openen." // Text that replaces the LTI display options if embedding is not allowed
 };

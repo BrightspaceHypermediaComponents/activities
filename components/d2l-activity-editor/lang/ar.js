@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "إضافة آلية تقييم", //text for add rubric button
 	"rubrics.btnCreateNew": "إنشاء جديد", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "إنشاء آلية تقييم", // Header for creating a new rubric
 	"rubrics.btnDetach": "فصل", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "إضافة موجود", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "آليات التقييم", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "النقاط: {points}", // Text label for displaying points of a grade
 	"grades.weight": "الوزن: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "مادة سيتم وضع علامة عليها", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "من النقاط", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "اختيار فئة العلامات", // Label for add category button
 	"grades.newGradeItemCategory": "فئة العلامات", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "لا توجد فئة", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "تغيير نوع العلامة ونظامها", // Label for change type and scheme button
+	"grades.newGradeType": "نوع العلامات", // Label for the grade type
+	"grades.newGradeTypeNumeric": "رقمي", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "مربع اختيار", // Label for selectbox grade type radio option
+	"grades.numericDescription": "وضع علامة للمستخدمين من خلال تعيين قيمة من أصل عدد نقاط إجمالي محدد.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "مثال 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "وضع علامة للمستخدمين من خلال تحديد مستوى نظام العلامات الذي يتوافق على أفضل نحو مع تحصيلهم.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "مثال \"جيد جدًا\" أو \"B+‎\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "نظام العلامات", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--افتراضي-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "إرفاق من Google Drive", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "تحميل ملف", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "محتوى الصفحة", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "تواريخ إمكانية التوفّر", // availability header
 	"content.saveError": "لم يتم حفظ مادة المحتوى الخاصة بك. يُرجى تصحيح الحقول الموضّحة باللون الأحمر.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "خيارات العرض", // Text label for display options
 	"content.addDueDate": "إضافة تاريخ الاستحقاق", // Text label for name input field
-	"content.embedOnPage": "تضمين في الصفحة (iframe)", // Text label for link radio button
-	"content.openNewTab": "فتح في علامة تبويب جديدة", // Text label for link radio button
+	"content.embedOnPage": "تضمين في الصفحة", // Text label for link radio button
+	"content.openNewTab": "فتح في علامة تبويب جديدة (موصى به)", // Text label for link radio button
+	"content.openNewTabRecommendation": "يوصى بتحديد هذا الخيار لمنع حدوث مشاكل في المصادقة لموردك.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "لا يتم تعقّب الوقت في الصفحة.", // Text for the help icon next to link radio button
 	"content.link": "الارتباط", //Text label for link input field
 	"content.emptyLinkField": "الارتباط مطلوب.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "يُرجى إدخال عنوان URL صالح.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "لا يمكن تضمين إلا الارتباطات التي تستخدم \"https\".", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "يتعذّر تضمين هذا الموقع.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "معاينة", // The label text for the link preview
+	"content.openInNewWindow": "فتح في نافذة جديدة", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "نشاط خارجي", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "افتح النشاط في نافذة جديدة لعرض محتواه.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "لا يتيح هذا النشاط الخارجي التضمين. يمكن عرضه فقط من خلال فتحه في نافذة جديدة." // Text that replaces the LTI display options if embedding is not allowed
 };

@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Ychwanegu cyfeireb", //text for add rubric button
 	"rubrics.btnCreateNew": "Creu Un Newydd", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Creu Cyfeireb", // Header for creating a new rubric
 	"rubrics.btnDetach": "Datgysylltu", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Ychwanegu’r Presennol", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Cyfeirebau", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "Pwyntiau: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Pwysau: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Eitem Gradd", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "points", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "Dewiswch Gategori Gradd", // Label for add category button
 	"grades.newGradeItemCategory": "Categori Gradd", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Dim Categori", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "Newidiwch Fath Gradd a Chynllun", // Label for change type and scheme button
+	"grades.newGradeType": "Math o Radd", // Label for the grade type
+	"grades.newGradeTypeNumeric": "Rhifol", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "Blwch dewis", // Label for selectbox grade type radio option
+	"grades.numericDescription": "Graddio defnyddwyr trwy neilltuo gwerth allan o gyfanswm penodol o bwyntiau.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "E.e. 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "Graddio defnyddwyr trwy ddewis lefel y cynllun gradd sy'n cyfateb orau i'w cyflawniad.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "E.e. \"Da Iawn\" neu \"B+\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "Cynllun Gradd", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--Diofyn-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Atodi o Google Drive", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Lanlwytho Ffeil", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "Cynnwys y Dudalen", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Dyddiadau Argaeledd", // availability header
 	"content.saveError": "Ni chadwyd eich eitem cynnwys. Cywirwch y meysydd a amlinellir mewn coch.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Arddangos Opsiynau", // Text label for display options
 	"content.addDueDate": "Ychwanegu Dyddiad Cyflwyno", // Text label for name input field
-	"content.embedOnPage": "Mewnblannu ar y dudalen (iframe)", // Text label for link radio button
-	"content.openNewTab": "Agor mewn tab newydd", // Text label for link radio button
+	"content.embedOnPage": "Mewnblannu ar y dudalen", // Text label for link radio button
+	"content.openNewTab": "Agor mewn tab newydd (argymhellir)", // Text label for link radio button
+	"content.openNewTabRecommendation": "Argymhellir yr opsiwn hwn i atal problemau dilysu i’ch adnodd.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Ni chaiff amser ar dudalen ei olrhain.", // Text for the help icon next to link radio button
 	"content.link": "Cysylltu", //Text label for link input field
 	"content.emptyLinkField": "Mae angen dolen.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Rhowch URL dilys.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Dim ond dolenni sy’n defnyddio \"https\" y gellir eu mewnblannu.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Does dim modd mewnblannu’r wefan honno.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Rhagolwg", // The label text for the link preview
+	"content.openInNewWindow": "Agor mewn Ffenest Newydd", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "Gweithgaredd Allanol", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Agorwch y gweithgaredd mewn ffenestr newydd i weld ei gynnwys.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "Nid yw'r gweithgaredd allanol hwn yn cefnogi ymgorffori. Dim ond drwy agor mewn ffenestr newydd y gellir ei weld." // Text that replaces the LTI display options if embedding is not allowed
 };

@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "添加量规", //text for add rubric button
 	"rubrics.btnCreateNew": "新建", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "创建量规", // Header for creating a new rubric
 	"rubrics.btnDetach": "分离", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "添加现有", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "量规", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "分数：{points}", // Text label for displaying points of a grade
 	"grades.weight": "权重：{weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "成绩项目", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "分", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "选择成绩类别", // Label for add category button
 	"grades.newGradeItemCategory": "成绩类别", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "无类别", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "更改成绩类型和方案", // Label for change type and scheme button
+	"grades.newGradeType": "成绩类型", // Label for the grade type
+	"grades.newGradeTypeNumeric": "数值", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "选择框", // Label for selectbox grade type radio option
+	"grades.numericDescription": "通过分配占指定总分数的百分比值，进行用户分级。", // Description of numeric grade type
+	"grades.numericDescriptionExample": "例如 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "选择与成绩最匹配的成绩方案级别，进行用户分级。", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "例如，“非常好”或“B+”", // Example of selectbox grade type
+	"grades.newGradeScheme": "成绩方案", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--默认-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "从 Google Drive 附加", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "文件上传", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "页面内容", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "可用日期", // availability header
 	"content.saveError": "您的内容项目未保存。请更正以红色标出的字段。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "显示选项", // Text label for display options
 	"content.addDueDate": "添加截止日期", // Text label for name input field
-	"content.embedOnPage": "嵌入页面中（内嵌框架）", // Text label for link radio button
-	"content.openNewTab": "在新选项卡中打开", // Text label for link radio button
+	"content.embedOnPage": "嵌入页面中", // Text label for link radio button
+	"content.openNewTab": "在新选项卡中打开（建议）", // Text label for link radio button
+	"content.openNewTabRecommendation": "建议使用此选项以防您的资源出现验证问题。", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "不跟踪页面上的时间。", // Text for the help icon next to link radio button
 	"content.link": "链接", //Text label for link input field
 	"content.emptyLinkField": "必须提供链接。", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "请输入一个有效 URL。", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "仅可嵌入含有 \"https\" 的链接。", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "该站点无法嵌入。", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "预览", // The label text for the link preview
+	"content.openInNewWindow": "在新窗口中打开", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "外部活动", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "在新窗口中打开活动以查看其内容。", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "此外部活动不支持嵌入。它只能通过在新窗口中打开来查看。" // Text that replaces the LTI display options if embedding is not allowed
 };

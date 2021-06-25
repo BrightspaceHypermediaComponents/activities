@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "注釈の追加", //text for add rubric button
 	"rubrics.btnCreateNew": "新規作成", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "注釈の作成", // Header for creating a new rubric
 	"rubrics.btnDetach": "取り外し", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "既存の追加", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "注釈", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "ポイント: {points}", // Text label for displaying points of a grade
 	"grades.weight": "加重: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "成績項目", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "ポイント", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "成績カテゴリの選択", // Label for add category button
 	"grades.newGradeItemCategory": "成績カテゴリ", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "カテゴリなし", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "成績タイプとスキームの変更", // Label for change type and scheme button
+	"grades.newGradeType": "成績タイプ", // Label for the grade type
+	"grades.newGradeTypeNumeric": "数値", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "選択ボックス", // Label for selectbox grade type radio option
+	"grades.numericDescription": "指定した合計ポイント数から値を割り当てることにより、ユーザーに成績を付けます。", // Description of numeric grade type
+	"grades.numericDescriptionExample": "例: 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "成績に最も一致する成績スキームレベルを選択することにより、ユーザーに成績を付けます。", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "例: 「とても良い」または「B+」", // Example of selectbox grade type
+	"grades.newGradeScheme": "成績スキーム", // Label for the grade scheme
+	"grades.defaultGradeScheme": "-- デフォルト -- （{schemeName}）", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Google ドライブから添付", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "ファイルアップロード", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "ページコンテンツ", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "使用可能日", // availability header
 	"content.saveError": "コンテンツ項目は保存されませんでした。赤で囲まれたフィールドを修正してください。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "表示オプション", // Text label for display options
 	"content.addDueDate": "期限の追加", // Text label for name input field
-	"content.embedOnPage": "ページに埋め込み（iframe）", // Text label for link radio button
-	"content.openNewTab": "新規タブで開く", // Text label for link radio button
+	"content.embedOnPage": "ページに埋め込み", // Text label for link radio button
+	"content.openNewTab": "新規タブで開く（推奨）", // Text label for link radio button
+	"content.openNewTabRecommendation": "リソースに対する認証の問題を回避するには、このオプションを推奨します。", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "ページにとどまった時間は追跡されません。", // Text for the help icon next to link radio button
 	"content.link": "リンク", //Text label for link input field
 	"content.emptyLinkField": "リンクは必須です。", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "有効な URL を入力してください。", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "埋め込みできるのは「https」を使ったリンクのみです。", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "そのサイトを埋め込むことはできません。", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "プレビュー", // The label text for the link preview
+	"content.openInNewWindow": "新規ウィンドウで開く", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "外部アクティビティ", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "アクティビティの内容を表示するには新しいウィンドウで開きます。", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "この外部アクティビティは埋め込みをサポートしていません。新しいウィンドウで開くことでのみ表示できます。" // Text that replaces the LTI display options if embedding is not allowed
 };

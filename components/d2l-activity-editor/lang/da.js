@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Tilføj rubrik", //text for add rubric button
 	"rubrics.btnCreateNew": "Opret ny", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Opret rubrik", // Header for creating a new rubric
 	"rubrics.btnDetach": "Fjern", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Tilføj eksisterende", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubrikker", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "Point: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Vægt: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Karakterelement", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "point", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "Vælg karakterkategori", // Label for add category button
 	"grades.newGradeItemCategory": "Karakterkategori", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Ingen kategori", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "Skift karaktertype og -oversigt", // Label for change type and scheme button
+	"grades.newGradeType": "Karaktertype", // Label for the grade type
+	"grades.newGradeTypeNumeric": "Numerisk", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "Valgboks", // Label for selectbox grade type radio option
+	"grades.numericDescription": "Bedøm brugere ved at tildele en værdi ud af et angivet samlet antal point.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "F.eks. 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "Bedøm brugere ved at vælge det karakteroversigtsniveau, der passer bedst til deres præstation.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "F.eks. \"Meget god\" eller \"B+\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "Karakteroversigt", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--Standard-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Vedhæft fra Google Drev", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Upload af fil", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "Sideindhold", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Datoer for tilgængelighed", // availability header
 	"content.saveError": "Dit indholdselement blev ikke gemt. Ret de felter, der er markeret med rødt.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Visningsindstillinger", // Text label for display options
 	"content.addDueDate": "Tilføj forfaldsdato", // Text label for name input field
-	"content.embedOnPage": "Indlejr på siden (iframe)", // Text label for link radio button
-	"content.openNewTab": "Åbn i en ny fane", // Text label for link radio button
+	"content.embedOnPage": "Indlejr på siden", // Text label for link radio button
+	"content.openNewTab": "Åbn i en ny fane (anbefalet)", // Text label for link radio button
+	"content.openNewTabRecommendation": "Denne indstilling anbefales for at forhindre godkendelsesproblemer for din ressource.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Tid på siden spores ikke.", // Text for the help icon next to link radio button
 	"content.link": "Link", //Text label for link input field
 	"content.emptyLinkField": "Link er påkrævet.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Indtast en gyldig URL-adresse.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Der kan kun indlejres links, der bruger \"https\".", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Dette websted kan ikke indlejres.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Forhåndsvisning", // The label text for the link preview
+	"content.openInNewWindow": "Åbn i nyt vindue", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "Ekstern aktivitet", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Åbn aktiviteten i et nyt vindue for at få vist dens indhold.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "Denne eksterne aktivitet understøtter ikke indlejring. Den kan kun ses ved at åbne den i et nyt vindue." // Text that replaces the LTI display options if embedding is not allowed
 };

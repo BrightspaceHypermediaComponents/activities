@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "新增量規", //text for add rubric button
 	"rubrics.btnCreateNew": "建立新的", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "建立量規", // Header for creating a new rubric
 	"rubrics.btnDetach": "中斷連結", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "新增現有的", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "量規", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "分數：{points}", // Text label for displaying points of a grade
 	"grades.weight": "加權：{weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "成績項目", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "分", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "選擇計分類別", // Label for add category button
 	"grades.newGradeItemCategory": "成績類別", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "無類別", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "變更計分類型與方式", // Label for change type and scheme button
+	"grades.newGradeType": "計分類型", // Label for the grade type
+	"grades.newGradeTypeNumeric": "數字", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "分級格", // Label for selectbox grade type radio option
+	"grades.numericDescription": "在指定的總分中指定值，為使用者評分。", // Description of numeric grade type
+	"grades.numericDescriptionExample": "例如：8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "選取最適合其成果的計分方式層級，為使用者評分。", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "例如：「非常好」或「B+」", // Example of selectbox grade type
+	"grades.newGradeScheme": "計分方式", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--預設-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "從 Google 雲端硬碟附加", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "檔案上傳", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "頁面內容", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "可用情況日期", // availability header
 	"content.saveError": "您的內容項目尚未儲存。請修正以紅色顯示的欄位。", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "顯示選項", // Text label for display options
 	"content.addDueDate": "新增截止日期", // Text label for name input field
-	"content.embedOnPage": "內嵌於頁面上 (iframe)", // Text label for link radio button
-	"content.openNewTab": "在新頁籤中開啟", // Text label for link radio button
+	"content.embedOnPage": "內嵌於頁面上", // Text label for link radio button
+	"content.openNewTab": "在新頁籤中開啟 (建議)", // Text label for link radio button
+	"content.openNewTabRecommendation": "建議使用此選項，以避免您的資源產生驗證問題。", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "不會追蹤頁面上的時間。", // Text for the help icon next to link radio button
 	"content.link": "連結", //Text label for link input field
 	"content.emptyLinkField": "連結為必填。", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "請輸入有效的 URL。", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "只能嵌入使用「https」的連結。", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "無法嵌入該網站。", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "預覽", // The label text for the link preview
+	"content.openInNewWindow": "在新視窗中開啟", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "外部活動", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "在新視窗中開啟活動以檢視內容。", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "此外部活動不支援內嵌。只有開啟新視窗才能檢視此資訊。" // Text that replaces the LTI display options if embedding is not allowed
 };

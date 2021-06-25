@@ -85,6 +85,7 @@ export default {
 
 	"rubrics.btnAddRubric": "Lägg till rubricering", //text for add rubric button
 	"rubrics.btnCreateNew": "Skapa ny", //Text for create new dropdown
+	"rubrics.hdrCreateRubric": "Skapa rubricering", // Header for creating a new rubric
 	"rubrics.btnDetach": "Ta bort", //Text for the button to confirm detaching a rubric
 	"rubrics.btnAddExisting": "Lägg till befintligt", //Text for Add Existing dropdown
 	"rubrics.hdrRubrics": "Rubriceringar", //Header for the rubrics section
@@ -103,8 +104,20 @@ export default {
 	"grades.points": "Poäng: {points}", // Text label for displaying points of a grade
 	"grades.weight": "Vikt: {weight}", // Text label for displaying weight of a grade
 	"grades.gradeItem": "Betygsobjekt", //ARIA label for grade-item picker when linking an activity to an existing grade item
+	"grades.gradeUnits": "poäng", // unit label for GradeOutOf value (e.g. 10 points)
+	"grades.chooseNewGradeItemCategory": "Välj betygskategori", // Label for add category button
 	"grades.newGradeItemCategory": "Betygskategori", // Label for selecting a category dropdown
 	"grades.noGradeItemCategory": "Ingen kategori", // Category dropdown text for not selecting a category
+	"grades.changeNewGradeTypeAndScheme": "Ändra betygstyp och schema", // Label for change type and scheme button
+	"grades.newGradeType": "Betygstyp", // Label for the grade type
+	"grades.newGradeTypeNumeric": "Numerisk", // Label for numeric grade type radio option
+	"grades.newGradeTypeSelectbox": "Markeringsruta", // Label for selectbox grade type radio option
+	"grades.numericDescription": "Bedöm användare genom att tilldela dem ett värde bland ett specificerat totalt antal poäng.", // Description of numeric grade type
+	"grades.numericDescriptionExample": "Exempel: 8/10", // Example of numeric grade type
+	"grades.selectboxDescription": "Bedöm användare genom att välja nivån i betygsschemat som bäst matchar deras prestation.", // Description of selectbox grade type
+	"grades.selectboxDescriptionExample": "Exempel: \"Mycket bra\" eller \"B+\"", // Example of selectbox grade type
+	"grades.newGradeScheme": "Betygsschema", // Label for the grade scheme
+	"grades.defaultGradeScheme": "--Standard-- ({schemeName})", // name of default grade scheme
 
 	"attachments.addGoogleDriveLink": "Bifoga från Google Drive", // Tooltip for a button that adds a link to a Google Drive file
 	"attachments.addFile": "Filuppladdning", // Tooltip for a button that opens a file upload dialog
@@ -129,13 +142,20 @@ export default {
 	"content.pageContent": "Sidoinnehåll", // Text label for page content input field (HTML files)
 	"content.availabilityHeader": "Tillgänglighetsdatum", // availability header
 	"content.saveError": "Ditt innehållsobjekt sparades inte. Korrigera de fält som är markerade med rött.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
+	"content.displayOptions": "Visa alternativ", // Text label for display options
 	"content.addDueDate": "Lägg till slutdatum", // Text label for name input field
-	"content.embedOnPage": "Integrera i sidan (iframe)", // Text label for link radio button
-	"content.openNewTab": "Öppna i ny flik", // Text label for link radio button
+	"content.embedOnPage": "Integrera i sidan", // Text label for link radio button
+	"content.openNewTab": "Öppna i ny flik (rekommenderas)", // Text label for link radio button
+	"content.openNewTabRecommendation": "Du bör använda det här alternativet för att undvika autentiseringsproblem för resursen.", // Text for the help icon that explains reason for recommending new tab option
+	"content.openNewTabHelp": "Tid på sidan spåras inte.", // Text for the help icon next to link radio button
 	"content.link": "Länk", //Text label for link input field
 	"content.emptyLinkField": "Länk krävs.", //Error message shown on link tooltip when the link is empty
 	"content.invalidLink": "Ange en giltig webbadress.", //Error message shown on link tooltip when the link is not formatted correctly
 	"content.notHttps": "Bara länkar som använder \"https\" kan integreras.", //Error message shown on link tooltip when https is not used for embedded links
 	"content.noEmbed": "Sidan kan inte integreras.", //Error message shown on link tooltip when the link cannot be embedded
 	"content.previewLabel": "Förhandsgranska", // The label text for the link preview
+	"content.openInNewWindow": "Öppna i nytt fönster", // The label text for the subtle-button for opening a LTI link in a new window
+	"content.externalActivity": "Extern aktivitet", // The label text for the external activity section on the LTI link page
+	"content.externalActivityOpened": "Öppna aktiviteten i ett nytt fönster för att visa innehållet i den.", // Text for displaying underneath the LTI link jump logo
+	"content.externalActivityEmbeddedNotAllowed": "Den här externa aktiviteten stöder inte inbäddning. Du kan endast visa den genom att öppna den i ett nytt fönster." // Text that replaces the LTI display options if embedding is not allowed
 };

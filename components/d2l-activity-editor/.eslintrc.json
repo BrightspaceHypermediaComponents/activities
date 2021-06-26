@@ -2,5 +2,8 @@
   "extends": "brightspace/lit-config",
   "rules": {
     "sort-class-members/sort-class-members": "error"
-  }
+  },
+  "plugins": [
+    "optionalChaining"
+  ]
 }

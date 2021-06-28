@@ -19,6 +19,7 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
+import { ContentHtmlFileTemplatesEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileTemplatesEntity.js'
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
@@ -261,18 +262,14 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	}
 
 	async _getHtmlTemplates(htmlTemplatesHref) {
-		const htmlTemplatesEntity = await fetchEntity(htmlTemplatesHref, this.token);
-		const htmlTemplatesEntities = htmlTemplatesEntity && htmlTemplatesEntity.entities;
-
-		let d2lDropdownContentTemplates = '';
-		if (htmlTemplatesEntities) {
-			htmlTemplatesEntities.forEach(templateEntity => {
-				if (templateEntity.properties && templateEntity.properties.title) {
-					d2lDropdownContentTemplates += ('<d2l-dropdown-content>' + templateEntity.properties.title + '</d2l-dropdown-content>');
-				}
-			});
-			return html`${d2lDropdownContentTemplates}`;
+		if (!htmlTemplatesHref || this.htmlFileTemplates.length) {
+			return;
 		}
+
+		const htmlTemplatesResponse = await fetchEntity(htmlTemplatesHref, this.token);
+		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
+		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
+		this.htmlFileTemplates = templates;
 	}
 }
 

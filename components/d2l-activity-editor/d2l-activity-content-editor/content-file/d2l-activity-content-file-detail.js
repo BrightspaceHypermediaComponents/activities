@@ -18,8 +18,15 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
+import { ContentHtmlFileTemplatesEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileTemplatesEntity.js'
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+
+	static get properties() {
+		return {
+			htmlFileTemplates: { type: Array }
+		};
+	}
 
 	static get styles() {
 		return [
@@ -46,6 +53,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this._setEntityType(ContentFileEntity);
 		this.skeleton = true;
 		this.saveOrder = 500;
+		this.htmlFileTemplates = [];
 	}
 
 	connectedCallback() {
@@ -65,6 +73,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 			if (contentFileEntity.htmlTemplatesHref) {
 				htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
+				this._getHtmlTemplates(contentFileEntity.htmlTemplatesHref);
 			}
 
 			switch (contentFileEntity.fileType) {
@@ -183,8 +192,15 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					text=${this.localize('content.selectTemplate')}
 					class="d2l-skeletize"
 				>
-					${this._getHtmlTemplates(htmlTemplatesHref)}
-				</d2l-dropdown-button-subtle>
+					<d2l-dropdown-menu id="dropdown">
+						<d2l-menu>
+							${this.htmlFileTemplates.map((template) => {
+									return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`
+								})
+							}
+						</d2l-menu>
+					</d2l-dropdown-menu>
+				</d2l-dropdown-button-subtle>	
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 				<d2l-activity-text-editor
@@ -224,18 +240,14 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	}
 
 	async _getHtmlTemplates(htmlTemplatesHref) {
-		const htmlTemplatesEntity = await fetchEntity(htmlTemplatesHref, this.token);
-		const htmlTemplatesEntities = htmlTemplatesEntity && htmlTemplatesEntity.entities;
-
-		let d2lDropdownContentTemplates = '';
-		if (htmlTemplatesEntities) {
-			htmlTemplatesEntities.forEach(templateEntity => {
-				if (templateEntity.properties && templateEntity.properties.title) {
-					d2lDropdownContentTemplates += ('<d2l-dropdown-content>' + templateEntity.properties.title + '</d2l-dropdown-content>');
-				}
-			});
-			return html`${d2lDropdownContentTemplates}`;
+		if (!htmlTemplatesHref || this.htmlFileTemplates.length) {
+			return;
 		}
+
+		const htmlTemplatesResponse = await fetchEntity(htmlTemplatesHref, this.token);
+		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
+		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
+		this.htmlFileTemplates = templates;
 	}
 }
 

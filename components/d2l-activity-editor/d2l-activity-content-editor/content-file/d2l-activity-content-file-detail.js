@@ -8,6 +8,7 @@ import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { activityHtmlEditorStyles } from '../shared-components/d2l-activity-html-editor-styles.js';
 import { ContentEditorConstants } from '../constants';
 import { shared as contentFileStore } from './state/content-file-store.js';
+import { ContentHtmlFileTemplatesEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileTemplatesEntity.js';
 import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
@@ -18,7 +19,6 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
-import { ContentHtmlFileTemplatesEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileTemplatesEntity.js'
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
@@ -53,6 +53,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this._setEntityType(ContentFileEntity);
 		this.skeleton = true;
 		this.saveOrder = 500;
+		this.htmlTemplatesHref = null;
 		this.htmlFileTemplates = [];
 		this.htmlFileTemplatesLoading = false;
 		this.htmlFileTemplatesLoaded = false;
@@ -67,19 +68,18 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = undefined;
 		let pageRenderer = undefined;
-		let htmlTemplatesHref = null;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
 			pageContent = contentFileEntity.fileContent;
 
 			if (contentFileEntity.htmlTemplatesHref) {
-				htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
+				this.htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
 			}
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent, htmlTemplatesHref);
+					pageRenderer = this._renderHtmlEditor(pageContent, this.htmlTemplatesHref);
 					break;
 			}
 		} else {
@@ -154,6 +154,26 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		contentFileActivity.setTitle(title);
 	}
 
+	_getHtmlTemplateLoadingMenuItem() {
+		return html`<d2l-menu-item text=${this.localize('content.htmlTemplatesLoading')} disabled="true"></d2l-menu-item>`;
+	}
+
+	async _getHtmlTemplates() {
+		const htmlTemplatesResponse = await fetchEntity(this.htmlTemplatesHref, this.token);
+		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
+		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
+		this.htmlFileTemplates = templates;
+		this.htmlFileTemplatesLoaded = true;
+		this.htmlFileTemplatesLoading = false;
+	}
+
+	_handleClickSelectTemplateButton() {
+		if (!this.htmlFileTemplatesLoaded && !this.htmlFileTemplatesLoading) {
+			this.htmlFileTemplatesLoading = true;
+			this._getHtmlTemplates(this.htmlTemplatesHref);
+		}
+	}
+
 	_onPageContentChange(e) {
 		const pageContent = e.detail.content;
 		this._savePageContent(pageContent);
@@ -168,7 +188,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		);
 	}
 
-	_renderHtmlEditor(pageContent, htmlTemplatesHref) {
+	_renderHtmlEditor(pageContent) {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,
@@ -189,19 +209,16 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					${this.localize('content.pageContent')}
 				</label>
 				<d2l-dropdown-button-subtle 
-					style="${htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+					style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
 					text=${this.localize('content.selectTemplate')}
 					class="d2l-skeletize"
-					@click=${event => this._handleClickSelectTemplateButton(event, htmlTemplatesHref)}
+					@click=${this._handleClickSelectTemplateButton}
 				>
 					<d2l-dropdown-menu
-						style="${htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+						style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
 					>
 						<d2l-menu label="HTML File Templates">
-							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => {
-									return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`
-								}) : this._getHtmlTemplateLoadingMenuItem()
-							}
+							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
 							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
 						</d2l-menu>
 					</d2l-dropdown-menu>
@@ -242,28 +259,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return;
 		}
 		contentFileEntity.setPageContent(pageContent);
-	}
-
-	_handleClickSelectTemplateButton(event, htmlTemplatesHref) {
-		if (!this.htmlFileTemplatesLoaded && !this.htmlFileTemplatesLoading) {
-			if (event.type=="click") {
-				this.htmlFileTemplatesLoading = true;
-				this._getHtmlTemplates(htmlTemplatesHref);
-			}
-		}
-	}
-
-	async _getHtmlTemplates(htmlTemplatesHref) {
-		const htmlTemplatesResponse = await fetchEntity(htmlTemplatesHref, this.token);
-		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
-		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
-		this.htmlFileTemplates = templates;
-		this.htmlFileTemplatesLoaded = true;
-		this.htmlFileTemplatesLoading = false;
-	}
-
-	_getHtmlTemplateLoadingMenuItem() {
-		return html`<d2l-menu-item text=${this.localize('content.htmlTemplatesLoading')} disabled="true"></d2l-menu-item>`;
 	}
 }
 

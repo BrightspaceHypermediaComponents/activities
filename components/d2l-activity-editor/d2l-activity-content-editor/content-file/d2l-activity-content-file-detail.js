@@ -19,7 +19,6 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
-import { ContentHtmlFileTemplatesEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileTemplatesEntity.js'
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
@@ -70,7 +69,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = undefined;
 		let pageRenderer = undefined;
-		let htmlTemplatesHref = null;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
@@ -80,7 +78,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent, htmlTemplatesHref);
+					pageRenderer = this._renderHtmlEditor(pageContent, this.htmlTemplatesHref);
 					break;
 			}
 		} else {
@@ -188,7 +186,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		);
 	}
 
-	_renderHtmlEditor(pageContent, htmlTemplatesHref) {
+	_renderHtmlEditor(pageContent) {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,
@@ -259,28 +257,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return;
 		}
 		contentFileEntity.setPageContent(pageContent);
-	}
-
-	_handleClickSelectTemplateButton(event, htmlTemplatesHref) {
-		if (!this.htmlFileTemplatesLoaded && !this.htmlFileTemplatesLoading) {
-			if (event.type=="click") {
-				this.htmlFileTemplatesLoading = true;
-				this._getHtmlTemplates(htmlTemplatesHref);
-			}
-		}
-	}
-
-	async _getHtmlTemplates(htmlTemplatesHref) {
-		const htmlTemplatesResponse = await fetchEntity(htmlTemplatesHref, this.token);
-		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
-		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
-		this.htmlFileTemplates = templates;
-		this.htmlFileTemplatesLoaded = true;
-		this.htmlFileTemplatesLoading = false;
-	}
-
-	_getHtmlTemplateLoadingMenuItem() {
-		return html`<d2l-menu-item text=${this.localize('content.htmlTemplatesLoading')} disabled="true"></d2l-menu-item>`;
 	}
 }
 

@@ -261,15 +261,26 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		contentFileEntity.setPageContent(pageContent);
 	}
 
-	async _getHtmlTemplates(htmlTemplatesHref) {
-		if (!htmlTemplatesHref || this.htmlFileTemplates.length) {
-			return;
+	_handleClickSelectTemplateButton(event, htmlTemplatesHref) {
+		if (!this.htmlFileTemplatesLoaded && !this.htmlFileTemplatesLoading) {
+			if (event.type=="click") {
+				this.htmlFileTemplatesLoading = true;
+				this._getHtmlTemplates(htmlTemplatesHref);
+			}
 		}
+	}
 
+	async _getHtmlTemplates(htmlTemplatesHref) {
 		const htmlTemplatesResponse = await fetchEntity(htmlTemplatesHref, this.token);
 		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
 		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
 		this.htmlFileTemplates = templates;
+		this.htmlFileTemplatesLoaded = true;
+		this.htmlFileTemplatesLoading = false;
+	}
+
+	_getHtmlTemplateLoadingMenuItem() {
+		return html`<d2l-menu-item text=${this.localize('content.htmlTemplatesLoading')} disabled="true"></d2l-menu-item>`;
 	}
 }
 

@@ -25,7 +25,8 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 	static get properties() {
 		return {
-			htmlFileTemplates: { type: Array }
+			htmlFileTemplates: { type: Array },
+			sortHTMLTemplatesByName: { type: Boolean },
 		};
 	}
 

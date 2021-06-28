@@ -54,6 +54,8 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this.skeleton = true;
 		this.saveOrder = 500;
 		this.htmlFileTemplates = [];
+		this.htmlFileTemplatesLoading = false;
+		this.htmlFileTemplatesLoaded = false;
 	}
 
 	connectedCallback() {
@@ -73,7 +75,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 			if (contentFileEntity.htmlTemplatesHref) {
 				htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
-				this._getHtmlTemplates(contentFileEntity.htmlTemplatesHref);
 			}
 
 			switch (contentFileEntity.fileType) {
@@ -191,13 +192,17 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					style="${htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
 					text=${this.localize('content.selectTemplate')}
 					class="d2l-skeletize"
+					@click=${event => this._handleClickSelectTemplateButton(event, htmlTemplatesHref)}
 				>
-					<d2l-dropdown-menu id="dropdown">
-						<d2l-menu>
-							${this.htmlFileTemplates.map((template) => {
+					<d2l-dropdown-menu
+						style="${htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
+					>
+						<d2l-menu label="HTML File Templates">
+							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => {
 									return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`
-								})
+								}) : this._getHtmlTemplateLoadingMenuItem()
 							}
+							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
 						</d2l-menu>
 					</d2l-dropdown-menu>
 				</d2l-dropdown-button-subtle>	
@@ -239,15 +244,26 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		contentFileEntity.setPageContent(pageContent);
 	}
 
-	async _getHtmlTemplates(htmlTemplatesHref) {
-		if (!htmlTemplatesHref || this.htmlFileTemplates.length) {
-			return;
+	_handleClickSelectTemplateButton(event, htmlTemplatesHref) {
+		if (!this.htmlFileTemplatesLoaded && !this.htmlFileTemplatesLoading) {
+			if (event.type=="click") {
+				this.htmlFileTemplatesLoading = true;
+				this._getHtmlTemplates(htmlTemplatesHref);
+			}
 		}
+	}
 
+	async _getHtmlTemplates(htmlTemplatesHref) {
 		const htmlTemplatesResponse = await fetchEntity(htmlTemplatesHref, this.token);
 		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
 		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
 		this.htmlFileTemplates = templates;
+		this.htmlFileTemplatesLoaded = true;
+		this.htmlFileTemplatesLoading = false;
+	}
+
+	_getHtmlTemplateLoadingMenuItem() {
+		return html`<d2l-menu-item text=${this.localize('content.htmlTemplatesLoading')} disabled="true"></d2l-menu-item>`;
 	}
 }
 

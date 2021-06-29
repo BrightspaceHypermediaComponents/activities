@@ -254,7 +254,7 @@ class ActivityAttachmentsPickerPresentational extends SkeletonMixin(LocalizeActi
 							></d2l-menu-item>
 							<d2l-menu-item
 								text="${this.localize('attachments.addOneDriveLinkMenu')}"
-								?hidden="${!this.canAddLink}"
+								?hidden="${!this.canAddOneDriveLink}"
 								@d2l-menu-item-select="${this._launchAddOneDriveLinkDialog}"
 							></d2l-menu-item>
 						</d2l-menu>

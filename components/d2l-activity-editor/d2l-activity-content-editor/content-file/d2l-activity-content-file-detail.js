@@ -1,6 +1,8 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-file-loading.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-content.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
+import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
@@ -13,8 +15,8 @@ import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
-import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
+import { menuItemStyles } from '@brightspace-ui/core/components/menu/menu-item-styles.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
@@ -34,6 +36,8 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			labelStyles,
 			activityContentEditorStyles,
 			activityHtmlEditorStyles,
+			bodySmallStyles,
+			menuItemStyles,
 			css`
 				.d2l-page-content-label-select-template-container {
 					align-items: center;
@@ -44,7 +48,10 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				.d2l-new-html-editor-container {
 					margin-top: 6px;
 				}
-			`
+				.d2l-menu-item-span {
+					padding: 15px 20px;
+				}
+			`,
 		];
 	}
 
@@ -206,21 +213,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				<label class="d2l-label-text d2l-skeletize">
 					${this.localize('content.pageContent')}
 				</label>
-				<d2l-dropdown-button-subtle
-					style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}"
-					text=${this.localize('content.selectTemplate')}
-					class="d2l-skeletize"
-					@click=${this._handleClickSelectTemplateButton}
-				>
-					<d2l-dropdown-menu
-						style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}"
-					>
-						<d2l-menu label=${this.localize('content.htmlTemplatesLoading')}>
-							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
-							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
-						</d2l-menu>
-					</d2l-dropdown-menu>
-				</d2l-dropdown-button-subtle>
+				${this._renderTemplateSelectDropdown()}
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 				<d2l-activity-text-editor
@@ -236,6 +229,43 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				>
 				</d2l-activity-text-editor>
 			</div>`;
+	}
+
+	_renderHtmlTemplates() {
+		if (this.htmlFileTemplates.length === 0) {
+			return html`<p class="d2l-menu-item-span d2l-body-small">${this.localize('content.noHtmlTemplates')}</p>`;
+		}
+
+		return this.htmlFileTemplates.map((template) => {
+			return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`;
+		});
+	}
+
+	_renderTemplateSelectDropdown() {
+		if (!this.htmlTemplatesHref) {
+			return html``;
+		}
+
+		let label = this.localize('content.defaultHtmlTemplateHeader');
+
+		if (this.htmlFileTemplates.length === 0) {
+			label = `${label} ${this.localize('content.noHtmlTemplates')}`;
+		}
+
+		return html`
+		<d2l-dropdown-button-subtle
+			text=${this.localize('content.selectTemplate')}
+			class="d2l-skeletize"
+			@click=${this._handleClickSelectTemplateButton}
+		>
+
+		<d2l-dropdown-menu>
+			<d2l-menu label="${label}">
+				<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
+				${this.htmlFileTemplatesLoaded ? this._renderHtmlTemplates() : this._getHtmlTemplateLoadingMenuItem()}
+			</d2l-menu>
+		</d2l-dropdown-menu>
+	</d2l-dropdown-button-subtle>`;
 	}
 
 	_renderUnknownLoadingFileType() {

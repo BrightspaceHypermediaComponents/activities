@@ -145,6 +145,8 @@ export default {
 	"content.pageContent": "Page Content", // Text label for page content input field (html files)
 	"content.selectTemplate": "Select Template", // The label text for the subtle-button for selecting an html template
 	"content.htmlTemplatesLoading": "Loading...", // Message displayed while list of html templates is loading
+	"content.noHtmlTemplates": "No templates available", // Message displayed in dropdown when no html templates are found
+	"content.defaultHtmlTemplateHeader": "HTML File Templates", // The message to display as the default header for the html template select dropdown
 	"content.BrowseForHtmlTemplate": "Browse for a Template", // Text for button to browse for an html template
 	"content.defaultHtmlTemplateHeader": "HTML File Templates", // The message to display as the default header for the html template select dropdown
 	"content.availabilityHeader": "Availability Dates", // availability header

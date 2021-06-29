@@ -39,9 +39,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					align-items: center;
 					display: flex;
 					justify-content: space-between;
-				}
-				.d2l-new-html-editor-container {
-					margin-top: 6px;
+					margin-bottom: 6px;
 				}
 			`
 		];
@@ -55,7 +53,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this.saveOrder = 500;
 		this.htmlTemplatesHref = null;
 		this.htmlFileTemplates = [];
-		this.htmlFileTemplatesLoading = false;
+		this.firstTemplatesLoadAttempted = false;
 		this.htmlFileTemplatesLoaded = false;
 	}
 
@@ -73,13 +71,11 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			this.skeleton = false;
 			pageContent = contentFileEntity.fileContent;
 
-			if (contentFileEntity.htmlTemplatesHref) {
-				this.htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
-			}
+			this.htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent, this.htmlTemplatesHref);
+					pageRenderer = this._renderHtmlEditor(pageContent);
 					break;
 			}
 		} else {
@@ -164,12 +160,11 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
 		this.htmlFileTemplates = templates;
 		this.htmlFileTemplatesLoaded = true;
-		this.htmlFileTemplatesLoading = false;
 	}
 
 	_handleClickSelectTemplateButton() {
-		if (!this.htmlFileTemplatesLoaded && !this.htmlFileTemplatesLoading) {
-			this.htmlFileTemplatesLoading = true;
+		if (!this.htmlFileTemplatesLoaded && !this.firstTemplatesLoadAttempted) {
+			this.firstTemplatesLoadAttempted = true;
 			this._getHtmlTemplates(this.htmlTemplatesHref);
 		}
 	}
@@ -217,9 +212,9 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					<d2l-dropdown-menu
 						style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
 					>
-						<d2l-menu label="HTML File Templates">
-							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
+						<d2l-menu label=${this.localize('content.htmlTemplatesLoading')}>
 							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
+							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
 						</d2l-menu>
 					</d2l-dropdown-menu>
 				</d2l-dropdown-button-subtle>	

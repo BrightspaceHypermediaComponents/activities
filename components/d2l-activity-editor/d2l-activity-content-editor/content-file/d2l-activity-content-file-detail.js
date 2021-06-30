@@ -163,10 +163,12 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 		if (this.sortHTMLTemplatesByName) {
 			templates.sort((a, b) => {
-				if (a && a.title() && b) {
-					return a.title().localeCompare(b.title());
+				if (a.title() < b.title()) {
+					return -1;
+				} else if (a.title() > b.title()) {
+					return 1;
 				}
-				return -1;
+				return 0;
 			});
 		}
 

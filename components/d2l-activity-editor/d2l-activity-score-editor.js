@@ -272,7 +272,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 						<d2l-activity-grades-dialog
 							href="${this.href}"
 							.token="${this.token}"
-							@d2l-activity-grades-dialog-close="${this._onDialogClose}">
+							@d2l-activity-grades-dialog-save-complete="${this._onDialogSave}">
 						</d2l-activity-grades-dialog>
 					</div>
 				` : null}
@@ -386,7 +386,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 			activityGradesElement.openGradesDialog();
 		}
 	}
-	_onDialogClose() {
+	_onDialogSave() {
 		const entity = associateGradeStore.get(this._associateGradeHref);
 		entity.fetch(true);
 	}

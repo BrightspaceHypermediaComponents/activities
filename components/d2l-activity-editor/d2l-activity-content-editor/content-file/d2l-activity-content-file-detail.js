@@ -158,7 +158,12 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	async _getHtmlTemplates() {
 		const htmlTemplatesResponse = await fetchEntity(this.htmlTemplatesHref, this.token);
 		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
-		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
+		let templates = htmlTemplatesEntity.getHtmlFileTemplates();
+
+		if (this.sortHTMLTemplatesByName) {
+			templates = templates.sort((a, b) => a.properties.title.localeCompare(b.properties.title));
+		}
+
 		this.htmlFileTemplates = templates;
 		this.htmlFileTemplatesLoaded = true;
 	}

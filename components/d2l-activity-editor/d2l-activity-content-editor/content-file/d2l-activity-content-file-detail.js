@@ -19,7 +19,6 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
-import { ContentHtmlFileTemplatesEntity } from 'siren-sdk/src/activities/content/ContentHtmlFileTemplatesEntity.js'
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
@@ -42,9 +41,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					display: flex;
 					justify-content: space-between;
 					margin-bottom: 6px;
-				}
-				.d2l-new-html-editor-container {
-					margin-top: 6px;
 				}
 			`
 		];
@@ -71,7 +67,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		let pageContent = undefined;
 		let pageRenderer = undefined;
-		let htmlTemplatesHref = null;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
@@ -81,7 +76,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent, htmlTemplatesHref);
+					pageRenderer = this._renderHtmlEditor(pageContent);
 					break;
 			}
 		} else {
@@ -189,7 +184,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		);
 	}
 
-	_renderHtmlEditor(pageContent, htmlTemplatesHref) {
+	_renderHtmlEditor(pageContent) {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,

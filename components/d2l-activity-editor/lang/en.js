@@ -148,7 +148,6 @@ export default {
 	"content.noHtmlTemplates": "No templates available", // Message displayed in dropdown when no html templates are found
 	"content.defaultHtmlTemplateHeader": "HTML File Templates", // The message to display as the default header for the html template select dropdown
 	"content.BrowseForHtmlTemplate": "Browse for a Template", // Text for button to browse for an html template
-	"content.defaultHtmlTemplateHeader": "HTML File Templates", // The message to display as the default header for the html template select dropdown
 	"content.availabilityHeader": "Availability Dates", // availability header
 	"content.saveError": "Your content item wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields
 	"content.displayOptions": "Display Options", // Text label for display options

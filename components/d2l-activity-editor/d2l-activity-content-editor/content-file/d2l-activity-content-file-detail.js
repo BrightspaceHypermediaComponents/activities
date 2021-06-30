@@ -13,6 +13,7 @@ import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
+import { FileEntity } from 'siren-sdk/src/files/FileEntity.js';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -158,10 +159,15 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	async _getHtmlTemplates() {
 		const htmlTemplatesResponse = await fetchEntity(this.htmlTemplatesHref, this.token);
 		const htmlTemplatesEntity = new ContentHtmlFileTemplatesEntity(htmlTemplatesResponse, this.token, { remove: () => { } });
-		const templates = htmlTemplatesEntity.getHtmlFileTemplates();
+		const templates = htmlTemplatesEntity.getHtmlFileTemplates().map(rawEntity => new FileEntity(rawEntity)) || [];
 
 		if (this.sortHTMLTemplatesByName) {
-			templates.sort((a, b) => a?.properties?.title?.localeCompare(b?.properties?.title));
+			templates.sort((a, b) => {
+				if (a && a.title() && b) {
+					return a.title().localeCompare(b.title());
+				}
+				return -1;
+			});
 		}
 
 		this.htmlFileTemplates = templates;
@@ -220,7 +226,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					>
 						<d2l-menu label=${this.localize('content.htmlTemplatesLoading')}>
 							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
-							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
+							${this._renderHtmlFileTemplates()}
 						</d2l-menu>
 					</d2l-dropdown-menu>
 				</d2l-dropdown-button-subtle>
@@ -239,6 +245,12 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				>
 				</d2l-activity-text-editor>
 			</div>`;
+	}
+
+	_renderHtmlFileTemplates() {
+		return this.htmlFileTemplatesLoaded ?
+			this.htmlFileTemplates.map((template) => html`<d2l-menu-item text=${template.title()}></d2l-menu-item>`) :
+			this._getHtmlTemplateLoadingMenuItem();
 	}
 
 	_renderUnknownLoadingFileType() {

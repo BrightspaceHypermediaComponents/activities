@@ -146,7 +146,7 @@ export default {
 	"content.selectTemplate": "Select Template", // The label text for the subtle-button for selecting an html template
 	"content.htmlTemplatesLoading": "Loading...", // Message displayed while list of html templates is loading
 	"content.noHtmlTemplates": "No templates available", // Message displayed in dropdown when no html templates are found
-	"content.defaultHtmlTemplateHeader": "HTML File Templates", // The message to display as the default header for the html template select dropdown
+	"content.defaultHtmlTemplateHeader": "HTML File Templates", // The text to display as the default header for the html template select dropdown
 	"content.BrowseForHtmlTemplate": "Browse for a Template", // Text for button to browse for an html template
 	"content.availabilityHeader": "Availability Dates", // availability header
 	"content.saveError": "Your content item wasn't saved. Please correct the fields outlined in red.", // Error message to inform the user that there was a problem saving the content item, instructing them to correct invalid fields

@@ -1,6 +1,5 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-file-loading.js';
-import '@brightspace-ui/core/components/dropdown/dropdown-content.js';
 import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
@@ -16,7 +15,6 @@ import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
-import { menuItemStyles } from '@brightspace-ui/core/components/menu/menu-item-styles.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
@@ -37,7 +35,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			activityContentEditorStyles,
 			activityHtmlEditorStyles,
 			bodySmallStyles,
-			menuItemStyles,
 			css`
 				.d2l-page-content-label-select-template-container {
 					align-items: center;

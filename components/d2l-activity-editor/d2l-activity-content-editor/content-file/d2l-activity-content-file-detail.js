@@ -161,7 +161,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		let templates = htmlTemplatesEntity.getHtmlFileTemplates();
 
 		if (this.sortHTMLTemplatesByName) {
-			templates = templates.sort((a, b) => a.properties.title.localeCompare(b.properties.title));
+			templates = templates.sort((a, b) => a?.properties?.title?.localeCompare(b?.properties?.title));
 		}
 
 		this.htmlFileTemplates = templates;

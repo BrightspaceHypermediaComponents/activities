@@ -45,9 +45,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					justify-content: space-between;
 					margin-bottom: 6px;
 				}
-				.d2l-new-html-editor-container {
-					margin-top: 6px;
-				}
 				.d2l-menu-item-span {
 					padding: 15px 20px;
 				}
@@ -85,7 +82,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent, this.htmlTemplatesHref);
+					pageRenderer = this._renderHtmlEditor(pageContent);
 					break;
 			}
 		} else {

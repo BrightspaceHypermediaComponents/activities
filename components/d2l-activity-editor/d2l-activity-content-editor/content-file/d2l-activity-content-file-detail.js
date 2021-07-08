@@ -166,14 +166,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		const templates = htmlTemplatesEntity.getHtmlFileTemplates().map(rawEntity => new FileEntity(rawEntity)) || [];
 
 		if (this.sortHTMLTemplatesByName) {
-			templates.sort((a, b) => {
-				if (a.title() < b.title()) {
-					return -1;
-				} else if (a.title() > b.title()) {
-					return 1;
-				}
-				return 0;
-			});
+			templates.sort((a, b) => a.title().localeCompare(b.title(), undefined, { sensitivity: 'base' }));
 		}
 
 		this.htmlFileTemplates = templates;

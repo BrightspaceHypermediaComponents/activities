@@ -265,7 +265,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			@click=${this._handleClickSelectTemplateButton}
 		>
 
-		<d2l-dropdown-menu>
+		<d2l-dropdown-menu align="end">
 			<d2l-menu label="${label}">
 				<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
 				${this.htmlFileTemplatesLoaded ? this._renderHtmlTemplates() : this._getHtmlTemplateLoadingMenuItem()}

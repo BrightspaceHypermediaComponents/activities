@@ -13,6 +13,7 @@ import { Debouncer } from '@polymer/polymer/lib/utils/debounce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
+import { FileEntity } from 'siren-sdk/src/files/FileEntity';
 import { labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
@@ -20,11 +21,14 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
+// Index for the browse template button
+const browseTemplateKey = -1;
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
 	static get properties() {
 		return {
-			htmlFileTemplates: { type: Array }
+			htmlFileTemplates: { type: Array },
+			pageContent: { typeof: Text }
 		};
 	}
 
@@ -55,6 +59,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this.htmlFileTemplates = [];
 		this.firstTemplatesLoadAttempted = false;
 		this.htmlFileTemplatesLoaded = false;
+		this.pageContent = null;
 	}
 
 	connectedCallback() {
@@ -64,18 +69,17 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 	render() {
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
-		let pageContent = undefined;
 		let pageRenderer = undefined;
 
 		if (contentFileEntity) {
 			this.skeleton = false;
-			pageContent = contentFileEntity.fileContent;
+			this.pageContent = contentFileEntity.fileContent;
 
 			this.htmlTemplatesHref = contentFileEntity.htmlTemplatesHref;
 
 			switch (contentFileEntity.fileType) {
 				case FILE_TYPES.html:
-					pageRenderer = this._renderHtmlEditor(pageContent);
+					pageRenderer = this._renderHtmlEditor();
 					break;
 			}
 		} else {
@@ -169,21 +173,35 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		}
 	}
 
+	async _handleClickTemplateMenutItem(e) {
+		const targetMenuItem = e.target.getAttribute('key');
+		const template = this.htmlFileTemplates[targetMenuItem];
+		const fileEntity = new FileEntity(template);
+		const contentUrl = fileEntity.getFileDataLocationHref();
+		const response = await window.d2lfetch.fetch(contentUrl);
+
+		if (response.ok) {
+			const content = await response.text();
+			this.pageContent = content;
+			this._savePageContent();
+		}
+	}
+
 	_onPageContentChange(e) {
-		const pageContent = e.detail.content;
-		this._savePageContent(pageContent);
+		this.pageContent = e.detail.content;
+		this._savePageContent();
 	}
 
 	_onPageContentChangeDebounced(e) {
-		const pageContent = e.detail.content;
+		this.pageContent = e.detail.content;
 		this._debounceJobs.description = Debouncer.debounce(
 			this._debounceJobs.description,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-			() => this._savePageContent(pageContent)
+			() => this._savePageContent()
 		);
 	}
 
-	_renderHtmlEditor(pageContent) {
+	_renderHtmlEditor() {
 		const newEditorEvent = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-html-new-editor-enabled' },
 			bubbles: true,
@@ -212,18 +230,18 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 					<d2l-dropdown-menu
 						style="${this.htmlTemplatesHref ? '' : 'visibility:hidden;'}" 
 					>
-						<d2l-menu label=${this.localize('content.htmlTemplatesLoading')}>
-							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')}></d2l-menu-item>
-							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template) => { return html`<d2l-menu-item text=${template.properties.title}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
+						<d2l-menu label=${this.localize('content.htmlTemplatesLoading')} @d2l-menu-item-select=${this._handleClickTemplateMenutItem}>
+							<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')} key=${browseTemplateKey}></d2l-menu-item>
+							${this.htmlFileTemplatesLoaded ? this.htmlFileTemplates.map((template, index) => { return html`<d2l-menu-item text=${template.properties.title} key=${index}></d2l-menu-item>`; }) : this._getHtmlTemplateLoadingMenuItem()}
 						</d2l-menu>
 					</d2l-dropdown-menu>
-				</d2l-dropdown-button-subtle>	
+				</d2l-dropdown-button-subtle>
 			</div>
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 				<d2l-activity-text-editor
 					.ariaLabel="${this.localize('content.pageContent')}"
 					.key="content-page-content"
-					.value="${pageContent}"
+					.value="${this.pageContent}"
 					@d2l-activity-text-editor-change="${activityTextEditorChange}"
 					.richtextEditorConfig="${{}}"
 					html-editor-height="100%"
@@ -248,12 +266,12 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 
-	_savePageContent(pageContent) {
+	_savePageContent() {
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		if (!contentFileEntity) {
 			return;
 		}
-		contentFileEntity.setPageContent(pageContent);
+		contentFileEntity.setPageContent(this.pageContent);
 	}
 }
 

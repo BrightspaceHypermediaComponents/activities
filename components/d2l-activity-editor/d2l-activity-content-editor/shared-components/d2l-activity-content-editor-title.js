@@ -87,7 +87,9 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 				id="title-tooltip"
 				for="content-title"
 				position="bottom"
-				?showing="${!!this._titleError}">
+				?showing="${!!this._titleError}"
+				state="error"
+				align="start">
 				${this._titleError}
 			</d2l-tooltip>
 		`;

@@ -23,6 +23,8 @@ import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 // Index for the browse template button
 const browseTemplateKey = -1;
+const editorKeyInitial = 'content-page-content';
+
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
 	static get properties() {
@@ -60,6 +62,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this.firstTemplatesLoadAttempted = false;
 		this.htmlFileTemplatesLoaded = false;
 		this.pageContent = null;
+		this.editorKey = editorKeyInitial;
 	}
 
 	connectedCallback() {
@@ -182,8 +185,10 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 		if (response.ok) {
 			const content = await response.text();
+			this.pageContent = ''; // we need to reset this first, otherwise if same template is selected again, it won't re-render
 			this.pageContent = content;
 			this._savePageContent();
+			this.editorKey = `${editorKeyInitial  }-${Date.now().toString()}`; // key needs to be modified in order to re-render old HTML editor
 		}
 	}
 
@@ -240,7 +245,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			<div class="d2l-skeletize ${htmlNewEditorEnabled ? 'd2l-new-html-editor-container' : ''}">
 				<d2l-activity-text-editor
 					.ariaLabel="${this.localize('content.pageContent')}"
-					.key="content-page-content"
+					.key=${this.editorKey}
 					.value="${this.pageContent}"
 					@d2l-activity-text-editor-change="${activityTextEditorChange}"
 					.richtextEditorConfig="${{}}"

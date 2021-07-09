@@ -57,8 +57,8 @@ class ContentEditorDetail extends MobxLitElement {
 				<d2l-activity-content-module-detail
 					.href="${contentActivityHref}"
 					.token="${this.token}"
+					.activityUsageHref="${this.href}"
 				>
-					${this._renderDueDate()}
 				</d2l-activity-content-module-detail>
 			`;
 		}
@@ -68,8 +68,8 @@ class ContentEditorDetail extends MobxLitElement {
 				<d2l-activity-content-web-link-detail
 					.href="${contentActivityHref}"
 					.token="${this.token}"
+					.activityUsageHref="${this.href}"
 				>
-					${this._renderDueDate(true)}
 				</d2l-activity-content-web-link-detail>
 			`;
 		}
@@ -79,8 +79,8 @@ class ContentEditorDetail extends MobxLitElement {
 				<d2l-activity-content-lti-link-detail
 					.href="${contentActivityHref}"
 					.token="${this.token}"
+					.activityUsageHref="${this.href}"
 				>
-					${this._renderDueDate(true)}
 				</d2l-activity-content-lti-link-detail>
 			`;
 		}
@@ -91,26 +91,13 @@ class ContentEditorDetail extends MobxLitElement {
 					.href="${contentActivityHref}"
 					.token="${this.token}"
 					?sortHTMLTemplatesByName="${this.sortHTMLTemplatesByName}"
+					.activityUsageHref="${this.href}"
 				>
-					${this._renderDueDate(true)}
 				</d2l-activity-content-file-detail>
 			`;
 		}
 
 		return html``;
-	}
-
-	_renderDueDate(expanded) {
-		return html`
-			<div slot="due-date">
-				<d2l-activity-content-editor-due-date
-					.href="${this.href}"
-					.token="${this.token}"
-					.expanded="${expanded}"
-				>
-				</d2l-activity-content-editor-due-date>
-			</div>
-		`;
 	}
 }
 customElements.define('d2l-activity-content-editor-detail', ContentEditorDetail);

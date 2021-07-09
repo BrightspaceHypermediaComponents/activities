@@ -1,3 +1,4 @@
+import '../shared-components/d2l-activity-content-editor-due-date.js';
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-web-link-url-preview.js';
 import './d2l-activity-content-editor-link.js';
@@ -16,6 +17,12 @@ import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton
 import { shared as webLinkStore } from './state/content-web-link-store.js';
 
 class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+
+	static get properties() {
+		return {
+			activityUsageHref: { type: String }
+		};
+	}
 
 	static get styles() {
 		return  [
@@ -49,18 +56,26 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			<d2l-activity-content-editor-title
 				.entity=${webLinkEntity}
 				.onSave=${this.saveTitle}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-editor-title>
-			<slot name="due-date"></slot>
-
+			<d2l-activity-content-editor-due-date
+				.href="${this.activityUsageHref}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}"
+				.expanded="true"
+			>
+			</d2l-activity-content-editor-due-date>
 			<d2l-activity-content-editor-link
 				.entity=${webLinkEntity}
 				.onSave=${this.saveLink}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-editor-link>
 
 			<d2l-activity-content-web-link-url-preview
 				.entity=${webLinkEntity}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-web-link-url-preview>
 		`;
@@ -68,7 +83,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	updated(changedProperties) {
 		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
+			// this.skeleton = this.asyncState !== asyncStates.complete;
 		}
 	}
 
@@ -95,7 +110,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			return;
 		}
 
-		const originalActivityUsageHref = webLinkEntity.activityUsageHref;
+		const originalActivityUsageHref = this.activityUsageHref;
 		const updatedEntity = await webLinkEntity.save();
 		const event = new CustomEvent('d2l-content-working-copy-committed', {
 			detail: {

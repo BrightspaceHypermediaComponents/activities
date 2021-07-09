@@ -18,8 +18,8 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 		return {
 			entity: { type: Object },
 			onSave: { type: Function },
-			canEmbedIframePromise: { type: Object },
-			showLinkOptions: { type: Boolean }
+			showLinkOptions: { type: Boolean },
+			skeleton: { type: Boolean }
 		};
 	}
 
@@ -54,9 +54,8 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 	constructor() {
 		super();
 		this._debounceJobs = {};
-		this.skeleton = true;
 		this.saveOrder = 2000;
-		this.showLinkOptions = true;
+		// this.showLinkOptions = true;
 	}
 
 	render() {
@@ -64,11 +63,6 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 
 		if (this.entity) {
 			isExternalResource = this.entity.isExternalResource;
-
-			this.canEmbedIframePromise.then(canEmbedIframe => {
-				this.showLinkOptions = canEmbedIframe;
-				this.skeleton = false;
-			});
 
 			if (!this.showLinkOptions) {
 				isExternalResource = true;

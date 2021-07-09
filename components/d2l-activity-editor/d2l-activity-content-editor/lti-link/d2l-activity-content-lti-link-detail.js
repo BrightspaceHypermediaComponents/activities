@@ -17,6 +17,12 @@ import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton
 
 class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
 
+	static get properties() {
+		return {
+			activityUsageHref: { type: String },
+		};
+	}
+
 	static get styles() {
 		return  [
 			super.styles,
@@ -47,30 +53,42 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	render() {
 		const ltiLinkEntity = ltiLinkStore.getContentLTILinkActivity(this.href);
-		const canEmbedIframePromise = this._canEmbedIframe();
+		let canEmbed = false;
 
 		if (ltiLinkEntity) {
-			this.skeleton = false;
+			this._canEmbedIframe().then(canEmbedIframe => {
+				canEmbed = canEmbedIframe;
+				this.skeleton = false;
+			});
 		}
 
 		return html`
 			<d2l-activity-content-editor-title
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveTitle}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-editor-title>
-			<slot name="due-date"></slot>
+			<d2l-activity-content-editor-due-date
+				.href="${this.activityUsageHref}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}"
+				.expanded="true"
+			>
+			</d2l-activity-content-editor-due-date>
 
 			<d2l-activity-content-lti-link-options
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveLinkOptions}
-				.canEmbedIframePromise=${canEmbedIframePromise}
+				?skeleton="${this.skeleton}"
+				?showLinkOptions="${canEmbed}"
 			>
 			</d2l-activity-content-lti-link-options>
 
 			<d2l-activity-content-lti-link-external-activity
 				.entity=${ltiLinkEntity}
-				.canEmbedIframePromise=${canEmbedIframePromise}
+				?skeleton="${this.skeleton}"
+				?showExternalActivity="${canEmbed}"
 			>
 			</d2l-activity-content-lti-link-external-activity>
 		`;
@@ -78,7 +96,7 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	updated(changedProperties) {
 		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
+			// this.skeleton = this.asyncState !== asyncStates.complete;
 		}
 	}
 

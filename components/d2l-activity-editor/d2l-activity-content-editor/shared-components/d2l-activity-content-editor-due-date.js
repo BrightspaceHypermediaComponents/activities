@@ -35,7 +35,6 @@ class ContentEditorDueDate extends SkeletonMixin(LocalizeActivityEditorMixin(Rtl
 	constructor() {
 		super();
 		this._hasDatePermissions = false;
-		this.skeleton = true;
 	}
 
 	render() {
@@ -73,9 +72,7 @@ class ContentEditorDueDate extends SkeletonMixin(LocalizeActivityEditorMixin(Rtl
 	_getDueDateAndPermission() {
 		const entity = activityStore.get(this.href);
 
-		if (entity) {
-			this.skeleton = false;
-		}
+		console.log({entity});
 
 		if (!entity || !entity.dates) {
 			return;

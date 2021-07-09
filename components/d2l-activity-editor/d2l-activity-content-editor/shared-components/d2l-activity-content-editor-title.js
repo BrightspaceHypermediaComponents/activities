@@ -18,7 +18,8 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 		return {
 			entity: { type: Object },
 			onSave: { type: Function },
-			_titleError: { type: String }
+			_titleError: { type: String },
+			skeleton: { type: Boolean }
 		};
 	}
 
@@ -46,13 +47,11 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 	constructor() {
 		super();
 		this._debounceJobs = {};
-		this.skeleton = true;
 	}
 
 	render() {
 		let title = '';
 		if (this.entity) {
-			this.skeleton = false;
 			title = this.entity.title;
 		}
 

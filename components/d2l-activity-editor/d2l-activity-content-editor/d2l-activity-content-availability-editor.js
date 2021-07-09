@@ -1,16 +1,18 @@
 import '../d2l-activity-availability-dates-summary.js';
 import '../d2l-activity-availability-dates-editor.js';
 import '../d2l-activity-accordion-collapse.js';
-import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { accordionStyles } from '../styles/accordion-styles';
+import { ActivityEditorMixin } from '../mixins/d2l-activity-editor-mixin';
+import { html } from 'lit-element/lit-element.js';
 import { LocalizeActivityEditorMixin } from '../mixins/d2l-activity-editor-lang-mixin.js';
+import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
+import { shared as store } from '../state/activity-store';
 
-class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixin(RtlMixin(LitElement))) {
+class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixin((ActivityEditorMixin(RtlMixin(MobxLitElement))))) {
 
 	static get properties() {
-
 		return {
 			href: { type: String },
 			token: { type: Object }
@@ -20,22 +22,19 @@ class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixi
 	static get styles() {
 		return [
 			super.styles,
-			accordionStyles,
-			css`
-				.d2l-editor {
-					margin: 1rem 0;
-				}
-
-				.d2l-editor:last-child {
-					margin-bottom: 0;
-				}
-			`
+			accordionStyles
 		];
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
 	}
 
 	render() {
 		return html`
-			<d2l-activity-accordion-collapse ?skeleton="${this.skeleton}">
+			<d2l-activity-accordion-collapse
+				?has-errors=${this._errorInAccordion()}
+				?skeleton="${this.skeleton}">
 				<span slot="header">
 					${this.localize('content.availabilityHeader')}
 				</span>
@@ -47,8 +46,17 @@ class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixi
 		`;
 	}
 
-	_renderAvailabilityDatesEditor() {
+	_errorInAccordion() {
+		const activity = store.get(this.href);
 
+		if (!activity || !activity.dates) {
+			return false;
+		}
+
+		return !!(activity.dates.endDateErrorTerm || activity.dates.startDateErrorTerm);
+	}
+
+	_renderAvailabilityDatesEditor() {
 		return html`
 			<div class="d2l-editor">
 				<d2l-activity-availability-dates-editor
@@ -60,7 +68,6 @@ class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixi
 	}
 
 	_renderAvailabilityDatesSummary() {
-
 		return html`
 			<d2l-activity-availability-dates-summary
 				href="${this.href}"
@@ -69,4 +76,5 @@ class ContentAvailabilityEditor extends SkeletonMixin(LocalizeActivityEditorMixi
 		`;
 	}
 }
+
 customElements.define('d2l-activity-content-availability-editor', ContentAvailabilityEditor);

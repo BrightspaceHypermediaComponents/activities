@@ -1,6 +1,5 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-file-loading.js';
-import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { bodySmallStyles, labelStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { ContentFileEntity, FILE_TYPES } from 'siren-sdk/src/activities/content/ContentFileEntity.js';
 import { css, html } from 'lit-element/lit-element.js';
@@ -21,7 +20,7 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 		return {
@@ -107,12 +106,6 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 				${pageRenderer}
 			</div>
 		`;
-	}
-
-	updated(changedProperties) {
-		if (changedProperties.has('asyncState')) {
-			// this.skeleton = this.asyncState !== asyncStates.complete;
-		}
 	}
 
 	async cancelCreate() {

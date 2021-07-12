@@ -38,10 +38,6 @@ class ContentEditorDetail extends MobxLitElement {
 		];
 	}
 
-	constructor() {
-		super(store);
-	}
-
 	render() {
 		const contentEntity = store.getContentActivity(this.href);
 		if (!contentEntity) {

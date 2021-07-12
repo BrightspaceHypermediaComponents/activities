@@ -17,9 +17,9 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 	static get properties() {
 		return {
 			entity: { type: Object },
+			skeleton: { type: Boolean },
 			onSave: { type: Function },
-			showLinkOptions: { type: Boolean },
-			skeleton: { type: Boolean }
+			showLinkOptions: { type: Boolean }
 		};
 	}
 
@@ -55,7 +55,6 @@ class ContentEditorLtiLinkOptions extends SkeletonMixin(ErrorHandlingMixin(Local
 		super();
 		this._debounceJobs = {};
 		this.saveOrder = 2000;
-		// this.showLinkOptions = true;
 	}
 
 	render() {

@@ -2,7 +2,6 @@ import '../shared-components/d2l-activity-content-editor-due-date.js';
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-web-link-url-preview.js';
 import './d2l-activity-content-editor-link.js';
-import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentWebLinkEntity } from 'siren-sdk/src/activities/content/ContentWebLinkEntity.js';
@@ -16,7 +15,7 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as webLinkStore } from './state/content-web-link-store.js';
 
-class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+class ContentWebLinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
 
 	static get properties() {
 		return {
@@ -79,12 +78,6 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			>
 			</d2l-activity-content-web-link-url-preview>
 		`;
-	}
-
-	updated(changedProperties) {
-		if (changedProperties.has('asyncState')) {
-			// this.skeleton = this.asyncState !== asyncStates.complete;
-		}
 	}
 
 	async cancelCreate() {

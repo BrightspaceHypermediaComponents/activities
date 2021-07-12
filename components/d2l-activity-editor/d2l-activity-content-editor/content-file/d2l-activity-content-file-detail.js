@@ -22,7 +22,7 @@ import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 // Index for the browse template button
-const browseTemplateKey = -1;
+const browseTemplateKey = '-1';
 const editorKeyInitial = 'content-page-content';
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
@@ -178,31 +178,35 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 
 	async _handleClickTemplateMenutItem(e) {
 		const targetMenuItem = e.target.getAttribute('key');
-		const template = this.htmlFileTemplates[targetMenuItem];
-		const fileEntity = new FileEntity(template);
-		const contentUrl = fileEntity.getFileDataLocationHref();
-		const response = await window.d2lfetch.fetch(contentUrl);
 
-		if (response.ok) {
-			const content = await response.text();
-			this.pageContent = ''; // we need to reset this first, otherwise if same template is selected again, it won't re-render
-			this.pageContent = content;
-			this._savePageContent();
-			this.editorKey = `${editorKeyInitial  }-${Date.now().toString()}`; // key needs to be modified in order to re-render old HTML editor
+		if (targetMenuItem === browseTemplateKey) {
+			// TODO: Add Browse Template Button Support
+		}
+		else {
+			const template = this.htmlFileTemplates[targetMenuItem];
+			const fileEntity = new FileEntity(template);
+			const contentUrl = fileEntity.getFileDataLocationHref();
+			const response = await window.d2lfetch.fetch(contentUrl);
+
+			if (response.ok) {
+				const content = await response.text();
+				this._savePageContent(content);
+				this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`; // key needs to be modified in order to re-render old HTML editor
+			}
 		}
 	}
 
 	_onPageContentChange(e) {
-		this.pageContent = e.detail.content;
-		this._savePageContent();
+		const htmlContent = e.detail.content;
+		this._savePageContent(htmlContent);
 	}
 
 	_onPageContentChangeDebounced(e) {
-		this.pageContent = e.detail.content;
+		const htmlContent = e.detail.content;
 		this._debounceJobs.description = Debouncer.debounce(
 			this._debounceJobs.description,
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
-			() => this._savePageContent()
+			() => this._savePageContent(htmlContent)
 		);
 	}
 
@@ -271,12 +275,13 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		this._debounceJobs[jobName] && this._debounceJobs[jobName].flush();
 	}
 
-	_savePageContent() {
+	_savePageContent(htmlContent) {
 		const contentFileEntity = contentFileStore.getContentFileActivity(this.href);
 		if (!contentFileEntity) {
 			return;
 		}
-		contentFileEntity.setPageContent(this.pageContent);
+		contentFileEntity.setPageContent(htmlContent);
+		this.pageContent = htmlContent;
 	}
 }
 

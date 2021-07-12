@@ -42,6 +42,7 @@ class ContentLTILinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActi
 		this._setEntityType(ContentLTILinkEntity);
 		this.skeleton = true;
 		this.saveOrder = 2000;
+		this.canEmbed = false;
 	}
 
 	connectedCallback() {
@@ -52,11 +53,10 @@ class ContentLTILinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActi
 
 	render() {
 		const ltiLinkEntity = ltiLinkStore.getContentLTILinkActivity(this.href);
-		let canEmbed = false;
 
 		if (ltiLinkEntity) {
 			this._canEmbedIframe().then(canEmbedIframe => {
-				canEmbed = canEmbedIframe;
+				this.canEmbed = canEmbedIframe;
 				this.skeleton = false;
 			});
 		}
@@ -80,14 +80,14 @@ class ContentLTILinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActi
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveLinkOptions}
 				?skeleton="${this.skeleton}"
-				?showLinkOptions="${canEmbed}"
+				?showLinkOptions="${this.canEmbed}"
 			>
 			</d2l-activity-content-lti-link-options>
 
 			<d2l-activity-content-lti-link-external-activity
 				.entity=${ltiLinkEntity}
 				?skeleton="${this.skeleton}"
-				?showActivityPreview="${canEmbed}"
+				?showActivityPreview="${this.canEmbed}"
 			>
 			</d2l-activity-content-lti-link-external-activity>
 		`;

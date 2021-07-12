@@ -72,7 +72,7 @@ class ContentLTILinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActi
 				.href="${this.activityUsageHref}"
 				.token="${this.token}"
 				?skeleton="${this.skeleton}"
-				.expanded="true"
+				expanded="true"
 			>
 			</d2l-activity-content-editor-due-date>
 

@@ -99,7 +99,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				.href="${this.activityUsageHref}"
 				.token="${this.token}"
 				?skeleton="${this.skeleton}"
-				.expanded="true"
+				expanded="true"
 			>
 			</d2l-activity-content-editor-due-date>
 			<div id="content-page-content-container">

@@ -186,7 +186,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		}
 	}
 
-	async _handleClickTemplateMenutItem(e) {
+	async _handleClickTemplateMenuItem(e) {
 		const targetMenuItem = e.target.getAttribute('key');
 
 		if (targetMenuItem === browseTemplateKey) {
@@ -284,7 +284,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 		>
 
 		<d2l-dropdown-menu align="end">
-			<d2l-menu label="${label}" @d2l-menu-item-select=${this._handleClickTemplateMenutItem}>
+			<d2l-menu label="${label}" @d2l-menu-item-select=${this._handleClickTemplateMenuItem}>
 				<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')} key=${browseTemplateKey}></d2l-menu-item>
 				${this.htmlFileTemplatesLoaded ? this._renderHtmlTemplates() : this._getHtmlTemplateLoadingMenuItem()}
 			</d2l-menu>

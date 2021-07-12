@@ -27,11 +27,11 @@ export class GradeCandidate {
 		associateGradeStore.put(href, entity);
 	}
 
-	async fetch() {
+	async fetch(bypassCache) {
 		const href = this.gradeCandidateEntity.href();
 		let sirenEntity;
 		if (href) {
-			sirenEntity = await fetchEntity(href, this.token);
+			sirenEntity = await fetchEntity(href, this.token, bypassCache);
 		}
 		if (sirenEntity) {
 			let entity;

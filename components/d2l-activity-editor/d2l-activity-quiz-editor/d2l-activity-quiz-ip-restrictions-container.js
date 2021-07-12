@@ -156,10 +156,8 @@ class ActivityQuizIpRestrictionsContainer
 
 	_renderActionButtons() {
 		return html`
-			<div slot="footer" id="d2l-actions-container">
-				<d2l-button ?disabled="${this.isSaving}" primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
-				<d2l-button ?disabled="${this.isSaving}" data-dialog-action>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
-			</div>
+			<d2l-button slot="footer" ?disabled="${this.isSaving}" primary @click=${this._saveRestrictions}>${this.localize('btnIpRestrictionsDialogAdd')}</d2l-button>
+			<d2l-button slot="footer" ?disabled="${this.isSaving}" data-dialog-action>${this.localize('btnIpRestrictionsDialogBtnCancel')}</d2l-button>
 		`;
 	}
 

@@ -163,6 +163,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 
 	constructor() {
 		super(store);
+		this.saveOrder = 500;
 	}
 
 	connectedCallback() {
@@ -272,7 +273,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 						<d2l-activity-grades-dialog
 							href="${this.href}"
 							.token="${this.token}"
-							@d2l-activity-grades-dialog-close="${this._onDialogClose}">
+							@d2l-activity-grades-dialog-save-complete="${this._onDialogSave}">
 						</d2l-activity-grades-dialog>
 					</div>
 				` : null}
@@ -328,6 +329,17 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 				const scoreOutOf = activity && activity.scoreAndGrade && activity.scoreAndGrade.scoreOutOf;
 				this._associateGradeSetMaxPoints(scoreOutOf);
 				this._associateGradeSetGradeName(this.activityName);
+			}
+		}
+		await super.save();
+	}
+
+	updateSelectedGrade() {
+		if (this._createSelectboxGradeItemEnabled) {
+			const associateGradeEntity = associateGradeStore.get(this._associateGradeHref);
+			const gradeCandidateCollection = associateGradeEntity && associateGradeEntity.gradeCandidateCollection;
+			if (gradeCandidateCollection) {
+				gradeCandidateCollection.fetch(true);
 			}
 		}
 	}
@@ -386,7 +398,7 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 			activityGradesElement.openGradesDialog();
 		}
 	}
-	_onDialogClose() {
+	_onDialogSave() {
 		const entity = associateGradeStore.get(this._associateGradeHref);
 		entity.fetch(true);
 	}
@@ -434,6 +446,5 @@ class ActivityScoreEditor extends ActivityEditorMixin(SkeletonMixin(LocalizeActi
 		store.get(this.href).scoreAndGrade.setUngraded();
 		this._associateGradeSetGradebookStatus(GradebookStatus.NotInGradebook);
 	}
-
 }
 customElements.define('d2l-activity-score-editor', ActivityScoreEditor);

@@ -77,6 +77,8 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 	connectedCallback() {
 		super.connectedCallback();
 
+		this.addEventListener('d2l-activity-editor-dialog-mixin-handled-close', this._dialogMixinClosedDialog);
+
 		const event = new CustomEvent('d2l-request-provider', {
 			detail: { key: 'd2l-provider-create-selectbox-grade-item-enabled' },
 			bubbles: true,
@@ -89,6 +91,11 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 		if (!this._createSelectboxGradeItemEnabled) {
 			this.checkoutOnLoad = false;
 		}
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener('d2l-activity-editor-dialog-mixin-handled-close', this._dialogMixinClosedDialog);
+		super.disconnectedCallback();
 	}
 
 	render() {
@@ -106,8 +113,8 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 				@d2l-dialog-close="${this._onDialogClose}"
 				?async="${showSpinnerWhenLoading}">
 				${this._renderDialogEditor()}
-				<d2l-button slot="footer" primary @click=${this._saveAssociateGrade} ?disabled="${this.isSaving}" dialog-action="done">${this.localize('editor.ok')}</d2l-button>
-				<d2l-button slot="footer" ?disabled="${this.isSaving}" dialog-action="cancel">${this.localize('editor.cancel')}</d2l-button>
+				<d2l-button id="d2l-activity-grades-dialog-save-button" slot="footer" primary @click=${this._saveAssociateGrade} ?disabled="${this.isSaving}">${this.localize('editor.ok')}</d2l-button>
+				<d2l-button slot="footer" ?disabled="${this.isSaving}" data-dialog-action="abort">${this.localize('editor.cancel')}</d2l-button>
 			</d2l-dialog>
 		`;
 	}
@@ -177,6 +184,24 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 		}
 	}
 
+	_dialogMixinClosedDialog(e) {
+		const isSaveAction = e && e.detail === 1;
+
+		if (!isSaveAction && !this._createSelectboxGradeItemEnabled) {
+			const scoreAndGrade = store.get(this.href).scoreAndGrade;
+
+			const {
+				gradeCandidateCollection,
+				newGradeCandidatesCollection
+			} = scoreAndGrade;
+
+			if (this._prevSelectedHref) {
+				gradeCandidateCollection.setSelected(this._prevSelectedHref);
+			}
+			newGradeCandidatesCollection.setSelected(this._prevSelectedCategoryHref);
+		}
+	}
+
 	async _dialogRadioChanged(e) {
 		const currentTarget = e.currentTarget;
 		if (currentTarget && currentTarget.value === 'createNew') {
@@ -211,19 +236,6 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 	}
 
 	_onDialogClose(e) {
-		if (!this._createSelectboxGradeItemEnabled && e.detail.action !== 'done') {
-			const scoreAndGrade = store.get(this.href).scoreAndGrade;
-
-			const {
-				gradeCandidateCollection,
-				newGradeCandidatesCollection
-			} = scoreAndGrade;
-
-			if (this._prevSelectedHref) {
-				gradeCandidateCollection.setSelected(this._prevSelectedHref);
-			}
-			newGradeCandidatesCollection.setSelected(this._prevSelectedCategoryHref);
-		}
 		this.handleClose(e);
 	}
 
@@ -330,12 +342,14 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 				announce(`${this.localize(localizeTerm, { newGradeName: scoreAndGrade.newGradeName })}`);
 			} else {
 				const gradeCandidateCollection = associateGradeEntity && associateGradeEntity.gradeCandidateCollection;
+				const baseEntity = store.get(this.href);
+				baseEntity.scoreAndGrade.setScoreOutOf(gradeCandidateCollection.selected.maxPoints.toString());
 				announce(`${this.localize('grades.linkingToGradeItem', { gradeName: gradeCandidateCollection.selected.name })}`);
 			}
 
 			await this.checkinDialog(e);
 
-			const event = new CustomEvent('d2l-activity-grades-dialog-close', {
+			const event = new CustomEvent('d2l-activity-grades-dialog-save-complete', {
 				bubbles: true,
 				composed: true,
 				cancelable: true
@@ -350,7 +364,7 @@ class ActivityGradesDialog extends ActivityEditorWorkingCopyDialogMixin(Localize
 				scoreAndGrade.linkToExistingGrade();
 			}
 
-			this.closeDialog();
+			this.closeDialog(e);
 		}
 	}
 }

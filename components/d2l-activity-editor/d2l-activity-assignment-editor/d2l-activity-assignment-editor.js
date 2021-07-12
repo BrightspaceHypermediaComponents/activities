@@ -77,6 +77,16 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 		this.skeleton = true;
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		this.removeEventListener('d2l-activity-editor-save-complete', this._onSaveComplete);
+	}
+
 	render() {
 		return html`
 			<d2l-activity-editor
@@ -163,6 +173,15 @@ class AssignmentEditor extends AsyncContainerMixin(RtlMixin(LocalizeActivityAssi
 		if (e.detail.key === 'd2l-provider-trusted-site-fn') {
 			e.detail.provider = trustedSitesProviderFn(this.trustedSitesEndpoint);
 			e.stopPropagation();
+		}
+	}
+
+	_onSaveComplete(e) {
+		if (e.detail.saveInPlace) {
+			const scoreEditor = this.shadowRoot.querySelector('d2l-activity-assignment-editor-detail')
+				.shadowRoot.querySelector('d2l-activity-score-editor');
+
+			scoreEditor.updateSelectedGrade();
 		}
 	}
 }

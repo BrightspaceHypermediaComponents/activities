@@ -11,6 +11,12 @@ import { shared as store } from './state/content-store.js';
 
 class ContentEditorDetail extends MobxLitElement {
 
+	static get properties() {
+		return {
+			sortHTMLTemplatesByName: { type: Boolean },
+		};
+	}
+
 	static get styles() {
 		return  [
 			css`
@@ -84,6 +90,7 @@ class ContentEditorDetail extends MobxLitElement {
 				<d2l-activity-content-file-detail
 					.href="${contentActivityHref}"
 					.token="${this.token}"
+					?sortHTMLTemplatesByName="${this.sortHTMLTemplatesByName}"
 				>
 					${this._renderDueDate(true)}
 				</d2l-activity-content-file-detail>

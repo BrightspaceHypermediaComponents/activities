@@ -80,7 +80,7 @@ export class AssociateGrade {
 		this.gradeType = entity.gradeType();
 		this.canGetSchemes = entity.canGetSchemesForType(this.gradeType);
 
-		if (this.gradeSchemeCollection && existingGradeType !== this.gradeType) {
+		if (this.gradeSchemeCollection && existingGradeType && existingGradeType !== this.gradeType) {
 			await this.getGradeSchemes(true);
 		}
 

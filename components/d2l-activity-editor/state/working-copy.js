@@ -12,7 +12,7 @@ export class WorkingCopy {
 		this._checkedOut = null;
 	}
 
-	async checkin(store, refetch) {
+	async checkin(store, refetch, skipStoringResult) {
 		if (!this._entity) {
 			return;
 		}
@@ -33,13 +33,17 @@ export class WorkingCopy {
 
 		if (!sirenEntity) return;
 		const href = sirenEntity.self();
-		const entity = new this.StateType(href, this.token);
-		entity.load(sirenEntity);
-		store.put(href, entity);
+		if (!skipStoringResult) {
+			const entity = new this.StateType(href, this.token);
+			entity.load(sirenEntity);
+			store.put(href, entity);
+		}
 
 		if (refetch) {
 			this.fetch(true);
 		}
+
+		return { sirenEntity };
 	}
 
 	checkout(store, forcedCheckout) {

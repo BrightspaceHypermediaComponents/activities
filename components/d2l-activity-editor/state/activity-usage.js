@@ -18,6 +18,15 @@ export class ActivityUsage extends WorkingCopy {
 		this.token = token;
 	}
 
+	async checkin(store, refetch) {
+		const { sirenEntity } = await super.checkin(store, refetch, true) || {};
+		if (!sirenEntity) return;
+		const entity = store.get(sirenEntity.self());
+		if (entity) {
+			entity.setAssociateGradeHref(sirenEntity.associateGradeHref());
+		}
+	}
+
 	async fetchScoreAndGradeScoreOutOf(bypassCache) {
 		await this.scoreAndGrade.fetchUpdatedScoreOutOf(this._entity, bypassCache);
 	}
@@ -70,6 +79,9 @@ export class ActivityUsage extends WorkingCopy {
 	}
 	setAlignmentsHref(value) {
 		this.alignmentsHref = value;
+	}
+	setAssociateGradeHref(value) {
+		this.associateGradeHref = value;
 	}
 	setCanEditDraft(value) {
 		this.canEditDraft = value;
@@ -219,5 +231,6 @@ decorate(ActivityUsage, {
 	setDates: action,
 	setAlignmentsHref: action,
 	setCanUpdateAlignments: action,
-	loadCompetencies: action
+	loadCompetencies: action,
+	setAssociateGradeHref: action
 });

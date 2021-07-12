@@ -25,6 +25,7 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 			saveHref: { type: String },
 			unfurlEndpoint: { type: String },
 			trustedSitesEndpoint: { type: String },
+			sortHTMLTemplatesByName: { type: Boolean }
 		};
 	}
 
@@ -120,6 +121,7 @@ class ContentEditor extends LocalizeActivityEditorMixin(RtlMixin(ActivityEditorM
 				<d2l-activity-content-editor-detail
 					.href="${this.href}"
 					.token="${this.token}"
+					?sortHTMLTemplatesByName="${this.sortHTMLTemplatesByName}"
 				>
 				</d2l-activity-content-editor-detail>
 			</div>

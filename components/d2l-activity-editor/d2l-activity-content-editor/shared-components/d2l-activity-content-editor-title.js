@@ -17,9 +17,9 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 	static get properties() {
 		return {
 			entity: { type: Object },
+			skeleton: { type: Boolean },
 			onSave: { type: Function },
-			_titleError: { type: String },
-			skeleton: { type: Boolean }
+			_titleError: { type: String }
 		};
 	}
 

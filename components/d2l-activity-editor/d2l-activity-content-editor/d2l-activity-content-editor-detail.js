@@ -13,7 +13,7 @@ class ContentEditorDetail extends MobxLitElement {
 
 	static get properties() {
 		return {
-			sortHTMLTemplatesByName: { type: Boolean },
+			sortHTMLTemplatesByName: { type: Boolean }
 		};
 	}
 
@@ -36,6 +36,10 @@ class ContentEditorDetail extends MobxLitElement {
 				}
 			`
 		];
+	}
+
+	constructor() {
+		super(store);
 	}
 
 	render() {

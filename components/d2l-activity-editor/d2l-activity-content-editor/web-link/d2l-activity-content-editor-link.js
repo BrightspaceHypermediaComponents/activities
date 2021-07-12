@@ -151,6 +151,8 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				for="content-link"
 				position="bottom"
 				tabIndex="0"
+				state="error"
+				align="start"
 				?showing="${!!this._linkError}"
 			>
 				${this._linkError}

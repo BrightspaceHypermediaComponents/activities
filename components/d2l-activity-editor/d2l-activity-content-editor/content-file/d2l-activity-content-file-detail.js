@@ -22,7 +22,7 @@ import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
 // Index for the browse template button
-const browseTemplateKey = '-1';
+const browseTemplateKey = 'browse';
 const editorKeyInitial = 'content-page-content';
 
 class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
@@ -187,15 +187,13 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	}
 
 	async _handleClickTemplateMenuItem(e) {
-		const targetMenuItem = e.target.getAttribute('key');
+		const target = e.target.getAttribute('key');
 
-		if (targetMenuItem === browseTemplateKey) {
+		if (target === browseTemplateKey) {
 			// TODO: Add Browse Template Button Support
 		}
 		else {
-			const fileEntity = this.htmlFileTemplates[targetMenuItem];
-			const contentUrl = fileEntity.getFileDataLocationHref();
-			const response = await window.d2lfetch.fetch(contentUrl);
+			const response = await window.d2lfetch.fetch(target);
 
 			if (response.ok) {
 				const content = await response.text();
@@ -262,7 +260,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 			return html`<p class="d2l-menu-item-span d2l-body-small">${this.localize('content.noHtmlTemplates')}</p>`;
 		}
 
-		return this.htmlFileTemplates.map((template, index) => html`<d2l-menu-item text=${template.title()} key=${index}></d2l-menu-item>`);
+		return this.htmlFileTemplates.map((template) => html`<d2l-menu-item text=${template.title()} key=${template.getFileDataLocationHref()}></d2l-menu-item>`);
 	}
 
 	_renderTemplateSelectDropdown() {

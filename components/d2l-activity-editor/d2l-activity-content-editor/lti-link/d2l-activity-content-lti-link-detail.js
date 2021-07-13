@@ -42,7 +42,7 @@ class ContentLTILinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActi
 		this._setEntityType(ContentLTILinkEntity);
 		this.skeleton = true;
 		this.saveOrder = 2000;
-		this.canEmbed = false;
+		this.canEmbed = true;
 	}
 
 	connectedCallback() {

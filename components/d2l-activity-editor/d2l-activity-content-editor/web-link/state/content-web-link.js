@@ -77,7 +77,7 @@ export class ContentWebLink {
 			return;
 		}
 
-		const sirenEntity = await webLinkEntity.checkoutWebLink();
+		const sirenEntity = await webLinkEntity.checkout();
 		if (!sirenEntity) {
 			return webLinkEntity;
 		}
@@ -90,7 +90,7 @@ export class ContentWebLink {
 			return;
 		}
 
-		const sirenEntity = await webLinkEntity.commitWebLink();
+		const sirenEntity = await webLinkEntity.commit();
 		if (!sirenEntity) {
 			return webLinkEntity;
 		}

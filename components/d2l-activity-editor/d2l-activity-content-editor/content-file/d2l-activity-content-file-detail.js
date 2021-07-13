@@ -157,7 +157,7 @@ class ContentFileDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingM
 	}
 
 	_getHtmlTemplateLoadingMenuItem() {
-		return html`<d2l-menu-item text=${this.localize('content.htmlTemplatesLoading')} disabled="true"></d2l-menu-item>`;
+		return html`<p class="d2l-menu-item-span d2l-body-small">${this.localize('content.htmlTemplatesLoading')}</p>`;
 	}
 
 	async _getHtmlTemplates() {

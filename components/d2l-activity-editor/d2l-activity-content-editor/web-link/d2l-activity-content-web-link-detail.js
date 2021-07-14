@@ -41,7 +41,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	render() {
 		const webLinkEntity = webLinkStore.getContentWebLinkActivity(this.href);
-		
+
 		if (webLinkEntity) {
 			this.skeleton = false;
 		}

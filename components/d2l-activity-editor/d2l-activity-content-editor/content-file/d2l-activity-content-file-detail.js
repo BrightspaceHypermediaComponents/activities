@@ -71,7 +71,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		this.editorKey = editorKeyInitial;
 
 		const context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
-		this.orgUnitId = context.orgUnitId;
+		this.orgUnitId = context ? context.orgUnitId : '';
 	}
 
 	connectedCallback() {

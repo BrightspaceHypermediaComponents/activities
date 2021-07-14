@@ -165,5 +165,9 @@ export default {
 	"content.openInNewWindow": "Open in New Window", // The label text for the subtle-button for opening a LTI link in a new window
 	"content.externalActivity": "External Activity", // The label text for the external activity section on the LTI link page
 	"content.externalActivityOpened": "Open the activity in new window to view its content.", // Text for displaying underneath the LTI link jump logo
-	"content.externalActivityEmbeddedNotAllowed": "This external activity does not support embedding. It can only be viewed by opening in a new window." // Text that replaces the LTI display options if embedding is not allowed
+	"content.externalActivityEmbeddedNotAllowed": "This external activity does not support embedding. It can only be viewed by opening in a new window.", // Text that replaces the LTI display options if embedding is not allowed
+	"content.confirmDialogTitle": "Your existing content will be deleted", // The text for the title of the replace html template confirmation dialog
+	"content.confirmDialogBody": "Are you sure you want to replace your existing content with this template?", // The text for the body of the replace html template confirmation dialog
+	"content.confirmDialogActionOption": "Replace", // The text for the confirmation action to replace content
+	"content.confirmDialogCancelOption": "Cancel" // The text for the cancel action to not replace content
 };

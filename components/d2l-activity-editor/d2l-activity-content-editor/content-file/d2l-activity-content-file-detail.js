@@ -115,6 +115,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			<div id="content-page-content-container">
 				${pageRenderer}
 			</div>
+			${this._renderTemplateReplacementConfirmationdialog()}
 		`;
 	}
 
@@ -211,8 +212,8 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 
 		if (response.ok) {
 			const content = await response.text();
-			this._savePageContent(content);
-			this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`; // key needs to be modified in order to re-render old HTML editor
+
+			this._tryOverwriteContent(content);
 		}
 	}
 
@@ -234,8 +235,8 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 
 			if (response.ok) {
 				const content = await response.text();
-				this._savePageContent(content);
-				this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`; // key needs to be modified in order to re-render old HTML editor
+
+				this._tryOverwriteContent(content);
 			}
 		}
 	}
@@ -252,6 +253,18 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			timeOut.after(ContentEditorConstants.DEBOUNCE_TIMEOUT),
 			() => this._savePageContent(htmlContent)
 		);
+	}
+
+	_openReplaceHtmlTemplateDialog(onYesCallback) {
+		const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
+
+		dialog.opened = true;
+
+		dialog.addEventListener('d2l-dialog-close', (e) => {
+			if (e.detail.action === 'yes') {
+				onYesCallback();
+			}
+		});
 	}
 
 	_renderHtmlEditor() {
@@ -298,6 +311,22 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		}
 
 		return this.htmlFileTemplates.map((template) => html`<d2l-menu-item text=${template.title()} key=${template.getFileDataLocationHref()}></d2l-menu-item>`);
+	}
+
+	_renderTemplateReplacementConfirmationdialog() {
+		return html`
+			<d2l-dialog-confirm
+				title-text="${this.localize('content.confirmDialogTitle')}"
+				text="${this.localize('content.confirmDialogBody')}"
+			>
+				<d2l-button slot="footer" primary data-dialog-action="yes">
+					${this.localize('content.confirmDialogActionOption')}
+				</d2l-button>
+				<d2l-button slot="footer" data-dialog-action="no">
+					${this.localize('content.confirmDialogCancelOption')}
+				</d2l-button>
+			</d2l-dialog-confirm>
+		`;
 	}
 
 	_renderTemplateSelectDropdown() {
@@ -347,6 +376,17 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		}
 		contentFileEntity.setPageContent(htmlContent);
 		this.pageContent = htmlContent;
+	}
+
+	_tryOverwriteContent(htmlContent) {
+		if (this.pageContent.length === 0) {
+			this._savePageContent(htmlContent);
+		} else {
+			this._openReplaceHtmlTemplateDialog(() => {
+				this._savePageContent(htmlContent);
+				this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`;
+			});
+		}
 	}
 }
 

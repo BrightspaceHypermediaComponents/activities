@@ -14,6 +14,7 @@ import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ErrorHandlingMixin } from '../../error-handling-mixin.js';
 import { fetchEntity } from '../../state/fetch-entity.js';
 import { FileEntity } from 'siren-sdk/src/files/FileEntity.js';
+import { getComposedActiveElement } from '@brightspace-ui/core/helpers/focus.js';
 import { LocalizeActivityEditorMixin } from '../../mixins/d2l-activity-editor-lang-mixin.js';
 import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
@@ -68,6 +69,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		this.htmlFileTemplatesLoaded = false;
 		this.pageContent = null;
 		this.editorKey = editorKeyInitial;
+		this._context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 	}
 
 	connectedCallback() {
@@ -180,6 +182,45 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		this.htmlFileTemplatesLoaded = true;
 	}
 
+	async _handleBrowseHtmlTemplates() {
+		const { orgUnitId } = this._context;
+
+		const location = `/d2l/le/lessons/${orgUnitId}/OpenTemplateDialog`;
+
+		const dialogResult = await D2L.LP.Web.UI.Desktop.MasterPages.Dialog.Open(
+			getComposedActiveElement(),
+			new D2L.LP.Web.Http.UrlLocation(location),
+		);
+
+		// Called when the dialog is closed
+		dialogResult.AddListener(results => {
+			if (results.length !== 0) {
+				this._handleBrowseHtmlTemplatesDialogClosed(results);
+			}
+		});
+	}
+
+	async _handleBrowseHtmlTemplatesDialogClosed([file]) {
+		const { orgUnitId } = this._context;
+
+		const valenceHost = `${window.location.protocol}//${window.location.host}`;
+
+		const encodedFileUrl = encodeURIComponent(file.m_id);
+
+		const fileContentUrl = `${valenceHost}/d2l/api/le/unstable/file/GetFileContents?ou=${orgUnitId}&filters=ConvertToAbsolutePaths&fileId=${encodedFileUrl}`;
+
+		const response = await window.d2lfetch.fetch(new Request(fileContentUrl, {
+			method: 'GET',
+			headers: { Accept: 'application/json' },
+		}));
+
+		if (response.ok) {
+			const content = await response.text();
+
+			this._savePageContent(content);
+		}
+	}
+
 	_handleClickSelectTemplateButton() {
 		if (!this.htmlFileTemplatesLoaded && !this.firstTemplatesLoadAttempted) {
 			this.firstTemplatesLoadAttempted = true;
@@ -191,7 +232,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		const target = e.target.getAttribute('key');
 
 		if (target === browseTemplateKey) {
-			// TODO: Add Browse Template Button Support
+			this._handleBrowseHtmlTemplates();
 		}
 		else {
 			const response = await window.d2lfetch.fetch(target);
@@ -284,7 +325,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 
 		<d2l-dropdown-menu align="end">
 			<d2l-menu label="${label}" @d2l-menu-item-select=${this._handleClickTemplateMenuItem}>
-				<d2l-menu-item text=${this.localize('content.BrowseForHtmlTemplate')} key=${browseTemplateKey}></d2l-menu-item>
+				<d2l-menu-item text=${this.localize('content.browseForHtmlTemplate')} key=${browseTemplateKey}></d2l-menu-item>
 				${this.htmlFileTemplatesLoaded ? this._renderHtmlTemplates() : this._getHtmlTemplateLoadingMenuItem()}
 			</d2l-menu>
 		</d2l-dropdown-menu>

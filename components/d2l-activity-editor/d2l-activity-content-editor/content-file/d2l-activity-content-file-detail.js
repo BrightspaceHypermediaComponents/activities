@@ -69,7 +69,9 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		this.htmlFileTemplatesLoaded = false;
 		this.pageContent = null;
 		this.editorKey = editorKeyInitial;
-		this._context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
+
+		const context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
+		this.orgUnitId = context.orgUnitId;
 	}
 
 	connectedCallback() {
@@ -183,9 +185,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	}
 
 	async _handleBrowseHtmlTemplates() {
-		const { orgUnitId } = this._context;
-
-		const location = `/d2l/le/lessons/${orgUnitId}/OpenTemplateDialog`;
+		const location = `/d2l/le/lessons/${this.orgUnitId}/OpenTemplateDialog`;
 
 		const dialogResult = await D2L.LP.Web.UI.Desktop.MasterPages.Dialog.Open(
 			getComposedActiveElement(),
@@ -201,23 +201,18 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	}
 
 	async _handleBrowseHtmlTemplatesDialogClosed([file]) {
-		const { orgUnitId } = this._context;
-
 		const valenceHost = `${window.location.protocol}//${window.location.host}`;
 
 		const encodedFileUrl = encodeURIComponent(file.m_id);
 
-		const fileContentUrl = `${valenceHost}/d2l/api/le/unstable/file/GetFileContents?ou=${orgUnitId}&filters=ConvertToAbsolutePaths&fileId=${encodedFileUrl}`;
+		const fileContentUrl = `${valenceHost}/d2l/api/le/unstable/file/GetFileContents?ou=${this.orgUnitId}&filters=ConvertToAbsolutePaths&fileId=${encodedFileUrl}`;
 
-		const response = await window.d2lfetch.fetch(new Request(fileContentUrl, {
-			method: 'GET',
-			headers: { Accept: 'application/json' },
-		}));
+		const response = await window.d2lfetch.fetch(new Request(fileContentUrl));
 
 		if (response.ok) {
 			const content = await response.text();
-
 			this._savePageContent(content);
+			this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`; // key needs to be modified in order to re-render old HTML editor
 		}
 	}
 

@@ -1,7 +1,6 @@
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-lti-link-options.js';
 import './d2l-activity-content-lti-link-external-activity.js';
-import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { css, html } from 'lit-element/lit-element.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
@@ -15,7 +14,13 @@ import { MobxLitElement } from '@adobe/lit-mobx';
 import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 
-class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+class ContentLTILinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
+
+	static get properties() {
+		return {
+			activityUsageHref: { type: String },
+		};
+	}
 
 	static get styles() {
 		return  [
@@ -37,6 +42,7 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 		this._setEntityType(ContentLTILinkEntity);
 		this.skeleton = true;
 		this.saveOrder = 2000;
+		this.canEmbed = true;
 	}
 
 	connectedCallback() {
@@ -47,39 +53,44 @@ class ContentLTILinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 
 	render() {
 		const ltiLinkEntity = ltiLinkStore.getContentLTILinkActivity(this.href);
-		const canEmbedIframePromise = this._canEmbedIframe();
 
 		if (ltiLinkEntity) {
-			this.skeleton = false;
+			this._canEmbedIframe().then(canEmbedIframe => {
+				this.canEmbed = canEmbedIframe;
+				this.skeleton = false;
+			});
 		}
 
 		return html`
 			<d2l-activity-content-editor-title
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveTitle}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-editor-title>
-			<slot name="due-date"></slot>
+			<d2l-activity-content-editor-due-date
+				.href="${this.activityUsageHref}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}"
+				expanded="true"
+			>
+			</d2l-activity-content-editor-due-date>
 
 			<d2l-activity-content-lti-link-options
 				.entity=${ltiLinkEntity}
 				.onSave=${this.saveLinkOptions}
-				.canEmbedIframePromise=${canEmbedIframePromise}
+				?skeleton="${this.skeleton}"
+				?showLinkOptions="${this.canEmbed}"
 			>
 			</d2l-activity-content-lti-link-options>
 
 			<d2l-activity-content-lti-link-external-activity
 				.entity=${ltiLinkEntity}
-				.canEmbedIframePromise=${canEmbedIframePromise}
+				?skeleton="${this.skeleton}"
+				?showActivityPreview="${this.canEmbed}"
 			>
 			</d2l-activity-content-lti-link-external-activity>
 		`;
-	}
-
-	updated(changedProperties) {
-		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
-		}
 	}
 
 	async cancelCreate() {

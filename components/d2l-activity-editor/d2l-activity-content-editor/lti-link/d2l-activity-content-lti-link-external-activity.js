@@ -14,8 +14,8 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 	static get properties() {
 		return {
 			entity: { type: Object },
+			skeleton: { type: Boolean },
 			showInNewTab: { type: Boolean },
-			canEmbedIframePromise: { type: Object },
 			showActivityPreview: { type: Boolean }
 		};
 	}
@@ -49,20 +49,11 @@ class ActivityContentLTILinkExternalActivity extends SkeletonMixin(LocalizeActiv
 
 	constructor() {
 		super();
-		this.skeleton = true;
 		this.showInNewTab = false;
 		this.activityWindowPopout = null;
-		this.showActivityPreview = false;
 	}
 
 	render() {
-		if (this.entity) {
-			this.canEmbedIframePromise.then(canEmbedIframe => {
-				this.showActivityPreview = canEmbedIframe;
-				this.skeleton = false;
-			});
-		}
-
 		return html`
 			<div class="d2l-external-activity-outer-frame d2l-skeletize-container">
 				<div class="d2l-content-link-external-activity">

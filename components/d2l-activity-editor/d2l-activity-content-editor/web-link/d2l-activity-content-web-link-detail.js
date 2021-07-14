@@ -1,7 +1,7 @@
+import '../shared-components/d2l-activity-content-editor-due-date.js';
 import '../shared-components/d2l-activity-content-editor-title.js';
 import './d2l-activity-content-web-link-url-preview.js';
 import './d2l-activity-content-editor-link.js';
-import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { ContentWebLinkEntity } from 'siren-sdk/src/activities/content/ContentWebLinkEntity.js';
@@ -15,7 +15,13 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { shared as webLinkStore } from './state/content-web-link-store.js';
 
-class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+class ContentWebLinkDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
+
+	static get properties() {
+		return {
+			activityUsageHref: { type: String }
+		};
+	}
 
 	static get styles() {
 		return  [
@@ -49,27 +55,29 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			<d2l-activity-content-editor-title
 				.entity=${webLinkEntity}
 				.onSave=${this.saveTitle}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-editor-title>
-			<slot name="due-date"></slot>
-
+			<d2l-activity-content-editor-due-date
+				.href="${this.activityUsageHref}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}"
+				expanded="true"
+			>
+			</d2l-activity-content-editor-due-date>
 			<d2l-activity-content-editor-link
 				.entity=${webLinkEntity}
 				.onSave=${this.saveLink}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-editor-link>
 
 			<d2l-activity-content-web-link-url-preview
 				.entity=${webLinkEntity}
+				?skeleton="${this.skeleton}"
 			>
 			</d2l-activity-content-web-link-url-preview>
 		`;
-	}
-
-	updated(changedProperties) {
-		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
-		}
 	}
 
 	async cancelCreate() {
@@ -95,7 +103,7 @@ class ContentWebLinkDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandli
 			return;
 		}
 
-		const originalActivityUsageHref = webLinkEntity.activityUsageHref;
+		const originalActivityUsageHref = this.activityUsageHref;
 		const updatedEntity = await webLinkEntity.save();
 		const event = new CustomEvent('d2l-content-working-copy-committed', {
 			detail: {

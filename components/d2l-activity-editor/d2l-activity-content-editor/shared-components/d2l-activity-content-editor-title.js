@@ -17,6 +17,7 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 	static get properties() {
 		return {
 			entity: { type: Object },
+			skeleton: { type: Boolean },
 			onSave: { type: Function },
 			_titleError: { type: String }
 		};
@@ -46,13 +47,11 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 	constructor() {
 		super();
 		this._debounceJobs = {};
-		this.skeleton = true;
 	}
 
 	render() {
 		let title = '';
 		if (this.entity) {
-			this.skeleton = false;
 			title = this.entity.title;
 		}
 
@@ -87,7 +86,9 @@ class ContentEditorTitle extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivi
 				id="title-tooltip"
 				for="content-title"
 				position="bottom"
-				?showing="${!!this._titleError}">
+				?showing="${!!this._titleError}"
+				state="error"
+				align="start">
 				${this._titleError}
 			</d2l-tooltip>
 		`;

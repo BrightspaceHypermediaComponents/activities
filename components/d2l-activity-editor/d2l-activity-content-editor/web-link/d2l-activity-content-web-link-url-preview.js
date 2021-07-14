@@ -10,7 +10,8 @@ class ContentWebLinkUrlPreview extends SkeletonMixin(LocalizeActivityEditorMixin
 
 	static get properties() {
 		return {
-			entity: { type: Object }
+			entity: { type: Object },
+			skeleton: { type: Boolean }
 		};
 	}
 
@@ -32,18 +33,12 @@ class ContentWebLinkUrlPreview extends SkeletonMixin(LocalizeActivityEditorMixin
 		];
 	}
 
-	constructor() {
-		super();
-		this.skeleton = true;
-	}
-
 	render() {
 		const attachment = {};
 		if (!this.entity || !this.entity.link) {
 			return html``;
 		}
 
-		this.skeleton = false;
 		attachment.id = this.entity.href;
 		attachment.name = this.entity.title;
 		attachment.url = this.entity.link;

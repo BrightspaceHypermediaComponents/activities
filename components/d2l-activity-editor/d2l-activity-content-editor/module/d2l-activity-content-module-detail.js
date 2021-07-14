@@ -1,6 +1,6 @@
+import '../shared-components/d2l-activity-content-editor-due-date.js';
 import '../shared-components/d2l-activity-content-editor-title.js';
 import '../../d2l-activity-text-editor.js';
-import { AsyncContainerMixin, asyncStates } from '@brightspace-ui/core/mixins/async-container/async-container-mixin.js';
 import { activityContentEditorStyles } from '../shared-components/d2l-activity-content-editor-styles.js';
 import { ActivityEditorMixin } from '../../mixins/d2l-activity-editor-mixin.js';
 import { activityHtmlEditorStyles } from '../shared-components/d2l-activity-html-editor-styles.js';
@@ -18,7 +18,13 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement))))))) {
+class ContentModuleDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivityEditorMixin(EntityMixinLit(RtlMixin(ActivityEditorMixin(MobxLitElement)))))) {
+
+	static get properties() {
+		return {
+			activityUsageHref: { type: String }
+		};
+	}
 
 	static get styles() {
 		return  [
@@ -69,8 +75,14 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 			<d2l-activity-content-editor-title
 				.entity=${moduleEntity}
 				.onSave=${this.saveTitle}
+				?skeleton="${this.skeleton}"
 			></d2l-activity-content-editor-title>
-			<slot name="due-date"></slot>
+			<d2l-activity-content-editor-due-date
+				.href="${this.activityUsageHref}"
+				.token="${this.token}"
+				?skeleton="${this.skeleton}"
+			>
+			</d2l-activity-content-editor-due-date>
 			<div id="content-description-container">
 				<div class="d2l-activity-label-container d2l-label-text d2l-skeletize">
 					${this.localize('content.description')}
@@ -88,12 +100,6 @@ class ContentModuleDetail extends AsyncContainerMixin(SkeletonMixin(ErrorHandlin
 				</div>
 			</div>
 		`;
-	}
-
-	updated(changedProperties) {
-		if (changedProperties.has('asyncState')) {
-			this.skeleton = this.asyncState !== asyncStates.complete;
-		}
 	}
 
 	async cancelCreate() {

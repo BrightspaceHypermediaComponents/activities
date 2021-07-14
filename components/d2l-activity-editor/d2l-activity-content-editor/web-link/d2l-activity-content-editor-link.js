@@ -21,7 +21,8 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		return {
 			entity: { type: Object },
 			onSave: { type: Function },
-			_linkError: { type: String }
+			_linkError: { type: String },
+			skeleton: { type: Boolean }
 		};
 	}
 
@@ -60,7 +61,6 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	constructor() {
 		super();
 		this._debounceJobs = {};
-		this.skeleton = true;
 		this.saveOrder = 2000;
 	}
 
@@ -69,7 +69,6 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		let isExternalResource = false;
 
 		if (this.entity) {
-			this.skeleton = false;
 			link = this.entity.link;
 			isExternalResource = this.entity.isExternalResource;
 		}
@@ -151,6 +150,8 @@ class ContentEditorLink extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 				for="content-link"
 				position="bottom"
 				tabIndex="0"
+				state="error"
+				align="start"
 				?showing="${!!this._linkError}"
 			>
 				${this._linkError}

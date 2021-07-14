@@ -31,7 +31,7 @@ describe('Content Web Link', function() {
 				isExternalResource: () => false,
 				self: () => 'http://test-web-link-href.com',
 				getActivityUsageHref: () => 'http://test-activity-usage-link-href.com',
-				checkoutWebLink: checkoutWebLinkMock
+				checkout: checkoutWebLinkMock
 			};
 		});
 

@@ -47,6 +47,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				.html="${live(this.value)}"
 				label="${this.ariaLabel}"
 				label-hidden
+				no-filter
 				?disabled="${this.disabled}"
 				height=${ifDefined(this.htmlEditorHeight)}
 				?full-page="${this.fullPage}"

@@ -21,7 +21,7 @@ import { RtlMixin } from '@brightspace-ui/core/mixins/rtl-mixin.js';
 import { SkeletonMixin } from '@brightspace-ui/core/components/skeleton/skeleton-mixin.js';
 import { timeOut } from '@polymer/polymer/lib/utils/async.js';
 
-// Index for the browse template button
+// key used for the browse template button
 const browseTemplateKey = 'browse';
 const editorKeyInitial = 'content-page-content';
 
@@ -69,6 +69,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		this.htmlFileTemplatesLoaded = false;
 		this.pageContent = null;
 		this.editorKey = editorKeyInitial;
+		this.replacementContent = null;
 
 		const context = JSON.parse(document.documentElement.getAttribute('data-he-context'));
 		this.orgUnitId = context ? context.orgUnitId : '';
@@ -241,6 +242,25 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		}
 	}
 
+	_handleReplaceHtmlTemplateDialogClose(e) {
+		if (e.detail.action === 'yes') {
+			this._savePageContent(this.replacementContent);
+			this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`;
+		}
+
+		this.replacementContent = null;
+	}
+
+	_isEditorEmpty() {
+		const htmlContent = this.pageContent;
+
+		let innerHtml = htmlContent.substring(htmlContent.indexOf('<body') + 5, htmlContent.indexOf('</body>'));
+
+		innerHtml = innerHtml.substring(innerHtml.indexOf('>') + 1);
+
+		return (/^([\s\n]|[<p>(&nbsp;)*</p>])*$/g.test(innerHtml));
+	}
+
 	_onPageContentChange(e) {
 		const htmlContent = e.detail.content;
 		this._savePageContent(htmlContent);
@@ -255,16 +275,9 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 		);
 	}
 
-	_openReplaceHtmlTemplateDialog(onYesCallback) {
+	_openReplaceHtmlTemplateDialog() {
 		const dialog = this.shadowRoot.querySelector('d2l-dialog-confirm');
-
 		dialog.opened = true;
-
-		dialog.addEventListener('d2l-dialog-close', (e) => {
-			if (e.detail.action === 'yes') {
-				onYesCallback();
-			}
-		});
 	}
 
 	_renderHtmlEditor() {
@@ -318,6 +331,7 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 			<d2l-dialog-confirm
 				title-text="${this.localize('content.confirmDialogTitle')}"
 				text="${this.localize('content.confirmDialogBody')}"
+				@d2l-dialog-close=${this._handleReplaceHtmlTemplateDialogClose}
 			>
 				<d2l-button slot="footer" primary data-dialog-action="yes">
 					${this.localize('content.confirmDialogActionOption')}
@@ -379,13 +393,11 @@ class ContentFileDetail extends SkeletonMixin(ErrorHandlingMixin(LocalizeActivit
 	}
 
 	_tryOverwriteContent(htmlContent) {
-		if (this.pageContent.length === 0) {
+		if (this._isEditorEmpty()) {
 			this._savePageContent(htmlContent);
 		} else {
-			this._openReplaceHtmlTemplateDialog(() => {
-				this._savePageContent(htmlContent);
-				this.editorKey = `${editorKeyInitial}-${Date.now().toString()}`;
-			});
+			this.replacementContent = htmlContent;
+			this._openReplaceHtmlTemplateDialog();
 		}
 	}
 }

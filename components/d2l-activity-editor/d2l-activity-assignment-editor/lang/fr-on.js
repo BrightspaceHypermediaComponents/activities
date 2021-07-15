@@ -2,7 +2,7 @@
 
 export default {
 	"hdrReleaseConditions": "Some fr-on lang term change", // release conditions heading
-	"hlpReleaseConditions": "Les utilisateurs ne peuvent pas accéder à l’affectation ou la visualiser s’ils ne remplissent pas les conditions de validation.", // release conditions help
+	"hlpReleaseConditions": "Another fr-on lang term came in", // release conditions help
 	"completionType": "Identifié comme étant Terminé", // Label for the completion type field when creating/editing an assignment
 	"lblAnonymousMarking": "Attribution anonyme d’état", // Label for anonymous marking
 	"chkAnonymousMarking": "Masquer les noms des élèves lors des évaluations", // Checkbox for anonymous marking

@@ -12,6 +12,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 			value: { type: String },
 			ariaLabel: { type: String },
 			disabled: { type: Boolean },
+			htmlEditorType: { type: String },
 			_filesToReplace: { type: Object },
 			htmlEditorHeight: { type: String, attribute: 'html-editor-height' },
 			fullPage: { type: Boolean, attribute: 'full-page' },
@@ -36,7 +37,9 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 		this._filesToReplace = {};
 		this.saveOrder = 400;
 		this.fullPage = false;
-		this.htmlEditorHeight = '10rem';
+		this.htmlEditorHeight = this.htmlEditorHeight || '10rem';
+		this.value = this.value || '';
+		this.htmlEditorType = this.htmlEditorType || 'full';
 	}
 
 	render() {
@@ -50,6 +53,7 @@ class ActivityHtmlNewEditor extends ActivityEditorMixin(LocalizeActivityEditorMi
 				?disabled="${this.disabled}"
 				height=${ifDefined(this.htmlEditorHeight)}
 				?full-page="${this.fullPage}"
+				type="${this.htmlEditorType}"
 				full-page-font-size="${ifDefined(this.fullPageFontSize)}"
 				full-page-font-family="${ifDefined(this.fullPageFontFamily)}"
 				?paste-local-images="${allowPaste}"

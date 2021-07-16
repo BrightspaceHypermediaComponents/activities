@@ -13,6 +13,7 @@ class ActivityTextEditor extends LitElement {
 			ariaLabel: { type: String },
 			key: { type: String },
 			htmlEditorHeight: { type: String, attribute: 'html-editor-height' },
+			htmlEditorType: { type: String },
 			fullPage: { type: Boolean, attribute: 'full-page' },
 			fullPageFontSize: { type: String, attribute: 'full-page-font-size' },
 			fullPageFontFamily: { type: String, attribute: 'full-page-font-family' }
@@ -51,6 +52,7 @@ class ActivityTextEditor extends LitElement {
 				return html`
 					<d2l-activity-html-new-editor
 						.value="${live(this.value)}"
+						htmlEditorType="${ifDefined(this.htmlEditorType)}"
 						ariaLabel="${this.ariaLabel}"
 						?disabled="${this.disabled}"
 						@d2l-activity-html-editor-change="${this._onRichtextChange}"

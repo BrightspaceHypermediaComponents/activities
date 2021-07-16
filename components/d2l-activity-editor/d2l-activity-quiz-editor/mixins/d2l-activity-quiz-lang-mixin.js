@@ -1,35 +1,11 @@
-import { getLocalizeOverrideResources } from '@brightspace-ui/core/helpers/getLocalizeResources.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeDynamicMixin } from '@brightspace-ui/core/mixins/localize-dynamic-mixin.js';
 
-export const LocalizeActivityQuizEditorMixin = superclass => class extends LocalizeMixin(superclass) {
+export const LocalizeActivityQuizEditorMixin = superclass => class extends LocalizeDynamicMixin(superclass) {
 
-	static async getLocalizeResources(langs) {
-
-		function resolveOverridesFunc() {
-			return 'd2l-activities\\quizActivityEditor';
-		}
-
-		let translations;
-		for await (const lang of langs) {
-			switch (lang) {
-				case 'en':
-					translations = await import('../lang/en.js');
-					break;
-			}
-			if (translations && translations.default) {
-				return await getLocalizeOverrideResources(
-					lang,
-					translations.default,
-					resolveOverridesFunc
-				);
-			}
-		}
-		translations = await import('../lang/en.js');
-
-		return await getLocalizeOverrideResources(
-			'en',
-			translations.default,
-			resolveOverridesFunc
-		);
+	static get localizeConfig() {
+		return {
+			importFunc: async lang => (await import(`../lang/${lang}.js`)).default,
+			osloCollection: 'd2l-activities\\quizActivityEditor',
+		};
 	}
 };

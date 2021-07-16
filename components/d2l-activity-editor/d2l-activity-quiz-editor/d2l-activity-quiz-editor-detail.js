@@ -159,6 +159,8 @@ class QuizEditorDetail extends ActivityQuizEditorTelemetryMixin(ActivityEditorMi
 				</div>
 				<div class="d2l-skeletize">
 					<d2l-activity-text-editor
+						htmlEditorType="inline"
+						html-editor-height="4rem"
 						.value="${description}"
 						.richtextEditorConfig="${descriptionRichTextEditorConfig}"
 						@d2l-activity-text-editor-change="${this._saveDescriptionOnChange}"

@@ -1,12 +1,17 @@
 import '../../../components/d2l-activity-editor/d2l-activity-content-editor/d2l-activity-content-editor.js';
 import { expect, fixture, html } from '@open-wc/testing';
+import { Content } from '../../../components/d2l-activity-editor/d2l-activity-content-editor/state/content.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
+import { shared as store } from '../../../components/d2l-activity-editor/d2l-activity-content-editor/state/content-store.js';
 
 describe('d2l-activity-content-editor', function() {
 
 	async function loadComponent() {
 		const href = 'http://content/1';
 		const token = 'token';
+
+		const content = new Content(href, token);
+		store.put(href, content);
 
 		return await fixture(
 			html`

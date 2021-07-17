@@ -39,7 +39,7 @@
     "chai-a11y-axe": "^1.2.2",
     "chai-as-promised": "^7.1.1",
     "eslint": "^7.9.0",
-    "eslint-config-brightspace": "^0.13.0",
+    "eslint-config-brightspace": "^0.14.1",
     "eslint-plugin-html": "^6.0.0",
     "eslint-plugin-lit": "^1.2.0",
     "eslint-plugin-sort-class-members": "^1.6.0",
